@@ -17,7 +17,7 @@ public class AI {
 
     }
 
-    public Card chooseCard(ArrayList<Card>) {
+    public Card chooseCard(ArrayList<Card> cards) {
 
     }
 }

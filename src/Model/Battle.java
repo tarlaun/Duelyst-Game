@@ -56,7 +56,7 @@ public class Battle {
 
     }
 
-    public Message insertCard(Coordinate, String cardName) {
+    public Message insertCard(Coordinate coordinate, String cardName) {
 
     }
 
@@ -80,9 +80,7 @@ public class Battle {
 
     }
 
-    public Message selectCollectable
-
-    Id(int collectableId) {
+    public Message selectCollectableId(int collectableId) {
 
     }
 

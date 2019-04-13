@@ -12,4 +12,8 @@ public class Menu {
     private ArrayList<AI> ais = new ArrayList<>();
     private ArrayList<Account> accounts = new ArrayList<>();
     private Shop shop= new Shop();
+
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
 }
