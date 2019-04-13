@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Item {
     private int id;
     private String name;
-    Coordinate coordinate= new Coordinate();
+    private int price;
+    private Coordinate coordinate= new Coordinate();
 
     public int getId() {
         return id;
@@ -26,5 +27,17 @@ public class Item {
             }
         }
         return null;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

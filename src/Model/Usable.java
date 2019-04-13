@@ -1,5 +1,7 @@
 package Model;
 
 public class Usable extends Item {
-    private int price;
+    public Usable() {
+        super.setPrice(100);
+    }
 }

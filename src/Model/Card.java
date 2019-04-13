@@ -7,6 +7,9 @@ public class Card {
     private int id;
     private int price;
     private Coordinate coordinate = new Coordinate();
+    private int maxPossibleMoving;
+    private int minRange;
+    private int maxRange;
 
     public String getName() {
         return name;
@@ -24,12 +27,36 @@ public class Card {
         return coordinate;
     }
 
-    public static Card getCardByID(int id, ArrayList<Card> cards) {
+    public static Card getCardByID(int id, Card... cards) {
         for (Card card : cards) {
             if (card.getId() == id) {
                 return card;
             }
         }
         return null;
+    }
+
+    public int getMaxPossibleMoving() {
+        return maxPossibleMoving;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
+    public void setMaxPossibleMoving(int maxPossibleMoving) {
+        this.maxPossibleMoving = maxPossibleMoving;
     }
 }

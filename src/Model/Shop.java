@@ -50,26 +50,31 @@ public class Shop {
         if(account.getCollection().getItems().size()==3){
             return Message.MAXIMUM_ITEM_COUNT;
         }
-        if (!Card.getCardByID(search(objectName),cards).equals(null)) {
-            account.getCollection().getCards().add(Card.getCardByID(search(objectName), cards));
-            account.modifyAccountBudget();
+         Card card = Card.getCardByID(search(objectName),cards);
+        if (!card.equals(null)) {
+            account.getCollection().getCards().add(card);
+            account.modifyAccountBudget(-card.getPrice());
         }
-        if (!Item.getItemByID(search(objectName),items).equals(null)) {
-            account.getCollection().getItems().add(Item.getItemByID(search(objectName), items));
-            account.modifyAccountBudget();
+        Item item =Item.getItemByID(search(objectName),items);
+        if (!item.equals(null)) {
+            account.getCollection().getItems().add(item);
+            account.modifyAccountBudget(-item.getPrice());
         }
         return Message.SUCCESSFUL_PURCHASE;
     }
 
     public boolean sell(int objectId,Account account) {
-        if (!Card.getCardByID(objectId,account.getCollection().getCards()).equals(null)) {
-            account.modifyAccountBudget(Card.getCardByID(objectId,account.getCollection().getCards()).getPrice());
-            account.getCollection().getCards().remove(Card.getCardByID(objectId,account.getCollection().getCards() ));
+        Card card=Card.getCardByID(objectId,account.getCollection().getCards()
+                .toArray(new Card[account.getCollection().getCards().size()]));
+        if (!card.equals(null)) {
+            account.modifyAccountBudget(card.getPrice());
+            account.getCollection().getCards().remove(card);
             return true;
         }
-        if (!Item.getItemByID(objectId,account.getCollection().getItems()).equals(null)) {
-//            account.modifyAccountBudget(Item.getItemByID(objectId,account.getCollection().getItems()));
-            account.getCollection().getItems().remove(Item.getItemByID(objectId,account.getCollection().getItems()));
+        Item item=Item.getItemByID(objectId,account.getCollection().getItems());
+        if (!item.equals(null)) {
+            account.modifyAccountBudget(item.getPrice());
+            account.getCollection().getItems().remove(item);
             return true;
         }
         return false;

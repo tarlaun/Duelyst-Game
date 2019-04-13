@@ -36,16 +36,36 @@ public class Battle {
 
     }
 
-    public Message selectCard(int cardId) {
+    public boolean selectCard(int cardId) {
+        Card card= Card.getCardByID(cardId, fieldCards[turn%2]);
+        if(card.equals(null)){
+            return false;
+        }
+        currentCard=card;
+        return true;
 
     }
 
-    public Message moveTo(Coordinate coordinate) {
+    public boolean moveTo(Coordinate coordinate) {
+        if(currentCard.getCoordinate()==coordinate){
+            return true;
+        }
+        if(Coordinate.getManhattanDistance(currentCard.getCoordinate(),coordinate)>currentCard.getMaxPossibleMoving()){
+            return false;
+        }
+        if(Coordinate.getPathDirections(coordinate,currentCard.getCoordinate()).length==0){
+            return false;
+        }
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()]=0;
+        currentCard.setCoordinate(Coordinate.getPathDirections(coordinate,currentCard.getCoordinate())[0]);
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()]=currentCard.getId();
+        moveTo(coordinate);
 
     }
 
     public Message attack(int opponentCardId) {
-
+        if(Coordinate.getManhattanDistance(Card.getCardByID(opponentCardId).getCoordinate(),currentCard.getCoordinate())
+            >currentCard.ge)
     }
 
     public Message attackCombo(int opponentCardId, int... myCardId) {
