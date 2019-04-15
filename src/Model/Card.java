@@ -10,6 +10,7 @@ public class Card {
     private int maxPossibleMoving;
     private int minRange;
     private int maxRange;
+    private boolean ableToAttack = false;
 
     public String getName() {
         return name;
@@ -58,5 +59,17 @@ public class Card {
 
     public void setMaxPossibleMoving(int maxPossibleMoving) {
         this.maxPossibleMoving = maxPossibleMoving;
+    }
+
+    public int getMinRange() {
+        return minRange;
+    }
+
+    public int getMaxRange() {
+        return maxRange;
+    }
+
+    public boolean isAbleToAttack() {
+        return ableToAttack;
     }
 }

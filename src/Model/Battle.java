@@ -37,35 +37,44 @@ public class Battle {
     }
 
     public boolean selectCard(int cardId) {
-        Card card= Card.getCardByID(cardId, fieldCards[turn%2]);
-        if(card.equals(null)){
+        Card card = Card.getCardByID(cardId, fieldCards[turn % 2]);
+        if (card.equals(null)) {
             return false;
         }
-        currentCard=card;
+        currentCard = card;
         return true;
 
     }
 
     public boolean moveTo(Coordinate coordinate) {
-        if(currentCard.getCoordinate()==coordinate){
+        if (currentCard.getCoordinate() == coordinate) {
             return true;
         }
-        if(Coordinate.getManhattanDistance(currentCard.getCoordinate(),coordinate)>currentCard.getMaxPossibleMoving()){
+        if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
             return false;
         }
-        if(Coordinate.getPathDirections(coordinate,currentCard.getCoordinate()).length==0){
+        if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate()).length == 0) {
             return false;
         }
-        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()]=0;
-        currentCard.setCoordinate(Coordinate.getPathDirections(coordinate,currentCard.getCoordinate())[0]);
-        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()]=currentCard.getId();
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = 0;
+        currentCard.setCoordinate(Coordinate.getPathDirections(coordinate, currentCard.getCoordinate())[0]);
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = currentCard.getId();
         moveTo(coordinate);
 
     }
 
     public Message attack(int opponentCardId) {
-        if(Coordinate.getManhattanDistance(Card.getCardByID(opponentCardId).getCoordinate(),currentCard.getCoordinate())
-            >currentCard.ge)
+        targetCard = Card.getCardByID(opponentCardId, fieldCards[turn % 2 + 1]);
+        if (targetCard.equals(null))
+            return Message.INVALID_TARGET;
+        if (Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
+                > currentCard.getMaxRange() ||
+                Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
+                        < currentCard.getMinRange()) {
+            return Message.UNAVAILABLE;
+        }
+        if (!currentCard.isAbleToAttack())
+            return Message.NOT_ABLE_TO_ATTACK;
     }
 
     public Message attackCombo(int opponentCardId, int... myCardId) {
