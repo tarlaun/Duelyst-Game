@@ -7,16 +7,33 @@ import java.util.List;
 public class Card {
     private String name;
     private int id;
-    private String nationality;
     private int price;
-    private Coordinate coordinate = new Coordinate();
     private int maxPossibleMoving;
     private int minRange;
     private int maxRange;
-    private boolean ableToAttack = false;
-    private boolean ableToMove=false;
     private int healthPoint;
     private int assaultPower;
+    private ActivationType activationType;
+    private ArrayList<Buff> buffs;
+    private int manaPoint;
+    private Coordinate coordinate = new Coordinate();
+    private boolean ableToAttack = false;
+    private boolean ableToMove = false;
+
+
+    public Card(String name, int id, int maxPossibleMove, int price, int health, int minRange, int maxRange,
+                int mana, ActivationType activationType, Buff... buffs) {
+        this.name = name;
+        this.id = id;
+        this.maxPossibleMoving = maxPossibleMove;
+        this.price = price;
+        this.healthPoint = health;
+        this.minRange = minRange;
+        this.maxRange = maxRange;
+        this.manaPoint = mana;
+        this.activationType = activationType;
+        this.buffs = new ArrayList<>(Arrays.asList(buffs));
+    }
 
     public String getName() {
         return name;
