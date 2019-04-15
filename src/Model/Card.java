@@ -15,36 +15,28 @@ public class Card {
     private int assaultPower;
     private ActivationType activationType;
     private ArrayList<Buff> buffs;
+    private ArrayList<Buff> castedBuffs = new ArrayList<>();
     private int manaPoint;
     private Coordinate coordinate = new Coordinate();
     private boolean ableToAttack = false;
     private boolean ableToMove = false;
 
 
-    public Card(String name, int id, int maxPossibleMove, int price, int health, int minRange, int maxRange,
-                int mana, ActivationType activationType, Buff... buffs) {
-        this.name = name;
+    public Card(int id, String[] info, BuffType... buffTypes) {
         this.id = id;
-        this.maxPossibleMoving = maxPossibleMove;
-        this.price = price;
-        this.healthPoint = health;
-        this.minRange = minRange;
-        this.maxRange = maxRange;
-        this.manaPoint = mana;
-        this.activationType = activationType;
-        this.buffs = new ArrayList<>(Arrays.asList(buffs));
+        this.name = info[0];
+        this.maxPossibleMoving = Integer.parseInt(info[1]);
+        this.price = Integer.parseInt(info[2]);
+        this.healthPoint = Integer.parseInt(info[3]);
+        this.minRange = Integer.parseInt(info[4]);
+        this.maxRange = Integer.parseInt(info[5]);
+        this.manaPoint = Integer.parseInt(info[6]);
+        this.activationType = ActivationType.valueOf(info[7]);
+        this.buffTypes = new ArrayList<>(Arrays.asList(buffTypes));
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
     }
 
     public void setMinRange(int minRange) {
@@ -162,5 +154,9 @@ public class Card {
         List<Card> cardsArrayList = new ArrayList<>(Arrays.asList(cards));
         cardsArrayList.add(card);
         return cardsArrayList.toArray(Card[]::new);
+    }
+
+    public static String[] cardInfoDecryption(String info) {
+
     }
 }

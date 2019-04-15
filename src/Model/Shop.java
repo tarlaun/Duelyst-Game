@@ -2,11 +2,17 @@ package Model;
 
 import View.Message;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
+    private File file;
 
     public int search(String objectName) {
         for (Card card : cards) {
@@ -92,5 +98,21 @@ public class Shop {
         cards.add(card);
     }
 
-    
+    public void initialCards() {
+        file = new File("Heroes");
+        Scanner scanner;
+        String[] info;
+        int idCounter=0;
+        try {
+            scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                info = Card.cardInfoDecryption(scanner.nextLine());
+                cards.add(new Card(idCounter,info,))
+            }
+        } catch (FileNotFoundException error) {
+            error.printStackTrace();
+        }
+
+    }
+
 }
