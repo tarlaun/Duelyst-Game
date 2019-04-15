@@ -3,6 +3,8 @@ package Model;
 import View.Message;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Battle {
     private Card currentCard;
@@ -19,6 +21,8 @@ public class Battle {
     private BattleMode mode;
     private GameType gameType;
     private Card[][] fieldCards = new Card[2][];
+
+
 
     public void gameInfo() {
 
@@ -60,24 +64,68 @@ public class Battle {
         currentCard.setCoordinate(Coordinate.getPathDirections(coordinate, currentCard.getCoordinate())[0]);
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = currentCard.getId();
         moveTo(coordinate);
+        return true;
 
     }
 
-    public Message attack(int opponentCardId) {
-        targetCard = Card.getCardByID(opponentCardId, fieldCards[turn % 2 + 1]);
+    public Message attack(int opponentCardId, Card currentCard) {
+        targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn  + 1)%2]);
         if (targetCard.equals(null))
             return Message.INVALID_TARGET;
+        if (!isInRange(targetCard,currentCard)) {
+            return Message.UNAVAILABLE;
+        }
+        if (!currentCard.isAbleToAttack()) {
+            if (targetCard.isAbleToAttack()) {
+                return Message.NOT_ABLE_TO_ATTACK;
+            }else {
+                return null;
+            }
+        }
+        currentCard.setAbleToAttack(false);
+        targetCard.decreaseHealth(currentCard.getAssaultPower());
+        attack(currentCard.getId() , targetCard);
+        killEnemy(targetCard);
+        return null ;
+    }
+
+    private void killEnemy(Card targetCard ){
+        if(targetCard.getHealthPoint()<=0){
+            ArrayList<Card> opponentFieldCards= new ArrayList<>(Arrays.asList(fieldCards[(turn+1)%2]));
+            opponentFieldCards.remove(targetCard);
+            for (int i=0; i< opponentFieldCards.size() ; i++){
+                fieldCards[(turn+1)%2][i] = opponentFieldCards.get(i);
+            }
+            fieldCards[(turn+1)%2][opponentFieldCards.size()]=null;
+        }
+    }
+
+    public Message attackCombo(int opponentCardId, Card... cards) {
+        targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1)%2]);
+        if (targetCard.equals(null))
+            return Message.INVALID_TARGET;
+        for (Card card: cards) {
+            if (!isInRange(targetCard,card)) {
+                return Message.UNAVAILABLE;
+            }
+        }
+       useSpecialPowerForCombo(cards);
+        for (Card card:cards) {
+            attack(opponentCardId,card);
+        }
+        return null;
+    }
+
+    public boolean isInRange(Card targetCard , Card currentCard){
         if (Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
                 > currentCard.getMaxRange() ||
                 Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
-                        < currentCard.getMinRange()) {
-            return Message.UNAVAILABLE;
-        }
-        if (!currentCard.isAbleToAttack())
-            return Message.NOT_ABLE_TO_ATTACK;
+                        < currentCard.getMinRange())
+            return false;
+        return true;
     }
 
-    public Message attackCombo(int opponentCardId, int... myCardId) {
+    public void useSpecialPowerForCombo(Card ... cards){
 
     }
 

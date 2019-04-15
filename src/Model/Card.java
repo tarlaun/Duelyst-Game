@@ -5,12 +5,15 @@ import java.util.ArrayList;
 public class Card {
     private String name;
     private int id;
+    private String nationality;
     private int price;
     private Coordinate coordinate = new Coordinate();
     private int maxPossibleMoving;
     private int minRange;
     private int maxRange;
     private boolean ableToAttack = false;
+    private int healthPoint;
+    private int assaultPower;
 
     public String getName() {
         return name;
@@ -35,6 +38,18 @@ public class Card {
             }
         }
         return null;
+    }
+
+    public void setAbleToAttack(boolean ableToAttack) {
+        this.ableToAttack = ableToAttack;
+    }
+
+    public int getHealthPoint() {
+        return healthPoint;
+    }
+
+    public int getAssaultPower() {
+        return assaultPower;
     }
 
     public int getMaxPossibleMoving() {
@@ -71,5 +86,9 @@ public class Card {
 
     public boolean isAbleToAttack() {
         return ableToAttack;
+    }
+
+    public void decreaseHealth(int decrement){
+        this.healthPoint-=decrement;
     }
 }
