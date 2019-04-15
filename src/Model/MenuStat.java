@@ -1,4 +1,7 @@
 package Model;
 
-public class MenuStat {
+public enum MenuStat {
+    MAIN,
+    GRAVEYARD,
+    ITEM_SELECTION,
 }

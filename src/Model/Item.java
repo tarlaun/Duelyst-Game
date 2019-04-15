@@ -20,7 +20,7 @@ public class Item {
         return coordinate;
     }
 
-    public static Item getItemByID(int id, ArrayList<Item> items) {
+    public static Item getItemByID(int id, Item... items) {
         for (Item item : items) {
             if (item.getId() == id) {
                 return item;

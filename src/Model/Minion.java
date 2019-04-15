@@ -6,5 +6,6 @@ public class Minion extends Card {
     private int manaPoint;
     private int healthPoint;
     private int assaultPower;
-
 }
+
+

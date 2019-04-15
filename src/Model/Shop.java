@@ -9,13 +9,13 @@ public class Shop {
     private ArrayList<Item> items = new ArrayList<>();
 
     public int search(String objectName) {
-        for (Card card: cards) {
-            if(card.getName().equals(objectName)){
+        for (Card card : cards) {
+            if (card.getName().equals(objectName)) {
                 return card.getId();
             }
         }
-        for (Item item : items ) {
-            if(item.getName().equals(objectName)){
+        for (Item item : items) {
+            if (item.getName().equals(objectName)) {
                 return item.getId();
             }
         }
@@ -23,39 +23,39 @@ public class Shop {
         return -1;
     }
 
-    public ArrayList<Integer> searchCollection(String objectName,Collection collection) {
+    public ArrayList<Integer> searchCollection(String objectName, Collection collection) {
         ArrayList<Integer> list = new ArrayList<>();
-        for (Card card: collection.getCards()) {
-            if(card.getName().equals(objectName)){
-               list.add(card.getId());
+        for (Card card : collection.getCards()) {
+            if (card.getName().equals(objectName)) {
+                list.add(card.getId());
             }
         }
-        for (Item item : items ) {
-            if(item.getName().equals(objectName)){
+        for (Item item : items) {
+            if (item.getName().equals(objectName)) {
                 list.add(item.getId());
             }
         }
         return list;
     }
 
-    public Message buy(String objectName,Account account) {
+    public Message buy(String objectName, Account account) {
 
-        if(search(objectName)==-1){
+        if (search(objectName) == -1) {
             return Message.OBJECT_NOT_FOUND;
         }
 
-         if(account.getBudget()<cards.get(search(objectName)).getPrice()){
+        if (account.getBudget() < cards.get(search(objectName)).getPrice()) {
             return Message.INSUFFICIENCY;
         }
-        if(account.getCollection().getItems().size()==3){
+        if (account.getCollection().getItems().size() == 3) {
             return Message.MAXIMUM_ITEM_COUNT;
         }
-         Card card = Card.getCardByID(search(objectName),cards);
+        Card card = Card.getCardByID(search(objectName), cards.toArray(Card[]::new));
         if (!card.equals(null)) {
             account.getCollection().getCards().add(card);
             account.modifyAccountBudget(-card.getPrice());
         }
-        Item item =Item.getItemByID(search(objectName),items);
+        Item item = Item.getItemByID(search(objectName), items.toArray(Item[]::new));
         if (!item.equals(null)) {
             account.getCollection().getItems().add(item);
             account.modifyAccountBudget(-item.getPrice());
@@ -63,15 +63,15 @@ public class Shop {
         return Message.SUCCESSFUL_PURCHASE;
     }
 
-    public boolean sell(int objectId,Account account) {
-        Card card=Card.getCardByID(objectId,account.getCollection().getCards()
+    public boolean sell(int objectId, Account account) {
+        Card card = Card.getCardByID(objectId, account.getCollection().getCards()
                 .toArray(new Card[account.getCollection().getCards().size()]));
         if (!card.equals(null)) {
             account.modifyAccountBudget(card.getPrice());
             account.getCollection().getCards().remove(card);
             return true;
         }
-        Item item=Item.getItemByID(objectId,account.getCollection().getItems());
+        Item item = Item.getItemByID(objectId, account.getCollection().getItems().toArray(Item[]::new));
         if (!item.equals(null)) {
             account.modifyAccountBudget(item.getPrice());
             account.getCollection().getItems().remove(item);

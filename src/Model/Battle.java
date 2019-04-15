@@ -1,6 +1,7 @@
 package Model;
 
 import View.Message;
+import View.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ public class Battle {
     private Account[] accounts = new Account[2];
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][];
-    private Collectable[] collectables = new Collectable[2];
+    private Collectable[][] collectables = new Collectable[2][];
     private ArrayList<Collectable> battleCollectables = new ArrayList<>();
     private Card[][] playerHands = new Card[2][];
     private int turn;
@@ -21,7 +22,8 @@ public class Battle {
     private BattleMode mode;
     private GameType gameType;
     private Card[][] fieldCards = new Card[2][];
-
+    private Menu menu = new Menu();
+    private View view = new View();
 
 
     public void gameInfo() {
@@ -69,54 +71,54 @@ public class Battle {
     }
 
     public Message attack(int opponentCardId, Card currentCard) {
-        targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn  + 1)%2]);
+        targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
         if (targetCard.equals(null))
             return Message.INVALID_TARGET;
-        if (!isInRange(targetCard,currentCard)) {
+        if (!isInRange(targetCard, currentCard)) {
             return Message.UNAVAILABLE;
         }
         if (!currentCard.isAbleToAttack()) {
             if (targetCard.isAbleToAttack()) {
                 return Message.NOT_ABLE_TO_ATTACK;
-            }else {
+            } else {
                 return null;
             }
         }
         currentCard.setAbleToAttack(false);
         targetCard.decreaseHealth(currentCard.getAssaultPower());
-        attack(currentCard.getId() , targetCard);
+        attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
-        return null ;
+        return null;
     }
 
-    private void killEnemy(Card targetCard ){
-        if(targetCard.getHealthPoint()<=0){
-            ArrayList<Card> opponentFieldCards= new ArrayList<>(Arrays.asList(fieldCards[(turn+1)%2]));
+    private void killEnemy(Card targetCard) {
+        if (targetCard.getHealthPoint() <= 0) {
+            ArrayList<Card> opponentFieldCards = new ArrayList<>(Arrays.asList(fieldCards[(turn + 1) % 2]));
             opponentFieldCards.remove(targetCard);
-            for (int i=0; i< opponentFieldCards.size() ; i++){
-                fieldCards[(turn+1)%2][i] = opponentFieldCards.get(i);
+            for (int i = 0; i < opponentFieldCards.size(); i++) {
+                fieldCards[(turn + 1) % 2][i] = opponentFieldCards.get(i);
             }
-            fieldCards[(turn+1)%2][opponentFieldCards.size()]=null;
+            fieldCards[(turn + 1) % 2][opponentFieldCards.size()] = null;
         }
     }
 
     public Message attackCombo(int opponentCardId, Card... cards) {
-        targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1)%2]);
+        targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
         if (targetCard.equals(null))
             return Message.INVALID_TARGET;
-        for (Card card: cards) {
-            if (!isInRange(targetCard,card)) {
+        for (Card card : cards) {
+            if (!isInRange(targetCard, card)) {
                 return Message.UNAVAILABLE;
             }
         }
-       useSpecialPowerForCombo(cards);
-        for (Card card:cards) {
-            attack(opponentCardId,card);
+        useSpecialPowerForCombo(cards);
+        for (Card card : cards) {
+            attack(opponentCardId, card);
         }
         return null;
     }
 
-    public boolean isInRange(Card targetCard , Card currentCard){
+    public boolean isInRange(Card targetCard, Card currentCard) {
         if (Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
                 > currentCard.getMaxRange() ||
                 Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
@@ -125,7 +127,7 @@ public class Battle {
         return true;
     }
 
-    public void useSpecialPowerForCombo(Card ... cards){
+    public void useSpecialPowerForCombo(Card... cards) {
 
     }
 
@@ -134,7 +136,33 @@ public class Battle {
     }
 
     public Message insertCard(Coordinate coordinate, String cardName) {
+        boolean validTarget = false;
+        for (int i = 0; i < 5; i++) {
+            if (playerHands[turn % 2][i].getName().equals(cardName)) {
+                Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
+                if (field[coordinate.getX()][coordinate.getY()] != 0) {
+                    return Message.INVALID_TARGET;
+                }
+                for (Card card :
+                        fieldCards[turn % 2]) {
+                    if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
+                        validTarget = true;
+                        break;
+                    }
+                }
+                if (!validTarget) {
+                    return Message.INVALID_TARGET;
+                }
+                field[coordinate.getX()][coordinate.getY()] = insert.getId();
+                insert.setCoordinate(coordinate);
+                playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
+                fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
+                return null;
 
+
+            }
+        }
+        return Message.NOT_IN_HAND;
     }
 
     public void showHand() {
@@ -142,6 +170,15 @@ public class Battle {
     }
 
     public void endTurn() {
+        turn++;
+        for (Card card :
+                fieldCards[0]) {
+            card.setAbleToAttack(true);
+            card.setAbleToMove(true);
+        }
+        currentCard = null;
+        targetCard = null;
+
 
     }
 
@@ -149,24 +186,34 @@ public class Battle {
 
     }
 
-    public void showInfo() {
-
+    public void showInfo(int objectId) {
+        if (menu.getStat() == MenuStat.ITEM_SELECTION) {
+            Item.getItemByID(objectId, collectables[turn % 2]);
+        }
     }
 
     public void showNextCard() {
-
+        showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
     }
 
     public Message selectCollectableId(int collectableId) {
+        for (Collectable collectable :
+                collectables[turn % 2]) {
+            if (collectable.getId() == collectableId) {
+                menu.setStat(MenuStat.ITEM_SELECTION);
+            }
+        }
 
     }
 
-    public Message useItem(Coordinate coordinate) {
+    public boolean useItem(Coordinate coordinate) {
+        if (menu.getStat() != MenuStat.ITEM_SELECTION)
+            return false;
 
     }
 
     public void enterGraveyard() {
-
+        menu.setStat(MenuStat.GRAVEYARD);
     }
 
     public Message showCardInfoInGraveyard(int cardId) {

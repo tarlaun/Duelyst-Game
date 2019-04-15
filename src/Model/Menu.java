@@ -16,4 +16,12 @@ public class Menu {
     public ArrayList<Account> getAccounts() {
         return accounts;
     }
+
+    public MenuStat getStat() {
+        return stat;
+    }
+
+    public void setStat(MenuStat stat) {
+        this.stat = stat;
+    }
 }
