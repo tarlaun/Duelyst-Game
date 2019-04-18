@@ -10,7 +10,8 @@ public class Buff {
     private DispelType dispelType;
     private ActivationType activationType;
     private int turnCount;
-    ArrayList<Coordinate> effectArea = new ArrayList<>();
+    private Side side;
+    private ArrayList<Coordinate> effectArea = new ArrayList<>();
 
     public Buff(String[] info) {
         this.type = BuffType.valueOf(info[BuffInfoOrder.BUFF_TYPE.ordinal()]);
@@ -20,6 +21,7 @@ public class Buff {
         this.dispelType = DispelType.valueOf(info[BuffInfoOrder.DISPEL_TYPE.ordinal()]);
         this.activationType = ActivationType.valueOf(info[BuffInfoOrder.ACTIVATION_TYPE.ordinal()]);
         this.turnCount = Integer.parseInt(info[BuffInfoOrder.TURN_COUNT.ordinal()]);
+        this.side = Side.valueOf(info[BuffInfoOrder.SIDE.ordinal()]);
         for (int i = BuffInfoOrder.EFFECT_AREA.ordinal(); i < info.length; i += 2) {
             this.effectArea.add(new Coordinate(Integer.parseInt(info[i]), Integer.parseInt(info[i + 1])));
         }
@@ -33,6 +35,7 @@ public class Buff {
         this.dispelType = buff.dispelType;
         this.activationType = buff.activationType;
         this.turnCount = buff.turnCount;
+        this.side = buff.side;
         this.effectArea = buff.effectArea;
     }
 }
