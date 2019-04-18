@@ -35,7 +35,7 @@ public class Card {
         this.manaPoint = Integer.parseInt(info[MainInfoOrder.MANA.ordinal()]);
         this.assaultType = AssaultType.valueOf(info[MainInfoOrder.ASSAULT_TYPE.ordinal()]);
         for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
-            this.buffs.add(new Buff(info[i].split(" ; ")));
+            this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
         }
     }
 
