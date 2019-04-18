@@ -5,14 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Card {
-    private String name;
     private int id;
-    private int price;
+    private String name;
     private int maxPossibleMoving;
+    private int price;
+    private int healthPoint;
     private int minRange;
     private int maxRange;
-    private int healthPoint;
     private int assaultPower;
+    private AssaultType assaultType;
     private ActivationType activationType;
     private ArrayList<Buff> buffs;
     private ArrayList<Buff> castedBuffs = new ArrayList<>();
@@ -22,17 +23,18 @@ public class Card {
     private boolean ableToMove = false;
 
 
-    public Card(int id, String[] info, BuffType... buffTypes) {
+    public Card(int id, String[] info, Buff... buffs) {
         this.id = id;
-        this.name = info[0];
-        this.maxPossibleMoving = Integer.parseInt(info[1]);
-        this.price = Integer.parseInt(info[2]);
-        this.healthPoint = Integer.parseInt(info[3]);
-        this.minRange = Integer.parseInt(info[4]);
-        this.maxRange = Integer.parseInt(info[5]);
-        this.manaPoint = Integer.parseInt(info[6]);
-        this.activationType = ActivationType.valueOf(info[7]);
-        this.buffTypes = new ArrayList<>(Arrays.asList(buffTypes));
+        this.name = info[InfoOrder.NAME.ordinal()];
+        this.price = Integer.parseInt(info[InfoOrder.PRICE.ordinal()]);
+        this.assaultPower = Integer.parseInt(info[InfoOrder.AP.ordinal()]);
+        this.maxPossibleMoving = Integer.parseInt(info[InfoOrder.MAX_MOVE.ordinal()]);
+        this.healthPoint = Integer.parseInt(info[InfoOrder.HP.ordinal()]);
+        this.minRange = Integer.parseInt(info[InfoOrder.MIN_RANGE.ordinal()]);
+        this.maxRange = Integer.parseInt(info[InfoOrder.MAX_RANGE.ordinal()]);
+        this.manaPoint = Integer.parseInt(info[InfoOrder.MANA.ordinal()]);
+        this.assaultType = AssaultType.valueOf(info[InfoOrder.ASSAULT_TYPE.ordinal()]);
+        this.buffs = new ArrayList<>(Arrays.asList(buffs));
     }
 
     public String getName() {
