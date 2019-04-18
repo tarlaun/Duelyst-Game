@@ -39,6 +39,20 @@ public class Card {
         }
     }
 
+    public Card(Card card) {
+        this.id = card.id;
+        this.name = card.name;
+        this.price = card.price;
+        this.assaultPower = card.assaultPower;
+        this.maxPossibleMoving = card.maxPossibleMoving;
+        this.healthPoint = card.healthPoint;
+        this.minRange = card.minRange;
+        this.maxRange = card.maxRange;
+        this.manaPoint = card.manaPoint;
+        this.assaultType = card.assaultType;
+        this.buffs = card.buffs;
+    }
+
     public String getName() {
         return name;
     }

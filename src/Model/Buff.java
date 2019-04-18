@@ -3,13 +3,13 @@ package Model;
 import java.util.ArrayList;
 
 public class Buff {
-    BuffType type;
-    int power;
-    String targetType;
-    ModifiedAttribute attribute;
-    DispelType dispelType;
-    ActivationType activationType;
-    int turnCount;
+    private BuffType type;
+    private int power;
+    private String targetType;
+    private ModifiedAttribute attribute;
+    private DispelType dispelType;
+    private ActivationType activationType;
+    private int turnCount;
     ArrayList<Coordinate> effectArea = new ArrayList<>();
 
     public Buff(String[] info) {
@@ -23,5 +23,16 @@ public class Buff {
         for (int i = BuffInfoOrder.EFFECT_AREA.ordinal(); i < info.length; i += 2) {
             this.effectArea.add(new Coordinate(Integer.parseInt(info[i]), Integer.parseInt(info[i + 1])));
         }
+    }
+
+    public Buff(Buff buff) {
+        this.type = buff.type;
+        this.power = buff.power;
+        this.targetType = buff.targetType;
+        this.attribute = buff.attribute;
+        this.dispelType = buff.dispelType;
+        this.activationType = buff.activationType;
+        this.turnCount = buff.turnCount;
+        this.effectArea = buff.effectArea;
     }
 }

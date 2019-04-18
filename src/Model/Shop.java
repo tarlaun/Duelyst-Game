@@ -107,7 +107,7 @@ public class Shop {
             scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 info = scanner.nextLine().split(" , ");
-                cards.add(new Card(idCounter, info, info[MainInfoOrder.BUFF.ordinal()].split(" ; ")));
+                cards.add(new Card(idCounter, info);
             }
         } catch (FileNotFoundException error) {
             error.printStackTrace();
