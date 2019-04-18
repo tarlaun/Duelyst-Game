@@ -102,12 +102,12 @@ public class Shop {
         file = new File("Heroes");
         Scanner scanner;
         String[] info;
-        int idCounter=0;
+        int idCounter = 0;
         try {
             scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                info = Card.cardInfoDecryption(scanner.nextLine());
-                cards.add(new Card(idCounter,info,))
+                info = scanner.nextLine().split(" , ");
+                cards.add(new Card(idCounter, info, info[MainInfoOrder.BUFF.ordinal()].split(" ; ")));
             }
         } catch (FileNotFoundException error) {
             error.printStackTrace();

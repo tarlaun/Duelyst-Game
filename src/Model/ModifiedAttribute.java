@@ -1,6 +1,6 @@
 package Model;
 
-public enum AffectionTarget {
+public enum ModifiedAttribute {
     HEALTH,
     HIT,
     ATTACK,

@@ -1,6 +1,6 @@
 package Model;
 
-public enum InfoOrder {
+public enum MainInfoOrder {
     NAME,
     PRICE,
     MANA,
@@ -10,4 +10,5 @@ public enum InfoOrder {
     MAX_MOVE,
     MIN_RANGE,
     MAX_RANGE,
+    BUFF
 }

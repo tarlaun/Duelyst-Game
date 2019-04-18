@@ -15,26 +15,28 @@ public class Card {
     private int assaultPower;
     private AssaultType assaultType;
     private ActivationType activationType;
-    private ArrayList<Buff> buffs;
+    private ArrayList<Buff> buffs = new ArrayList<>();
     private ArrayList<Buff> castedBuffs = new ArrayList<>();
     private int manaPoint;
-    private Coordinate coordinate = new Coordinate();
+    private Coordinate coordinate;
     private boolean ableToAttack = false;
     private boolean ableToMove = false;
 
 
-    public Card(int id, String[] info, Buff... buffs) {
+    public Card(int id, String[] info) {
         this.id = id;
-        this.name = info[InfoOrder.NAME.ordinal()];
-        this.price = Integer.parseInt(info[InfoOrder.PRICE.ordinal()]);
-        this.assaultPower = Integer.parseInt(info[InfoOrder.AP.ordinal()]);
-        this.maxPossibleMoving = Integer.parseInt(info[InfoOrder.MAX_MOVE.ordinal()]);
-        this.healthPoint = Integer.parseInt(info[InfoOrder.HP.ordinal()]);
-        this.minRange = Integer.parseInt(info[InfoOrder.MIN_RANGE.ordinal()]);
-        this.maxRange = Integer.parseInt(info[InfoOrder.MAX_RANGE.ordinal()]);
-        this.manaPoint = Integer.parseInt(info[InfoOrder.MANA.ordinal()]);
-        this.assaultType = AssaultType.valueOf(info[InfoOrder.ASSAULT_TYPE.ordinal()]);
-        this.buffs = new ArrayList<>(Arrays.asList(buffs));
+        this.name = info[MainInfoOrder.NAME.ordinal()];
+        this.price = Integer.parseInt(info[MainInfoOrder.PRICE.ordinal()]);
+        this.assaultPower = Integer.parseInt(info[MainInfoOrder.AP.ordinal()]);
+        this.maxPossibleMoving = Integer.parseInt(info[MainInfoOrder.MAX_MOVE.ordinal()]);
+        this.healthPoint = Integer.parseInt(info[MainInfoOrder.HP.ordinal()]);
+        this.minRange = Integer.parseInt(info[MainInfoOrder.MIN_RANGE.ordinal()]);
+        this.maxRange = Integer.parseInt(info[MainInfoOrder.MAX_RANGE.ordinal()]);
+        this.manaPoint = Integer.parseInt(info[MainInfoOrder.MANA.ordinal()]);
+        this.assaultType = AssaultType.valueOf(info[MainInfoOrder.ASSAULT_TYPE.ordinal()]);
+        for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
+            this.buffs.add(new Buff(info[i].split(" ; ")));
+        }
     }
 
     public String getName() {
