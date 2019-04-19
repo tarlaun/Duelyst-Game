@@ -107,7 +107,7 @@ public class Shop {
             scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 info = scanner.nextLine().split(Constants.CARD_INFO_SPLITTER);
-                if (Integer.parseInt(info[MainInfoOrder.MAX_MOVE.ordinal()]) == Constants.INVAID_MAX_MOVE)
+                if (Integer.parseInt(info[MainInfoOrder.MAX_MOVE.ordinal()]) == Constants.UNDEFINED_MAX_MOVE)
                     cards.add(new Spell(    idCounter, info));
             }
         } catch (FileNotFoundException error) {

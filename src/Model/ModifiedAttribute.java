@@ -5,4 +5,5 @@ public enum ModifiedAttribute {
     HIT,
     ATTACK,
     COUNTER,
+    ALL
 }
