@@ -8,6 +8,6 @@ public enum BuffInfoOrder {
     MODIFIED_ATTRIBUTE,
     TARGET_TYPE,
     SIDE,
-    EFFECT_AREA,
-    DISPEL_TYPE
+    DISPEL_TYPE,
+    EFFECT_AREA
 }

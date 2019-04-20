@@ -162,6 +162,7 @@ public class Card {
         this.healthPoint -= decrement;
     }
 
+/*
     public static Card[] removeFromArray(Card[] cards, Card card) {
         List<Card> cardsArrayList = new ArrayList<>(Arrays.asList(cards));
         cardsArrayList.remove(card);
@@ -177,4 +178,5 @@ public class Card {
     public static String[] cardInfoDecryption(String info) {
 
     }
+*/
 }
