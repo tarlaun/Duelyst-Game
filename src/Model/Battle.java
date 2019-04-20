@@ -84,11 +84,35 @@ public class Battle {
                 return null;
             }
         }
+        checkAttackHistory(opponentCardId, currentCard);
         currentCard.setAbleToAttack(false);
         targetCard.decreaseHealth(currentCard.getAssaultPower());
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
         return null;
+    }
+
+    private void checkAttackHistory(int opponentCardId, Card currentCard) {
+        boolean newMinion = true;
+        int emptyCell = -1;
+
+        if(currentCard instanceof Minion) {
+            for (int i = 0; i < ((Minion) currentCard).getAttackCount().length; i++) {
+                if (opponentCardId == ((Minion) currentCard).getAttackCount()[i][0]) {
+                    ((Minion) currentCard).setAttackCount(i, 1, ((Minion) currentCard).getAttackCount()[i][1] + 1);
+                    newMinion = false;
+                    break;
+                }
+                if (((Minion) currentCard).getAttackCount()[i][0] == 0) {
+                    emptyCell = i;
+                    break;
+                }
+            }
+            if (newMinion) {
+                ((Minion) currentCard).setAttackCount(emptyCell, 0, opponentCardId);
+                ((Minion) currentCard).setAttackCount(emptyCell, 1, 1);
+            }
+        }
     }
 
     private void killEnemy(Card targetCard) {
@@ -111,7 +135,10 @@ public class Battle {
                 return Message.UNAVAILABLE;
             }
         }
-        useSpecialPowerForCombo(cards);
+
+        if(!useSpecialPowerForCombo(cards)){
+            return Message.NOT_ABLE_TO_ATTACK;
+        }
         for (Card card : cards) {
             attack(opponentCardId, card);
         }
@@ -127,8 +154,12 @@ public class Battle {
         return true;
     }
 
-    public void useSpecialPowerForCombo(Card... cards) {
-
+    public boolean useSpecialPowerForCombo(Card... cards) {
+        for (Card card :  cards ) {
+            if(!(card.getName().equals("PERSIAN_COMMANDER"))&&  !(card.getName().equals("TURANIAN_PRINCE")) && ! (card.getName().equals("GIANT_KING")) && !(card.getName().equals("ARZHANG"))){
+                return false ;
+            }
+        }
     }
 
     public Message useSpecialPower(Coordinate coordinate) {
