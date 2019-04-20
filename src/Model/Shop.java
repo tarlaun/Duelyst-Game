@@ -1,6 +1,7 @@
 package Model;
 
 import View.Message;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -99,6 +100,7 @@ public class Shop {
     }
 
     public void initialCards() {
+        Gson gson = new Gson();
         file = new File("Heroes");
         Scanner scanner;
         String[] info;
@@ -108,7 +110,7 @@ public class Shop {
             while (scanner.hasNextLine()) {
                 info = scanner.nextLine().split(Constants.CARD_INFO_SPLITTER);
                 if (Integer.parseInt(info[MainInfoOrder.MAX_MOVE.ordinal()]) == Constants.UNDEFINED_MAX_MOVE)
-                    cards.add(new Spell(    idCounter, info));
+                    cards.add(new Spell(idCounter, info));
             }
         } catch (FileNotFoundException error) {
             error.printStackTrace();

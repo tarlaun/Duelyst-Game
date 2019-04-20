@@ -1,20 +1,19 @@
-Total Disarm , 1000 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , DISARM , -1 , UNDEFINED , -1 , COUNTER , Card , ENEMY , 0 , 0 , PERMANENT
-Area Dispel , 1500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL , -1 , UNDEFINED , 0 , ALL , Card , ENEMY , 0 , 0 , 0 , 1 , 1 , 0 , TEMPORARY , NEGATIVE_DISPEL , -1 , UNDEFINED , 0 , ALL , Card , COMRADE , 0 , 0 , 0 , 1 , 1 , 0 , TEMPORARY
-Empower , 250 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , POWER , 2 , UNDEFINED , -1 , HIT , Card , COMRADE , 0 , 0 , TEMPORARY
-Fireball , 400 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS , 4 , UNDEFINED , 0 , HEALTH , Hero , ENEMY , 0 , 0 , TEMPORARY
-God Strength , 450 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POWER , 4 , UNDEFINED , 0 , HIT , Hero , COMRADE , 0 , 0 , TEMPORARY
-Hell Fire , 600 , 3 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS , 1 , UNDEFINED , 2 , HEALTH , Card , ALL , 0 , 0 , 0 , 1 , 1 , 0 , 1 , 1 , TEMPORARY
-Lightning Bolt , 1250 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS , 8 , UNDEFINED , 0 , HIT , Hero , ENEMY , 0 , 0 , TEMPORARY
-Poison Lake , 900 , 5 , -1 , -1 , NULL , -1 , -1 , -1 , POISON , 1 , UNDEFINED , 1 , HEALTH , Card , ALL , 0 , 0 , 0 , 1 , 1 , 0 , 0 , 2 , 2 , 0 , 1 , 1 , 2 , 2 , 1 , 2 , 2 , 1 , TEMPORARY
-Madness , 650 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , POWER , 4 , UNDEFINED , 3 , HIT , Card , COMRADE , 0 , 0 , TEMPORARY , DISARM , -1 , UNDEFINED , 3 , COUNTER , Card , ALL , 0 , 0 , TEMPORARY
-All Disarm  , 2000 , 9 , -1 , -1 , NULL , -1 , -1 , -1 , DISARM , -1 , UNDEFINED , 1 , COUNTER , Card , ENEMY , -1 , -1 , TEMPORARY
-All Poison , 1500 , 8 , -1 , -1 , NULL , -1 , -1 , -1 , POISON , -1 , UNDEFINED , 4 , HEALTH , Card , ENEMY , -1 , -1 , TEMPORARY
-Dispel , 2100 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL , -1 , UNDEFINED , 0 , ALL , Card , ENEMY , 0 , 0 , TEMPORARY , NEGATIVE_DISPEL , -1 , UNDEFINED , 0 , ALL , Card , COMRADE , 0 , 0 , TEMPORARY
-Health with profit , 2250 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS , 6 , UNDEFINED , 3 , HEALTH , Card , COMRADE , 0 , 0 , TEMPORARY , HOLY , 2 , UNDEFINED , 3 , HEALTH , Card , COMRADE , 0 , 0 , TEMPORARY
-Power Up , 2500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POWER , 6 , UNDEFINED , -1 , HIT , Card , COMRADE , 0 , 0 , TEMPORARY
-All Power , 2000 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , POWER , 2 , UNDEFINED , -1 , HIT , Card , COMRADE , -1 , -1 , PERMANENT
-All Attack , 1500 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS , 6 , UNDEFINED , 0 , HEALTH , Card , ENEMY , -2 , -2 , TEMPORARY
-Weakening , 1000 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS , 4 , UNDEFINED , -1 , HIT , Minion , ENEMY , 0 , 0 , TEMPORARY
-Sacrifice , 1600 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS , 6 , UNDEFINED , -1 , HEALTH , Minion , COMRADE , 0 , 0 , TEMPORARY , POWER , 8 , UNDEFINED , -1 , HIT , Minion , COMRADE , 0 , 0 , TEMPORARY
-Kings Guard , 1750 , 9 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS , 100 , UNDEFINED , 0 , HIT , Minion , ENEMY , 8 , 8 , TEMPORARY
-Shock , 1200 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , STUN , -1 , UNDEFINED , 2 , ATTACK , Card , ENEMY , 0 , 0 , TEMPORARY
+Total Disarm , 1000 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , DISARM ; -1 ; UNDEFINED ; -1 ; COUNTER ; Card ; ENEMY ; 0 ; 0 ; PERMANENT
+Area Dispel , 1500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL ; -1 ; UNDEFINED ; 0 ; ALL ; Card ; ENEMY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; TEMPORARY , NEGATIVE_DISPEL ; -1 ; UNDEFINED ; 0 ; ALL ; Card ; COMRADE ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; TEMPORARY , POWER ; 2 ; UNDEFINED ; -1 ; HIT ; Card ; COMRADE ; 0 ; 0 ; TEMPORARY
+Fireball , 400 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 4 ; UNDEFINED ; 0 ; HEALTH ; Hero ; ENEMY ; 0 ; 0 ; TEMPORARY
+God Strength , 450 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POWER ; 4 ; UNDEFINED ; 0 ; HIT ; Hero ; COMRADE ; 0 ; 0 ; TEMPORARY
+Hell Fire , 600 , 3 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 1 ; UNDEFINED ; 2 ; HEALTH ; Card ; ALL ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1 ; TEMPORARY
+Lightning Bolt , 1250 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 8 ; UNDEFINED ; 0 ; HIT ; Hero ; ENEMY ; 0 ; 0 ; TEMPORARY
+Poison Lake , 900 , 5 , -1 , -1 , NULL , -1 , -1 , -1 , POISON ; 1 ; UNDEFINED ; 1 ; HEALTH ; Card ; ALL ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 0 ; 2 ; 2 ; 0 ; 1 ; 1 ; 2 ; 2 ; 1 ; 2 ; 2 ; 1 ; TEMPORARY
+Madness , 650 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , POWER ; 4 ; UNDEFINED ; 3 ; HIT ; Card ; COMRADE ; 0 ; 0 ; TEMPORARY , DISARM ; -1 ; UNDEFINED ; 3 ; COUNTER ; Card ; ALL ; 0 ; 0 ; TEMPORARY
+All Disarm  , 2000 , 9 , -1 , -1 , NULL , -1 , -1 , -1 , DISARM ; -1 ; UNDEFINED ; 1 ; COUNTER ; Card ; ENEMY ; -1 ; -1 ; TEMPORARY
+All Poison , 1500 , 8 , -1 , -1 , NULL , -1 , -1 , -1 , POISON ; -1 ; UNDEFINED ; 4 ; HEALTH ; Card ; ENEMY ; -1 ; -1 ; TEMPORARY
+Dispel , 2100 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL ; -1 ; UNDEFINED ; 0 ; ALL ; Card ; ENEMY ; 0 ; 0 ; TEMPORARY , NEGATIVE_DISPEL ; -1 ; UNDEFINED ; 0 ; ALL ; Card ; COMRADE ; 0 ; 0 ; TEMPORARY
+Health with profit , 2250 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 6 ; UNDEFINED ; 3 ; HEALTH ; Card ; COMRADE ; 0 ; 0 ; TEMPORARY , HOLY ; 2 ; UNDEFINED ; 3 ; HEALTH ; Card ; COMRADE ; 0 ; 0 ; TEMPORARY
+Power Up , 2500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POWER ; 6 ; UNDEFINED ; -1 ; HIT ; Card ; COMRADE ; 0 ; 0 ; TEMPORARY
+All Power , 2000 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , POWER ; 2 ; UNDEFINED ; -1 ; HIT ; Card ; COMRADE ; -1 ; -1 ; PERMANENT
+All Attack , 1500 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 6 ; UNDEFINED ; 0 ; HEALTH ; Card ; ENEMY ; -2 ; -2 ; TEMPORARY
+Weakening , 1000 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 4 ; UNDEFINED ; -1 ; HIT ; Minion ; ENEMY ; 0 ; 0 ; TEMPORARY
+Sacrifice , 1600 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 6 ; UNDEFINED ; -1 ; HEALTH ; Minion ; COMRADE ; 0 ; 0 ; TEMPORARY , POWER ; 8 ; UNDEFINED ; -1 ; HIT ; Minion ; COMRADE ; 0 ; 0 ; TEMPORARY
+Kings Guard , 1750 , 9 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 100 ; UNDEFINED ; 0 ; HIT ; Minion ; ENEMY ; 3 ; 3 ; TEMPORARY
+Shock , 1200 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , STUN ; -1 ; UNDEFINED ; 2 ; ATTACK ; Card ; ENEMY ; 0 ; 0 ; TEMPORARY
