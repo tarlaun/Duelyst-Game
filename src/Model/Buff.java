@@ -14,7 +14,6 @@ public class Buff {
     private ArrayList<Coordinate> effectArea = new ArrayList<>();
 
     public Buff(String[] info) {
-        System.out.println(info.length);
         this.type = BuffType.valueOf(info[BuffInfoOrder.BUFF_TYPE.ordinal()]);
         this.power = Integer.parseInt(info[BuffInfoOrder.POWER.ordinal()]);
         this.targetType = info[BuffInfoOrder.TARGET_TYPE.ordinal()];

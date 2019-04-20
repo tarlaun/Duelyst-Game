@@ -1,5 +1,6 @@
 Total Disarm , 1000 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , DISARM ; -1 ; UNDEFINED ; -1 ; COUNTER ; Card ; ENEMY ; PERMANENT ; 0 ; 0
-Area Dispel , 1500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL ; -1 ; UNDEFINED ; 0 ; ALL ; Card ; ENEMY ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 , NEGATIVE_DISPEL ; -1 ; UNDEFINED ; 0 ; ALL ; Card ; COMRADE ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; TEMPORARY , POWER ; 2 ; UNDEFINED ; -1 ; HIT ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
+Area Dispel , 1500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL ; -1 ; UNDEFINED ; 0 ; ALL ; Card ; ENEMY ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1 , NEGATIVE_DISPEL ; -1 ; UNDEFINED ; 0 ; ALL ; Card ; COMRADE ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1 , POWER ; 2 ; UNDEFINED ; -1 ; HIT ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
+Empower , 250 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , POWER ; 2 ; UNDEFINED ; -1 ; HIT ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
 Fireball , 400 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 4 ; UNDEFINED ; 0 ; HEALTH ; Hero ; ENEMY ; TEMPORARY ; 0 ; 0
 God Strength , 450 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POWER ; 4 ; UNDEFINED ; 0 ; HIT ; Hero ; COMRADE ; TEMPORARY ; 0 ; 0
 Hell Fire , 600 , 3 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 1 ; UNDEFINED ; 2 ; HEALTH ; Card ; ALL ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1
@@ -14,6 +15,6 @@ Power Up , 2500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POWER ; 6 ; UNDEFINED ; -1
 All Power , 2000 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , POWER ; 2 ; UNDEFINED ; -1 ; HIT ; Card ; COMRADE ; PERMANENT ; -1 ; -1
 All Attack , 1500 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 6 ; UNDEFINED ; 0 ; HEALTH ; Card ; ENEMY ; TEMPORARY ; -2 ; -2
 Weakening , 1000 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 4 ; UNDEFINED ; -1 ; HIT ; Minion ; ENEMY ; TEMPORARY ; 0 ; 0
-Sacrifice , 1600 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 6 ; UNDEFINED ; -1 ; HEALTH ; Minion ; COMRADE ; 0 ; 0 ; TEMPORARY , POWER ; 8 ; UNDEFINED ; -1 ; HIT ; Minion ; COMRADE ; TEMPORARY ; 0 ; 0
+Sacrifice , 1600 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 6 ; UNDEFINED ; -1 ; HEALTH ; Minion ; COMRADE ; TEMPORARY ; 0 ; 0 , POWER ; 8 ; UNDEFINED ; -1 ; HIT ; Minion ; COMRADE ; TEMPORARY ; 0 ; 0
 Kings Guard , 1750 , 9 , -1 , -1 , NULL , -1 , -1 , -1 , WEAKNESS ; 100 ; UNDEFINED ; 0 ; HIT ; Minion ; ENEMY ; TEMPORARY ; 3 ; 3
 Shock , 1200 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , STUN ; -1 ; UNDEFINED ; 2 ; ATTACK ; Card ; ENEMY ; TEMPORARY ; 0 ; 0

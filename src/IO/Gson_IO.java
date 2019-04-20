@@ -2,7 +2,9 @@ package IO;
 
 import Model.Spell;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,13 +16,12 @@ public class Gson_IO {
         File file = new File("src/Spells");
         Scanner scanner = new Scanner(file);
         String info;
-        int index = 0;
+        int index = 1;
         try {
             while (scanner.hasNextLine()) {
                 info = scanner.nextLine();
                 Spell spell = new Spell(index, info);
-                System.out.println("Spell id:" + spell.getId());
-                gson.toJson(spell, new FileWriter(spell.getName()));
+                gson.toJson(spell, new FileWriter(spell.getName() + ".json"));
                 index++;
             }
         } catch (IOException e) {
