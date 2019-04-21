@@ -4,6 +4,7 @@ public class Minion extends Card {
 
     private int [][] attackCount = new int [40][2];
 
+
     public int[][] getAttackCount() {
         return attackCount;
     }

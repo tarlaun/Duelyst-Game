@@ -25,6 +25,13 @@ public class Battle {
     private Menu menu = new Menu();
     private View view = new View();
 
+    public int[][] getField() {
+        return field;
+    }
+
+    public Card[][] getFieldCards() {
+        return fieldCards;
+    }
 
     public void gameInfo() {
 
