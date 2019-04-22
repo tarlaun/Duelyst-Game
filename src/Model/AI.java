@@ -16,7 +16,6 @@ public class AI {
             ArrayList<Card> closestEnemyCards = new ArrayList<>();
             switch (card.getAssaultType()) {
                 case MELEE:
-                    addEnemy(closestEnemyCards, card.getCoordinate().getX() + 1, card.getCoordinate().getY() + 1);
                     if (battle.getField()[card.getCoordinate().getX()][card.getCoordinate().getY() + 1] != -1) {
                         addEnemy(closestEnemyCards, card.getCoordinate().getX(), card.getCoordinate().getY() + 1);
                     }
