@@ -1,20 +1,20 @@
-Sagacity Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Ultra Shield , 4000 , HOLY , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Damul Bow , 30000 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Elixir , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
+Sagacity Crown , 300 , MANA , 1 , 3 , MANA , Field , COMRADE
+Ultra Shield , 4000 , HOLY , 12 , 0 , HEALTH , Hero , COMRADE
+Damul Bow , 30000 , DISARM , 1 , 1 , COUNTER , Minion , ENEMY , Hero , ONATTACK , RANGED , HYBRID
+Elixir , 300 , MANA , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
