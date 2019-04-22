@@ -14,8 +14,10 @@ public class Battle {
     private Account[] accounts = new Account[2];
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][];
+/*
     private Collectable[][] collectables = new Collectable[2][];
     private ArrayList<Collectable> battleCollectables = new ArrayList<>();
+*/
     private Card[][] playerHands = new Card[2][];
     private int turn;
     private int[][] field;
@@ -190,11 +192,13 @@ public class Battle {
 
     }
 
+/*
     public void showInfo(int objectId) {
         if (menu.getStat() == MenuStat.ITEM_SELECTION) {
             Item.getItemByID(objectId, collectables[turn % 2]);
         }
     }
+*/
 
     public void showNextCard() {
         showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());

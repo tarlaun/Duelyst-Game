@@ -10,5 +10,6 @@ public enum BuffType {
     HIT_POWER,
     POISON,
     POSITIVE_DISPEL,
-    NEGATIVE_DISPEL
+    NEGATIVE_DISPEL,
+    MANA
 }

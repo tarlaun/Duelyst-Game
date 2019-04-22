@@ -9,11 +9,12 @@ public class Item {
     private Coordinate coordinate = new Coordinate(-1, -1);
     private ArrayList<ItemBuff> buffs = new ArrayList<>();
 
-    public Item(int id, String[] info) {
+    public Item(int id, String information) {
+        String[] info = information.split(Constants.CARD_INFO_SPLITTER);
         this.id = id;
-        this.name = info[MainInfoOrder.NAME.ordinal()];
-        this.price = Integer.parseInt(info[MainInfoOrder.PRICE.ordinal()]);
-        for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
+        this.name = info[ItemInfoOrder.NAME.ordinal()];
+        this.price = Integer.parseInt(info[ItemInfoOrder.PRICE.ordinal()]);
+        for (int i = ItemInfoOrder.BUFF.ordinal(); i < info.length; i++) {
             this.buffs.add(new ItemBuff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
         }
     }
