@@ -18,15 +18,15 @@ public class Battle {
     private ArrayList<Collectable> battleCollectables = new ArrayList<>();
     private Card[][] playerHands = new Card[2][];
     private int turn;
-    private int[][] field;
+    private Cell[][] field;
     private BattleMode mode;
     private GameType gameType;
     private Card[][] fieldCards = new Card[2][];
     private Menu menu = new Menu();
     private View view = new View();
 
-    public int[][] getField() {
-        return field;
+    public Cell getField(int x, int y) {
+        return field[x][y];
     }
 
     public Card[][] getFieldCards() {
