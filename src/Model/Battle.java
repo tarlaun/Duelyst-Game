@@ -2,12 +2,9 @@ package Model;
 
 import View.Message;
 import View.View;
-import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
-import com.sun.org.apache.bcel.internal.generic.CASTORE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Battle {
     private Card currentCard;
@@ -186,22 +183,38 @@ public class Battle {
         useSpecialPower(card, card.getBuffs().get(0));
     }
 
-    private void onAttackSpecialPower (){
-        switch (currentCard.getName()){
+    private void onAttackSpecialPower() {
+        switch (currentCard.getName()) {
             case "PERSIAN_SWORDS_WOMAN":
                 targetCard.setAbleToAttack(false);
                 targetCard.setAbleToMove(false);
                 targetCard.addToBuffs(currentCard.getBuffs().get(0));
                 break;
             case "PERSIAN_CHAMPION":
-                int multiply =((Minion) currentCard).getAttackCount(targetCard.getId())*5;
+                int multiply = ((Minion) currentCard).getAttackCount(targetCard.getId()) * 5;
                 targetCard.decreaseHealth(multiply);
-            case"TURANIAN_SPY":
+                break;
+            case "TURANIAN_SPY":
                 targetCard.setAbleToAttack(false);
                 targetCard.addToBuffs(currentCard.getBuffs().get(0));
                 targetCard.addToBuffs(currentCard.getBuffs().get(1));
-
-
+                break;
+            case "VENOM_SNAKE":
+                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+               break;
+            case "LION":
+                for (Buff buff: targetCard.getCastedBuffs()) {
+                    if(buff.getType().equals(BuffType.HOLY)){
+                        targetCard.decreaseHealth(1);
+                    }
+                }
+                break;
+            case "WHITE_WOLF":
+                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                break;
+            case "PALANG":
+                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                break;
         }
     }
 
@@ -240,17 +253,12 @@ public class Battle {
                     case "NANE_SARMA":
 
                         break;
-                    case "PERSIAN_SWORDS_WOMAN":
-
-                        break;
                 }
                 break;
             case POWER:
 
                 switch (card.getName()) {
                     case "WHITE_DIV":
-                        break;
-                    case "PERSIAN_CHAMPION":
                         break;
                     case "EAGLE":
                         break;
@@ -266,8 +274,6 @@ public class Battle {
                 switch (card.getName()) {
                     case "ZAHAK":
                         break;
-                    case "TURANIAN_SPY":
-                        break;
                     case "VENOM_SNAKE":
                         break;
 
@@ -277,8 +283,6 @@ public class Battle {
 
                 switch (card.getName()) {
                     case "SEVEN_HEADED_DRAGON":
-                        break;
-                    case "TURANIAN_SPY":
                         break;
 
                 }
@@ -379,22 +383,37 @@ public class Battle {
     }
 
     public void endTurn() {
-        turn++;
         for (Card card :
                 fieldCards[0]) {
-            for (Buff buff:
-                card.getCastedBuffs() ) {
-                if(buff.getTurnCount()>0){
-                    buff.setTurnCount(buff.getTurnCount()-1);
+            for (Buff buff : card.getCastedBuffs()) {
+                if (buff.getTurnCount() > 0) {
+                    buff.setTurnCount(buff.getTurnCount() - 1);
                 }
-                if(buff.getType().equals(BuffType.STUN) && buff.getTurnCount()==0){
+                if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() == 0) {
                     card.setAbleToMove(true);
                     card.setAbleToAttack(true);
+                }
+                if(buff.getType().equals(BuffType.POISON)&& buff.getTurnCount()>0 && buff.getTurnCount()%2==0){
+                    card.decreaseHealth(1);
+                }else if(buff.getType().equals(BuffType.POISON)&& buff.getTurnCount()==0){
+                }
+                if(buff.getType().equals(BuffType.DISARM)&& buff.getTurnCount()==0){
+                    card.setAbleToAttack(true);
+                }
+                if(buff.getType().equals(BuffType.WHITE_WALKER_WOLF)){
+                    card.decreaseHealth(buff.getPower());
+                    buff.setPower(4);
+                }
+                if(buff.getType().equals(BuffType.WEAKNESS) && buff.getTargetType().equals("HEALTH")&& buff.getTurnCount()==1){
+                    targetCard.decreaseHealth(buff.getPower());
+                }
+                if(buff.getTurnCount()==0){
                     card.removeFromBuffs(buff);
                 }
             }
         }
 
+        turn++;
         currentCard = null;
         targetCard = null;
 
