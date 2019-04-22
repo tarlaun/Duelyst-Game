@@ -171,6 +171,8 @@ public class Battle {
 
     public Message useSpecialPower(Coordinate coordinate) {
 
+
+
     }
 
     public Message insertCard(Coordinate coordinate, String cardName) {
