@@ -1,20 +1,20 @@
-Sagacity Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Ultra Shield , 4000 , HOLY , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Damul Bow , 30000 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Elixir , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
-Knowledge Crown , 300 , MANA , 1 , UNDEFINED , 3 , MANA , Card , COMRADE , -1 , -1 , TEMPORARY
+Sagacity Crown , 300 , MANA ; 1 ; 3 ; Account ; COMRADE
+Ultra Shield , 4000 , HOLY ; 12 ; 0 ; Hero ; COMRADE
+Damul Bow , 30000 , DISARM ; 1 ; 1 ; Card ; ENEMY ; Hero ; ONATTACK ; RANGED ; HYBRID
+Nooshdaaroo , 0 , HEALTH_POWER ; 6 ; 1000000 ; Card ; ALL
+Twoheaded Arrow , 0 , HIT_POWER ; 2 ; 1000000 ; Hero ; ALL ; RANGED ; HYBRID ; HIT_POWER ; 2 ; 1000000 ; Minion ; ALL ; RANGED ; HYBRID
+Simorgh Feather , 3500 , HIT_WEAKNESS ; 2 ; 1000000 ; Hero ; ENEMY ; RANGED ; HYBRID
+Elixir , 0 , HEALTH_POWER ; 3 ; 1000000 ; Card ; ALL ; HIT_POWER ; 3 ; 1000000 ; Minion ; ALL
+Mana Electuary , 0 , MANA ; 3 ; -1 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
