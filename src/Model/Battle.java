@@ -93,6 +93,7 @@ public class Battle {
             }
         }
         checkAttackHistory(opponentCardId, currentCard);
+        onAttackSpecialPower();
         currentCard.setAbleToAttack(false);
         targetCard.decreaseHealth(currentCard.getAssaultPower());
         attack(currentCard.getId(), targetCard);
@@ -214,6 +215,17 @@ public class Battle {
                 break;
             case "PALANG":
                 targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                break;
+
+            case "WOLF":
+                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                break;
+            case "TWO_HEADED_GIANT":
+                for (Buff buff: targetCard.getCastedBuffs()) {
+                    if(buff.getType().equals(BuffType.HOLY)|| buff.getType().equals(BuffType.POWER)){
+                        targetCard.removeFromBuffs(buff);
+                    }
+                }
                 break;
         }
     }
