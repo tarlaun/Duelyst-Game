@@ -27,6 +27,7 @@ public class Collection {
         return mainDeck;
     }
 
+/*
     public boolean createDeck(String deckName){
 
     }
@@ -50,5 +51,6 @@ public class Collection {
     public boolean selectDeck(String deckName){
 
     }
+*/
 
 }

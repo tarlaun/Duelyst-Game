@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Deck {
     private ArrayList<Card> cards= new ArrayList<>();
-    private Hero hero = new Hero();
+    private Hero hero;
     private Item item= new Item();
 
     public ArrayList<Card> getCards() {
