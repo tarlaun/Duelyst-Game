@@ -6,6 +6,7 @@ public class AI {
     private int level;
     Battle battle = new Battle();
 
+/*
     public Coordinate setCardCoordinates(Card card) {
 
     }
@@ -76,4 +77,5 @@ public class AI {
     public Card chooseCard(ArrayList<Card> cards) {
 
     }
+*/
 }

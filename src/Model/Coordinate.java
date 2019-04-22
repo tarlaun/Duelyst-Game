@@ -27,8 +27,10 @@ public class Coordinate {
         return abs(c1.getX() - c2.getX()) + abs(c2.getY() - c1.getY());
     }
 
+/*
     public static Coordinate[] getPathDirections(Coordinate c1, Coordinate c2) {
 
     }
+*/
 
 }

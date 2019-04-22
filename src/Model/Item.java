@@ -6,7 +6,7 @@ public class Item {
     private int id;
     private String name;
     private int price;
-    private Coordinate coordinate= new Coordinate();
+    private Coordinate coordinate = new Coordinate(-1, -1);
 
     public int getId() {
         return id;
