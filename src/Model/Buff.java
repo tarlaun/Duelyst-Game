@@ -13,8 +13,40 @@ public class Buff {
     private Side side;
     private ArrayList<Coordinate> effectArea = new ArrayList<>();
 
-    public Buff() {
+    public void setType(BuffType type) {
+        this.type = type;
+    }
 
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public void setTargetType(String targetType) {
+        this.targetType = targetType;
+    }
+
+    public void setAttribute(ModifiedAttribute attribute) {
+        this.attribute = attribute;
+    }
+
+    public void setDispelType(DispelType dispelType) {
+        this.dispelType = dispelType;
+    }
+
+    public void setActivationType(ActivationType activationType) {
+        this.activationType = activationType;
+    }
+
+    public void setTurnCount(int turnCount) {
+        this.turnCount = turnCount;
+    }
+
+    public void setSide(Side side) {
+        this.side = side;
+    }
+
+    public void setEffectArea(ArrayList<Coordinate> effectArea) {
+        this.effectArea = effectArea;
     }
 
     public BuffType getType() {
@@ -52,6 +84,7 @@ public class Buff {
     public ArrayList<Coordinate> getEffectArea() {
         return effectArea;
     }
+
 
     public Buff(String[] info) {
         this.type = BuffType.valueOf(info[BuffInfoOrder.BUFF_TYPE.ordinal()]);

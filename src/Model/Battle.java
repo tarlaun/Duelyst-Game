@@ -186,6 +186,25 @@ public class Battle {
         useSpecialPower(card, card.getBuffs().get(0));
     }
 
+    private void onAttackSpecialPower (){
+        switch (currentCard.getName()){
+            case "PERSIAN_SWORDS_WOMAN":
+                targetCard.setAbleToAttack(false);
+                targetCard.setAbleToMove(false);
+                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                break;
+            case "PERSIAN_CHAMPION":
+                int multiply =((Minion) currentCard).getAttackCount(targetCard.getId())*5;
+                targetCard.decreaseHealth(multiply);
+            case"TURANIAN_SPY":
+                targetCard.setAbleToAttack(false);
+                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                targetCard.addToBuffs(currentCard.getBuffs().get(1));
+
+
+        }
+    }
+
     private void useSpecialPower(Card card, Buff buff) {
         switch (buff.getType()) {
             case HOLY:
@@ -363,9 +382,19 @@ public class Battle {
         turn++;
         for (Card card :
                 fieldCards[0]) {
-            card.setAbleToAttack(true);
-            card.setAbleToMove(true);
+            for (Buff buff:
+                card.getCastedBuffs() ) {
+                if(buff.getTurnCount()>0){
+                    buff.setTurnCount(buff.getTurnCount()-1);
+                }
+                if(buff.getType().equals(BuffType.STUN) && buff.getTurnCount()==0){
+                    card.setAbleToMove(true);
+                    card.setAbleToAttack(true);
+                    card.removeFromBuffs(buff);
+                }
+            }
         }
+
         currentCard = null;
         targetCard = null;
 

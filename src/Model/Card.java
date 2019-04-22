@@ -27,6 +27,12 @@ public class Card {
         return cardHolder;
     }
 
+    public void addToBuffs(Buff buff){
+        this.castedBuffs.add(buff);
+    }
+    public void removeFromBuffs(Buff buff){
+        this.castedBuffs.remove(buff);
+    }
     public Card(int id, String[] info) {
         this.id = id;
         this.name = info[MainInfoOrder.NAME.ordinal()];
