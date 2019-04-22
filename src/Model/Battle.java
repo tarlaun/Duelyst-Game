@@ -101,6 +101,62 @@ public class Battle {
         return null;
     }
 
+    public Card getCurrentCard() {
+        return currentCard;
+    }
+
+    public Card getTargetCard() {
+        return targetCard;
+    }
+
+    public Item getCurrentItem() {
+        return currentItem;
+    }
+
+    public Account[] getAccounts() {
+        return accounts;
+    }
+
+    public Account getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public Card[][] getGraveyard() {
+        return graveyard;
+    }
+
+    public Collectable[][] getCollectables() {
+        return collectables;
+    }
+
+    public ArrayList<Collectable> getBattleCollectables() {
+        return battleCollectables;
+    }
+
+    public Card[][] getPlayerHands() {
+        return playerHands;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public Cell[][] getField() {
+        return field;
+    }
+
+    public BattleMode getMode() {
+        return mode;
+    }
+
+    public GameType getGameType() {
+        return gameType;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
     private void checkAttackHistory(int opponentCardId, Card currentCard) {
         boolean newMinion = true;
         int emptyCell = -1;
@@ -268,13 +324,24 @@ public class Battle {
                 }
                 break;
             case POWER:
-
                 switch (card.getName()) {
                     case "WHITE_DIV":
                         break;
                     case "EAGLE":
+                       card.addToBuffs(card.getBuffs().get(0));
                         break;
                     case "WITCH":
+                        card.addToBuffs(card.getBuffs().get(0));
+                        for (int i = -1; i <2 ; i++) {
+                            for (int j = -1; j < 2; j++) {
+                                if(getField(card.getCoordinate().getX()+i,card.getCoordinate().getY()+j).getCardID()!=0 ){
+                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX()+i,card.getCoordinate().getY()+j).getCardID(),fieldCards[turn%2]);
+                                    if( target!= null){
+                                        target.addToBuffs(card.getBuffs().get(0));
+                                    }
+                                }
+                            }
+                        }
                         break;
                     case "NANE_WITCH":
                         break;
@@ -308,12 +375,6 @@ public class Battle {
                         break;
                     case "GIANT_SNAKE":
                         break;
-                    case "WHITE_WOLF":
-                        break;
-                    case "PALANG":
-                        break;
-                    case "WOLF":
-                        break;
                     case "WITCH":
                         break;
                     case "BAHMAN":
@@ -343,8 +404,6 @@ public class Battle {
             case POSITIVE_DISPEL:
                 switch (card.getName()) {
                     case "AFSANEH":
-                        break;
-                    case "TWO_HEADED_GIANT":
                         break;
 
                 }
@@ -418,6 +477,11 @@ public class Battle {
                 }
                 if(buff.getType().equals(BuffType.WEAKNESS) && buff.getTargetType().equals("HEALTH")&& buff.getTurnCount()==1){
                     targetCard.decreaseHealth(buff.getPower());
+                }
+                if(buff.getActivationType().equals(ActivationType.PASSIVE)){
+                    if(buff.getTargetType().equals("HEALTH")) {
+                        card.setHealthPoint(card.getHealthPoint() + card.getBuffs().get(0).getPower());
+                    }
                 }
                 if(buff.getTurnCount()==0){
                     card.removeFromBuffs(buff);
