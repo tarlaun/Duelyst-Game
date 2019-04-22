@@ -5,16 +5,17 @@ Nooshdaaroo , 0 , HEALTH_POWER ; 6 ; 1000000 ; Card ; ALL
 Twoheaded Arrow , 0 , HIT_POWER ; 2 ; 1000000 ; Hero ; ALL ; RANGED ; HYBRID ; HIT_POWER ; 2 ; 1000000 ; Minion ; ALL ; RANGED ; HYBRID
 Simorgh Feather , 3500 , HIT_WEAKNESS ; 2 ; 1000000 ; Hero ; ENEMY ; RANGED ; HYBRID
 Elixir , 0 , HEALTH_POWER ; 3 ; 1000000 ; Card ; ALL ; HIT_POWER ; 3 ; 1000000 ; Minion ; ALL
-Mana Electuary , 0 , MANA ; 3 ; -1 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
-Mana Electuary , 0 , MANA ; 3 ; 3 ; MANA ; Card ; COMRADE
+Mana Electuary , 0 , MANA ; 3 ; -1 ; Card ; COMRADE
+Impregnability Electuary , 0 , HOLY ; 10 ; 2 ; Card ; COMRADE
+Death Curse , 0 , HEALTH_WEAKNESS ; 8 ; 0 ; Card ; ALL ; ONDEATH
+Random Damage , 0 , HIT_POWER ; 2 ; 1000000 ; Card ; ALL
+Terror Hood , 5000 , HIT_WEAKNESS ; 2 ; 1 ; Card ; ENEMY ; ONATTACK
+Blades of Agility , 0 , HIT_POWER ; 6 ; 1000000 ; Card ; ALL
+King Wisdom , 9000 , MANA ; 1 ; 1000000 ; Account ; ALL
+Assassination Dagger , 15000 , HEALTH_WEAKNESS ; 1 ; 0 ; Hero ; ENEMY ; ONSPAWN
+Poisonous Dagger , 7000 , POISON ; 1 ; 1 ; Card ; ENEMY ; ONATTACK ; Card
+Shock Hammer , 15000 , DISARM ; 0 ; 1 ; Card ; ENEMY ; ONATTACK ; Hero
+Soul Eater , 25000 , HIT_POWER ; 1 ; 1000000 ; Card ; COMRADE ; ONDEATH
+Baptism , 20000 , HOLY ; 1 ; 2 ; Minion ; ALL ; ONSPAWN
+Chinese Sword , 0 , HIT_POWER ; 5 ; 1000000 ; Minion ; ALL ; MELEE ; HIT_POWER ; 5 ; 1000000 ; Hero ; ALL ; MELEE
+
