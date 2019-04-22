@@ -13,8 +13,8 @@ public class ItemBuff {
     private ArrayList<RangeType> rangeTypes = new ArrayList<>();
 
     public ItemBuff(String[] info) {
-        this.type = BuffType.valueOf(info[BuffInfoOrder.BUFF_TYPE.ordinal()]);
-        this.power = Integer.parseInt(info[BuffInfoOrder.POWER.ordinal()]);
+        this.type = BuffType.valueOf(info[ItemBuffInfoOrder.BUFF_TYPE.ordinal()]);
+        this.power = Integer.parseInt(info[ItemBuffInfoOrder.POWER.ordinal()]);
         this.turnsCount = Integer.parseInt(info[ItemBuffInfoOrder.TURN_COUNT.ordinal()]);
         this.targetCard = info[ItemBuffInfoOrder.TARGET_TYPE.ordinal()];
         this.side = Side.valueOf(info[ItemBuffInfoOrder.SIDE.ordinal()]);
