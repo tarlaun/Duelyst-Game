@@ -171,11 +171,15 @@ public class Battle {
         }
     }
 
-/*
     public Message useSpecialPower(Coordinate coordinate) {
+
+        getField(coordinate.getX(),coordinate.getY())
+
+
 
     }
 
+    /*
     public Message insertCard(Coordinate coordinate, String cardName) {
         boolean validTarget = false;
         for (int i = 0; i < 5; i++) {

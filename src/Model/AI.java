@@ -6,7 +6,8 @@ public class AI {
     private int level;
     Battle battle = new Battle();
 
-  /*  public Coordinate setCardCoordinates(Card card) {
+/*
+    public Coordinate setCardCoordinates(Card card) {
 
     }
 
@@ -15,11 +16,10 @@ public class AI {
             ArrayList<Card> closestEnemyCards = new ArrayList<>();
             switch (card.getAssaultType()) {
                 case MELEE:
-                    addEnemy(closestEnemyCards, card.getCoordinate().getX() + 1, card.getCoordinate().getY() + 1);
-                    if (battle.getField(card.getCoordinate().getX(),card.getCoordinate().getY()+1).getCardID()!=0) {
+                    if (battle.getField()[card.getCoordinate().getX()][card.getCoordinate().getY() + 1] != -1) {
                         addEnemy(closestEnemyCards, card.getCoordinate().getX(), card.getCoordinate().getY() + 1);
                     }
-                    if (battle.getField()[card.getCoordinate().getX() + 1][card.getCoordinate().getY()] == 0) {
+                    if (battle.getField()[card.getCoordinate().getX() + 1][card.getCoordinate().getY()] != -1) {
                         addEnemy(closestEnemyCards, card.getCoordinate().getX() + 1, card.getCoordinate().getY());
                     }
                     if (battle.getField()[card.getCoordinate().getX() - 1][card.getCoordinate().getY() - 1] != -1) {
@@ -75,5 +75,6 @@ public class AI {
 
     public Card chooseCard(ArrayList<Card> cards) {
 
-    }*/
+    }
+*/
 }
