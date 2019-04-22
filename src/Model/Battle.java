@@ -163,7 +163,7 @@ public class Battle {
 
     public boolean useSpecialPowerForCombo(Card... cards) {
         for (Card card :  cards ) {
-            if(!(card.getName().equals("PERSIAN_COMMANDER"))&&  !(card.getName().equals("TURANIAN_PRINCE")) && ! (card.getName().equals("GIANT_KING")) && !(card.getName().equals("ARZHANG"))){
+            if(!(card.getName().equals("PERSIAN_COMMANDER"))&&  !(card.getName().equals("TURANIAN_PRINCE")) && ! (card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))){
                 return false ;
             }
         }

@@ -28,6 +28,16 @@ JEN , 500 , 5 , 10 , 4 , RANGED , -1 , 4 , POWER ; 1 ; PASSIVE ; -1 ; HIT ; Mini
 WILD_HOG , 500 , 6 , 10 , 14 , MELEE  , -1 , -1 , NEGATIVE_DISPEL ; -1 ; ON_DEFEND ; -1 ; HIT ; Minion ; COMRADE ; PERMANENT ; 0 ; 0
 PIRAN , 400 , 8 , 20 , 12 , MELEE , -1 , -1 , NEGATIVE_DISPEL ; -1 ; ON_DEFEND ; -1 ; HEALTH ; Minion ; COMRADE ; PERMANENT ; 0 ; 0
 GIV , 450 , 4 , 5 , 7 , RANGED , -1 , 5 , NEGATIVE_DISPEL ; -1  ; ON_DEFEND ; -1 ; HIT ; Minion ; COMRADE ; PERMANENT ; 0 ; 0
+BAHMAN , 450 , 8 , 16 , 9 , MELEE , -1 , -1 , WEAKNESS ; 16 ; ON_SPAWN ; -1 ; HEALTH ; Minion ; OPPONENT ; TEMPORARY ; 0 ; 0
+ASHKBOOS , 400 , 7 , 14 , 8 , MELEE , -1 , -1 , HOLY ; -1 ; ON_DEFEND ; -1 ; HEALTH ; Minion ; COMRADE ; TEMPORARY ; 0 ; 0
+IRAJ , 500 , 4 , 6 , 20 , RANGED , -1 , 3
+GONDE_BACK_GIANT , 600 , 9 , 30 , 8 , HYBRID , -1 , 2
+TWO_HEADED_GIANT , 550 , 4 , 10 , 4 , MELEE , -1 , -1 , POSITIVE_DISPEL ; -1 ; ON_ATTACK ; -1 ; ALL ; Card ; OPPONENT ; TEMPORARY ; 0 ; 0
+NANE_SARMA , 500 , 3 , 3 , 4 , RANGED , -1 , 5 , STUN ; -1 ; ON_SPAWN ; 1 ; ATTACK ;  Minion ; COMRADE ; TEMPORARY ; 3 ; 3
+FOOLADZEREH , 650 , 3 , 1 , 1 , MELEE , -1 , -1 , HOLY ; -1 ; PASSIVE ; 12 ; HEALTH ; Minion ; COMRADE ; TEMPORARY ; 0 ; 0
+SIAVASH , 350 , 4 , 8 , 5 , MELEE , -1 , -1 , WEAKNESS ; 6 ; ON_DEATH ; -1 ; HEALTH ; Hero ; OPPONENT ; TEMPORARY ; 0 ; 0
+SHAGHUL , 600 , 5 , 10 , 4 , MELEE , -1 , -1
+ARZHANG , 600 , 3 , 6 , 6 , MELEE , -1 , -1
 
 
 
