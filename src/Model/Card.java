@@ -21,7 +21,11 @@ public class Card {
     private Coordinate coordinate;
     private boolean ableToAttack = false;
     private boolean ableToMove = false;
+    private int cardHolder ;
 
+    public int getCardHolder() {
+        return cardHolder;
+    }
 
     public Card(int id, String[] info) {
         this.id = id;
@@ -55,6 +59,10 @@ public class Card {
 
     public String getName() {
         return name;
+    }
+
+    public AssaultType getAssaultType() {
+        return assaultType;
     }
 
     public void setMinRange(int minRange) {
