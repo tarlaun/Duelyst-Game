@@ -21,6 +21,7 @@ public class Gson_IO {
             while (scanner.hasNextLine()) {
                 info = scanner.nextLine();
                 Spell spell = new Spell(index, info);
+/*
                 String buffInfo;
                 String coordinateInfo;
                 String cardInfo = "{\"id\":" + spell.getId() + ",\"name\":" + spell.getName() + ",\"maxPossibleMoving\":" +
@@ -29,6 +30,8 @@ public class Gson_IO {
                         spell.getAssaultPower() + ",\"buffs\":[{\"type\":,\"power\":,\"targetType\":,\"attribute\":," +
                         "\"dispelType\":,\"activationType\":,\"turnCount\":,\"side\":,\"effectArea\":[{\"x\":,\"y\":,}]," +
                         "\"castedBuffs\":[],\"manaPoint\":,\"ableToAttack\":,\"ableToMove\":}";
+*/
+                gson.toJson(spell,System.out);
                 gson.toJson(spell, new FileWriter(spell.getName() + ".json"));
                 index++;
             }

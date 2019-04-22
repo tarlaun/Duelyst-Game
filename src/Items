@@ -1,11 +1,11 @@
-Sagacity Crown , 300 , MANA , 1 , 3 , MANA , Field , COMRADE
-Ultra Shield , 4000 , HOLY , 12 , 0 , HEALTH , Hero , COMRADE
-Damul Bow , 30000 , DISARM , 1 , 1 , COUNTER , Minion , ENEMY , Hero , ONATTACK , RANGED , HYBRID
-Elixir , 300 , MANA , MANA , 1 , 3 , MANA , Card , COMRADE
-Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
-Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
-Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
-Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
+Sagacity Crown , 300 , MANA , 1 , 3 , Account , COMRADE
+Ultra Shield , 4000 , HOLY , 12 , 0 , Hero , COMRADE
+Damul Bow , 30000 , DISARM , 1 , 1 , Card , ENEMY , Hero , ONATTACK , RANGED , HYBRID
+Nooshdaaroo , 0 , HEALTH_POWER , 6 , -1 , Card , ALL
+Twoheaded Arrow , 0 , HIT_POWER , 2 , -1 , Hero , ALL , RANGED , HYBRID , HIT_POWER , 2 , -1 , Minion , ALL , RANGED , HYBRID
+Simorgh Feather , 3500 , HIT_WEAKNESS , 2 , -1 , Hero , ENEMY , RANGED , HYBRID
+Elixir , 0 , HEALTH_POWER , 3 , -1 , Card , ALL , HIT_POWER , 3 , -1 , Minion , ALL
+Mana Electuary , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
 Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
 Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
 Knowledge Crown , 300 , MANA , 1 , 3 , MANA , Card , COMRADE
