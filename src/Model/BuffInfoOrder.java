@@ -5,7 +5,6 @@ public enum BuffInfoOrder {
     POWER,
     ACTIVATION_TYPE,
     TURN_COUNT,
-    MODIFIED_ATTRIBUTE,
     TARGET_TYPE,
     SIDE,
     DISPEL_TYPE,
