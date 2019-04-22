@@ -17,26 +17,20 @@ public class Gson_IO {
         Scanner scanner = new Scanner(file);
         String info;
         int index = 1;
-        try {
-            while (scanner.hasNextLine()) {
-                info = scanner.nextLine();
-                Spell spell = new Spell(index, info);
-/*
-                String buffInfo;
-                String coordinateInfo;
-                String cardInfo = "{\"id\":" + spell.getId() + ",\"name\":" + spell.getName() + ",\"maxPossibleMoving\":" +
-                        spell.getPrice() + ",\"price\":" + spell.getPrice() + ",\"healthPoint\":" + spell.getHealthPoint() +
-                        ",\"minRange\":" + spell.getMinRange() + ",\"maxRange\":" + spell.getMaxRange() + ",\"assaultPower\":" +
-                        spell.getAssaultPower() + ",\"buffs\":[{\"type\":,\"power\":,\"targetType\":,\"attribute\":," +
-                        "\"dispelType\":,\"activationType\":,\"turnCount\":,\"side\":,\"effectArea\":[{\"x\":,\"y\":,}]," +
-                        "\"castedBuffs\":[],\"manaPoint\":,\"ableToAttack\":,\"ableToMove\":}";
-*/
-                gson.toJson(spell,System.out);
-                gson.toJson(spell, new FileWriter(spell.getName() + ".json"));
-                index++;
+        while (scanner.hasNextLine()) {
+            info = scanner.nextLine();
+            Spell spell = new Spell(index, info);
+            gson.toJson(spell, System.out);
+            String json = gson.toJson(spell);
+
+            try {
+                FileWriter writer = new FileWriter(spell.getName() + ".json");
+                writer.write(json);
+                writer.close();
+            } catch (IOException e0) {
+                e0.printStackTrace();
             }
-        } catch (IOException e) {
-            System.out.println("File not found");
+            index++;
         }
     }
 }
