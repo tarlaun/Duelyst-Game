@@ -2,6 +2,8 @@ package Model;
 
 import View.Message;
 import View.View;
+import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
+import com.sun.org.apache.bcel.internal.generic.CASTORE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -105,7 +107,7 @@ public class Battle {
         boolean newMinion = true;
         int emptyCell = -1;
 
-        if(currentCard instanceof Minion) {
+        if (currentCard instanceof Minion) {
             for (int i = 0; i < ((Minion) currentCard).getAttackCount().length; i++) {
                 if (opponentCardId == ((Minion) currentCard).getAttackCount()[i][0]) {
                     ((Minion) currentCard).setAttackCount(i, 1, ((Minion) currentCard).getAttackCount()[i][1] + 1);
@@ -145,7 +147,7 @@ public class Battle {
             }
         }
 
-        if(!useSpecialPowerForCombo(cards)){
+        if (!useSpecialPowerForCombo(cards)) {
             return Message.NOT_ABLE_TO_ATTACK;
         }
         for (Card card : cards) {
@@ -164,20 +166,162 @@ public class Battle {
     }
 
     public boolean useSpecialPowerForCombo(Card... cards) {
-        for (Card card :  cards ) {
-            if(!(card.getName().equals("PERSIAN_COMMANDER"))&&  !(card.getName().equals("TURANIAN_PRINCE")) && ! (card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))){
-                return false ;
+        for (Card card : cards) {
+            if (!(card.getName().equals("PERSIAN_COMMANDER")) && !(card.getName().equals("TURANIAN_PRINCE")) && !(card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))) {
+                return false;
             }
         }
     }
 
-    public Message useSpecialPower(Coordinate coordinate) {
+    public Message validSpecialPower(Coordinate coordinate) {
 
-        getField(coordinate.getX(),coordinate.getY())
-
-
-
+        if (getField(coordinate.getX(), coordinate.getY()).getCardID() == 0)
+            return Message.INVALID_TARGET;
+        Card card = Card.getCardByID(getField(coordinate.getX(), coordinate.getY()).getCardID(), fieldCards[turn % 2]);
+        if (card == null)
+            return Message.OBJECT_NOT_FOUND;
+        if (card.getBuffs().size() == 0) {
+            return Message.NOT_ABLE_TO_ATTACK;
+        }
+        useSpecialPower(card, card.getBuffs().get(0));
     }
+
+    private void useSpecialPower(Card card, Buff buff) {
+        switch (buff.getType()) {
+            case HOLY:
+                switch (card.getName()) {
+                    case "FOOLADZEREH":
+
+                        break;
+                    case "ASHKBOOS":
+
+                        break;
+                    case "NANE_WITCH":
+
+
+                        break;
+                    case "KAVEH":
+
+
+                        break;
+                    case "ESFANDIAR":
+
+
+                        break;
+                }
+                break;
+            case STUN:
+                switch (card.getName()) {
+                    case "SIMORGH":
+
+                        break;
+                    case "RAKHSH":
+
+                        break;
+                    case "NANE_SARMA":
+
+                        break;
+                    case "PERSIAN_SWORDS_WOMAN":
+
+                        break;
+                }
+                break;
+            case POWER:
+
+                switch (card.getName()) {
+                    case "WHITE_DIV":
+                        break;
+                    case "PERSIAN_CHAMPION":
+                        break;
+                    case "EAGLE":
+                        break;
+                    case "WITCH":
+                        break;
+                    case "NANE_WITCH":
+                        break;
+                    case "JEN":
+                        break;
+                }
+                break;
+            case POISON:
+                switch (card.getName()) {
+                    case "ZAHAK":
+                        break;
+                    case "TURANIAN_SPY":
+                        break;
+                    case "VENOM_SNAKE":
+                        break;
+
+                }
+                break;
+            case DISARM:
+
+                switch (card.getName()) {
+                    case "SEVEN_HEADED_DRAGON":
+                        break;
+                    case "TURANIAN_SPY":
+                        break;
+
+                }
+                break;
+            case WEAKNESS:
+
+                switch (card.getName()) {
+                    case "ARASH":
+                        break;
+                    case "CYCLOPS":
+                        break;
+                    case "GIANT_SNAKE":
+                        break;
+                    case "WHITE_WOLF":
+                        break;
+                    case "PALANG":
+                        break;
+                    case "WOLF":
+                        break;
+                    case "WITCH":
+                        break;
+                    case "BAHMAN":
+                        break;
+                    case "SIAVASH":
+                        break;
+
+                }
+
+                break;
+            case NEGATIVE_DISPEL:
+
+
+                switch (card.getName()) {
+                    case "LION":
+                        break;
+
+                    case "WILD_HOG":
+
+                        break;
+                    case "PIRAN":
+                        break;
+                    case "GIV":
+                        break;
+                }
+                break;
+            case POSITIVE_DISPEL:
+                switch (card.getName()) {
+                    case "AFSANEH":
+                        break;
+                    case "TWO_HEADED_GIANT":
+                        break;
+
+                }
+
+                break;
+        }
+
+        useSpecialPower(card, card.getBuffs().get(1));
+    }
+
+
+
 
     /*
     public Message insertCard(Coordinate coordinate, String cardName) {
@@ -242,18 +386,18 @@ public class Battle {
         showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
     }
 
-/*
-    public Message selectCollectableId(int collectableId) {
-        for (Collectable collectable :
-                collectables[turn % 2]) {
-            if (collectable.getId() == collectableId) {
-                menu.setStat(MenuStat.ITEM_SELECTION);
+    /*
+        public Message selectCollectableId(int collectableId) {
+            for (Collectable collectable :
+                    collectables[turn % 2]) {
+                if (collectable.getId() == collectableId) {
+                    menu.setStat(MenuStat.ITEM_SELECTION);
+                }
             }
+
         }
 
-    }
-
-*/
+    */
 /*
     public boolean useItem(Coordinate coordinate) {
         if (menu.getStat() != MenuStat.ITEM_SELECTION)

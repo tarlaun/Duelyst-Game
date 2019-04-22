@@ -21,7 +21,7 @@ public class Card {
     private Coordinate coordinate;
     private boolean ableToAttack = false;
     private boolean ableToMove = false;
-    private int cardHolder ;
+    private int cardHolder;
 
     public int getCardHolder() {
         return cardHolder;
@@ -116,6 +116,22 @@ public class Card {
                 return card;
         }
         return null;
+    }
+
+    public ActivationType getActivationType() {
+        return activationType;
+    }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public ArrayList<Buff> getCastedBuffs() {
+        return castedBuffs;
+    }
+
+    public int getManaPoint() {
+        return manaPoint;
     }
 
     public void setAbleToAttack(boolean ableToAttack) {
