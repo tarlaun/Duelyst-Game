@@ -9,29 +9,25 @@ public class Account {
     private int budget;
     private ArrayList<Match> matchHistory = new ArrayList<>();
     private Collection collection;
-    static Menu menu = new Menu();
+    private static Game game = Game.getInstance();
 
     public Account(String name, String password) {
         this.name = name;
         this.password = password;
     }
 
-    public static boolean createAccount(Account account) {
-        if(accountIndex(account.name) != -1)
+    public boolean createAccount() {
+        if (accountIndex(this.name) != -1)
             return false;
-        account.id = menu.getAccounts().size() + 1;
-        menu.getAccounts().add(account);
+        this.id = game.getAccounts().size() + 1;
+        game.getAccounts().add(this);
         return true;
     }
 
     public static boolean login(String username, String password) {
-        if(accountIndex(username) != -1 && menu.getAccounts().get(accountIndex(username)).password.equals(password))
+        if (accountIndex(username) != -1 && game.getAccounts().get(accountIndex(username)).password.equals(password))
             return true;
         return false;
-    }
-
-    public void logout() {
-
     }
 
     public String getName() {
@@ -62,15 +58,15 @@ public class Account {
 
     }
 
-    public static int accountIndex(String name){
-        for (Account account: menu.getAccounts()) {
-            if(account.name.equals(name))
-                return account.id-1;
+    public static int accountIndex(String name) {
+        for (Account account : game.getAccounts()) {
+            if (account.name.equals(name))
+                return account.id - 1;
         }
         return -1;
     }
 
-    public  void modifyAccountBudget(int money){
-       this.budget+=money;
+    public void modifyAccountBudget(int money) {
+        this.budget += money;
     }
 }
