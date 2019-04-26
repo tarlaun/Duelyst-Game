@@ -29,6 +29,9 @@ public class AI {
                         if(closestEnemyCards.get(i).getHealthPoint()<leastHp){
                             miratarin =i;
                         }
+                        if(closestEnemyCards.get(i) instanceof Hero){
+                            return closestEnemyCards.get(i).getCoordinate();
+                        }
                     }
                     return closestEnemyCards.get(miratarin).getCoordinate();
                     break;
