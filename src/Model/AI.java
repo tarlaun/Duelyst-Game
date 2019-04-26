@@ -31,10 +31,12 @@ public class AI {
                     }
                     return closestEnemyCards.get(miratarin).getCoordinate();
                 break;
+                case RANGED:
                 case HYBRID:
                     for (int i = -card.getMaxRange(); i <= card.getMaxRange(); i++) {
                         for (int j = -card.getMaxRange(); j <= card.getMaxRange(); j++) {
-                            if (i + j <= card.getMaxRange()) {
+                            if ((i + j <= card.getMaxRange() &&  (card.getAssaultType().equals(AssaultType.HYBRID)))
+                                    ||(i + j <= card.getMaxRange() &&  (card.getAssaultType().equals(AssaultType.RANGED) && i+j!=1))) {
                                 if (battle.getField(card.getCoordinate().getX(), card.getCoordinate().getY() + 1).getCardID() != 0) {
                                     addEnemy(closestEnemyCards, card.getCoordinate().getX() + i, card.getCoordinate().getY() + j);
                                 }
@@ -51,16 +53,8 @@ public class AI {
                     return closestEnemyCards.get(miratarinn).getCoordinate();
 
                     break;
-                case RANGED:
-
-
-                    break;
             }
         }
-
-    }
-
-    private boolean killHero (ArrayList<Card> closestEnemyCards){
 
     }
 
@@ -76,9 +70,9 @@ public class AI {
     }
 
     private void addEnemy(ArrayList<Card> closestEnemyCards, int x, int y) {
-        if (battle.getField()[x][y] != -1) {
+        if (battle.getField()[x][y].getCardID() != -1) {
             for (int i = 0; i < battle.getFieldCards()[0].length; i++) {
-                if (battle.getFieldCards()[0][i] != null && battle.getFieldCards()[0][i].getId() == battle.getField()[x][y] && battle.getFieldCards()[0][i].getCardHolder() == 1) {
+                if (battle.getFieldCards()[0][i] != null && battle.getFieldCards()[0][i].getId() == battle.getField()[x][y].getCardID() && battle.getFieldCards()[0][i].getCardHolder() == 1) {
                     closestEnemyCards.add(battle.getFieldCards()[0][i]);
                 }
             }
