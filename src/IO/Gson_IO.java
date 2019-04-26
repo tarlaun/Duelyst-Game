@@ -17,7 +17,7 @@ public class Gson_IO {
     }
 
     private static void gsonGenerator(File file, String name) throws IOException {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Scanner scanner = new Scanner(file);
         String info;
         int index = 1;

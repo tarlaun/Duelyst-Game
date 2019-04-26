@@ -1,1 +1,32 @@
-{"id":10,"name":"All Disarm ","maxPossibleMoving":-1,"price":2000,"healthPoint":-1,"minRange":-1,"maxRange":-1,"assaultPower":-1,"assaultType":"NULL","buffs":[{"type":"DISARM","power":0,"targetType":"Card","dispelType":"TEMPORARY","activationType":"UNDEFINED","turnCount":1,"side":"ENEMY","effectArea":[{"x":-1,"y":-1}]}],"castedBuffs":[],"manaPoint":9,"ableToAttack":false,"ableToMove":false}
+{
+  "id": 10,
+  "name": "All Disarm ",
+  "maxPossibleMoving": -1,
+  "price": 2000,
+  "healthPoint": -1,
+  "minRange": -1,
+  "maxRange": -1,
+  "assaultPower": -1,
+  "assaultType": "NULL",
+  "buffs": [
+    {
+      "type": "DISARM",
+      "power": 0,
+      "targetType": "Card",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 1,
+      "side": "ENEMY",
+      "effectArea": [
+        {
+          "x": -1,
+          "y": -1
+        }
+      ]
+    }
+  ],
+  "castedBuffs": [],
+  "manaPoint": 9,
+  "ableToAttack": false,
+  "ableToMove": false
+}
