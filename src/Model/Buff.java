@@ -6,7 +6,6 @@ public class Buff {
     private BuffType type;
     private int power;
     private String targetType;
-    private ModifiedAttribute attribute;
     private DispelType dispelType;
     private ActivationType activationType;
     private int turnCount;
@@ -90,7 +89,6 @@ public class Buff {
         this.type = BuffType.valueOf(info[BuffInfoOrder.BUFF_TYPE.ordinal()]);
         this.power = Integer.parseInt(info[BuffInfoOrder.POWER.ordinal()]);
         this.targetType = info[BuffInfoOrder.TARGET_TYPE.ordinal()];
-        this.attribute = ModifiedAttribute.valueOf(info[BuffInfoOrder.MODIFIED_ATTRIBUTE.ordinal()]);
         this.dispelType = DispelType.valueOf(info[BuffInfoOrder.DISPEL_TYPE.ordinal()]);
         this.activationType = ActivationType.valueOf(info[BuffInfoOrder.ACTIVATION_TYPE.ordinal()]);
         this.turnCount = Integer.parseInt(info[BuffInfoOrder.TURN_COUNT.ordinal()]);
@@ -104,7 +102,6 @@ public class Buff {
         this.type = buff.type;
         this.power = buff.power;
         this.targetType = buff.targetType;
-        this.attribute = buff.attribute;
         this.dispelType = buff.dispelType;
         this.activationType = buff.activationType;
         this.turnCount = buff.turnCount;

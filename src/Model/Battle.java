@@ -61,7 +61,7 @@ public class Battle {
 
     }
 
-/*
+
     public boolean moveTo(Coordinate coordinate) {
         if (currentCard.getCoordinate() == coordinate) {
             return true;
@@ -69,17 +69,17 @@ public class Battle {
         if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
             return false;
         }
-        if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate()).length == 0) {
+        if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate(), field).equals(currentCard.getCoordinate())) {
             return false;
         }
-        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = 0;
-        currentCard.setCoordinate(Coordinate.getPathDirections(coordinate, currentCard.getCoordinate())[0]);
-        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = currentCard.getId();
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
+        currentCard.setCoordinate(Coordinate.getPathDirections( currentCard.getCoordinate(), coordinate, field));
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
         moveTo(coordinate);
         return true;
 
     }
-*/
+
 
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
