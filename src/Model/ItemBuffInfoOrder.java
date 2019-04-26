@@ -1,12 +1,12 @@
 package Model;
 
-public enum BuffInfoOrder {
+public enum ItemBuffInfoOrder {
     BUFF_TYPE,
     POWER,
-    ACTIVATION_TYPE,
     TURN_COUNT,
     TARGET_TYPE,
     SIDE,
-    DISPEL_TYPE,
-    EFFECT_AREA
+    ACTIVATION_TYPE,
+    CASTER,
+    RANGE_TYPE
 }

@@ -1,0 +1,32 @@
+{
+  "id": 16,
+  "name": "All Attack",
+  "maxPossibleMoving": -1,
+  "price": 1500,
+  "healthPoint": -1,
+  "minRange": -1,
+  "maxRange": -1,
+  "assaultPower": -1,
+  "assaultType": "NULL",
+  "buffs": [
+    {
+      "type": "HEALTH_WEAKNESS",
+      "power": 6,
+      "targetType": "Card",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 0,
+      "side": "ENEMY",
+      "effectArea": [
+        {
+          "x": -2,
+          "y": -2
+        }
+      ]
+    }
+  ],
+  "castedBuffs": [],
+  "manaPoint": 4,
+  "ableToAttack": false,
+  "ableToMove": false
+}

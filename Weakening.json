@@ -1,0 +1,32 @@
+{
+  "id": 17,
+  "name": "Weakening",
+  "maxPossibleMoving": -1,
+  "price": 1000,
+  "healthPoint": -1,
+  "minRange": -1,
+  "maxRange": -1,
+  "assaultPower": -1,
+  "assaultType": "NULL",
+  "buffs": [
+    {
+      "type": "HIT_WEAKNESS",
+      "power": 4,
+      "targetType": "Minion",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 1000000,
+      "side": "ENEMY",
+      "effectArea": [
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
+    }
+  ],
+  "castedBuffs": [],
+  "manaPoint": 1,
+  "ableToAttack": false,
+  "ableToMove": false
+}

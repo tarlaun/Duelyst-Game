@@ -14,8 +14,7 @@ public class Constants {
     static final Coordinate ALL_FIELD = new Coordinate(-1, -1);
     static final Coordinate COLUMN = new Coordinate(-2, -2);
     static final Coordinate ROW = new Coordinate(-3, -3);
-    static final int ALL_TIME = -1;
-    static final int UNDIFINED_POWER = -1;
+    static final int ALL_TIME = 1000000;
+    static final int UNDIFINED_POWER = 0;
     static final Side ALL_SIDES = Side.ALL;
-    static final ModifiedAttribute ALL_ATTRIBUTES = ModifiedAttribute.ALL;
 }

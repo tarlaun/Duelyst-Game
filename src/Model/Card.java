@@ -21,12 +21,18 @@ public class Card {
     private Coordinate coordinate;
     private boolean ableToAttack = false;
     private boolean ableToMove = false;
-    private int cardHolder ;
+    private int cardHolder;
 
     public int getCardHolder() {
         return cardHolder;
     }
 
+    public void addToBuffs(Buff buff){
+        this.castedBuffs.add(buff);
+    }
+    public void removeFromBuffs(Buff buff){
+        this.castedBuffs.remove(buff);
+    }
     public Card(int id, String[] info) {
         this.id = id;
         this.name = info[MainInfoOrder.NAME.ordinal()];
@@ -118,6 +124,22 @@ public class Card {
         return null;
     }
 
+    public ActivationType getActivationType() {
+        return activationType;
+    }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public ArrayList<Buff> getCastedBuffs() {
+        return castedBuffs;
+    }
+
+    public int getManaPoint() {
+        return manaPoint;
+    }
+
     public void setAbleToAttack(boolean ableToAttack) {
         this.ableToAttack = ableToAttack;
     }
@@ -170,6 +192,7 @@ public class Card {
         this.healthPoint -= decrement;
     }
 
+/*
     public static Card[] removeFromArray(Card[] cards, Card card) {
         List<Card> cardsArrayList = new ArrayList<>(Arrays.asList(cards));
         cardsArrayList.remove(card);
@@ -185,4 +208,5 @@ public class Card {
     public static String[] cardInfoDecryption(String info) {
 
     }
+*/
 }
