@@ -6,6 +6,7 @@ public enum RequestType {
     LEADERBOARD,
     SAVE,
     LOGOUT,
+    ACCOUNT_HELP,
     HELP,
     ENTRANCE,
     ENTER_BATTLE,

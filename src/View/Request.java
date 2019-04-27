@@ -8,7 +8,10 @@ public class Request {
     private final String[] strings = {
             "create account ",
             "login ",
-            "show leaderboard"
+            "show leaderboard",
+            "save",
+            "logout",
+            "help"
     }
     private String command;
     private RequestType type;

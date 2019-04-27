@@ -63,8 +63,9 @@ public class View {
     }
 
     public void accountHelp() {
-
-
+        for (int i = RequestType.CREATE_ACCOUNT.ordinal(); i < RequestType.ACCOUNT_HELP.ordinal(); i++) {
+            System.out.println(request.getStrings()[i]);
+        }
     }
 
     public void printCollectionHelp() {

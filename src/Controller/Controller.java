@@ -67,7 +67,7 @@ public class Controller {
     }
 
     public void help() {
-
+        view.accountHelp();
     }
 
     public void enter() {
