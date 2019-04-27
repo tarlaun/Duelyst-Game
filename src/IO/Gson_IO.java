@@ -11,6 +11,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Gson_IO {
+    private static int index = 1;
     public static void main(String[] args) throws IOException {
         gsonGenerator(new File("src/Spells"), "Spell");
         gsonGenerator(new File("src/Items"), "Item");
@@ -20,7 +21,6 @@ public class Gson_IO {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Scanner scanner = new Scanner(file);
         String info;
-        int index = 1;
         while (scanner.hasNextLine()) {
             info = scanner.nextLine();
             String json;
