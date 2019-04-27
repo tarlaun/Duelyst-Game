@@ -7,13 +7,18 @@ public class Request {
     private Scanner scanner = new Scanner(System.in);
     private final String[] strings = {
             "create account ",
-            "login "
+            "login ",
+            "show leaderboard"
     }
     private String command;
     private RequestType type;
 
     public boolean checkAccountCreationSyntax() {
-        return this.getNewCommand().matches(this.getStrings()[RequestType.CREATE_ACCOUNT.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_ACCOUNT.ordinal()] + "\\w+");
+    }
+
+    public boolean checkLeaderBoardSyntax(){
+        return this.getCommand().matches(this.getStrings()[RequestType.LEADERBOARD.ordinal()]);
     }
 
     public boolean checkPasswordValidation() {

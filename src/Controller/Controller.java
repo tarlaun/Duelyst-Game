@@ -1,11 +1,13 @@
 package Controller;
 
 import Model.Account;
+import Model.Battle;
+import Model.Game;
 import View.*;
 
 public class Controller {
     private View view = View.getInstance();
-
+    private Game game = Game.getInstance();
     public void main() {
         Request request = new Request();
         request.getNewCommand();
@@ -15,6 +17,9 @@ public class Controller {
                 break;
             case LOGIN:
                 login(request);
+                break;
+            case LEADERBOARD:
+                showLeaderBoard(request);
                 break;
             case SAVE:
                 save();
@@ -41,8 +46,10 @@ public class Controller {
         }
     }
 
-    public void showLeaderBoard() {
-
+    public void showLeaderBoard(Request request) {
+        if(request.checkLeaderBoardSyntax()){
+            view.printLeaderboard();
+        }
     }
 
     public void save() {
@@ -182,6 +189,8 @@ public class Controller {
     }
 
     public void showHand() {
+
+
 
     }
 

@@ -13,6 +13,19 @@ public class Account {
     private Collection collection;
     private static Game game = Game.getInstance();
     private boolean isLoggedIn = true;
+    private int wins =0;
+
+    public static Game getGame() {
+        return game;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public int getWins() {
+        return wins;
+    }
 
     public Account(String name, String password) {
         this.name = name;

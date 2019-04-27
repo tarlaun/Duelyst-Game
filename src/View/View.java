@@ -3,6 +3,8 @@ package View;
 import Model.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class View {
@@ -11,6 +13,7 @@ public class View {
     private ArrayList<String> printedMessages = new ArrayList<>();
     private Message Message;
     private static final View view = new View();
+    private Game game = Game.getInstance();
 
     private View() {
 
@@ -46,11 +49,17 @@ public class View {
         }
     }
 
-    public void printLeaderboard(ArrayList<Account> accounts) {
+    public void printLeaderboard() {
+        game.sortAccounts();
+        for (int i = 0; i < game.getAccounts().size(); i++) {
+            System.out.println(i + 1 + " - UserName : " + game.getAccounts().get(i).getName() +
+                    " - Wins : " + game.getAccounts().get(i).getWins());
+        }
 
     }
 
     public void accountHelp() {
+
 
     }
 

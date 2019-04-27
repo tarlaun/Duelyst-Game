@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Game {
     private ArrayList<Account> accounts = new ArrayList<>();
@@ -37,5 +39,11 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void sortAccounts(){
+        Comparator<Account> compareById = Comparator.comparingInt(Account::getWins);
+        accounts.sort(compareById.reversed());
+
     }
 }
