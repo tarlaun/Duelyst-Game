@@ -24,6 +24,10 @@ public class Controller {
             case SAVE:
                 save();
                 break;
+
+            case LOGOUT:
+                logout(request);
+                break;
         }
     }
 
@@ -56,8 +60,10 @@ public class Controller {
 
     }
 
-    public void logout() {
-
+    public void logout(Request request) {
+        if(request.checkLogoutSyntax()){
+            view.logout();
+        }
     }
 
     public void help() {

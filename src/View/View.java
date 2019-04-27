@@ -49,6 +49,10 @@ public class View {
         }
     }
 
+    public void logout(){
+        System.out.println("Successful logout!!!:))))");
+    }
+
     public void printLeaderboard() {
         game.sortAccounts();
         for (int i = 0; i < game.getAccounts().size(); i++) {

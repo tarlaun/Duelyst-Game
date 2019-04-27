@@ -19,6 +19,42 @@ public class Account {
         return game;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public void setMatchHistory(ArrayList<Match> matchHistory) {
+        this.matchHistory = matchHistory;
+    }
+
+    public void setCollection(Collection collection) {
+        this.collection = collection;
+    }
+
+    public static void setGame(Game game) {
+        Account.game = game;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
     public boolean isLoggedIn() {
         return isLoggedIn;
     }

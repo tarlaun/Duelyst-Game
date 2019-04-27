@@ -26,7 +26,11 @@ public class Request {
     }
 
     public boolean checkLoginSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.LOGIN.ordinal()]);
+    }
 
+    public boolean checkLogoutSyntax(){
+        return this.getCommand().matches(this.getStrings()[RequestType.LOGOUT.ordinal()]);
     }
 
     public void checkMenuEntrnaceSyntax() {
