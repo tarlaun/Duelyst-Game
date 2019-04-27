@@ -27,7 +27,7 @@ public class Game {
 
     }
 
-    public boolean save(Account account) {
+    public void save(Account account) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(account);
         try {
