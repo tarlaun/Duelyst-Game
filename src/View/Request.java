@@ -20,7 +20,7 @@ public class Request {
         return this.getCommand().matches(this.getStrings()[RequestType.CREATE_ACCOUNT.ordinal()] + "\\w+");
     }
 
-    public boolean checkLeaderBoardSyntax(){
+    public boolean checkLeaderBoardSyntax() {
         return this.getCommand().matches(this.getStrings()[RequestType.LEADERBOARD.ordinal()]);
     }
 
@@ -32,11 +32,12 @@ public class Request {
         return this.getCommand().matches(this.getStrings()[RequestType.LOGIN.ordinal()]);
     }
 
-    public boolean checkLogoutSyntax(){
+    public boolean checkLogoutSyntax() {
         return this.getCommand().matches(this.getStrings()[RequestType.LOGOUT.ordinal()]);
     }
 
-    public void checkMenuEntrnaceSyntax() {
+    public boolean checkMenuEntrnaceSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.ENTRANCE.ordinal()]+"Collection|Shop|Battle|Exit");
 
     }
 
@@ -133,6 +134,10 @@ public class Request {
     }
 
     public String getPassword(String input) {
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public String getMenu(String input) {
         return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
     }
 }

@@ -89,13 +89,10 @@ public class Controller {
         }
     }
 
-    public void enter() {
+    public void enter(Request request) {
 
     }
 
-    public void enterBattle() {
-
-    }
 
     public void exitBattle() {
 
