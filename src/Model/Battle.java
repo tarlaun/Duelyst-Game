@@ -157,6 +157,8 @@ public class Battle {
         return menu;
     }
 
+
+
     private void checkAttackHistory(int opponentCardId, Card currentCard) {
         boolean newMinion = true;
         int emptyCell = -1;

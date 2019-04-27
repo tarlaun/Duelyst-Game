@@ -35,8 +35,8 @@ public class AI {
                 case HYBRID:
                     for (int i = -card.getMaxRange(); i <= card.getMaxRange(); i++) {
                         for (int j = -card.getMaxRange(); j <= card.getMaxRange(); j++) {
-                            if ((i + j <= card.getMaxRange() &&  (card.getAssaultType().equals(AssaultType.HYBRID)))
-                                    ||(i + j <= card.getMaxRange() &&  (card.getAssaultType().equals(AssaultType.RANGED) && i+j!=1))) {
+                            if ((i + j <= card.getMaxRange() && (card.getAssaultType().equals(AssaultType.HYBRID)))
+                                    || (i + j <= card.getMaxRange() && (card.getAssaultType().equals(AssaultType.RANGED) && i + j != 1))) {
                                 if (battle.getField(card.getCoordinate().getX(), card.getCoordinate().getY() + 1).getCardID() != 0) {
                                     addEnemy(closestEnemyCards, card.getCoordinate().getX() + i, card.getCoordinate().getY() + j);
                                 }
@@ -52,7 +52,7 @@ public class AI {
                     }
                     return closestEnemyCards.get(miratarinn).getCoordinate();
 
-                    break;
+                break;
             }
         }
 
@@ -79,8 +79,44 @@ public class AI {
         }
     }
 
-    public Coordinate setDestinationCoordinates() {
-
+    public Coordinate setDestinationCoordinates(Card card) {
+        if (card instanceof Minion) {
+            switch (card.getAssaultType()) {
+                case MELEE:
+                    if (card.isAbleToAttack()) {
+                        boolean enemyIsNear = false;
+                        for (int k = -1; k < 2; k++) {
+                            for (int j = -1; j < 2; j++) {
+                                for (int i = 0; i < battle.getFieldCards()[0].length; i++) {
+                                    if (battle.getFieldCards()[0][i].getCoordinate().equals(new Coordinate(card.getCoordinate().getX() + k, card.getCoordinate().getY() + j))) {
+                                        if (battle.getFieldCards()[0][i] instanceof Hero) {
+                                            return card.getCoordinate();
+                                        }
+                                        enemyIsNear =true ;
+                                    }
+                                }
+                            }
+                        }
+                        for (int i = 0; i < battle.getFieldCards()[0].length; i++) {
+                            if (battle.getFieldCards()[0][i] instanceof Hero) {
+                                if (Coordinate.getManhattanDistance(card.getCoordinate(), battle.getFieldCards()[0][i].getCoordinate()) < 4) {
+                                    return new Coordinate((card.getCoordinate().getX() + battle.getFieldCards()[0][i].getCoordinate().getX()) / 2, (card.getCoordinate().getY() + battle.getFieldCards()[0][i].getCoordinate().getY()) / 2);
+                                }
+                            }
+                        }
+                        if(enemyIsNear) return card.getCoordinate();
+                        return new Coordinate(card.getCoordinate().getX(),card.getCoordinate().getY());
+                    }
+                    break;
+                case RANGED:
+                case HYBRID:
+                    break;
+            }
+            if (!card.isAbleToMove()) {
+                return card.getCoordinate();
+            }
+            return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
+        }
     }
 
     public Card chooseCard(ArrayList<Card> cards) {
