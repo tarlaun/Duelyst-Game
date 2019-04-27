@@ -96,7 +96,7 @@ public class View {
 
     }
 
-    public void printMininsInfo(ArrayList<Minion> minions) {
+    public void printMinionsInfo(ArrayList<Minion> minions) {
 
     }
 
@@ -117,6 +117,10 @@ public class View {
     }
 
     public void printMainMenu() {
+        System.out.println("1.Collection");
+        System.out.println("2.Shop");
+        System.out.println("3.Battle");
+        System.out.println("4.Exit");
 
 
     }

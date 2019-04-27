@@ -12,7 +12,15 @@ public class Menu {
     private ArrayList<AI> ais = new ArrayList<>();
     private ArrayList<Account> accounts = new ArrayList<>();
     private Shop shop= new Shop();
+    private static final Menu menu = new Menu();
 
+    private Menu(){
+
+    }
+
+    public static Menu getInstance(){
+        return menu;
+    }
     public ArrayList<Account> getAccounts() {
         return accounts;
     }

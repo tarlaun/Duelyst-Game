@@ -3,11 +3,13 @@ package Controller;
 import Model.Account;
 import Model.Battle;
 import Model.Game;
+import Model.Menu;
 import View.*;
 
 public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
+    private Menu menu = Menu.getInstance();
     public void main() {
         Request request = new Request();
         request.getNewCommand();
@@ -67,7 +69,24 @@ public class Controller {
     }
 
     public void help() {
-        view.accountHelp();
+        switch (menu.getStat()){
+            case MAIN:
+                view.printMainMenu();
+                break;
+            case BATTLE:
+                view.printBattleHelp();
+                break;
+            case ACCOUNT:
+                view.accountHelp();
+                break;
+            case GRAVEYARD:
+                view.printGraveyardMenu();
+                break;
+            case SHOP:
+                view.printShopHelp();
+                break;
+
+        }
     }
 
     public void enter() {
