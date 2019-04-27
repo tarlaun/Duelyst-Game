@@ -1,5 +1,7 @@
 package Model;
 
+import View.Message;
+
 import java.util.ArrayList;
 
 public class Account {
@@ -13,7 +15,7 @@ public class Account {
 
     public Account(String name, String password) {
         this.name = name;
-        this.password = password;
+        this.password = encrypted(password);
     }
 
     public boolean createAccount() {
@@ -24,10 +26,12 @@ public class Account {
         return true;
     }
 
-    public static boolean login(String username, String password) {
-        if (accountIndex(username) != -1 && game.getAccounts().get(accountIndex(username)).password.equals(password))
-            return true;
-        return false;
+    public Message login(String username, String password) {
+        if (accountIndex(username) != -1)
+            return Message.INVALID_ACCOUNT;
+        if (!game.getAccounts().get(accountIndex(username)).password.equals(encrypted(password)))
+            return Message.INVALID_PASSWORD;
+        return Message.ACCOUNT_CREATION;
     }
 
     public String getName() {
@@ -54,10 +58,6 @@ public class Account {
         return collection;
     }
 
-    public void save() {
-
-    }
-
     public static int accountIndex(String name) {
         for (Account account : game.getAccounts()) {
             if (account.name.equals(name))
@@ -68,5 +68,9 @@ public class Account {
 
     public void modifyAccountBudget(int money) {
         this.budget += money;
+    }
+
+    private String encrypted(String password) {
+        return password;
     }
 }

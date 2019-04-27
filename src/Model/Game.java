@@ -1,5 +1,10 @@
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Game {
@@ -23,6 +28,14 @@ public class Game {
     }
 
     public boolean save(Account account) {
-
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(account);
+        try {
+            FileWriter writer = new FileWriter(account.getName() + ".json");
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
