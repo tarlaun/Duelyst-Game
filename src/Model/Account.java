@@ -12,6 +12,7 @@ public class Account {
     private ArrayList<Match> matchHistory = new ArrayList<>();
     private Collection collection;
     private static Game game = Game.getInstance();
+    private boolean isLoggedIn = true;
 
     public Account(String name, String password) {
         this.name = name;
@@ -26,7 +27,7 @@ public class Account {
         return true;
     }
 
-    public Message login(String username, String password) {
+    public static Message login(String username, String password) {
         if (accountIndex(username) != -1)
             return Message.INVALID_ACCOUNT;
         if (!game.getAccounts().get(accountIndex(username)).password.equals(encrypted(password)))

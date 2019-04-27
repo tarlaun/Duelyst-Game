@@ -1,12 +1,44 @@
 package Controller;
 
-public class Controller {
-    public void createAccount() {
+import Model.Account;
+import View.*;
 
+public class Controller {
+    private View view = View.getInstance();
+
+    public void main() {
+        Request request = new Request();
+        request.getNewCommand();
+        switch (request.getType()) {
+            case CREATE_ACCOUNT:
+                createAccount(request);
+                break;
+            case LOGIN:
+                login(request);
+                break;
+            case SAVE:
+                save();
+                break;
+        }
     }
 
-    public void login() {
+    public void createAccount(Request request) {
+        if (request.checkAccountCreationSyntax()) {
+            String username = request.getCommand();
+            view.passwordInsertion();
+            String password = request.getNewCommand();
+            Account account = new Account(request.getAccountName(username), request.getPassword(password));
+            view.accountCreation(account.createAccount());
+        }
+    }
 
+    public void login(Request request) {
+        if (request.checkLoginSyntax()) {
+            String username = request.getCommand();
+            view.passwordInsertion();
+            String password = request.getNewCommand();
+            view.login(Account.login(request.getAccountName(username), request.getPassword(password)));
+        }
     }
 
     public void showLeaderBoard() {

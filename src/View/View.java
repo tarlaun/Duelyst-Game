@@ -10,6 +10,41 @@ public class View {
     private Request request;
     private ArrayList<String> printedMessages = new ArrayList<>();
     private Message Message;
+    private static final View view = new View();
+
+    private View() {
+
+    }
+
+    public static View getInstance() {
+        return view;
+    }
+
+    public void passwordInsertion() {
+        System.out.println("Password: ");
+    }
+
+    public void accountCreation(Boolean valid) {
+        if (valid) {
+            System.out.println("Account created");
+            return;
+        }
+        System.out.println("Account already exists");
+    }
+
+    public void login(Message message) {
+        switch (message) {
+            case INVALID_ACCOUNT:
+                System.out.println("Account doesn't exist!");
+                break;
+            case INVALID_PASSWORD:
+                System.out.println("Incorrect password");
+                break;
+            case SUCCESSFUL_LOGIN:
+                System.out.println("Welcome");
+                break;
+        }
+    }
 
     public void printLeaderboard(ArrayList<Account> accounts) {
 

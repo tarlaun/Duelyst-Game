@@ -1,17 +1,26 @@
 package View;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Request {
-    private ArrayList<String> strings = new ArrayList<>();
-    private String[] commands;
+    private Scanner scanner = new Scanner(System.in);
+    private final String[] strings = {
+            "create account ",
+            "login "
+    }
+    private String command;
     private RequestType type;
 
-    public void checkAccountCreationSyntax() {
-
+    public boolean checkAccountCreationSyntax() {
+        return this.getNewCommand().matches(this.getStrings()[RequestType.CREATE_ACCOUNT.ordinal()] + "\\w+");
     }
 
-    public void checkLoginSyntax() {
+    public boolean checkPasswordValidation() {
+        return true;
+    }
+
+    public boolean checkLoginSyntax() {
 
     }
 
@@ -87,4 +96,31 @@ public class Request {
 
     }
 
+    public RequestType getType() {
+        return type;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public String[] getStrings() {
+        return strings;
+    }
+
+    public String getNewCommand() {
+        return scanner.nextLine();
+    }
+
+    public String[] getSplittedCommand(String input) {
+        return input.split(" ");
+    }
+
+    public String getAccountName(String input) {
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public String getPassword(String input) {
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
 }
