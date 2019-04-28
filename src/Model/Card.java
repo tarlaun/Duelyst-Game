@@ -177,4 +177,22 @@ public class Card {
     public static String[] cardInfoDecryption(String info) {
 
     }
+
+    public static ArrayList<Card> getAllCardsId(String name, Card... cards) {
+        ArrayList<Card> output = new ArrayList<>();
+        for (Card card : cards) {
+            if (card.getName().equals(name))
+                output.add(card);
+        }
+        return output;
+    }
+
+    public static ArrayList<Item> getAllItemsId(String name, Item... items) {
+        ArrayList<Item> output = new ArrayList<>();
+        for (Item item : items) {
+            if (item.getName().equals(name))
+                output.add(item);
+        }
+        return output;
+    }
 }
