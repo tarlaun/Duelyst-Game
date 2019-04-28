@@ -3,12 +3,21 @@ package Model;
 import java.util.ArrayList;
 
 public class Deck {
+    private String name ;
     private ArrayList<Card> cards= new ArrayList<>();
     private Hero hero = new Hero();
     private Item item= new Item();
 
     public ArrayList<Card> getCards() {
         return cards;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setCards(ArrayList<Card> cards) {
