@@ -1,21 +1,28 @@
 package Model;
 
+import java.util.Random;
+
 public enum MenuStat {
-    MAIN(0),
-    ACCOUNT(1),
-    GAME(2),
-    COLLECTION(3),
-    SHOP(3),
-    BATTLE(3),
-    GRAVEYARD(4);
+    MAIN,
+    ACCOUNT,
+    GAME,
+    COLLECTION,
+    SHOP,
+    BATTLE,
+    GRAVEYARD;
 
-    MenuStat(int order) {
-        this.order = order;
-    }
-
-    private int order;
-
-    public int inOrder() {
-        return order;
+    public MenuStat prevMenu() {
+        switch (this) {
+            case MAIN:
+                System.exit(0);
+            case ACCOUNT:
+                return MAIN;
+            case GAME:
+                return ACCOUNT;
+            case GRAVEYARD:
+                return BATTLE;
+            default:
+                return GAME;
+        }
     }
 }
