@@ -37,7 +37,6 @@ public class Collection {
         return false;
     }
 
-
     public boolean deleteDeck(String deckName) {
         if (deckExistance(deckName) != -1) {
             decks.remove(deckExistance(deckName));
@@ -92,15 +91,42 @@ public class Collection {
     }
 
     public Message remove(String deckName, int objectID) {
-
+        if(deckExistance(deckName)!=-1){
+            Deck deck = decks.get(deckExistance(deckName));
+            Card card = Card.getCardByID(objectID, this.cards.toArray(Card[]::new));
+            Item item = Item.getItemByID(objectID, this.items.toArray(Item[]::new));
+            if(card!=null){
+                if(card instanceof Hero){
+                    deck.setHero(null);
+                    return null;
+                }
+                deck.getCards().remove(card);
+                return null;
+            }
+            if(item!=null){
+                deck.setItem(null);
+                return null;
+            }
+            return Message.OBJECT_NOT_FOUND;
+        }
+        return Message.INVALID_DECK;
     }
 
     public boolean validate(String deckName) {
+        if(deckExistance(deckName)!=-1){
+            Deck deck = decks.get(deckExistance(deckName));
+            return deck.getCards().size() == 20 && deck.getItem() != null && deck.getHero() != null;
 
+        }
+        return false;
     }
 
     public boolean selectDeck(String deckName) {
-
+        mainDeck = decks.get(deckExistance(deckName));
+        if(mainDeck !=null){
+            return true;
+        }
+        return false;
     }
 
 }
