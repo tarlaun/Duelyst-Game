@@ -14,6 +14,7 @@ public class View {
     private Message Message;
     private static final View view = new View();
     private Game game = Game.getInstance();
+    private Menu menu = Menu.getInstance();
 
     private View() {
 
@@ -49,7 +50,7 @@ public class View {
         }
     }
 
-    public void logout(){
+    public void logout() {
         System.out.println("Successful logout!!!:))))");
     }
 
@@ -62,22 +63,16 @@ public class View {
 
     }
 
-    public void accountHelp() {
-        for (int i = RequestType.CREATE_ACCOUNT.ordinal(); i < RequestType.ACCOUNT_HELP.ordinal(); i++) {
-            System.out.println(request.getStrings()[i]);
+    public void printHelp() {
+        for (String str : menu.getCommands()) {
+            System.out.println(str);
         }
     }
 
-    public void printCollectionHelp() {
-
-    }
-
-    public void printShopHelp() {
-
-    }
-
-    public void printBattleHelp() {
-
+    public void printOptions() {
+        for (String str : menu.getOptions()) {
+            System.out.println(str);
+        }
     }
 
     public void printCollection(Collection collection) {
@@ -113,15 +108,6 @@ public class View {
     }
 
     public void printCollectables(ArrayList<Item> items) {
-
-    }
-
-    public void printMainMenu() {
-        System.out.println("1.Collection");
-        System.out.println("2.Shop");
-        System.out.println("3.Battle");
-        System.out.println("4.Exit");
-
 
     }
 

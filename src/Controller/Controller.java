@@ -10,6 +10,7 @@ public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
+
     public void main() {
         Request request = new Request();
         request.getNewCommand();
@@ -52,7 +53,7 @@ public class Controller {
     }
 
     public void showLeaderBoard(Request request) {
-        if(request.checkLeaderBoardSyntax()){
+        if (request.checkLeaderBoardSyntax()) {
             view.printLeaderboard();
         }
     }
@@ -62,30 +63,13 @@ public class Controller {
     }
 
     public void logout(Request request) {
-        if(request.checkLogoutSyntax()){
+        if (request.checkLogoutSyntax()) {
             view.logout();
         }
     }
 
     public void help() {
-        switch (menu.getStat()){
-            case MAIN:
-                view.printMainMenu();
-                break;
-            case BATTLE:
-                view.printBattleHelp();
-                break;
-            case ACCOUNT:
-                view.accountHelp();
-                break;
-            case GRAVEYARD:
-                view.printGraveyardMenu();
-                break;
-            case SHOP:
-                view.printShopHelp();
-                break;
-
-        }
+        view.printHelp();
     }
 
     public void enter(Request request) {

@@ -59,7 +59,7 @@ public class Menu {
                     {
                             "Help", "Exit"
                     }
-            }
+            };
     private static final Menu menu = new Menu();
 
     private Menu() {
