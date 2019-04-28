@@ -10,7 +10,7 @@ public enum RequestType {
     HELP,
     ENTRANCE,
     ENTER_BATTLE,
-    EXTI,
+    EXIT,
     SHOW,
     SEARCH,
     CREATE_DECK,

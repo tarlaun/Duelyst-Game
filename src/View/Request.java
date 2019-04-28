@@ -11,8 +11,9 @@ public class Request {
             "show leaderboard",
             "save",
             "logout",
-            "help"
-    }
+            "help",
+            "exit"
+    };
     private String command;
     private RequestType type;
 
@@ -37,7 +38,7 @@ public class Request {
     }
 
     public boolean checkMenuEntrnaceSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.ENTRANCE.ordinal()]+"Collection|Shop|Battle|Exit");
+        return this.getCommand().matches(this.getStrings()[RequestType.ENTRANCE.ordinal()] + "Collection|Shop|Battle|Exit");
 
     }
 

@@ -30,6 +30,12 @@ public class Controller {
             case LOGOUT:
                 logout(request);
                 break;
+            case HELP:
+                help();
+                break;
+            case EXIT:
+                exit();
+                break;
         }
     }
 
@@ -76,13 +82,8 @@ public class Controller {
 
     }
 
-
-    public void exitBattle() {
-
-    }
-
-    public void exitColletion() {
-
+    public void exit() {
+        menu.exitMenu();
     }
 
     public void showTheCollection() {
