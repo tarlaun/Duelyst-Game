@@ -26,7 +26,6 @@ public class Controller {
             case SAVE:
                 save();
                 break;
-
             case LOGOUT:
                 logout(request);
                 break;
@@ -211,8 +210,6 @@ public class Controller {
     }
 
     public void showHand() {
-
-
 
     }
 
