@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.Controller;
 import View.Message;
 
 import java.util.ArrayList;
@@ -14,9 +15,14 @@ public class Account {
     private static Game game = Game.getInstance();
     private boolean isLoggedIn = true;
     private int wins =0;
+    private  Controller controller = Controller.getInstance();
 
     public static Game getGame() {
         return game;
+    }
+
+    public Account (){
+
     }
 
     public void setName(String name) {

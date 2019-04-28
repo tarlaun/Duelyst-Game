@@ -86,13 +86,6 @@ public class Shop {
         return false;
     }
 
-    public void show() {
-
-    }
-
-    public void showCollection() {
-
-    }
 
     public void addCard(Card card) {
         cards.add(card);

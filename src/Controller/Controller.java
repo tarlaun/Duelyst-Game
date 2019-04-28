@@ -1,15 +1,22 @@
 package Controller;
 
-import Model.Account;
-import Model.Battle;
-import Model.Game;
-import Model.Menu;
+import Model.*;
 import View.*;
 
 public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
+    private Account account = new Account();
+    private static final Controller controller = new Controller();
+
+    private Controller() {
+
+    }
+
+    public static Controller getInstance() {
+        return controller;
+    }
 
     public void main() {
         Request request = new Request();
@@ -36,6 +43,13 @@ public class Controller {
             case EXIT:
                 exit();
                 break;
+            case SHOW_COLLECTION:
+                showTheCollection();
+                break;
+            case SEARCH_COLLECTION:
+                searchInCollection(request);
+                break;
+
         }
     }
 
@@ -87,11 +101,17 @@ public class Controller {
     }
 
     public void showTheCollection() {
-
+        view.printCollection(this.account.getCollection());
     }
 
-    public void searchInCollection() {
 
+    public void searchInCollection(Request request) {
+        if (request.checkSearchSyntax()) {
+            view.printId(Card.getAllCardsId(request.getCardName(request.getCommand()),
+                    this.account.getCollection().getCards().toArray(Card[]::new)).toArray(Card[]::new));
+            view.printId(Item.getAllItemsId(request.getCardName(request.getCommand()),
+                    this.account.getCollection().getItems().toArray(Item[]::new)).toArray(Item[]::new));
+        }
     }
 
     public void saveCollection() {

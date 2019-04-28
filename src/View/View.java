@@ -76,6 +76,30 @@ public class View {
     }
 
     public void printCollection(Collection collection) {
+        for (int i = 0; i < collection.getCards().size(); i++) {
+            if (collection.getCards().get(i) instanceof Hero) {
+                printHero((Hero) collection.getCards().get(i));
+            }
+        }
+        for (int i = 0; i < collection.getItems().size(); i++) {
+            printItem( collection.getItems().get(i));
+        }
+        for (int i = 0; i < collection.getCards().size(); i++) {
+            if (!(collection.getCards().get(i) instanceof Hero)) {
+                printCard(collection.getCards().get(i));
+            }
+        }
+    }
+
+    public void printCard(Card card){
+
+    }
+
+    public void printItem(Item item){
+
+    }
+
+    public void printHero(Hero hero) {
 
     }
 
@@ -116,6 +140,14 @@ public class View {
     }
 
     public void printError(Message message) {
+
+    }
+
+    public void printId(Card... cards){
+
+    }
+
+    public void printId(Item... items){
 
     }
 }

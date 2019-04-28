@@ -186,13 +186,4 @@ public class Card {
         }
         return output;
     }
-
-    public static ArrayList<Item> getAllItemsId(String name, Item... items) {
-        ArrayList<Item> output = new ArrayList<>();
-        for (Item item : items) {
-            if (item.getName().equals(name))
-                output.add(item);
-        }
-        return output;
-    }
 }
