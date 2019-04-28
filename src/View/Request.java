@@ -1,5 +1,6 @@
 package View;
 
+import javax.swing.text.rtf.RTFEditorKit;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,8 +43,8 @@ public class Request {
 
     }
 
-    public void checkSearchSyntax() {
-
+    public boolean checkSearchSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()] + "\\w+");
     }
 
     public void checkDeckCreationSyntax() {
@@ -139,6 +140,10 @@ public class Request {
     }
 
     public String getMenu(String input) {
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public String getCardName(String input){
         return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
     }
 }
