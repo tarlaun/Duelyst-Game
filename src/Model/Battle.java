@@ -320,7 +320,6 @@ public class Battle {
                         break;
                     case "KAVEH":
 
-
                         break;
                     case "ESFANDIAR":
 
@@ -356,6 +355,7 @@ public class Battle {
             case POWER:
                 switch (card.getName()) {
                     case "WHITE_DIV":
+                        card.addToBuffs(buff);
                         break;
                     case "EAGLE":
                         card.addToBuffs(card.getBuffs().get(0));
