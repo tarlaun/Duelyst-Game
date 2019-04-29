@@ -21,6 +21,8 @@ public class Card {
     private Coordinate coordinate;
     private boolean ableToAttack = false;
     private boolean ableToMove = false;
+    private boolean ableToResist = false;
+    private boolean ableToCounter = false;
     private int cardHolder;
 
     public int getCardHolder() {
@@ -180,8 +182,12 @@ public class Card {
         return ableToAttack;
     }
 
-    public void decreaseHealth(int decrement) {
-        this.healthPoint -= decrement;
+    public void modifyHealth(int value) {
+        this.healthPoint += value;
+    }
+
+    public void modifyHit(int value) {
+        this.assaultPower += value;
     }
 
     public static Card[] removeFromArray(Card[] cards, Card card) {
@@ -194,5 +200,17 @@ public class Card {
         List<Card> cardsArrayList = new ArrayList<>(Arrays.asList(cards));
         cardsArrayList.add(card);
         return cardsArrayList.toArray(new Card[cardsArrayList.size()]);
+    }
+
+    public boolean isAbleToResist() {
+        return ableToResist;
+    }
+
+    public void setAbleToResist(boolean ableToResist) {
+        this.ableToResist = ableToResist;
+    }
+
+    public void setAbleToCounter(boolean ableToCounter) {
+        this.ableToCounter = ableToCounter;
     }
 }
