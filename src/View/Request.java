@@ -148,7 +148,7 @@ public class Request {
         return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
     }
 
-    public String getCardName(String input){
+    public String getObjectName(String input){
         return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
     }
 

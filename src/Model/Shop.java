@@ -13,6 +13,15 @@ public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private File file;
+    private static final Shop shop = new Shop();
+
+    private Shop() {
+
+    }
+
+    public static Shop getInstance() {
+        return shop;
+    }
 
     public int search(String objectName) {
         for (Card card : cards) {
@@ -101,7 +110,7 @@ public class Shop {
             while (scanner.hasNextLine()) {
                 info = scanner.nextLine().split(Constants.CARD_INFO_SPLITTER);
                 if (Integer.parseInt(info[MainInfoOrder.MAX_MOVE.ordinal()]) == Constants.UNDEFINED_MAX_MOVE)
-                    cards.add(new Spell(    idCounter, info));
+                    cards.add(new Spell(idCounter, info));
             }
         } catch (FileNotFoundException error) {
             error.printStackTrace();
@@ -109,4 +118,11 @@ public class Shop {
 
     }
 
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
 }

@@ -7,6 +7,7 @@ public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
+    private Shop shop = Shop.getInstance();
     private Account account = new Account();
     private static final Controller controller = new Controller();
 
@@ -136,9 +137,9 @@ public class Controller {
 
     public void searchInCollection(Request request) {
         if (request.checkSearchSyntax()) {
-            view.printId(Card.getAllCardsId(request.getCardName(request.getCommand()),
+            view.printId(Card.getAllCardsId(request.getObjectName(request.getCommand()),
                     this.account.getCollection().getCards().toArray(Card[]::new)).toArray(Card[]::new));
-            view.printId(Item.getAllItemsId(request.getCardName(request.getCommand()),
+            view.printId(Item.getAllItemsId(request.getObjectName(request.getCommand()),
                     this.account.getCollection().getItems().toArray(Item[]::new)).toArray(Item[]::new));
         }
     }
@@ -200,8 +201,17 @@ public class Controller {
         view.printShopCollection(this.account.getCollection());
     }
 
-    public void searchInShop() {
-
+    public void searchInShop(Request request) {
+        if (request.checkSearchSyntax()) {
+            Card card = Card.getCardByName(request.getObjectName(request.getCommand(),
+                    shop.getCards().toArray(Card[]::new)));
+            Item item = Item.getItemByName(request.getObjectName(request.getCommand(),
+                    shop.getItems().toArray(Item[]::new)));
+            if (card != null)
+                view.printId(card);
+            if (item != null)
+                view.printId(item);
+        }
     }
 
     public void buy() {

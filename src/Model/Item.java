@@ -6,7 +6,7 @@ public class Item {
     private int id;
     private String name;
     private int price;
-    private Coordinate coordinate= new Coordinate();
+    private Coordinate coordinate = new Coordinate();
 
     public int getId() {
         return id;
@@ -50,5 +50,14 @@ public class Item {
         }
         return output;
     }
+
+    public static Item getItemByName(String name, Item... items) {
+        for (Item item : items) {
+            if (item.getName().equals(name))
+                return item;
+        }
+        return null;
+    }
+
 
 }
