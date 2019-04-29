@@ -311,15 +311,12 @@ public class Battle {
     }
 
     private void useSpecialPower(Card card, Buff buff) {
-        int r = 0;
+        int r ;
         switch (buff.getType()) {
             case HOLY:
                 switch (card.getName()) {
                     case "FOOLADZEREH":
                         card.addToBuffs(buff);
-                        break;
-                    case "ASHKBOOS":
-
                         break;
                     case "KAVEH":
 
@@ -379,28 +376,24 @@ public class Battle {
                         }
                         break;
                     case "JEN":
+                        for (Card comrade:
+                           fieldCards[turn%2]  ) {
+                            if(comrade instanceof Minion){
+                                comrade.addToBuffs(buff);
+                            }
+                        }
                         break;
                 }
                 break;
             case POISON:
-                switch (card.getName()) {
-                    case "ZAHAK":
-                        break;
-                    case "VENOM_SNAKE":
-                        break;
-
+                if ("ZAHAK".equals(card.getName())) {
                 }
                 break;
             case DISARM:
-
-                switch (card.getName()) {
-                    case "SEVEN_HEADED_DRAGON":
-                        break;
-
+                if ("SEVEN_HEADED_DRAGON".equals(card.getName())) {
                 }
                 break;
             case WEAKNESS:
-
                 switch (card.getName()) {
                     case "ARASH":
                         break;
@@ -446,13 +439,9 @@ public class Battle {
                         break;
 
                 }
-
                 break;
             case POSITIVE_DISPEL:
-                switch (card.getName()) {
-                    case "AFSANEH":
-                        break;
-
+                if ("AFSANEH".equals(card.getName())) {
                 }
 
                 break;
@@ -522,7 +511,10 @@ public class Battle {
                 }
                 if (buff.getActivationType().equals(ActivationType.PASSIVE)) {
                     if (buff.getTargetType().equals("HEALTH")) {
-                        card.setHealthPoint(card.getHealthPoint() + card.getBuffs().get(0).getPower());
+                        card.setHealthPoint(card.getHealthPoint() + buff.getPower());
+                    }
+                    if(buff.getTargetType().equals("HIT")){
+                        card.setAssaultPower(card.getAssaultPower()+buff.getPower());
                     }
                 }
                 if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0) {
@@ -569,7 +561,6 @@ public class Battle {
         showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
     }
 
-    /*
         public Message selectCollectableId(int collectableId) {
             for (Collectable collectable :
                     collectables[turn % 2]) {
@@ -579,62 +570,23 @@ public class Battle {
             }
 
         }
-
-    */
-/*
     public boolean useItem(Coordinate coordinate) {
         if (menu.getStat() != MenuStat.ITEM_SELECTION)
             return false;
+        return true;
     }
-*/
-    /*
     public Message useSpecialPower(Coordinate coordinate) {
 
     }
 
-    public Message insertCard(Coordinate coordinate, String cardName) {
-        boolean validTarget = false;
-        for (int i = 0; i < 5; i++) {
-            if (playerHands[turn % 2][i].getName().equals(cardName)) {
-                Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (field[coordinate.getX()][coordinate.getY()] != 0) {
-                    return Message.INVALID_TARGET;
-                }
-                for (Card card :
-                        fieldCards[turn % 2]) {
-                    if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
-                        validTarget = true;
-                        break;
-                    }
-                }
-                if (!validTarget) {
-                    return Message.INVALID_TARGET;
-                }
-                field[coordinate.getX()][coordinate.getY()] = insert.getId();
-                insert.setCoordinate(coordinate);
-                playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
-                fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
-                return null;
-
-
-            }
-        }
-        return Message.NOT_IN_HAND;
     }
-
-
-
-    }
-*/
     public void enterGraveyard() {
         menu.setStat(MenuStat.GRAVEYARD);
     }
 
-/*
     public Message showCardInfoInGraveyard(int cardId) {
 
     }
-*/
 
     public void showCard() {
 
