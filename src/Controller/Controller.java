@@ -71,7 +71,10 @@ public class Controller {
                 selectDeck(request);
                 break;
             case SHOW_ALL_DECK:
-                showAllDecks();
+                showAllDecks(request);
+                break;
+            case SHOW_DECK:
+                showDeck(request);
                 break;
         }
     }
@@ -183,12 +186,11 @@ public class Controller {
         }
     }
 
-    public void showDeck() {
-
-    }
-
-    public void helpCollection() {
-
+    public void showDeck(Request request) {
+        if(request.checkShowDeckSyntax()){
+            view.printDeck(this.account.getCollection().getDecks().get(
+                    this.account.getCollection().deckExistance(request.getDeckName(request.getCommand()))));
+        }
     }
 
     public void exitShop() {

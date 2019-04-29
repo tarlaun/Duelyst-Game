@@ -64,7 +64,7 @@ public class Request {
 
     }
 
-    public void checkShowDeckSyntax() {
+    public boolean checkShowDeckSyntax() {
 
     }
 
