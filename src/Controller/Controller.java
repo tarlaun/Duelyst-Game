@@ -59,7 +59,13 @@ public class Controller {
                 deleteDeck(request);
                 break;
             case ADD:
-                addToCollection(request);
+                addToDeck(request);
+                break;
+            case REMOVE:
+                removeFromDeck(request);
+                break;
+            case VALIDATION:
+                validateDeck(request);
                 break;
         }
     }
@@ -133,8 +139,6 @@ public class Controller {
         if(request.checkDeckSyntax()){
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
         }
-
-
     }
 
     public void deleteDeck(Request request) {
@@ -143,21 +147,25 @@ public class Controller {
         }
     }
 
-    public void addToCollection(Request request) {
+    public void addToDeck(Request request) {
         if(request.checkToDeckAdditionSyntax()){
             view.addToCollection(this.account.getCollection().add(request.getDeckName(request.getCommand()),request.getObjectID(request.getCommand())));
         }
     }
 
-    public void removeFromCollection() {
-
+    public void removeFromDeck(Request request) {
+        if(request.checkFromDeckDeletionSyntax()){
+            view.removeFromDeck(this.account.getCollection().remove(request.getDeckName(request.getCommand()),request.getObjectID(request.getCommand())));
+        }
     }
 
-    public void validateDeck() {
-
+    public void validateDeck(Request request) {
+        if(request.checkValidationSyntax()){
+            view.checkValidation(this.account.getCollection().validate(request.getDeckName(request.getCommand())));
+        }
     }
 
-    public void selectDeck() {
+    public void selectDeck(Request request) {
 
     }
 

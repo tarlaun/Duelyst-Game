@@ -51,16 +51,20 @@ public class Request {
         return this.getCommand().matches(this.getStrings()[RequestType.CREATE_DECK.ordinal()]+"\\w+");
     }
 
-    public void checkShowDeckSyntax() {
-
-    }
-
 
     public boolean checkToDeckAdditionSyntax() {
 
     }
 
-    public void checkFromDeckDeletionSyntax() {
+    public boolean checkFromDeckDeletionSyntax() {
+
+    }
+
+    public boolean checkValidationSyntax(){
+
+    }
+
+    public void checkShowDeckSyntax() {
 
     }
 

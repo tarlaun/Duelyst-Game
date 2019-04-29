@@ -194,4 +194,23 @@ public class View {
                 break;
         }
     }
+
+    public void removeFromDeck(Message message){
+        switch (message){
+            case OBJECT_NOT_FOUND:
+                System.out.println("OBJECT NOT FOUND");
+                break;
+            case INVALID_DECK:
+                System.out.println("INVALID DECK");
+                break;
+        }
+    }
+
+    public void checkValidation(boolean validOrNot){
+        if(validOrNot){
+            System.out.println("DECK IS VALID");
+            return;
+        }
+        System.out.println("DECK IS INVALID");
+    }
 }
