@@ -56,7 +56,7 @@ public class Request {
     }
 
 
-    public void checkToDeckAdditionSyntax() {
+    public boolean checkToDeckAdditionSyntax() {
 
     }
 
@@ -146,5 +146,9 @@ public class Request {
 
     public String getDeckName(String input){
         return this.getSplittedCommand(input)[getSplittedCommand(input).length-1];
+    }
+
+    public int getObjectID(String input){
+        return Integer.parseInt(this.getSplittedCommand(input)[1]);
     }
 }

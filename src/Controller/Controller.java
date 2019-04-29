@@ -58,6 +58,9 @@ public class Controller {
             case DELETE_DECK:
                 deleteDeck(request);
                 break;
+            case ADD:
+                addToCollection(request);
+                break;
         }
     }
 
@@ -140,8 +143,10 @@ public class Controller {
         }
     }
 
-    public void addToCollection() {
-
+    public void addToCollection(Request request) {
+        if(request.checkToDeckAdditionSyntax()){
+            view.addToCollection(this.account.getCollection().add(request.getDeckName(request.getCommand()),request.getObjectID(request.getCommand())));
+        }
     }
 
     public void removeFromCollection() {

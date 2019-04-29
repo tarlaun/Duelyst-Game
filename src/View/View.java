@@ -82,7 +82,7 @@ public class View {
             }
         }
         for (int i = 0; i < collection.getItems().size(); i++) {
-            printItem( collection.getItems().get(i));
+            printItem(collection.getItems().get(i));
         }
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (!(collection.getCards().get(i) instanceof Hero)) {
@@ -91,11 +91,11 @@ public class View {
         }
     }
 
-    public void printCard(Card card){
+    public void printCard(Card card) {
 
     }
 
-    public void printItem(Item item){
+    public void printItem(Item item) {
 
     }
 
@@ -143,27 +143,55 @@ public class View {
 
     }
 
-    public void printId(Card... cards){
+    public void printId(Card... cards) {
 
     }
 
-    public void printId(Item... items){
+    public void printId(Item... items) {
 
     }
 
-    public void createDeck(boolean okOrNot){
-        if(okOrNot){
+    public void createDeck(boolean okOrNot) {
+        if (okOrNot) {
             System.out.println("DECK CREATED");
             return;
         }
         System.out.println("DECK ALREADY EXISTS");
     }
 
-    public void deleteDeck(boolean deletedOrNot){
-        if(deletedOrNot){
+    public void deleteDeck(boolean deletedOrNot) {
+        if (deletedOrNot) {
             System.out.println("DECK IS FUCKED UP");
             return;
         }
         System.out.println("DECK IS NOT FUCKED UP");
+    }
+
+    public void addToCollection(Message message) {
+
+        switch (message) {
+
+            case MAXIMUM_ITEM_COUNT:
+                System.out.println(" AN ITEM EXISTS IN DECK");
+                break;
+            case OBJECT_ADDED:
+                System.out.println(" OBJECT ADDED");
+                break;
+            case OBJECT_NOT_FOUND:
+                System.out.println("OBJECT NOT FOUND");
+                break;
+            case FULL_DECK:
+                System.out.println(" DECK IS FULL");
+                break;
+            case MAXIMUM_HERO_COUNT:
+                System.out.println(" A HERO EXISTS IN THE DECK");
+                break;
+            case EXISTS_IN_DECK:
+                System.out.println("OBJECT EXISTS IN DECK");
+                break;
+            case INVALID_DECK:
+                System.out.println(" DECK IS INVALID");
+                break;
+        }
     }
 }
