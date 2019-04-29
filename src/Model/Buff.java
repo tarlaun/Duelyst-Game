@@ -35,4 +35,36 @@ public class Buff {
         this.side = buff.side;
         this.effectArea = buff.effectArea;
     }
+
+    public BuffType getType() {
+        return type;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public String getTargetType() {
+        return targetType;
+    }
+
+    public DispelType getDispelType() {
+        return dispelType;
+    }
+
+    public ActivationType getActivationType() {
+        return activationType;
+    }
+
+    public int getTurnCount() {
+        return turnCount;
+    }
+
+    public Side getSide() {
+        return side;
+    }
+
+    public ArrayList<Coordinate> getEffectArea() {
+        return effectArea;
+    }
 }

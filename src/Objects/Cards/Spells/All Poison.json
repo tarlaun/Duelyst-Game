@@ -11,7 +11,7 @@
   "buffs": [
     {
       "type": "POISON",
-      "power": 0,
+      "power": 1,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",

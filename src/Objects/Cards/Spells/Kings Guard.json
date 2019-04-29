@@ -11,7 +11,7 @@
   "buffs": [
     {
       "type": "HIT_WEAKNESS",
-      "power": 100,
+      "power": 10000,
       "targetType": "Minion",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",

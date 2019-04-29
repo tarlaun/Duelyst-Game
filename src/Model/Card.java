@@ -213,4 +213,9 @@ public class Card {
     public void setAbleToCounter(boolean ableToCounter) {
         this.ableToCounter = ableToCounter;
     }
+
+    public boolean isClass(String name) {
+        return this.getClass().getName().equals(name);
+    }
+
 }

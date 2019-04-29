@@ -14,10 +14,10 @@ public class Battle {
     private Account[] accounts = new Account[2];
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][];
-/*
-    private Collectable[][] collectables = new Collectable[2][];
-    private ArrayList<Collectable> battleCollectables = new ArrayList<>();
-*/
+    /*
+        private Collectable[][] collectables = new Collectable[2][];
+        private ArrayList<Collectable> battleCollectables = new ArrayList<>();
+    */
     private Card[][] playerHands = new Card[2][];
     private int turn;
     private int[][] field;
@@ -26,6 +26,8 @@ public class Battle {
     private Card[][] fieldCards = new Card[2][];
     private Menu menu = new Menu();
     private View view = new View();
+    private final int length = 9;
+    private final int width = 5;
 
 
     public void gameInfo() {
@@ -204,18 +206,18 @@ public class Battle {
         showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
     }
 
-/*
-    public Message selectCollectableId(int collectableId) {
-        for (Collectable collectable :
-                collectables[turn % 2]) {
-            if (collectable.getId() == collectableId) {
-                menu.setStat(MenuStat.ITEM_SELECTION);
+    /*
+        public Message selectCollectableId(int collectableId) {
+            for (Collectable collectable :
+                    collectables[turn % 2]) {
+                if (collectable.getId() == collectableId) {
+                    menu.setStat(MenuStat.ITEM_SELECTION);
+                }
             }
+
         }
 
-    }
-
-*/
+    */
 /*
     public boolean useItem(Coordinate coordinate) {
         if (menu.getStat() != MenuStat.ITEM_SELECTION)
@@ -281,6 +283,66 @@ public class Battle {
 
     public void exit() {
 
+    }
+
+    public boolean useSpell(Spell spell, Coordinate target) {
+        for (Buff buff : spell.getBuffs()) {
+            switch (buff.getEffectArea().get(0).getX()) {
+                case 0:
+                    for (Coordinate coordinate : buff.getEffectArea()) {
+                        for (Card card : fieldCards[turn % 2]) {
+                            if (card.isClass(buff.getTargetType())
+                                    || card.getCoordinate().equals(target.sum(coordinate)))
+                                continue;
+                            applyBuff(buff, card);
+                        }
+                    }
+                    break;
+                case -1:
+                    for (Card card : fieldCards[turn % 2]) {
+                        if (card.isClass(buff.getTargetType())
+                                || card.getCoordinate().getY() != target.getY())
+                            continue;
+                        applyBuff(buff, card);
+                    }
+                    break;
+                case -2:
+                    for (Card card : fieldCards[turn % 2]) {
+                        if (card.isClass(buff.getTargetType())
+                                || card.getCoordinate().getX() != target.getX())
+                            continue;
+                        applyBuff(buff, card);
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void applyBuff(Buff buff, Card card) {
+        card.getCastedBuffs().add(buff);
+        switch (buff.getType()) {
+            case POISON:
+                card.modifyHealth(buff.getPower());
+            case STUN:
+                card.setAbleToAttack(false);
+                card.setAbleToMove(false);
+                break;
+            case DISARM:
+                card.setAbleToCounter(false);
+                break;
+            case HIT_POWER:
+                card.modifyHit(buff.getPower());
+                break;
+            case HEALTH_POWER:
+                card.modifyHealth(buff.getPower());
+                break;
+            case HIT_WEAKNESS:
+                card.modifyHit(buff.getPower());
+                break;
+            case HEALTH_WEAKNESS:
+                card.modifyHealth(buff.getPower());
+                break;
+        }
     }
 
 }
