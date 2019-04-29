@@ -60,25 +60,34 @@ public class Battle {
 
     }
 
-/*
-    public boolean moveTo(Coordinate coordinate) {
-        if (currentCard.getCoordinate() == coordinate) {
+    /*
+        public boolean moveTo(Coordinate coordinate) {
+            if (currentCard.getCoordinate() == coordinate) {
+                return true;
+            }
+            if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
+                return false;
+            }
+            if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate()).length == 0) {
+                return false;
+            }
+            field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = 0;
+            currentCard.setCoordinate(Coordinate.getPathDirections(coordinate, currentCard.getCoordinate())[0]);
+            field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = currentCard.getId();
+            moveTo(coordinate);
             return true;
-        }
-        if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
-            return false;
-        }
-        if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate()).length == 0) {
-            return false;
-        }
-        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = 0;
-        currentCard.setCoordinate(Coordinate.getPathDirections(coordinate, currentCard.getCoordinate())[0]);
-        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = currentCard.getId();
-        moveTo(coordinate);
-        return true;
 
+        }
+    */
+    public boolean isAttackable(Card currentCard, Card targetCard) {
+        if (targetCard.getName().equals("GIV")) {
+            return false;
+        }
+        if (targetCard.getName().equals("ASHKBOOS") && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
+            return false;
+        }
+        return true;
     }
-*/
 
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
@@ -98,11 +107,8 @@ public class Battle {
         onAttackSpecialPower();
         currentCard.setAbleToAttack(false);
         targetCard.decreaseHealth(currentCard.getAssaultPower());
-        if(!targetCard.getName().equals("GIV")){
+        if (isAttackable(currentCard, targetCard))
             targetCard.setHealthPoint(targetCard.getHealthPoint() - targetCard.getIsHoly());
-        }
-
-
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
         return null;
@@ -268,12 +274,12 @@ public class Battle {
                     targetCard.setAbleToAttack(false);
                     targetCard.addToBuffs(currentCard.getBuffs().get(0));
                 }
-                if(!targetCard.getName().equals("PIRAN")) {
+                if (!targetCard.getName().equals("PIRAN")) {
                     targetCard.addToBuffs(currentCard.getBuffs().get(1));
                 }
                 break;
             case "VENOM_SNAKE":
-                if(!targetCard.getName().equals("PIRAN")) {
+                if (!targetCard.getName().equals("PIRAN")) {
                     targetCard.addToBuffs(currentCard.getBuffs().get(0));
                 }
                 break;
@@ -531,9 +537,9 @@ public class Battle {
                 if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
                     card.setAssaultPower(card.getOriginalAssaultPower());
                 }
-                if(card.getName().equals("GIV") && (buff.getType().equals(BuffType.DISARM)
+                if (card.getName().equals("GIV") && (buff.getType().equals(BuffType.DISARM)
                         || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
-                        || buff.getType().equals(BuffType.STUN))){
+                        || buff.getType().equals(BuffType.STUN))) {
                     card.removeFromBuffs(buff);
                 }
                 if (buff.getTurnCount() == 0) {
