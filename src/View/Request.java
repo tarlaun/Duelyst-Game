@@ -47,7 +47,7 @@ public class Request {
         return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()] + "\\w+");
     }
 
-    public boolean checkDeckCreationSyntax() {
+    public boolean checkDeckSyntax() {
         return this.getCommand().matches(this.getStrings()[RequestType.CREATE_DECK.ordinal()]+"\\w+");
     }
 
@@ -55,9 +55,6 @@ public class Request {
 
     }
 
-    public void checkDeckDeletionSyntax() {
-
-    }
 
     public void checkToDeckAdditionSyntax() {
 

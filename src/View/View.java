@@ -158,4 +158,12 @@ public class View {
         }
         System.out.println("DECK ALREADY EXISTS");
     }
+
+    public void deleteDeck(boolean deletedOrNot){
+        if(deletedOrNot){
+            System.out.println("DECK IS FUCKED UP");
+            return;
+        }
+        System.out.println("DECK IS NOT FUCKED UP");
+    }
 }

@@ -53,7 +53,10 @@ public class Controller {
                 saveCollection();
                 break;
             case CREATE_DECK:
-                createDeck();
+                createDeck(request);
+                break;
+            case DELETE_DECK:
+                deleteDeck(request);
                 break;
         }
     }
@@ -124,15 +127,17 @@ public class Controller {
     }
 
     public void createDeck(Request request) {
-        if(request.checkDeckCreationSyntax()){
+        if(request.checkDeckSyntax()){
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
         }
 
 
     }
 
-    public void deleteDeck() {
-
+    public void deleteDeck(Request request) {
+        if(request.checkDeckSyntax()){
+            view.deleteDeck(this.account.getCollection().deleteDeck(request.getDeckName(request.getCommand())));
+        }
     }
 
     public void addToCollection() {
