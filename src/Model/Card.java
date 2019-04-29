@@ -23,7 +23,7 @@ public class Card {
     private boolean ableToAttack = false;
     private boolean ableToMove = false;
     private int cardHolder;
-    private boolean isHoly = false;
+    private int isHoly = 0;
 
     public int getCardHolder() {
         return cardHolder;
@@ -58,12 +58,12 @@ public class Card {
         this.cardHolder = cardHolder;
     }
 
-    public boolean isHoly() {
+    public int getIsHoly() {
         return isHoly;
     }
 
-    public void setHoly(boolean holy) {
-        isHoly = holy;
+    public void setIsHoly(int isHoly) {
+        this.isHoly = isHoly;
     }
 
     public void addToBuffs(Buff buff){

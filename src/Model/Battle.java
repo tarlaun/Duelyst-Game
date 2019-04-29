@@ -5,6 +5,7 @@ import View.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Battle {
     private Card currentCard;
@@ -23,6 +24,7 @@ public class Battle {
     private Card[][] fieldCards = new Card[2][];
     private Menu menu = new Menu();
     private View view = new View();
+    Random rand = new Random();
 
     public Cell getField(int x, int y) {
         return field[x][y];
@@ -228,7 +230,8 @@ public class Battle {
 
     public boolean useSpecialPowerForCombo(Card... cards) {
         for (Card card : cards) {
-            if (!(card.getName().equals("PERSIAN_COMMANDER")) && !(card.getName().equals("TURANIAN_PRINCE")) && !(card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))) {
+            if (!(card.getName().equals("PERSIAN_COMMANDER")) && !(card.getName().equals("TURANIAN_PRINCE")) &&
+                    !(card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))) {
                 return false;
             }
         }
@@ -294,6 +297,7 @@ public class Battle {
     }
 
     private void useSpecialPower(Card card, Buff buff) {
+        int r=0;
         switch (buff.getType()) {
             case HOLY:
                 switch (card.getName()) {
@@ -301,10 +305,6 @@ public class Battle {
                         card.addToBuffs(buff);
                         break;
                     case "ASHKBOOS":
-
-                        break;
-                    case "NANE_WITCH":
-
 
                         break;
                     case "KAVEH":
@@ -389,10 +389,27 @@ public class Battle {
                         }
                         break;
                     case "GIANT_SNAKE":
-                        break;
-                    case "WITCH":
+                        for (int i = 0; i <9 ; i++) {
+                            for (int j = 0; j < 5; j++) {
+                                if(Coordinate.getManhattanDistance(field[i][j].getCoordinate(),card.getCoordinate())<=2
+                                        && Coordinate.getManhattanDistance(field[i][j].getCoordinate(),card.getCoordinate())!=0
+                                && field[i][j].getCardID()!=0){
+                                    Card target = Card.getCardByID(field[i][j].getCardID(),fieldCards[turn%2]);
+                                    assert target != null;
+                                    target.addToBuffs(card.getBuffs().get(0));
+
+                                }
+                            }
+                        }
                         break;
                     case "BAHMAN":
+                        if(fieldCards[(turn+1)%2].length>=2) {
+                            r = rand.nextInt(fieldCards[(turn + 1) % 2].length);
+                            r += 1;
+                            Card target = Card.getCardByID(r,fieldCards[(turn+1)%2]);
+                            assert target != null;
+                            target.addToBuffs(card.getBuffs().get(0));
+                        }
                         break;
                     case "SIAVASH":
                         for (int i = 0; i < fieldCards[(turn+1)%2].length; i++) {
@@ -438,7 +455,7 @@ public class Battle {
         for (int i = 0; i < 5; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (field[coordinate.getX()][coordinate.getY()] != 0) {
+                if (field[coordinate.getX()][coordinate.getY()].getCardID()!=0) {
                     return Message.INVALID_TARGET;
                 }
                 for (Card card :
@@ -451,7 +468,7 @@ public class Battle {
                 if (!validTarget) {
                     return Message.INVALID_TARGET;
                 }
-                field[coordinate.getX()][coordinate.getY()] = insert.getId();
+                field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
                 insert.setCoordinate(coordinate);
                 playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
                 fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
@@ -497,10 +514,10 @@ public class Battle {
                     }
                 }
                 if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0) {
-                    card.setHoly(true);
+                    card.setIsHoly(buff.getPower());
                 }
                 if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
-                    card.setHoly(false);
+                    card.setIsHoly(0);
                 }
                 if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
                     card.setAssaultPower(card.getAssaultPower() + buff.getPower());
