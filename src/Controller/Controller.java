@@ -45,6 +45,9 @@ public class Controller {
             case EXIT:
                 exit();
                 break;
+            case ENTRANCE:
+                enter(request);
+                break;
             case SHOW_COLLECTION:
                 showTheCollection();
                 break;
