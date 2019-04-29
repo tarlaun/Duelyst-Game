@@ -130,7 +130,18 @@ public class Controller {
     }
 
     public void enter(Request request) {
-
+        if (request.checkMenuEntrnaceSyntax()) {
+            switch (request.getCommand()) {
+                case "Exit":
+                    exit();
+                    break;
+                case "Help":
+                    help();
+                    break;
+                default:
+                    menu.setStat(MenuStat.valueOf(request.getCommand().toUpperCase()));
+            }
+        }
     }
 
     public void exit() {
