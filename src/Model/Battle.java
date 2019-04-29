@@ -10,6 +10,7 @@ import java.util.Random;
 public class Battle {
     private Card currentCard;
     private Card targetCard;
+    private Coordinate currentCoordinate;
     private Item currentItem;
     private Account[] accounts = new Account[2];
     private Account currentPlayer;
@@ -25,6 +26,14 @@ public class Battle {
     private Menu menu = new Menu();
     private View view = new View();
     Random rand = new Random();
+
+    public Coordinate getCurrentCoordinate() {
+        return currentCoordinate;
+    }
+
+    public void setCurrentCoordinate(Coordinate currentCoordinate) {
+        this.currentCoordinate = currentCoordinate;
+    }
 
     public Cell getField(int x, int y) {
         return field[x][y];
@@ -251,7 +260,24 @@ public class Battle {
                 Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
                         < currentCard.getMinRange())
             return false;
+        if(currentCard.getRangeType().equals(RangeType.MELEE)){
+            if(Math.abs(currentCard.getCoordinate().getY()-targetCard.getCoordinate().getY())>1 ||
+            Math.abs(currentCard.getCoordinate().getX()-targetCard.getCoordinate().getX())>1){
+                return false;
+            }
+        }
         return true;
+    }
+
+    public Message holifyCell(Coordinate coordinate){
+        Cell cell = field[coordinate.getX()][coordinate.getY()];
+        if(!cell.isHoly()){
+            cell.setHoly(true);
+            cell.setHolyTurn(3);
+            return null;
+        }else{
+            return Message.INVALID_TARGET;
+        }
     }
 
     public boolean useSpecialPowerForCombo(Card... cards) {
@@ -320,6 +346,9 @@ public class Battle {
             case "WOLF":
                 targetCard.addToBuffs(currentCard.getBuffs().get(0));
                 break;
+            case "ZAHAK":
+                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                break;
             case "TWO_HEADED_GIANT":
                 for (Buff buff : targetCard.getCastedBuffs()) {
                     if (buff.getType().equals(BuffType.HOLY) || buff.getType().equals(BuffType.POWER)) {
@@ -339,7 +368,9 @@ public class Battle {
                         card.addToBuffs(buff);
                         break;
                     case "KAVEH":
-
+                        if(spendMana(card.getManaPoint())){
+                            holifyCell(currentCoordinate );
+                        }
 
                         break;
                     case "ESFANDIAR":
@@ -360,8 +391,12 @@ public class Battle {
                             }
                         }
                         break;
-                    case "RAKHSH":
-
+                    case "RAKHSH": //we need to choose a target here
+                        if(spendMana(card.getManaPoint())){
+                            targetCard.addToBuffs(buff);
+                            targetCard.setAbleToAttack(false);
+                            targetCard.setAbleToMove(false);
+                        }
 
                         break;
                     case "NANE_SARMA":
@@ -412,8 +447,7 @@ public class Battle {
                 break;
             case POISON:
                 switch (card.getName()) {
-                    case "ZAHAK":
-                        break;
+
                     case "VENOM_SNAKE":
                         break;
 
@@ -423,6 +457,10 @@ public class Battle {
 
                 switch (card.getName()) {
                     case "SEVEN_HEADED_DRAGON":
+                        if(spendMana(card.getManaPoint())){ // we need to choose a target here
+                            targetCard.addToBuffs(buff);
+                            targetCard.setAbleToAttack(false);
+                        }
                         break;
 
                 }

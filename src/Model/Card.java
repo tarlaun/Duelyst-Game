@@ -13,7 +13,7 @@ public class Card {
     private int minRange;
     private int maxRange;
     private int assaultPower;
-    private int originalAssaultPower ;
+    private int originalAssaultPower;
     private AssaultType assaultType;
     private ActivationType activationType;
     private ArrayList<Buff> buffs = new ArrayList<>();
@@ -24,6 +24,7 @@ public class Card {
     private boolean ableToMove = false;
     private int cardHolder;
     private int isHoly = 0;
+    private RangeType rangeType;
 
     public int getCardHolder() {
         return cardHolder;
@@ -66,12 +67,14 @@ public class Card {
         this.isHoly = isHoly;
     }
 
-    public void addToBuffs(Buff buff){
+    public void addToBuffs(Buff buff) {
         this.castedBuffs.add(buff);
     }
-    public void removeFromBuffs(Buff buff){
+
+    public void removeFromBuffs(Buff buff) {
         this.castedBuffs.remove(buff);
     }
+
     public Card(int id, String[] info) {
         this.id = id;
         this.name = info[MainInfoOrder.NAME.ordinal()];
@@ -250,7 +253,14 @@ public class Card {
         return cardsArrayList.toArray(Card[]::new);
     }
 
-   /* public static String[] cardInfoDecryption(String info) {
+    public RangeType getRangeType() {
+        return rangeType;
+    }
+
+    public void setRangeType(RangeType rangeType) {
+        this.rangeType = rangeType;
+    }
+    /* public static String[] cardInfoDecryption(String info) {
 
     }*/
 }
