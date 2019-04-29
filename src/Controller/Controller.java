@@ -49,7 +49,7 @@ public class Controller {
             case SEARCH_COLLECTION:
                 searchInCollection(request);
                 break;
-            case SAVE_IN_COLLECTION :
+            case SAVE_IN_COLLECTION:
                 saveCollection();
                 break;
             case CREATE_DECK:
@@ -75,6 +75,9 @@ public class Controller {
                 break;
             case SHOW_DECK:
                 showDeck(request);
+                break;
+            case SHOW_COLLECTION_IN_SHOP:
+                showCollectionShop(request);
                 break;
         }
     }
@@ -145,60 +148,56 @@ public class Controller {
     }
 
     public void createDeck(Request request) {
-        if(request.checkDeckSyntax()){
+        if (request.checkDeckSyntax()) {
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
         }
     }
 
     public void deleteDeck(Request request) {
-        if(request.checkDeckSyntax()){
+        if (request.checkDeckSyntax()) {
             view.deleteDeck(this.account.getCollection().deleteDeck(request.getDeckName(request.getCommand())));
         }
     }
 
     public void addToDeck(Request request) {
-        if(request.checkToDeckAdditionSyntax()){
-            view.addToCollection(this.account.getCollection().add(request.getDeckName(request.getCommand()),request.getObjectID(request.getCommand())));
+        if (request.checkToDeckAdditionSyntax()) {
+            view.addToCollection(this.account.getCollection().add(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
         }
     }
 
     public void removeFromDeck(Request request) {
-        if(request.checkFromDeckDeletionSyntax()){
-            view.removeFromDeck(this.account.getCollection().remove(request.getDeckName(request.getCommand()),request.getObjectID(request.getCommand())));
+        if (request.checkFromDeckDeletionSyntax()) {
+            view.removeFromDeck(this.account.getCollection().remove(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
         }
     }
 
     public void validateDeck(Request request) {
-        if(request.checkValidationSyntax()){
+        if (request.checkValidationSyntax()) {
             view.checkValidation(this.account.getCollection().validate(request.getDeckName(request.getCommand())));
         }
     }
 
     public void selectDeck(Request request) {
-        if(request.checkDeckSelectionSyntax()){
+        if (request.checkDeckSelectionSyntax()) {
             view.printDeckSelection(this.account.getCollection().selectDeck(request.getDeckName(request.getCommand())));
         }
     }
 
     public void showAllDecks(Request request) {
-        if(request.checkShowAllDeckSyntax()){
+        if (request.checkShowAllDeckSyntax()) {
             view.showAllDeck(this.account.getCollection().getDecks());
         }
     }
 
     public void showDeck(Request request) {
-        if(request.checkShowDeckSyntax()){
+        if (request.checkShowDeckSyntax()) {
             view.printDeck(this.account.getCollection().getDecks().get(
                     this.account.getCollection().deckExistance(request.getDeckName(request.getCommand()))));
         }
     }
 
-    public void exitShop() {
-
-    }
-
-    public void showCollectionShop() {
-
+    public void showCollectionShop(Request request) {
+        view.printShopCollection(this.account.getCollection());
     }
 
     public void searchInShop() {
@@ -214,10 +213,6 @@ public class Controller {
     }
 
     public void showShop() {
-
-    }
-
-    public void helpShop() {
 
     }
 
@@ -294,10 +289,6 @@ public class Controller {
     }
 
     public void showCards() {
-
-    }
-
-    public void battleHelp() {
 
     }
 

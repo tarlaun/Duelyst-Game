@@ -24,6 +24,7 @@ public enum RequestType {
     SHOW_COLLECTION,
     SEARCH_COLLECTION,
     SAVE_IN_COLLECTION,
+    SHOW_COLLECTION_IN_SHOP,
     BUY,
     SELL,
     GAME_INFO,

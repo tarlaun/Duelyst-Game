@@ -103,8 +103,23 @@ public class View {
 
     }
 
-    public void printShopCollection() {
-
+    public void printShopCollection(Collection collection) {
+        for (int i = 0; i < collection.getCards().size(); i++) {
+            if (collection.getCards().get(i) instanceof Hero) {
+                printHero((Hero) collection.getCards().get(i));
+                System.out.println(collection.getCards().get(i).getPrice());
+            }
+        }
+        for (int i = 0; i < collection.getItems().size(); i++) {
+            printItem(collection.getItems().get(i));
+            System.out.println(collection.getItems().get(i).getPrice());
+        }
+        for (int i = 0; i < collection.getCards().size(); i++) {
+            if (!(collection.getCards().get(i) instanceof Hero)) {
+                printCard(collection.getCards().get(i));
+                System.out.println(collection.getCards().get(i).getPrice());
+            }
+        }
     }
 
     public void printObjects() {
@@ -191,8 +206,8 @@ public class View {
         }
     }
 
-    public void removeFromDeck(Message message){
-        switch (message){
+    public void removeFromDeck(Message message) {
+        switch (message) {
             case OBJECT_NOT_FOUND:
                 System.out.println("OBJECT NOT FOUND");
                 break;
@@ -202,30 +217,30 @@ public class View {
         }
     }
 
-    public void checkValidation(boolean validOrNot){
-        if(validOrNot){
+    public void checkValidation(boolean validOrNot) {
+        if (validOrNot) {
             System.out.println("DECK IS VALID");
             return;
         }
         System.out.println("DECK IS INVALID");
     }
 
-    public void printDeckSelection(boolean selectedOrNot){
-        if(selectedOrNot){
+    public void printDeckSelection(boolean selectedOrNot) {
+        if (selectedOrNot) {
             System.out.println("DECK SELECTED");
             return;
         }
         System.out.println("DECK IS MOTHERFUCKER");
     }
 
-    public void showAllDeck(ArrayList<Deck>  decks){
-        for (int i = 0; i < decks.size() ; i++) {
-            System.out.println(i+1+"-");
+    public void showAllDeck(ArrayList<Deck> decks) {
+        for (int i = 0; i < decks.size(); i++) {
+            System.out.println(i + 1 + "-");
             printDeck(decks.get(i));
         }
     }
 
-    public void printDeck(Deck deck){
+    public void printDeck(Deck deck) {
 
     }
 }
