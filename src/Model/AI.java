@@ -1,10 +1,12 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AI {
     private int level;
-    Battle battle = new Battle();
+    private Battle battle = new Battle();
+    private ArrayList<Card> aiCards = new ArrayList<>();
 
     public Coordinate setCardCoordinates(Card card) {
 
@@ -31,6 +33,7 @@ public class AI {
                     }
                     return closestEnemyCards.get(miratarin).getCoordinate();
                 break;
+
                 case RANGED:
                 case HYBRID:
                     for (int i = -card.getMaxRange(); i <= card.getMaxRange(); i++) {
@@ -92,7 +95,7 @@ public class AI {
                                         if (battle.getFieldCards()[0][i] instanceof Hero) {
                                             return card.getCoordinate();
                                         }
-                                        enemyIsNear =true ;
+                                        enemyIsNear = true;
                                     }
                                 }
                             }
@@ -104,8 +107,8 @@ public class AI {
                                 }
                             }
                         }
-                        if(enemyIsNear) return card.getCoordinate();
-                        return new Coordinate(card.getCoordinate().getX(),card.getCoordinate().getY());
+                        if (enemyIsNear) return card.getCoordinate();
+                        return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
                     }
                     break;
                 case RANGED:
@@ -117,9 +120,39 @@ public class AI {
             }
             return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
         }
+        return null;
     }
 
     public Card chooseCard(ArrayList<Card> cards) {
 
+        int [] bestCardToChoose = new int[cards.size()];
+        for (int i = 0; i <cards.size() ; i++) {
+            if(cards.get(i).getBuffs().size()==1){
+                bestCardToChoose[i]=10;
+                chooseBestCard(cards, bestCardToChoose, i , 0);
+
+            }
+            if(cards.get(i).getBuffs().size()==2){
+                bestCardToChoose[i]=100;
+                chooseBestCard(cards, bestCardToChoose, i, 0);
+                chooseBestCard(cards, bestCardToChoose , i , 1);
+            }
+        }
+
+
+
+
+    }
+
+    private void chooseBestCard(ArrayList<Card> cards, int[] bestCardToChoose, int i , int whichBuff) {
+        if(cards.get(i).getBuffs().get(whichBuff).getActivationType().equals(ActivationType.ON_ATTACK)){
+            bestCardToChoose[i]+=5;
+        }
+        if(cards.get(i).getBuffs().get(whichBuff).getActivationType().equals(ActivationType.PASSIVE)){
+            bestCardToChoose[i]+=2;
+        }
+        if(cards.get(i).getBuffs().get(whichBuff).getActivationType().equals(ActivationType.COMBO)){
+            bestCardToChoose[i]+=1;
+        }
     }
 }
