@@ -213,4 +213,12 @@ public class View {
         }
         System.out.println("DECK IS INVALID");
     }
+
+    public void printDeckSelection(boolean selectedOrNot){
+        if(selectedOrNot){
+            System.out.println("DECK SELECTED");
+            return;
+        }
+        System.out.println("DECK IS MOTHERFUCKER");
+    }
 }

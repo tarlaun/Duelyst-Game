@@ -68,7 +68,7 @@ public class Request {
 
     }
 
-    public void checkDeckSelectionSyntax() {
+    public boolean checkDeckSelectionSyntax() {
 
     }
 

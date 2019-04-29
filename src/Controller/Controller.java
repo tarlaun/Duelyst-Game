@@ -67,6 +67,8 @@ public class Controller {
             case VALIDATION:
                 validateDeck(request);
                 break;
+            case SELECT_DECK:
+                selectDeck(request);
         }
     }
 
@@ -166,7 +168,9 @@ public class Controller {
     }
 
     public void selectDeck(Request request) {
-
+        if(request.checkDeckSelectionSyntax()){
+            view.printDeckSelection(this.account.getCollection().selectDeck(request.getDeckName(request.getCommand())));
+        }
     }
 
     public void showAllDecks() {
