@@ -21,7 +21,11 @@ public class Card {
     private Coordinate coordinate;
     private boolean ableToAttack = false;
     private boolean ableToMove = false;
+    private int cardHolder;
 
+    public int getCardHolder() {
+        return cardHolder;
+    }
 
     public Card(String[] info) {
         this.name = info[MainInfoOrder.NAME.ordinal()];
@@ -53,6 +57,10 @@ public class Card {
 
     public String getName() {
         return name;
+    }
+
+    public AssaultType getAssaultType() {
+        return assaultType;
     }
 
     public void setMinRange(int minRange) {
@@ -108,6 +116,22 @@ public class Card {
         return null;
     }
 
+    public ActivationType getActivationType() {
+        return activationType;
+    }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public ArrayList<Buff> getCastedBuffs() {
+        return castedBuffs;
+    }
+
+    public int getManaPoint() {
+        return manaPoint;
+    }
+
     public void setAbleToAttack(boolean ableToAttack) {
         this.ableToAttack = ableToAttack;
     }
@@ -160,21 +184,15 @@ public class Card {
         this.healthPoint -= decrement;
     }
 
-/*
     public static Card[] removeFromArray(Card[] cards, Card card) {
         List<Card> cardsArrayList = new ArrayList<>(Arrays.asList(cards));
         cardsArrayList.remove(card);
-        return cardsArrayList.toArray(Card[]::new);
+        return cardsArrayList.toArray(new Card[cardsArrayList.size()]);
     }
 
     public static Card[] addToArray(Card[] cards, Card card) {
         List<Card> cardsArrayList = new ArrayList<>(Arrays.asList(cards));
         cardsArrayList.add(card);
-        return cardsArrayList.toArray(Card[]::new);
+        return cardsArrayList.toArray(new Card[cardsArrayList.size()]);
     }
-
-    public static String[] cardInfoDecryption(String info) {
-
-    }
-*/
 }
