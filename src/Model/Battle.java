@@ -98,9 +98,8 @@ public class Battle {
         onAttackSpecialPower();
         currentCard.setAbleToAttack(false);
         targetCard.decreaseHealth(currentCard.getAssaultPower());
-        if (targetCard.isHoly()) {
-            targetCard.setHealthPoint(targetCard.getHealthPoint() + 1);
-        }
+        targetCard.setHealthPoint(targetCard.getHealthPoint() - targetCard.getIsHoly());
+
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
         return null;
@@ -188,8 +187,8 @@ public class Battle {
 
     private void killEnemy(Card targetCard) {
         if (targetCard.getHealthPoint() <= 0) {
-            if(targetCard.getBuffs().size()==1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH)){
-                useSpecialPower(targetCard,targetCard.getBuffs().get(0));
+            if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH)) {
+                useSpecialPower(targetCard, targetCard.getBuffs().get(0));
             }
             ArrayList<Card> opponentFieldCards = new ArrayList<>(Arrays.asList(fieldCards[(turn + 1) % 2]));
             opponentFieldCards.remove(targetCard);
@@ -262,16 +261,22 @@ public class Battle {
                 targetCard.decreaseHealth(multiply);
                 break;
             case "TURANIAN_SPY":
-                targetCard.setAbleToAttack(false);
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                targetCard.addToBuffs(currentCard.getBuffs().get(1));
+                if (!targetCard.getName().equals("WILD_HOG")) {
+                    targetCard.setAbleToAttack(false);
+                    targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                }
+                if(!targetCard.getName().equals("PIRAN")) {
+                    targetCard.addToBuffs(currentCard.getBuffs().get(1));
+                }
                 break;
             case "VENOM_SNAKE":
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                if(!targetCard.getName().equals("PIRAN")) {
+                    targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                }
                 break;
             case "LION":
                 for (Buff buff : targetCard.getCastedBuffs()) {
-                    if (buff.getType().equals(BuffType.HOLY)) {
+                    if (buff.getType().equals(BuffType.HOLY) && buff.getPower() > 0) {
                         targetCard.decreaseHealth(1);
                     }
                 }
@@ -297,7 +302,7 @@ public class Battle {
     }
 
     private void useSpecialPower(Card card, Buff buff) {
-        int r=0;
+        int r = 0;
         switch (buff.getType()) {
             case HOLY:
                 switch (card.getName()) {
@@ -329,7 +334,7 @@ public class Battle {
                         for (int i = -1; i < 2; i++) {
                             for (int j = -1; j < 2; j++) {
                                 if (getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID() != 0) {
-                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID(), fieldCards[(turn+1) % 2]);
+                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID(), fieldCards[(turn + 1) % 2]);
                                     if (target != null) {
                                         target.addToBuffs(card.getBuffs().get(0));
                                         target.setAbleToAttack(false);
@@ -401,12 +406,12 @@ public class Battle {
                         }
                         break;
                     case "GIANT_SNAKE":
-                        for (int i = 0; i <9 ; i++) {
+                        for (int i = 0; i < 9; i++) {
                             for (int j = 0; j < 5; j++) {
-                                if(Coordinate.getManhattanDistance(field[i][j].getCoordinate(),card.getCoordinate())<=2
-                                        && Coordinate.getManhattanDistance(field[i][j].getCoordinate(),card.getCoordinate())!=0
-                                && field[i][j].getCardID()!=0){
-                                    Card target = Card.getCardByID(field[i][j].getCardID(),fieldCards[turn%2]);
+                                if (Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) <= 2
+                                        && Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) != 0
+                                        && field[i][j].getCardID() != 0) {
+                                    Card target = Card.getCardByID(field[i][j].getCardID(), fieldCards[turn % 2]);
                                     assert target != null;
                                     target.addToBuffs(card.getBuffs().get(0));
 
@@ -415,38 +420,24 @@ public class Battle {
                         }
                         break;
                     case "BAHMAN":
-                        if(fieldCards[(turn+1)%2].length>=2) {
+                        if (fieldCards[(turn + 1) % 2].length >= 2) {
                             r = rand.nextInt(fieldCards[(turn + 1) % 2].length);
                             r += 1;
-                            Card target = Card.getCardByID(r,fieldCards[(turn+1)%2]);
+                            Card target = Card.getCardByID(r, fieldCards[(turn + 1) % 2]);
                             assert target != null;
                             target.addToBuffs(card.getBuffs().get(0));
                         }
                         break;
                     case "SIAVASH":
-                        for (int i = 0; i < fieldCards[(turn+1)%2].length; i++) {
-                            if(fieldCards[(turn+1)%2][i] instanceof Hero){
-                                fieldCards[(turn+1)%2][i].addToBuffs(buff);
+                        for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
+                            if (fieldCards[(turn + 1) % 2][i] instanceof Hero) {
+                                fieldCards[(turn + 1) % 2][i].addToBuffs(buff);
                             }
                         }
                         break;
 
                 }
 
-                break;
-            case NEGATIVE_DISPEL:
-                switch (card.getName()) {
-                    case "LION":
-                        break;
-
-                    case "WILD_HOG":
-
-                        break;
-                    case "PIRAN":
-                        break;
-                    case "GIV":
-                        break;
-                }
                 break;
             case POSITIVE_DISPEL:
                 switch (card.getName()) {
@@ -467,7 +458,7 @@ public class Battle {
         for (int i = 0; i < 5; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (field[coordinate.getX()][coordinate.getY()].getCardID()!=0) {
+                if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
                     return Message.INVALID_TARGET;
                 }
                 for (Card card :
