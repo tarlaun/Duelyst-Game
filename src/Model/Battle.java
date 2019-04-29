@@ -243,6 +243,7 @@ public class Battle {
                 return false;
             }
         }
+        return true;
     }
 
     public Message validSpecialPower(Coordinate coordinate) {
@@ -256,6 +257,7 @@ public class Battle {
             return Message.NOT_ABLE_TO_ATTACK;
         }
         useSpecialPower(card, card.getBuffs().get(0));
+        return null;
     }
 
     private void onAttackSpecialPower() {
@@ -408,7 +410,7 @@ public class Battle {
                         for (int i = -1; i < 2; i++) {
                             for (int j = -1; j < 2; j++) {
                                 Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
-                                if (target != null && target instanceof Minion) {
+                                if (target instanceof Minion) {
                                     target.addToBuffs(card.getBuffs().get(0));
                                 }
                             }
@@ -499,18 +501,29 @@ public class Battle {
     public void endTurn() {
         for (Card card : fieldCards[0]) {
             for (Buff buff : card.getCastedBuffs()) {
+                if (card.getName().equals("GIV") && (buff.getType().equals(BuffType.DISARM)
+                        || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
+                        || buff.getType().equals(BuffType.STUN))) {
+                    card.removeFromBuffs(buff);
+                    card.setAbleToMove(true);
+                    card.setAbleToAttack(true);
+                    card.setAssaultPower(card.getOriginalAssaultPower());
+
+                }
                 if (buff.getTurnCount() > 0) {
                     buff.setTurnCount(buff.getTurnCount() - 1);
+                }
+                if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() != 0) {
+                    card.setAbleToAttack(false);
+                    card.setAbleToMove(false);
                 }
                 if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() == 0) {
                     card.setAbleToMove(true);
                     card.setAbleToAttack(true);
                 }
                 if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
-                    card.decreaseHealth(1);
-                } else if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() == 0) {
-                }
-                if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
+                    card.decreaseHealth(buff.getPower());
+                } else if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
                     card.setAbleToAttack(true);
                 }
                 if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
@@ -537,11 +550,7 @@ public class Battle {
                 if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
                     card.setAssaultPower(card.getOriginalAssaultPower());
                 }
-                if (card.getName().equals("GIV") && (buff.getType().equals(BuffType.DISARM)
-                        || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
-                        || buff.getType().equals(BuffType.STUN))) {
-                    card.removeFromBuffs(buff);
-                }
+
                 if (buff.getTurnCount() == 0) {
                     card.removeFromBuffs(buff);
                 }
