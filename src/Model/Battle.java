@@ -170,6 +170,17 @@ public class Battle {
         return menu;
     }
 
+    public void setManaPoints(){
+        if(turn<=7) {
+            accounts[0].setMana(turn + 1);
+            accounts[1].setMana(turn + 2);
+        }
+        else {
+            accounts[0].setMana(Constants.MAX_MANA);
+            accounts[0].setMana(Constants.MAX_MANA);
+        }
+    }
+
 
     private void checkAttackHistory(int opponentCardId, Card currentCard) {
         boolean newMinion = true;

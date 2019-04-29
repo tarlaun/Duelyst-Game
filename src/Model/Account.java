@@ -12,6 +12,47 @@ public class Account {
     private ArrayList<Match> matchHistory = new ArrayList<>();
     private Collection collection;
     private static Game game = Game.getInstance();
+    private int mana=0;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public void setMatchHistory(ArrayList<Match> matchHistory) {
+        this.matchHistory = matchHistory;
+    }
+
+    public void setCollection(Collection collection) {
+        this.collection = collection;
+    }
+
+    public static Game getGame() {
+        return game;
+    }
+
+    public static void setGame(Game game) {
+        Account.game = game;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
 
     public Account(String name, String password) {
         this.name = name;

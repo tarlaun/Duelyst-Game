@@ -17,4 +17,5 @@ public class Constants {
     static final int ALL_TIME = 1000000;
     static final int UNDIFINED_POWER = 0;
     static final Side ALL_SIDES = Side.ALL;
+    static final int MAX_MANA=9;
 }
