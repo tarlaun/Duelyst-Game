@@ -374,6 +374,7 @@ public class Battle {
 
                         break;
                     case "ESFANDIAR":
+                        card.addToBuffs(buff);
 
 
                         break;
@@ -469,6 +470,16 @@ public class Battle {
 
                 switch (card.getName()) {
                     case "ARASH":
+                        if(spendMana(card.getManaPoint())){
+                            for (Card target:
+                                fieldCards[(turn+1)%2] ) {
+                                if(target.getCoordinate().getY()==card.getCoordinate().getY()){
+                                    if(!target.getName().equals("GIV")){
+                                        target.decreaseHealth(4);
+                                    }
+                                }
+                            }
+                        }
                         break;
                     case "CYCLOPS":
                         for (int i = -1; i < 2; i++) {
@@ -516,7 +527,13 @@ public class Battle {
                 break;
             case POSITIVE_DISPEL:
                 switch (card.getName()) {
-                    case "AFSANEH":
+                    case "AFSANEH": // we need to choose a target here
+                        if(spendMana(card.getManaPoint())){
+                            for (Buff buffToDispel:
+                                targetCard.getCastedBuffs() ) {
+                                targetCard.getCastedBuffs().remove(buff);
+                            }
+                        }
                         break;
 
                 }
@@ -619,6 +636,17 @@ public class Battle {
                     card.removeFromBuffs(buff);
                 }
             }
+        }
+        for (int i = 0; i <9 ; i++) { //deholify cells
+            for (int j = 0; j < 5; j++) {
+                if(field[i][j].isHoly()){
+                    field[i][j].setHolyTurn(field[i][j].getHolyTurn()-1);
+                    if(field[i][j].getHolyTurn()==0){
+                        field[i][j].setHoly(false);
+                    }
+                }
+            }
+
         }
 
         turn++;
