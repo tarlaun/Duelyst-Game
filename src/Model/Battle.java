@@ -170,15 +170,22 @@ public class Battle {
         return menu;
     }
 
-    public void setManaPoints(){
-        if(turn<=7) {
+    public void setManaPoints() {
+        if (turn <= 7) {
             accounts[0].setMana(turn + 1);
             accounts[1].setMana(turn + 2);
-        }
-        else {
+        } else {
             accounts[0].setMana(Constants.MAX_MANA);
             accounts[0].setMana(Constants.MAX_MANA);
         }
+    }
+
+    public boolean spendMana(int price) {
+        if (accounts[turn % 2].getMana() < price) {
+            return false;
+        }
+        accounts[turn % 2].setMana(accounts[turn % 2].getMana() - price);
+        return true;
     }
 
 
@@ -331,9 +338,6 @@ public class Battle {
                     case "FOOLADZEREH":
                         card.addToBuffs(buff);
                         break;
-                    case "ASHKBOOS":
-
-                        break;
                     case "KAVEH":
 
 
@@ -347,9 +351,17 @@ public class Battle {
             case STUN:
                 switch (card.getName()) {
                     case "SIMORGH":
-
+                        if (spendMana(card.getManaPoint())) {
+                            for (Card enemy :
+                                    fieldCards[(turn + 1) % 2]) {
+                                enemy.addToBuffs(buff);
+                                enemy.setAbleToMove(false);
+                                enemy.setAbleToAttack(false);
+                            }
+                        }
                         break;
                     case "RAKHSH":
+
 
                         break;
                     case "NANE_SARMA":
@@ -372,6 +384,9 @@ public class Battle {
             case POWER:
                 switch (card.getName()) {
                     case "WHITE_DIV":
+                        if (spendMana(card.getManaPoint())) {
+                            card.addToBuffs(buff);
+                        }
                         break;
                     case "EAGLE":
                         card.addToBuffs(card.getBuffs().get(0));
