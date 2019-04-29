@@ -88,6 +88,10 @@ public class Request {
 
     }
 
+    public boolean checkBuy(){
+
+    }
+
     public void checkMoveSyntax() {
 
     }

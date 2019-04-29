@@ -243,4 +243,23 @@ public class View {
     public void printDeck(Deck deck) {
 
     }
+
+    public void printBuyCommands(Message message){
+        switch (message){
+            case OBJECT_NOT_FOUND:
+                System.out.println("OBJECT NOT FOUND");
+                break;
+            case INSUFFICIENCY:
+                System.out.println("INSUFFIENCY");
+                break;
+
+            case MAXIMUM_ITEM_COUNT:
+                System.out.println("MAXIMUM ITEM COUNT");
+                break;
+
+            case SUCCESSFUL_PURCHASE:
+                System.out.println("SUCCESSFUL PURCHASE");
+                break;
+        }
+    }
 }

@@ -80,6 +80,9 @@ public class Controller {
             case SHOW_COLLECTION_IN_SHOP:
                 showCollectionShop(request);
                 break;
+            case BUY:
+                buy(request);
+                break;
         }
     }
 
@@ -214,8 +217,10 @@ public class Controller {
         }
     }
 
-    public void buy() {
-
+    public void buy(Request request) {
+        if (request.checkBuy()) {
+            view.printBuyCommands(shop.buy(request.getObjectName(request.getCommand()), this.account));
+        }
     }
 
     public void sell() {
