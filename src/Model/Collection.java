@@ -11,6 +11,15 @@ public class Collection {
     private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck;
 
+    public Collection() {
+
+    }
+
+    public Collection(ArrayList<Card> cards, ArrayList<Item> items) {
+        this.cards = cards;
+        this.items = items;
+    }
+
     public ArrayList<Card> getCards() {
         return cards;
     }
@@ -54,14 +63,14 @@ public class Collection {
                     if (card instanceof Hero && deck.getHero() == null) {
                         deck.setHero((Hero) Card.getCardByID(objectID));
                         return Message.OBJECT_ADDED;
-                    }else if (deck.getHero() != null) {
+                    } else if (deck.getHero() != null) {
                         return Message.MAXIMUM_HERO_COUNT;
                     }
                     if ((card instanceof Spell || Card.getCardByID(objectID) instanceof Minion)
                             && deck.getCards().size() < 20) {
                         deck.getCards().add(Card.getCardByID(objectID));
                         return Message.OBJECT_ADDED;
-                    }else if(deck.getCards().size() == 20){
+                    } else if (deck.getCards().size() == 20) {
                         return Message.FULL_DECK;
                     }
                 }
@@ -72,7 +81,7 @@ public class Collection {
                 if (Item.getItemByID(objectID) != null && deck.getItem() == null) {
                     deck.setItem(Item.getItemByID(objectID));
                     return Message.OBJECT_ADDED;
-                }else if(deck.getItem() != null){
+                } else if (deck.getItem() != null) {
                     return Message.MAXIMUM_ITEM_COUNT;
                 }
             }
@@ -91,19 +100,19 @@ public class Collection {
     }
 
     public Message remove(String deckName, int objectID) {
-        if(deckExistance(deckName)!=-1){
+        if (deckExistance(deckName) != -1) {
             Deck deck = decks.get(deckExistance(deckName));
             Card card = Card.getCardByID(objectID, this.cards.toArray(Card[]::new));
             Item item = Item.getItemByID(objectID, this.items.toArray(Item[]::new));
-            if(card!=null){
-                if(card instanceof Hero){
+            if (card != null) {
+                if (card instanceof Hero) {
                     deck.setHero(null);
                     return null;
                 }
                 deck.getCards().remove(card);
                 return null;
             }
-            if(item!=null){
+            if (item != null) {
                 deck.setItem(null);
                 return null;
             }
@@ -113,7 +122,7 @@ public class Collection {
     }
 
     public boolean validate(String deckName) {
-        if(deckExistance(deckName)!=-1){
+        if (deckExistance(deckName) != -1) {
             Deck deck = decks.get(deckExistance(deckName));
             return deck.getCards().size() == 20 && deck.getItem() != null && deck.getHero() != null;
 
@@ -123,7 +132,7 @@ public class Collection {
 
     public boolean selectDeck(String deckName) {
         mainDeck = decks.get(deckExistance(deckName));
-        if(mainDeck !=null){
+        if (mainDeck != null) {
             return true;
         }
         return false;

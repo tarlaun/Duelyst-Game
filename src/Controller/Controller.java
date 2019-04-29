@@ -81,11 +81,17 @@ public class Controller {
             case SHOW_COLLECTION_IN_SHOP:
                 showCollectionShop(request);
                 break;
+            case SEARCH:
+                searchInShop(request);
+                break;
             case BUY:
                 buy(request);
                 break;
             case SELL:
                 sell(request);
+                break;
+            case SHOW:
+                showShop();
                 break;
         }
     }
@@ -245,7 +251,7 @@ public class Controller {
     }
 
     public void showShop() {
-
+        view.printShopCollection(new Collection(shop.getCards(), shop.getItems()));
     }
 
     public void gameInfo() {
