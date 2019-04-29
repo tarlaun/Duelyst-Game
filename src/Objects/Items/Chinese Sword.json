@@ -1,0 +1,31 @@
+{
+  "id": 0,
+  "name": "Chinese Sword",
+  "price": 0,
+  "buffs": [
+    {
+      "type": "HIT_POWER",
+      "power": 5,
+      "turnsCount": 1000000,
+      "targetCard": "Minion",
+      "side": "ALL",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "MELEE",
+      "casterRangeType": "ALL"
+    },
+    {
+      "type": "HIT_POWER",
+      "power": 5,
+      "turnsCount": 1000000,
+      "targetCard": "Hero",
+      "side": "ALL",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "MELEE",
+      "casterRangeType": "ALL"
+    }
+  ]
+}

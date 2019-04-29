@@ -1,0 +1,19 @@
+{
+  "id": 0,
+  "name": "Ultra Shield",
+  "price": 4000,
+  "buffs": [
+    {
+      "type": "HOLY",
+      "power": 12,
+      "turnsCount": 0,
+      "targetCard": "Hero",
+      "side": "COMRADE",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    }
+  ]
+}

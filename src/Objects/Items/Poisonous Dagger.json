@@ -1,0 +1,19 @@
+{
+  "id": 0,
+  "name": "Poisonous Dagger",
+  "price": 7000,
+  "buffs": [
+    {
+      "type": "POISON",
+      "power": 1,
+      "turnsCount": 1,
+      "targetCard": "Card",
+      "side": "ENEMY",
+      "activationType": "ON_ATTACK",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Card",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class AI {
     private int level;
 
+/*
     public Coordinate setCardCoordinates(Card card) {
 
     }
@@ -20,4 +21,5 @@ public class AI {
     public Card chooseCard(ArrayList<Card> cards) {
 
     }
+*/
 }

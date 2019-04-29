@@ -14,8 +14,10 @@ public class Battle {
     private Account[] accounts = new Account[2];
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][];
+/*
     private Collectable[][] collectables = new Collectable[2][];
     private ArrayList<Collectable> battleCollectables = new ArrayList<>();
+*/
     private Card[][] playerHands = new Card[2][];
     private int turn;
     private int[][] field;
@@ -52,6 +54,7 @@ public class Battle {
 
     }
 
+/*
     public boolean moveTo(Coordinate coordinate) {
         if (currentCard.getCoordinate() == coordinate) {
             return true;
@@ -69,6 +72,7 @@ public class Battle {
         return true;
 
     }
+*/
 
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
@@ -131,6 +135,94 @@ public class Battle {
 
     }
 
+/*
+    public Message useSpecialPower(Coordinate coordinate) {
+
+    }
+
+    public Message insertCard(Coordinate coordinate, String cardName) {
+        boolean validTarget = false;
+        for (int i = 0; i < 5; i++) {
+            if (playerHands[turn % 2][i].getName().equals(cardName)) {
+                Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
+                if (field[coordinate.getX()][coordinate.getY()] != 0) {
+                    return Message.INVALID_TARGET;
+                }
+                for (Card card :
+                        fieldCards[turn % 2]) {
+                    if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
+                        validTarget = true;
+                        break;
+                    }
+                }
+                if (!validTarget) {
+                    return Message.INVALID_TARGET;
+                }
+                field[coordinate.getX()][coordinate.getY()] = insert.getId();
+                insert.setCoordinate(coordinate);
+                playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
+                fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
+                return null;
+
+
+            }
+        }
+        return Message.NOT_IN_HAND;
+    }
+*/
+
+    public void showHand() {
+
+    }
+
+    public void endTurn() {
+        turn++;
+        for (Card card :
+                fieldCards[0]) {
+            card.setAbleToAttack(true);
+            card.setAbleToMove(true);
+        }
+        currentCard = null;
+        targetCard = null;
+
+
+    }
+
+    public void showCollectables() {
+
+    }
+
+/*
+    public void showInfo(int objectId) {
+        if (menu.getStat() == MenuStat.ITEM_SELECTION) {
+            Item.getItemByID(objectId, collectables[turn % 2]);
+        }
+    }
+*/
+
+    public void showNextCard() {
+        showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
+    }
+
+/*
+    public Message selectCollectableId(int collectableId) {
+        for (Collectable collectable :
+                collectables[turn % 2]) {
+            if (collectable.getId() == collectableId) {
+                menu.setStat(MenuStat.ITEM_SELECTION);
+            }
+        }
+
+    }
+
+*/
+/*
+    public boolean useItem(Coordinate coordinate) {
+        if (menu.getStat() != MenuStat.ITEM_SELECTION)
+            return false;
+    }
+*/
+    /*
     public Message useSpecialPower(Coordinate coordinate) {
 
     }
@@ -165,60 +257,19 @@ public class Battle {
         return Message.NOT_IN_HAND;
     }
 
-    public void showHand() {
-
-    }
-
-    public void endTurn() {
-        turn++;
-        for (Card card :
-                fieldCards[0]) {
-            card.setAbleToAttack(true);
-            card.setAbleToMove(true);
-        }
-        currentCard = null;
-        targetCard = null;
 
 
     }
-
-    public void showCollectables() {
-
-    }
-
-    public void showInfo(int objectId) {
-        if (menu.getStat() == MenuStat.ITEM_SELECTION) {
-            Item.getItemByID(objectId, collectables[turn % 2]);
-        }
-    }
-
-    public void showNextCard() {
-        showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
-    }
-
-    public Message selectCollectableId(int collectableId) {
-        for (Collectable collectable :
-                collectables[turn % 2]) {
-            if (collectable.getId() == collectableId) {
-                menu.setStat(MenuStat.ITEM_SELECTION);
-            }
-        }
-
-    }
-
-    public boolean useItem(Coordinate coordinate) {
-        if (menu.getStat() != MenuStat.ITEM_SELECTION)
-            return false;
-
-    }
-
+*/
     public void enterGraveyard() {
         menu.setStat(MenuStat.GRAVEYARD);
     }
 
+/*
     public Message showCardInfoInGraveyard(int cardId) {
 
     }
+*/
 
     public void showCard() {
 

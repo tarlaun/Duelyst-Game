@@ -4,6 +4,7 @@ public enum ActivationType {
     ON_ATTACK,
     ON_DEFENCE,
     ON_SPAWN,
+    ON_DEATH,
     COMBO,
     PASSIVE,
     UNDEFINED
