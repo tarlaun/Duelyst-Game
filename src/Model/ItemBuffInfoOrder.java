@@ -9,5 +9,6 @@ public enum ItemBuffInfoOrder {
     ACTIVATION_TYPE,
     RANGE_TYPE,
     CASTER,
-    CASTER_RANGE_TYPE
+    CASTER_ACTIVATION_TYPE,
+    CASTER_RANGE_TYPE,
 }

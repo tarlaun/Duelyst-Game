@@ -9,6 +9,7 @@ public class ItemBuff {
     private String targetCard;
     private Side side;
     private ActivationType activationType;
+    private ActivationType casterActivationType;
     private String casterCard;
     private RangeType rangeType;
     private RangeType casterRangeType;
@@ -22,6 +23,7 @@ public class ItemBuff {
         this.activationType = ActivationType.valueOf(info[ItemBuffInfoOrder.ACTIVATION_TYPE.ordinal()]);
         this.rangeType = RangeType.valueOf(info[ItemBuffInfoOrder.RANGE_TYPE.ordinal()]);
         this.casterCard = info[ItemBuffInfoOrder.CASTER.ordinal()];
+        this.casterActivationType = ActivationType.valueOf(info[ItemBuffInfoOrder.CASTER_ACTIVATION_TYPE.ordinal()]);
         this.casterRangeType = RangeType.valueOf(info[ItemBuffInfoOrder.CASTER_RANGE_TYPE.ordinal()]);
     }
 
@@ -32,7 +34,9 @@ public class ItemBuff {
         this.targetCard = buff.targetCard;
         this.side = buff.side;
         this.activationType = buff.activationType;
+        this.rangeType = buff.rangeType;
         this.casterCard = buff.casterCard;
-        this.rangeTypes = buff.rangeTypes;
+        this.casterActivationType = buff.casterActivationType;
+        this.casterRangeType = buff.casterRangeType;
     }
 }
