@@ -98,7 +98,10 @@ public class Battle {
         onAttackSpecialPower();
         currentCard.setAbleToAttack(false);
         targetCard.decreaseHealth(currentCard.getAssaultPower());
-        targetCard.setHealthPoint(targetCard.getHealthPoint() - targetCard.getIsHoly());
+        if(!targetCard.getName().equals("GIV")){
+            targetCard.setHealthPoint(targetCard.getHealthPoint() - targetCard.getIsHoly());
+        }
+
 
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
@@ -527,6 +530,11 @@ public class Battle {
                 }
                 if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
                     card.setAssaultPower(card.getOriginalAssaultPower());
+                }
+                if(card.getName().equals("GIV") && (buff.getType().equals(BuffType.DISARM)
+                        || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
+                        || buff.getType().equals(BuffType.STUN))){
+                    card.removeFromBuffs(buff);
                 }
                 if (buff.getTurnCount() == 0) {
                     card.removeFromBuffs(buff);
