@@ -1,8 +1,8 @@
 {
-  "id": 17,
-  "name": "Weakening",
+  "id": 0,
+  "name": "Kings Guard",
   "maxPossibleMoving": -1,
-  "price": 1000,
+  "price": 1750,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,22 +11,22 @@
   "buffs": [
     {
       "type": "HIT_WEAKNESS",
-      "power": 4,
+      "power": 100,
       "targetType": "Minion",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
+      "turnCount": 0,
       "side": "ENEMY",
       "effectArea": [
         {
-          "x": 0,
-          "y": 0
+          "x": 3,
+          "y": 3
         }
       ]
     }
   ],
   "castedBuffs": [],
-  "manaPoint": 1,
+  "manaPoint": 9,
   "ableToAttack": false,
   "ableToMove": false
 }

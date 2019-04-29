@@ -1,8 +1,8 @@
 {
-  "id": 11,
-  "name": "All Poison",
+  "id": 0,
+  "name": "All Disarm ",
   "maxPossibleMoving": -1,
-  "price": 1500,
+  "price": 2000,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -10,12 +10,12 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "POISON",
+      "type": "DISARM",
       "power": 0,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 4,
+      "turnCount": 1,
       "side": "ENEMY",
       "effectArea": [
         {
@@ -26,7 +26,7 @@
     }
   ],
   "castedBuffs": [],
-  "manaPoint": 8,
+  "manaPoint": 9,
   "ableToAttack": false,
   "ableToMove": false
 }

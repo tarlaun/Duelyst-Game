@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 public class Gson_IO {
     private static int index = 1;
+    private static final String path = "src/Objects/";
+
     public static void main(String[] args) throws IOException {
         gsonGenerator(new File("src/Spells"), "Spell");
         gsonGenerator(new File("src/Items"), "Item");
@@ -27,28 +29,28 @@ public class Gson_IO {
             System.out.println("\n" + name);
             switch (name) {
                 case "Spell":
-                    Spell spell = new Spell(index, info);
+                    Spell spell = new Spell(info);
                     gson.toJson(spell, System.out);
                     json = gson.toJson(spell);
-                    writer(spell.getName() + ".json", json);
+                    writer(path + "Cards/Spells/" + spell.getName() + ".json", json);
                     break;
                 case "Item":
-                    Item item = new Item(index, info);
+                    Item item = new Item(info);
                     gson.toJson(item, System.out);
                     json = gson.toJson(item);
-                    writer(item.getName() + ".json", json);
+                    writer(path + "Items/" + item.getName() + ".json", json);
                     break;
                 case "Minion":
-                    Minion minion = new Minion(index, info);
+                    Minion minion = new Minion(info);
                     gson.toJson(minion, System.out);
                     json = gson.toJson(minion);
-                    writer(minion.getName() + ".json", json);
+                    writer(path + "Cards/Minions/" + minion.getName() + ".json", json);
                     break;
                 case "Hero":
-                    Hero hero = new Hero(index, info);
+                    Hero hero = new Hero(info);
                     gson.toJson(hero, System.out);
                     json = gson.toJson(hero);
-                    writer(hero.getName() + ".json", json);
+                    writer(path + "Cards/Heroes/" + hero.getName() + ".json", json);
                     break;
             }
             index++;

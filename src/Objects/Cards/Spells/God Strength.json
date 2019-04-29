@@ -1,8 +1,8 @@
 {
-  "id": 15,
-  "name": "All Power",
+  "id": 0,
+  "name": "God Strength",
   "maxPossibleMoving": -1,
-  "price": 2000,
+  "price": 450,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,22 +11,22 @@
   "buffs": [
     {
       "type": "HIT_POWER",
-      "power": 2,
-      "targetType": "Card",
-      "dispelType": "PERMANENT",
+      "power": 4,
+      "targetType": "Hero",
+      "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
+      "turnCount": 0,
       "side": "COMRADE",
       "effectArea": [
         {
-          "x": -1,
-          "y": -1
+          "x": 0,
+          "y": 0
         }
       ]
     }
   ],
   "castedBuffs": [],
-  "manaPoint": 4,
+  "manaPoint": 2,
   "ableToAttack": false,
   "ableToMove": false
 }

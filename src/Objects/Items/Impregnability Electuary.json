@@ -1,0 +1,19 @@
+{
+  "id": 0,
+  "name": "Impregnability Electuary",
+  "price": 0,
+  "buffs": [
+    {
+      "type": "HOLY",
+      "power": 10,
+      "turnsCount": 2,
+      "targetCard": "Card",
+      "side": "COMRADE",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    }
+  ]
+}

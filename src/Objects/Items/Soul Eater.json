@@ -1,0 +1,19 @@
+{
+  "id": 0,
+  "name": "Soul Eater",
+  "price": 25000,
+  "buffs": [
+    {
+      "type": "HIT_POWER",
+      "power": 1,
+      "turnsCount": 1000000,
+      "targetCard": "Card",
+      "side": "COMRADE",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "ON_DEATH",
+      "casterCard": "Card",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    }
+  ]
+}

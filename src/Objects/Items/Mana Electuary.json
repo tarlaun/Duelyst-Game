@@ -1,0 +1,19 @@
+{
+  "id": 0,
+  "name": "Mana Electuary",
+  "price": 0,
+  "buffs": [
+    {
+      "type": "MANA",
+      "power": 3,
+      "turnsCount": -1,
+      "targetCard": "Card",
+      "side": "COMRADE",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    }
+  ]
+}

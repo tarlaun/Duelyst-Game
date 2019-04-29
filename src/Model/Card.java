@@ -23,8 +23,7 @@ public class Card {
     private boolean ableToMove = false;
 
 
-    public Card(int id, String[] info) {
-        this.id = id;
+    public Card(String[] info) {
         this.name = info[MainInfoOrder.NAME.ordinal()];
         this.price = Integer.parseInt(info[MainInfoOrder.PRICE.ordinal()]);
         this.assaultPower = Integer.parseInt(info[MainInfoOrder.AP.ordinal()]);
@@ -40,7 +39,6 @@ public class Card {
     }
 
     public Card(Card card) {
-        this.id = card.id;
         this.name = card.name;
         this.price = card.price;
         this.assaultPower = card.assaultPower;

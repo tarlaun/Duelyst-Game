@@ -1,0 +1,19 @@
+{
+  "id": 0,
+  "name": "Baptism",
+  "price": 20000,
+  "buffs": [
+    {
+      "type": "HOLY",
+      "power": 1,
+      "turnsCount": 2,
+      "targetCard": "Minion",
+      "side": "ALL",
+      "activationType": "ON_SPAWN",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    }
+  ]
+}

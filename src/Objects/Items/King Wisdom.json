@@ -1,0 +1,19 @@
+{
+  "id": 0,
+  "name": "King Wisdom",
+  "price": 9000,
+  "buffs": [
+    {
+      "type": "MANA",
+      "power": 1,
+      "turnsCount": 1000000,
+      "targetCard": "Account",
+      "side": "ALL",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    }
+  ]
+}
