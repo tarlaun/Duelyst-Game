@@ -96,6 +96,9 @@ public class Battle {
         onAttackSpecialPower();
         currentCard.setAbleToAttack(false);
         targetCard.decreaseHealth(currentCard.getAssaultPower());
+        if (targetCard.isHoly()) {
+            targetCard.setHealthPoint(targetCard.getHealthPoint() + 1);
+        }
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
         return null;
@@ -158,19 +161,18 @@ public class Battle {
     }
 
 
-
     private void checkAttackHistory(int opponentCardId, Card currentCard) {
         boolean newMinion = true;
         int emptyCell = -1;
 
         if (currentCard instanceof Minion) {
-            for (int i = 0; i < ((Minion) currentCard).getAttackCount().length; i++) {
-                if (opponentCardId == ((Minion) currentCard).getAttackCount()[i][0]) {
-                    ((Minion) currentCard).setAttackCount(i, 1, ((Minion) currentCard).getAttackCount()[i][1] + 1);
+            for (int i = 0; i < 40; i++) {
+                if (opponentCardId == ((Minion) currentCard).getAttackCount(opponentCardId)) {
+                    ((Minion) currentCard).setAttackCount(i, 1, ((Minion) currentCard).getAttackCount(opponentCardId) + 1);
                     newMinion = false;
                     break;
                 }
-                if (((Minion) currentCard).getAttackCount()[i][0] == 0) {
+                if (((Minion) currentCard).getAttackCount(currentCard.getId()) == 0) {
                     emptyCell = i;
                     break;
                 }
@@ -184,6 +186,9 @@ public class Battle {
 
     private void killEnemy(Card targetCard) {
         if (targetCard.getHealthPoint() <= 0) {
+            if(targetCard.getBuffs().size()==1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH)){
+                useSpecialPower(targetCard,targetCard.getBuffs().get(0));
+            }
             ArrayList<Card> opponentFieldCards = new ArrayList<>(Arrays.asList(fieldCards[(turn + 1) % 2]));
             opponentFieldCards.remove(targetCard);
             for (int i = 0; i < opponentFieldCards.size(); i++) {
@@ -260,10 +265,10 @@ public class Battle {
                 break;
             case "VENOM_SNAKE":
                 targetCard.addToBuffs(currentCard.getBuffs().get(0));
-               break;
+                break;
             case "LION":
-                for (Buff buff: targetCard.getCastedBuffs()) {
-                    if(buff.getType().equals(BuffType.HOLY)){
+                for (Buff buff : targetCard.getCastedBuffs()) {
+                    if (buff.getType().equals(BuffType.HOLY)) {
                         targetCard.decreaseHealth(1);
                     }
                 }
@@ -279,8 +284,8 @@ public class Battle {
                 targetCard.addToBuffs(currentCard.getBuffs().get(0));
                 break;
             case "TWO_HEADED_GIANT":
-                for (Buff buff: targetCard.getCastedBuffs()) {
-                    if(buff.getType().equals(BuffType.HOLY)|| buff.getType().equals(BuffType.POWER)){
+                for (Buff buff : targetCard.getCastedBuffs()) {
+                    if (buff.getType().equals(BuffType.HOLY) || buff.getType().equals(BuffType.POWER)) {
                         targetCard.removeFromBuffs(buff);
                     }
                 }
@@ -293,7 +298,7 @@ public class Battle {
             case HOLY:
                 switch (card.getName()) {
                     case "FOOLADZEREH":
-
+                        card.addToBuffs(buff);
                         break;
                     case "ASHKBOOS":
 
@@ -330,22 +335,22 @@ public class Battle {
                     case "WHITE_DIV":
                         break;
                     case "EAGLE":
-                       card.addToBuffs(card.getBuffs().get(0));
+                        card.addToBuffs(card.getBuffs().get(0));
                         break;
                     case "WITCH":
+                    case "NANE_WITCH":
                         card.addToBuffs(card.getBuffs().get(0));
-                        for (int i = -1; i <2 ; i++) {
+                        for (int i = -1; i < 2; i++) {
                             for (int j = -1; j < 2; j++) {
-                                if(getField(card.getCoordinate().getX()+i,card.getCoordinate().getY()+j).getCardID()!=0 ){
-                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX()+i,card.getCoordinate().getY()+j).getCardID(),fieldCards[turn%2]);
-                                    if( target!= null){
+                                if (getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID() != 0) {
+                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
+                                    if (target != null) {
                                         target.addToBuffs(card.getBuffs().get(0));
+                                        target.addToBuffs(card.getBuffs().get(1));
                                     }
                                 }
                             }
                         }
-                        break;
-                    case "NANE_WITCH":
                         break;
                     case "JEN":
                         break;
@@ -374,6 +379,14 @@ public class Battle {
                     case "ARASH":
                         break;
                     case "CYCLOPS":
+                        for (int i = -1; i < 2; i++) {
+                            for (int j = -1; j < 2; j++) {
+                                Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
+                                if (target != null && target instanceof Minion) {
+                                    target.addToBuffs(card.getBuffs().get(0));
+                                }
+                            }
+                        }
                         break;
                     case "GIANT_SNAKE":
                         break;
@@ -382,14 +395,17 @@ public class Battle {
                     case "BAHMAN":
                         break;
                     case "SIAVASH":
+                        for (int i = 0; i < fieldCards[(turn+1)%2].length; i++) {
+                            if(fieldCards[(turn+1)%2][i] instanceof Hero){
+                                fieldCards[(turn+1)%2][i].addToBuffs(buff);
+                            }
+                        }
                         break;
 
                 }
 
                 break;
             case NEGATIVE_DISPEL:
-
-
                 switch (card.getName()) {
                     case "LION":
                         break;
@@ -417,9 +433,6 @@ public class Battle {
     }
 
 
-
-
-    /*
     public Message insertCard(Coordinate coordinate, String cardName) {
         boolean validTarget = false;
         for (int i = 0; i < 5; i++) {
@@ -449,15 +462,13 @@ public class Battle {
         }
         return Message.NOT_IN_HAND;
     }
-*/
 
     public void showHand() {
 
     }
 
     public void endTurn() {
-        for (Card card :
-                fieldCards[0]) {
+        for (Card card : fieldCards[0]) {
             for (Buff buff : card.getCastedBuffs()) {
                 if (buff.getTurnCount() > 0) {
                     buff.setTurnCount(buff.getTurnCount() - 1);
@@ -466,26 +477,38 @@ public class Battle {
                     card.setAbleToMove(true);
                     card.setAbleToAttack(true);
                 }
-                if(buff.getType().equals(BuffType.POISON)&& buff.getTurnCount()>0 && buff.getTurnCount()%2==0){
+                if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
                     card.decreaseHealth(1);
-                }else if(buff.getType().equals(BuffType.POISON)&& buff.getTurnCount()==0){
+                } else if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() == 0) {
                 }
-                if(buff.getType().equals(BuffType.DISARM)&& buff.getTurnCount()==0){
+                if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
                     card.setAbleToAttack(true);
                 }
-                if(buff.getType().equals(BuffType.WHITE_WALKER_WOLF)){
+                if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
                     card.decreaseHealth(buff.getPower());
                     buff.setPower(4);
                 }
-                if(buff.getType().equals(BuffType.WEAKNESS) && buff.getTargetType().equals("HEALTH")&& buff.getTurnCount()==1){
+                if (buff.getType().equals(BuffType.WEAKNESS) && buff.getTargetType().equals("HEALTH") && buff.getTurnCount() == 1) {
                     targetCard.decreaseHealth(buff.getPower());
                 }
-                if(buff.getActivationType().equals(ActivationType.PASSIVE)){
-                    if(buff.getTargetType().equals("HEALTH")) {
+                if (buff.getActivationType().equals(ActivationType.PASSIVE)) {
+                    if (buff.getTargetType().equals("HEALTH")) {
                         card.setHealthPoint(card.getHealthPoint() + card.getBuffs().get(0).getPower());
                     }
                 }
-                if(buff.getTurnCount()==0){
+                if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0) {
+                    card.setHoly(true);
+                }
+                if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
+                    card.setHoly(false);
+                }
+                if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
+                    card.setAssaultPower(card.getAssaultPower() + buff.getPower());
+                }
+                if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
+                    card.setAssaultPower(card.getOriginalAssaultPower());
+                }
+                if (buff.getTurnCount() == 0) {
                     card.removeFromBuffs(buff);
                 }
             }
