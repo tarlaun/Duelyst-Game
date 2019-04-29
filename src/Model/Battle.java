@@ -326,6 +326,18 @@ public class Battle {
 
                         break;
                     case "NANE_SARMA":
+                        for (int i = -1; i < 2; i++) {
+                            for (int j = -1; j < 2; j++) {
+                                if (getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID() != 0) {
+                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID(), fieldCards[(turn+1) % 2]);
+                                    if (target != null) {
+                                        target.addToBuffs(card.getBuffs().get(0));
+                                        target.setAbleToAttack(false);
+                                        target.setAbleToMove(false);
+                                    }
+                                }
+                            }
+                        }
 
                         break;
                 }
