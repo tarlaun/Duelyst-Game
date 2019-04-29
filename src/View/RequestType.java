@@ -22,6 +22,7 @@ public enum RequestType {
     SHOW_DECK,
     SHOW_COLLECTION,
     SEARCH_COLLECTION,
+    SAVE_IN_COLLECTION,
     BUY,
     SELL,
     GAME_INFO,

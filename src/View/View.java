@@ -150,4 +150,12 @@ public class View {
     public void printId(Item... items){
 
     }
+
+    public void createDeck(boolean okOrNot){
+        if(okOrNot){
+            System.out.println("DECK CREATED");
+            return;
+        }
+        System.out.println("DECK ALREADY EXISTS");
+    }
 }

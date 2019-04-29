@@ -49,7 +49,12 @@ public class Controller {
             case SEARCH_COLLECTION:
                 searchInCollection(request);
                 break;
-
+            case SAVE_IN_COLLECTION :
+                saveCollection();
+                break;
+            case CREATE_DECK:
+                createDeck();
+                break;
         }
     }
 
@@ -118,7 +123,11 @@ public class Controller {
 
     }
 
-    public void createDeck() {
+    public void createDeck(Request request) {
+        if(request.checkDeckCreationSyntax()){
+            view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
+        }
+
 
     }
 

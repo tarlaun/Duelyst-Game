@@ -47,8 +47,8 @@ public class Request {
         return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()] + "\\w+");
     }
 
-    public void checkDeckCreationSyntax() {
-
+    public boolean checkDeckCreationSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_DECK.ordinal()]+"\\w+");
     }
 
     public void checkShowDeckSyntax() {
@@ -145,5 +145,9 @@ public class Request {
 
     public String getCardName(String input){
         return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public String getDeckName(String input){
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length-1];
     }
 }
