@@ -244,13 +244,20 @@ public class View {
 
     }
 
-    public void printBuyCommands(Message message){
-        switch (message){
+    public void printSellMessages(Boolean successful) {
+        if (successful){
+            System.out.println("SUCCESSFUL SELL");
+        }
+        System.out.println("OBJECT NOT FOUNT");
+    }
+
+    public void printBuyMessages(Message message) {
+        switch (message) {
             case OBJECT_NOT_FOUND:
                 System.out.println("OBJECT NOT FOUND");
                 break;
             case INSUFFICIENCY:
-                System.out.println("INSUFFIENCY");
+                System.out.println("INSUFFICIENCY");
                 break;
 
             case MAXIMUM_ITEM_COUNT:

@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import View.*;
+import com.sun.org.apache.regexp.internal.RE;
 
 public class Controller {
     private View view = View.getInstance();
@@ -82,6 +83,9 @@ public class Controller {
                 break;
             case BUY:
                 buy(request);
+                break;
+            case SELL:
+                sell(request);
                 break;
         }
     }
@@ -218,13 +222,15 @@ public class Controller {
     }
 
     public void buy(Request request) {
-        if (request.checkBuy()) {
-            view.printBuyCommands(shop.buy(request.getObjectName(request.getCommand()), this.account));
+        if (request.checkBuySyntax()) {
+            view.printBuyMessages(shop.buy(request.getObjectName(request.getCommand()), this.account));
         }
     }
 
-    public void sell() {
-
+    public void sell(Request request) {
+        if (request.checkSellSyntax()) {
+            view.printSellMessages(shop.sell(request.getObjectID(request.getCommand()), this.account));
+        }
     }
 
     public void showShop() {

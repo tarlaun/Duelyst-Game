@@ -76,7 +76,7 @@ public class Request {
 
     }
 
-    public void checkPurchaseSyntax() {
+    public boolean checkBuySyntax() {
 
     }
 
@@ -84,11 +84,7 @@ public class Request {
 
     }
 
-    public void checkSellSyntax() {
-
-    }
-
-    public boolean checkBuy(){
+    public boolean checkSellSyntax() {
 
     }
 
