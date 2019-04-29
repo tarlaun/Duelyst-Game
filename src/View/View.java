@@ -103,10 +103,6 @@ public class View {
 
     }
 
-    public void printAllDecks(ArrayList<Deck> decks) {
-
-    }
-
     public void printShopCollection() {
 
     }
@@ -220,5 +216,16 @@ public class View {
             return;
         }
         System.out.println("DECK IS MOTHERFUCKER");
+    }
+
+    public void showAllDeck(ArrayList<Deck>  decks){
+        for (int i = 0; i < decks.size() ; i++) {
+            System.out.println(i+1+"-");
+            printDeck(decks.get(i));
+        }
+    }
+
+    public void printDeck(Deck deck){
+
     }
 }

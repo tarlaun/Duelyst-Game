@@ -72,6 +72,10 @@ public class Request {
 
     }
 
+    public boolean checkShowAllDeckSyntax(){
+
+    }
+
     public void checkPurchaseSyntax() {
 
     }

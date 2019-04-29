@@ -20,6 +20,7 @@ public enum RequestType {
     VALIDATION,
     SELECT_DECK,
     SHOW_DECK,
+    SHOW_ALL_DECK,
     SHOW_COLLECTION,
     SEARCH_COLLECTION,
     SAVE_IN_COLLECTION,

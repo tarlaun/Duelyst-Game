@@ -69,6 +69,10 @@ public class Controller {
                 break;
             case SELECT_DECK:
                 selectDeck(request);
+                break;
+            case SHOW_ALL_DECK:
+                showAllDecks();
+                break;
         }
     }
 
@@ -173,8 +177,10 @@ public class Controller {
         }
     }
 
-    public void showAllDecks() {
-
+    public void showAllDecks(Request request) {
+        if(request.checkShowAllDeckSyntax()){
+            view.showAllDeck(this.account.getCollection().getDecks());
+        }
     }
 
     public void showDeck() {
