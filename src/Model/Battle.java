@@ -27,6 +27,10 @@ public class Battle {
     private View view = View.getInstance();
     Random rand = new Random();
 
+    public Battle() {
+
+    }
+
     public Coordinate getCurrentCoordinate() {
         return currentCoordinate;
     }
@@ -72,25 +76,23 @@ public class Battle {
 
     }
 
-    /*
-        public boolean moveTo(Coordinate coordinate) {
-            if (currentCard.getCoordinate() == coordinate) {
-                return true;
-            }
-            if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
-                return false;
-            }
-            if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate()).length == 0) {
-                return false;
-            }
-            field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = 0;
-            currentCard.setCoordinate(Coordinate.getPathDirections(coordinate, currentCard.getCoordinate())[0]);
-            field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = currentCard.getId();
-            moveTo(coordinate);
+    public boolean moveTo(Coordinate coordinate) {
+        if (currentCard.getCoordinate() == coordinate) {
             return true;
-
         }
-    */
+        if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
+            return false;
+        }
+        if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate(), field).equals(currentCard.getCoordinate())) {
+            return false;
+        }
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
+        currentCard.setCoordinate(Coordinate.getPathDirections(currentCard.getCoordinate(), coordinate, field));
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
+        moveTo(coordinate);
+        return true;
+    }
+
     public boolean isAttackable(Card currentCard, Card targetCard) {
         if (targetCard.getName().equals("GIV")) {
             return false;
@@ -925,6 +927,12 @@ public class Battle {
                 card.modifyHealth(buff.getPower());
                 break;
         }
+    }
+
+    public int getTurnByAccount(Account account) {
+        if (this.accounts[0].getId() == account.getId())
+            return 0;
+        return 1;
     }
 
 }
