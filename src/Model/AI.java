@@ -126,5 +126,30 @@ public class AI {
 
     public Card chooseCard(ArrayList<Card> cards) {
 
+        int [] bestCardToChoose = new int[cards.size()];
+        for (int i = 0; i <cards.size() ; i++) {
+            if(cards.get(i).getBuffs().size()==1){
+                bestCardToChoose[i]=10;
+                chooseBestCard(cards, bestCardToChoose, i , 0);
+
+            }
+            if(cards.get(i).getBuffs().size()==2){
+                bestCardToChoose[i]=100;
+                chooseBestCard(cards, bestCardToChoose, i, 0);
+                chooseBestCard(cards, bestCardToChoose , i , 1);
+            }
+        }
+    }
+
+    private void chooseBestCard(ArrayList<Card> cards, int[] bestCardToChoose, int i , int whichBuff) {
+        if(cards.get(i).getBuffs().get(whichBuff).getActivationType().equals(ActivationType.ON_ATTACK)){
+            bestCardToChoose[i]+=5;
+        }
+        if(cards.get(i).getBuffs().get(whichBuff).getActivationType().equals(ActivationType.PASSIVE)){
+            bestCardToChoose[i]+=2;
+        }
+        if(cards.get(i).getBuffs().get(whichBuff).getActivationType().equals(ActivationType.COMBO)){
+            bestCardToChoose[i]+=1;
+        }
     }
 }
