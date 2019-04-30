@@ -91,7 +91,7 @@ public class Battle {
             }
         }
         currentCard.setAbleToAttack(false);
-        targetCard.decreaseHealth(currentCard.getAssaultPower());
+        targetCard.modifyHealth(-currentCard.getAssaultPower());
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
         return null;
@@ -295,27 +295,39 @@ public class Battle {
                                     || card.getCoordinate().equals(target.sum(coordinate)))
                                 continue;
                             applyBuff(buff, card);
+                            return true;
                         }
                     }
                     break;
-                case -1:
+                case Constants.ROW:
                     for (Card card : fieldCards[turn % 2]) {
                         if (card.isClass(buff.getTargetType())
                                 || card.getCoordinate().getY() != target.getY())
                             continue;
                         applyBuff(buff, card);
+                        return true;
                     }
                     break;
-                case -2:
+                case Constants.COLUMN:
                     for (Card card : fieldCards[turn % 2]) {
                         if (card.isClass(buff.getTargetType())
                                 || card.getCoordinate().getX() != target.getX())
                             continue;
                         applyBuff(buff, card);
+                        return true;
+                    }
+                    break;
+                case Constants.ALL_FIELD:
+                    for (Card card : fieldCards[turn % 2]) {
+                        if (card.isClass(buff.getTargetType()))
+                            continue;
+                        applyBuff(buff, card);
+                        return true;
                     }
                     break;
             }
         }
+        return false;
     }
 
     public void applyBuff(Buff buff, Card card) {
