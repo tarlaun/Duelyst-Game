@@ -126,7 +126,7 @@ public class View {
 
     }
 
-    public void printMinionsInfo(ArrayList<Minion> minions) {
+    public void printMinionsInfo(Card... cards) {
 
     }
 
@@ -245,7 +245,7 @@ public class View {
     }
 
     public void printSellMessages(Boolean successful) {
-        if (successful){
+        if (successful) {
             System.out.println("SUCCESSFUL SELL");
         }
         System.out.println("OBJECT NOT FOUNT");
@@ -268,5 +268,9 @@ public class View {
                 System.out.println("SUCCESSFUL PURCHASE");
                 break;
         }
+    }
+
+    public void showMovement(boolean validMove){
+
     }
 }

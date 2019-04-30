@@ -2,12 +2,14 @@ package Controller;
 
 import Model.*;
 import View.*;
+
 public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
     private Account account = new Account();
+    private Battle battle = new Battle();
     private static final Controller controller = new Controller();
 
     private Controller() {
@@ -93,6 +95,24 @@ public class Controller {
                 break;
             case SHOW:
                 showShop();
+                break;
+            case GAME_INFO:
+                gameInfo();
+                break;
+            case SHOW_MY_MININOS:
+                showMyMinions();
+                break;
+            case SHOW_OPP_MINIONS:
+                showOppMinions();
+                break;
+            case SHOW_CARD_INFO:
+                showCardInfo(request);
+                break;
+            case SELECTION:
+                selectCardInBattle(request);
+                break;
+            case MOVE:
+                moveToInBattle(request);
                 break;
         }
     }
@@ -260,19 +280,40 @@ public class Controller {
     }
 
     public void showMyMinions() {
-
+        view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
     }
 
     public void showOppMinions() {
-
+        view.printMinionsInfo(battle.getFieldCards()[(battle.getTurnByAccount(this.account) + 1) % 2]);
     }
 
-    public void selectCardInBattle() {
-
+    public void showCardInfo(Request request) {
+        if (request.checkFetchInfoSyntax()) {
+            Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
+                    battle.getPlayerHands()[battle.getTurnByAccount(account)]);
+            if (card != null) {
+                view.printCardInfo(card);
+                return;
+            }
+            card = Card.getCardByID(request.getObjectID(request.getCommand()),
+                    battle.getFieldCards()[battle.getTurnByAccount(account)]);
+            view.printCardInfo(card);
+        }
     }
 
-    public void moveToInBattle() {
+    public void selectCardInBattle(Request request) {
+        if (request.checkCardSelectionSyntax()) {
+            Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
+                    battle.getFieldCards()[battle.getTurnByAccount(account)]);
+            view.printCardInfo(card);
+        }
+    }
 
+    public void moveToInBattle(Request request) {
+        if (request.checkMoveSyntax()) {
+            Coordinate coordinate = request.getCoordinate(request.getCommand());
+            view.showMovement(battle.moveTo(coordinate));
+        }
     }
 
     public void battleAttack() {
@@ -320,10 +361,6 @@ public class Controller {
     }
 
     public void enterTheGraveyard() {
-
-    }
-
-    public void showCardInfo() {
 
     }
 
