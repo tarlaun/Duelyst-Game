@@ -3,8 +3,10 @@ package Model;
 import View.Message;
 import View.View;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 public class Battle {
@@ -25,6 +27,8 @@ public class Battle {
     private Card[][] fieldCards = new Card[2][];
     private Menu menu = Menu.getInstance();
     private View view = View.getInstance();
+    private boolean attackMode = true;
+    private boolean isOnSpawn = true;
     Random rand = new Random();
 
     public Coordinate getCurrentCoordinate() {
@@ -930,24 +934,35 @@ public class Battle {
     public void useItem(Item item, Card targetCard) {
         for (ItemBuff buff : item.getBuffs()) {
             if (buff.getTargetCard().equals("Account")) {
-
+                applyItem(buff, targetCard);
             } else {
                 if (targetCard.isClass(buff.getTargetCard())) {
-                    switch (buff.getCasterActivationType()){
+                    if (buff.getSide() == Side.ENEMY &&
+                            Arrays.asList(fieldCards[turn % 2]).indexOf(currentCard) != -1)
+                        continue;
+                    if (buff.getSide() == Side.COMRADE &&
+                            Arrays.asList(fieldCards[(turn + 1) % 2]).indexOf(currentCard) != -1)
+                        continue;
+                    switch (buff.getCasterActivationType()) {
                         case ON_ATTACK:
-                            if (currentCard.isClass(buff.getCasterCard()) && currentCard.isAbleToAttack()){
-
+                            if (currentCard.isClass(buff.getCasterCard()) && attackMode) {
+                                applyItem(buff, targetCard);
                             }
                             break;
                         case ON_SPAWN:
-                            if (currentCard.isClass(buff.getCasterCard()) ){
-
-                            }
+                            if (isOnSpawn)
+                                applyItem(buff, targetCard);
                             break;
-                        case ON_DEATH:
-                            if (currentCard.isClass(buff.getCasterCard())){
-
+                        case ON_DEFENCE:
+                            if (currentCard.isClass(buff.getCasterCard()) && !attackMode) {
+                                applyItem(buff, targetCard);
                             }
+                        case ON_DEATH:
+                            if (currentCard.isClass(buff.getCasterCard()) && currentCard.getHealthPoint() <= 0)
+                                applyItem(buff, targetCard);
+                            break;
+                        case UNDEFINED:
+                            applyItem(buff, targetCard);
                             break;
                     }
                 }
