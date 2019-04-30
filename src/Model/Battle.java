@@ -1105,6 +1105,47 @@ public class Battle {
         }
     }
 
+    public Coordinate setDestinationCoordinates(Card card) {
+        if (card instanceof Minion) {
+            switch (card.getAssaultType()) {
+                case MELEE:
+                    if (card.isAbleToAttack()) {
+                        boolean enemyIsNear = false;
+                        for (int k = -1; k < 2; k++) {
+                            for (int j = -1; j < 2; j++) {
+                                for (int i = 0; i < getFieldCards()[0].length; i++) {
+                                    if (getFieldCards()[0][i].getCoordinate().equals(new Coordinate(card.getCoordinate().getX() + k, card.getCoordinate().getY() + j))) {
+                                        if (getFieldCards()[0][i] instanceof Hero) {
+                                            return card.getCoordinate();
+                                        }
+                                        enemyIsNear = true;
+                                    }
+                                }
+                            }
+                        }
+                        for (int i = 0; i < getFieldCards()[0].length; i++) {
+                            if (getFieldCards()[0][i] instanceof Hero) {
+                                if (Coordinate.getManhattanDistance(card.getCoordinate(), getFieldCards()[0][i].getCoordinate()) < 4) {
+                                    return new Coordinate((card.getCoordinate().getX() + getFieldCards()[0][i].getCoordinate().getX()) / 2, (card.getCoordinate().getY() +getFieldCards()[0][i].getCoordinate().getY()) / 2);
+                                }
+                            }
+                        }
+                        if (enemyIsNear) return card.getCoordinate();
+                        return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
+                    }
+                    break;
+                case RANGED:
+                case HYBRID:
+
+                    break;
+            }
+            if (!card.isAbleToMove()) {
+                return card.getCoordinate();
+            }
+        }
+        return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
+    }
+
 
 
 }
