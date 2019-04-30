@@ -323,13 +323,24 @@ public class Controller {
         if (request.checkAssaultSyntax()) {
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
                     battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
-            view.showAttack(card);
+            view.showAttack(battle.attack(card.getId(),
+                    battle.getCurrentCard()));
         }
     }
 
-    public void battleComboAttack() {
-
+    public void battleComboAttack(Request request) {
+        if (request.checkComboSyntax()) {
+            int oppId = request.getOppIdInCombo(request.getCommand());
+            int[] ids = request.getComboComradesId(request.getCommand());
+            Card[] cards = new Card[ids.length];
+            for (int i = 0; i < ids.length; i++) {
+                cards[i] = Card.getCardByID(ids[i], battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
+            }
+            view.showCombo(oppId, cards);
+        }
     }
+
+}
 
     public void useSpecialPower() {
 

@@ -274,6 +274,9 @@ public class View {
 
     }
 
-    public void showAttack(Card card) {
+    public void showAttack(Message message) {
+    }
+
+    public void showCombo(int oppId, Card[] comboComrades) {
     }
 }

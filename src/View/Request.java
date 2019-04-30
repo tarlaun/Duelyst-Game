@@ -1,5 +1,6 @@
 package View;
 
+import Model.Card;
 import Model.Coordinate;
 
 import java.util.Scanner;
@@ -96,11 +97,11 @@ public class Request {
 
     }
 
-    public void checkAssaultSyntax() {
+    public boolean checkAssaultSyntax() {
 
     }
 
-    public void checkComboSyntax() {
+    public boolean checkComboSyntax() {
 
     }
 
@@ -169,5 +170,16 @@ public class Request {
                 Integer.parseInt(this.getSplittedCommand(input)[this.getSplittedCommand(input).length - 2]),
                 Integer.parseInt(this.getSplittedCommand(input)[this.getSplittedCommand(input).length - 1])
         );
+    }
+
+    public int[] getComboComradesId(String input) {
+        int[] comradesId = new int[this.getSplittedCommand(input).length - 3];
+        for (int i = 3; i < this.getSplittedCommand(input).length; i++) {
+            comradesId[i - 3] = Integer.parseInt(this.getSplittedCommand(input)[i]);
+        }
+    }
+
+    public int getOppIdInCombo(String input) {
+        return Integer.parseInt(this.getSplittedCommand(input)[2]);
     }
 }
