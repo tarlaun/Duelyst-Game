@@ -25,7 +25,6 @@ public class Card {
     private boolean ableToResist = false;
     private boolean ableToCounter = false;
     private int cardHolder;
-    private int cardHolder;
     private int isHoly = 0;
     private RangeType rangeType;
 
@@ -66,9 +65,6 @@ public class Card {
         return isHoly;
     }
 
-    public int getCardHolder() {
-        return cardHolder;
-    }
     public void setIsHoly(int isHoly) {
         this.isHoly = isHoly;
     }
@@ -271,12 +267,15 @@ public class Card {
     public void setAbleToCounter(boolean ableToCounter) {
         this.ableToCounter = ableToCounter;
     }
+
     public RangeType getRangeType() {
         return rangeType;
     }
 
     public boolean isClass(String name) {
         return this.getClass().getName().equals(name);
+    }
+
     public void setRangeType(RangeType rangeType) {
         this.rangeType = rangeType;
     }

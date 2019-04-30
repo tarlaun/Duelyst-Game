@@ -30,6 +30,7 @@ public class Battle {
     public Coordinate getCurrentCoordinate() {
         return currentCoordinate;
     }
+
     private final int length = 9;
     private final int width = 5;
 
@@ -117,7 +118,7 @@ public class Battle {
         checkAttackHistory(opponentCardId, currentCard);
         onAttackSpecialPower();
         currentCard.setAbleToAttack(false);
-        targetCard.decreaseHealth(currentCard.getAssaultPower());
+        targetCard.modifyHealth(-currentCard.getAssaultPower());
         if (isAttackable(currentCard, targetCard))
             targetCard.setHealthPoint(targetCard.getHealthPoint() - targetCard.getIsHoly());
         targetCard.modifyHealth(-currentCard.getAssaultPower());
@@ -200,13 +201,12 @@ public class Battle {
         return true;
     }
 
-    public boolean spellIsReady(Buff buff){
-        if(buff.getTurnCount()>0){
+    public boolean spellIsReady(Buff buff) {
+        if (buff.getTurnCount() > 0) {
             return false;
         }
         return true;
     }
-
 
 
     private void checkAttackHistory(int opponentCardId, Card currentCard) {
@@ -271,22 +271,22 @@ public class Battle {
                 Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
                         < currentCard.getMinRange())
             return false;
-        if(currentCard.getRangeType().equals(RangeType.MELEE)){
-            if(Math.abs(currentCard.getCoordinate().getY()-targetCard.getCoordinate().getY())>1 ||
-            Math.abs(currentCard.getCoordinate().getX()-targetCard.getCoordinate().getX())>1){
+        if (currentCard.getRangeType().equals(RangeType.MELEE)) {
+            if (Math.abs(currentCard.getCoordinate().getY() - targetCard.getCoordinate().getY()) > 1 ||
+                    Math.abs(currentCard.getCoordinate().getX() - targetCard.getCoordinate().getX()) > 1) {
                 return false;
             }
         }
         return true;
     }
 
-    public Message holifyCell(Coordinate coordinate){
+    public Message holifyCell(Coordinate coordinate) {
         Cell cell = field[coordinate.getX()][coordinate.getY()];
-        if(!cell.isHoly()){
+        if (!cell.isHoly()) {
             cell.setHoly(true);
             cell.setHolyTurn(3);
             return null;
-        }else{
+        } else {
             return Message.INVALID_TARGET;
         }
     }
@@ -324,7 +324,7 @@ public class Battle {
                 break;
             case "PERSIAN_CHAMPION":
                 int multiply = ((Minion) currentCard).getAttackCount(targetCard.getId()) * 5;
-                targetCard.decreaseHealth(multiply);
+                targetCard.modifyHealth(-multiply);
                 break;
             case "TURANIAN_SPY":
                 if (!targetCard.getName().equals("WILD_HOG")) {
@@ -343,7 +343,7 @@ public class Battle {
             case "LION":
                 for (Buff buff : targetCard.getCastedBuffs()) {
                     if (buff.getType().equals(BuffType.HOLY) && buff.getPower() > 0) {
-                        targetCard.decreaseHealth(1);
+                        targetCard.modifyHealth(1);
                     }
                 }
                 break;
@@ -379,8 +379,8 @@ public class Battle {
                         card.addToBuffs(buff);
                         break;
                     case "KAVEH":
-                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){
-                            holifyCell(currentCoordinate );
+                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
+                            holifyCell(currentCoordinate);
                         }
 
                         break;
@@ -404,7 +404,7 @@ public class Battle {
                         }
                         break;
                     case "RAKHSH": //we need to choose a target here
-                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){
+                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
                             targetCard.addToBuffs(buff);
                             targetCard.setAbleToAttack(false);
                             targetCard.setAbleToMove(false);
@@ -469,7 +469,7 @@ public class Battle {
 
                 switch (card.getName()) {
                     case "SEVEN_HEADED_DRAGON":
-                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){ // we need to choose a target here
+                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) { // we need to choose a target here
                             targetCard.addToBuffs(buff);
                             targetCard.setAbleToAttack(false);
                         }
@@ -481,12 +481,12 @@ public class Battle {
 
                 switch (card.getName()) {
                     case "ARASH":
-                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){
-                            for (Card target:
-                                fieldCards[(turn+1)%2] ) {
-                                if(target.getCoordinate().getY()==card.getCoordinate().getY()){
-                                    if(!target.getName().equals("GIV")){
-                                        target.decreaseHealth(4);
+                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
+                            for (Card target :
+                                    fieldCards[(turn + 1) % 2]) {
+                                if (target.getCoordinate().getY() == card.getCoordinate().getY()) {
+                                    if (!target.getName().equals("GIV")) {
+                                        target.modifyHealth(-4);
                                     }
                                 }
                             }
@@ -539,9 +539,9 @@ public class Battle {
             case POSITIVE_DISPEL:
                 switch (card.getName()) {
                     case "AFSANEH": // we need to choose a target here
-                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){
-                            for (Buff buffToDispel:
-                                targetCard.getCastedBuffs() ) {
+                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
+                            for (Buff buffToDispel :
+                                    targetCard.getCastedBuffs()) {
                                 targetCard.getCastedBuffs().remove(buff);
                             }
                         }
@@ -614,16 +614,16 @@ public class Battle {
                     card.setAbleToAttack(true);
                 }
                 if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
-                    card.decreaseHealth(buff.getPower());
+                    card.modifyHealth(-buff.getPower());
                 } else if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
                     card.setAbleToAttack(true);
                 }
                 if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
-                    card.decreaseHealth(buff.getPower());
+                    card.modifyHealth(buff.getPower());
                     buff.setPower(4);
                 }
                 if (buff.getType().equals(BuffType.WEAKNESS) && buff.getTargetType().equals("HEALTH") && buff.getTurnCount() == 1) {
-                    targetCard.decreaseHealth(buff.getPower());
+                    targetCard.modifyHealth(buff.getPower());
                 }
                 if (buff.getActivationType().equals(ActivationType.PASSIVE)) {
                     if (buff.getTargetType().equals("HEALTH")) {
@@ -648,11 +648,11 @@ public class Battle {
                 }
             }
         }
-        for (int i = 0; i <9 ; i++) { //deholify cells
+        for (int i = 0; i < 9; i++) { //deholify cells
             for (int j = 0; j < 5; j++) {
-                if(field[i][j].isHoly()){
-                    field[i][j].setHolyTurn(field[i][j].getHolyTurn()-1);
-                    if(field[i][j].getHolyTurn()==0){
+                if (field[i][j].isHoly()) {
+                    field[i][j].setHolyTurn(field[i][j].getHolyTurn() - 1);
+                    if (field[i][j].getHolyTurn() == 0) {
                         field[i][j].setHoly(false);
                     }
                 }
