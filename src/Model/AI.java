@@ -7,7 +7,12 @@ public class AI {
     Battle battle = new Battle();
 
     public Coordinate setCardCoordinates(Card card) {
-
+        if(battle.getFieldCards().length==0){
+            return new Coordinate(6,2);
+        }
+        else {
+            return new Coordinate(battle.getFieldCards()[1][battle.getFieldCards().length-1].getCoordinate().getX(),(battle.getField()[1][battle.getFieldCards().length-1].getCoordinate().getY()+1)%5);
+        }
     }
 
     public Coordinate setTargetCoordiantes(Card card) {
