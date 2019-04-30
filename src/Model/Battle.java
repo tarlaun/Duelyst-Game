@@ -29,7 +29,6 @@ public class Battle {
     Random rand = new Random();
 
 
-
     public Coordinate getCurrentCoordinate() {
         return currentCoordinate;
     }
@@ -664,14 +663,14 @@ public class Battle {
         }
 
         //random item appears on the battleField
-        if((turn%Constants.ITEM_APPEARANCE)==1){
+        if ((turn % Constants.ITEM_APPEARANCE) == 1) {
             boolean ableToAddItem = true;
-            while (ableToAddItem){
+            while (ableToAddItem) {
                 int randomX = rand.nextInt(9);
                 int randomY = rand.nextInt(5);
                 int randomCollectableItem = rand.nextInt(9);
-                if(field[randomX][randomY].getCardID()==0){
-                    ableToAddItem=false;
+                if (field[randomX][randomY].getCardID() == 0) {
+                    ableToAddItem = false;
                     field[randomX][randomY].setCardID(chooseColectableItems(shop.getItems()).get(randomCollectableItem).getId());
                 }
             }
@@ -682,6 +681,29 @@ public class Battle {
         targetCard = null;
 
 
+    }
+
+    public void itemEffects(){
+        switch (currentItem.getName()){
+            case "Nooshdaaroo":
+                break;
+            case "Twoheaded Arrow":
+                break;
+            case "Elixir":
+                break;
+            case "Mana Electuary":
+                break;
+            case "Impregnability Electuary":
+                break;
+            case "Death Curse":
+                break;
+            case "Random Damage":
+                break;
+            case "Blades of Agility":
+                break;
+            case "Chinese Sword":
+                break;
+        }
     }
 
     public void showCollectables() {
@@ -698,17 +720,16 @@ public class Battle {
         showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
     }
 
-    public ArrayList<Item> chooseColectableItems(ArrayList<Item> items){
+    public ArrayList<Item> chooseColectableItems(ArrayList<Item> items) {
         ArrayList<Item> newItemList = new ArrayList<>();
-        for (Item item: items) {
-            if(item.getPrice()==0){
+        for (Item item : items) {
+            if (item.getPrice() == 0) {
                 newItemList.add(item);
             }
         }
         return newItemList;
     }
 
-    /*
         public Message selectCollectableId(int collectableId) {
             for (Collectable collectable :
                     collectables[turn % 2]) {
@@ -719,13 +740,11 @@ public class Battle {
 
         }
 
-    */
-/*
     public boolean useItem(Coordinate coordinate) {
         if (menu.getStat() != MenuStat.ITEM_SELECTION)
             return false;
+        return true;
     }
-*/
     /*
     public Message useSpecialPower(Coordinate coordinate) {
 
@@ -769,11 +788,9 @@ public class Battle {
         menu.setStat(MenuStat.GRAVEYARD);
     }
 
-/*
     public Message showCardInfoInGraveyard(int cardId) {
 
     }
-*/
 
     public void showCard() {
 
