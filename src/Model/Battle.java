@@ -1146,6 +1146,44 @@ public class Battle {
         return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
     }
 
+    public Card chooseCard(ArrayList<Card> cards) {
 
+        int[] bestCardToChoose = new int[cards.size()];
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getBuffs().size() == 1) {
+                bestCardToChoose[i] = 10;
+                chooseBestCard(cards, bestCardToChoose, i, 0);
+
+            }
+            if (cards.get(i).getBuffs().size() == 2) {
+                bestCardToChoose[i] = 100;
+                chooseBestCard(cards, bestCardToChoose, i, 0);
+                chooseBestCard(cards, bestCardToChoose, i, 1);
+            }
+        }
+        int highestAP = 0;
+        int whichCard = 0;
+        for (int i = 0; i < bestCardToChoose.length; i++) {
+            if (bestCardToChoose[i] > highestAP) {
+                highestAP = bestCardToChoose[i];
+                whichCard = i;
+            }
+        }
+        Card card = cards.get(whichCard);
+        cards.remove(whichCard);
+        return card;
+    }
+
+    private void chooseBestCard(ArrayList<Card> cards, int[] bestCardToChoose, int i, int whichBuff) {
+        if (cards.get(i).getBuffs().get(whichBuff).getActivationType().equals(ActivationType.ON_ATTACK)) {
+            bestCardToChoose[i] += 5;
+        }
+        if (cards.get(i).getBuffs().get(whichBuff).getActivationType().equals(ActivationType.PASSIVE)) {
+            bestCardToChoose[i] += 2;
+        }
+        if (cards.get(i).getBuffs().get(whichBuff).getActivationType().equals(ActivationType.COMBO)) {
+            bestCardToChoose[i] += 1;
+        }
+    }
 
 }
