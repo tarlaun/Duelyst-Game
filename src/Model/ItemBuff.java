@@ -39,4 +39,44 @@ public class ItemBuff {
         this.casterActivationType = buff.casterActivationType;
         this.casterRangeType = buff.casterRangeType;
     }
+
+    public BuffType getType() {
+        return type;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public int getTurnsCount() {
+        return turnsCount;
+    }
+
+    public String getTargetCard() {
+        return targetCard;
+    }
+
+    public Side getSide() {
+        return side;
+    }
+
+    public ActivationType getActivationType() {
+        return activationType;
+    }
+
+    public ActivationType getCasterActivationType() {
+        return casterActivationType;
+    }
+
+    public String getCasterCard() {
+        return casterCard;
+    }
+
+    public RangeType getRangeType() {
+        return rangeType;
+    }
+
+    public RangeType getCasterRangeType() {
+        return casterRangeType;
+    }
 }

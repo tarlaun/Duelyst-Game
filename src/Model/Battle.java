@@ -927,4 +927,46 @@ public class Battle {
         }
     }
 
+    public void useItem(Item item, Card card) {
+        for (ItemBuff buff : item.getBuffs()) {
+            switch (buff.getSide()) {
+                case COMRADE:
+                    break;
+                case ENEMY:
+                    break;
+                default:
+            }
+        }
+    }
+
+    public void applyItem(ItemBuff buff, Card card) {
+        card.getCastedItems().add(buff);
+        switch (buff.getType()) {
+            case POISON:
+                card.modifyHealth(buff.getPower());
+            case STUN:
+                card.setAbleToAttack(false);
+                card.setAbleToMove(false);
+                break;
+            case DISARM:
+                card.setAbleToCounter(false);
+                break;
+            case HIT_POWER:
+                card.modifyHit(buff.getPower());
+                break;
+            case HEALTH_POWER:
+                card.modifyHealth(buff.getPower());
+                break;
+            case HIT_WEAKNESS:
+                card.modifyHit(buff.getPower());
+                break;
+            case HEALTH_WEAKNESS:
+                card.modifyHealth(buff.getPower());
+                break;
+            case MANA:
+                accounts[turn % 2].modifyMana(buff.getPower());
+                break;
+        }
+    }
+
 }

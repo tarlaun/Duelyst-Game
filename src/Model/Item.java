@@ -70,5 +70,7 @@ public class Item {
         return null;
     }
 
-
+    public ArrayList<ItemBuff> getBuffs() {
+        return buffs;
+    }
 }

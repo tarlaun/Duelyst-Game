@@ -18,6 +18,7 @@ public class Card {
     private ActivationType activationType;
     private ArrayList<Buff> buffs = new ArrayList<>();
     private ArrayList<Buff> castedBuffs = new ArrayList<>();
+    private ArrayList<ItemBuff> castedItems = new ArrayList<>();
     private int manaPoint;
     private Coordinate coordinate;
     private boolean ableToAttack = false;
@@ -27,6 +28,10 @@ public class Card {
     private int cardHolder;
     private int isHoly = 0;
     private RangeType rangeType;
+
+    public ArrayList<ItemBuff> getCastedItems() {
+        return castedItems;
+    }
 
     public int getCardHolder() {
         return cardHolder;
