@@ -1,8 +1,8 @@
 {
-  "id": 17,
-  "name": "Weakening",
+  "id": 0,
+  "name": "Shock",
   "maxPossibleMoving": -1,
-  "price": 1000,
+  "price": 1200,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -10,12 +10,12 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HIT_WEAKNESS",
-      "power": 4,
-      "targetType": "Minion",
+      "type": "STUN",
+      "power": 0,
+      "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
+      "turnCount": 2,
       "side": "ENEMY",
       "effectArea": [
         {

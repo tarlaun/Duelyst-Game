@@ -1,8 +1,8 @@
 {
-  "id": 6,
-  "name": "Hell Fire",
+  "id": 0,
+  "name": "All Attack",
   "maxPossibleMoving": -1,
-  "price": 600,
+  "price": 1500,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,34 +11,22 @@
   "buffs": [
     {
       "type": "HEALTH_WEAKNESS",
-      "power": 1,
+      "power": 6,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 2,
-      "side": "ALL",
+      "turnCount": 0,
+      "side": "ENEMY",
       "effectArea": [
         {
-          "x": 0,
-          "y": 0
-        },
-        {
-          "x": 0,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
+          "x": -2,
+          "y": -2
         }
       ]
     }
   ],
   "castedBuffs": [],
-  "manaPoint": 3,
+  "manaPoint": 4,
   "ableToAttack": false,
   "ableToMove": false
 }

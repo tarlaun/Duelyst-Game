@@ -1,8 +1,8 @@
 {
-  "id": 9,
-  "name": "Madness",
+  "id": 0,
+  "name": "Total Disarm",
   "maxPossibleMoving": -1,
-  "price": 650,
+  "price": 1000,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -10,28 +10,13 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HIT_POWER",
-      "power": 4,
-      "targetType": "Card",
-      "dispelType": "TEMPORARY",
-      "activationType": "UNDEFINED",
-      "turnCount": 3,
-      "side": "COMRADE",
-      "effectArea": [
-        {
-          "x": 0,
-          "y": 0
-        }
-      ]
-    },
-    {
       "type": "DISARM",
       "power": 0,
       "targetType": "Card",
-      "dispelType": "TEMPORARY",
+      "dispelType": "PERMANENT",
       "activationType": "UNDEFINED",
-      "turnCount": 3,
-      "side": "ALL",
+      "turnCount": 1000000,
+      "side": "ENEMY",
       "effectArea": [
         {
           "x": 0,

@@ -10,6 +10,7 @@ public class Buff {
     private ActivationType activationType;
     private int turnCount;
     private Side side;
+    private ModifiedAttribute attribute;
     private ArrayList<Coordinate> effectArea = new ArrayList<>();
 
     public void setType(BuffType type) {

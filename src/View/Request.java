@@ -1,53 +1,82 @@
 package View;
 
+import javax.swing.text.rtf.RTFEditorKit;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Request {
-    private ArrayList<String> strings = new ArrayList<>();
-    private String[] commands;
+    private Scanner scanner = new Scanner(System.in);
+    private final String[] strings = {
+            "create account ",
+            "login ",
+            "show leaderboard",
+            "save",
+            "logout",
+            "help",
+            "exit"
+    };
+    private String command;
     private RequestType type;
 
-    public void checkAccountCreationSyntax() {
+    public boolean checkAccountCreationSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_ACCOUNT.ordinal()] + "\\w+");
+    }
+
+    public boolean checkLeaderBoardSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.LEADERBOARD.ordinal()]);
+    }
+
+    public boolean checkPasswordValidation() {
+        return true;
+    }
+
+    public boolean checkLoginSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.LOGIN.ordinal()]);
+    }
+
+    public boolean checkLogoutSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.LOGOUT.ordinal()]);
+    }
+
+    public boolean checkMenuEntrnaceSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.ENTRANCE.ordinal()] + "Collection|Shop|Battle|Exit");
 
     }
 
-    public void checkLoginSyntax() {
+    public boolean checkSearchSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()] + "\\w+");
+    }
+
+    public boolean checkDeckSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_DECK.ordinal()]+"\\w+");
+    }
+
+
+    public boolean checkToDeckAdditionSyntax() {
 
     }
 
-    public void checkMenuEntrnaceSyntax() {
+    public boolean checkFromDeckDeletionSyntax() {
 
     }
 
-    public void checkSearchSyntax() {
+    public boolean checkValidationSyntax(){
 
     }
 
-    public void checkDeckCreationSyntax() {
+    public boolean checkShowDeckSyntax() {
 
     }
 
-    public void checkShowDeckSyntax() {
+    public boolean checkDeckSelectionSyntax() {
 
     }
 
-    public void checkDeckDeletionSyntax() {
+    public boolean checkShowAllDeckSyntax(){
 
     }
 
-    public void checkToDeckAdditionSyntax() {
-
-    }
-
-    public void checkFromDeckDeletionSyntax() {
-
-    }
-
-    public void checkDeckSelectionSyntax() {
-
-    }
-
-    public void checkPurchaseSyntax() {
+    public boolean checkBuySyntax() {
 
     }
 
@@ -55,7 +84,7 @@ public class Request {
 
     }
 
-    public void checkSellSyntax() {
+    public boolean checkSellSyntax() {
 
     }
 
@@ -87,4 +116,47 @@ public class Request {
 
     }
 
+    public RequestType getType() {
+        return type;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public String[] getStrings() {
+        return strings;
+    }
+
+    public String getNewCommand() {
+        return scanner.nextLine();
+    }
+
+    public String[] getSplittedCommand(String input) {
+        return input.split(" ");
+    }
+
+    public String getAccountName(String input) {
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public String getPassword(String input) {
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public String getMenu(String input) {
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public String getObjectName(String input){
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public String getDeckName(String input){
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length-1];
+    }
+
+    public int getObjectID(String input){
+        return Integer.parseInt(this.getSplittedCommand(input)[1]);
+    }
 }

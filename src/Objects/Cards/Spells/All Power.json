@@ -1,8 +1,8 @@
 {
-  "id": 1,
-  "name": "Total Disarm",
+  "id": 0,
+  "name": "All Power",
   "maxPossibleMoving": -1,
-  "price": 1000,
+  "price": 2000,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -10,23 +10,23 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "DISARM",
-      "power": 0,
+      "type": "HIT_POWER",
+      "power": 2,
       "targetType": "Card",
       "dispelType": "PERMANENT",
       "activationType": "UNDEFINED",
       "turnCount": 1000000,
-      "side": "ENEMY",
+      "side": "COMRADE",
       "effectArea": [
         {
-          "x": 0,
-          "y": 0
+          "x": -1,
+          "y": -1
         }
       ]
     }
   ],
   "castedBuffs": [],
-  "manaPoint": 0,
+  "manaPoint": 4,
   "ableToAttack": false,
   "ableToMove": false
 }

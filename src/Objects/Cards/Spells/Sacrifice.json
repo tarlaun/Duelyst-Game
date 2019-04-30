@@ -1,8 +1,8 @@
 {
-  "id": 12,
-  "name": "Dispel",
+  "id": 0,
+  "name": "Sacrifice",
   "maxPossibleMoving": -1,
-  "price": 2100,
+  "price": 1600,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -10,13 +10,13 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "POSITIVE_DISPEL",
-      "power": 0,
-      "targetType": "Card",
+      "type": "HEALTH_WEAKNESS",
+      "power": 6,
+      "targetType": "Minion",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 0,
-      "side": "ENEMY",
+      "turnCount": 1000000,
+      "side": "COMRADE",
       "effectArea": [
         {
           "x": 0,
@@ -25,12 +25,12 @@
       ]
     },
     {
-      "type": "NEGATIVE_DISPEL",
-      "power": 0,
-      "targetType": "Card",
+      "type": "HIT_POWER",
+      "power": 8,
+      "targetType": "Minion",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 0,
+      "turnCount": 1000000,
       "side": "COMRADE",
       "effectArea": [
         {
@@ -41,7 +41,7 @@
     }
   ],
   "castedBuffs": [],
-  "manaPoint": 0,
+  "manaPoint": 2,
   "ableToAttack": false,
   "ableToMove": false
 }

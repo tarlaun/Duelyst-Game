@@ -13,8 +13,8 @@ public class Coordinate {
         this.y = y;
     }
 
-    public boolean equals(Coordinate c1, Coordinate c2) {
-        return c1.x == c2.x && c1.y == c2.y;
+    public boolean equals(Coordinate coordinate) {
+        return this.x == coordinate.x && this.y == coordinate.y;
     }
 
     public int getX() {
@@ -29,6 +29,9 @@ public class Coordinate {
         return abs(c1.getX() - c2.getX()) + abs(c2.getY() - c1.getY());
     }
 
+    public Coordinate sum(Coordinate coordinate) {
+        return new Coordinate(this.x + coordinate.x, this.y + coordinate.y);
+    }
 
     public static Coordinate getPathDirections(Coordinate c1, Coordinate c2, Cell[][] field) { // move from c1 to c2
         ArrayList<Direction> list = new ArrayList<>();

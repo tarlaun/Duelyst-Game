@@ -1,8 +1,8 @@
 {
-  "id": 5,
-  "name": "God Strength",
+  "id": 0,
+  "name": "Fireball",
   "maxPossibleMoving": -1,
-  "price": 450,
+  "price": 400,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -10,13 +10,13 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HIT_POWER",
+      "type": "HEALTH_WEAKNESS",
       "power": 4,
       "targetType": "Hero",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
       "turnCount": 0,
-      "side": "COMRADE",
+      "side": "ENEMY",
       "effectArea": [
         {
           "x": 0,
@@ -26,7 +26,7 @@
     }
   ],
   "castedBuffs": [],
-  "manaPoint": 2,
+  "manaPoint": 1,
   "ableToAttack": false,
   "ableToMove": false
 }

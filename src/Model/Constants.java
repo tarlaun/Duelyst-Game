@@ -11,10 +11,11 @@ public class Constants {
     static final int UNDEFINED_MIN_RANGE = -1;
     static final int UNDEFINED_MAX_RANGE = -1;
     static final ActivationType UNDEFINED_ACTIVATION_TYPE = ActivationType.UNDEFINED;
-    static final Coordinate ALL_FIELD = new Coordinate(-1, -1);
-    static final Coordinate COLUMN = new Coordinate(-2, -2);
-    static final Coordinate ROW = new Coordinate(-3, -3);
+    static final int ALL_FIELD = -1;
+    static final int COLUMN = -2;
+    static final int ROW = -3;
     static final int ALL_TIME = 1000000;
     static final int UNDIFINED_POWER = 0;
     static final Side ALL_SIDES = Side.ALL;
+    static final int MAX_MANA=9;
 }

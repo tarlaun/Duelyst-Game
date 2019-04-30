@@ -1,25 +1,23 @@
 package Model;
 
 public class Minion extends Card {
+    private int[][] attackCount = new int[40][2];
 
-    private int [][] attackCount = new int [40][2];
-
+    public Minion(String info) {
+        super(info.split(Constants.CARD_INFO_SPLITTER));
+    }
 
     public int getAttackCount(int id) {
-        for (int i = 0; i <40 ; i++) {
-            if(this.attackCount[i][0]==id){
+        for (int i = 0; i < 40; i++) {
+            if (this.attackCount[i][0] == id) {
                 return attackCount[i][1];
             }
         }
         return 0;
     }
 
-    public void setAttackCount(int i , int j , int k) {
-        this.attackCount[i][j] = k ;
-    }
-
-    public Minion(int id, String[] info, Buff... buffs) {
-        super(id, info);
+    public void setAttackCount(int i, int j, int k) {
+        this.attackCount[i][j] = k;
     }
 
 

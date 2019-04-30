@@ -1,8 +1,8 @@
 {
-  "id": 18,
-  "name": "Sacrifice",
+  "id": 0,
+  "name": "Health with profit",
   "maxPossibleMoving": -1,
-  "price": 1600,
+  "price": 2250,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -12,10 +12,10 @@
     {
       "type": "HEALTH_WEAKNESS",
       "power": 6,
-      "targetType": "Minion",
+      "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
+      "turnCount": 3,
       "side": "COMRADE",
       "effectArea": [
         {
@@ -25,12 +25,12 @@
       ]
     },
     {
-      "type": "HIT_POWER",
-      "power": 8,
-      "targetType": "Minion",
+      "type": "HOLY",
+      "power": 2,
+      "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
+      "turnCount": 3,
       "side": "COMRADE",
       "effectArea": [
         {
@@ -41,7 +41,7 @@
     }
   ],
   "castedBuffs": [],
-  "manaPoint": 2,
+  "manaPoint": 0,
   "ableToAttack": false,
   "ableToMove": false
 }

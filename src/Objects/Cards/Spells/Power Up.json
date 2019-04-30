@@ -1,8 +1,8 @@
 {
-  "id": 7,
-  "name": "Lightning Bolt",
+  "id": 0,
+  "name": "Power Up",
   "maxPossibleMoving": -1,
-  "price": 1250,
+  "price": 2500,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -10,13 +10,13 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HIT_WEAKNESS",
-      "power": 8,
-      "targetType": "Hero",
+      "type": "HIT_POWER",
+      "power": 6,
+      "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 0,
-      "side": "ENEMY",
+      "turnCount": 1000000,
+      "side": "COMRADE",
       "effectArea": [
         {
           "x": 0,

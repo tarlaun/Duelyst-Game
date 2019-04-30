@@ -1,0 +1,31 @@
+{
+  "id": 0,
+  "name": "Elixir",
+  "price": 0,
+  "buffs": [
+    {
+      "type": "HEALTH_POWER",
+      "power": 3,
+      "turnsCount": 1000000,
+      "targetCard": "Card",
+      "side": "ALL",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    },
+    {
+      "type": "HIT_POWER",
+      "power": 3,
+      "turnsCount": 1000000,
+      "targetCard": "Minion",
+      "side": "ALL",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    }
+  ]
+}

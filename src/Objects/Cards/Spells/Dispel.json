@@ -1,8 +1,8 @@
 {
-  "id": 2,
-  "name": "Area Dispel",
+  "id": 0,
+  "name": "Dispel",
   "maxPossibleMoving": -1,
-  "price": 1500,
+  "price": 2100,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -21,18 +21,6 @@
         {
           "x": 0,
           "y": 0
-        },
-        {
-          "x": 0,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
         }
       ]
     },
@@ -48,39 +36,12 @@
         {
           "x": 0,
           "y": 0
-        },
-        {
-          "x": 0,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        }
-      ]
-    },
-    {
-      "type": "HIT_POWER",
-      "power": 2,
-      "targetType": "Card",
-      "dispelType": "TEMPORARY",
-      "activationType": "UNDEFINED",
-      "turnCount": 1000000,
-      "side": "COMRADE",
-      "effectArea": [
-        {
-          "x": 0,
-          "y": 0
         }
       ]
     }
   ],
   "castedBuffs": [],
-  "manaPoint": 2,
+  "manaPoint": 0,
   "ableToAttack": false,
   "ableToMove": false
 }
