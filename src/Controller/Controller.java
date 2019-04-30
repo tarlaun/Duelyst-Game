@@ -2,8 +2,6 @@ package Controller;
 
 import Model.*;
 import View.*;
-import com.sun.org.apache.regexp.internal.RE;
-
 public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
@@ -230,10 +228,10 @@ public class Controller {
 
     public void searchInShop(Request request) {
         if (request.checkSearchSyntax()) {
-            Card card = Card.getCardByName(request.getObjectName(request.getCommand(),
-                    shop.getCards().toArray(Card[]::new)));
-            Item item = Item.getItemByName(request.getObjectName(request.getCommand(),
-                    shop.getItems().toArray(Item[]::new)));
+            Card card = Card.getCardByName(request.getObjectName(request.getCommand()),
+                    shop.getCards().toArray(Card[]::new));
+            Item item = Item.getItemByName(request.getObjectName(request.getCommand()),
+                    shop.getItems().toArray(Item[]::new));
             if (card != null)
                 view.printId(card);
             if (item != null)
