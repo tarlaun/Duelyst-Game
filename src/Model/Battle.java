@@ -102,6 +102,13 @@ public class Battle {
         if ((turn % 2) == 0) {
             firstPlayerMatch.setResult(MatchResult.LOST);
             secondPlayerMatch.setResult(MatchResult.WON);
+            accounts[1].setBudget(accounts[0].getBudget()+1000);
+            setMatchInfo();
+        }
+        if((turn%2)==1){
+            firstPlayerMatch.setResult(MatchResult.WON);
+            secondPlayerMatch.setResult(MatchResult.LOST);
+            accounts[0].setBudget(accounts[0].getBudget()+1000);
             setMatchInfo();
         }
     }
