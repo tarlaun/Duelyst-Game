@@ -4,6 +4,7 @@ public class Flag  {
     private Card flagHolder;
     private int turnCounter=0;
     private Coordinate coordinate;
+    private Account account;
 
     public Card getFlagHolder() {
         return flagHolder;
@@ -11,6 +12,14 @@ public class Flag  {
 
     public Coordinate getCoordinate() {
         return coordinate;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public void setCoordinate(Coordinate coordinate) {

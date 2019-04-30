@@ -31,36 +31,45 @@ public class Battle {
     private Match secondPlayerMatch = new Match();
     private ArrayList<Flag> flagsOnTheGround = new ArrayList<>();
     private int flagsAppeared = 0;
+    private Flag mainFlag = new Flag();
 
-    public boolean checkForWin(){
+    public boolean checkForWin() {
 
         boolean firstPlayerWon = false;
         boolean secondPlayerWon = false;
-        switch (mode){
+        switch (mode) {
             case KILL_OPPONENT_HERO:
                 for (int i = 0; i < 2; i++) {
-                    for (int j = 0; j <fieldCards[i].length ; j++) {
-                        if(fieldCards[i][j] instanceof Hero && fieldCards[i][j].getHealthPoint()<=0){
-                            if(i==0) secondPlayerWon=true;
-                            if(i==1) firstPlayerWon=true;
+                    for (int j = 0; j < fieldCards[i].length; j++) {
+                        if (fieldCards[i][j] instanceof Hero && fieldCards[i][j].getHealthPoint() <= 0) {
+                            if (i == 0) secondPlayerWon = true;
+                            if (i == 1) firstPlayerWon = true;
                         }
                     }
                 }
                 break;
             case HOLD_FLAG:
+                if(mainFlag.getTurnCounter()>= Constants.TURNS_HOLDING_FLAG){
+                   if(mainFlag.getAccount().equals(accounts[0])){
+                       firstPlayerWon = true;
+                   }
+                    if(mainFlag.getAccount().equals(accounts[1])){
+                        secondPlayerWon = true;
+                    }
+                }
+
                 break;
             case COLLECT_FLAG:
-                for (int i = 0; i <2 ; i++) {
-                  if(accounts[i].getFlagsCollected()>=Constants.MAXIMUM_FLAGS/2){
-                      if(i==1) secondPlayerWon=true;
-                      if(i==0) firstPlayerWon=true;
-                  }
+                for (int i = 0; i < 2; i++) {
+                    if (accounts[i].getFlagsCollected() >= Constants.MAXIMUM_FLAGS / 2) {
+                        if (i == 1) secondPlayerWon = true;
+                        if (i == 0) firstPlayerWon = true;
+                    }
                 }
                 break;
-
         }
-        if(firstPlayerWon){
-            if(secondPlayerWon){
+        if (firstPlayerWon) {
+            if (secondPlayerWon) {
                 firstPlayerMatch.setResult(MatchResult.TIE);
                 secondPlayerMatch.setResult(MatchResult.TIE);
                 return true;
@@ -68,7 +77,7 @@ public class Battle {
             firstPlayerMatch.setResult(MatchResult.WON);
             secondPlayerMatch.setResult(MatchResult.LOST);
             return true;
-        }else if(secondPlayerWon) {
+        } else if (secondPlayerWon) {
             firstPlayerMatch.setResult(MatchResult.LOST);
             secondPlayerMatch.setResult(MatchResult.WON);
             return true;
@@ -713,7 +722,7 @@ public class Battle {
             }
         }
 
-        if(mode.equals(BattleMode.COLLECT_FLAG)&& (turn % Constants.ITEM_APPEARANCE) == 1){
+        if (mode.equals(BattleMode.COLLECT_FLAG) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();
         }
         turn++;
@@ -723,10 +732,10 @@ public class Battle {
 
     }
 
-    public boolean collectFlags(){
-        for (int i = 0; i <flagsOnTheGround.size() ; i++) {
-            if(Coordinate.getManhattanDistance(flagsOnTheGround.get(i).getCoordinate(),currentCard.getCoordinate())==0){
-                accounts[turn%2].setFlagsCollected(accounts[turn%2].getFlagsCollected()+1);
+    public boolean collectFlags() {
+        for (int i = 0; i < flagsOnTheGround.size(); i++) {
+            if (Coordinate.getManhattanDistance(flagsOnTheGround.get(i).getCoordinate(), currentCard.getCoordinate()) == 0) {
+                accounts[turn % 2].setFlagsCollected(accounts[turn % 2].getFlagsCollected() + 1);
                 flagsOnTheGround.remove(flagsOnTheGround.get(i));
                 checkForWin();
                 return true;
@@ -736,16 +745,16 @@ public class Battle {
     }
 
 
-    public void flagAppearance(){
+    public void flagAppearance() {
         boolean ableToAddFlag = true;
         while (ableToAddFlag) {
             int randomX = rand.nextInt(9);
             int randomY = rand.nextInt(5);
-            if(field[randomX][randomY].getCardID() == 0 && flagsAppeared<Constants.MAXIMUM_FLAGS){
+            if (field[randomX][randomY].getCardID() == 0 && flagsAppeared < Constants.MAXIMUM_FLAGS) {
                 Flag flag = new Flag();
-                flag.setCoordinate(new Coordinate(randomX,randomY));
+                flag.setCoordinate(new Coordinate(randomX, randomY));
                 flagsOnTheGround.add(flag);
-                ableToAddFlag=false;
+                ableToAddFlag = false;
                 flagsAppeared++;
             }
         }
