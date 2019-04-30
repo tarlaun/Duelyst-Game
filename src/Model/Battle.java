@@ -717,7 +717,14 @@ public class Battle {
 
     }
 
-
+    public void collectFlags(){
+        for (int i = 0; i <flagsOnTheGround.size() ; i++) {
+            if(Coordinate.getManhattanDistance(flagsOnTheGround.get(i).getCoordinate(),currentCard.getCoordinate())==0){
+                accounts[turn%2].setFlagsCollected(accounts[turn%2].getFlagsCollected()+1);
+                flagsOnTheGround.remove(flagsOnTheGround.get(i));
+            }
+        }
+    }
 
 
     public void flagAppearance(){
@@ -725,7 +732,6 @@ public class Battle {
         while (ableToAddFlag) {
             int randomX = rand.nextInt(9);
             int randomY = rand.nextInt(5);
-            int randomCollectableItem = rand.nextInt(9);
             if(field[randomX][randomY].getCardID() == 0){
                 Flag flag = new Flag();
                 flag.setCoordinate(new Coordinate(randomX,randomY));

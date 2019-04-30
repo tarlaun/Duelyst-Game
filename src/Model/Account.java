@@ -19,6 +19,14 @@ public class Account {
     private int flagsCollected=0;
     private Controller controller = Controller.getInstance();
 
+    public int getFlagsCollected() {
+        return flagsCollected;
+    }
+
+    public void setFlagsCollected(int flagsCollected) {
+        this.flagsCollected = flagsCollected;
+    }
+
     public static Game getGame() {
         return game;
     }
