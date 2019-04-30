@@ -17,6 +17,10 @@ public class Item {
         }
     }
 
+    public ArrayList<ItemBuff> getBuffs() {
+        return buffs;
+    }
+
     public Item(Item item) {
         this.name = item.name;
         this.price = item.price;

@@ -26,8 +26,49 @@ public class Battle {
     private Menu menu = Menu.getInstance();
     private View view = View.getInstance();
     private Shop shop = Shop.getInstance();
-    Random rand = new Random();
+    private Random rand = new Random();
+    private Match firstPlayerMatch = new Match();
+    private Match secondPlayerMatch = new Match();
 
+
+
+    public boolean checkForWin(){
+        boolean firstPlayerWon = false;
+        boolean secondPlayerWon = false;
+        switch (mode){
+            case KILL_OPPONENT_HERO:
+                for (int i = 0; i < 2; i++) {
+                    for (int j = 0; j <fieldCards[i].length ; j++) {
+                        if(fieldCards[i][j] instanceof Hero && fieldCards[i][j].getHealthPoint()<=0){
+                            if(i==0) secondPlayerWon=true;
+                            if(i==1) firstPlayerWon=true;
+                        }
+                    }
+                }
+
+                break;
+            case HOLD_FLAG:
+                break;
+            case COLLECT_FLAG:
+                break;
+
+        }
+        if(firstPlayerWon){
+            if(secondPlayerWon){
+                firstPlayerMatch.setResult(MatchResult.TIE);
+                secondPlayerMatch.setResult(MatchResult.TIE);
+                return true;
+            }
+            firstPlayerMatch.setResult(MatchResult.WON);
+            secondPlayerMatch.setResult(MatchResult.LOST);
+            return true;
+        }else if(secondPlayerWon) {
+            firstPlayerMatch.setResult(MatchResult.LOST);
+            secondPlayerMatch.setResult(MatchResult.WON);
+            return true;
+        }
+        return false;
+    }
 
     public Coordinate getCurrentCoordinate() {
         return currentCoordinate;
@@ -388,8 +429,6 @@ public class Battle {
                         break;
                     case "ESFANDIAR":
                         card.addToBuffs(buff);
-
-
                         break;
                 }
                 break;
@@ -457,14 +496,6 @@ public class Battle {
                         break;
                     case "JEN":
                         break;
-                }
-                break;
-            case POISON:
-                switch (card.getName()) {
-
-                    case "VENOM_SNAKE":
-                        break;
-
                 }
                 break;
             case DISARM:
@@ -556,7 +587,6 @@ public class Battle {
 
         useSpecialPower(card, card.getBuffs().get(1));
     }
-
 
     public Message insertCard(Coordinate coordinate, String cardName) {
         boolean validTarget = false;
@@ -672,6 +702,7 @@ public class Battle {
                 if (field[randomX][randomY].getCardID() == 0) {
                     ableToAddItem = false;
                     field[randomX][randomY].setCardID(chooseColectableItems(shop.getItems()).get(randomCollectableItem).getId());
+                    //effect item
                 }
             }
         }
@@ -683,28 +714,6 @@ public class Battle {
 
     }
 
-    public void itemEffects(){
-        switch (currentItem.getName()){
-            case "Nooshdaaroo":
-                break;
-            case "Twoheaded Arrow":
-                break;
-            case "Elixir":
-                break;
-            case "Mana Electuary":
-                break;
-            case "Impregnability Electuary":
-                break;
-            case "Death Curse":
-                break;
-            case "Random Damage":
-                break;
-            case "Blades of Agility":
-                break;
-            case "Chinese Sword":
-                break;
-        }
-    }
 
     public void showCollectables() {
 
@@ -730,67 +739,33 @@ public class Battle {
         return newItemList;
     }
 
-        public Message selectCollectableId(int collectableId) {
-            for (Collectable collectable :
-                    collectables[turn % 2]) {
-                if (collectable.getId() == collectableId) {
-                    menu.setStat(MenuStat.ITEM_SELECTION);
-                }
+   /* public Message selectCollectableId(int collectableId) {
+        for (Collectable collectable :
+                collectables[turn % 2]) {
+            if (collectable.getId() == collectableId) {
+                menu.setStat(MenuStat.ITEM_SELECTION);
             }
-
         }
+
+    }*/
 
     public boolean useItem(Coordinate coordinate) {
         if (menu.getStat() != MenuStat.ITEM_SELECTION)
             return false;
         return true;
     }
-    /*
-    public Message useSpecialPower(Coordinate coordinate) {
 
-    }
+   /* public Message useSpecialPower(Coordinate coordinate) {
 
-    public Message insertCard(Coordinate coordinate, String cardName) {
-        boolean validTarget = false;
-        for (int i = 0; i < 5; i++) {
-            if (playerHands[turn % 2][i].getName().equals(cardName)) {
-                Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (field[coordinate.getX()][coordinate.getY()] != 0) {
-                    return Message.INVALID_TARGET;
-                }
-                for (Card card :
-                        fieldCards[turn % 2]) {
-                    if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
-                        validTarget = true;
-                        break;
-                    }
-                }
-                if (!validTarget) {
-                    return Message.INVALID_TARGET;
-                }
-                field[coordinate.getX()][coordinate.getY()] = insert.getId();
-                insert.setCoordinate(coordinate);
-                playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
-                fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
-                return null;
+    }*/
 
-
-            }
-        }
-        return Message.NOT_IN_HAND;
-    }
-
-
-
-    }
-*/
     public void enterGraveyard() {
         menu.setStat(MenuStat.GRAVEYARD);
     }
 
-    public Message showCardInfoInGraveyard(int cardId) {
+   /* public Message showCardInfoInGraveyard(int cardId) {
 
-    }
+    }*/
 
     public void showCard() {
 
@@ -944,7 +919,7 @@ public class Battle {
         return false;
     }
 
-    public void applyBuff(Buff buff, Card card) {
+    public void applyBuff(Buff buff, Card card, ItemBuff itemBuff) {
         card.getCastedBuffs().add(buff);
         switch (buff.getType()) {
             case POISON:
@@ -970,5 +945,6 @@ public class Battle {
                 break;
         }
     }
+
 
 }
