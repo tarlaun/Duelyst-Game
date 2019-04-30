@@ -3,6 +3,7 @@ package Model;
 import View.Message;
 import View.View;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -15,8 +16,8 @@ public class Battle {
     private Account[] accounts = new Account[2];
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][];
-    private Collectable[][] collectables = new Collectable[2][];
-    private ArrayList<Collectable> battleCollectables = new ArrayList<>();
+    private Item[][] collectables = new Collectable[2][];
+    private ArrayList<Item> battleCollectables = new ArrayList<>();
     private Card[][] playerHands = new Card[2][];
     private int turn;
     private Cell[][] field;
@@ -24,7 +25,6 @@ public class Battle {
     private GameType gameType;
     private Card[][] fieldCards = new Card[2][];
     private Menu menu = Menu.getInstance();
-    private View view = View.getInstance();
     private Shop shop = Shop.getInstance();
     private Random rand = new Random();
     private Match firstPlayerMatch = new Match();
@@ -32,6 +32,12 @@ public class Battle {
     private ArrayList<Flag> flagsOnTheGround = new ArrayList<>();
     private int flagsAppeared = 0;
     private Flag mainFlag = new Flag();
+
+    public Battle(Account[] accounts, GameType gameType, BattleMode mode) {
+        this.accounts = accounts;
+        this.gameType = gameType;
+        this.mode = mode;
+    }
 
     public boolean checkForWin() {
 
@@ -49,11 +55,11 @@ public class Battle {
                 }
                 break;
             case HOLD_FLAG:
-                if(mainFlag.getTurnCounter()>= Constants.TURNS_HOLDING_FLAG){
-                   if(mainFlag.getAccount().equals(accounts[0])){
-                       firstPlayerWon = true;
-                   }
-                    if(mainFlag.getAccount().equals(accounts[1])){
+                if (mainFlag.getTurnCounter() >= Constants.TURNS_HOLDING_FLAG) {
+                    if (mainFlag.getAccount().equals(accounts[0])) {
+                        firstPlayerWon = true;
+                    }
+                    if (mainFlag.getAccount().equals(accounts[1])) {
                         secondPlayerWon = true;
                     }
                 }
@@ -72,17 +78,45 @@ public class Battle {
             if (secondPlayerWon) {
                 firstPlayerMatch.setResult(MatchResult.TIE);
                 secondPlayerMatch.setResult(MatchResult.TIE);
+                accounts[0].setBudget(accounts[0].getBudget() + 500);
+                accounts[1].setBudget(accounts[0].getBudget() + 500);
+                setMatchInfo();
                 return true;
             }
             firstPlayerMatch.setResult(MatchResult.WON);
             secondPlayerMatch.setResult(MatchResult.LOST);
+            accounts[0].setBudget(accounts[0].getBudget() + 1000);
+            setMatchInfo();
             return true;
         } else if (secondPlayerWon) {
             firstPlayerMatch.setResult(MatchResult.LOST);
             secondPlayerMatch.setResult(MatchResult.WON);
-            return true;
+            accounts[1].setBudget(accounts[0].getBudget() + 1000);
+            setMatchInfo();
         }
         return false;
+    }
+
+    public void setMatchInfo() {
+        firstPlayerMatch.setTime(LocalDateTime.now());
+        secondPlayerMatch.setTime(LocalDateTime.now());
+        firstPlayerMatch.setRival(accounts[1].getName());
+        secondPlayerMatch.setRival(accounts[0].getName());
+    }
+
+    public void resign() {
+        if ((turn % 2) == 0) {
+            firstPlayerMatch.setResult(MatchResult.LOST);
+            secondPlayerMatch.setResult(MatchResult.WON);
+            accounts[1].setBudget(accounts[0].getBudget() + 1000);
+            setMatchInfo();
+        }
+        if ((turn % 2) == 1) {
+            firstPlayerMatch.setResult(MatchResult.WON);
+            secondPlayerMatch.setResult(MatchResult.LOST);
+            accounts[0].setBudget(accounts[0].getBudget() + 1000);
+            setMatchInfo();
+        }
     }
 
     public Coordinate getCurrentCoordinate() {
@@ -611,6 +645,10 @@ public class Battle {
                 if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
                     return Message.INVALID_TARGET;
                 }
+                if (insert!=null && !spendMana(insert.getManaPoint())) {
+                    return Message.INSUFFICIENT_MANA;
+                }
+
                 for (Card card :
                         fieldCards[turn % 2]) {
                     if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
@@ -626,12 +664,12 @@ public class Battle {
                 playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
                 fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
                 return null;
-
-
             }
+
         }
+
         return Message.NOT_IN_HAND;
-    }
+}
 
     public void showHand() {
 
