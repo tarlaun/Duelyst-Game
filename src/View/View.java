@@ -270,7 +270,10 @@ public class View {
         }
     }
 
-    public void showMovement(boolean validMove){
+    public void showMovement(boolean validMove) {
 
+    }
+
+    public void showAttack(Card card) {
     }
 }

@@ -114,6 +114,9 @@ public class Controller {
             case MOVE:
                 moveToInBattle(request);
                 break;
+            case ATTACK:
+                battleAttack(request);
+                break;
         }
     }
 
@@ -316,8 +319,12 @@ public class Controller {
         }
     }
 
-    public void battleAttack() {
-
+    public void battleAttack(Request request) {
+        if (request.checkAssaultSyntax()) {
+            Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
+                    battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
+            view.showAttack(card);
+        }
     }
 
     public void battleComboAttack() {
