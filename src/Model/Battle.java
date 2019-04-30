@@ -25,7 +25,10 @@ public class Battle {
     private Card[][] fieldCards = new Card[2][];
     private Menu menu = Menu.getInstance();
     private View view = View.getInstance();
+    private Shop shop = Shop.getInstance();
     Random rand = new Random();
+
+
 
     public Coordinate getCurrentCoordinate() {
         return currentCoordinate;
@@ -660,6 +663,20 @@ public class Battle {
 
         }
 
+        //random item appears on the battleField
+        if((turn%Constants.ITEM_APPEARANCE)==1){
+            boolean ableToAddItem = true;
+            while (ableToAddItem){
+                int randomX = rand.nextInt(9);
+                int randomY = rand.nextInt(5);
+                int randomCollectableItem = rand.nextInt(9);
+                if(field[randomX][randomY].getCardID()==0){
+                    ableToAddItem=false;
+                    field[randomX][randomY].setCardID(chooseColectableItems(shop.getItems()).get(randomCollectableItem).getId());
+                }
+            }
+        }
+
         turn++;
         currentCard = null;
         targetCard = null;
@@ -679,6 +696,16 @@ public class Battle {
 
     public void showNextCard() {
         showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
+    }
+
+    public ArrayList<Item> chooseColectableItems(ArrayList<Item> items){
+        ArrayList<Item> newItemList = new ArrayList<>();
+        for (Item item: items) {
+            if(item.getPrice()==0){
+                newItemList.add(item);
+            }
+        }
+        return newItemList;
     }
 
     /*

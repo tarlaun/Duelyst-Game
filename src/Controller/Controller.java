@@ -19,6 +19,7 @@ public class Controller {
     }
 
     public void main() {
+
         Request request = new Request();
         request.getNewCommand();
         switch (request.getType()) {
