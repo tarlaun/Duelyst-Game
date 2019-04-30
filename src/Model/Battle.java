@@ -197,6 +197,14 @@ public class Battle {
         return true;
     }
 
+    public boolean spellIsReady(Buff buff){
+        if(buff.getTurnCount()>0){
+            return false;
+        }
+        return true;
+    }
+
+
 
     private void checkAttackHistory(int opponentCardId, Card currentCard) {
         boolean newMinion = true;
@@ -368,7 +376,7 @@ public class Battle {
                         card.addToBuffs(buff);
                         break;
                     case "KAVEH":
-                        if(spendMana(card.getManaPoint())){
+                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){
                             holifyCell(currentCoordinate );
                         }
 
@@ -383,7 +391,7 @@ public class Battle {
             case STUN:
                 switch (card.getName()) {
                     case "SIMORGH":
-                        if (spendMana(card.getManaPoint())) {
+                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
                             for (Card enemy :
                                     fieldCards[(turn + 1) % 2]) {
                                 enemy.addToBuffs(buff);
@@ -393,7 +401,7 @@ public class Battle {
                         }
                         break;
                     case "RAKHSH": //we need to choose a target here
-                        if(spendMana(card.getManaPoint())){
+                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){
                             targetCard.addToBuffs(buff);
                             targetCard.setAbleToAttack(false);
                             targetCard.setAbleToMove(false);
@@ -420,7 +428,7 @@ public class Battle {
             case POWER:
                 switch (card.getName()) {
                     case "WHITE_DIV":
-                        if (spendMana(card.getManaPoint())) {
+                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
                             card.addToBuffs(buff);
                         }
                         break;
@@ -458,7 +466,7 @@ public class Battle {
 
                 switch (card.getName()) {
                     case "SEVEN_HEADED_DRAGON":
-                        if(spendMana(card.getManaPoint())){ // we need to choose a target here
+                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){ // we need to choose a target here
                             targetCard.addToBuffs(buff);
                             targetCard.setAbleToAttack(false);
                         }
@@ -470,7 +478,7 @@ public class Battle {
 
                 switch (card.getName()) {
                     case "ARASH":
-                        if(spendMana(card.getManaPoint())){
+                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){
                             for (Card target:
                                 fieldCards[(turn+1)%2] ) {
                                 if(target.getCoordinate().getY()==card.getCoordinate().getY()){
@@ -528,7 +536,7 @@ public class Battle {
             case POSITIVE_DISPEL:
                 switch (card.getName()) {
                     case "AFSANEH": // we need to choose a target here
-                        if(spendMana(card.getManaPoint())){
+                        if(spendMana(card.getManaPoint()) && spellIsReady(buff)){
                             for (Buff buffToDispel:
                                 targetCard.getCastedBuffs() ) {
                                 targetCard.getCastedBuffs().remove(buff);
