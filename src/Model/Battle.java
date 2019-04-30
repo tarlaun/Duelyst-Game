@@ -290,39 +290,134 @@ public class Battle {
             switch (buff.getEffectArea().get(0).getX()) {
                 case 0:
                     for (Coordinate coordinate : buff.getEffectArea()) {
-                        for (Card card : fieldCards[turn % 2]) {
-                            if (card.isClass(buff.getTargetType())
-                                    || card.getCoordinate().equals(target.sum(coordinate)))
-                                continue;
-                            applyBuff(buff, card);
-                            return true;
+                        switch (buff.getSide()) {
+                            case COMRADE:
+                                for (Card card : fieldCards[turn % 2]) {
+                                    if (card.isClass(buff.getTargetType())
+                                            || card.getCoordinate().equals(target.sum(coordinate)))
+                                        continue;
+                                    applyBuff(buff, card);
+                                    return true;
+                                }
+                                break;
+                            case ENEMY:
+                                for (Card card : fieldCards[(turn + 1) % 2]) {
+                                    if (card.isClass(buff.getTargetType())
+                                            || card.getCoordinate().equals(target.sum(coordinate)))
+                                        continue;
+                                    applyBuff(buff, card);
+                                    return true;
+                                }
+                                break;
+                            default:
+                                for (Card[] cards : fieldCards) {
+                                    for (Card card : cards) {
+                                        if (card.isClass(buff.getTargetType())
+                                                || card.getCoordinate().equals(target.sum(coordinate)))
+                                            continue;
+                                        applyBuff(buff, card);
+                                        return true;
+
+                                    }
+                                }
                         }
                     }
                     break;
                 case Constants.ROW:
-                    for (Card card : fieldCards[turn % 2]) {
-                        if (card.isClass(buff.getTargetType())
-                                || card.getCoordinate().getY() != target.getY())
-                            continue;
-                        applyBuff(buff, card);
-                        return true;
+                    switch (buff.getSide()) {
+                        case COMRADE:
+                            for (Card card : fieldCards[turn % 2]) {
+                                if (card.isClass(buff.getTargetType())
+                                        || card.getCoordinate().getY() != target.getY())
+                                    continue;
+                                applyBuff(buff, card);
+                                return true;
+                            }
+                            break;
+                        case ENEMY:
+                            for (Card card : fieldCards[(turn + 1) % 2]) {
+                                if (card.isClass(buff.getTargetType())
+                                        || card.getCoordinate().getY() != target.getY())
+                                    continue;
+                                applyBuff(buff, card);
+                                return true;
+                            }
+                            break;
+                        default:
+                            for (Card[] cards : fieldCards) {
+                                for (Card card : cards) {
+                                    if (card.isClass(buff.getTargetType())
+                                            || card.getCoordinate().getY() != target.getY())
+                                        continue;
+                                    applyBuff(buff, card);
+                                    return true;
+
+                                }
+                            }
+
                     }
                     break;
                 case Constants.COLUMN:
-                    for (Card card : fieldCards[turn % 2]) {
-                        if (card.isClass(buff.getTargetType())
-                                || card.getCoordinate().getX() != target.getX())
-                            continue;
-                        applyBuff(buff, card);
-                        return true;
+                    switch (buff.getSide()) {
+                        case COMRADE:
+                            for (Card card : fieldCards[turn % 2]) {
+                                if (card.isClass(buff.getTargetType())
+                                        || card.getCoordinate().getX() != target.getX())
+                                    continue;
+                                applyBuff(buff, card);
+                                return true;
+                            }
+                            break;
+                        case ENEMY:
+                            for (Card card : fieldCards[(turn + 1) % 2]) {
+                                if (card.isClass(buff.getTargetType())
+                                        || card.getCoordinate().getX() != target.getX())
+                                    continue;
+                                applyBuff(buff, card);
+                                return true;
+                            }
+                            break;
+                        default:
+                            for (Card[] cards : fieldCards) {
+                                for (Card card : cards) {
+                                    if (card.isClass(buff.getTargetType())
+                                            || card.getCoordinate().getX() != target.getX())
+                                        continue;
+                                    applyBuff(buff, card);
+                                    return true;
+
+                                }
+                            }
                     }
                     break;
                 case Constants.ALL_FIELD:
-                    for (Card card : fieldCards[turn % 2]) {
-                        if (card.isClass(buff.getTargetType()))
-                            continue;
-                        applyBuff(buff, card);
-                        return true;
+                    switch (buff.getSide()) {
+                        case COMRADE:
+                            for (Card card : fieldCards[turn % 2]) {
+                                if (card.isClass(buff.getTargetType()))
+                                    continue;
+                                applyBuff(buff, card);
+                                return true;
+                            }
+                            break;
+                        case ENEMY:
+                            for (Card card : fieldCards[(turn + 1) % 2]) {
+                                if (card.isClass(buff.getTargetType()))
+                                    continue;
+                                applyBuff(buff, card);
+                                return true;
+                            }
+                            break;
+                        default:
+                            for (Card[] cards : fieldCards) {
+                                for (Card card : cards) {
+                                    if (card.isClass(buff.getTargetType()))
+                                        continue;
+                                    applyBuff(buff, card);
+                                    return true;
+
+                                }
+                            }
                     }
                     break;
             }
