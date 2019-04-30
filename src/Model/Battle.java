@@ -72,16 +72,20 @@ public class Battle {
             if (secondPlayerWon) {
                 firstPlayerMatch.setResult(MatchResult.TIE);
                 secondPlayerMatch.setResult(MatchResult.TIE);
+                accounts[0].setBudget(accounts[0].getBudget()+500);
+                accounts[1].setBudget(accounts[0].getBudget()+500);
                 setMatchInfo();
                 return true;
             }
             firstPlayerMatch.setResult(MatchResult.WON);
             secondPlayerMatch.setResult(MatchResult.LOST);
+            accounts[0].setBudget(accounts[0].getBudget()+1000);
             setMatchInfo();
             return true;
         } else if (secondPlayerWon) {
             firstPlayerMatch.setResult(MatchResult.LOST);
             secondPlayerMatch.setResult(MatchResult.WON);
+            accounts[1].setBudget(accounts[0].getBudget()+1000);
             setMatchInfo();
         }
         return false;
