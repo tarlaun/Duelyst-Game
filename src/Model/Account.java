@@ -16,6 +16,7 @@ public class Account {
     private boolean isLoggedIn = true;
     private int wins = 0;
     private int mana;
+    private int flagsCollected=0;
     private Controller controller = Controller.getInstance();
 
     public static Game getGame() {

@@ -29,10 +29,10 @@ public class Battle {
     private Random rand = new Random();
     private Match firstPlayerMatch = new Match();
     private Match secondPlayerMatch = new Match();
-
-
+    private ArrayList<Flag> flagsOnTheGround = new ArrayList<>();
 
     public boolean checkForWin(){
+
         boolean firstPlayerWon = false;
         boolean secondPlayerWon = false;
         switch (mode){
@@ -701,12 +701,15 @@ public class Battle {
                 int randomCollectableItem = rand.nextInt(9);
                 if (field[randomX][randomY].getCardID() == 0) {
                     ableToAddItem = false;
-                    field[randomX][randomY].setCardID(chooseColectableItems(shop.getItems()).get(randomCollectableItem).getId());
+                    field[randomX][randomY].setCardID(chooseCollectableItems(shop.getItems()).get(randomCollectableItem).getId());
                     //effect item
                 }
             }
         }
 
+        if(mode.equals(BattleMode.COLLECT_FLAG)&& (turn % Constants.ITEM_APPEARANCE) == 1){
+            flagAppearance();
+        }
         turn++;
         currentCard = null;
         targetCard = null;
@@ -714,6 +717,23 @@ public class Battle {
 
     }
 
+
+
+
+    public void flagAppearance(){
+        boolean ableToAddFlag = true;
+        while (ableToAddFlag) {
+            int randomX = rand.nextInt(9);
+            int randomY = rand.nextInt(5);
+            int randomCollectableItem = rand.nextInt(9);
+            if(field[randomX][randomY].getCardID() == 0){
+                Flag flag = new Flag();
+                flag.setCoordinate(new Coordinate(randomX,randomY));
+                flagsOnTheGround.add(flag);
+                ableToAddFlag=false;
+            }
+        }
+    }
 
     public void showCollectables() {
 
@@ -729,7 +749,7 @@ public class Battle {
         showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
     }
 
-    public ArrayList<Item> chooseColectableItems(ArrayList<Item> items) {
+    public ArrayList<Item> chooseCollectableItems(ArrayList<Item> items) {
         ArrayList<Item> newItemList = new ArrayList<>();
         for (Item item : items) {
             if (item.getPrice() == 0) {
@@ -919,7 +939,7 @@ public class Battle {
         return false;
     }
 
-    public void applyBuff(Buff buff, Card card, ItemBuff itemBuff) {
+    public void applyBuff(Buff buff, Card card) {
         card.getCastedBuffs().add(buff);
         switch (buff.getType()) {
             case POISON:
