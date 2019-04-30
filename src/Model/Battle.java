@@ -645,7 +645,7 @@ public class Battle {
                 if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
                     return Message.INVALID_TARGET;
                 }
-                if (insert!=null && !spendMana(insert.getManaPoint())) {
+                if (insert != null && !spendMana(insert.getManaPoint())) {
                     return Message.INSUFFICIENT_MANA;
                 }
 
@@ -669,7 +669,7 @@ public class Battle {
         }
 
         return Message.NOT_IN_HAND;
-}
+    }
 
     public void showHand() {
 
@@ -1126,7 +1126,7 @@ public class Battle {
                         for (int i = 0; i < getFieldCards()[0].length; i++) {
                             if (getFieldCards()[0][i] instanceof Hero) {
                                 if (Coordinate.getManhattanDistance(card.getCoordinate(), getFieldCards()[0][i].getCoordinate()) < 4) {
-                                    return new Coordinate((card.getCoordinate().getX() + getFieldCards()[0][i].getCoordinate().getX()) / 2, (card.getCoordinate().getY() +getFieldCards()[0][i].getCoordinate().getY()) / 2);
+                                    return new Coordinate((card.getCoordinate().getX() + getFieldCards()[0][i].getCoordinate().getX()) / 2, (card.getCoordinate().getY() + getFieldCards()[0][i].getCoordinate().getY()) / 2);
                                 }
                             }
                         }
@@ -1136,7 +1136,7 @@ public class Battle {
                     break;
                 case RANGED:
                 case HYBRID:
-
+                    if (checkForHero(card)) return card.getCoordinate();
                     break;
             }
             if (!card.isAbleToMove()) {
@@ -1144,6 +1144,15 @@ public class Battle {
             }
         }
         return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
+    }
+
+    private boolean checkForHero(Card card) {
+        for (int i = 0; i < fieldCards[0].length; i++) {
+            if(fieldCards[0][i] instanceof Hero && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(),card.getCoordinate())<=card.getMaxRange()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public Card chooseCard(ArrayList<Card> cards) {
@@ -1185,5 +1194,6 @@ public class Battle {
             bestCardToChoose[i] += 1;
         }
     }
+
 
 }
