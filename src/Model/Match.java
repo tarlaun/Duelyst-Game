@@ -1,18 +1,18 @@
 package Model;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 
 public class Match {
-    private Time time;
+    private LocalDateTime time;
     private String rival;
     private MatchResult result;
 
-
-    public Time getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
