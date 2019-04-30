@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.Controller;
 import View.Message;
 
 import java.util.ArrayList;
@@ -12,7 +13,26 @@ public class Account {
     private ArrayList<Match> matchHistory = new ArrayList<>();
     private Collection collection;
     private static Game game = Game.getInstance();
-    private int mana=0;
+    private boolean isLoggedIn = true;
+    private int wins = 0;
+    private int mana;
+    private Controller controller = Controller.getInstance();
+
+    public static Game getGame() {
+        return game;
+    }
+
+    public Account() {
+
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -38,20 +58,24 @@ public class Account {
         this.collection = collection;
     }
 
-    public static Game getGame() {
-        return game;
-    }
-
     public static void setGame(Game game) {
         Account.game = game;
     }
 
-    public int getMana() {
-        return mana;
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
     }
 
-    public void setMana(int mana) {
-        this.mana = mana;
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public int getWins() {
+        return wins;
     }
 
     public Account(String name, String password) {
@@ -67,7 +91,7 @@ public class Account {
         return true;
     }
 
-    public Message login(String username, String password) {
+    public static Message login(String username, String password) {
         if (accountIndex(username) != -1)
             return Message.INVALID_ACCOUNT;
         if (!game.getAccounts().get(accountIndex(username)).password.equals(encrypted(password)))
@@ -111,7 +135,7 @@ public class Account {
         this.budget += money;
     }
 
-    private String encrypted(String password) {
+    private static String encrypted(String password) {
         return password;
     }
 }

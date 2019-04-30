@@ -23,8 +23,8 @@ public class Battle {
     private BattleMode mode;
     private GameType gameType;
     private Card[][] fieldCards = new Card[2][];
-    private Menu menu = new Menu();
-    private View view = new View();
+    private Menu menu = Menu.getInstance();
+    private View view = View.getInstance();
     Random rand = new Random();
 
     public Coordinate getCurrentCoordinate() {

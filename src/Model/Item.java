@@ -51,4 +51,24 @@ public class Item {
     public void setPrice(int price) {
         this.price = price;
     }
+
+
+    public static ArrayList<Item> getAllItemsId(String name, Item... items) {
+        ArrayList<Item> output = new ArrayList<>();
+        for (Item item : items) {
+            if (item.getName().equals(name))
+                output.add(item);
+        }
+        return output;
+    }
+
+    public static Item getItemByName(String name, Item... items) {
+        for (Item item : items) {
+            if (item.getName().equals(name))
+                return item;
+        }
+        return null;
+    }
+
+
 }

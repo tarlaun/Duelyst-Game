@@ -9,6 +9,7 @@ public enum MenuStat {
     COLLECTION,
     SHOP,
     BATTLE,
+    ITEM_SELECTION,
     GRAVEYARD;
 
     public MenuStat prevMenu() {

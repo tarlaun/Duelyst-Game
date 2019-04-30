@@ -268,6 +268,15 @@ public class Card {
         this.ableToCounter = ableToCounter;
     }
 
+    public static ArrayList<Card> getAllCardsId(String name, Card... cards) {
+        ArrayList<Card> output = new ArrayList<>();
+        for (Card card : cards) {
+            if (card.getName().equals(name))
+                output.add(card);
+        }
+        return output;
+    }
+
     public RangeType getRangeType() {
         return rangeType;
     }
