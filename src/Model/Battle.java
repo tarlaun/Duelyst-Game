@@ -927,20 +927,35 @@ public class Battle {
         }
     }
 
-    public void useItem(Item item, Card card) {
+    public void useItem(Item item, Card targetCard) {
         for (ItemBuff buff : item.getBuffs()) {
-            switch (buff.getSide()) {
-                case COMRADE:
-                    break;
-                case ENEMY:
-                    break;
-                default:
+            if (buff.getTargetCard().equals("Account")) {
+
+            } else {
+                if (targetCard.isClass(buff.getTargetCard())) {
+                    switch (buff.getCasterActivationType()){
+                        case ON_ATTACK:
+                            if (currentCard.isClass(buff.getCasterCard()) && currentCard.isAbleToAttack()){
+
+                            }
+                            break;
+                        case ON_SPAWN:
+                            if (currentCard.isClass(buff.getCasterCard()) ){
+
+                            }
+                            break;
+                        case ON_DEATH:
+                            if (currentCard.isClass(buff.getCasterCard())){
+
+                            }
+                            break;
+                    }
+                }
             }
         }
     }
 
     public void applyItem(ItemBuff buff, Card card) {
-        card.getCastedItems().add(buff);
         switch (buff.getType()) {
             case POISON:
                 card.modifyHealth(buff.getPower());
@@ -965,8 +980,9 @@ public class Battle {
                 break;
             case MANA:
                 accounts[turn % 2].modifyMana(buff.getPower());
-                break;
+                return;
         }
+        card.getCastedItems().add(buff);
     }
 
 }
