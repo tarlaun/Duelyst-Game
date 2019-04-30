@@ -3,13 +3,11 @@ package Model;
 public enum BuffType {
     DISARM,
     STUN,
-    HEALTH_POWER,
+    POWER,
     HOLY,
-    HEALTH_WEAKNESS,
-    HIT_WEAKNESS,
-    HIT_POWER,
+    WEAKNESS,
+    WHITE_WALKER_WOLF,
     POISON,
     POSITIVE_DISPEL,
-    NEGATIVE_DISPEL,
-    MANA
+    NEGATIVE_DISPEL
 }

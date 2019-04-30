@@ -12,6 +12,79 @@ public class Buff {
     private Side side;
     private ArrayList<Coordinate> effectArea = new ArrayList<>();
 
+    public void setType(BuffType type) {
+        this.type = type;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public void setTargetType(String targetType) {
+        this.targetType = targetType;
+    }
+
+    public void setAttribute(ModifiedAttribute attribute) {
+        this.attribute = attribute;
+    }
+
+    public void setDispelType(DispelType dispelType) {
+        this.dispelType = dispelType;
+    }
+
+    public void setActivationType(ActivationType activationType) {
+        this.activationType = activationType;
+    }
+
+    public void setTurnCount(int turnCount) {
+        this.turnCount = turnCount;
+    }
+
+    public void setSide(Side side) {
+        this.side = side;
+    }
+
+    public void setEffectArea(ArrayList<Coordinate> effectArea) {
+        this.effectArea = effectArea;
+    }
+
+    public BuffType getType() {
+        return type;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public String getTargetType() {
+        return targetType;
+    }
+
+    public ModifiedAttribute getAttribute() {
+        return attribute;
+    }
+
+    public DispelType getDispelType() {
+        return dispelType;
+    }
+
+    public ActivationType getActivationType() {
+        return activationType;
+    }
+
+    public int getTurnCount() {
+        return turnCount;
+    }
+
+    public Side getSide() {
+        return side;
+    }
+
+    public ArrayList<Coordinate> getEffectArea() {
+        return effectArea;
+    }
+
+
     public Buff(String[] info) {
         this.type = BuffType.valueOf(info[BuffInfoOrder.BUFF_TYPE.ordinal()]);
         this.power = Integer.parseInt(info[BuffInfoOrder.POWER.ordinal()]);

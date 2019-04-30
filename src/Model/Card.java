@@ -13,6 +13,7 @@ public class Card {
     private int minRange;
     private int maxRange;
     private int assaultPower;
+    private int originalAssaultPower;
     private AssaultType assaultType;
     private ActivationType activationType;
     private ArrayList<Buff> buffs = new ArrayList<>();
@@ -24,15 +25,67 @@ public class Card {
     private boolean ableToResist = false;
     private boolean ableToCounter = false;
     private int cardHolder;
+    private int cardHolder;
+    private int isHoly = 0;
+    private RangeType rangeType;
 
     public int getCardHolder() {
         return cardHolder;
+    }
+
+    public void setOriginalAssaultPower(int originalAssaultPower) {
+        this.originalAssaultPower = originalAssaultPower;
+    }
+
+    public void setAssaultType(AssaultType assaultType) {
+        this.assaultType = assaultType;
+    }
+
+    public void setActivationType(ActivationType activationType) {
+        this.activationType = activationType;
+    }
+
+    public void setBuffs(ArrayList<Buff> buffs) {
+        this.buffs = buffs;
+    }
+
+    public void setCastedBuffs(ArrayList<Buff> castedBuffs) {
+        this.castedBuffs = castedBuffs;
+    }
+
+
+    public void setManaPoint(int manaPoint) {
+        this.manaPoint = manaPoint;
+    }
+
+    public void setCardHolder(int cardHolder) {
+        this.cardHolder = cardHolder;
+    }
+
+    public int getIsHoly() {
+        return isHoly;
+    }
+
+    public int getCardHolder() {
+        return cardHolder;
+    }
+    public void setIsHoly(int isHoly) {
+        this.isHoly = isHoly;
+    }
+
+    public void addToBuffs(Buff buff) {
+        this.castedBuffs.add(buff);
+    }
+
+    public void removeFromBuffs(Buff buff) {
+        this.castedBuffs.remove(buff);
     }
 
     public Card(String[] info) {
         this.name = info[MainInfoOrder.NAME.ordinal()];
         this.price = Integer.parseInt(info[MainInfoOrder.PRICE.ordinal()]);
         this.assaultPower = Integer.parseInt(info[MainInfoOrder.AP.ordinal()]);
+        this.originalAssaultPower = this.assaultPower;
         this.maxPossibleMoving = Integer.parseInt(info[MainInfoOrder.MAX_MOVE.ordinal()]);
         this.healthPoint = Integer.parseInt(info[MainInfoOrder.HP.ordinal()]);
         this.minRange = Integer.parseInt(info[MainInfoOrder.MIN_RANGE.ordinal()]);
@@ -42,6 +95,11 @@ public class Card {
         for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
             this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
         }
+    }
+
+
+    public int getOriginalAssaultPower() {
+        return originalAssaultPower;
     }
 
     public Card(Card card) {
@@ -213,9 +271,14 @@ public class Card {
     public void setAbleToCounter(boolean ableToCounter) {
         this.ableToCounter = ableToCounter;
     }
+    public RangeType getRangeType() {
+        return rangeType;
+    }
 
     public boolean isClass(String name) {
         return this.getClass().getName().equals(name);
+    public void setRangeType(RangeType rangeType) {
+        this.rangeType = rangeType;
     }
 
 }
