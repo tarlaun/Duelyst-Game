@@ -1137,6 +1137,22 @@ public class Battle {
                 case RANGED:
                 case HYBRID:
                     if (checkForHero(card)) return card.getCoordinate();
+                    for (int i = 0; i <fieldCards[0].length ; i++) {
+                        if(fieldCards[0][i] instanceof Hero&& Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(),card.getCoordinate())<=card.getMaxRange()+2){
+                            if(checkFourQuartersOfGround(fieldCards[0][i].getCoordinate(),card.getCoordinate())==1){
+                                return validateMovement(new Coordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()-1));
+                            }
+                            if(checkFourQuartersOfGround(fieldCards[0][i].getCoordinate(),card.getCoordinate())==2){
+                                return validateMovement(new Coordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()-1));
+                            }
+                            if(checkFourQuartersOfGround(fieldCards[0][i].getCoordinate(),card.getCoordinate())==3){
+                                return validateMovement(new Coordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()+1));
+                            }
+                            if(checkFourQuartersOfGround(fieldCards[0][i].getCoordinate(),card.getCoordinate())==4){
+                                return validateMovement(new Coordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()+1));
+                            }
+                        }
+                    }
                     break;
             }
             if (!card.isAbleToMove()) {
@@ -1146,6 +1162,13 @@ public class Battle {
         return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
     }
 
+    private Coordinate validateMovement(Coordinate coordinate){
+        if(field[coordinate.getX()][coordinate.getY()].getCardID()==0){
+            return coordinate;
+        }
+        return null;
+    }
+
     private boolean checkForHero(Card card) {
         for (int i = 0; i < fieldCards[0].length; i++) {
             if(fieldCards[0][i] instanceof Hero && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(),card.getCoordinate())<=card.getMaxRange()){
@@ -1153,6 +1176,21 @@ public class Battle {
             }
         }
         return false;
+    }
+
+    public int checkFourQuartersOfGround(Coordinate c1, Coordinate c2){
+        if(c1.getX()>c2.getX() && c1.getY()>c2.getY()){
+            return 4;
+        }
+        if(c1.getX()<c2.getX() && c1.getY()>c2.getY()){
+            return 3;
+        }
+        if(c1.getX()>c2.getX() && c1.getY()<c2.getY()){
+            return 1;
+        }
+        if(c1.getX()<c2.getX() && c1.getY()<c2.getY()){
+            return 2;
+        }
     }
 
     public Card chooseCard(ArrayList<Card> cards) {
