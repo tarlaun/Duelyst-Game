@@ -19,4 +19,5 @@ public class Constants {
     static final Side ALL_SIDES = Side.ALL;
     static final int MAX_MANA=9;
     static final int ITEM_APPEARANCE = 3 ;
+    static final int MAXIMUM_FLAGS=11;
 }
