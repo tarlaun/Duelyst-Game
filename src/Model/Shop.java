@@ -14,6 +14,15 @@ public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private File file;
+    private static final Shop shop = new Shop();
+
+    private Shop() {
+
+    }
+
+    public static Shop getInstance() {
+        return shop;
+    }
 
     public int search(String objectName) {
         for (Card card : cards) {
@@ -91,13 +100,6 @@ public class Shop {
     }
 */
 
-    public void show() {
-
-    }
-
-    public void showCollection() {
-
-    }
 
     public void addCard(Card card) {
         cards.add(card);
@@ -124,4 +126,11 @@ public class Shop {
     }
 */
 
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
 }

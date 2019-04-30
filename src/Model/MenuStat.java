@@ -1,7 +1,28 @@
 package Model;
 
+import java.util.Random;
+
 public enum MenuStat {
     MAIN,
-    GRAVEYARD,
-    ITEM_SELECTION,
+    ACCOUNT,
+    GAME,
+    COLLECTION,
+    SHOP,
+    BATTLE,
+    GRAVEYARD;
+
+    public MenuStat prevMenu() {
+        switch (this) {
+            case MAIN:
+                System.exit(0);
+            case ACCOUNT:
+                return MAIN;
+            case GAME:
+                return ACCOUNT;
+            case GRAVEYARD:
+                return BATTLE;
+            default:
+                return GAME;
+        }
+    }
 }
