@@ -33,6 +33,12 @@ public class Battle {
     private int flagsAppeared = 0;
     private Flag mainFlag = new Flag();
 
+    public Battle(Account[] accounts, GameType gameType, BattleMode mode) {
+        this.accounts = accounts;
+        this.gameType = gameType;
+        this.mode = mode;
+    }
+
     public boolean checkForWin() {
 
         boolean firstPlayerWon = false;
@@ -72,20 +78,20 @@ public class Battle {
             if (secondPlayerWon) {
                 firstPlayerMatch.setResult(MatchResult.TIE);
                 secondPlayerMatch.setResult(MatchResult.TIE);
-                accounts[0].setBudget(accounts[0].getBudget()+500);
-                accounts[1].setBudget(accounts[0].getBudget()+500);
+                accounts[0].setBudget(accounts[0].getBudget() + 500);
+                accounts[1].setBudget(accounts[0].getBudget() + 500);
                 setMatchInfo();
                 return true;
             }
             firstPlayerMatch.setResult(MatchResult.WON);
             secondPlayerMatch.setResult(MatchResult.LOST);
-            accounts[0].setBudget(accounts[0].getBudget()+1000);
+            accounts[0].setBudget(accounts[0].getBudget() + 1000);
             setMatchInfo();
             return true;
         } else if (secondPlayerWon) {
             firstPlayerMatch.setResult(MatchResult.LOST);
             secondPlayerMatch.setResult(MatchResult.WON);
-            accounts[1].setBudget(accounts[0].getBudget()+1000);
+            accounts[1].setBudget(accounts[0].getBudget() + 1000);
             setMatchInfo();
         }
         return false;
@@ -102,13 +108,13 @@ public class Battle {
         if ((turn % 2) == 0) {
             firstPlayerMatch.setResult(MatchResult.LOST);
             secondPlayerMatch.setResult(MatchResult.WON);
-            accounts[1].setBudget(accounts[0].getBudget()+1000);
+            accounts[1].setBudget(accounts[0].getBudget() + 1000);
             setMatchInfo();
         }
-        if((turn%2)==1){
+        if ((turn % 2) == 1) {
             firstPlayerMatch.setResult(MatchResult.WON);
             secondPlayerMatch.setResult(MatchResult.LOST);
-            accounts[0].setBudget(accounts[0].getBudget()+1000);
+            accounts[0].setBudget(accounts[0].getBudget() + 1000);
             setMatchInfo();
         }
     }
@@ -639,6 +645,10 @@ public class Battle {
                 if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
                     return Message.INVALID_TARGET;
                 }
+                if (insert!=null && !spendMana(insert.getManaPoint())) {
+                    return Message.INSUFFICIENT_MANA;
+                }
+
                 for (Card card :
                         fieldCards[turn % 2]) {
                     if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
@@ -654,12 +664,12 @@ public class Battle {
                 playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
                 fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
                 return null;
-
-
             }
+
         }
+
         return Message.NOT_IN_HAND;
-    }
+}
 
     public void showHand() {
 
