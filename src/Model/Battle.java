@@ -1037,6 +1037,74 @@ public class Battle {
         }
     }
 
-   
+    public Coordinate setTargetCoordiantes(Card card) {
+        if (card instanceof Minion) {
+            ArrayList<Card> closestEnemyCards = new ArrayList<>();
+            switch (card.getAssaultType()) {
+                case MELEE:
+                    for (int i = -1; i < 2; i++) {
+                        for (int j = -1; j < 2; j++) {
+                            if (getField(card.getCoordinate().getX(), card.getCoordinate().getY() + 1).getCardID() != 0) {
+                                addEnemy(closestEnemyCards, card.getCoordinate().getX() + i, card.getCoordinate().getY() + j);
+                            }
+                        }
+                    }
+
+                    int miratarin = getMiratarin(closestEnemyCards);
+                    for (int i = 0; i < closestEnemyCards.size(); i++) {
+                        if (closestEnemyCards.get(i) instanceof Hero) {
+                            return closestEnemyCards.get(i).getCoordinate();
+                        }
+                    }
+                    return closestEnemyCards.get(miratarin).getCoordinate();
+                case RANGED:
+                case HYBRID:
+                    for (int i = -card.getMaxRange(); i <= card.getMaxRange(); i++) {
+                        for (int j = -card.getMaxRange(); j <= card.getMaxRange(); j++) {
+                            if ((i + j <= card.getMaxRange() && (card.getAssaultType().equals(AssaultType.HYBRID)))
+                                    || (i + j <= card.getMaxRange() && (card.getAssaultType().equals(AssaultType.RANGED) && i + j != 1))) {
+                                if (getField(card.getCoordinate().getX(), card.getCoordinate().getY() + 1).getCardID() != 0) {
+                                    addEnemy(closestEnemyCards, card.getCoordinate().getX() + i, card.getCoordinate().getY() + j);
+                                }
+                            }
+                        }
+                    }
+
+                    int miratarinn = getMiratarin(closestEnemyCards);
+                    for (int i = 0; i < closestEnemyCards.size(); i++) {
+                        if (closestEnemyCards.get(i) instanceof Hero) {
+                            return closestEnemyCards.get(i).getCoordinate();
+                        }
+                    }
+                    return closestEnemyCards.get(miratarinn).getCoordinate();
+
+            }
+        }
+        return null;
+
+    }
+
+    private int getMiratarin(ArrayList<Card> closestEnemyCards) {
+        int leastHp = 100;
+        int miratarin = 0;
+        for (int i = 0; i < closestEnemyCards.size(); i++) {
+            if (closestEnemyCards.get(i).getHealthPoint() < leastHp) {
+                miratarin = i;
+            }
+        }
+        return miratarin;
+    }
+
+    private void addEnemy(ArrayList<Card> closestEnemyCards, int x, int y) {
+        if (getField()[x][y].getCardID() != -1) {
+            for (int i = 0; i < getFieldCards()[0].length; i++) {
+                if (getFieldCards()[0][i] != null && getFieldCards()[0][i].getId() == getField()[x][y].getCardID() && getFieldCards()[0][i].getCardHolder() == 1) {
+                    closestEnemyCards.add(getFieldCards()[0][i]);
+                }
+            }
+        }
+    }
+
+
 
 }
