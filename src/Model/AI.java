@@ -35,7 +35,6 @@ public class AI {
                         }
                     }
                     return closestEnemyCards.get(miratarin).getCoordinate();
-                break;
                 case RANGED:
                 case HYBRID:
                     for (int i = -card.getMaxRange(); i <= card.getMaxRange(); i++) {
@@ -57,9 +56,9 @@ public class AI {
                     }
                     return closestEnemyCards.get(miratarinn).getCoordinate();
 
-                break;
             }
         }
+        return null;
 
     }
 
@@ -139,6 +138,17 @@ public class AI {
                 chooseBestCard(cards, bestCardToChoose , i , 1);
             }
         }
+        int highestAP =0 ;
+        int whichCard =0;
+        for (int i = 0; i < bestCardToChoose.length ; i++) {
+            if(bestCardToChoose[i]>highestAP){
+                highestAP = bestCardToChoose[i];
+                whichCard = i;
+            }
+        }
+        Card card = cards.get(whichCard);
+        cards.remove(whichCard);
+        return card ;
     }
 
     private void chooseBestCard(ArrayList<Card> cards, int[] bestCardToChoose, int i , int whichBuff) {
