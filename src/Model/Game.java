@@ -42,7 +42,8 @@ public class Game {
     }
 
     public boolean logout(Account account) {
-
+        //:???
+        return true;
     }
 
     public void save(Account account) {

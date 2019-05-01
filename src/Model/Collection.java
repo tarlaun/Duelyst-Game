@@ -4,6 +4,7 @@ import View.Message;
 
 import java.util.ArrayList;
 
+
 public class Collection {
 
     private ArrayList<Card> cards = new ArrayList<>();

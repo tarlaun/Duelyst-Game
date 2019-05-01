@@ -16,7 +16,7 @@ public class Battle {
     private Account[] accounts = new Account[2];
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][];
-    private Item[][] collectables = new Collectable[2][];
+    private Item[][] collectables = new Item[2][];
     private ArrayList<Item> battleCollectables = new ArrayList<>();
     private Card[][] playerHands = new Card[2][];
     private int turn;
@@ -241,14 +241,6 @@ public class Battle {
 
     public Card[][] getGraveyard() {
         return graveyard;
-    }
-
-    public Collectable[][] getCollectables() {
-        return collectables;
-    }
-
-    public ArrayList<Collectable> getBattleCollectables() {
-        return battleCollectables;
     }
 
     public Card[][] getPlayerHands() {
@@ -822,15 +814,15 @@ public class Battle {
         return newItemList;
     }
 
-   /* public Message selectCollectableId(int collectableId) {
-        for (Collectable collectable :
+    public Message selectCollectableId(int collectableId) {
+        for (Item collectable :
                 collectables[turn % 2]) {
             if (collectable.getId() == collectableId) {
                 menu.setStat(MenuStat.ITEM_SELECTION);
             }
         }
 
-    }*/
+    }
 
     public boolean useItem(Coordinate coordinate) {
         if (menu.getStat() != MenuStat.ITEM_SELECTION)
@@ -851,6 +843,13 @@ public class Battle {
     }*/
 
     public void showCard() {
+
+        try {
+            System.out.println();
+        }
+        catch (Exception e){
+           throw new Exception;
+        }
 
     }
 
@@ -1083,6 +1082,8 @@ public class Battle {
         return null;
 
     }
+
+
 
     private int getMiratarin(ArrayList<Card> closestEnemyCards) {
         int leastHp = 100;

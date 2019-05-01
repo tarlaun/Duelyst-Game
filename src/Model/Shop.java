@@ -19,8 +19,6 @@ public class Shop {
 
     }
 
-
-
     public static Shop getInstance() {
         return shop;
     }

@@ -9,7 +9,6 @@ public class Menu {
     private MenuStat stat;
     private View view = View.getInstance();
     private Controller controller =Controller.getInstance();
-    private ArrayList<AI> ais = new ArrayList<>();
     private ArrayList<Account> accounts = new ArrayList<>();
     private Shop shop =Shop.getInstance();
     private String[][] commands =
