@@ -105,11 +105,11 @@ public class Request {
 
     }
 
-    public void checkSPUsageSyntax() {
+    public boolean checkSPUsageSyntax() {
 
     }
 
-    public void checkCardInsertSyntax() {
+    public boolean checkCardInsertSyntax() {
 
     }
 
@@ -155,6 +155,10 @@ public class Request {
 
     public String getObjectName(String input) {
         return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public String getInsertedName(String input) {
+        return this.getSplittedCommand(input)[1];
     }
 
     public String getDeckName(String input) {

@@ -117,6 +117,18 @@ public class Controller {
             case ATTACK:
                 battleAttack(request);
                 break;
+            case COMBO:
+                battleComboAttack(request);
+                break;
+            case USE_SP:
+                useSpecialPower(request);
+                break;
+            case SHOW_HAND:
+                showHand();
+                break;
+            case INSERTION:
+                insertCard(request);
+                break;
         }
     }
 
@@ -340,18 +352,22 @@ public class Controller {
         }
     }
 
-}
+    public void useSpecialPower(Request request) {
+        if (request.checkSPUsageSyntax()) {
+            Coordinate target = request.getCoordinate(request.getCommand());
 
-    public void useSpecialPower() {
-
+        }
     }
 
     public void showHand() {
-
+        view.printHand(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
     }
 
-    public void insertCard() {
-
+    public void insertCard(Request request) {
+        if (request.checkCardInsertSyntax()) {
+            view.printInsertionMessage(battle.insertCard(request.getCoordinate(request.getCommand()),
+                    request.getInsertedName(request.getCommand())));
+        }
     }
 
     public void endTurn() {

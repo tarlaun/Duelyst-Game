@@ -138,7 +138,7 @@ public class View {
 
     }
 
-    public void printHand(ArrayList<Card> cards) {
+    public void printHand(Card... cards) {
 
     }
 
@@ -278,5 +278,9 @@ public class View {
     }
 
     public void showCombo(int oppId, Card[] comboComrades) {
+    }
+
+    public void printInsertionMessage(Message message) {
+
     }
 }

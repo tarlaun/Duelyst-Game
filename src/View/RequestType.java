@@ -44,5 +44,6 @@ public enum RequestType {
     ENTER_GRAVEYARD,
     SHOW_CARDS,
     END_GAME,
-    SHOW_MENU
+    SHOW_MENU,
+    SHOW_HAND
 }
