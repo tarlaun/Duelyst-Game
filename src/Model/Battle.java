@@ -821,6 +821,7 @@ public class Battle {
                 menu.setStat(MenuStat.ITEM_SELECTION);
             }
         }
+        return null;
 
     }
 
@@ -844,12 +845,7 @@ public class Battle {
 
     public void showCard() {
 
-        try {
-            System.out.println();
-        }
-        catch (Exception e){
-           throw new Exception;
-        }
+
 
     }
 
@@ -1027,6 +1023,8 @@ public class Battle {
                 break;
         }
     }
+    //******************************************************************************************************************
+    //AI FUNCTIONS BELOW
 
     public Coordinate setCardCoordinates(Card card) {
         if (getFieldCards().length == 0) {
@@ -1192,6 +1190,7 @@ public class Battle {
         if(c1.getX()<c2.getX() && c1.getY()<c2.getY()){
             return 2;
         }
+        return 0;
     }
 
     public Card chooseCard(ArrayList<Card> cards) {
