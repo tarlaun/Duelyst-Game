@@ -28,7 +28,8 @@ public enum RequestType {
     BUY,
     SELL,
     GAME_INFO,
-    SHOW_MININOS,
+    SHOW_MY_MININOS,
+    SHOW_OPP_MINIONS,
     SHOW_CARD_INFO,
     SELECTION,
     MOVE,
@@ -43,5 +44,6 @@ public enum RequestType {
     ENTER_GRAVEYARD,
     SHOW_CARDS,
     END_GAME,
-    SHOW_MENU
+    SHOW_MENU,
+    SHOW_HAND
 }
