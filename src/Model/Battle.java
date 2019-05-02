@@ -668,6 +668,35 @@ public class Battle {
     }
 
     public void endTurn() {
+       buffTurnEnd();
+        deholifyCell();
+        randomItemAppearance();
+        if (mode.equals(BattleMode.COLLECT_FLAG) && (turn % Constants.ITEM_APPEARANCE) == 1) {
+            flagAppearance();
+        }
+        turn++;
+        currentCard = null;
+        targetCard = null;
+
+
+    }
+    public void randomItemAppearance(){
+        if ((turn % Constants.ITEM_APPEARANCE) == 1) {
+            boolean ableToAddItem = true;
+            while (ableToAddItem) {
+                int randomX = rand.nextInt(9);
+                int randomY = rand.nextInt(5);
+                int randomCollectableItem = rand.nextInt(9);
+                if (field[randomX][randomY].getCardID() == 0) {
+                    ableToAddItem = false;
+                    field[randomX][randomY].setCardID(chooseCollectableItems(shop.getItems()).get(randomCollectableItem).getId());
+                    //effect item
+                }
+            }
+        }
+
+    }
+    public void buffTurnEnd(){
         for (Card card : fieldCards[0]) {
             for (Buff buff : card.getCastedBuffs()) {
                 if (card.getName().equals("GIV") && (buff.getType().equals(BuffType.DISARM)
@@ -725,6 +754,8 @@ public class Battle {
                 }
             }
         }
+    }
+    public void deholifyCell(){
         for (int i = 0; i < 9; i++) { //deholify cells
             for (int j = 0; j < 5; j++) {
                 if (field[i][j].isHoly()) {
@@ -736,30 +767,6 @@ public class Battle {
             }
 
         }
-
-        //random item appears on the battleField
-        if ((turn % Constants.ITEM_APPEARANCE) == 1) {
-            boolean ableToAddItem = true;
-            while (ableToAddItem) {
-                int randomX = rand.nextInt(9);
-                int randomY = rand.nextInt(5);
-                int randomCollectableItem = rand.nextInt(9);
-                if (field[randomX][randomY].getCardID() == 0) {
-                    ableToAddItem = false;
-                    field[randomX][randomY].setCardID(chooseCollectableItems(shop.getItems()).get(randomCollectableItem).getId());
-                    //effect item
-                }
-            }
-        }
-
-        if (mode.equals(BattleMode.COLLECT_FLAG) && (turn % Constants.ITEM_APPEARANCE) == 1) {
-            flagAppearance();
-        }
-        turn++;
-        currentCard = null;
-        targetCard = null;
-
-
     }
 
     public boolean collectFlags() {
