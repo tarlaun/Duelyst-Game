@@ -27,6 +27,10 @@ public class Battle {
     private View view = View.getInstance();
     Random rand = new Random();
 
+    public Battle() {
+
+    }
+
     public Coordinate getCurrentCoordinate() {
         return currentCoordinate;
     }
@@ -72,27 +76,25 @@ public class Battle {
 
     }
 
-    /*
-        public boolean moveTo(Coordinate coordinate) {
-            if (currentCard.getCoordinate() == coordinate) {
-                return true;
-            }
-            if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
-                return false;
-            }
-            if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate()).length == 0) {
-                return false;
-            }
-            field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = 0;
-            currentCard.setCoordinate(Coordinate.getPathDirections(coordinate, currentCard.getCoordinate())[0]);
-            field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = currentCard.getId();
-            moveTo(coordinate);
+    public boolean moveTo(Coordinate coordinate) {
+        if (currentCard.getCoordinate() == coordinate) {
             return true;
-
         }
-    */
+        if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
+            return false;
+        }
+        if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate(), field).equals(currentCard.getCoordinate())) {
+            return false;
+        }
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
+        currentCard.setCoordinate(Coordinate.getPathDirections(currentCard.getCoordinate(), coordinate, field));
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
+        moveTo(coordinate);
+        return true;
+    }
+
     public boolean isAttackable(Card currentCard, Card targetCard) {
-        if (targetCard.getName().equals("GIV")) {
+        if (targetCard.getName().equals("GIV")){
             return false;
         }
         if (targetCard.getName().equals("ASHKBOOS") && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
@@ -923,6 +925,54 @@ public class Battle {
                 break;
             case HEALTH_WEAKNESS:
                 card.modifyHealth(buff.getPower());
+                break;
+        }
+    }
+
+    public int getTurnByAccount(Account account) {
+        if (this.accounts[0].getId() == account.getId())
+            return 0;
+        return 1;
+    }
+
+    public void useItem(Item item, Card card) {
+        for (ItemBuff buff : item.getBuffs()) {
+            switch (buff.getSide()) {
+                case COMRADE:
+                    break;
+                case ENEMY:
+                    break;
+                default:
+            }
+        }
+    }
+
+    public void applyItem(ItemBuff buff, Card card) {
+        card.getCastedItems().add(buff);
+        switch (buff.getType()) {
+            case POISON:
+                card.modifyHealth(buff.getPower());
+            case STUN:
+                card.setAbleToAttack(false);
+                card.setAbleToMove(false);
+                break;
+            case DISARM:
+                card.setAbleToCounter(false);
+                break;
+            case HIT_POWER:
+                card.modifyHit(buff.getPower());
+                break;
+            case HEALTH_POWER:
+                card.modifyHealth(buff.getPower());
+                break;
+            case HIT_WEAKNESS:
+                card.modifyHit(buff.getPower());
+                break;
+            case HEALTH_WEAKNESS:
+                card.modifyHealth(buff.getPower());
+                break;
+            case MANA:
+                accounts[turn % 2].modifyMana(buff.getPower());
                 break;
         }
     }

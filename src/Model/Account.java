@@ -138,4 +138,8 @@ public class Account {
     private static String encrypted(String password) {
         return password;
     }
+
+    public void modifyMana(int power) {
+        this.mana += power;
+    }
 }

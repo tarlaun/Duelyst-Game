@@ -1,7 +1,8 @@
 package View;
 
-import javax.swing.text.rtf.RTFEditorKit;
-import java.util.ArrayList;
+import Model.Card;
+import Model.Coordinate;
+
 import java.util.Scanner;
 
 public class Request {
@@ -48,7 +49,7 @@ public class Request {
     }
 
     public boolean checkDeckSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_DECK.ordinal()]+"\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_DECK.ordinal()] + "\\w+");
     }
 
 
@@ -60,7 +61,7 @@ public class Request {
 
     }
 
-    public boolean checkValidationSyntax(){
+    public boolean checkValidationSyntax() {
 
     }
 
@@ -72,11 +73,15 @@ public class Request {
 
     }
 
-    public boolean checkShowAllDeckSyntax(){
+    public boolean checkShowAllDeckSyntax() {
 
     }
 
     public boolean checkBuySyntax() {
+
+    }
+
+    public boolean checkCardSelectionSyntax() {
 
     }
 
@@ -88,23 +93,23 @@ public class Request {
 
     }
 
-    public void checkMoveSyntax() {
+    public boolean checkMoveSyntax() {
 
     }
 
-    public void checkAssaultSyntax() {
+    public boolean checkAssaultSyntax() {
 
     }
 
-    public void checkComboSyntax() {
+    public boolean checkComboSyntax() {
 
     }
 
-    public void checkSPUsageSyntax() {
+    public boolean checkSPUsageSyntax() {
 
     }
 
-    public void checkCardInsertSyntax() {
+    public boolean checkCardInsertSyntax() {
 
     }
 
@@ -112,7 +117,7 @@ public class Request {
 
     }
 
-    public void checkFetchInfoSyntax() {
+    public boolean checkFetchInfoSyntax() {
 
     }
 
@@ -148,15 +153,37 @@ public class Request {
         return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
     }
 
-    public String getObjectName(String input){
+    public String getObjectName(String input) {
         return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
     }
 
-    public String getDeckName(String input){
-        return this.getSplittedCommand(input)[getSplittedCommand(input).length-1];
+    public String getInsertedName(String input) {
+        return this.getSplittedCommand(input)[1];
     }
 
-    public int getObjectID(String input){
+    public String getDeckName(String input) {
+        return this.getSplittedCommand(input)[getSplittedCommand(input).length - 1];
+    }
+
+    public int getObjectID(String input) {
         return Integer.parseInt(this.getSplittedCommand(input)[1]);
+    }
+
+    public Coordinate getCoordinate(String input) {
+        return new Coordinate(
+                Integer.parseInt(this.getSplittedCommand(input)[this.getSplittedCommand(input).length - 2]),
+                Integer.parseInt(this.getSplittedCommand(input)[this.getSplittedCommand(input).length - 1])
+        );
+    }
+
+    public int[] getComboComradesId(String input) {
+        int[] comradesId = new int[this.getSplittedCommand(input).length - 3];
+        for (int i = 3; i < this.getSplittedCommand(input).length; i++) {
+            comradesId[i - 3] = Integer.parseInt(this.getSplittedCommand(input)[i]);
+        }
+    }
+
+    public int getOppIdInCombo(String input) {
+        return Integer.parseInt(this.getSplittedCommand(input)[2]);
     }
 }
