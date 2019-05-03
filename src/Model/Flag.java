@@ -5,6 +5,15 @@ public class Flag  {
     private int turnCounter=0;
     private Coordinate coordinate;
     private Account account;
+    private boolean isHeld = false;
+
+    public boolean isHeld() {
+        return isHeld;
+    }
+
+    public void setHeld(boolean held) {
+        isHeld = held;
+    }
 
     public Card getFlagHolder() {
         return flagHolder;

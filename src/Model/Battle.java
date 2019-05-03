@@ -177,6 +177,19 @@ public class Battle {
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
         currentCard.setCoordinate(Coordinate.getPathDirections(currentCard.getCoordinate(), coordinate, field));
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
+        if(mode.equals(BattleMode.COLLECT_FLAG)){
+            for (Flag flag:
+                 flagsOnTheGround) {
+                if(currentCard.getCoordinate().equals(flag.getCoordinate())){
+                    collectFlags();
+                }
+            }
+        }
+        if(mode.equals(BattleMode.HOLD_FLAG)){
+            if(currentCard.getCoordinate().equals(mainFlag.getCoordinate())){
+                holdMainFlag();
+            }
+        }
         moveTo(coordinate);
         return true;
     }
@@ -287,6 +300,16 @@ public class Battle {
             return false;
         }
         return true;
+    }
+
+    public void holdMainFlag(){
+        if(currentCard.getCoordinate().equals(mainFlag.getCoordinate())){
+            mainFlag.setFlagHolder(currentCard);
+            mainFlag.setHeld(true);
+        }
+        if(mainFlag.isHeld()){
+            mainFlag.setCoordinate(currentCard.getCoordinate());
+        }
     }
 
 
@@ -670,6 +693,11 @@ public class Battle {
         randomItemAppearance();
         if (mode.equals(BattleMode.COLLECT_FLAG) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();
+        }
+        if (mode.equals(BattleMode.HOLD_FLAG)) {
+            if(mainFlag.isHeld()){
+                mainFlag.setTurnCounter(mainFlag.getTurnCounter()+1);
+            }
         }
         turn++;
         currentCard = null;
