@@ -341,6 +341,10 @@ public class Battle {
             if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH)) {
                 useSpecialPower(targetCard, targetCard.getBuffs().get(0));
             }
+            if(mode.equals(BattleMode.HOLD_FLAG)){
+                mainFlag.setTurnCounter(0);
+                mainFlag.setHeld(false);
+            }
             ArrayList<Card> opponentFieldCards = new ArrayList<>(Arrays.asList(fieldCards[(turn + 1) % 2]));
             opponentFieldCards.remove(targetCard);
             for (int i = 0; i < opponentFieldCards.size(); i++) {
