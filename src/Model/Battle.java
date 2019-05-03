@@ -94,7 +94,7 @@ public class Battle {
     }
 
     public boolean isAttackable(Card currentCard, Card targetCard) {
-        if (targetCard.getName().equals("GIV")) {
+        if (targetCard.getName().equals("GIV")){
             return false;
         }
         if (targetCard.getName().equals("ASHKBOOS") && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
