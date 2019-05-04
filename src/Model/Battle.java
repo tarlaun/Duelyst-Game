@@ -1338,13 +1338,26 @@ public class Battle {
             if (card.getCoordinate().getX()<=7&& !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))) {
                 return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY());
             }
-
-
-            //wc neede :D
-
+            return card.getCoordinate();
         }
         //agar flag daste dusteshe 
+        for (int i = 0; i < fieldCards[1].length; i++) {
+            if(checkCardEquality(fieldCards[1][i],mainFlag.getFlagHolder())){
+                switch (card.getAssaultType()){
+                    case MELEE:
+                        if(Coordinate.getManhattanDistance(card.getCoordinate(),fieldCards[1][i].getCoordinate())<=4){
+                            Coordinate coordinate = makeNewCoordinate((card.getCoordinate().getX()+fieldCards[1][i].getCoordinate().getX())/2 ,(card.getCoordinate().getY()+fieldCards[1][i].getCoordinate().getY())/2 );
+                            if(checkForDevilExistance(coordinate)){
+                                return coordinate;
+                            }
+                        }
 
+                    case HYBRID:
+
+                    case RANGED:
+                }
+            }
+        }
         //agar flag daste doshmane 
 
     }
