@@ -1342,61 +1342,68 @@ public class Battle {
             }
             return card.getCoordinate();
         }
-        //agar flag daste dusteshe 
+        //agar flag daste dusteshe ya dste doshmane
+        Card targetCrd = null;
         for (int i = 0; i < fieldCards[1].length; i++) {
             if (checkCardEquality(fieldCards[1][i], mainFlag.getFlagHolder())) {
-                switch (card.getAssaultType()) {
-                    case MELEE:
-                        if (Coordinate.getManhattanDistance(card.getCoordinate(), fieldCards[1][i].getCoordinate()) <= 4) {
-                            Coordinate coordinate = makeNewCoordinate((card.getCoordinate().getX() + fieldCards[1][i].getCoordinate().getX()) / 2,
-                                    (card.getCoordinate().getY() + fieldCards[1][i].getCoordinate().getY()) / 2);
-                            if (checkForDevilExistance(coordinate)) {
-                                return coordinate;
-                            }
-                        }
-                        return card.getCoordinate();
-                    case HYBRID:
-                    case RANGED:
-                        if (Coordinate.getManhattanDistance(card.getCoordinate(), fieldCards[1][i].getCoordinate()) <= 2+card.getMaxRange()) {
-                           switch (checkFourQuartersOfGround(card.getCoordinate(), fieldCards[1][i].getCoordinate())){
-                               case 3:
-                                   if(validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()-1))!=null &&
-                                           (validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()))!=null
-                                                   ||validateMovement(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()-1))!=null)){
-                                       return makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()-1);
-                                   }
-                               case 2:
-                                   if(validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()+1))!=null &&
-                                           (validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()))!=null
-                                                   ||validateMovement(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()+1))!=null)){
-                                       return makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()+1);
-                                   }
-                               case 1:
-                                   if(validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()+1))!=null &&
-                                           (validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()))!=null
-                                                   ||validateMovement(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()+1))!=null)){
-                                       return makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()+1);
-                                   }
-                               case 4:
-                                   if(validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()-1))!=null &&
-                                           (validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()))!=null
-                                                   ||validateMovement(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()-1))!=null)){
-                                       return makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()-1);
-                                   }
-                           }
-                        }
-                        return card.getCoordinate();
-                }
+                targetCrd = fieldCards[1][i];
             }
         }
-        //agar flag daste doshmane 
-
+        for (int j = 0; j < fieldCards[0].length; j++) {
+            if (checkCardEquality(fieldCards[0][j], mainFlag.getFlagHolder())) {
+                targetCrd = fieldCards[0][j];
+            }
+        }
+        switch (card.getAssaultType()) {
+            case MELEE:
+                assert targetCrd != null;
+                if (Coordinate.getManhattanDistance(card.getCoordinate(), targetCrd.getCoordinate()) <= 4) {
+                    Coordinate coordinate = makeNewCoordinate((card.getCoordinate().getX() + targetCrd.getCoordinate().getX()) / 2,
+                            (card.getCoordinate().getY() + targetCrd.getCoordinate().getY()) / 2);
+                    if (checkForDevilExistance(coordinate)) {
+                        return coordinate;
+                    }
+                }
+                return card.getCoordinate();
+            case HYBRID:
+            case RANGED:
+                if (Coordinate.getManhattanDistance(card.getCoordinate(), targetCrd.getCoordinate()) <= 2 + card.getMaxRange()) {
+                    switch (checkFourQuartersOfGround(card.getCoordinate(), targetCrd.getCoordinate())) {
+                        case 3:
+                            if (validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() - 1)) != null &&
+                                    (validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) != null
+                                            || validateMovement(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1)) != null)) {
+                                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() - 1);
+                            }
+                        case 2:
+                            if (validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() + 1)) != null &&
+                                    (validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) != null
+                                            || validateMovement(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() + 1)) != null)) {
+                                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() + 1);
+                            }
+                        case 1:
+                            if (validateMovement(makeNewCoordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY() + 1)) != null &&
+                                    (validateMovement(makeNewCoordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY())) != null
+                                            || validateMovement(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() + 1)) != null)) {
+                                return makeNewCoordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY() + 1);
+                            }
+                        case 4:
+                            if (validateMovement(makeNewCoordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY() - 1)) != null &&
+                                    (validateMovement(makeNewCoordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY())) != null
+                                            || validateMovement(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1)) != null)) {
+                                return makeNewCoordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY() - 1);
+                            }
+                    }
+                }
+                return card.getCoordinate();
+        }
+        return card.getCoordinate();
     }
 
     //collectFlag
     public Coordinate setDestinationCoordinationModeThree(Card card) {
 
-
+        return card.getCoordinate();
     }
 
     public Coordinate setDestinationCoordinatesModeOne(Card card) {
