@@ -654,7 +654,8 @@ public class Battle {
                         for (int i = -1; i < 2; i++) {
                             for (int j = -1; j < 2; j++) {
                                 if (getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID() != 0) {
-                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID(), fieldCards[(turn + 1) % 2]);
+                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
+                                            card.getCoordinate().getY() + j).getCardID(), fieldCards[(turn + 1) % 2]);
                                     if (target != null) {
                                         target.addToBuffs(card.getBuffs().get(0));
                                         target.setAbleToAttack(false);
@@ -683,7 +684,8 @@ public class Battle {
                         for (int i = -1; i < 2; i++) {
                             for (int j = -1; j < 2; j++) {
                                 if (getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID() != 0) {
-                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
+                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
+                                            card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
                                     if (target != null) {
                                         target.addToBuffs(card.getBuffs().get(0));
                                         target.addToBuffs(card.getBuffs().get(1));
@@ -698,14 +700,11 @@ public class Battle {
                 break;
             case DISARM:
 
-                switch (card.getName()) {
-                    case "SEVEN_HEADED_DRAGON":
-                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) { // we need to choose a target here
-                            targetCard.addToBuffs(buff);
-                            targetCard.setAbleToAttack(false);
-                        }
-                        break;
-
+                if ("SEVEN_HEADED_DRAGON".equals(card.getName())) {
+                    if (spendMana(card.getManaPoint()) && spellIsReady(buff)) { // we need to choose a target here
+                        targetCard.addToBuffs(buff);
+                        targetCard.setAbleToAttack(false);
+                    }
                 }
                 break;
             case WEAKNESS:
@@ -726,7 +725,8 @@ public class Battle {
                     case "CYCLOPS":
                         for (int i = -1; i < 2; i++) {
                             for (int j = -1; j < 2; j++) {
-                                Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
+                                Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
+                                        card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
                                 if (target instanceof Minion) {
                                     target.addToBuffs(card.getBuffs().get(0));
                                 }
@@ -768,16 +768,14 @@ public class Battle {
 
                 break;
             case POSITIVE_DISPEL:
-                switch (card.getName()) {
-                    case "AFSANEH": // we need to choose a target here
-                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
-                            for (Buff buffToDispel :
-                                    targetCard.getCastedBuffs()) {
-                                targetCard.getCastedBuffs().remove(buff);
-                            }
+                // we need to choose a target here
+                if ("AFSANEH".equals(card.getName())) {
+                    if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
+                        for (Buff buffToDispel :
+                                targetCard.getCastedBuffs()) {
+                            targetCard.getCastedBuffs().remove(buff);
                         }
-                        break;
-
+                    }
                 }
 
                 break;
@@ -808,6 +806,7 @@ public class Battle {
                 if (!validTarget) {
                     return Message.INVALID_TARGET;
                 }
+                assert insert != null;
                 field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
                 insert.setCoordinate(coordinate);
                 playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
@@ -1203,7 +1202,8 @@ public class Battle {
             int rany = rand.nextInt(Constants.randomYGenerator);
             return new Coordinate(ranx + Constants.shiftColumn, rany);
         } else {
-            return new Coordinate(getFieldCards()[1][getFieldCards().length - 1].getCoordinate().getX(), (getField()[1][getFieldCards().length - 1].getCoordinate().getY() + 1) % 5);
+            return new Coordinate(getFieldCards()[1][getFieldCards().length - 1].getCoordinate().getX(),
+                    (getField()[1][getFieldCards().length - 1].getCoordinate().getY() + 1) % 5);
         }
     }
 
@@ -1318,27 +1318,32 @@ public class Battle {
     }
 
     //holdFlag
-    public Coordinate setDestinationCoordinatesModeTwo(Card card) {
+    private Coordinate setDestinationCoordinatesModeTwo(Card card) {
         //agar flag dasteshe 
         if (checkCardEquality(mainFlag.getFlagHolder(), card)) {
-            if (card.getCoordinate().getX() <= 6 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) &&
+            if (card.getCoordinate().getX() <= 6 &&
+                    !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) &&
                     !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY()))) {
-                return makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY());
+                return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY()));
             }
-            if (card.getCoordinate().getX() <= 7 && card.getCoordinate().getY() >= 1 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1,
-                    card.getCoordinate().getY() - 1)) &&
+            if (card.getCoordinate().getX() <= 7 && card.getCoordinate().getY() >= 1 &&
+                    !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1,
+                            card.getCoordinate().getY() - 1)) &&
                     (!checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
                             || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1)))) {
-                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() - 1);
+                return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() - 1));
             }
-            if (card.getCoordinate().getX() <= 7 && card.getCoordinate().getY() <= 3 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1,
-                    card.getCoordinate().getY() + 1)) &&
+            if (card.getCoordinate().getX() <= 7 &&
+                    card.getCoordinate().getY() <= 3 &&
+                    !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1,
+                            card.getCoordinate().getY() + 1)) &&
                     (!checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
                             || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() + 1)))) {
-                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() + 1);
+                return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() + 1));
             }
-            if (card.getCoordinate().getX() <= 7 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))) {
-                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY());
+            if (card.getCoordinate().getX() <= 7 &&
+                    !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))) {
+                return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()));
             }
             return card.getCoordinate();
         }
@@ -1367,6 +1372,7 @@ public class Battle {
                 return card.getCoordinate();
             case HYBRID:
             case RANGED:
+                assert targetCrd != null;
                 if (Coordinate.getManhattanDistance(card.getCoordinate(), targetCrd.getCoordinate()) <= 2 + card.getMaxRange()) {
                     switch (checkFourQuartersOfGround(card.getCoordinate(), targetCrd.getCoordinate())) {
                         case 3:
