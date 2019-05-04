@@ -106,7 +106,7 @@ public class Controller {
                 showCardInfo(request);
                 break;
             case SELECTION:
-                selectCardInBattle(request);
+                select(request);
                 break;
             case MOVE:
                 moveToInBattle(request);
@@ -319,21 +319,25 @@ public class Controller {
     }
 
     public void gameInfo() {
-        if (menu.getStat() == MenuStat.BATTLE){
+        if (menu.getStat() == MenuStat.BATTLE) {
 
         }
     }
 
     public void showMyMinions() {
-        view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
+        if (menu.getStat() == MenuStat.BATTLE) {
+            view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
+        }
     }
 
     public void showOppMinions() {
-        view.printMinionsInfo(battle.getFieldCards()[(battle.getTurnByAccount(this.account) + 1) % 2]);
+        if (menu.getStat() == MenuStat.BATTLE) {
+            view.printMinionsInfo(battle.getFieldCards()[(battle.getTurnByAccount(this.account) + 1) % 2]);
+        }
     }
 
     public void showCardInfo(Request request) {
-        if (request.checkFetchInfoSyntax()) {
+        if (request.checkFetchInfoSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
                     battle.getPlayerHands()[battle.getTurnByAccount(account)]);
             if (card != null) {
@@ -346,8 +350,8 @@ public class Controller {
         }
     }
 
-    public void selectCardInBattle(Request request) {
-        if (request.checkCardSelectionSyntax()) {
+    public void select(Request request) {
+        if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
                     battle.getFieldCards()[battle.getTurnByAccount(account)]);
             view.printCardInfo(card);
@@ -355,14 +359,14 @@ public class Controller {
     }
 
     public void moveToInBattle(Request request) {
-        if (request.checkMoveSyntax()) {
+        if (request.checkMoveSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Coordinate coordinate = request.getCoordinate(request.getCommand());
             view.showMovement(battle.moveTo(coordinate));
         }
     }
 
     public void battleAttack(Request request) {
-        if (request.checkAssaultSyntax()) {
+        if (request.checkAssaultSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
                     battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
             view.showAttack(battle.attack(card.getId(),
@@ -371,7 +375,7 @@ public class Controller {
     }
 
     public void battleComboAttack(Request request) {
-        if (request.checkComboSyntax()) {
+        if (request.checkComboSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int oppId = request.getOppIdInCombo(request.getCommand());
             int[] ids = request.getComboComradesId(request.getCommand());
             Card[] cards = new Card[ids.length];
@@ -383,18 +387,20 @@ public class Controller {
     }
 
     public void useSpecialPower(Request request) {
-        if (request.checkSPUsageSyntax()) {
+        if (request.checkSPUsageSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Coordinate target = request.getCoordinate(request.getCommand());
 
         }
     }
 
     public void showHand() {
-        view.printHand(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
+        if (menu.getStat() == MenuStat.BATTLE) {
+            view.printHand(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
+        }
     }
 
     public void insertCard(Request request) {
-        if (request.checkCardInsertSyntax()) {
+        if (request.checkCardInsertSyntax() && menu.getStat() == MenuStat.BATTLE) {
             view.printInsertionMessage(battle.insertCard(request.getCoordinate(request.getCommand()),
                     request.getInsertedName(request.getCommand())));
         }
