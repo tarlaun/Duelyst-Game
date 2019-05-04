@@ -36,16 +36,16 @@ public class Request {
             "Show opponent minions",
             "Show card info ",
             "Select ",
-            "Move to ( ",
+            "Move to (",
             "Attack ",
             "Attack combo ",
-            "Use special power ( ",
+            "Use special power (",
             "Show hand",
             "Insert ",
             "End turn",
             "Show collectables",
             "Show info",
-            "Use ( ",
+            "Use (",
             "Show Next Card",
             "Show cards",
             "End Game",
@@ -89,70 +89,85 @@ public class Request {
 
 
     public boolean checkToDeckAdditionSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.ADD.ordinal()]+"\\d+\\sto\\sdeck\\s\\w+");
 
     }
 
     public boolean checkFromDeckDeletionSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.REMOVE.ordinal()]+"\\d+\\sto\\sdeck\\s\\w+");
 
     }
 
     public boolean checkValidationSyntax() {
-
+        return this.getCommand().matches(this.getStrings()[RequestType.VALIDATION.ordinal()]+"\\w+");
     }
 
     public boolean checkShowDeckSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SHOW_DECK.ordinal()]+"\\w+");
 
     }
 
     public boolean checkDeckSelectionSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SELECT_DECK.ordinal()]+"\\w+");
 
     }
 
     public boolean checkShowAllDeckSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SHOW_ALL_DECK.ordinal()]);
 
     }
 
     public boolean checkBuySyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.BUY.ordinal()]+"\\w+");
 
     }
 
     public boolean checkCardSelectionSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SELECTION.ordinal()]+"\\d+");
 
     }
 
-    public void checkCollectionSearchSyntax() {
+    public boolean checkCollectionSearchSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()]+"\\w+");
 
     }
 
     public boolean checkSellSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SELL.ordinal()]+"\\d+");
 
     }
 
     public boolean checkMoveSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.MOVE.ordinal()]+"\\d+,\\d+\\)");
 
     }
 
     public boolean checkAssaultSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.ATTACK.ordinal()]+"\\w+");
 
     }
 
     public boolean checkComboSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.COMBO.ordinal()]+"\\w+");
 
     }
 
     public boolean checkSPUsageSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.USE_SP.ordinal()]+"\\d+,\\d+\\)");
 
     }
 
     public boolean checkCardInsertSyntax() {
-
+        return this.getCommand().matches(this.getStrings()[RequestType.INSERTION.ordinal()]+"\\w+\\sto\\s\\(\\d+,\\d+\\)");
     }
 
     public boolean checkItemUseSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.USE_ITEM.ordinal()]+"\\d+,\\d+\\)");
 
     }
 
     public boolean checkFetchInfoSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.GAME_INFO.ordinal()]);
 
     }
 

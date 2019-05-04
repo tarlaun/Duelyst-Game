@@ -337,7 +337,7 @@ public class Controller {
     }
 
     public void showCardInfo(Request request) {
-        if (request.checkFetchInfoSyntax() && menu.getStat() == MenuStat.BATTLE) {
+        if (menu.getStat() == MenuStat.BATTLE) {
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
                     battle.getPlayerHands()[battle.getTurnByAccount(account)]);
             if (card != null) {
