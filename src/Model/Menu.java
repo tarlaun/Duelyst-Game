@@ -7,11 +7,9 @@ import java.util.ArrayList;
 
 public class Menu {
     private MenuStat stat;
-    private View view = View.getInstance();
-    private Controller controller = new Controller();
     private ArrayList<AI> ais = new ArrayList<>();
     private ArrayList<Account> accounts = new ArrayList<>();
-    private Shop shop = new Shop();
+    private Shop shop = Shop.getInstance();
     private String[][] commands =
             {
                     {
@@ -35,11 +33,11 @@ public class Menu {
                     },
                     {
                             "Game info", "Show my minions", "Show opponent minions", "Show card info [card id]",
-                            "Select [card id]", "Move to ([x],[y])", "Attack [opponent card id]", "Show hand",
-                            "Attack combo [opponent card id][my card id][my card id][...]", "Use special power ([x],[y])",
-                            "Insert [card name] in ([x],[y])", "End turn", "Show collectables", "Select [collectable id]",
-                            "Show info", "Use ([x],[y])", "Show Next Card", "Enter graveyard", "Show info [card id]",
-                            "Show cards", "Help", "End Game", "help", "exit", "show menu"
+                            "Select [card id]", "Move to ( [x] , [y] )", "Attack [opponent card id]", "Show hand",
+                            "Attack combo [opponent card id][my card id][my card id][...]", "Select [collectable id]",
+                            "Use special power ( [x] , [y] )", "Insert [card name] in ( [x] , [y] )", "End turn",
+                            "Show collectables", "Show info", "Use ( [x] , [y] )", "Show Next Card", "Enter graveyard",
+                            "Show info [card id]", "Show cards", "Help", "End Game", "help", "exit", "show menu"
                     }
             };
     private String[][] options =
