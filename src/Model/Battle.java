@@ -1360,7 +1360,11 @@ public class Battle {
                         if (Coordinate.getManhattanDistance(card.getCoordinate(), fieldCards[1][i].getCoordinate()) <= 2+card.getMaxRange()) {
                            switch (checkFourQuartersOfGround(card.getCoordinate(), fieldCards[1][i].getCoordinate())){
                                case 3:
-
+                                   if(validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()-1))!=null &&
+                                           (validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()))!=null
+                                                   ||validateMovement(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()-1))!=null)){
+                                       return makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()-1);
+                                   }
                                case 2:
                                    if(validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()+1))!=null &&
                                            (validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()))!=null
