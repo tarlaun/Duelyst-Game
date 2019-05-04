@@ -563,9 +563,6 @@ public class Battle {
     }
 
     private void onAttackSpecialPower() {
-        switch (currentCard.getBuffs().get(0).){
-
-        }
 
         switch (currentCard.getName()) {
             case "PERSIAN_SWORDS_WOMAN":
