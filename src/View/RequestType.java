@@ -6,10 +6,8 @@ public enum RequestType {
     LEADERBOARD,
     SAVE,
     LOGOUT,
-    ACCOUNT_HELP,
     HELP,
     ENTRANCE,
-    ENTER_BATTLE,
     EXIT,
     SHOW,
     SEARCH,
@@ -41,9 +39,10 @@ public enum RequestType {
     SHOW_COLLECTABLES,
     USE_ITEM,
     NEXT_CARD,
-    ENTER_GRAVEYARD,
     SHOW_CARDS,
     END_GAME,
     SHOW_MENU,
-    SHOW_HAND
+    SHOW_HAND,
+    SELECT_COLLECTABLE,
+    SHOW_COLLECTABLE_INFO
 }

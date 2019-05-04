@@ -129,6 +129,33 @@ public class Controller {
             case INSERTION:
                 insertCard(request);
                 break;
+            case END_TURN:
+                endTurn();
+                break;
+            case SHOW_COLLECTABLES:
+                showCollectables();
+                break;
+            case SELECT_COLLECTABLE:
+                selectCollectables(request);
+                break;
+            case SHOW_COLLECTABLE_INFO:
+                showCollectableInfo();
+                break;
+            case USE_ITEM:
+                useItem(request);
+                break;
+            case NEXT_CARD:
+                showNextCard();
+                break;
+            case SHOW_CARDS:
+                showCards();
+                break;
+            case END_GAME:
+                endGame();
+                break;
+            case SHOW_MENU:
+                showMenu();
+                break;
         }
     }
 
@@ -378,23 +405,19 @@ public class Controller {
 
     }
 
-    public void selectCollectables() {
+    public void selectCollectables(Request request) {
 
     }
 
-    public void showBattleInfo() {
+    private void showCollectableInfo() {
 
     }
 
-    public void useItem() {
+    public void useItem(Request request) {
 
     }
 
     public void showNextCard() {
-
-    }
-
-    public void enterTheGraveyard() {
 
     }
 
