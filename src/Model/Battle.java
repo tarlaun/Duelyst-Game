@@ -1288,7 +1288,7 @@ public class Battle {
         return null;
     }
 
-    public boolean checkForDevilExistance(Coordinate coordinate) {
+    private boolean checkForDevilExistance(Coordinate coordinate) {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < fieldCards[i].length; j++) {
                 if (coordinationEquality(fieldCards[i][j].getCoordinate(), coordinate)) {
@@ -1299,22 +1299,16 @@ public class Battle {
         return false;
     }
 
-    public boolean coordinationEquality(Coordinate c1, Coordinate c2) {
-        if (c1.getY() == c2.getY() && c2.getX() == c1.getX()) {
-            return true;
-        }
-        return false;
+    private boolean coordinationEquality(Coordinate c1, Coordinate c2) {
+        return c1.getY() == c2.getY() && c2.getX() == c1.getX();
     }
 
-    public Coordinate makeNewCoordinate(int x, int y) {
+    private Coordinate makeNewCoordinate(int x, int y) {
         return new Coordinate(x, y);
     }
 
-    public boolean checkCardEquality(Card c1, Card c2) {
-        if (c1.getName().equals(c2.getName()) && c1.getId() == c2.getId()) {
-            return true;
-        }
-        return false;
+    private boolean checkCardEquality(Card c1, Card c2) {
+        return c1.getName().equals(c2.getName()) && c1.getId() == c2.getId();
     }
 
     //holdFlag
@@ -1407,12 +1401,12 @@ public class Battle {
     }
 
     //collectFlag
-    public Coordinate setDestinationCoordinationModeThree(Card card) {
+    private Coordinate setDestinationCoordinationModeThree(Card card) {
 
         return card.getCoordinate();
     }
 
-    public Coordinate setDestinationCoordinatesModeOne(Card card) {
+    private Coordinate setDestinationCoordinatesModeOne(Card card) {
         if (card instanceof Minion) {
             switch (card.getAssaultType()) {
                 case MELEE:
@@ -1493,7 +1487,7 @@ public class Battle {
         return false;
     }
 
-    public int checkFourQuartersOfGround(Coordinate c1, Coordinate c2) {
+    private int checkFourQuartersOfGround(Coordinate c1, Coordinate c2) {
         if (c1.getX() >= c2.getX() && c1.getY() >= c2.getY()) {
             return 4;
         }
