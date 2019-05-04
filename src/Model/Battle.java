@@ -557,8 +557,8 @@ public class Battle {
 
     private void onAttackSpecialPower() {
 
-        for (int i = 0; i <2 ; i++) {
-            switch (currentCard.getBuffs().get(i).getType()){
+        for (int i = 0; i < 2; i++) {
+            switch (currentCard.getBuffs().get(i).getType()) {
                 case STUN:
                     targetCard.setAbleToAttack(false);
                     targetCard.setAbleToMove(false);
@@ -588,33 +588,14 @@ public class Battle {
                     }
                     break;
                 case WEAKNESS:
-
-
-                case HOLY:
+                    targetCard.addToBuffs(currentCard.getBuffs().get(0));
 
                 case POSITIVE_DISPEL:
-
-                case NEGATIVE_DISPEL:
-
-                case POWER:
-
-
 
             }
         }
 
         switch (currentCard.getName()) {
-
-            case "WHITE_WOLF":
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                break;
-            case "PALANG":
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                break;
-
-            case "WOLF":
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                break;
             case "ZAHAK":
                 targetCard.addToBuffs(currentCard.getBuffs().get(0));
                 break;
@@ -1419,80 +1400,79 @@ public class Battle {
 
     //collectFlag
     private Coordinate setDestinationCoordinationModeThree(Card card) {
-        int leastDistance=15;
-        int leastDistanceIndex=0;
-        for (int i = 0; i < flagsOnTheGround.size() ; i++){
-            int distance = Coordinate.getManhattanDistance(card.getCoordinate(),flagsOnTheGround.get(i).getCoordinate());
-            if(distance<leastDistance && flagsOnTheGround.get(i).getFlagHolder()==null){
-                leastDistance=distance;
-                leastDistanceIndex=i;
+        int leastDistance = 15;
+        int leastDistanceIndex = 0;
+        for (int i = 0; i < flagsOnTheGround.size(); i++) {
+            int distance = Coordinate.getManhattanDistance(card.getCoordinate(), flagsOnTheGround.get(i).getCoordinate());
+            if (distance < leastDistance && flagsOnTheGround.get(i).getFlagHolder() == null) {
+                leastDistance = distance;
+                leastDistanceIndex = i;
             }
         }
-        if(leastDistance<=2){
-            return getCoordinate(card.getCoordinate(),flagsOnTheGround.get(leastDistanceIndex).getCoordinate());
-        }
-        else {
-            switch ( checkFourQuartersOfGround(card.getCoordinate(),flagsOnTheGround.get(leastDistanceIndex).getCoordinate())){
+        if (leastDistance <= 2) {
+            return getCoordinate(card.getCoordinate(), flagsOnTheGround.get(leastDistanceIndex).getCoordinate());
+        } else {
+            switch (checkFourQuartersOfGround(card.getCoordinate(), flagsOnTheGround.get(leastDistanceIndex).getCoordinate())) {
                 case 1:
-                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()+1));
+                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY() + 1));
                 case 2:
-                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()+1));
+                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() + 1));
                 case 3:
-                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()-1));
+                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() - 1));
                 case 4:
-                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()-1));
+                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY() - 1));
             }
 
         }
         return card.getCoordinate();
     }
 
-    private Coordinate getCoordinate (Coordinate c1 , Coordinate c2){
-        if((c1.getX()+1==c2.getX()&& c1.getY()==c2.getY())||(c1.getX()-1== c2.getX()&& c1.getY()==c2.getY())
-                ||(c1.getX()==c2.getX()&& c1.getY()+1==c2.getY())||(c1.getX()==c2.getX()&& c1.getY()-1==c2.getY())){
+    private Coordinate getCoordinate(Coordinate c1, Coordinate c2) {
+        if ((c1.getX() + 1 == c2.getX() && c1.getY() == c2.getY()) || (c1.getX() - 1 == c2.getX() && c1.getY() == c2.getY())
+                || (c1.getX() == c2.getX() && c1.getY() + 1 == c2.getY()) || (c1.getX() == c2.getX() && c1.getY() - 1 == c2.getY())) {
             return validateMovement(c2);
         }
-        if(c1.getX()== c2.getX()&& c1.getY()+2==c2.getY()){
-            if(validateMovement(makeNewCoordinate(c1.getX(),c1.getY()+1))!=null){
+        if (c1.getX() == c2.getX() && c1.getY() + 2 == c2.getY()) {
+            if (validateMovement(makeNewCoordinate(c1.getX(), c1.getY() + 1)) != null) {
                 return validateMovement(c2);
             }
         }
-        if(c1.getX()== c2.getX()&& c1.getY()-2==c2.getY()){
-            if(validateMovement(makeNewCoordinate(c1.getX(),c1.getY()-1))!=null){
+        if (c1.getX() == c2.getX() && c1.getY() - 2 == c2.getY()) {
+            if (validateMovement(makeNewCoordinate(c1.getX(), c1.getY() - 1)) != null) {
                 return validateMovement(c2);
             }
         }
-        if(c1.getX()-2==c2.getX()&& c1.getY()==c2.getY()){
-            if(validateMovement(makeNewCoordinate(c1.getX()-1,c1.getY()))!=null){
+        if (c1.getX() - 2 == c2.getX() && c1.getY() == c2.getY()) {
+            if (validateMovement(makeNewCoordinate(c1.getX() - 1, c1.getY())) != null) {
                 return validateMovement(c2);
             }
         }
-        if(c1.getX()+2== c2.getX()&& c1.getY()==c2.getY()){
-            if(validateMovement(makeNewCoordinate(c1.getX()+1,c1.getY()))!=null){
+        if (c1.getX() + 2 == c2.getX() && c1.getY() == c2.getY()) {
+            if (validateMovement(makeNewCoordinate(c1.getX() + 1, c1.getY())) != null) {
                 return validateMovement(c2);
             }
         }
-        if(c1.getX()+1==c2.getX()&& c1.getY()+1==c2.getY()){
-            if((validateMovement(makeNewCoordinate(c1.getX(),c1.getY()+1))!=null)
-                    ||(validateMovement(makeNewCoordinate(c1.getX()+1,c1.getY()))!=null)){
+        if (c1.getX() + 1 == c2.getX() && c1.getY() + 1 == c2.getY()) {
+            if ((validateMovement(makeNewCoordinate(c1.getX(), c1.getY() + 1)) != null)
+                    || (validateMovement(makeNewCoordinate(c1.getX() + 1, c1.getY())) != null)) {
                 return validateMovement(c2);
             }
         }
-        if(c1.getX()-1== c2.getX()&& c1.getY()+1==c2.getY()){
-            if((validateMovement(makeNewCoordinate(c1.getX(),c1.getY()+1))!=null)
-                    ||(validateMovement(makeNewCoordinate(c1.getX()-1,c1.getY()))!=null)){
+        if (c1.getX() - 1 == c2.getX() && c1.getY() + 1 == c2.getY()) {
+            if ((validateMovement(makeNewCoordinate(c1.getX(), c1.getY() + 1)) != null)
+                    || (validateMovement(makeNewCoordinate(c1.getX() - 1, c1.getY())) != null)) {
                 return validateMovement(c2);
             }
         }
-        if(c1.getX()-1==c2.getX()&& c1.getY()-1==c2.getY()){
-            if((validateMovement(makeNewCoordinate(c1.getX(),c1.getY()-1))!=null)
-                    ||(validateMovement(makeNewCoordinate(c1.getX()-1,c1.getY()))!=null)){
+        if (c1.getX() - 1 == c2.getX() && c1.getY() - 1 == c2.getY()) {
+            if ((validateMovement(makeNewCoordinate(c1.getX(), c1.getY() - 1)) != null)
+                    || (validateMovement(makeNewCoordinate(c1.getX() - 1, c1.getY())) != null)) {
                 return validateMovement(c2);
             }
         }
-        if(c1.getX()+1== c2.getX()&& c1.getY()-1==c2.getY()){
-            if((validateMovement(makeNewCoordinate(c1.getX(),c1.getY()-1))!=null)
-                    ||(validateMovement(makeNewCoordinate(c1.getX()+1,c1.getY()))!=null)){
+        if (c1.getX() + 1 == c2.getX() && c1.getY() - 1 == c2.getY()) {
+            if ((validateMovement(makeNewCoordinate(c1.getX(), c1.getY() - 1)) != null)
+                    || (validateMovement(makeNewCoordinate(c1.getX() + 1, c1.getY())) != null)) {
                 return validateMovement(c2);
             }
         }
