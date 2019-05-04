@@ -17,5 +17,8 @@ public enum BuffType {
     CHAMPION,
     LION_ROAR,
     BWITCH,
-    JEN_JOON
+    JEN_JOON,
+    ON_DEATH_WEAKNESS,
+    HOLY_WEAKNESS,
+    ON_SPAWN_WEAKNESS
 }

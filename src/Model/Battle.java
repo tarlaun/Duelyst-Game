@@ -648,52 +648,48 @@ public class Battle {
                 card.addToBuffs(card.getBuffs().get(0));
                 break;
             case WEAKNESS:
-                switch (card.getName()) {
-                    case "CYCLOPS":
-                        for (int i = -1; i < 2; i++) {
-                            for (int j = -1; j < 2; j++) {
-                                Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
-                                        card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
-                                if (target instanceof Minion) {
-                                    target.addToBuffs(card.getBuffs().get(0));
-                                }
-                            }
-                        }
-                        break;
-                    case "GIANT_SNAKE":
-                        for (int i = 0; i < 9; i++) {
-                            for (int j = 0; j < 5; j++) {
-                                if (Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) <= 2
-                                        && Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) != 0
-                                        && field[i][j].getCardID() != 0) {
-                                    Card target = Card.getCardByID(field[i][j].getCardID(), fieldCards[turn % 2]);
-                                    assert target != null;
-                                    target.addToBuffs(card.getBuffs().get(0));
+                for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
+                    if (fieldCards[(turn + 1) % 2][i] instanceof Hero) {
+                        fieldCards[(turn + 1) % 2][i].addToBuffs(buff);
+                    }
+                }
 
-                                }
-                            }
-                        }
-                        break;
-                    case "BAHMAN":
-                        if (fieldCards[(turn + 1) % 2].length >= 2) {
-                            r = rand.nextInt(fieldCards[(turn + 1) % 2].length);
-                            r += 1;
-                            Card target = Card.getCardByID(r, fieldCards[(turn + 1) % 2]);
-                            assert target != null;
+                break;
+            case "CYCLOPS":
+                for (int i = -1; i < 2; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
+                                card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
+                        if (target instanceof Minion) {
                             target.addToBuffs(card.getBuffs().get(0));
                         }
-                        break;
-                    case "SIAVASH":
-                        for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
-                            if (fieldCards[(turn + 1) % 2][i] instanceof Hero) {
-                                fieldCards[(turn + 1) % 2][i].addToBuffs(buff);
-                            }
+                    }
+                }
+                break;
+            case "GIANT_SNAKE":
+                for (int i = 0; i < 9; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        if (Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) <= 2
+                                && Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) != 0
+                                && field[i][j].getCardID() != 0) {
+                            Card target = Card.getCardByID(field[i][j].getCardID(), fieldCards[turn % 2]);
+                            assert target != null;
+                            target.addToBuffs(card.getBuffs().get(0));
+
                         }
-                        break;
+                    }
+                }
+                break;
+            case "BAHMAN":
+                if (fieldCards[(turn + 1) % 2].length >= 2) {
+                    r = rand.nextInt(fieldCards[(turn + 1) % 2].length);
+                    r += 1;
+                    Card target = Card.getCardByID(r, fieldCards[(turn + 1) % 2]);
+                    assert target != null;
+                    target.addToBuffs(card.getBuffs().get(0));
                 }
                 break;
         }
-
         useSpecialPower(card, card.getBuffs().get(1));
     }
 
