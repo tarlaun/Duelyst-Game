@@ -144,7 +144,31 @@ public class View {
     }
 
     public void printCardInfo(Card card) {
-
+        System.out.println("Name : " + card.getName());
+        switch (card.getClass().getName()) {
+            case "Hero":
+                System.out.println("Cost : " + card.getPrice());
+                break;
+            case "Minion":
+                System.out.println("HP : " + card.getHealthPoint() + " AP : " + card.getAssaultPower()
+                        + " MP : " + card.getManaPoint());
+                System.out.print("Range : " + card.getRangeType());
+                if (card.getRangeType() != RangeType.MELEE)
+                    System.out.println(" - " + card.getMaxRange());
+                System.out.print("Combo-ability : ");
+                if (card.getActivationType() == ActivationType.COMBO)
+                    System.out.println("Yes");
+                else
+                    System.out.println("No");
+                System.out.println("Cost : " + card.getPrice());
+                break;
+            case "Spell":
+                System.out.println("MP : " + card.getManaPoint());
+                System.out.println("Cost : " + card.getPrice());
+                break;
+        }
+        System.out.print("Desc :");
+        printBuff(card);
     }
 
     public void printItemInfo(Item item) {
