@@ -9,7 +9,6 @@ public enum BuffType {
     WHITE_WALKER_WOLF,
     POISON,
     POSITIVE_DISPEL,
-    NEGATIVE_DISPEL,
     HIT_POWER,
     HEALTH_POWER,
     HIT_WEAKNESS,

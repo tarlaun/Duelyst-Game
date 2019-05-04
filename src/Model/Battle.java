@@ -821,7 +821,9 @@ public class Battle {
                 if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
                     card.setAssaultPower(card.getOriginalAssaultPower());
                 }
-
+                if(buff.getType().equals(BuffType.CHAMPION) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0){
+                    card.setAssaultPower(card.getAssaultPower() + buff.getPower());
+                }
                 if (buff.getTurnCount() == 0) {
                     card.removeFromBuffs(buff);
                 }
