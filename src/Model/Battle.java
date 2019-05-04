@@ -557,44 +557,46 @@ public class Battle {
 
     private void onAttackSpecialPower() {
 
-        switch (currentCard.getBuffs().get(0).getType()){
-            case STUN:
-                targetCard.setAbleToAttack(false);
-                targetCard.setAbleToMove(false);
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                break;
-            case CHAMPION:
-                int multiply = ((Minion) currentCard).getAttackCount(targetCard.getId()) * 5;
-                targetCard.modifyHealth(-multiply);
-                break;
-            case WEAKNESS:
-
-            case DISARM:
-
-            case POISON:
-
-            case HOLY:
-
-            case POSITIVE_DISPEL:
-
-            case NEGATIVE_DISPEL:
-
-            case POWER:
-
-
-
-        }
-        switch (currentCard.getName()) {
-
-            case "TURANIAN_SPY":
-                if (!targetCard.getName().equals("WILD_HOG")) {
+        for (int i = 0; i <2 ; i++) {
+            switch (currentCard.getBuffs().get(i).getType()){
+                case STUN:
                     targetCard.setAbleToAttack(false);
+                    targetCard.setAbleToMove(false);
                     targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                }
-                if (!targetCard.getName().equals("PIRAN")) {
-                    targetCard.addToBuffs(currentCard.getBuffs().get(1));
-                }
-                break;
+                    break;
+                case CHAMPION:
+                    int multiply = ((Minion) currentCard).getAttackCount(targetCard.getId()) * 5;
+                    targetCard.modifyHealth(-multiply);
+                    break;
+
+                case DISARM:
+                    if (!targetCard.getName().equals("WILD_HOG")) {
+                        targetCard.setAbleToAttack(false);
+                        targetCard.addToBuffs(currentCard.getBuffs().get(i));
+                    }
+                    break;
+                case POISON:
+                    if (!targetCard.getName().equals("PIRAN")) {
+                        targetCard.addToBuffs(currentCard.getBuffs().get(1));
+                    }
+                    break;
+                case WEAKNESS:
+
+
+                case HOLY:
+
+                case POSITIVE_DISPEL:
+
+                case NEGATIVE_DISPEL:
+
+                case POWER:
+
+
+
+            }
+        }
+
+        switch (currentCard.getName()) {
             case "VENOM_SNAKE":
                 if (!targetCard.getName().equals("PIRAN")) {
                     targetCard.addToBuffs(currentCard.getBuffs().get(0));
