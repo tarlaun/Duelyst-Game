@@ -15,8 +15,8 @@ public class Battle {
     private Account[] accounts = new Account[2];
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][];
-    private Collectable[][] collectables = new Collectable[2][];
-    private ArrayList<Collectable> battleCollectables = new ArrayList<>();
+    private Item[][] collectables = new Item[2][];
+    private ArrayList<Item> battleCollectables = new ArrayList<>();
     private Card[][] playerHands = new Card[2][];
     private int turn;
     private Cell[][] field;
@@ -29,7 +29,9 @@ public class Battle {
     private boolean isOnSpawn = true;
     Random rand = new Random();
 
-    public Battle() {
+    public Battle(BattleMode mode, GameType type) {
+        this.gameType = type;
+        this.mode = mode;
 
     }
 
@@ -37,8 +39,6 @@ public class Battle {
         return currentCoordinate;
     }
 
-    private final int length = 9;
-    private final int width = 5;
 
     public void setCurrentCoordinate(Coordinate currentCoordinate) {
         this.currentCoordinate = currentCoordinate;
@@ -155,13 +155,6 @@ public class Battle {
         return graveyard;
     }
 
-    public Collectable[][] getCollectables() {
-        return collectables;
-    }
-
-    public ArrayList<Collectable> getBattleCollectables() {
-        return battleCollectables;
-    }
 
     public Card[][] getPlayerHands() {
         return playerHands;
@@ -507,8 +500,8 @@ public class Battle {
                         }
                         break;
                     case "GIANT_SNAKE":
-                        for (int i = 0; i < 9; i++) {
-                            for (int j = 0; j < 5; j++) {
+                        for (int i = 0; i < Constants.LENGTH; i++) {
+                            for (int j = 0; j <Constants.WIDTH; j++) {
                                 if (Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) <= 2
                                         && Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) != 0
                                         && field[i][j].getCardID() != 0) {
@@ -566,7 +559,7 @@ public class Battle {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
                 if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
-                    return Message.INVALID_TARGET;
+                    return Message.FULL_CELL;
                 }
                 for (Card card :
                         fieldCards[turn % 2]) {
@@ -652,8 +645,8 @@ public class Battle {
                 }
             }
         }
-        for (int i = 0; i < 9; i++) { //deholify cells
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < Constants.LENGTH; i++) { //deholify cells
+            for (int j = 0; j < Constants.WIDTH; j++) {
                 if (field[i][j].isHoly()) {
                     field[i][j].setHolyTurn(field[i][j].getHolyTurn() - 1);
                     if (field[i][j].getHolyTurn() == 0) {
@@ -686,62 +679,7 @@ public class Battle {
     }
 
     /*
-        public Message selectCollectableId(int collectableId) {
-            for (Collectable collectable :
-                    collectables[turn % 2]) {
-                if (collectable.getId() == collectableId) {
-                    menu.setStat(MenuStat.ITEM_SELECTION);
-                }
-            }
 
-        }
-
-    */
-/*
-    public boolean useItem(Coordinate coordinate) {
-        if (menu.getStat() != MenuStat.ITEM_SELECTION)
-            return false;
-    }
-*/
-    /*
-    public Message useSpecialPower(Coordinate coordinate) {
-
-    }
-
-    public Message insertCard(Coordinate coordinate, String cardName) {
-        boolean validTarget = false;
-        for (int i = 0; i < 5; i++) {
-            if (playerHands[turn % 2][i].getName().equals(cardName)) {
-                Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (field[coordinate.getX()][coordinate.getY()] != 0) {
-                    return Message.INVALID_TARGET;
-                }
-                for (Card card :
-                        fieldCards[turn % 2]) {
-                    if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
-                        validTarget = true;
-                        break;
-                    }
-                }
-                if (!validTarget) {
-                    return Message.INVALID_TARGET;
-                }
-                field[coordinate.getX()][coordinate.getY()] = insert.getId();
-                insert.setCoordinate(coordinate);
-                playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
-                fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
-                return null;
-
-
-            }
-        }
-        return Message.NOT_IN_HAND;
-    }
-
-
-
-    }
-*/
     public void enterGraveyard() {
         menu.setStat(MenuStat.GRAVEYARD);
     }
@@ -762,6 +700,87 @@ public class Battle {
 
     public void exit() {
 
+    }
+
+    public boolean useHeroSP(Hero hero, Coordinate target) {
+        for (Buff buff :
+                hero.getBuffs()) {
+            switch (buff.getSide()) {
+                case COMRADE:
+
+                    if (buff.getTargetType().equals("Hero")) {
+                        applyBuff(buff, hero);
+                    }
+                    break;
+                case ENEMY:
+                    switch (buff.getActivationType()) {
+                        case ON_ATTACK:
+                            applyBuff(buff, targetCard);
+                            break;
+                        default:
+                            switch (buff.getEffectArea().get(0).getX()) {
+                                case -1:
+                                    if (buff.getTargetType().equals("Minion")) {
+                                        for (Card card :
+                                                fieldCards[(turn + 1) % 2]) {
+                                            if (card instanceof Minion) {
+                                                card.addToBuffs(buff);
+                                                applyBuff(buff, card);
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case 0:
+                                    if (buff.getTargetType().equals("Minion")) {
+                                        for (Card card :
+                                                fieldCards[(turn + 1) % 2]) {
+                                            if (card instanceof Minion && card.getCoordinate().sum(buff.getEffectArea().get(0)).equals(target)) {
+                                                card.addToBuffs(buff);
+                                                applyBuff(buff, card);
+                                            }
+                                        }
+
+                                    }
+                                    if (buff.getTargetType().equals("Cell")) {
+                                        for (int i = 0; i < Constants.LENGTH; i++) {
+                                            for (int j = 0; j < Constants.WIDTH; j++) {
+                                                if (i == target.getX() && j == target.getY()) {
+                                                    field[i][j].setHoly(true);
+                                                    field[i][j].setHolyTurn(3);
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+                                    break;
+                                case Constants.ROW:
+                                    if (buff.getTargetType().equals("Card")) {
+                                        for (Card card :
+                                                fieldCards[(turn + 1) % 2]) {
+                                            if (card.getCoordinate().getX() == hero.getCoordinate().getX()) {
+                                                card.addToBuffs(buff);
+                                                applyBuff(buff, card);
+                                            }
+                                        }
+
+                                    }
+                                    if (buff.getTargetType().equals("Minion")) {
+                                        for (Card card :
+                                                fieldCards[(turn + 1) % 2]) {
+                                            if (card instanceof Minion && card.getCoordinate().getX() == hero.getCoordinate().getX()) {
+                                                card.addToBuffs(buff);
+                                                applyBuff(buff, card);
+                                            }
+                                        }
+
+                                    }
+                                    break;
+                            }
+                    }
+
+            }
+        }
     }
 
     public boolean useSpell(Spell spell, Coordinate target) {

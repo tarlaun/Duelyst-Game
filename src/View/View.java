@@ -317,13 +317,32 @@ public class View {
     }
 
     public void showAttack(Message message) {
+        switch (message){
+            case INVALID_TARGET:
+                System.out.println("Card doesn't exist on field");
+                break;
+            case UNAVAILABLE:
+                System.out.println("Target is out of range!");
+                break;
+            case NOT_ABLE_TO_ATTACK:
+                System.out.println("You are not able to attack right now... (exhausted)");
+                break;
+
+        }
     }
 
     public void showCombo(int oppId, Card[] comboComrades) {
     }
 
     public void printInsertionMessage(Message message) {
-
+            switch (message){
+                case FULL_CELL:
+                    System.out.println("This cell is full.");
+                    break;
+                case INVALID_TARGET:
+                    System.out.println("You are out of range, please insert card near a comrade minion or your hero");
+                    break;
+            }
     }
 
     public void printUnsuccessfulSelection(int collctablesLength) {

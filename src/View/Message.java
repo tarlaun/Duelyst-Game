@@ -27,5 +27,6 @@ public enum Message {
     INVALID_PASSWORD,
     ACCOUNT_CREATION,
     EXISTS_IN_DECK,
-    OBJECT_ADDED
+    OBJECT_ADDED,
+    FULL_CELL
 }
