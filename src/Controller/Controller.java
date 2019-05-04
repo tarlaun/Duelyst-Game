@@ -9,7 +9,7 @@ public class Controller {
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
     private Account account = new Account();
-    private Battle battle = new Battle();
+    private Battle battle = Battle.getInstance();
     private static final Controller controller = new Controller();
 
     private Controller() {

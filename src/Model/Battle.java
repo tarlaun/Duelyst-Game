@@ -36,6 +36,10 @@ public class Battle {
     private int flagsAppeared = 0;
     private Flag mainFlag = new Flag();
 
+    public Battle getInstance(){
+        return this;
+    }
+
     public Battle(Account[] accounts, GameType gameType, BattleMode mode) {
         this.accounts = accounts;
         this.gameType = gameType;
