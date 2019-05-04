@@ -602,7 +602,7 @@ public class Battle {
     }
 
     private void useSpecialPower(Card card, Buff buff) {
-        int r = 0;
+        int r ;
         switch (buff.getType()) {
             case HOLY:
                 switch (card.getName()) {
