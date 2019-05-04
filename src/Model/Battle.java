@@ -1323,13 +1323,21 @@ public class Battle {
         if (checkCardEquality(mainFlag.getFlagHolder(), card)) {
             if (card.getCoordinate().getX()<=6&& !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) &&
                     !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY()))) {
-                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY());
+                return makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY());
             }
             if (card.getCoordinate().getX()<=7&&card.getCoordinate().getY()>=1 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()-1)) &&
                     (!checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
                             || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()-1)))) {
-                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY());
+                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()-1);
             }
+            if (card.getCoordinate().getX()<=7&&card.getCoordinate().getY()<=3 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()+1)) &&
+                    (!checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
+                            || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()+1)))) {
+                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()+1);
+            }
+
+
+
             //wc neede :D
 
         }
