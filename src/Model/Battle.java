@@ -1335,7 +1335,9 @@ public class Battle {
                             || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()+1)))) {
                 return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()+1);
             }
-
+            if (card.getCoordinate().getX()<=7&& !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))) {
+                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY());
+            }
 
 
             //wc neede :D
