@@ -764,6 +764,87 @@ public class Battle {
 
     }
 
+    public boolean useHeroSP(Hero hero, Coordinate target) {
+        for (Buff buff :
+                hero.getBuffs()) {
+            switch (buff.getSide()) {
+                case COMRADE:
+
+                    if (buff.getTargetType().equals("Hero")) {
+                        applyBuff(buff, hero);
+                    }
+                    break;
+                case ENEMY:
+                    switch (buff.getActivationType()) {
+                        case ON_ATTACK:
+                            applyBuff(buff,targetCard);
+                            break;
+                        default:
+                            switch (buff.getEffectArea().get(0).getX()) {
+                                case -1:
+                                    if (buff.getTargetType().equals("Minion")) {
+                                        for (Card card :
+                                                fieldCards[(turn + 1) % 2]) {
+                                            if (card instanceof Minion) {
+                                                card.addToBuffs(buff);
+                                                applyBuff(buff, card);
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case 0:
+                                    if (buff.getTargetType().equals("Minion")) {
+                                        for (Card card :
+                                                fieldCards[(turn + 1) % 2]) {
+                                            if (card instanceof Minion && card.getCoordinate().sum(buff.getEffectArea().get(0)).equals(target)) {
+                                                card.addToBuffs(buff);
+                                                applyBuff(buff, card);
+                                            }
+                                        }
+
+                                    }
+                                    if (buff.getTargetType().equals("Cell")) {
+                                        for (int i = 0; i < 9; i++) {
+                                            for (int j = 0; j < 5; j++) {
+                                                if (i == target.getX() && j == target.getY()) {
+                                                    field[i][j].setHoly(true);
+                                                    field[i][j].setHolyTurn(3);
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+                                    break;
+                                case Constants.ROW:
+                                    if (buff.getTargetType().equals("Card")) {
+                                        for (Card card :
+                                                fieldCards[(turn + 1) % 2]) {
+                                            if (card.getCoordinate().getX() == hero.getCoordinate().getX()) {
+                                                card.addToBuffs(buff);
+                                                applyBuff(buff, card);
+                                            }
+                                        }
+
+                                    }
+                                    if (buff.getTargetType().equals("Minion")) {
+                                        for (Card card :
+                                                fieldCards[(turn + 1) % 2]) {
+                                            if (card instanceof Minion && card.getCoordinate().getX() == hero.getCoordinate().getX()) {
+                                                card.addToBuffs(buff);
+                                                applyBuff(buff, card);
+                                            }
+                                        }
+
+                                    }
+                                    break;
+                            }
+                    }
+
+            }
+        }
+    }
+
     public boolean useSpell(Spell spell, Coordinate target) {
         for (Buff buff : spell.getBuffs()) {
             switch (buff.getEffectArea().get(0).getX()) {
