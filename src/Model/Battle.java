@@ -1363,7 +1363,11 @@ public class Battle {
 
                                case 2:
                                case 3:
-
+                                   if(validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()+1))!=null &&
+                                           (validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()))!=null
+                                                   ||validateMovement(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()+1))!=null)){
+                                       return makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()+1);
+                                   }
                                case 4:
                                    if(validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()-1))!=null &&
                                            (validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()))!=null
@@ -1468,16 +1472,16 @@ public class Battle {
     }
 
     public int checkFourQuartersOfGround(Coordinate c1, Coordinate c2) {
-        if (c1.getX() > c2.getX() && c1.getY() > c2.getY()) {
+        if (c1.getX() >= c2.getX() && c1.getY() >= c2.getY()) {
             return 4;
         }
-        if (c1.getX() < c2.getX() && c1.getY() > c2.getY()) {
+        if (c1.getX() <= c2.getX() && c1.getY() >= c2.getY()) {
             return 3;
         }
-        if (c1.getX() > c2.getX() && c1.getY() < c2.getY()) {
+        if (c1.getX() >= c2.getX() && c1.getY() <= c2.getY()) {
             return 1;
         }
-        if (c1.getX() < c2.getX() && c1.getY() < c2.getY()) {
+        if (c1.getX() <= c2.getX() && c1.getY() <= c2.getY()) {
             return 2;
         }
         return 0;
