@@ -16,7 +16,7 @@ public class Menu {
                             "create account [username]", "login [username]", "help", "exit", "show menu"
                     },
                     {
-                            "game", "logout", "save", "help", "exit", "show menu"
+                            "game", "logout", "save", "show leaderboard", "help", "exit", "show menu"
                     },
                     {
                             "Enter [option name]", "help", "exit", "show menu"

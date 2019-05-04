@@ -37,7 +37,7 @@ public class Controller {
                 save();
                 break;
             case LOGOUT:
-                logout(request);
+                logout();
                 break;
             case HELP:
                 help();
@@ -80,9 +80,6 @@ public class Controller {
                 break;
             case SHOW_DECK:
                 showDeck(request);
-                break;
-            case SHOW_COLLECTION_IN_SHOP:
-                showCollectionShop(request);
                 break;
             case SEARCH:
                 searchInShop(request);
@@ -135,9 +132,6 @@ public class Controller {
             case SHOW_COLLECTABLES:
                 showCollectables();
                 break;
-            case SELECT_COLLECTABLE:
-                selectCollectables(request);
-                break;
             case SHOW_COLLECTABLE_INFO:
                 showCollectableInfo();
                 break;
@@ -160,7 +154,7 @@ public class Controller {
     }
 
     public void createAccount(Request request) {
-        if (request.checkAccountCreationSyntax()) {
+        if (request.checkAccountCreationSyntax() && menu.getStat() == MenuStat.MAIN) {
             String username = request.getCommand();
             view.passwordInsertion();
             String password = request.getNewCommand();
@@ -170,7 +164,7 @@ public class Controller {
     }
 
     public void login(Request request) {
-        if (request.checkLoginSyntax()) {
+        if (request.checkLoginSyntax() && menu.getStat() == MenuStat.MAIN) {
             String username = request.getCommand();
             view.passwordInsertion();
             String password = request.getNewCommand();
@@ -179,17 +173,19 @@ public class Controller {
     }
 
     public void showLeaderBoard(Request request) {
-        if (request.checkLeaderBoardSyntax()) {
+        if (request.checkLeaderBoardSyntax() && menu.getStat() == MenuStat.ACCOUNT) {
             view.printLeaderboard();
         }
     }
 
     public void save() {
+        if (menu.getStat() == MenuStat.ACCOUNT) {
 
+        }
     }
 
-    public void logout(Request request) {
-        if (request.checkLogoutSyntax()) {
+    public void logout() {
+        if (menu.getStat() == MenuStat.ACCOUNT) {
             view.logout();
         }
     }
@@ -218,7 +214,10 @@ public class Controller {
     }
 
     public void showTheCollection() {
-        view.printCollection(this.account.getCollection());
+        if (menu.getStat() == MenuStat.COLLECTION)
+            view.printCollection(this.account.getCollection());
+        if (menu.getStat() == MenuStat.SHOP)
+            view.printShopCollection(this.account.getCollection());
     }
 
 
@@ -282,10 +281,6 @@ public class Controller {
             view.printDeck(this.account.getCollection().getDecks().get(
                     this.account.getCollection().deckExistance(request.getDeckName(request.getCommand()))));
         }
-    }
-
-    public void showCollectionShop(Request request) {
-        view.printShopCollection(this.account.getCollection());
     }
 
     public void searchInShop(Request request) {

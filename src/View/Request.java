@@ -44,6 +44,7 @@ public class Request {
             "Insert ",
             "End turn",
             "Show collectables",
+            "Show info",
             "Use ( ",
             "Show Next Card",
             "Show cards",

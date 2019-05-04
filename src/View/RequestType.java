@@ -37,6 +37,7 @@ public enum RequestType {
     INSERTION,
     END_TURN,
     SHOW_COLLECTABLES,
+    SHOW_COLLECTABLE_INFO,
     USE_ITEM,
     NEXT_CARD,
     SHOW_CARDS,
