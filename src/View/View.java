@@ -163,7 +163,7 @@ public class View {
         printBuff(card);
     }
 
-    public void printCards(boolean isInShop, Card... cards) {
+    private void printCards(boolean isInShop, Card... cards) {
         for (int i = 0; i < cards.length; i++) {
             if (!(cards[i] instanceof Hero)) {
                 System.out.print(i + 1 + " : ");
@@ -182,7 +182,9 @@ public class View {
     }
 
     public void printCollectables(Item... items) {
-
+        for (Item item : items) {
+            printItem(item);
+        }
     }
 
     public void printId(Card... cards) {
