@@ -82,7 +82,7 @@ public class Controller {
                 showDeck(request);
                 break;
             case SEARCH:
-                searchInShop(request);
+                search(request);
                 break;
             case BUY:
                 buy(request);
@@ -214,19 +214,19 @@ public class Controller {
     }
 
     public void showTheCollection() {
-        if (menu.getStat() == MenuStat.COLLECTION)
+        if (menu.getStat() == MenuStat.COLLECTION && menu.getStat() == MenuStat.SHOP)
             view.printCollection(this.account.getCollection());
-        if (menu.getStat() == MenuStat.SHOP)
-            view.printShopCollection(this.account.getCollection());
     }
 
 
     public void searchInCollection(Request request) {
         if (request.checkSearchSyntax()) {
-            view.printId(Card.getAllCardsId(request.getObjectName(request.getCommand()),
-                    this.account.getCollection().getCards().toArray(Card[]::new)).toArray(Card[]::new));
-            view.printId(Item.getAllItemsId(request.getObjectName(request.getCommand()),
-                    this.account.getCollection().getItems().toArray(Item[]::new)).toArray(Item[]::new));
+            if (menu.getStat() == MenuStat.COLLECTION || menu.getStat() == MenuStat.SHOP) {
+                view.printId(Card.getAllCardsId(request.getObjectName(request.getCommand()),
+                        this.account.getCollection().getCards().toArray(Card[]::new)).toArray(Card[]::new));
+                view.printId(Item.getAllItemsId(request.getObjectName(request.getCommand()),
+                        this.account.getCollection().getItems().toArray(Item[]::new)).toArray(Item[]::new));
+            }
         }
     }
 
@@ -235,85 +235,93 @@ public class Controller {
     }
 
     public void createDeck(Request request) {
-        if (request.checkDeckSyntax()) {
+        if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
         }
     }
 
     public void deleteDeck(Request request) {
-        if (request.checkDeckSyntax()) {
+        if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.deleteDeck(this.account.getCollection().deleteDeck(request.getDeckName(request.getCommand())));
         }
     }
 
     public void addToDeck(Request request) {
-        if (request.checkToDeckAdditionSyntax()) {
+        if (request.checkToDeckAdditionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.addToCollection(this.account.getCollection().add(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
         }
     }
 
     public void removeFromDeck(Request request) {
-        if (request.checkFromDeckDeletionSyntax()) {
+        if (request.checkFromDeckDeletionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.removeFromDeck(this.account.getCollection().remove(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
         }
     }
 
     public void validateDeck(Request request) {
-        if (request.checkValidationSyntax()) {
+        if (request.checkValidationSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.checkValidation(this.account.getCollection().validate(request.getDeckName(request.getCommand())));
         }
     }
 
     public void selectDeck(Request request) {
-        if (request.checkDeckSelectionSyntax()) {
+        if (request.checkDeckSelectionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.printDeckSelection(this.account.getCollection().selectDeck(request.getDeckName(request.getCommand())));
         }
     }
 
     public void showAllDecks(Request request) {
-        if (request.checkShowAllDeckSyntax()) {
+        if (request.checkShowAllDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.showAllDeck(this.account.getCollection().getDecks());
         }
     }
 
     public void showDeck(Request request) {
-        if (request.checkShowDeckSyntax()) {
+        if (request.checkShowDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.printDeck(this.account.getCollection().getDecks().get(
                     this.account.getCollection().deckExistance(request.getDeckName(request.getCommand()))));
         }
     }
 
-    public void searchInShop(Request request) {
+    public void search(Request request) {
         if (request.checkSearchSyntax()) {
-            Card card = Card.getCardByName(request.getObjectName(request.getCommand()),
-                    shop.getCards().toArray(Card[]::new));
-            Item item = Item.getItemByName(request.getObjectName(request.getCommand()),
-                    shop.getItems().toArray(Item[]::new));
-            if (card != null)
-                view.printId(card);
-            if (item != null)
-                view.printId(item);
+            if (menu.getStat() == MenuStat.COLLECTION) {
+                searchInCollection(request);
+            } else if (menu.getStat() == MenuStat.SHOP) {
+                Card card = Card.getCardByName(request.getObjectName(request.getCommand()),
+                        shop.getCards().toArray(Card[]::new));
+                Item item = Item.getItemByName(request.getObjectName(request.getCommand()),
+                        shop.getItems().toArray(Item[]::new));
+                if (card != null)
+                    view.printId(card);
+                if (item != null)
+                    view.printId(item);
+            }
         }
     }
 
     public void buy(Request request) {
-        if (request.checkBuySyntax()) {
+        if (request.checkBuySyntax() && menu.getStat() == MenuStat.SHOP) {
             view.printBuyMessages(shop.buy(request.getObjectName(request.getCommand()), this.account));
         }
     }
 
     public void sell(Request request) {
-        if (request.checkSellSyntax()) {
+        if (request.checkSellSyntax() && menu.getStat() == MenuStat.SHOP) {
             view.printSellMessages(shop.sell(request.getObjectID(request.getCommand()), this.account));
         }
     }
 
     public void showShop() {
-        view.printShopCollection(new Collection(shop.getCards(), shop.getItems()));
+        if (menu.getStat() == MenuStat.SHOP) {
+            view.printShopCollection(new Collection(shop.getCards(), shop.getItems()));
+        }
     }
 
     public void gameInfo() {
+        if (menu.getStat() == MenuStat.BATTLE){
 
+        }
     }
 
     public void showMyMinions() {
