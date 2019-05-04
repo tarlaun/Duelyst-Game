@@ -799,9 +799,9 @@ public class Battle {
                     card.modifyHealth(buff.getPower());
                     buff.setPower(4);
                 }
-                if (((buff.getType().equals(BuffType.WEAKNESS))||(buff.getType().equals(BuffType.ON_DEATH_WEAKNESS))||
-                        (buff.getType().equals(BuffType.ON_SPAWN_WEAKNESS))||(buff.getType().equals(BuffType.HOLY_WEAKNESS)))
-                                && buff.getTargetType().equals("HEALTH") && buff.getTurnCount() == 1) {
+                if (((buff.getType().equals(BuffType.WEAKNESS)) || (buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) ||
+                        (buff.getType().equals(BuffType.ON_SPAWN_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
+                        && buff.getTargetType().equals("HEALTH") && buff.getTurnCount() == 1) {
                     targetCard.modifyHealth(buff.getPower());
                 }
                 if (buff.getActivationType().equals(ActivationType.PASSIVE)) {
@@ -821,7 +821,10 @@ public class Battle {
                 if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
                     card.setAssaultPower(card.getOriginalAssaultPower());
                 }
-                if(buff.getType().equals(BuffType.CHAMPION) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0){
+                if (buff.getType().equals(BuffType.BWITCH) && buff.getTurnCount() == 0) {
+                    card.setAssaultPower(card.getOriginalAssaultPower());
+                }
+                if (buff.getType().equals(BuffType.CHAMPION) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
                     card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                 }
                 if (buff.getTurnCount() == 0) {
