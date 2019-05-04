@@ -1050,12 +1050,14 @@ public class Battle {
                 case COMRADE:
                     if (buff.getTargetType().equals("Hero")) {
                         applyBuff(buff, hero);
+                        return true;
                     }
                     break;
                 case ENEMY:
                     switch (buff.getActivationType()) {
                         case ON_ATTACK:
                             applyBuff(buff, targetCard);
+                            return true;
                             break;
                         default:
                             switch (buff.getEffectArea().get(0).getX()) {
@@ -1066,6 +1068,7 @@ public class Battle {
                                             if (card instanceof Minion) {
                                                 card.addToBuffs(buff);
                                                 applyBuff(buff, card);
+                                                return true;
                                             }
                                         }
                                     }
@@ -1077,6 +1080,7 @@ public class Battle {
                                             if (card instanceof Minion && card.getCoordinate().sum(buff.getEffectArea().get(0)).equals(target)) {
                                                 card.addToBuffs(buff);
                                                 applyBuff(buff, card);
+                                                return true;
                                             }
                                         }
 
@@ -1087,6 +1091,7 @@ public class Battle {
                                                 if (i == target.getX() && j == target.getY()) {
                                                     field[i][j].setHoly(true);
                                                     field[i][j].setHolyTurn(3);
+                                                    return true;
                                                 }
                                             }
 
@@ -1101,6 +1106,7 @@ public class Battle {
                                             if (card.getCoordinate().getX() == hero.getCoordinate().getX()) {
                                                 card.addToBuffs(buff);
                                                 applyBuff(buff, card);
+                                                return true;
                                             }
                                         }
 
@@ -1111,6 +1117,7 @@ public class Battle {
                                             if (card instanceof Minion && card.getCoordinate().getX() == hero.getCoordinate().getX()) {
                                                 card.addToBuffs(buff);
                                                 applyBuff(buff, card);
+                                                return true;
                                             }
                                         }
 
@@ -1121,6 +1128,7 @@ public class Battle {
 
             }
         }
+        return false;
     }
 
     public boolean useSpell(Spell spell, Coordinate target) {
