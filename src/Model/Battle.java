@@ -587,7 +587,7 @@ public class Battle {
                     }
                     break;
                 case WEAKNESS:
-                    targetCard.addToBuffs(currentCard.getBuffs().get(0);
+                    targetCard.addToBuffs(currentCard.getBuffs().get(0));
                     break;
                 case POSITIVE_DISPEL:
                     for (Buff buff : targetCard.getCastedBuffs()) {
@@ -602,23 +602,10 @@ public class Battle {
     }
 
     private void useSpecialPower(Card card, Buff buff) {
-        int r ;
+        int r;
         switch (buff.getType()) {
             case HOLY:
-                switch (card.getName()) {
-                    case "FOOLADZEREH":
-                        card.addToBuffs(buff);
-                        break;
-                    case "KAVEH":
-                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
-                            holifyCell(currentCoordinate);
-                        }
-
-                        break;
-                    case "ESFANDIAR":
-                        card.addToBuffs(buff);
-                        break;
-                }
+                card.addToBuffs(buff);
                 break;
             case STUN:
                 switch (card.getName()) {
