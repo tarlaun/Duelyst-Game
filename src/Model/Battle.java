@@ -1064,7 +1064,9 @@ public class Battle {
 
     public Coordinate setCardCoordinates(Card card) {
         if (getFieldCards().length == 0) {
-            return new Coordinate(6, 2);
+            int ranx = rand.nextInt(Constants.randomXGenerator);
+            int rany = rand.nextInt(Constants.randomYGenerator);
+            return new Coordinate(ranx+Constants.shiftColumn, rany);
         } else {
             return new Coordinate(getFieldCards()[1][getFieldCards().length - 1].getCoordinate().getX(), (getField()[1][getFieldCards().length - 1].getCoordinate().getY() + 1) % 5);
         }
