@@ -414,9 +414,9 @@ public class Battle {
     }
 
     public void setManaPoints() {
-        if (turn <= 7) {
-            accounts[0].setMana(turn + 1);
-            accounts[1].setMana(turn + 2);
+        if (turn <= 14) {
+            accounts[0].setMana((turn%2) + 1);
+            accounts[1].setMana((turn%2) + 2);
         } else {
             accounts[0].setMana(Constants.MAX_MANA);
             accounts[0].setMana(Constants.MAX_MANA);
