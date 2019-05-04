@@ -1142,7 +1142,17 @@ public class Battle {
         }
     }
 
-    public Coordinate setDestinationCoordinates(Card card) {
+    public Coordinate setDestinationCoordinatesModeTwo(Card card){
+
+
+    }
+
+    public Coordinate setDestinationCooardinationModeThree(Card card){
+
+
+    }
+
+    public Coordinate setDestinationCoordinatesModeOne(Card card) {
         if (card instanceof Minion) {
             switch (card.getAssaultType()) {
                 case MELEE:
