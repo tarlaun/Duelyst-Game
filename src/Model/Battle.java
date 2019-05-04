@@ -624,11 +624,6 @@ public class Battle {
                 break;
             case POWER:
                 switch (card.getName()) {
-                    case "WHITE_DIV":
-                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
-                            card.addToBuffs(buff);
-                        }
-                        break;
                     case "EAGLE":
                         card.addToBuffs(card.getBuffs().get(0));
                         break;
@@ -649,6 +644,11 @@ public class Battle {
                         }
                         break;
                     case "JEN":
+                        for (int i = 0; i <fieldCards[turn%2].length ; i++) {
+                            if(!(fieldCards[turn%2][i] instanceof Hero)) {
+                                fieldCards[turn % 2][i].addToBuffs(card.getBuffs().get(0));
+                            }
+                        }
                         break;
                 }
                 break;
