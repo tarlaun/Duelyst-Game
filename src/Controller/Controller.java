@@ -434,7 +434,7 @@ public class Controller {
     public void useItem(Request request) {
         if (request.checkItemUseSyntax()) {
             if (menu.getStat() == MenuStat.BATTLE || menu.getStat() == MenuStat.ITEM_SELECTION) {
-                view.printItemUsage(battle.useItem);
+                view.printItemUsage(battle.useItem(battle.getCurrentItem(), null));
             }
         }
     }
