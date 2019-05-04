@@ -652,30 +652,9 @@ public class Battle {
                         break;
                 }
                 break;
-            case DISARM:
-
-                if ("SEVEN_HEADED_DRAGON".equals(card.getName())) {
-                    if (spendMana(card.getManaPoint()) && spellIsReady(buff)) { // we need to choose a target here
-                        targetCard.addToBuffs(buff);
-                        targetCard.setAbleToAttack(false);
-                    }
-                }
-                break;
             case WEAKNESS:
 
                 switch (card.getName()) {
-                    case "ARASH":
-                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
-                            for (Card target :
-                                    fieldCards[(turn + 1) % 2]) {
-                                if (target.getCoordinate().getY() == card.getCoordinate().getY()) {
-                                    if (!target.getName().equals("GIV")) {
-                                        target.modifyHealth(-4);
-                                    }
-                                }
-                            }
-                        }
-                        break;
                     case "CYCLOPS":
                         for (int i = -1; i < 2; i++) {
                             for (int j = -1; j < 2; j++) {
@@ -718,18 +697,6 @@ public class Battle {
                         }
                         break;
 
-                }
-
-                break;
-            case POSITIVE_DISPEL:
-                // we need to choose a target here
-                if ("AFSANEH".equals(card.getName())) {
-                    if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
-                        for (Buff buffToDispel :
-                                targetCard.getCastedBuffs()) {
-                            targetCard.getCastedBuffs().remove(buff);
-                        }
-                    }
                 }
 
                 break;
