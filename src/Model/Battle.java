@@ -1287,7 +1287,7 @@ public class Battle {
         return null;
     }
 
-    private boolean checkForDevilExistance(Coordinate coordinate) {
+    private boolean checkForDevilExistence(Coordinate coordinate) {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < fieldCards[i].length; j++) {
                 if (coordinationEquality(fieldCards[i][j].getCoordinate(), coordinate)) {
@@ -1315,27 +1315,27 @@ public class Battle {
         //agar flag dasteshe 
         if (checkCardEquality(mainFlag.getFlagHolder(), card)) {
             if (card.getCoordinate().getX() <= 6 &&
-                    !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) &&
-                    !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY()))) {
+                    !checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) &&
+                    !checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY()))) {
                 return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY()));
             }
             if (card.getCoordinate().getX() <= 7 && card.getCoordinate().getY() >= 1 &&
-                    !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1,
+                    !checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX() + 1,
                             card.getCoordinate().getY() - 1)) &&
-                    (!checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
-                            || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1)))) {
+                    (!checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
+                            || !checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1)))) {
                 return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() - 1));
             }
             if (card.getCoordinate().getX() <= 7 &&
                     card.getCoordinate().getY() <= 3 &&
-                    !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1,
+                    !checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX() + 1,
                             card.getCoordinate().getY() + 1)) &&
-                    (!checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
-                            || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() + 1)))) {
+                    (!checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
+                            || !checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() + 1)))) {
                 return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() + 1));
             }
             if (card.getCoordinate().getX() <= 7 &&
-                    !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))) {
+                    !checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))) {
                 return validateMovement(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()));
             }
             return card.getCoordinate();
@@ -1358,7 +1358,7 @@ public class Battle {
                 if (Coordinate.getManhattanDistance(card.getCoordinate(), targetCrd.getCoordinate()) <= 4) {
                     Coordinate coordinate = makeNewCoordinate((card.getCoordinate().getX() + targetCrd.getCoordinate().getX()) / 2,
                             (card.getCoordinate().getY() + targetCrd.getCoordinate().getY()) / 2);
-                    if (checkForDevilExistance(coordinate)) {
+                    if (checkForDevilExistence(coordinate)) {
                         return coordinate;
                     }
                 }
@@ -1419,33 +1419,44 @@ public class Battle {
         return card.getCoordinate();
     }
 
-    private int[] eightCellsAround (Coordinate coordinate){
-        int[] cellsAround = new int[8];
-        if(validateMovement(makeNewCoordinate(coordinate.getX()-1,coordinate.getY()-1))!=null){
-            cellsAround[0]=1;
+    private Coordinate getCoordinate (Coordinate c1 , Coordinate c2){
+        if(c1.getX()==c2.getX()&& c1.getY()+1==c2.getY()){
+
         }
-        if(validateMovement(makeNewCoordinate(coordinate.getX(),coordinate.getY()-1))!=null){
-            cellsAround[1]=1;
+        if(c1.getX()== c2.getX()&& c1.getY()+2==c2.getY()){
+
         }
-        if(validateMovement(makeNewCoordinate(coordinate.getX()+1,coordinate.getY()-1))!=null){
-            cellsAround[2]=1;
+        if(c1.getX()==c2.getX()&& c1.getY()-1==c2.getY()){
+
         }
-        if(validateMovement(makeNewCoordinate(coordinate.getX()+1,coordinate.getY()))!=null){
-            cellsAround[3]=1;
+        if(c1.getX()== c2.getX()&& c1.getY()-2==c2.getY()){
+
         }
-        if(validateMovement(makeNewCoordinate(coordinate.getX()+1,coordinate.getY()+1))!=null){
-            cellsAround[4]=1;
+        if(c1.getX()+1==c2.getX()&& c1.getY()+1==c2.getY()){
+
         }
-        if(validateMovement(makeNewCoordinate(coordinate.getX(),coordinate.getY()+1))!=null){
-            cellsAround[5]=1;
+        if(c1.getX()-1== c2.getX()&& c1.getY()+1==c2.getY()){
+
         }
-        if(validateMovement(makeNewCoordinate(coordinate.getX()-1,coordinate.getY()+1))!=null){
-            cellsAround[6]=1;
+        if(c1.getX()-1==c2.getX()&& c1.getY()-1==c2.getY()){
+
         }
-        if(validateMovement(makeNewCoordinate(coordinate.getX()-1,coordinate.getY()))!=null){
-            cellsAround[7]=1;
+        if(c1.getX()+1== c2.getX()&& c1.getY()-1==c2.getY()){
+
         }
-        return cellsAround;
+        if(c1.getX()+1==c2.getX()&& c1.getY()==c2.getY()){
+
+        }
+        if(c1.getX()-2==c2.getX()&& c1.getY()==c2.getY()){
+
+        }
+        if(c1.getX()-1== c2.getX()&& c1.getY()==c2.getY()){
+
+        }
+        if(c1.getX()+2== c2.getX()&& c1.getY()==c2.getY()){
+
+        }
+
     }
 
     private Coordinate setDestinationCoordinatesModeOne(Card card) {
