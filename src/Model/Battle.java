@@ -604,6 +604,7 @@ public class Battle {
     private void useSpecialPower(Card card, Buff buff) {
         int r;
         switch (buff.getType()) {
+            /// holy eagle
             case HOLY:
                 card.addToBuffs(buff);
                 break;
@@ -622,26 +623,25 @@ public class Battle {
                     }
                 }
                 break;
+            case BWITCH:
+                card.addToBuffs(card.getBuffs().get(0));
+                for (int i = -1; i < 2; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        if (getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID() != 0) {
+                            Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
+                                    card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
+                            if (target != null) {
+                                target.addToBuffs(card.getBuffs().get(0));
+                                target.addToBuffs(card.getBuffs().get(1));
+                            }
+                        }
+                    }
+                }
+                break;
             case POWER:
                 switch (card.getName()) {
                     case "EAGLE":
                         card.addToBuffs(card.getBuffs().get(0));
-                        break;
-                    case "WITCH":
-                    case "NANE_WITCH":
-                        card.addToBuffs(card.getBuffs().get(0));
-                        for (int i = -1; i < 2; i++) {
-                            for (int j = -1; j < 2; j++) {
-                                if (getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID() != 0) {
-                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
-                                            card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
-                                    if (target != null) {
-                                        target.addToBuffs(card.getBuffs().get(0));
-                                        target.addToBuffs(card.getBuffs().get(1));
-                                    }
-                                }
-                            }
-                        }
                         break;
                     case "JEN":
                         for (int i = 0; i <fieldCards[turn%2].length ; i++) {

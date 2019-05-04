@@ -15,5 +15,6 @@ public enum BuffType {
     HIT_WEAKNESS,
     HEALTH_WEAKNESS,
     CHAMPION,
-    LION_ROAR
+    LION_ROAR,
+    BWITCH
 }
