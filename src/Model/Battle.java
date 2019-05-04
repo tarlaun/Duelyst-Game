@@ -28,7 +28,7 @@ public class Battle {
     private View view = View.getInstance();
     private boolean attackMode = true;
     private boolean isOnSpawn = true;
-    Random rand = new Random();
+    private Random rand = new Random();
     private Shop shop = Shop.getInstance();
     private Match firstPlayerMatch = new Match();
     private Match secondPlayerMatch = new Match();
@@ -563,6 +563,10 @@ public class Battle {
     }
 
     private void onAttackSpecialPower() {
+        switch (currentCard.getBuffs().get(0).){
+
+        }
+
         switch (currentCard.getName()) {
             case "PERSIAN_SWORDS_WOMAN":
                 targetCard.setAbleToAttack(false);
@@ -576,7 +580,7 @@ public class Battle {
             case "TURANIAN_SPY":
                 if (!targetCard.getName().equals("WILD_HOG")) {
                     targetCard.setAbleToAttack(false);
-                    targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                    applyBuff(currentCard.getBuffs().get(0),targetCard);
                 }
                 if (!targetCard.getName().equals("PIRAN")) {
                     targetCard.addToBuffs(currentCard.getBuffs().get(1));
@@ -595,16 +599,8 @@ public class Battle {
                 }
                 break;
             case "WHITE_WOLF":
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                break;
             case "PALANG":
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                break;
-
             case "WOLF":
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                break;
-            case "ZAHAK":
                 targetCard.addToBuffs(currentCard.getBuffs().get(0));
                 break;
             case "TWO_HEADED_GIANT":
@@ -618,7 +614,7 @@ public class Battle {
     }
 
     private void useSpecialPower(Card card, Buff buff) {
-        int r = 0;
+        int r ;
         switch (buff.getType()) {
             case HOLY:
                 switch (card.getName()) {
@@ -783,7 +779,6 @@ public class Battle {
                         }
                     }
                 }
-
                 break;
         }
 
@@ -844,8 +839,6 @@ public class Battle {
         turn++;
         currentCard = null;
         targetCard = null;
-
-
     }
 
     public void randomItemAppearance() {
@@ -1036,7 +1029,6 @@ public class Battle {
                 hero.getBuffs()) {
             switch (buff.getSide()) {
                 case COMRADE:
-
                     if (buff.getTargetType().equals("Hero")) {
                         applyBuff(buff, hero);
                     }
