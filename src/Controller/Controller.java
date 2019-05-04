@@ -16,9 +16,6 @@ public class Controller {
 
     }
 
-    public static Controller getInstance() {
-        return controller;
-    }
 
     public void main() {
         Request request = new Request();
@@ -218,7 +215,7 @@ public class Controller {
 
     public void showTheCollection() {
         if (menu.getStat() == MenuStat.COLLECTION && menu.getStat() == MenuStat.SHOP)
-            view.printCollection(this.account.getCollection());
+            view.printCollection(this.account.getCollection(), true);
     }
 
 

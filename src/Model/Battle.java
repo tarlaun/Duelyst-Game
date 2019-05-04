@@ -36,7 +36,7 @@ public class Battle {
     private int flagsAppeared = 0;
     private Flag mainFlag = new Flag();
 
-    public Battle getInstance() {
+    public static Battle getInstance() {
         return this;
     }
 
