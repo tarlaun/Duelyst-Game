@@ -21,7 +21,6 @@ public class Controller {
     }
 
     public void main() {
-
         Request request = new Request();
         request.getNewCommand();
         switch (request.getType()) {
@@ -119,7 +118,10 @@ public class Controller {
                 battleComboAttack(request);
                 break;
             case USE_SP:
-                useSpecialPower(request);
+                specialPowerValidation();
+                if(battle.validSpecialPower().equals(null)){
+                    useSpecialPower(request);
+                }
                 break;
             case SHOW_HAND:
                 showHand();
@@ -402,8 +404,7 @@ public class Controller {
 
     public void showHand() {
         if (menu.getStat() == MenuStat.BATTLE) {
-            view.printCards(account.getCollection().getMainDeck().getCards().get(0), battle.getPlayerHands()[battle.getTurnByAccount(account)])
-            ;
+            view.printCards(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
         }
     }
 
@@ -436,7 +437,7 @@ public class Controller {
     public void useItem(Request request) {
         if (request.checkItemUseSyntax()) {
             if (menu.getStat() == MenuStat.BATTLE || menu.getStat() == MenuStat.ITEM_SELECTION) {
-                view.printItemUsage(battle.useItem(battle.getCurrentItem(), null));
+                view.printItemUsage(battle.useItem(battle.getCurrentItem()));
             }
         }
     }
@@ -444,6 +445,12 @@ public class Controller {
     public void showNextCard() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCardInfo(account.getCollection().getMainDeck().getCards().get(0));
+        }
+    }
+
+    public void specialPowerValidation(){
+        if (menu.getStat() == MenuStat.BATTLE){
+            view.specialPowerValidation(battle.validSpecialPower());
         }
     }
 

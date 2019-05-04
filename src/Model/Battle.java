@@ -570,8 +570,8 @@ public class Battle {
         return true;
     }
 
-    public Message validSpecialPower(Coordinate coordinate) {
-
+    public Message validSpecialPower() {
+        Coordinate coordinate= currentCoordinate;
         if (getField(coordinate.getX(), coordinate.getY()).getCardID() == 0)
             return Message.INVALID_TARGET;
         Card card = Card.getCardByID(getField(coordinate.getX(), coordinate.getY()).getCardID(), fieldCards[turn % 2]);
@@ -1012,13 +1012,20 @@ public class Battle {
         return null;
     }
 
-    public boolean useItem(Coordinate coordinate) {
+    public boolean useItem(Item item) {
         if (menu.getStat() != MenuStat.ITEM_SELECTION)
             return false;
         return true;
     }
 
-   /* public Message useSpecialPower(Coordinate coordinate) {
+    public Item[][] getCollectables() {
+        return collectables;
+    }
+
+    public void setCollectables(Item[][] collectables) {
+        this.collectables = collectables;
+    }
+    /* public Message useSpecialPower(Coordinate coordinate) {
 
     }*/
 
