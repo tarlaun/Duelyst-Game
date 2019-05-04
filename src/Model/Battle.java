@@ -1402,7 +1402,7 @@ public class Battle {
     //collectFlag
     private Coordinate setDestinationCoordinationModeThree(Card card) {
         int leastDistance=15;
-        int leastDistanceIndex;
+        int leastDistanceIndex=0;
         for (int i = 0; i < flagsOnTheGround.size() ; i++){
             int distance = Coordinate.getManhattanDistance(card.getCoordinate(),flagsOnTheGround.get(i).getCoordinate());
             if(distance<leastDistance && flagsOnTheGround.get(i).getFlagHolder()==null){
@@ -1411,7 +1411,7 @@ public class Battle {
             }
         }
         if(leastDistance<=2){
-            if()
+            return getCoordinate(card.getCoordinate(),flagsOnTheGround.get(leastDistanceIndex).getCoordinate());
         }
         else {
 
