@@ -653,9 +653,8 @@ public class Battle {
                         fieldCards[(turn + 1) % 2][i].addToBuffs(buff);
                     }
                 }
-
                 break;
-            case "CYCLOPS":
+            case ON_DEATH_WEAKNESS:
                 for (int i = -1; i < 2; i++) {
                     for (int j = -1; j < 2; j++) {
                         Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
@@ -666,7 +665,7 @@ public class Battle {
                     }
                 }
                 break;
-            case "GIANT_SNAKE":
+            case HOLY_WEAKNESS:
                 for (int i = 0; i < 9; i++) {
                     for (int j = 0; j < 5; j++) {
                         if (Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) <= 2
@@ -680,7 +679,7 @@ public class Battle {
                     }
                 }
                 break;
-            case "BAHMAN":
+            case ON_SPAWN_WEAKNESS:
                 if (fieldCards[(turn + 1) % 2].length >= 2) {
                     r = rand.nextInt(fieldCards[(turn + 1) % 2].length);
                     r += 1;
@@ -800,7 +799,9 @@ public class Battle {
                     card.modifyHealth(buff.getPower());
                     buff.setPower(4);
                 }
-                if (buff.getType().equals(BuffType.WEAKNESS) && buff.getTargetType().equals("HEALTH") && buff.getTurnCount() == 1) {
+                if (((buff.getType().equals(BuffType.WEAKNESS))||(buff.getType().equals(BuffType.ON_DEATH_WEAKNESS))||
+                        (buff.getType().equals(BuffType.ON_SPAWN_WEAKNESS))||(buff.getType().equals(BuffType.HOLY_WEAKNESS)))
+                                && buff.getTargetType().equals("HEALTH") && buff.getTurnCount() == 1) {
                     targetCard.modifyHealth(buff.getPower());
                 }
                 if (buff.getActivationType().equals(ActivationType.PASSIVE)) {
