@@ -568,7 +568,6 @@ public class Battle {
                     int multiply = ((Minion) currentCard).getAttackCount(targetCard.getId()) * 5;
                     targetCard.modifyHealth(-multiply);
                     break;
-
                 case DISARM:
                     if (!targetCard.getName().equals("WILD_HOG")) {
                         targetCard.setAbleToAttack(false);
@@ -588,25 +587,18 @@ public class Battle {
                     }
                     break;
                 case WEAKNESS:
-                    targetCard.addToBuffs(currentCard.getBuffs().get(0));
-
+                    targetCard.addToBuffs(currentCard.getBuffs().get(0);
+                    break;
                 case POSITIVE_DISPEL:
-
+                    for (Buff buff : targetCard.getCastedBuffs()) {
+                        if (buff.getType().equals(BuffType.HOLY) || buff.getType().equals(BuffType.POWER)) {
+                            targetCard.removeFromBuffs(buff);
+                        }
+                    }
+                    break;
             }
         }
 
-        switch (currentCard.getName()) {
-            case "ZAHAK":
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                break;
-            case "TWO_HEADED_GIANT":
-                for (Buff buff : targetCard.getCastedBuffs()) {
-                    if (buff.getType().equals(BuffType.HOLY) || buff.getType().equals(BuffType.POWER)) {
-                        targetCard.removeFromBuffs(buff);
-                    }
-                }
-                break;
-        }
     }
 
     private void useSpecialPower(Card card, Buff buff) {
