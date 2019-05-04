@@ -14,7 +14,42 @@ public class Request {
             "save",
             "logout",
             "help",
-            "exit"
+            "Enter ",
+            "exit",
+            "show",
+            "search ",
+            "create deck ",
+            "delete deck ",
+            "add ",
+            "remove ",
+            "validate deck ",
+            "select deck ",
+            "show deck ",
+            "show all decks",
+            "show collection",
+            "search collection ",
+            "save in collection ",
+            "buy ",
+            "sell ",
+            "Game info",
+            "Show my minions",
+            "Show opponent minions",
+            "Show card info ",
+            "Select ",
+            "Move to ( ",
+            "Attack ",
+            "Attack combo ",
+            "Use special power ( ",
+            "Show hand",
+            "Insert ",
+            "End turn",
+            "Show collectables",
+            "Show info",
+            "Use ( ",
+            "Show Next Card",
+            "Show cards",
+            "End Game",
+            "Show menu"
     };
     private String command;
     private RequestType type;
@@ -113,7 +148,7 @@ public class Request {
 
     }
 
-    public void checkItemUseSyntax() {
+    public boolean checkItemUseSyntax() {
 
     }
 
@@ -122,7 +157,10 @@ public class Request {
     }
 
     public RequestType getType() {
-        return type;
+        for (int i = 0; i < strings.length; i++) {
+            if (command.substring(0, strings[i].length()).equals(strings[i]))
+                return RequestType.values()[i];
+        }
     }
 
     public String getCommand() {

@@ -25,6 +25,8 @@ public class Battle {
     private Card[][] fieldCards = new Card[2][];
     private Menu menu = Menu.getInstance();
     private View view = View.getInstance();
+    private boolean attackMode = true;
+    private boolean isOnSpawn = true;
     Random rand = new Random();
 
     public Battle() {
@@ -94,7 +96,7 @@ public class Battle {
     }
 
     public boolean isAttackable(Card currentCard, Card targetCard) {
-        if (targetCard.getName().equals("GIV")){
+        if (targetCard.getName().equals("GIV")) {
             return false;
         }
         if (targetCard.getName().equals("ASHKBOOS") && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
@@ -935,20 +937,46 @@ public class Battle {
         return 1;
     }
 
-    public void useItem(Item item, Card card) {
+    public void useItem(Item item, Card targetCard) {
         for (ItemBuff buff : item.getBuffs()) {
-            switch (buff.getSide()) {
-                case COMRADE:
-                    break;
-                case ENEMY:
-                    break;
-                default:
+            if (buff.getTargetCard().equals("Account")) {
+                applyItem(buff, targetCard);
+            } else {
+                if (targetCard.isClass(buff.getTargetCard())) {
+                    if (buff.getSide() == Side.ENEMY &&
+                            Arrays.asList(fieldCards[turn % 2]).indexOf(currentCard) != -1)
+                        continue;
+                    if (buff.getSide() == Side.COMRADE &&
+                            Arrays.asList(fieldCards[(turn + 1) % 2]).indexOf(currentCard) != -1)
+                        continue;
+                    switch (buff.getCasterActivationType()) {
+                        case ON_ATTACK:
+                            if (currentCard.isClass(buff.getCasterCard()) && attackMode) {
+                                applyItem(buff, targetCard);
+                            }
+                            break;
+                        case ON_SPAWN:
+                            if (isOnSpawn)
+                                applyItem(buff, targetCard);
+                            break;
+                        case ON_DEFENCE:
+                            if (currentCard.isClass(buff.getCasterCard()) && !attackMode) {
+                                applyItem(buff, targetCard);
+                            }
+                        case ON_DEATH:
+                            if (currentCard.isClass(buff.getCasterCard()) && currentCard.getHealthPoint() <= 0)
+                                applyItem(buff, targetCard);
+                            break;
+                        case UNDEFINED:
+                            applyItem(buff, targetCard);
+                            break;
+                    }
+                }
             }
         }
     }
 
     public void applyItem(ItemBuff buff, Card card) {
-        card.getCastedItems().add(buff);
         switch (buff.getType()) {
             case POISON:
                 card.modifyHealth(buff.getPower());
@@ -973,8 +1001,12 @@ public class Battle {
                 break;
             case MANA:
                 accounts[turn % 2].modifyMana(buff.getPower());
-                break;
+                return;
         }
+        card.getCastedItems().add(buff);
     }
 
+    public void selectItem(int id) {
+
+    }
 }
