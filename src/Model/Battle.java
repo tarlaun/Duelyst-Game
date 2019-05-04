@@ -1414,6 +1414,16 @@ public class Battle {
             return getCoordinate(card.getCoordinate(),flagsOnTheGround.get(leastDistanceIndex).getCoordinate());
         }
         else {
+            switch ( checkFourQuartersOfGround(card.getCoordinate(),flagsOnTheGround.get(leastDistanceIndex).getCoordinate())){
+                case 1:
+                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()+1));
+                case 2:
+                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()+1));
+                case 3:
+                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX()+1,card.getCoordinate().getY()-1));
+                case 4:
+                    return validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()-1));
+            }
 
         }
         return card.getCoordinate();
