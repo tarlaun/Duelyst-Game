@@ -29,7 +29,9 @@ public class Battle {
     private boolean isOnSpawn = true;
     Random rand = new Random();
 
-    public Battle() {
+    public Battle(BattleMode mode, GameType type) {
+        this.gameType=type;
+        this.mode=mode;
 
     }
 
