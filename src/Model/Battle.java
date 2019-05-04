@@ -608,41 +608,18 @@ public class Battle {
                 card.addToBuffs(buff);
                 break;
             case STUN:
-                switch (card.getName()) {
-                    case "SIMORGH":
-                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
-                            for (Card enemy :
-                                    fieldCards[(turn + 1) % 2]) {
-                                enemy.addToBuffs(buff);
-                                enemy.setAbleToMove(false);
-                                enemy.setAbleToAttack(false);
+                for (int i = -1; i < 2; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        if (getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID() != 0) {
+                            Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
+                                    card.getCoordinate().getY() + j).getCardID(), fieldCards[(turn + 1) % 2]);
+                            if (target != null) {
+                                target.addToBuffs(card.getBuffs().get(0));
+                                target.setAbleToAttack(false);
+                                target.setAbleToMove(false);
                             }
                         }
-                        break;
-                    case "RAKHSH": //we need to choose a target here
-                        if (spendMana(card.getManaPoint()) && spellIsReady(buff)) {
-                            targetCard.addToBuffs(buff);
-                            targetCard.setAbleToAttack(false);
-                            targetCard.setAbleToMove(false);
-                        }
-
-                        break;
-                    case "NANE_SARMA":
-                        for (int i = -1; i < 2; i++) {
-                            for (int j = -1; j < 2; j++) {
-                                if (getField(card.getCoordinate().getX() + i, card.getCoordinate().getY() + j).getCardID() != 0) {
-                                    Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
-                                            card.getCoordinate().getY() + j).getCardID(), fieldCards[(turn + 1) % 2]);
-                                    if (target != null) {
-                                        target.addToBuffs(card.getBuffs().get(0));
-                                        target.setAbleToAttack(false);
-                                        target.setAbleToMove(false);
-                                    }
-                                }
-                            }
-                        }
-
-                        break;
+                    }
                 }
                 break;
             case POWER:
