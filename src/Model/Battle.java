@@ -15,8 +15,8 @@ public class Battle {
     private Account[] accounts = new Account[2];
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][];
-    private Collectable[][] collectables = new Collectable[2][];
-    private ArrayList<Collectable> battleCollectables = new ArrayList<>();
+    private Item[][] collectables = new Item[2][];
+    private ArrayList<Item> battleCollectables = new ArrayList<>();
     private Card[][] playerHands = new Card[2][];
     private int turn;
     private Cell[][] field;
@@ -155,13 +155,6 @@ public class Battle {
         return graveyard;
     }
 
-    public Collectable[][] getCollectables() {
-        return collectables;
-    }
-
-    public ArrayList<Collectable> getBattleCollectables() {
-        return battleCollectables;
-    }
 
     public Card[][] getPlayerHands() {
         return playerHands;
@@ -686,62 +679,7 @@ public class Battle {
     }
 
     /*
-        public Message selectCollectableId(int collectableId) {
-            for (Collectable collectable :
-                    collectables[turn % 2]) {
-                if (collectable.getId() == collectableId) {
-                    menu.setStat(MenuStat.ITEM_SELECTION);
-                }
-            }
 
-        }
-
-    */
-/*
-    public boolean useItem(Coordinate coordinate) {
-        if (menu.getStat() != MenuStat.ITEM_SELECTION)
-            return false;
-    }
-*/
-    /*
-    public Message useSpecialPower(Coordinate coordinate) {
-
-    }
-
-    public Message insertCard(Coordinate coordinate, String cardName) {
-        boolean validTarget = false;
-        for (int i = 0; i < 5; i++) {
-            if (playerHands[turn % 2][i].getName().equals(cardName)) {
-                Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (field[coordinate.getX()][coordinate.getY()] != 0) {
-                    return Message.INVALID_TARGET;
-                }
-                for (Card card :
-                        fieldCards[turn % 2]) {
-                    if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
-                        validTarget = true;
-                        break;
-                    }
-                }
-                if (!validTarget) {
-                    return Message.INVALID_TARGET;
-                }
-                field[coordinate.getX()][coordinate.getY()] = insert.getId();
-                insert.setCoordinate(coordinate);
-                playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
-                fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
-                return null;
-
-
-            }
-        }
-        return Message.NOT_IN_HAND;
-    }
-
-
-
-    }
-*/
     public void enterGraveyard() {
         menu.setStat(MenuStat.GRAVEYARD);
     }
