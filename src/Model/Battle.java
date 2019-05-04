@@ -164,25 +164,35 @@ public class Battle {
 
     }
 
-    /*
-        public boolean moveTo(Coordinate coordinate) {
-            if (currentCard.getCoordinate() == coordinate) {
-                return true;
-            }
-            if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
-                return false;
-            }
-            if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate()).length == 0) {
-                return false;
-            }
-            field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = 0;
-            currentCard.setCoordinate(Coordinate.getPathDirections(coordinate, currentCard.getCoordinate())[0]);
-            field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()] = currentCard.getId();
-            moveTo(coordinate);
+    public boolean moveTo(Coordinate coordinate) {
+        if (currentCard.getCoordinate() == coordinate) {
             return true;
-
         }
-    */
+        if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
+            return false;
+        }
+        if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate(), field).equals(currentCard.getCoordinate())) {
+            return false;
+        }
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
+        currentCard.setCoordinate(Coordinate.getPathDirections(currentCard.getCoordinate(), coordinate, field));
+        field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
+        if(mode.equals(BattleMode.COLLECT_FLAG)){
+            for (Flag flag:
+                 flagsOnTheGround) {
+                if(currentCard.getCoordinate().equals(flag.getCoordinate())){
+                    collectFlags();
+                }
+            }
+        }
+        if(mode.equals(BattleMode.HOLD_FLAG)){
+            if(currentCard.getCoordinate().equals(mainFlag.getCoordinate())){
+                holdMainFlag();
+            }
+        }
+        moveTo(coordinate);
+        return true;
+    }
     public boolean isAttackable(Card currentCard, Card targetCard) {
         if (targetCard.getName().equals("GIV")) {
             return false;
@@ -292,6 +302,16 @@ public class Battle {
         return true;
     }
 
+    public void holdMainFlag(){
+        if(currentCard.getCoordinate().equals(mainFlag.getCoordinate())){
+            mainFlag.setFlagHolder(currentCard);
+            mainFlag.setHeld(true);
+        }
+        if(mainFlag.isHeld()){
+            mainFlag.setCoordinate(currentCard.getCoordinate());
+        }
+    }
+
 
     private void checkAttackHistory(int opponentCardId, Card currentCard) {
         boolean newMinion = true;
@@ -320,6 +340,10 @@ public class Battle {
         if (targetCard.getHealthPoint() <= 0) {
             if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH)) {
                 useSpecialPower(targetCard, targetCard.getBuffs().get(0));
+            }
+            if(mode.equals(BattleMode.HOLD_FLAG)){
+                mainFlag.setTurnCounter(0);
+                mainFlag.setHeld(false);
             }
             ArrayList<Card> opponentFieldCards = new ArrayList<>(Arrays.asList(fieldCards[(turn + 1) % 2]));
             opponentFieldCards.remove(targetCard);
@@ -668,6 +692,40 @@ public class Battle {
     }
 
     public void endTurn() {
+       buffTurnEnd();
+        deholifyCell();
+        randomItemAppearance();
+        if (mode.equals(BattleMode.COLLECT_FLAG) && (turn % Constants.ITEM_APPEARANCE) == 1) {
+            flagAppearance();
+        }
+        if (mode.equals(BattleMode.HOLD_FLAG)) {
+            if(mainFlag.isHeld()){
+                mainFlag.setTurnCounter(mainFlag.getTurnCounter()+1);
+            }
+        }
+        turn++;
+        currentCard = null;
+        targetCard = null;
+
+
+    }
+    public void randomItemAppearance(){
+        if ((turn % Constants.ITEM_APPEARANCE) == 1) {
+            boolean ableToAddItem = true;
+            while (ableToAddItem) {
+                int randomX = rand.nextInt(9);
+                int randomY = rand.nextInt(5);
+                int randomCollectableItem = rand.nextInt(9);
+                if (field[randomX][randomY].getCardID() == 0) {
+                    ableToAddItem = false;
+                    field[randomX][randomY].setCardID(chooseCollectableItems(shop.getItems()).get(randomCollectableItem).getId());
+                    //effect item
+                }
+            }
+        }
+
+    }
+    public void buffTurnEnd(){
         for (Card card : fieldCards[0]) {
             for (Buff buff : card.getCastedBuffs()) {
                 if (card.getName().equals("GIV") && (buff.getType().equals(BuffType.DISARM)
@@ -725,6 +783,8 @@ public class Battle {
                 }
             }
         }
+    }
+    public void deholifyCell(){
         for (int i = 0; i < 9; i++) { //deholify cells
             for (int j = 0; j < 5; j++) {
                 if (field[i][j].isHoly()) {
@@ -736,30 +796,6 @@ public class Battle {
             }
 
         }
-
-        //random item appears on the battleField
-        if ((turn % Constants.ITEM_APPEARANCE) == 1) {
-            boolean ableToAddItem = true;
-            while (ableToAddItem) {
-                int randomX = rand.nextInt(9);
-                int randomY = rand.nextInt(5);
-                int randomCollectableItem = rand.nextInt(9);
-                if (field[randomX][randomY].getCardID() == 0) {
-                    ableToAddItem = false;
-                    field[randomX][randomY].setCardID(chooseCollectableItems(shop.getItems()).get(randomCollectableItem).getId());
-                    //effect item
-                }
-            }
-        }
-
-        if (mode.equals(BattleMode.COLLECT_FLAG) && (turn % Constants.ITEM_APPEARANCE) == 1) {
-            flagAppearance();
-        }
-        turn++;
-        currentCard = null;
-        targetCard = null;
-
-
     }
 
     public boolean collectFlags() {
@@ -821,6 +857,7 @@ public class Battle {
                 menu.setStat(MenuStat.ITEM_SELECTION);
             }
         }
+        return null;
 
     }
 
@@ -844,12 +881,7 @@ public class Battle {
 
     public void showCard() {
 
-        try {
-            System.out.println();
-        }
-        catch (Exception e){
-           throw new Exception;
-        }
+
 
     }
 
@@ -1027,6 +1059,8 @@ public class Battle {
                 break;
         }
     }
+    //******************************************************************************************************************
+    //AI FUNCTIONS BELOW
 
     public Coordinate setCardCoordinates(Card card) {
         if (getFieldCards().length == 0) {
