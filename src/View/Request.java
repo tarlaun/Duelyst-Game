@@ -166,11 +166,6 @@ public class Request {
 
     }
 
-    public boolean checkFetchInfoSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.GAME_INFO.ordinal()]);
-
-    }
-
     public RequestType getType() {
         for (int i = 0; i < strings.length; i++) {
             if (command.substring(0, strings[i].length()).equals(strings[i]))

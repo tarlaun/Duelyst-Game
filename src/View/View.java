@@ -75,59 +75,72 @@ public class View {
         }
     }
 
-    public void printCollection(Collection collection) {
+    public void printCollection(Collection collection, boolean isInShop) {
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (collection.getCards().get(i) instanceof Hero) {
-                printHero((Hero) collection.getCards().get(i));
+                System.out.print(i + 1 + " : ");
+                printNonSpellCard(collection.getCards().get(i));
+                if (isInShop)
+                    System.out.println(collection.getCards().get(i).getPrice());
             }
         }
         for (int i = 0; i < collection.getItems().size(); i++) {
+            System.out.print(i + 1 + " : ");
             printItem(collection.getItems().get(i));
+            if (isInShop)
+                System.out.println(collection.getCards().get(i).getPrice());
         }
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (!(collection.getCards().get(i) instanceof Hero)) {
-                printCard(collection.getCards().get(i));
+                System.out.print(i + 1 + " : ");
+                if (collection.getCards().get(i) instanceof Spell)
+                    printSpell((Spell) collection.getCards().get(i));
+                else
+                    printNonSpellCard(collection.getCards().get(i));
+                if (isInShop)
+                    System.out.println(collection.getCards().get(i).getPrice());
+
             }
         }
     }
 
-    public void printCard(Card card) {
+    public void printSpell(Spell spell) {
+        System.out.print("Name : " + spell.getName() + " - MP : " + spell.getManaPoint() + " - Desc :");
+        printBuff(spell);
+    }
+
+    public void printBuff(Card card) {
 
     }
 
     public void printItem(Item item) {
+        System.out.print("Name : " + item.getName() + " - Desc :");
+        printItemBuff(item);
+    }
+
+    public void printItemBuff(Item item) {
 
     }
 
-    public void printHero(Hero hero) {
-
-    }
-
-    public void printShopCollection(Collection collection) {
-        for (int i = 0; i < collection.getCards().size(); i++) {
-            if (collection.getCards().get(i) instanceof Hero) {
-                printHero((Hero) collection.getCards().get(i));
-                System.out.println(collection.getCards().get(i).getPrice());
-            }
-        }
-        for (int i = 0; i < collection.getItems().size(); i++) {
-            printItem(collection.getItems().get(i));
-            System.out.println(collection.getItems().get(i).getPrice());
-        }
-        for (int i = 0; i < collection.getCards().size(); i++) {
-            if (!(collection.getCards().get(i) instanceof Hero)) {
-                printCard(collection.getCards().get(i));
-                System.out.println(collection.getCards().get(i).getPrice());
-            }
-        }
-    }
-
-    public void printObjects() {
-
+    public void printNonSpellCard(Card card) {
+        System.out.print("Name : " + card.getName() + " - MP : " + card.getManaPoint() + " - AP : " +
+                card.getAssaultPower() + " - HP : " + card.getHealthPoint() + " - Class : " + card.getActivationType());
+        if (card.getAssaultType() != AssaultType.MELEE)
+            System.out.print(" - Range : " + card.getMaxRange());
+        System.out.print(" - Special power : ");
+        printBuff(card);
     }
 
     public void printMinionsInfo(Card... cards) {
+        for (Card card : cards) {
+            printMinionInBattleInfo((Minion) card);
+        }
+    }
 
+    public void printMinionInBattleInfo(Minion minion) {
+        System.out.println(minion.getId() + " " + minion.getName() + " " + ", health : " + minion.getHealthPoint()
+                + ", location : ( " + minion.getCoordinate().getX() + " , " + minion.getCoordinate().getY()
+                + " ), power : " + minion.getAssaultPower());
     }
 
     public void printCardInfo(Card card) {
@@ -143,10 +156,6 @@ public class View {
     }
 
     public void printCollectables(Item... items) {
-
-    }
-
-    public void printError(Message message) {
 
     }
 
