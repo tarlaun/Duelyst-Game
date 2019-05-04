@@ -30,8 +30,8 @@ public class Battle {
     Random rand = new Random();
 
     public Battle(BattleMode mode, GameType type) {
-        this.gameType=type;
-        this.mode=mode;
+        this.gameType = type;
+        this.mode = mode;
 
     }
 
@@ -39,8 +39,6 @@ public class Battle {
         return currentCoordinate;
     }
 
-    private final int length = 9;
-    private final int width = 5;
 
     public void setCurrentCoordinate(Coordinate currentCoordinate) {
         this.currentCoordinate = currentCoordinate;
@@ -717,7 +715,7 @@ public class Battle {
                 case ENEMY:
                     switch (buff.getActivationType()) {
                         case ON_ATTACK:
-                            applyBuff(buff,targetCard);
+                            applyBuff(buff, targetCard);
                             break;
                         default:
                             switch (buff.getEffectArea().get(0).getX()) {
