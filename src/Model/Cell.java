@@ -8,6 +8,26 @@ public class Cell {
     private boolean isFire;
     private int holyTurn;
 
+    public int getPoisonTurn() {
+        return poisonTurn;
+    }
+
+    public void setPoisonTurn(int poisonTurn) {
+        this.poisonTurn = poisonTurn;
+    }
+
+    public int getFireTurn() {
+        return fireTurn;
+    }
+
+    public void setFireTurn(int fireTurn) {
+        this.fireTurn = fireTurn;
+    }
+
+    private int poisonTurn;
+    private int fireTurn;
+
+
     public boolean isPoison() {
         return isPoison;
     }

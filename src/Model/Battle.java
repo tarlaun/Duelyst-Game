@@ -538,6 +538,28 @@ public class Battle {
         }
     }
 
+    public Message poisonCell(Coordinate coordinate){
+        Cell cell =field[coordinate.getX()][coordinate.getY()];
+        if(!cell.isPoison()){
+            cell.setPoison(true);
+            cell.setPoisonTurn(2);
+            return null;
+        }else{
+            return Message.INVALID_TARGET;
+        }
+    }
+
+    public Message fireCell(Coordinate coordinate){
+        Cell cell =field[coordinate.getX()][coordinate.getY()];
+        if(!cell.isFire()){
+            cell.setFire(true);
+            cell.setFireTurn(1);
+            return null;
+        }else{
+            return Message.INVALID_TARGET;
+        }
+    }
+
     public boolean useSpecialPowerForCombo(Card... cards) {
         for (Card card : cards) {
             if (!(card.getName().equals("PERSIAN_COMMANDER")) && !(card.getName().equals("TURANIAN_PRINCE")) &&
