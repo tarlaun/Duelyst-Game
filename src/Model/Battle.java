@@ -559,7 +559,14 @@ public class Battle {
 
         switch (currentCard.getBuffs().get(0).getType()){
             case STUN:
-
+                targetCard.setAbleToAttack(false);
+                targetCard.setAbleToMove(false);
+                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                break;
+            case CHAMPION:
+                int multiply = ((Minion) currentCard).getAttackCount(targetCard.getId()) * 5;
+                targetCard.modifyHealth(-multiply);
+                break;
             case WEAKNESS:
 
             case DISARM:
@@ -578,15 +585,7 @@ public class Battle {
 
         }
         switch (currentCard.getName()) {
-            case "PERSIAN_SWORDS_WOMAN":
-                targetCard.setAbleToAttack(false);
-                targetCard.setAbleToMove(false);
-                targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                break;
-            case "PERSIAN_CHAMPION":
-                int multiply = ((Minion) currentCard).getAttackCount(targetCard.getId()) * 5;
-                targetCard.modifyHealth(-multiply);
-                break;
+
             case "TURANIAN_SPY":
                 if (!targetCard.getName().equals("WILD_HOG")) {
                     targetCard.setAbleToAttack(false);
