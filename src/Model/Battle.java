@@ -1142,11 +1142,24 @@ public class Battle {
         }
     }
 
+    public Coordinate setDestinationCoordinate(Card card){
+        switch (mode){
+            case COLLECT_FLAG:
+                return setDestinationCooardinationModeThree(card);
+            case HOLD_FLAG:
+                return setDestinationCoordinatesModeTwo(card);
+            case KILL_OPPONENT_HERO:
+                return setDestinationCoordinatesModeOne(card);
+        }
+        return null;
+    }
+
+    //holdFlag
     public Coordinate setDestinationCoordinatesModeTwo(Card card){
 
 
     }
-
+    //collectFlag
     public Coordinate setDestinationCooardinationModeThree(Card card){
 
 
