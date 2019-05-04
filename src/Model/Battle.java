@@ -6,7 +6,7 @@ import View.View;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-
+/*negin kamtar khr bzn jesus and danyal*/
 public class Battle {
     private Card currentCard;
     private Card targetCard;
