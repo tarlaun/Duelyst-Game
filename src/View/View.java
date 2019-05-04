@@ -142,11 +142,7 @@ public class View {
 
     }
 
-    public void printCollectables(ArrayList<Item> items) {
-
-    }
-
-    public void printGraveyardMenu() {
+    public void printCollectables(Item... items) {
 
     }
 
@@ -282,5 +278,25 @@ public class View {
 
     public void printInsertionMessage(Message message) {
 
+    }
+
+    public void printUnsuccessfulSelection(int collctablesLength) {
+        if (collctablesLength == 0)
+            System.out.println("Invalid card id");
+        else
+            System.out.println("No card/item exists with this id");
+    }
+
+    public void endTurn() {
+    }
+
+    public void printItemUsage(boolean valid) {
+
+    }
+
+    public void printCards(Card... cards) {
+    }
+
+    public void endGame(Battle battle) {
     }
 }
