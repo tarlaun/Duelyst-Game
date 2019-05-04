@@ -566,7 +566,7 @@ public class Battle {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
                 if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
-                    return Message.INVALID_TARGET;
+                    return Message.FULL_CELL;
                 }
                 for (Card card :
                         fieldCards[turn % 2]) {
