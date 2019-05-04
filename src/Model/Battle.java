@@ -556,6 +556,27 @@ public class Battle {
     }
 
     private void onAttackSpecialPower() {
+
+        switch (currentCard.getBuffs().get(0).getType()){
+            case STUN:
+
+            case WEAKNESS:
+
+            case DISARM:
+
+            case POISON:
+
+            case HOLY:
+
+            case POSITIVE_DISPEL:
+
+            case NEGATIVE_DISPEL:
+
+            case POWER:
+
+
+
+        }
         switch (currentCard.getName()) {
             case "PERSIAN_SWORDS_WOMAN":
                 targetCard.setAbleToAttack(false);
