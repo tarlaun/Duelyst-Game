@@ -500,8 +500,8 @@ public class Battle {
                         }
                         break;
                     case "GIANT_SNAKE":
-                        for (int i = 0; i < 9; i++) {
-                            for (int j = 0; j < 5; j++) {
+                        for (int i = 0; i < Constants.LENGTH; i++) {
+                            for (int j = 0; j <Constants.WIDTH; j++) {
                                 if (Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) <= 2
                                         && Coordinate.getManhattanDistance(field[i][j].getCoordinate(), card.getCoordinate()) != 0
                                         && field[i][j].getCardID() != 0) {
@@ -645,8 +645,8 @@ public class Battle {
                 }
             }
         }
-        for (int i = 0; i < 9; i++) { //deholify cells
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < Constants.LENGTH; i++) { //deholify cells
+            for (int j = 0; j < Constants.WIDTH; j++) {
                 if (field[i][j].isHoly()) {
                     field[i][j].setHolyTurn(field[i][j].getHolyTurn() - 1);
                     if (field[i][j].getHolyTurn() == 0) {
@@ -742,8 +742,8 @@ public class Battle {
 
                                     }
                                     if (buff.getTargetType().equals("Cell")) {
-                                        for (int i = 0; i < 9; i++) {
-                                            for (int j = 0; j < 5; j++) {
+                                        for (int i = 0; i < Constants.LENGTH; i++) {
+                                            for (int j = 0; j < Constants.WIDTH; j++) {
                                                 if (i == target.getX() && j == target.getY()) {
                                                     field[i][j].setHoly(true);
                                                     field[i][j].setHolyTurn(3);
