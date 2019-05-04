@@ -317,7 +317,7 @@ public class View {
     }
 
     public void showAttack(Message message) {
-        switch (message){
+        switch (message) {
             case INVALID_TARGET:
                 System.out.println("Card doesn't exist on field");
                 break;
@@ -335,14 +335,14 @@ public class View {
     }
 
     public void printInsertionMessage(Message message) {
-            switch (message){
-                case FULL_CELL:
-                    System.out.println("This cell is full.");
-                    break;
-                case INVALID_TARGET:
-                    System.out.println("You are out of range, please insert card near a comrade minion or your hero");
-                    break;
-            }
+        switch (message) {
+            case FULL_CELL:
+                System.out.println("This cell is full.");
+                break;
+            case INVALID_TARGET:
+                System.out.println("You are out of range, please insert card near a comrade minion or your hero");
+                break;
+        }
     }
 
     public void printUnsuccessfulSelection(int collctablesLength) {
@@ -350,6 +350,19 @@ public class View {
             System.out.println("Invalid card id");
         else
             System.out.println("No card/item exists with this id");
+    }
+
+    public void specialPowerValidation(Message message) {
+        switch (message) {
+            case INVALID_TARGET:
+                System.out.println("Cell is empty");
+                break;
+            case OBJECT_NOT_FOUND:
+                System.out.println("Card doesn't exist on field");
+                break;
+            case NOT_ABLE_TO_ATTACK:
+                System.out.println("Card doesn't have a special power");
+        }
     }
 
     public void endTurn() {
