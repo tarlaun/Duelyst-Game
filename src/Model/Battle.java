@@ -1015,32 +1015,8 @@ public class Battle {
         return collectables;
     }
 
-    public void setCollectables(Item[][] collectables) {
-        this.collectables = collectables;
-    }
-    /* public Message useSpecialPower(Coordinate coordinate) {
-
-    }*/
-
     public void enterGraveyard() {
         menu.setStat(MenuStat.GRAVEYARD);
-    }
-
-   /* public Message showCardInfoInGraveyard(int cardId) {
-
-    }*/
-
-    public void showCard() {
-
-
-    }
-
-    public void endGame() {
-
-    }
-
-    public void exit() {
-
     }
 
     public boolean useHeroSP(Hero hero, Coordinate target) {
