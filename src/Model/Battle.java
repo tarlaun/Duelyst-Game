@@ -1405,12 +1405,47 @@ public class Battle {
         int leastDistanceIndex;
         for (int i = 0; i < flagsOnTheGround.size() ; i++){
             int distance = Coordinate.getManhattanDistance(card.getCoordinate(),flagsOnTheGround.get(i).getCoordinate());
-            if(distance<leastDistance){
+            if(distance<leastDistance && flagsOnTheGround.get(i).getFlagHolder()==null){
                 leastDistance=distance;
                 leastDistanceIndex=i;
             }
         }
+        if(leastDistance<=2){
+            if()
+        }
+        else {
+
+        }
         return card.getCoordinate();
+    }
+
+    private int[] eightCellsAround (Coordinate coordinate){
+        int[] cellsAround = new int[8];
+        if(validateMovement(makeNewCoordinate(coordinate.getX()-1,coordinate.getY()-1))!=null){
+            cellsAround[0]=1;
+        }
+        if(validateMovement(makeNewCoordinate(coordinate.getX(),coordinate.getY()-1))!=null){
+            cellsAround[1]=1;
+        }
+        if(validateMovement(makeNewCoordinate(coordinate.getX()+1,coordinate.getY()-1))!=null){
+            cellsAround[2]=1;
+        }
+        if(validateMovement(makeNewCoordinate(coordinate.getX()+1,coordinate.getY()))!=null){
+            cellsAround[3]=1;
+        }
+        if(validateMovement(makeNewCoordinate(coordinate.getX()+1,coordinate.getY()+1))!=null){
+            cellsAround[4]=1;
+        }
+        if(validateMovement(makeNewCoordinate(coordinate.getX(),coordinate.getY()+1))!=null){
+            cellsAround[5]=1;
+        }
+        if(validateMovement(makeNewCoordinate(coordinate.getX()-1,coordinate.getY()+1))!=null){
+            cellsAround[6]=1;
+        }
+        if(validateMovement(makeNewCoordinate(coordinate.getX()-1,coordinate.getY()))!=null){
+            cellsAround[7]=1;
+        }
+        return cellsAround;
     }
 
     private Coordinate setDestinationCoordinatesModeOne(Card card) {
