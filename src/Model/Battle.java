@@ -1154,7 +1154,14 @@ public class Battle {
                             }
                         }
                     }
-                    break;
+                    ArrayList<Card> cards = new ArrayList<>();
+                    for (int i = 0; i < fieldCards.length ; i++) {
+                        if(Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(),card.getCoordinate())<card.getMaxRange()){
+                            cards.add(fieldCards[0][i]);
+                        }
+                    }
+                    if(cards.size()!=0) return cards.get(0).getCoordinate();
+                    return card.getCoordinate();
             }
             if (!card.isAbleToMove()) {
                 return card.getCoordinate();
@@ -1192,6 +1199,7 @@ public class Battle {
         if(c1.getX()<c2.getX() && c1.getY()<c2.getY()){
             return 2;
         }
+        return 0;
     }
 
     public Card chooseCard(ArrayList<Card> cards) {
