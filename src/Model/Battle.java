@@ -580,6 +580,13 @@ public class Battle {
                         targetCard.addToBuffs(currentCard.getBuffs().get(1));
                     }
                     break;
+                case LION_ROAR:
+                    for (Buff buff : targetCard.getCastedBuffs()) {
+                        if (buff.getType().equals(BuffType.HOLY) && buff.getPower() > 0) {
+                            targetCard.modifyHealth(1);
+                        }
+                    }
+                    break;
                 case WEAKNESS:
 
 
@@ -597,18 +604,7 @@ public class Battle {
         }
 
         switch (currentCard.getName()) {
-            case "VENOM_SNAKE":
-                if (!targetCard.getName().equals("PIRAN")) {
-                    targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                }
-                break;
-            case "LION":
-                for (Buff buff : targetCard.getCastedBuffs()) {
-                    if (buff.getType().equals(BuffType.HOLY) && buff.getPower() > 0) {
-                        targetCard.modifyHealth(1);
-                    }
-                }
-                break;
+
             case "WHITE_WOLF":
                 targetCard.addToBuffs(currentCard.getBuffs().get(0));
                 break;
