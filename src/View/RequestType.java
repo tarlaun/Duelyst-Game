@@ -22,7 +22,6 @@ public enum RequestType {
     SHOW_COLLECTION,
     SEARCH_COLLECTION,
     SAVE_IN_COLLECTION,
-    SHOW_COLLECTION_IN_SHOP,
     BUY,
     SELL,
     GAME_INFO,
@@ -34,6 +33,7 @@ public enum RequestType {
     ATTACK,
     COMBO,
     USE_SP,
+    SHOW_HAND,
     INSERTION,
     END_TURN,
     SHOW_COLLECTABLES,
@@ -41,8 +41,5 @@ public enum RequestType {
     NEXT_CARD,
     SHOW_CARDS,
     END_GAME,
-    SHOW_MENU,
-    SHOW_HAND,
-    SELECT_COLLECTABLE,
-    SHOW_COLLECTABLE_INFO
+    SHOW_MENU
 }
