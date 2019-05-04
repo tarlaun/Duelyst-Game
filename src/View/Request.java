@@ -89,26 +89,26 @@ public class Request {
 
 
     public boolean checkToDeckAdditionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.ADD.ordinal()]+"\\d+\\sto\\sdeck\\s\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.ADD.ordinal()] + "\\d+\\sto\\sdeck\\s\\w+");
 
     }
 
     public boolean checkFromDeckDeletionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.REMOVE.ordinal()]+"\\d+\\sto\\sdeck\\s\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.REMOVE.ordinal()] + "\\d+\\sto\\sdeck\\s\\w+");
 
     }
 
     public boolean checkValidationSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.VALIDATION.ordinal()]+"\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.VALIDATION.ordinal()] + "\\w+");
     }
 
     public boolean checkShowDeckSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SHOW_DECK.ordinal()]+"\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SHOW_DECK.ordinal()] + "\\w+");
 
     }
 
     public boolean checkDeckSelectionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SELECT_DECK.ordinal()]+"\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SELECT_DECK.ordinal()] + "\\w+");
 
     }
 
@@ -118,51 +118,51 @@ public class Request {
     }
 
     public boolean checkBuySyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.BUY.ordinal()]+"\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.BUY.ordinal()] + "\\w+");
 
     }
 
     public boolean checkCardSelectionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SELECTION.ordinal()]+"\\d+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SELECTION.ordinal()] + "\\d+");
 
     }
 
     public boolean checkCollectionSearchSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()]+"\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()] + "\\w+");
 
     }
 
     public boolean checkSellSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SELL.ordinal()]+"\\d+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SELL.ordinal()] + "\\d+");
 
     }
 
     public boolean checkMoveSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.MOVE.ordinal()]+"\\d+,\\d+\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.MOVE.ordinal()] + "\\d+,\\d+\\)");
 
     }
 
     public boolean checkAssaultSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.ATTACK.ordinal()]+"\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.ATTACK.ordinal()] + "\\w+");
 
     }
 
     public boolean checkComboSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.COMBO.ordinal()]+"\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.COMBO.ordinal()] + "\\w+");
 
     }
 
     public boolean checkSPUsageSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.USE_SP.ordinal()]+"\\d+,\\d+\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.USE_SP.ordinal()] + "\\d+,\\d+\\)");
 
     }
 
     public boolean checkCardInsertSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.INSERTION.ordinal()]+"\\w+\\sto\\s\\(\\d+,\\d+\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.INSERTION.ordinal()] + "\\w+\\sto\\s\\(\\d+,\\d+\\)");
     }
 
     public boolean checkItemUseSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.USE_ITEM.ordinal()]+"\\d+,\\d+\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.USE_ITEM.ordinal()] + "\\d+,\\d+\\)");
 
     }
 
@@ -171,6 +171,7 @@ public class Request {
             if (command.substring(0, strings[i].length()).equals(strings[i]))
                 return RequestType.values()[i];
         }
+        return null;
     }
 
     public String getCommand() {
@@ -229,6 +230,7 @@ public class Request {
         for (int i = 3; i < this.getSplittedCommand(input).length; i++) {
             comradesId[i - 3] = Integer.parseInt(this.getSplittedCommand(input)[i]);
         }
+        return comradesId;
     }
 
     public int getOppIdInCombo(String input) {

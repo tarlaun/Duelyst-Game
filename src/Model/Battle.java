@@ -972,7 +972,7 @@ public class Battle {
 
     public void showInfo(int objectId) {
         if (menu.getStat() == MenuStat.ITEM_SELECTION) {
-            Item.getItemByID(objectId, collectibles[turn % 2]);
+            Item.getItemByID(objectId, collectables[turn % 2]);
         }
     }
 
@@ -992,13 +992,12 @@ public class Battle {
 
     public Message selectCollectableId(int collectableId) {
         for (Item collectable :
-                collectibles[turn % 2]) {
+                collectables[turn % 2]) {
             if (collectable.getId() == collectableId) {
                 menu.setStat(MenuStat.ITEM_SELECTION);
             }
         }
         return null;
-
     }
 
     public boolean useItem(Coordinate coordinate) {
