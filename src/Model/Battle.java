@@ -604,7 +604,6 @@ public class Battle {
     private void useSpecialPower(Card card, Buff buff) {
         int r;
         switch (buff.getType()) {
-            /// holy eagle
             case HOLY:
                 card.addToBuffs(buff);
                 break;
@@ -638,22 +637,17 @@ public class Battle {
                     }
                 }
                 break;
-            case POWER:
-                switch (card.getName()) {
-                    case "EAGLE":
-                        card.addToBuffs(card.getBuffs().get(0));
-                        break;
-                    case "JEN":
-                        for (int i = 0; i <fieldCards[turn%2].length ; i++) {
-                            if(!(fieldCards[turn%2][i] instanceof Hero)) {
-                                fieldCards[turn % 2][i].addToBuffs(card.getBuffs().get(0));
-                            }
-                        }
-                        break;
+            case JEN_JOON:
+                for (int i = 0; i < fieldCards[turn % 2].length; i++) {
+                    if (!(fieldCards[turn % 2][i] instanceof Hero)) {
+                        fieldCards[turn % 2][i].addToBuffs(card.getBuffs().get(0));
+                    }
                 }
                 break;
+            case POWER:
+                card.addToBuffs(card.getBuffs().get(0));
+                break;
             case WEAKNESS:
-
                 switch (card.getName()) {
                     case "CYCLOPS":
                         for (int i = -1; i < 2; i++) {
@@ -696,9 +690,7 @@ public class Battle {
                             }
                         }
                         break;
-
                 }
-
                 break;
         }
 
