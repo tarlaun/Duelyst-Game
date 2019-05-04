@@ -3,6 +3,7 @@ package Model;
 import View.Message;
 import View.View;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -29,7 +30,6 @@ public class Battle {
     private boolean isOnSpawn = true;
     Random rand = new Random();
     private Shop shop = Shop.getInstance();
-    private Random rand = new Random();
     private Match firstPlayerMatch = new Match();
     private Match secondPlayerMatch = new Match();
     private ArrayList<Flag> flagsOnTheGround = new ArrayList<>();
@@ -67,19 +67,19 @@ public class Battle {
     }
 
     public Item[][] getcollectibles() {
-        return collectibles;
+        return collectables;
     }
 
     public void setcollectibles(Item[][] collectibles) {
-        this.collectibles = collectibles;
+        this.collectables = collectibles;
     }
 
     public ArrayList<Item> getBattlecollectibles() {
-        return battleCollectibles;
+        return this.battleCollectables;
     }
 
     public void setBattlecollectibles(ArrayList<Item> battlecollectibles) {
-        this.battleCollectibles = battlecollectibles;
+        this.battleCollectables = battlecollectibles;
     }
 
     public void setPlayerHands(Card[][] playerHands) {
