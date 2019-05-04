@@ -1,7 +1,6 @@
 package Model;
 
 import View.Message;
-import View.View;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,11 +12,11 @@ public class Battle {
     private Card targetCard;
     private Coordinate currentCoordinate;
     private Item currentItem;
-    private Account[] accounts = new Account[2];
+    private Account[] accounts;
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][];
-    private Item[][] collectables = new Item[2][];
-    private ArrayList<Item> battleCollectables = new ArrayList<>();
+    private Item[][] collectibles = new Item[2][];
+    private ArrayList<Item> battleCollectibles = new ArrayList<>();
     private Card[][] playerHands = new Card[2][];
     private int turn;
     private Cell[][] field;
@@ -63,20 +62,20 @@ public class Battle {
         this.graveyard = graveyard;
     }
 
-    public Item[][] getCollectables() {
-        return collectables;
+    public Item[][] getcollectibles() {
+        return collectibles;
     }
 
-    public void setCollectables(Item[][] collectables) {
-        this.collectables = collectables;
+    public void setcollectibles(Item[][] collectibles) {
+        this.collectibles = collectibles;
     }
 
-    public ArrayList<Item> getBattleCollectables() {
-        return battleCollectables;
+    public ArrayList<Item> getBattlecollectibles() {
+        return battleCollectibles;
     }
 
-    public void setBattleCollectables(ArrayList<Item> battleCollectables) {
-        this.battleCollectables = battleCollectables;
+    public void setBattlecollectibles(ArrayList<Item> battlecollectibles) {
+        this.battleCollectibles = battlecollectibles;
     }
 
     public void setPlayerHands(Card[][] playerHands) {
@@ -933,16 +932,15 @@ public class Battle {
         }
     }
 
-    public boolean collectFlags() {
+    public void collectFlags() {
         for (int i = 0; i < flagsOnTheGround.size(); i++) {
             if (Coordinate.getManhattanDistance(flagsOnTheGround.get(i).getCoordinate(), currentCard.getCoordinate()) == 0) {
                 accounts[turn % 2].setFlagsCollected(accounts[turn % 2].getFlagsCollected() + 1);
                 flagsOnTheGround.remove(flagsOnTheGround.get(i));
                 checkForWin();
-                return true;
+                return;
             }
         }
-        return false;
     }
 
 
@@ -961,13 +959,13 @@ public class Battle {
         }
     }
 
-    public void showCollectables() {
+    public void showcollectibles() {
 
     }
 
     public void showInfo(int objectId) {
         if (menu.getStat() == MenuStat.ITEM_SELECTION) {
-            Item.getItemByID(objectId, collectables[turn % 2]);
+            Item.getItemByID(objectId, collectibles[turn % 2]);
         }
     }
 
@@ -987,7 +985,7 @@ public class Battle {
 
     public Message selectCollectableId(int collectableId) {
         for (Item collectable :
-                collectables[turn % 2]) {
+                collectibles[turn % 2]) {
             if (collectable.getId() == collectableId) {
                 menu.setStat(MenuStat.ITEM_SELECTION);
             }
@@ -1193,6 +1191,7 @@ public class Battle {
                 break;
         }
     }
+
     //******************************************************************************************************************
     //AI FUNCTIONS BELOW
 
@@ -1402,7 +1401,15 @@ public class Battle {
 
     //collectFlag
     private Coordinate setDestinationCoordinationModeThree(Card card) {
-
+        int leastDistance=15;
+        int leastDistanceIndex;
+        for (int i = 0; i < flagsOnTheGround.size() ; i++){
+            int distance = Coordinate.getManhattanDistance(card.getCoordinate(),flagsOnTheGround.get(i).getCoordinate());
+            if(distance<leastDistance){
+                leastDistance=distance;
+                leastDistanceIndex=i;
+            }
+        }
         return card.getCoordinate();
     }
 
