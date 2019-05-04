@@ -186,11 +186,15 @@ public class View {
     }
 
     public void printId(Card... cards) {
-
+        for (Card card : cards) {
+            System.out.println(card.getId());
+        }
     }
 
     public void printId(Item... items) {
-
+        for (Item item : items) {
+            System.out.println(item.getId());
+        }
     }
 
     public void createDeck(boolean okOrNot) {
