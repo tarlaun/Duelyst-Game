@@ -1321,40 +1321,58 @@ public class Battle {
     public Coordinate setDestinationCoordinatesModeTwo(Card card) {
         //agar flag dasteshe 
         if (checkCardEquality(mainFlag.getFlagHolder(), card)) {
-            if (card.getCoordinate().getX()<=6&& !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) &&
+            if (card.getCoordinate().getX() <= 6 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) &&
                     !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY()))) {
                 return makeNewCoordinate(card.getCoordinate().getX() + 2, card.getCoordinate().getY());
             }
-            if (card.getCoordinate().getX()<=7&&card.getCoordinate().getY()>=1 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()-1)) &&
+            if (card.getCoordinate().getX() <= 7 && card.getCoordinate().getY() >= 1 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1,
+                    card.getCoordinate().getY() - 1)) &&
                     (!checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
-                            || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()-1)))) {
-                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()-1);
+                            || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1)))) {
+                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() - 1);
             }
-            if (card.getCoordinate().getX()<=7&&card.getCoordinate().getY()<=3 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()+1)) &&
+            if (card.getCoordinate().getX() <= 7 && card.getCoordinate().getY() <= 3 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1,
+                    card.getCoordinate().getY() + 1)) &&
                     (!checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))
-                            || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()+1)))) {
-                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()+1);
+                            || !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX(), card.getCoordinate().getY() + 1)))) {
+                return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() + 1);
             }
-            if (card.getCoordinate().getX()<=7&& !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))) {
+            if (card.getCoordinate().getX() <= 7 && !checkForDevilExistance(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()))) {
                 return makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY());
             }
             return card.getCoordinate();
         }
         //agar flag daste dusteshe 
         for (int i = 0; i < fieldCards[1].length; i++) {
-            if(checkCardEquality(fieldCards[1][i],mainFlag.getFlagHolder())){
-                switch (card.getAssaultType()){
+            if (checkCardEquality(fieldCards[1][i], mainFlag.getFlagHolder())) {
+                switch (card.getAssaultType()) {
                     case MELEE:
-                        if(Coordinate.getManhattanDistance(card.getCoordinate(),fieldCards[1][i].getCoordinate())<=4){
-                            Coordinate coordinate = makeNewCoordinate((card.getCoordinate().getX()+fieldCards[1][i].getCoordinate().getX())/2 ,(card.getCoordinate().getY()+fieldCards[1][i].getCoordinate().getY())/2 );
-                            if(checkForDevilExistance(coordinate)){
+                        if (Coordinate.getManhattanDistance(card.getCoordinate(), fieldCards[1][i].getCoordinate()) <= 4) {
+                            Coordinate coordinate = makeNewCoordinate((card.getCoordinate().getX() + fieldCards[1][i].getCoordinate().getX()) / 2,
+                                    (card.getCoordinate().getY() + fieldCards[1][i].getCoordinate().getY()) / 2);
+                            if (checkForDevilExistance(coordinate)) {
                                 return coordinate;
                             }
                         }
-
+                        return card.getCoordinate();
                     case HYBRID:
-
                     case RANGED:
+                        if (Coordinate.getManhattanDistance(card.getCoordinate(), fieldCards[1][i].getCoordinate()) <= 2+card.getMaxRange()) {
+                           switch (checkFourQuartersOfGround(card.getCoordinate(), fieldCards[1][i].getCoordinate())){
+                               case 1:
+
+                               case 2:
+                               case 3:
+
+                               case 4:
+                                   if(validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()-1))!=null &&
+                                           (validateMovement(makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()))!=null
+                                                   ||validateMovement(makeNewCoordinate(card.getCoordinate().getX(),card.getCoordinate().getY()-1))!=null)){
+                                       return makeNewCoordinate(card.getCoordinate().getX()-1,card.getCoordinate().getY()-1);
+                                   }
+                           }
+                        }
+                        return card.getCoordinate();
                 }
             }
         }
@@ -1389,7 +1407,8 @@ public class Battle {
                         for (int i = 0; i < getFieldCards()[0].length; i++) {
                             if (getFieldCards()[0][i] instanceof Hero) {
                                 if (Coordinate.getManhattanDistance(card.getCoordinate(), getFieldCards()[0][i].getCoordinate()) < 4) {
-                                    return new Coordinate((card.getCoordinate().getX() + getFieldCards()[0][i].getCoordinate().getX()) / 2, (card.getCoordinate().getY() + getFieldCards()[0][i].getCoordinate().getY()) / 2);
+                                    return new Coordinate((card.getCoordinate().getX() + getFieldCards()[0][i].getCoordinate().getX()) / 2,
+                                            (card.getCoordinate().getY() + getFieldCards()[0][i].getCoordinate().getY()) / 2);
                                 }
                             }
                         }
