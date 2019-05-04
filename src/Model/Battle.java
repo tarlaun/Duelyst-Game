@@ -283,17 +283,6 @@ public class Battle {
         return fieldCards;
     }
 
-    public void gameInfo() {
-
-    }
-
-    public void showMyMininons() {
-
-    }
-
-    public void showOpponentMininos() {
-
-    }
 
     public void showCardInfo(int cardId) {
 
