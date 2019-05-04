@@ -283,4 +283,11 @@ public class View {
     public void printInsertionMessage(Message message) {
 
     }
+
+    public void printUnsuccessfulSelection(int collctablesLength) {
+        if (collctablesLength == 0)
+            System.out.println("Invalid card id");
+        else
+            System.out.println("No card/item exists with this id");
+    }
 }

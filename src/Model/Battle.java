@@ -935,4 +935,7 @@ public class Battle {
         return 1;
     }
 
+    public void selectItem(int id) {
+
+    }
 }

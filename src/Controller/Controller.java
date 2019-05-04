@@ -352,9 +352,15 @@ public class Controller {
 
     public void select(Request request) {
         if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
-                    battle.getFieldCards()[battle.getTurnByAccount(account)]);
-            view.printCardInfo(card);
+            int turn = battle.getTurnByAccount(account);
+            Card card = Card.getCardByID(request.getObjectID(request.getCommand()), battle.getFieldCards()[turn]);
+            Item item = Item.getItemByID(request.getObjectID(request.getCommand()), battle.getCollectables()[turn]);
+            if (card != null)
+                battle.selectCard(card.getId());
+            else if (item != null)
+                battle.selectItem(item.getId());
+            else
+                view.printUnsuccessfulSelection(battle.getCollectables()[turn].length);
         }
     }
 
