@@ -1445,18 +1445,30 @@ public class Battle {
             }
         }
         if(c1.getX()+1==c2.getX()&& c1.getY()+1==c2.getY()){
-
+            if((validateMovement(makeNewCoordinate(c1.getX(),c1.getY()+1))!=null)
+                    ||(validateMovement(makeNewCoordinate(c1.getX()+1,c1.getY()))!=null)){
+                return validateMovement(c2);
+            }
         }
         if(c1.getX()-1== c2.getX()&& c1.getY()+1==c2.getY()){
-
+            if((validateMovement(makeNewCoordinate(c1.getX(),c1.getY()+1))!=null)
+                    ||(validateMovement(makeNewCoordinate(c1.getX()-1,c1.getY()))!=null)){
+                return validateMovement(c2);
+            }
         }
         if(c1.getX()-1==c2.getX()&& c1.getY()-1==c2.getY()){
-
+            if((validateMovement(makeNewCoordinate(c1.getX(),c1.getY()-1))!=null)
+                    ||(validateMovement(makeNewCoordinate(c1.getX()-1,c1.getY()))!=null)){
+                return validateMovement(c2);
+            }
         }
         if(c1.getX()+1== c2.getX()&& c1.getY()-1==c2.getY()){
-
+            if((validateMovement(makeNewCoordinate(c1.getX(),c1.getY()-1))!=null)
+                    ||(validateMovement(makeNewCoordinate(c1.getX()+1,c1.getY()))!=null)){
+                return validateMovement(c2);
+            }
         }
-
+        return null;
     }
 
     private Coordinate setDestinationCoordinatesModeOne(Card card) {
