@@ -1286,16 +1286,38 @@ public class Battle {
         return null;
     }
 
-    public boolean checkForDevilExistance(){
-        // 5 minutes later
+    public boolean checkForDevilExistance(Coordinate coordinate){
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < fieldCards[i].length ; j++) {
+                if(coordinationEquality(fieldCards[i][j].getCoordinate(),coordinate)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean coordinationEquality(Coordinate c1 , Coordinate c2){
+        if(c1.getY()==c2.getY() && c2.getX()==c1.getX()){
+            return true;
+        }
+        return false;
+    }
+
+    public Coordinate makeNewCoordinate(){
+
+    }
+
+    public boolean checkCardEquality(){
+
     }
 
     //holdFlag
     public Coordinate setDestinationCoordinatesModeTwo(Card card){
         //agar flag dasteshe 
         if(mainFlag.getFlagHolder().getId()==card.getId()&& mainFlag.getFlagHolder().getName().equals(card.getName())){
-
-
+            if(checkForDevilExistance())
+            //wc neede :D
 
         }
         //agar flag daste dusteshe 
