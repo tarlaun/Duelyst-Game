@@ -142,7 +142,7 @@ public class View {
 
     }
 
-    public void printCollectables(ArrayList<Item> items) {
+    public void printCollectables(Item... items) {
 
     }
 
@@ -289,5 +289,18 @@ public class View {
             System.out.println("Invalid card id");
         else
             System.out.println("No card/item exists with this id");
+    }
+
+    public void endTurn() {
+    }
+
+    public void printItemUsage(boolean valid) {
+
+    }
+
+    public void printCards(Card... cards) {
+    }
+
+    public void endGame(Battle battle) {
     }
 }

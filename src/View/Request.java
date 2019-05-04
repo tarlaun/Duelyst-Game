@@ -148,7 +148,7 @@ public class Request {
 
     }
 
-    public void checkItemUseSyntax() {
+    public boolean checkItemUseSyntax() {
 
     }
 

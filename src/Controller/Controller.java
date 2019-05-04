@@ -413,38 +413,51 @@ public class Controller {
     }
 
     public void endTurn() {
-
+        if (menu.getStat() == MenuStat.BATTLE) {
+            battle.endTurn();
+            view.endTurn();
+        }
     }
 
     public void showCollectables() {
-
-    }
-
-    public void selectCollectables(Request request) {
-
+        if (menu.getStat() == MenuStat.BATTLE) {
+            view.printCollectables(battle.getCollectables()[battle.getTurnByAccount(account)]);
+        }
     }
 
     private void showCollectableInfo() {
-
+        if (menu.getStat() == MenuStat.ITEM_SELECTION) {
+            view.printItem(battle.getCurrentItem());
+        }
     }
 
     public void useItem(Request request) {
-
+        if (request.checkItemUseSyntax()) {
+            if (menu.getStat() == MenuStat.BATTLE || menu.getStat() == MenuStat.ITEM_SELECTION) {
+                view.printItemUsage(battle.useItem);
+            }
+        }
     }
 
     public void showNextCard() {
-
+        if (menu.getStat() == MenuStat.BATTLE) {
+            view.printCardInfo(account.getCollection().getMainDeck().getCards().get(0));
+        }
     }
 
     public void showCards() {
-
+        if (menu.getStat() == MenuStat.GRAVEYARD) {
+            view.printCards(battle.getGraveyard()[battle.getTurnByAccount(account)]);
+        }
     }
 
     public void endGame() {
-
+        if (menu.getStat() == MenuStat.BATTLE) {
+            view.endGame(battle);
+        }
     }
 
     public void showMenu() {
-
+        view.printOptions();
     }
 }
