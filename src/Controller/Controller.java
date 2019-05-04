@@ -401,7 +401,8 @@ public class Controller {
 
     public void showHand() {
         if (menu.getStat() == MenuStat.BATTLE) {
-            view.printHand(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
+            view.printCards(account.getCollection().getMainDeck().getCards().get(0), battle.getPlayerHands()[battle.getTurnByAccount(account)])
+            ;
         }
     }
 

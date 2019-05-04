@@ -76,6 +76,7 @@ public class View {
     }
 
     public void printCollection(Collection collection, boolean isInShop) {
+        System.out.println("Heroes :");
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (collection.getCards().get(i) instanceof Hero) {
                 System.out.print(i + 1 + " : ");
@@ -84,24 +85,15 @@ public class View {
                     System.out.println(collection.getCards().get(i).getPrice());
             }
         }
+        System.out.println("Items :");
         for (int i = 0; i < collection.getItems().size(); i++) {
             System.out.print(i + 1 + " : ");
             printItem(collection.getItems().get(i));
             if (isInShop)
                 System.out.println(collection.getCards().get(i).getPrice());
         }
-        for (int i = 0; i < collection.getCards().size(); i++) {
-            if (!(collection.getCards().get(i) instanceof Hero)) {
-                System.out.print(i + 1 + " : ");
-                if (collection.getCards().get(i) instanceof Spell)
-                    printSpell((Spell) collection.getCards().get(i));
-                else
-                    printNonSpellCard(collection.getCards().get(i));
-                if (isInShop)
-                    System.out.println(collection.getCards().get(i).getPrice());
-
-            }
-        }
+        System.out.println("Cards :");
+        printCards(isInShop, collection.getCards().toArray(Card[]::new));
     }
 
     public void printSpell(Spell spell) {
@@ -171,12 +163,22 @@ public class View {
         printBuff(card);
     }
 
-    public void printItemInfo(Item item) {
+    public void printCards(boolean isInShop, Card... cards) {
+        for (int i = 0; i < cards.length; i++) {
+            if (!(cards[i] instanceof Hero)) {
+                System.out.print(i + 1 + " : ");
+                if (cards[i] instanceof Spell) {
+                    System.out.print("Type : Spell - ");
+                    printSpell((Spell) cards[i]);
+                } else {
+                    System.out.print("Type : Minion - ");
+                    printNonSpellCard(cards[i]);
+                }
+                if (isInShop)
+                    System.out.println(cards[i].getPrice());
 
-    }
-
-    public void printHand(Card... cards) {
-
+            }
+        }
     }
 
     public void printCollectables(Item... items) {
@@ -270,7 +272,12 @@ public class View {
     }
 
     public void printDeck(Deck deck) {
-
+        System.out.println("Heroes :");
+        printNonSpellCard(deck.getHero());
+        System.out.println("Items :");
+        printNonSpellCard(deck.getHero());
+        System.out.println("Cards :");
+        printCards(false, deck.getCards().toArray(Card[]::new));
     }
 
     public void printSellMessages(Boolean successful) {
@@ -328,6 +335,7 @@ public class View {
     }
 
     public void printCards(Card... cards) {
+        printCards(false, cards);
     }
 
     public void endGame(Battle battle) {
