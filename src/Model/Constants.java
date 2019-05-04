@@ -20,4 +20,10 @@ public class Constants {
     static final int MAX_MANA=9;
     static final int LENGTH=9;
     static final int WIDTH=5;
+    static final int ITEM_APPEARANCE = 3 ;
+    static final int MAXIMUM_FLAGS=11;
+    static final int TURNS_HOLDING_FLAG =6;
+    static final int randomXGenerator = 2;
+    static final int randomYGenerator = 4;
+    static final int shiftColumn = 6;
 }

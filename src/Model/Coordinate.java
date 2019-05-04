@@ -34,7 +34,6 @@ public class Coordinate {
     }
 
     public static Coordinate getPathDirections(Coordinate c1, Coordinate c2, Cell[][] field) { // move from c1 to c2
-        ArrayList<Direction> list = new ArrayList<>();
         Coordinate answer = c1;
             if (c1.getX() > c2.getX() && field[c1.getX() - 1][c1.getY()].getCardID() == 0) {
                 c1.setX(c1.getX() - 1);

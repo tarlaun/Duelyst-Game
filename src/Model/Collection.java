@@ -4,16 +4,20 @@ import View.Message;
 
 import java.util.ArrayList;
 
+
 public class Collection {
 
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck;
+    private ArrayList<Deck> levelDecks = new ArrayList<>();
 
     public Collection() {
 
     }
+
+
 
     public Collection(ArrayList<Card> cards, ArrayList<Item> items) {
         this.cards = cards;

@@ -11,10 +11,26 @@ import java.util.Comparator;
 
 public class Game {
     private ArrayList<Account> accounts = new ArrayList<>();
+    private ArrayList<Account> loggedInAccounts = new ArrayList<>();
     private static final Game SINGLETON_CLASS = new Game();
-
+    private GameType gameType;
+    private BattleMode mode;
     private Game() {
 
+    }
+
+    private ArrayList<Account> getLoggedInAccounts(){
+        for (Account account:
+            accounts ) {
+            if(account.isLoggedIn()){
+                loggedInAccounts.add(account);
+            }
+        }
+        return loggedInAccounts;
+    }
+
+    public void createBattle(){
+        Battle battle = new Battle(loggedInAccounts.toArray(Account[]::new), gameType, mode );
     }
 
     public ArrayList<Account> getAccounts() {
@@ -26,7 +42,8 @@ public class Game {
     }
 
     public boolean logout(Account account) {
-
+        //:???
+        return true;
     }
 
     public void save(Account account) {
