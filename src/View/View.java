@@ -372,6 +372,10 @@ public class View {
 
     }
 
+    public void printShopCollection(Collection collection) {
+
+    }
+
     public void printCards(Card... cards) {
         printCards(false, cards);
     }
