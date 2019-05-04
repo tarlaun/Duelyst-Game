@@ -146,10 +146,6 @@ public class View {
 
     }
 
-    public void printGraveyardMenu() {
-
-    }
-
     public void printError(Message message) {
 
     }
