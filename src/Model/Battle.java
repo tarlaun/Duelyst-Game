@@ -488,7 +488,7 @@ public class Battle {
 
     public Message attackCombo(int opponentCardId, Card... cards) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
-        if (targetCard.equals(null))
+        if (targetCard == null)
             return Message.INVALID_TARGET;
         for (Card card : cards) {
             if (!isInRange(targetCard, card)) {
