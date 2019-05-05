@@ -78,6 +78,7 @@ public class Game {
     }
 
     public boolean logout(Account account) {
+        account.setLoggedIn(false);
         menu.setStat(MenuStat.MAIN);
         return true;
     }
