@@ -649,6 +649,7 @@ public class Battle {
                 }
                 break;
             case POWER:
+                //OGHAB
                 card.addToBuffs(card.getBuffs().get(0));
                 break;
             case WEAKNESS:
@@ -804,6 +805,10 @@ public class Battle {
                         card.modifyHealth(-buff.getPower());
                     }
                     //
+                    if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() != 0) {
+                        card.setAssaultPower(card.getAssaultPower() + buff.getPower());
+                    }
+                    //
                     if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
                         card.modifyHealth(buff.getPower());
                         buff.setPower(4);
@@ -823,12 +828,6 @@ public class Battle {
                     }
                     if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
                         card.setIsHoly(0);
-                    }
-                    if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
-                        card.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                    }
-                    if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
-                        card.setAssaultPower(card.getOriginalAssaultPower());
                     }
                     if (buff.getType().equals(BuffType.JEN_JOON)) {
                         card.setAssaultPower(card.getAssaultPower() + buff.getPower());
