@@ -98,6 +98,9 @@ public class Card {
         }
     }
 
+    public boolean isAbleToCounter() {
+        return ableToCounter;
+    }
 
     public int getOriginalAssaultPower() {
         return originalAssaultPower;

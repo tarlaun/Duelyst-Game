@@ -14,5 +14,12 @@ public enum BuffType {
     HEALTH_POWER,
     HIT_WEAKNESS,
     HEALTH_WEAKNESS,
-    MANA
+    MANA,
+    CHAMPION,
+    LION_ROAR,
+    BWITCH,
+    JEN_JOON,
+    ON_DEATH_WEAKNESS,
+    HOLY_WEAKNESS,
+    ON_SPAWN_WEAKNESS
 }

@@ -19,6 +19,34 @@ public class Game {
 
     }
 
+    public void setAccounts(ArrayList<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public void setLoggedInAccounts(ArrayList<Account> loggedInAccounts) {
+        this.loggedInAccounts = loggedInAccounts;
+    }
+
+    public static Game getSingletonClass() {
+        return SINGLETON_CLASS;
+    }
+
+    public GameType getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(GameType gameType) {
+        this.gameType = gameType;
+    }
+
+    public BattleMode getMode() {
+        return mode;
+    }
+
+    public void setMode(BattleMode mode) {
+        this.mode = mode;
+    }
+
     private ArrayList<Account> getLoggedInAccounts(){
         for (Account account:
             accounts ) {
