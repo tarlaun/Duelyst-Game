@@ -337,7 +337,7 @@ public class Battle {
 
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
-        if (targetCard.equals(null))
+        if (targetCard == null)
             return Message.INVALID_TARGET;
         if (!isInRange(targetCard, currentCard)) {
             return Message.UNAVAILABLE;
@@ -350,7 +350,7 @@ public class Battle {
             }
         }
         checkAttackHistory(opponentCardId, currentCard);
-        onAttackSpecialPower();
+        checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         if (isAttackable(currentCard, targetCard))
@@ -359,6 +359,12 @@ public class Battle {
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
         return null;
+    }
+
+    private void checkOnAttackSpecials(Card currentCard) {
+        if (currentCard.getBuffs().size()>=1 &&currentCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_ATTACK)) {
+            onAttackSpecialPower();
+        }
     }
 
     public Card getCurrentCard() {
@@ -821,13 +827,13 @@ public class Battle {
                 if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
                     card.setAssaultPower(card.getOriginalAssaultPower());
                 }
-                if(buff.getType().equals(BuffType.JEN_JOON)){
+                if (buff.getType().equals(BuffType.JEN_JOON)) {
                     card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                 }
-                if ((buff.getType().equals(BuffType.CHAMPION)||(buff.getType().equals(BuffType.BWITCH)))  && buff.getTurnCount() == 0) {
+                if ((buff.getType().equals(BuffType.CHAMPION) || (buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() == 0) {
                     card.setAssaultPower(card.getOriginalAssaultPower());
                 }
-                if ((buff.getType().equals(BuffType.CHAMPION)||(buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
+                if ((buff.getType().equals(BuffType.CHAMPION) || (buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
                     card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                 }
                 if (buff.getTurnCount() == 0) {
