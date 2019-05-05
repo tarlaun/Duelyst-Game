@@ -785,6 +785,7 @@ public class Battle {
                     if (buff.getTurnCount() > 0) {
                         buff.setTurnCount(buff.getTurnCount() - 1);
                     }
+                    //
                     if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() != 0) {
                         card.setAbleToAttack(false);
                         card.setAbleToMove(false);
@@ -793,6 +794,7 @@ public class Battle {
                         card.setAbleToMove(true);
                         card.setAbleToAttack(true);
                     }
+                    //
                     if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
                         card.modifyHealth(-buff.getPower());
                     } else if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
@@ -827,10 +829,10 @@ public class Battle {
                     if (buff.getType().equals(BuffType.JEN_JOON)) {
                         card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                     }
-                    if ((buff.getType().equals(BuffType.CHAMPION) || (buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() == 0) {
+                    if (buff.getType().equals(BuffType.BWITCH) && buff.getTurnCount() == 0) {
                         card.setAssaultPower(card.getOriginalAssaultPower());
                     }
-                    if ((buff.getType().equals(BuffType.CHAMPION) || (buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
+                    if (buff.getType().equals(BuffType.BWITCH) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
                         card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                     }
                     if (buff.getTurnCount() == 0) {
