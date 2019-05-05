@@ -326,7 +326,7 @@ public class Battle {
     }
 
     public boolean isAttackable(Card currentCard, Card targetCard) {
-        if (targetCard.getName().equals("GIV")) {
+        if (targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISPEL)) {
             return false;
         }
         if (targetCard.getName().equals("ASHKBOOS") && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
@@ -689,7 +689,9 @@ public class Battle {
                     r += 1;
                     Card target = Card.getCardByID(r, fieldCards[(turn + 1) % 2]);
                     assert target != null;
-                    target.addToBuffs(card.getBuffs().get(0));
+                    if(target instanceof Minion){
+                        targetCard.modifyHealth(buff.getPower());
+                    }
                 }
                 break;
         }
@@ -775,7 +777,7 @@ public class Battle {
         for (int i = 0; i < 2; i++) {
             for (Card card : fieldCards[i]) {
                 for (Buff buff : card.getCastedBuffs()) {
-                    if (card.getName().equals("GIV") && (buff.getType().equals(BuffType.DISARM)
+                    if ((buff.getType().equals(BuffType.NEGATIVE_DISPEL)) && (buff.getType().equals(BuffType.DISARM)
                             || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
                             || buff.getType().equals(BuffType.STUN))) {
                         card.removeFromBuffs(buff);
@@ -824,8 +826,7 @@ public class Battle {
                     if((buff.getType().equals(BuffType.WEAKNESS))&& buff.getTurnCount()%2==1&&  buff.getActivationType().equals(ActivationType.ON_DEATH)){
                         targetCard.modifyHealth(buff.getPower());
                     }
-                    if (( (buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) ||
-                            (buff.getType().equals(BuffType.ON_SPAWN_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
+                    if (( (buff.getType().equals(BuffType.ON_DEATH_WEAKNESS))|| (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
                              && buff.getTurnCount() !=0) {
                         targetCard.modifyHealth(buff.getPower());
                     }
