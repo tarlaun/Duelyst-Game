@@ -539,8 +539,7 @@ public class Battle {
 
     public boolean useSpecialPowerForCombo(Card... cards) {
         for (Card card : cards) {
-            if (!(card.getName().equals("PERSIAN_COMMANDER")) && !(card.getName().equals("TURANIAN_PRINCE")) &&
-                    !(card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))) {
+            if (!(card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))) {
                 return false;
             }
             if(card.getBuffs().size()==1 && !card.getBuffs().get(0).getType().equals(BuffType.COMBO)){
@@ -798,11 +797,13 @@ public class Battle {
                         card.setAbleToAttack(true);
                     }
                     //
-                    if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
-                        card.modifyHealth(-buff.getPower());
-                    } else if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
+                    if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
                         card.setAbleToAttack(true);
                     }
+                    if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() % 2 == 0) {
+                        card.modifyHealth(-buff.getPower());
+                    }
+                    //
                     if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
                         card.modifyHealth(buff.getPower());
                         buff.setPower(4);
