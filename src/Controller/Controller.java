@@ -25,7 +25,12 @@ public class Controller {
     public void main() {
         try {
             game.initializeAccounts();
-        } catch (Exception e){
+        } catch (Exception e) {
+        }
+        try {
+            game.initializeSpell();
+        } catch (Exception e) {
+
         }
         Request request = new Request();
         while (true) {
@@ -218,8 +223,10 @@ public class Controller {
     }
 
     public void enter(Request request) {
+        System.out.println("PLZ");
         if (request.checkMenuEntrnaceSyntax()) {
-            switch (request.getCommand()) {
+            System.out.println("Schwifty!");
+            switch (request.getMenu(request.getCommand())) {
                 case "Exit":
                     exit();
                     break;
@@ -227,7 +234,8 @@ public class Controller {
                     help();
                     break;
                 default:
-                    menu.setStat(MenuStat.valueOf(request.getCommand().toUpperCase()));
+                    System.out.println(request.getMenu(request.getCommand()));
+                    menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
             }
         }
     }

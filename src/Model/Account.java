@@ -1,6 +1,5 @@
 package Model;
 
-import Controller.Controller;
 import View.Message;
 
 import java.util.ArrayList;
@@ -11,12 +10,12 @@ public class Account {
     private String password;
     private int budget = Constants.initialBudget;
     private ArrayList<Match> matchHistory = new ArrayList<>();
-    private Collection collection;
+    private Collection collection = new Collection();
     private static Game game = Game.getInstance();
     private boolean isLoggedIn = true;
     private int wins = 0;
     private int mana;
-    private int flagsCollected=0;
+    private int flagsCollected = 0;
     private Menu menu = Menu.getInstance();
 
     public int getFlagsCollected() {

@@ -71,7 +71,7 @@ public class Request {
     }
 
     public boolean checkMenuEntrnaceSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.ENTRANCE.ordinal()] + "Collection|Shop|Battle|Exit");
+        return this.getCommand().matches(this.getStrings()[RequestType.ENTRANCE.ordinal()] + "(Collection|Shop|Battle|Exit|Game)");
 
     }
 

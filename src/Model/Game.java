@@ -2,17 +2,9 @@ package Model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import jdk.nashorn.internal.parser.JSONParser;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class Game {
@@ -22,6 +14,7 @@ public class Game {
     private GameType gameType;
     private BattleMode mode;
     private Menu menu = Menu.getInstance();
+    private Shop shop = Shop.getInstance();
 
     private Game() {
 
@@ -108,10 +101,9 @@ public class Game {
             if (dir.isDirectory()) {
                 for (File file : dir.listFiles()) {
                     if (file.isFile()) {
-                        Gson gson = new Gson();
                         System.out.println(file.getName());
-                        JsonObject jsonObject = (JsonObject) readJson(file.getName());
-                        Account account = gson.fromJson(jsonObject, Account.class);
+                        BufferedReader reader = new BufferedReader(new FileReader(file));
+                        Account account = new Gson().fromJson(reader, Account.class);
                         accounts.add(account);
                     }
                 }
@@ -119,9 +111,22 @@ public class Game {
         }
     }
 
-    private Object readJson(String filename) throws Exception {
-        FileReader reader = new FileReader(filename);
-        JsonParser jsonParser = new JsonParser();
-        return jsonParser.parse(reader);
+    public void initializeSpell() throws Exception {
+        File dir = new File("./src/Objects/Cards/Spells");
+        if (dir.exists()) {
+            if (dir.isDirectory()) {
+                for (File file : dir.listFiles()) {
+                    if (file.isFile()) {
+                        BufferedReader reader = new BufferedReader(new FileReader(file));
+                        Spell spell = new Gson().fromJson(reader, Spell.class);
+                        shop.getCards().add(spell);
+                    }
+                }
+            }
+        }
+        for (Card card: shop.getCards()) {
+            System.out.println(card.getName());
+        }
     }
+
 }

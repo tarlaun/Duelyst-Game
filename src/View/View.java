@@ -369,7 +369,18 @@ public class View {
     }
 
     public void printShopCollection(Collection collection) {
+        printCards(true, collection.getCards().toArray(new Card[collection.getCards().size()]));
+        printItems(true, collection.getItems().toArray(new Item[collection.getItems().size()]));
+    }
 
+    private void printItems(boolean isInShop, Item... items) {
+        for (int i = 0; i < items.length; i++) {
+            System.out.print(i + 1 + " : ");
+            printItem(items[i]);
+            if (isInShop)
+                System.out.println(" - Price : " + items[i].getPrice());
+
+        }
     }
 
     public void printCards(Card... cards) {
