@@ -573,13 +573,13 @@ public class Battle {
                     targetCard.modifyHealth(-multiply);
                     break;
                 case DISARM:
-                    if (!targetCard.getName().equals("WILD_HOG")) {
+                    if (targetCard.getBuffs().size()==1 && !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISARM)) {
                         targetCard.setAbleToAttack(false);
                         targetCard.addToBuffs(currentCard.getBuffs().get(i));
                     }
                     break;
                 case POISON:
-                    if (!targetCard.getName().equals("PIRAN")) {
+                    if (targetCard.getBuffs().size()==1 && !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_POISON)) {
                         targetCard.addToBuffs(currentCard.getBuffs().get(1));
                     }
                     break;
