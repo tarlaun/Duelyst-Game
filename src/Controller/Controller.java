@@ -22,139 +22,141 @@ public class Controller {
 
     public void main() {
         Request request = new Request();
-        request.getNewCommand();
-        switch (request.getType()) {
-            case CREATE_ACCOUNT:
-                createAccount(request);
-                break;
-            case LOGIN:
-                login(request);
-                break;
-            case LEADERBOARD:
-                showLeaderBoard(request);
-                break;
-            case SAVE:
-                save();
-                break;
-            case LOGOUT:
-                logout();
-                break;
-            case HELP:
-                help();
-                break;
-            case EXIT:
-                exit();
-                break;
-            case ENTRANCE:
-                enter(request);
-                break;
-            case SHOW_COLLECTION:
-                showTheCollection();
-                break;
-            case SEARCH_COLLECTION:
-                searchInCollection(request);
-                break;
-            case SAVE_IN_COLLECTION:
-                saveCollection();
-                break;
-            case CREATE_DECK:
-                createDeck(request);
-                break;
-            case DELETE_DECK:
-                deleteDeck(request);
-                break;
-            case ADD:
-                addToDeck(request);
-                break;
-            case REMOVE:
-                removeFromDeck(request);
-                break;
-            case VALIDATION:
-                validateDeck(request);
-                break;
-            case SELECT_DECK:
-                selectDeck(request);
-                break;
-            case SHOW_ALL_DECK:
-                showAllDecks(request);
-                break;
-            case SHOW_DECK:
-                showDeck(request);
-                break;
-            case SEARCH:
-                search(request);
-                break;
-            case BUY:
-                buy(request);
-                break;
-            case SELL:
-                sell(request);
-                break;
-            case SHOW:
-                showShop();
-                break;
-            case GAME_INFO:
-                gameInfo();
-                break;
-            case SHOW_MY_MININOS:
-                showMyMinions();
-                break;
-            case SHOW_OPP_MINIONS:
-                showOppMinions();
-                break;
-            case SHOW_CARD_INFO:
-                showCardInfo(request);
-                break;
-            case SELECTION:
-                select(request);
-                break;
-            case MOVE:
-                moveToInBattle(request);
-                break;
-            case ATTACK:
-                battleAttack(request);
-                break;
-            case COMBO:
-                battleComboAttack(request);
-                break;
-            case USE_SP:
-                specialPowerValidation();
+        while (true) {
+            request.getNewCommand();
+            switch (request.getType()) {
+                case CREATE_ACCOUNT:
+                    createAccount(request);
+                    break;
+                case LOGIN:
+                    login(request);
+                    break;
+                case LEADERBOARD:
+                    showLeaderBoard(request);
+                    break;
+                case SAVE:
+                    save();
+                    break;
+                case LOGOUT:
+                    logout();
+                    break;
+                case HELP:
+                    help();
+                    break;
+                case EXIT:
+                    exit();
+                    break;
+                case ENTRANCE:
+                    enter(request);
+                    break;
+                case SHOW_COLLECTION:
+                    showTheCollection();
+                    break;
+                case SEARCH_COLLECTION:
+                    searchInCollection(request);
+                    break;
+                case SAVE_IN_COLLECTION:
+                    saveCollection();
+                    break;
+                case CREATE_DECK:
+                    createDeck(request);
+                    break;
+                case DELETE_DECK:
+                    deleteDeck(request);
+                    break;
+                case ADD:
+                    addToDeck(request);
+                    break;
+                case REMOVE:
+                    removeFromDeck(request);
+                    break;
+                case VALIDATION:
+                    validateDeck(request);
+                    break;
+                case SELECT_DECK:
+                    selectDeck(request);
+                    break;
+                case SHOW_ALL_DECK:
+                    showAllDecks(request);
+                    break;
+                case SHOW_DECK:
+                    showDeck(request);
+                    break;
+                case SEARCH:
+                    search(request);
+                    break;
+                case BUY:
+                    buy(request);
+                    break;
+                case SELL:
+                    sell(request);
+                    break;
+                case SHOW:
+                    showShop();
+                    break;
+                case GAME_INFO:
+                    gameInfo();
+                    break;
+                case SHOW_MY_MININOS:
+                    showMyMinions();
+                    break;
+                case SHOW_OPP_MINIONS:
+                    showOppMinions();
+                    break;
+                case SHOW_CARD_INFO:
+                    showCardInfo(request);
+                    break;
+                case SELECTION:
+                    select(request);
+                    break;
+                case MOVE:
+                    moveToInBattle(request);
+                    break;
+                case ATTACK:
+                    battleAttack(request);
+                    break;
+                case COMBO:
+                    battleComboAttack(request);
+                    break;
+                case USE_SP:
+                    specialPowerValidation();
 /*
                 if (battle.validSpecialPower().equals(null)) {
                     useSpecialPower(request);
                 }
 */
-                break;
-            case SHOW_HAND:
-                showHand();
-                break;
-            case INSERTION:
-                insertCard(request);
-                break;
-            case END_TURN:
-                endTurn();
-                break;
-            case SHOW_COLLECTABLES:
-                showCollectables();
-                break;
-            case SHOW_COLLECTABLE_INFO:
-                showCollectableInfo();
-                break;
-            case USE_ITEM:
-                useItem(request);
-                break;
-            case NEXT_CARD:
-                showNextCard();
-                break;
-            case SHOW_CARDS:
-                showCards();
-                break;
-            case END_GAME:
-                endGame();
-                break;
-            case SHOW_MENU:
-                showMenu();
-                break;
+                    break;
+                case SHOW_HAND:
+                    showHand();
+                    break;
+                case INSERTION:
+                    insertCard(request);
+                    break;
+                case END_TURN:
+                    endTurn();
+                    break;
+                case SHOW_COLLECTABLES:
+                    showCollectables();
+                    break;
+                case SHOW_COLLECTABLE_INFO:
+                    showCollectableInfo();
+                    break;
+                case USE_ITEM:
+                    useItem(request);
+                    break;
+                case NEXT_CARD:
+                    showNextCard();
+                    break;
+                case SHOW_CARDS:
+                    showCards();
+                    break;
+                case END_GAME:
+                    endGame();
+                    break;
+                case SHOW_MENU:
+                    showMenu();
+                    break;
+            }
         }
     }
 

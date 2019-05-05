@@ -168,8 +168,12 @@ public class Request {
 
     public RequestType getType() {
         for (int i = 0; i < strings.length; i++) {
-            if (command.substring(0, strings[i].length()).equals(strings[i]))
-                return RequestType.values()[i];
+            try {
+                if (command.substring(0, strings[i].length()).equals(strings[i]))
+                    return RequestType.values()[i];
+            } catch (StringIndexOutOfBoundsException e) {
+
+            }
         }
         return null;
     }
@@ -183,7 +187,8 @@ public class Request {
     }
 
     public String getNewCommand() {
-        return scanner.nextLine();
+        this.command = scanner.nextLine();
+        return command;
     }
 
     public String[] getSplittedCommand(String input) {

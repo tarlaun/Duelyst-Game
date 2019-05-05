@@ -6,7 +6,7 @@ import View.View;
 import java.util.ArrayList;
 
 public class Menu {
-    private MenuStat stat;
+    private MenuStat stat = MenuStat.MAIN;
     private ArrayList<Account> accounts = new ArrayList<>();
     private Shop shop = Shop.getInstance();
     private String[][] commands =
