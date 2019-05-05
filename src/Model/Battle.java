@@ -636,7 +636,6 @@ public class Battle {
                                     card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
                             if (target != null) {
                                 targetCard.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                                target.addToBuffs(card.getBuffs().get(1));
                             }
                         }
                     }
@@ -830,18 +829,18 @@ public class Battle {
                              && buff.getTurnCount() !=0) {
                         targetCard.modifyHealth(buff.getPower());
                     }
-                    if (buff.getActivationType().equals(ActivationType.PASSIVE)) {
+                  /*  if (buff.getActivationType().equals(ActivationType.PASSIVE)) {
                         if (buff.getTargetType().equals("HEALTH")) {
                             card.setHealthPoint(card.getHealthPoint() + card.getBuffs().get(0).getPower());
                         }
-                    }
+                    }*/
                     if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0) {
                         card.setIsHoly(buff.getPower());
                     }
                     if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
                         card.setIsHoly(0);
                     }
-                    if (buff.getType().equals(BuffType.JEN_JOON)) {
+                    if (buff.getType().equals(BuffType.JEN_JOON) && buff.getTurnCount()==-1) {
                         card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                     }
                     if (buff.getTurnCount() == 0) {
