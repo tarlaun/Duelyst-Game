@@ -775,10 +775,10 @@ public class Battle {
             while (ableToAddItem) {
                 int randomX = rand.nextInt(9);
                 int randomY = rand.nextInt(5);
-                int randomCollectableItem = rand.nextInt(9);
+                int randomCollectibleItem = rand.nextInt(9);
                 if (field[randomX][randomY].getCardID() == 0) {
                     ableToAddItem = false;
-                    field[randomX][randomY].setCardID(chooseCollectableItems(shop.getItems()).get(randomCollectableItem).getId());
+                    field[randomX][randomY].setCardID(chooseCollectibleItems(shop.getItems()).get(randomCollectibleItem).getId());
                     //effect item
                 }
             }
@@ -911,7 +911,7 @@ public class Battle {
         showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
     }
 
-    public ArrayList<Item> chooseCollectableItems(ArrayList<Item> items) {
+    public ArrayList<Item> chooseCollectibleItems(ArrayList<Item> items) {
         ArrayList<Item> newItemList = new ArrayList<>();
         for (Item item : items) {
             if (item.getPrice() == 0) {
@@ -921,10 +921,10 @@ public class Battle {
         return newItemList;
     }
 
-    public Message selectCollectableId(int collectableId) {
-        for (Item collectable :
+    public Message selectCollectibleId(int collectibleId) {
+        for (Item collectible :
                 collectibles[turn % 2]) {
-            if (collectable.getId() == collectableId) {
+            if (collectible.getId() == collectibleId) {
                 menu.setStat(MenuStat.ITEM_SELECTION);
             }
         }
@@ -947,8 +947,14 @@ public class Battle {
     }
 
     public boolean useHeroSP(Hero hero, Coordinate target) {
+        if(!spendMana(hero.getPrice())){
+            return false;
+        }
         for (Buff buff :
                 hero.getBuffs()) {
+            if (!spellIsReady(buff)) {
+                return false;
+            }
             switch (buff.getSide()) {
                 case COMRADE:
                     if (buff.getTargetType().equals("Hero")) {
