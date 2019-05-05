@@ -5,6 +5,7 @@ public enum BuffType {
     STUN,
     POWER,
     HOLY,
+    COMBO,
     WEAKNESS,
     WHITE_WALKER_WOLF,
     POISON,

@@ -543,6 +543,9 @@ public class Battle {
                     !(card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))) {
                 return false;
             }
+            if(card.getBuffs().size()==1 && !card.getBuffs().get(0).getType().equals(BuffType.COMBO)){
+                return false;
+            }
         }
         return true;
     }
