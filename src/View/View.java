@@ -93,7 +93,7 @@ public class View {
                 System.out.println(collection.getCards().get(i).getPrice());
         }
         System.out.println("Cards :");
-        printCards(isInShop, collection.getCards().toArray(Card[]::new));
+        printCards(isInShop, collection.getCards().toArray(new Card[collection.getCards().size()]));
     }
 
     public void printSpell(Spell spell) {
@@ -283,7 +283,7 @@ public class View {
         System.out.println("Items :");
         printNonSpellCard(deck.getHero());
         System.out.println("Cards :");
-        printCards(false, deck.getCards().toArray(Card[]::new));
+        printCards(false, deck.getCards().toArray(new Card[deck.getCards().size()]));
     }
 
     public void printSellMessages(Boolean successful) {
