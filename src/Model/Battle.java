@@ -329,7 +329,7 @@ public class Battle {
         if (targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISPEL)) {
             return false;
         }
-        if (targetCard.getName().equals("ASHKBOOS") && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
+        if (targetCard.getBuffs().get(0).getType().equals(BuffType.ASHBUS) && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
             return false;
         }
         return true;
@@ -476,8 +476,13 @@ public class Battle {
 
     private void killEnemy(Card targetCard) {
         if (targetCard.getHealthPoint() <= 0) {
-            if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH)) {
-                useSpecialPower(targetCard, targetCard.getBuffs().get(0));
+            if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH)&&
+            targetCard.getBuffs().get(0).getType().equals(BuffType.WEAKNESS)) {
+                for (int i = 0; i <fieldCards[(turn+1)%2].length; i++) {
+                    if(fieldCards[(turn+1)%2][i] instanceof Hero){
+                        fieldCards[(turn+1)%2][i].modifyHealth(-fieldCards[(turn+1)%2][i].getBuffs().get(0).getPower());
+                    }
+                }
             }
             if (mode.equals(BattleMode.HOLD_FLAG)) {
                 mainFlag.setTurnCounter(0);
@@ -539,9 +544,6 @@ public class Battle {
 
     public boolean useSpecialPowerForCombo(Card... cards) {
         for (Card card : cards) {
-            if (!(card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))) {
-                return false;
-            }
             if(card.getBuffs().size()==1 && !card.getBuffs().get(0).getType().equals(BuffType.COMBO)){
                 return false;
             }
@@ -620,8 +622,6 @@ public class Battle {
                                     card.getCoordinate().getY() + j).getCardID(), fieldCards[(turn + 1) % 2]);
                             if (target != null) {
                                 target.addToBuffs(card.getBuffs().get(0));
-                                target.setAbleToAttack(false);
-                                target.setAbleToMove(false);
                             }
                         }
                     }
@@ -835,7 +835,7 @@ public class Battle {
                             card.setHealthPoint(card.getHealthPoint() + card.getBuffs().get(0).getPower());
                         }
                     }*/
-                    if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0) {
+                    if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0&& buff.getTurnCount()%2==0) {
                         card.setIsHoly(buff.getPower());
                     }
                     if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
