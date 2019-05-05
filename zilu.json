@@ -1,0 +1,124 @@
+{
+  "name": "zilu",
+  "id": 2,
+  "password": "zilu",
+  "budget": 15000,
+  "matchHistory": [],
+  "isLoggedIn": false,
+  "wins": 0,
+  "mana": 0,
+  "flagsCollected": 0,
+  "menu": {
+    "stat": "ACCOUNT",
+    "accounts": [],
+    "shop": {
+      "cards": [],
+      "items": []
+    },
+    "commands": [
+      [
+        "create account [username]",
+        "login [username]",
+        "help",
+        "exit",
+        "show menu"
+      ],
+      [
+        "game",
+        "logout",
+        "save",
+        "show leaderboard",
+        "help",
+        "exit",
+        "show menu"
+      ],
+      [
+        "Enter [option name]",
+        "help",
+        "exit",
+        "show menu"
+      ],
+      [
+        "search [card name|item name]",
+        "save",
+        "create deck [deck name]",
+        "delete deck [deck name]",
+        "add [card id|item id|hero id] from deck [deck name]",
+        "Validate deck [deck name]",
+        "remove [card id|item id|hero id] from deck [deck name]",
+        "select deck [deck name]",
+        "Show all decks",
+        "show deck [deck name]",
+        "show",
+        "help",
+        "exit",
+        "show menu"
+      ],
+      [
+        "search [card name|item name]",
+        "search collection [item name|card name]",
+        "show collection",
+        "buy [card name|item name]",
+        "sell [card id|item it]",
+        "show",
+        "help",
+        "exit",
+        "show menu"
+      ],
+      [
+        "Game info",
+        "Show my minions",
+        "Show opponent minions",
+        "Show card info [card id]",
+        "Select [card id]",
+        "Move to ( [x] , [y] )",
+        "Attack [opponent card id]",
+        "Show hand",
+        "Attack combo [opponent card id][my card id][my card id][...]",
+        "Select [collectable id]",
+        "Use special power ( [x] , [y] )",
+        "Insert [card name] in ( [x] , [y] )",
+        "End turn",
+        "Show collectables",
+        "Show info",
+        "Use ( [x] , [y] )",
+        "Show Next Card",
+        "Enter graveyard",
+        "Show info [card id]",
+        "Show cards",
+        "Help",
+        "End Game",
+        "help",
+        "exit",
+        "show menu"
+      ]
+    ],
+    "options": [
+      [
+        "Help",
+        "Exit"
+      ],
+      [
+        "Game",
+        "Help",
+        "Exit"
+      ],
+      [
+        "Collection",
+        "Shop",
+        "Battle",
+        "Help",
+        "Exit"
+      ],
+      [
+        "Graveyard",
+        "Help",
+        "Exit"
+      ],
+      [
+        "Help",
+        "Exit"
+      ]
+    ]
+  }
+}
