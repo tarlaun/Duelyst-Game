@@ -589,7 +589,7 @@ public class Battle {
                         }
                     }
                     break;
-                case WEAKNESS:
+                case WHITE_WALKER_WOLF:
                 case STUN:
                     targetCard.addToBuffs(currentCard.getBuffs().get(0));
                     break;
@@ -679,7 +679,6 @@ public class Battle {
                             Card target = Card.getCardByID(field[i][j].getCardID(), fieldCards[turn % 2]);
                             assert target != null;
                             target.addToBuffs(card.getBuffs().get(0));
-
                         }
                     }
                 }
@@ -813,6 +812,7 @@ public class Battle {
                         card.modifyHealth(buff.getPower());
                         buff.setPower(4);
                     }
+                    //
                     if (((buff.getType().equals(BuffType.WEAKNESS)) || (buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) ||
                             (buff.getType().equals(BuffType.ON_SPAWN_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
                              && buff.getTurnCount() !=0) {
