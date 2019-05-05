@@ -635,7 +635,7 @@ public class Battle {
                             Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
                                     card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
                             if (target != null) {
-                                target.addToBuffs(card.getBuffs().get(0));
+                                targetCard.setAssaultPower(card.getAssaultPower() + buff.getPower());
                                 target.addToBuffs(card.getBuffs().get(1));
                             }
                         }
@@ -808,6 +808,9 @@ public class Battle {
                     if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() != 0) {
                         card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                     }
+                    if(buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0){
+                        card.setAssaultPower(card.getOriginalAssaultPower());
+                    }
                     //
                     if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
                         card.modifyHealth(buff.getPower());
@@ -839,12 +842,6 @@ public class Battle {
                         card.setIsHoly(0);
                     }
                     if (buff.getType().equals(BuffType.JEN_JOON)) {
-                        card.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                    }
-                    if (buff.getType().equals(BuffType.BWITCH) && buff.getTurnCount() == 0) {
-                        card.setAssaultPower(card.getOriginalAssaultPower());
-                    }
-                    if (buff.getType().equals(BuffType.BWITCH) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
                         card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                     }
                     if (buff.getTurnCount() == 0) {
