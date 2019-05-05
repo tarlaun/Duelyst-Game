@@ -16,6 +16,9 @@ public class Controller {
 
     }
 
+    public static Controller getInstance() {
+        return controller;
+    }
 
     public void main() {
         Request request = new Request();
@@ -116,9 +119,11 @@ public class Controller {
                 break;
             case USE_SP:
                 specialPowerValidation();
-                if(battle.validSpecialPower().equals(null)){
+/*
+                if (battle.validSpecialPower().equals(null)) {
                     useSpecialPower(request);
                 }
+*/
                 break;
             case SHOW_HAND:
                 showHand();
@@ -222,10 +227,15 @@ public class Controller {
     public void searchInCollection(Request request) {
         if (request.checkSearchSyntax()) {
             if (menu.getStat() == MenuStat.COLLECTION || menu.getStat() == MenuStat.SHOP) {
-                view.printId(Card.getAllCardsId(request.getObjectName(request.getCommand()),
-                        this.account.getCollection().getCards().toArray(Card[]::new)).toArray(Card[]::new));
-                view.printId(Item.getAllItemsId(request.getObjectName(request.getCommand()),
-                        this.account.getCollection().getItems().toArray(Item[]::new)).toArray(Item[]::new));
+                String name = request.getObjectName(request.getCommand());
+                view.printId(Card.getAllCardsId(name, account.getCollection().getCards()
+                        .toArray(new Card[account.getCollection().getCards().size()]))
+                        .toArray(new Card[Card.getAllCardsId(name, account.getCollection().getCards()
+                                .toArray(new Card[account.getCollection().getCards().size()])).size()]));
+                view.printId(Item.getAllItemsId(name, account.getCollection().getItems()
+                        .toArray(new Item[account.getCollection().getItems().size()]))
+                        .toArray(new Item[Item.getAllItemsId(name, account.getCollection().getItems()
+                                .toArray(new Item[account.getCollection().getItems().size()])).size()]));
             }
         }
     }
@@ -288,10 +298,9 @@ public class Controller {
             if (menu.getStat() == MenuStat.COLLECTION) {
                 searchInCollection(request);
             } else if (menu.getStat() == MenuStat.SHOP) {
-                Card card = Card.getCardByName(request.getObjectName(request.getCommand()),
-                        shop.getCards().toArray(Card[]::new));
-                Item item = Item.getItemByName(request.getObjectName(request.getCommand()),
-                        shop.getItems().toArray(Item[]::new));
+                String name = request.getObjectName(request.getCommand());
+                Card card = Card.getCardByName(name, shop.getCards().toArray(new Card[shop.getCards().size()]));
+                Item item = Item.getItemByName(name, shop.getItems().toArray(new Item[shop.getItems().size()]));
                 if (card != null)
                     view.printId(card);
                 if (item != null)
@@ -354,13 +363,13 @@ public class Controller {
         if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int turn = battle.getTurnByAccount(account);
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()), battle.getFieldCards()[turn]);
-            Item item = Item.getItemByID(request.getObjectID(request.getCommand()), battle.getCollectables()[turn]);
+            Item item = Item.getItemByID(request.getObjectID(request.getCommand()), battle.getCollectibles()[turn]);
             if (card != null)
                 battle.selectCard(card.getId());
             else if (item != null)
                 battle.selectItem(item.getId());
             else
-                view.printUnsuccessfulSelection(battle.getCollectables()[turn].length);
+                view.printUnsuccessfulSelection(battle.getCollectibles()[turn].length);
         }
     }
 
@@ -421,7 +430,7 @@ public class Controller {
 
     public void showCollectables() {
         if (menu.getStat() == MenuStat.BATTLE) {
-            view.printCollectables(battle.getCollectables()[battle.getTurnByAccount(account)]);
+            view.printCollectables(battle.getCollectibles()[battle.getTurnByAccount(account)]);
         }
     }
 
@@ -445,10 +454,12 @@ public class Controller {
         }
     }
 
-    public void specialPowerValidation(){
-        if (menu.getStat() == MenuStat.BATTLE){
+    public void specialPowerValidation() {
+/*
+        if (menu.getStat() == MenuStat.BATTLE) {
             view.specialPowerValidation(battle.validSpecialPower());
         }
+*/
     }
 
     public void showCards() {

@@ -42,6 +42,18 @@ public class Battle {
         return battle;
     }
 
+    public Item[][] getCollectibles() {
+        return collectibles;
+    }
+
+    public boolean isAttackMode() {
+        return attackMode;
+    }
+
+    public boolean isOnSpawn() {
+        return isOnSpawn;
+    }
+
     public Battle(Account[] accounts, GameType gameType, BattleMode mode) {
         this.accounts = accounts;
         this.gameType = gameType;
@@ -947,7 +959,7 @@ public class Battle {
     }
 
     public boolean useHeroSP(Hero hero, Coordinate target) {
-        if(!spendMana(hero.getPrice())){
+        if (!spendMana(hero.getPrice())) {
             return false;
         }
         for (Buff buff :
