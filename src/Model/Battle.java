@@ -31,9 +31,15 @@ public class Battle {
     private ArrayList<Flag> flagsOnTheGround = new ArrayList<>();
     private int flagsAppeared = 0;
     private Flag mainFlag = new Flag();
+    private static final Battle battle = new Battle();
+    private boolean attackMode;
+    private boolean isOnSpawn;
+
+    private Battle() {
+    }
 
     public static Battle getInstance() {
-        return this;
+        return battle;
     }
 
     public Battle(Account[] accounts, GameType gameType, BattleMode mode) {
@@ -834,13 +840,13 @@ public class Battle {
                 if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
                     card.setAssaultPower(card.getOriginalAssaultPower());
                 }
-                if(buff.getType().equals(BuffType.JEN_JOON)){
+                if (buff.getType().equals(BuffType.JEN_JOON)) {
                     card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                 }
-                if ((buff.getType().equals(BuffType.CHAMPION)||(buff.getType().equals(BuffType.BWITCH)))  && buff.getTurnCount() == 0) {
+                if ((buff.getType().equals(BuffType.CHAMPION) || (buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() == 0) {
                     card.setAssaultPower(card.getOriginalAssaultPower());
                 }
-                if ((buff.getType().equals(BuffType.CHAMPION)||(buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
+                if ((buff.getType().equals(BuffType.CHAMPION) || (buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
                     card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                 }
                 if (buff.getTurnCount() == 0) {
@@ -955,7 +961,6 @@ public class Battle {
                         case ON_ATTACK:
                             applyBuff(buff, targetCard);
                             return true;
-                            break;
                         default:
                             switch (buff.getEffectArea().get(0).getX()) {
                                 case -1:
