@@ -815,7 +815,7 @@ public class Battle {
                     }
                     if (((buff.getType().equals(BuffType.WEAKNESS)) || (buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) ||
                             (buff.getType().equals(BuffType.ON_SPAWN_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
-                            && buff.getTargetType().equals("HEALTH") && buff.getTurnCount() == 1) {
+                             && buff.getTurnCount() !=0) {
                         targetCard.modifyHealth(buff.getPower());
                     }
                     if (buff.getActivationType().equals(ActivationType.PASSIVE)) {
