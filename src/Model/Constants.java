@@ -26,4 +26,5 @@ public class Constants {
     static final int randomXGenerator = 2;
     static final int randomYGenerator = 4;
     static final int shiftColumn = 6;
+    static final int initialBudget = 15000;
 }

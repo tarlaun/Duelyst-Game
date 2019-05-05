@@ -42,5 +42,6 @@ public enum RequestType {
     NEXT_CARD,
     SHOW_CARDS,
     END_GAME,
-    SHOW_MENU
+    SHOW_MENU,
+    NULL
 }

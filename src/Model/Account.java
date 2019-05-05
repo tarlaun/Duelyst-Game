@@ -9,7 +9,7 @@ public class Account {
     private String name;
     private int id;
     private String password;
-    private int budget;
+    private int budget = Constants.initialBudget;
     private ArrayList<Match> matchHistory = new ArrayList<>();
     private Collection collection;
     private static Game game = Game.getInstance();
@@ -17,7 +17,7 @@ public class Account {
     private int wins = 0;
     private int mana;
     private int flagsCollected=0;
-    private Controller controller = Controller.getInstance();
+    private Menu menu = Menu.getInstance();
 
     public int getFlagsCollected() {
         return flagsCollected;
@@ -89,7 +89,7 @@ public class Account {
 
     public Account(String name, String password) {
         this.name = name;
-        this.password = encrypted(password);
+        this.password = password;
     }
 
     public boolean createAccount() {
@@ -97,15 +97,17 @@ public class Account {
             return false;
         this.id = game.getAccounts().size() + 1;
         game.getAccounts().add(this);
+        menu.setStat(MenuStat.ACCOUNT);
         return true;
     }
 
     public static Message login(String username, String password) {
-        if (accountIndex(username) != -1)
+        if (accountIndex(username) == -1)
             return Message.INVALID_ACCOUNT;
         if (!game.getAccounts().get(accountIndex(username)).password.equals(encrypted(password)))
             return Message.INVALID_PASSWORD;
-        return Message.ACCOUNT_CREATION;
+        Menu.getInstance().setStat(MenuStat.ACCOUNT);
+        return Message.SUCCESSFUL_LOGIN;
     }
 
     public String getName() {

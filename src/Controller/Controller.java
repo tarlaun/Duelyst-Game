@@ -3,6 +3,8 @@ package Controller;
 import Model.*;
 import View.*;
 
+import java.io.IOException;
+
 public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
@@ -21,10 +23,17 @@ public class Controller {
     }
 
     public void main() {
+        try {
+            game.initializeAccounts();
+        } catch (Exception e){
+        }
         Request request = new Request();
         while (true) {
             request.getNewCommand();
             switch (request.getType()) {
+                case NULL:
+                    invalidCommand();
+                    break;
                 case CREATE_ACCOUNT:
                     createAccount(request);
                     break;
@@ -160,19 +169,24 @@ public class Controller {
         }
     }
 
+    private void invalidCommand() {
+        view.printInvalidCommand();
+    }
+
     public void createAccount(Request request) {
         if (request.checkAccountCreationSyntax() && menu.getStat() == MenuStat.MAIN) {
-            String username = request.getCommand();
+            String username = request.getAccountName(request.getCommand());
             view.passwordInsertion();
             String password = request.getNewCommand();
             Account account = new Account(request.getAccountName(username), request.getPassword(password));
+            this.account = account;
             view.accountCreation(account.createAccount());
         }
     }
 
     public void login(Request request) {
         if (request.checkLoginSyntax() && menu.getStat() == MenuStat.MAIN) {
-            String username = request.getCommand();
+            String username = request.getAccountName(request.getCommand());
             view.passwordInsertion();
             String password = request.getNewCommand();
             view.login(Account.login(request.getAccountName(username), request.getPassword(password)));
@@ -187,12 +201,14 @@ public class Controller {
 
     public void save() {
         if (menu.getStat() == MenuStat.ACCOUNT) {
-
+            game.save(account);
         }
     }
 
     public void logout() {
         if (menu.getStat() == MenuStat.ACCOUNT) {
+            game.logout(account);
+            this.account = null;
             view.logout();
         }
     }

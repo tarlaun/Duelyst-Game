@@ -67,11 +67,7 @@ public class Request {
     }
 
     public boolean checkLoginSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.LOGIN.ordinal()]);
-    }
-
-    public boolean checkLogoutSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.LOGOUT.ordinal()]);
+        return this.getCommand().matches(this.getStrings()[RequestType.LOGIN.ordinal()] + "\\w+");
     }
 
     public boolean checkMenuEntrnaceSyntax() {
@@ -175,7 +171,7 @@ public class Request {
 
             }
         }
-        return null;
+        return RequestType.NULL;
     }
 
     public String getCommand() {

@@ -8,10 +8,6 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class View {
-    private Scanner scanner = new Scanner(System.in);
-    private Request request;
-    private ArrayList<String> printedMessages = new ArrayList<>();
-    private Message Message;
     private static final View view = new View();
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
@@ -381,5 +377,9 @@ public class View {
     }
 
     public void endGame(Battle battle) {
+    }
+
+    public void printInvalidCommand() {
+        System.out.println("INVALID COMMAND");
     }
 }

@@ -2,7 +2,13 @@ package Model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import jdk.nashorn.internal.parser.JSONParser;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +21,7 @@ public class Game {
     private static final Game SINGLETON_CLASS = new Game();
     private GameType gameType;
     private BattleMode mode;
+    private Menu menu = Menu.getInstance();
 
     private Game() {
 
@@ -71,7 +78,7 @@ public class Game {
     }
 
     public boolean logout(Account account) {
-        //:???
+        menu.setStat(MenuStat.MAIN);
         return true;
     }
 
@@ -85,11 +92,35 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        menu.setStat(MenuStat.MAIN);
     }
 
     public void sortAccounts() {
         Comparator<Account> compareById = Comparator.comparingInt(Account::getWins);
         accounts.sort(compareById.reversed());
 
+    }
+
+    public void initializeAccounts() throws Exception {
+        File dir = new File("./");
+        if (dir.exists()) {
+            if (dir.isDirectory()) {
+                for (File file : dir.listFiles()) {
+                    if (file.isFile()) {
+                        Gson gson = new Gson();
+                        System.out.println(file.getName());
+                        JsonObject jsonObject = (JsonObject) readJson(file.getName());
+                        Account account = gson.fromJson(jsonObject, Account.class);
+                        accounts.add(account);
+                    }
+                }
+            }
+        }
+    }
+
+    private Object readJson(String filename) throws Exception {
+        FileReader reader = new FileReader(filename);
+        JsonParser jsonParser = new JsonParser();
+        return jsonParser.parse(reader);
     }
 }
