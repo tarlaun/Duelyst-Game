@@ -15,6 +15,7 @@ public class Game {
     private static final Game SINGLETON_CLASS = new Game();
     private GameType gameType;
     private BattleMode mode;
+
     private Game() {
 
     }
@@ -47,18 +48,18 @@ public class Game {
         this.mode = mode;
     }
 
-    private ArrayList<Account> getLoggedInAccounts(){
-        for (Account account:
-            accounts ) {
-            if(account.isLoggedIn()){
+    private ArrayList<Account> getLoggedInAccounts() {
+        for (Account account :
+                accounts) {
+            if (account.isLoggedIn()) {
                 loggedInAccounts.add(account);
             }
         }
         return loggedInAccounts;
     }
 
-    public void createBattle(){
-        Battle battle = new Battle(loggedInAccounts.toArray(Account[]::new), gameType, mode );
+    public void createBattle() {
+        Battle battle = new Battle(loggedInAccounts.toArray(new Account[loggedInAccounts.size()]), gameType, mode);
     }
 
     public ArrayList<Account> getAccounts() {
@@ -86,7 +87,7 @@ public class Game {
         }
     }
 
-    public void sortAccounts(){
+    public void sortAccounts() {
         Comparator<Account> compareById = Comparator.comparingInt(Account::getWins);
         accounts.sort(compareById.reversed());
 
