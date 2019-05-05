@@ -1020,8 +1020,14 @@ public class Battle {
     }
 
     public boolean useHeroSP(Hero hero, Coordinate target) {
+        if(!spendMana(hero.getPrice())){
+            return false;
+        }
         for (Buff buff :
                 hero.getBuffs()) {
+            if (!spellIsReady(buff)) {
+                return false;
+            }
             switch (buff.getSide()) {
                 case COMRADE:
                     if (buff.getTargetType().equals("Hero")) {
