@@ -149,8 +149,13 @@ public class Collection {
     public void deleteFromAllDecks(int id) {
         for (Deck deck : decks) {
             deck.getCards().remove(Card.getCardByID(id, deck.getCards().toArray(new Card[deck.getCards().size()])));
-            if (deck.getItem().getId() == id)
-                deck.setItem(null);
+            try {
+                if (deck.getItem().getId() == id)
+                    deck.setItem(null);
+
+            } catch (NullPointerException e) {
+
+            }
         }
     }
 }

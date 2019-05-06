@@ -149,8 +149,8 @@ public class Game {
                             continue;
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Account account = new Gson().fromJson(reader, Account.class);
-                        accountObjectInitializer(account);
                         accounts.add(account);
+                        accountObjectInitializer(account);
                     }
                 }
             }
