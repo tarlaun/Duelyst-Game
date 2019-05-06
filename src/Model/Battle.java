@@ -976,12 +976,6 @@ public class Battle {
 
     }
 
-    public boolean useItem(Item item) {
-        if (menu.getStat() != MenuStat.ITEM_SELECTION)
-            return false;
-        return true;
-    }
-
     public void enterGraveyard() {
         menu.setStat(MenuStat.GRAVEYARD);
     }
@@ -1452,6 +1446,7 @@ public class Battle {
         }
         return card.getCoordinate();
     }
+
     //collectFlag
     private Coordinate setDestinationCoordinationModeThree(Card card) {
         int leastDistance = 15;
@@ -1677,7 +1672,7 @@ public class Battle {
         return 1;
     }
 
-    public void useItem(Item item, Card targetCard) {
+    public void useItem(Item item) {
         for (ItemBuff buff : item.getBuffs()) {
             if (buff.getTargetCard().equals("Account")) {
                 applyItem(buff, targetCard);
@@ -1696,16 +1691,18 @@ public class Battle {
                             }
                             break;
                         case ON_SPAWN:
-                            if (isOnSpawn)
+                            if (isOnSpawn) {
                                 applyItem(buff, targetCard);
+                            }
                             break;
                         case ON_DEFENCE:
                             if (currentCard.isClass(buff.getCasterCard()) && !attackMode) {
                                 applyItem(buff, targetCard);
                             }
                         case ON_DEATH:
-                            if (currentCard.isClass(buff.getCasterCard()) && currentCard.getHealthPoint() <= 0)
+                            if (currentCard.isClass(buff.getCasterCard()) && currentCard.getHealthPoint() <= 0) {
                                 applyItem(buff, targetCard);
+                            }
                             break;
                         case UNDEFINED:
                             applyItem(buff, targetCard);
