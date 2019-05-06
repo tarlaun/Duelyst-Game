@@ -17,6 +17,7 @@ public class Gson_IO {
     public static void main(String[] args) throws IOException {
         gsonGenerator(new File("src/Spells"), "Spell");
         gsonGenerator(new File("src/Items"), "Item");
+        gsonGenerator(new File("src/Heroes"), "Hero");
         gsonGenerator(new File("src/Minions"), "Minion");
     }
 
@@ -40,18 +41,15 @@ public class Gson_IO {
                     writer(path + "Items/" + item.getName() + ".json", json);
                     break;
                 case "Minion":
-                    System.out.println("\n" + name);
                     Minion minion = new Minion(info);
-                    gson.toJson(minion, System.out);
                     json = gson.toJson(minion);
-                    writer(   path + "Cards/Minions/"+ minion.getName() + ".json", json);
+                    writer(path + "Cards/Minions/" + minion.getName() + ".json", json);
 
                     break;
                 case "Hero":
                     Hero hero = new Hero(info);
-                    gson.toJson(hero, System.out);
                     json = gson.toJson(hero);
-                    writer(path + "Cards/Heroes/" + hero.getName() + ".json", json);
+                    writer(hero.getName() + ".json", json);
                     break;
             }
             index++;

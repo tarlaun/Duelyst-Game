@@ -1,24 +1,30 @@
 {
+  "cooldown": 0,
   "id": 0,
-  "name": "Empower",
-  "maxPossibleMoving": -1,
-  "price": 250,
-  "healthPoint": -1,
+  "name": "RAKHSH",
+  "maxPossibleMoving": 2,
+  "price": 8000,
+  "healthPoint": 50,
   "minRange": -1,
   "maxRange": -1,
-  "assaultPower": -1,
-  "originalAssaultPower": -1,
-  "assaultType": "NULL",
+  "assaultPower": 4,
+  "originalAssaultPower": 4,
+  "assaultType": "MELEE",
   "buffs": [
     {
-      "type": "HIT_POWER",
-      "power": 2,
+      "type": "STUN",
+      "power": -1,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
-      "side": "COMRADE",
-      "effectArea": []
+      "turnCount": 1,
+      "side": "ENEMY",
+      "effectArea": [
+        {
+          "x": 2,
+          "y": 0
+        }
+      ]
     }
   ],
   "castedBuffs": [],

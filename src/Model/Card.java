@@ -98,7 +98,7 @@ public class Card {
                 this.buffs.add(new Buff(info[MainInfoOrder.BUFF.ordinal()]));
             }
         } else {
-            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length - 1; i++) {
+            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length ; i++) {
                 this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
             }
         }
@@ -176,8 +176,13 @@ public class Card {
 
     public static Card getCardByID(int id, Card... cards) {
         for (Card card : cards) {
-            if (card.getId() == id) {
-                return card;
+            try {
+                if (card.getId() == id) {
+                    return card;
+                }
+
+            } catch (NullPointerException e) {
+                System.out.println("You failed!");
             }
         }
         return null;

@@ -53,8 +53,18 @@ public class Shop {
             return Message.OBJECT_NOT_FOUND;
         }
 
-        if (account.getBudget() < cards.get(search(objectName)).getPrice()) {
-            return Message.INSUFFICIENCY;
+        try {
+            if (account.getBudget() < cards.get(cards.indexOf(Card.getCardByID(search(objectName),
+                    cards.toArray(new Card[cards.size()])))).getPrice()) {
+                return Message.INSUFFICIENCY;
+            }
+
+            if (account.getBudget() < items.get(items.indexOf(Item.getItemByID(search(objectName),
+                    items.toArray(new Item[items.size()])))).getPrice()) {
+                return Message.INSUFFICIENCY;
+            }
+        } catch (IndexOutOfBoundsException e) {
+
         }
         if (account.getCollection().getItems().size() == 3) {
             return Message.MAXIMUM_ITEM_COUNT;

@@ -18,12 +18,17 @@
       "activationType": "UNDEFINED",
       "turnCount": 1000000,
       "side": "COMRADE",
-      "effectArea": [
-        {
-          "x": 0,
-          "y": 0
-        }
-      ]
+      "effectArea": []
+    },
+    {
+      "type": "HIT_POWER",
+      "power": 8,
+      "targetType": "Minion",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 1000000,
+      "side": "COMRADE",
+      "effectArea": []
     }
   ],
   "castedBuffs": [],

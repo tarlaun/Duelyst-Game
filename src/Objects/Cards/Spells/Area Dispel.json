@@ -63,6 +63,16 @@
           "y": 1
         }
       ]
+    },
+    {
+      "type": "HIT_POWER",
+      "power": 2,
+      "targetType": "Card",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 1000000,
+      "side": "COMRADE",
+      "effectArea": []
     }
   ],
   "castedBuffs": [],

@@ -102,8 +102,10 @@ public class Buff {
         this.activationType = ActivationType.valueOf(info[BuffInfoOrder.ACTIVATION_TYPE.ordinal()]);
         this.turnCount = Integer.parseInt(info[BuffInfoOrder.TURN_COUNT.ordinal()]);
         this.side = Side.valueOf(info[BuffInfoOrder.SIDE.ordinal()]);
-        for (int i = BuffInfoOrder.EFFECT_AREA.ordinal(); i < info.length; i += 2) {
-            this.effectArea.add(new Coordinate(Integer.parseInt(info[i]), Integer.parseInt(info[i + 1])));
+        if(info.length>9) {
+            for (int i = BuffInfoOrder.EFFECT_AREA.ordinal(); i < info.length-1; i += 2) {
+                this.effectArea.add(new Coordinate(Integer.parseInt(info[i]), Integer.parseInt(info[i + 1])));
+            }
         }
     }
 
