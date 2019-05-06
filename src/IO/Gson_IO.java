@@ -44,8 +44,8 @@ public class Gson_IO {
                     Minion minion = new Minion(info);
                     gson.toJson(minion, System.out);
                     json = gson.toJson(minion);
-                    writer(  minion.getName() + ".json", json);
-                    //path + "Cards/Minions/"
+                    writer(   path + "Cards/Minions/"+ minion.getName() + ".json", json);
+
                     break;
                 case "Hero":
                     Hero hero = new Hero(info);
