@@ -195,8 +195,6 @@ public class Controller {
             view.passwordInsertion();
             String password = request.getNewCommand();
             view.login(Account.login(request.getAccountName(username), request.getPassword(password)));
-            if (Account.login(request.getAccountName(username), request.getPassword(password)) == Message.SUCCESSFUL_LOGIN)
-                this.account = game.getAccounts().get(Account.accountIndex(username));
         }
     }
 
@@ -225,7 +223,9 @@ public class Controller {
     }
 
     public void enter(Request request) {
+        System.out.println("PLZ");
         if (request.checkMenuEntrnaceSyntax()) {
+            System.out.println("Schwifty!");
             switch (request.getMenu(request.getCommand())) {
                 case "Exit":
                     exit();
@@ -234,6 +234,7 @@ public class Controller {
                     help();
                     break;
                 default:
+                    System.out.println(request.getMenu(request.getCommand()));
                     menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
             }
         }
