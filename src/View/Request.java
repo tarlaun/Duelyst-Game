@@ -76,6 +76,10 @@ public class Request {
     }
 
     public boolean checkSearchSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH.ordinal()] + "\\w+");
+    }
+
+    public boolean checkSearchTheCollectionSyntax() {
         return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()] + "\\w+");
     }
 
@@ -120,11 +124,6 @@ public class Request {
 
     public boolean checkCardSelectionSyntax() {
         return this.getCommand().matches(this.getStrings()[RequestType.SELECTION.ordinal()] + "\\d+");
-
-    }
-
-    public boolean checkCollectionSearchSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()] + "\\w+");
 
     }
 

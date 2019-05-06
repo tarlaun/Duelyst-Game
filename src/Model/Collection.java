@@ -135,11 +135,12 @@ public class Collection {
     }
 
     public boolean selectDeck(String deckName) {
-        mainDeck = decks.get(deckExistance(deckName));
-        if (mainDeck != null) {
+        try {
+            mainDeck = decks.get(deckExistance(deckName));
             return true;
+        } catch (ArrayIndexOutOfBoundsException e){
+            return false;
         }
-        return false;
     }
 
 }

@@ -250,8 +250,8 @@ public class Controller {
 
 
     public void searchInCollection(Request request) {
-        if (request.checkSearchSyntax()) {
-            if (menu.getStat() == MenuStat.COLLECTION || menu.getStat() == MenuStat.SHOP) {
+        if (request.checkSearchTheCollectionSyntax()) {
+            if (menu.getStat() == MenuStat.COLLECTION) {
                 String name = request.getObjectName(request.getCommand());
                 view.printId(Card.getAllCardsId(name, account.getCollection().getCards()
                         .toArray(new Card[account.getCollection().getCards().size()]))
