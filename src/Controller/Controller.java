@@ -32,6 +32,18 @@ public class Controller {
         } catch (Exception e) {
 
         }
+        try{
+            game.initializeHero();
+
+        }catch (Exception e){
+
+        }
+        try{
+            game.initializeMinion();
+
+        }catch (Exception e){
+
+        }
         Request request = new Request();
         while (true) {
             request.getNewCommand();

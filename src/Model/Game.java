@@ -110,6 +110,34 @@ public class Game {
             }
         }
     }
+    public void initializeHero() throws Exception {
+        File dir = new File("./src/Objects/Cards/Heroes");
+        if (dir.exists()) {
+            if (dir.isDirectory()) {
+                for (File file : dir.listFiles()) {
+                    if (file.isFile()) {
+                        BufferedReader reader = new BufferedReader(new FileReader(file));
+                        Hero hero = new Gson().fromJson(reader, Hero.class);
+                        shop.getCards().add(hero);
+                    }
+                }
+            }
+        }
+    }
+    public void initializeMinion() throws Exception {
+        File dir = new File("./src/Objects/Cards/Minions");
+        if (dir.exists()) {
+            if (dir.isDirectory()) {
+                for (File file : dir.listFiles()) {
+                    if (file.isFile()) {
+                        BufferedReader reader = new BufferedReader(new FileReader(file));
+                        Minion minion = new Gson().fromJson(reader, Minion.class);
+                        shop.getCards().add(minion);
+                    }
+                }
+            }
+        }
+    }
 
     public void initializeSpell() throws Exception {
         File dir = new File("./src/Objects/Cards/Spells");
