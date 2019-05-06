@@ -3,8 +3,6 @@ package Controller;
 import Model.*;
 import View.*;
 
-import java.io.IOException;
-
 public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
@@ -244,9 +242,7 @@ public class Controller {
     }
 
     public void showTheCollection() {
-        System.out.println("hallelujah");
         if (menu.getStat() == MenuStat.SHOP) {
-            System.out.println("Huchi: " + this.account.getCollection().getCards().size());
             view.printCollection(this.account.getCollection(), true);
         }
     }
