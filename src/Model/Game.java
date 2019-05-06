@@ -240,6 +240,20 @@ public class Game {
         }
     }
 
-
+    public void initializeItem() throws Exception {
+        File dir = new File("./src/Objects/Items");
+        if (dir.exists()) {
+            if (dir.isDirectory()) {
+                for (File file : dir.listFiles()) {
+                    if (file.isFile()) {
+                        BufferedReader reader = new BufferedReader(new FileReader(file));
+                        Item item = new Gson().fromJson(reader, Item.class);
+                        item.setId(++lastItemId);
+                        shop.getItems().add(item);
+                    }
+                }
+            }
+        }
+    }
 
 }

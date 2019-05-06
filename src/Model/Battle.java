@@ -606,11 +606,11 @@ public class Battle {
         return true;
     }
 
-    public Message validSpecialPower(Coordinate coordinate) {
+    public Message validSpecialPower() {
 
-        if (getField(coordinate.getX(), coordinate.getY()).getCardID() == 0)
+        if (getField(currentCoordinate.getX(), currentCoordinate.getY()).getCardID() == 0)
             return Message.INVALID_TARGET;
-        Card card = Card.getCardByID(getField(coordinate.getX(), coordinate.getY()).getCardID(), fieldCards[turn % 2]);
+        Card card = Card.getCardByID(getField(currentCoordinate.getX(), currentCoordinate.getY()).getCardID(), fieldCards[turn % 2]);
         if (card == null)
             return Message.OBJECT_NOT_FOUND;
         if (card.getBuffs().size() == 0) {
@@ -664,6 +664,14 @@ public class Battle {
     }
 
     private void useSpecialPower(Card card, Buff buff) {
+        if (card instanceof Hero) {
+            useHeroSP((Hero) card, currentCoordinate);
+            return;
+        }
+        if (card instanceof Spell) {
+            useSpell((Spell) card, currentCoordinate);
+            return;
+        }
         int r;
         switch (buff.getType()) {
             case HOLY:
@@ -1663,7 +1671,7 @@ public class Battle {
         }
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public int getTurnByAccount(Account account) {
         if (this.accounts[0].getId() == account.getId())
             return 0;
@@ -1741,5 +1749,11 @@ public class Battle {
 
     public void selectItem(int id) {
 
+    }
+
+    public void endGame() {
+        if (!checkForWin()) {
+            resign();
+        }
     }
 }
