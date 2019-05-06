@@ -165,8 +165,13 @@ public class Card {
 
     public static Card getCardByID(int id, Card... cards) {
         for (Card card : cards) {
-            if (card.getId() == id) {
-                return card;
+            try {
+                if (card.getId() == id) {
+                    return card;
+                }
+
+            } catch (NullPointerException e) {
+                System.out.println("You failed!");
             }
         }
         return null;

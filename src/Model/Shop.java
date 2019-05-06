@@ -71,7 +71,6 @@ public class Shop {
         }
         Card card = Card.getCardByID(search(objectName), cards.toArray(new Card[cards.size()]));
         if (card != null) {
-            System.out.println("Card is not null");
             account.getCollection().getCards().add(card);
             account.modifyAccountBudget(-card.getPrice());
         }

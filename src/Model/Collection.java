@@ -18,7 +18,6 @@ public class Collection {
     }
 
 
-
     public Collection(ArrayList<Card> cards, ArrayList<Item> items) {
         this.cards = cards;
         this.items = items;
@@ -60,19 +59,26 @@ public class Collection {
 
     public Message add(String deckName, int objectID) {
         if (deckExistance(deckName) != -1) {
+            System.out.println("DeckName: " + deckName + " id: " + objectID);
             Deck deck = decks.get(deckExistance(deckName));
+            System.out.println("Name e deck: " + deck.getName());
             Card card = Card.getCardByID(objectID, this.cards.toArray(new Card[cards.size()]));
+            for (Card card2 : deck.getCards()) {
+                System.out.println("Name: " + card2.getName() + "id: " + card2.getId());
+            }
             if (card != null) {
-                if (Card.getCardByID(objectID, deck.getCards().toArray(new Card[cards.size()])) == null) {
+                System.out.println("Prev");
+                if (Card.getCardByID(objectID, deck.getCards().toArray(new Card[deck.getCards().size()])) == null) {
+                    System.out.println("next");
                     if (card instanceof Hero && deck.getHero() == null) {
-                        deck.setHero((Hero) Card.getCardByID(objectID));
+                        deck.setHero((Hero) Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
                         return Message.OBJECT_ADDED;
                     } else if (deck.getHero() != null) {
                         return Message.MAXIMUM_HERO_COUNT;
                     }
                     if ((card instanceof Spell || Card.getCardByID(objectID) instanceof Minion)
                             && deck.getCards().size() < 20) {
-                        deck.getCards().add(Card.getCardByID(objectID));
+                        deck.getCards().add(Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
                         return Message.OBJECT_ADDED;
                     } else if (deck.getCards().size() == 20) {
                         return Message.FULL_DECK;
@@ -83,7 +89,7 @@ public class Collection {
             Item item = Item.getItemByID(objectID, this.items.toArray(new Item[items.size()]));
             if (item != null) {
                 if (Item.getItemByID(objectID) != null && deck.getItem() == null) {
-                    deck.setItem(Item.getItemByID(objectID));
+                    deck.setItem(Item.getItemByID(objectID, this.getItems().toArray(new Item[this.getItems().size()])));
                     return Message.OBJECT_ADDED;
                 } else if (deck.getItem() != null) {
                     return Message.MAXIMUM_ITEM_COUNT;
@@ -138,7 +144,7 @@ public class Collection {
         try {
             mainDeck = decks.get(deckExistance(deckName));
             return true;
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             return false;
         }
     }

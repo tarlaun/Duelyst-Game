@@ -94,7 +94,8 @@ public class Account {
     public boolean createAccount() {
         if (accountIndex(this.name) != -1)
             return false;
-        this.id = game.getAccounts().size() + 1;
+        this.id = game.getLastAccountId() + 1;
+        game.incrementAccountId();
         game.getAccounts().add(this);
         menu.setStat(MenuStat.ACCOUNT);
         return true;
@@ -104,7 +105,6 @@ public class Account {
         if (accountIndex(username) == -1)
             return Message.INVALID_ACCOUNT;
         if (!game.getAccounts().get(accountIndex(username)).password.equals(password)) {
-            System.out.println("yours: " + password + "  theirs: " + game.getAccounts().get(accountIndex(username)).password);
             return Message.INVALID_PASSWORD;
         }
         Menu.getInstance().setStat(MenuStat.ACCOUNT);
