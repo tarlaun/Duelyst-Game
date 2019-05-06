@@ -15,12 +15,57 @@ public class Game {
     private BattleMode mode;
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
+    private int lastSpellId = Constants.spellId;
+    private int lastMinionId = Constants.minionId;
+    private int lastHeroId = Constants.heroId;
+    private int lastItemId = Constants.itemId;
+    private int lastAccountId = Constants.accoutnId;
 
     private Game() {
 
     }
 
-    public void setAccounts(ArrayList<Account> accounts) {
+    public int getLastSpellId() {
+        return lastSpellId;
+    }
+
+    public void incrementSpellId() {
+        this.lastSpellId++;
+    }
+
+    public int getLastMinionId() {
+        return lastMinionId;
+    }
+
+    public void incrementMinionId() {
+        this.lastMinionId++;
+    }
+
+    public int getLastHeroId() {
+        return lastHeroId;
+    }
+
+    public void incrementHeroId() {
+        this.lastHeroId++;
+    }
+
+    public int getLastItemId() {
+        return lastItemId;
+    }
+
+    public void incrementItemId() {
+        this.lastItemId++;
+    }
+
+    public int getLastAccountId() {
+        return lastAccountId;
+    }
+
+    public void incrementAccountId() {
+        this.lastAccountId++;
+    }
+
+    public void incrementSpellId(ArrayList<Account> accounts) {
         this.accounts = accounts;
     }
 
@@ -119,6 +164,7 @@ public class Game {
                     if (file.isFile()) {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Spell spell = new Gson().fromJson(reader, Spell.class);
+                        spell.setId(++lastSpellId);
                         shop.getCards().add(spell);
                     }
                 }
