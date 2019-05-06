@@ -205,10 +205,19 @@ public class Controller {
         if(request.checkMatchHistory()&& menu.getStat() == MenuStat.ACCOUNT){
             if(battle.getGameType() == GameType.SINGLE_PLAYER){
                 view.showMatchHistory(account.getMatchHistory(), battle.getLevel());
+            }else {
+                view.showMatchHistory(account.getMatchHistory(), getOpponentName(account));
             }
-
-            //view.showMatchHistory(account.getMatchHistory());
         }
+    }
+
+    public String getOpponentName(Account account){
+        for (int i = 0; i < battle.getAccounts().length ; i++) {
+            if(!battle.getAccounts()[i].getName().equals(account.getName())){
+                return battle.getAccounts()[i].getName();
+            }
+        }
+        return null;
     }
 
     public void login(Request request) {

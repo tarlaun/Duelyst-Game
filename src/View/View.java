@@ -50,6 +50,21 @@ public class View {
         }
     }
 
+    public void showMatchHistory(ArrayList<Match> matches,String name){
+        LocalDateTime time = LocalDateTime.now();
+        int hour = time.getHour();
+        int minutes = time.getMinute();
+        for (int i = 0; i < matches.size() ; i++) {
+            if(matches.get(i).getTime().getHour()== hour){
+                int mins = minutes - matches.get(i).getTime().getMinute();
+                System.out.println(i+" . OPPONENT:"+ name + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+ mins  );
+            }else {
+                int hours = hour - matches.get(i).getTime().getHour();
+                System.out.println(i+" . NAME:"+ name + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+hours  );
+            }
+        }
+    }
+
     public void login(Message message) {
         switch (message) {
             case INVALID_ACCOUNT:
