@@ -42,6 +42,11 @@ public class Controller {
         } catch (Exception e) {
 
         }
+        try {
+            game.initializeItem();
+        } catch (Exception e){
+
+        }
         Request request = new Request();
         while (true) {
             request.getNewCommand();
