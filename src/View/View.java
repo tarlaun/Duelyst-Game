@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
+import Model.*;
 
 public class View {
     private static final View view = new View();
@@ -106,20 +107,24 @@ public class View {
 
     public void printCollection(Collection collection, boolean isInShop) {
         System.out.println("Heroes :");
+        int index = 1;
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (collection.getCards().get(i) instanceof Hero) {
-                System.out.print(i + 1 + " : ");
+                System.out.print(index + " : ");
                 printNonSpellCard(collection.getCards().get(i));
                 if (isInShop)
                     System.out.println(collection.getCards().get(i).getPrice());
+                index++;
             }
         }
+        index = 1;
         System.out.println("Items :");
         for (int i = 0; i < collection.getItems().size(); i++) {
-            System.out.print(i + 1 + " : ");
+            System.out.print(index + " : ");
             printItem(collection.getItems().get(i));
             if (isInShop)
                 System.out.println(collection.getCards().get(i).getPrice());
+            index++;
         }
         System.out.println("Cards :");
         printCards(isInShop, collection.getCards().toArray(new Card[collection.getCards().size()]));
@@ -193,9 +198,10 @@ public class View {
     }
 
     private void printCards(boolean isInShop, Card... cards) {
+        int index = 1;
         for (int i = 0; i < cards.length; i++) {
             if (!(cards[i] instanceof Hero)) {
-                System.out.print(i + 1 + " : ");
+                System.out.print(index + " : ");
                 if (cards[i] instanceof Spell) {
                     System.out.print("Type : Spell - ");
                     printSpell((Spell) cards[i]);
@@ -205,6 +211,7 @@ public class View {
                 }
                 if (isInShop)
                     System.out.println(cards[i].getPrice());
+                index++;
 
             }
         }

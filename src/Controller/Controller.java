@@ -30,16 +30,16 @@ public class Controller {
         } catch (Exception e) {
 
         }
-        try{
+        try {
             game.initializeHero();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
-        try{
+        try {
             game.initializeMinion();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         Request request = new Request();
@@ -345,8 +345,8 @@ public class Controller {
 
     public void showDeck(Request request) {
         if (request.checkShowDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.printDeck(this.account.getCollection().getDecks().get(
-                    this.account.getCollection().deckExistance(request.getDeckName(request.getCommand()))));
+            Collection collection = this.account.getCollection();
+            view.printDeck(collection.getDecks().get(collection.deckExistance(request.getDeckName(request.getCommand()))));
         }
     }
 
