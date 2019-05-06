@@ -195,6 +195,7 @@ public class Controller {
             view.passwordInsertion();
             String password = request.getNewCommand();
             view.login(Account.login(request.getAccountName(username), request.getPassword(password)));
+
         }
     }
 
