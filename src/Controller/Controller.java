@@ -49,7 +49,7 @@ public class Controller {
                 case NULL:
                     invalidCommand();
                     break;
-                case SHOWMATCHHISTORY:
+                case SHOW_MATCH_HISTORY:
                     showMatchHistory(request);
                 case CREATE_ACCOUNT:
                     createAccount(request);
@@ -201,10 +201,23 @@ public class Controller {
         }
     }
 
-    public void showMatchHistory(Request request) {
-        if (request.checkMatchHistory() && menu.getStat() == MenuStat.ACCOUNT) {
-            view.showMatchHistory();
+    public void showMatchHistory(Request request){
+        if(request.checkMatchHistory()&& menu.getStat() == MenuStat.ACCOUNT){
+            if(battle.getGameType() == GameType.SINGLE_PLAYER){
+                view.showMatchHistory(account.getMatchHistory(), battle.getLevel());
+            }else {
+                view.showMatchHistory(account.getMatchHistory(), getOpponentName(account));
+            }
         }
+    }
+
+    public String getOpponentName(Account account){
+        for (int i = 0; i < battle.getAccounts().length ; i++) {
+            if(!battle.getAccounts()[i].getName().equals(account.getName())){
+                return battle.getAccounts()[i].getName();
+            }
+        }
+        return null;
     }
 
     public void login(Request request) {
