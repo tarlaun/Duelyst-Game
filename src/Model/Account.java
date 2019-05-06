@@ -101,7 +101,6 @@ public class Account {
     }
 
     public static Message login(String username, String password) {
-        System.out.println(game.getAccounts().size());
         if (accountIndex(username) == -1)
             return Message.INVALID_ACCOUNT;
         if (!game.getAccounts().get(accountIndex(username)).password.equals(encrypted(password)))
