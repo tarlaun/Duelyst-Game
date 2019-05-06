@@ -163,6 +163,7 @@ public class Game {
                     if (file.isFile()) {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Hero hero = new Gson().fromJson(reader, Hero.class);
+                        hero.setId(++lastHeroId);
                         shop.getCards().add(hero);
                     }
                 }
@@ -177,6 +178,7 @@ public class Game {
                     if (file.isFile()) {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Minion minion = new Gson().fromJson(reader, Minion.class);
+                        minion.setId(++lastMinionId);
                         shop.getCards().add(minion);
                     }
                 }
