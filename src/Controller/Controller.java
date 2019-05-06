@@ -225,9 +225,7 @@ public class Controller {
     }
 
     public void enter(Request request) {
-        System.out.println("PLZ");
         if (request.checkMenuEntrnaceSyntax()) {
-            System.out.println("Schwifty!");
             switch (request.getMenu(request.getCommand())) {
                 case "Exit":
                     exit();
@@ -236,7 +234,6 @@ public class Controller {
                     help();
                     break;
                 default:
-                    System.out.println(request.getMenu(request.getCommand()));
                     menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
             }
         }
@@ -247,8 +244,11 @@ public class Controller {
     }
 
     public void showTheCollection() {
-        if (menu.getStat() == MenuStat.SHOP)
+        System.out.println("hallelujah");
+        if (menu.getStat() == MenuStat.SHOP) {
+            System.out.println("Huchi: " + this.account.getCollection().getCards().size());
             view.printCollection(this.account.getCollection(), true);
+        }
     }
 
 
