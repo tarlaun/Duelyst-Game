@@ -12,31 +12,31 @@ public class Menu {
     private String[][] commands =
             {
                     {
-                            "create account [username]", "login [username]", "help", "exit", "show menu"
+                            "createAccount [username]", "login [username]", "help", "exit", "showMenu"
                     },
                     {
-                            "game", "logout", "save", "show leaderboard", "help", "exit", "show menu"
+                            "game", "logout", "save", "showLeaderboard", "help", "exit", "showMenu"
                     },
                     {
-                            "Enter [option name]", "help", "exit", "show menu"
+                            "Enter [option name]", "help", "exit", "showMenu"
                     },
                     {
-                            "search [card name|item name]", "save", "create deck [deck name]", "delete deck [deck name]",
-                            "add [card id|item id|hero id] from deck [deck name]", "Validate deck [deck name]",
-                            "remove [card id|item id|hero id] from deck [deck name]", "select deck [deck name]",
-                            "Show all decks", "show deck [deck name]", "show", "help", "exit", "show menu"
+                            "search [card name|item name]", "save", "createDeck [deck name]", "deleteDeck [deck name]",
+                            "add [card id|item id|hero id] from deck [deck name]", "validateDeck [deck name]",
+                            "remove [card id|item id|hero id] from deck [deck name]", "selectDeck [deck name]",
+                            "ShowAllDecks", "showDeck [deck name]", "show", "help", "exit", "showMenu"
                     },
                     {
-                            "search [card name|item name]", "search collection [item name|card name]", "show collection",
-                            "buy [card name|item name]", "sell [card id|item it]", "show", "help", "exit", "show menu"
+                            "search [card name|item name]", "searchCollection [item name|card name]", "showCollection",
+                            "buy [card name|item name]", "sell [card id|item it]", "show", "help", "exit", "showMenu"
                     },
                     {
-                            "Game info", "Show my minions", "Show opponent minions", "Show card info [card id]",
-                            "Select [card id]", "Move to ( [x] , [y] )", "Attack [opponent card id]", "Show hand",
-                            "Attack combo [opponent card id][my card id][my card id][...]", "Select [collectable id]",
-                            "Use special power ( [x] , [y] )", "Insert [card name] in ( [x] , [y] )", "End turn",
-                            "Show collectables", "Show info", "Use ( [x] , [y] )", "Show Next Card", "Enter graveyard",
-                            "Show info [card id]", "Show cards", "Help", "End Game", "help", "exit", "show menu"
+                            "GameInfo", "ShowMyMinions", "ShowOpponentMinions", "ShowCardInfo [card id]",
+                            "Select [card id]", "MoveTo( [x] , [y] )", "Attack [opponent card id]", "ShowHand",
+                            "AttackCombo [opponent card id][my card id][my card id][...]", "Select [collectable id]",
+                            "UseSpecialPower( [x] , [y] )", "Insert [card name] in ( [x] , [y] )", "EndTurn",
+                            "ShowCollectables", "ShowInfo", "Use( [x] , [y] )", "ShowNextCard", "Enter graveyard",
+                            "ShowInfo [card id]", "ShowCards", "Help", "EndGame", "help", "exit", "showMenu"
                     }
             };
     private String[][] options =
