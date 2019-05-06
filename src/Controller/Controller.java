@@ -146,11 +146,11 @@ public class Controller {
                     break;
                 case USE_SP:
                     specialPowerValidation();
-/*
+
                 if (battle.validSpecialPower().equals(null)) {
                     useSpecialPower(request);
                 }
-*/
+
                     break;
                 case SHOW_HAND:
                     showHand();
@@ -471,7 +471,7 @@ public class Controller {
 
     public void useSpecialPower(Request request) {
         if (request.checkSPUsageSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            Coordinate target = request.getCoordinate(request.getCommand());
+            battle.setCurrentCoordinate(request.getCoordinate(request.getCommand()));
 
         }
     }
@@ -523,11 +523,9 @@ public class Controller {
     }
 
     public void specialPowerValidation() {
-/*
         if (menu.getStat() == MenuStat.BATTLE) {
             view.specialPowerValidation(battle.validSpecialPower());
         }
-*/
     }
 
     public void showCards() {
