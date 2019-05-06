@@ -72,7 +72,6 @@ public class View {
     }
 
     public void printCollection(Collection collection, boolean isInShop) {
-        System.out.println("Size is:" + collection.getCards().size());
         System.out.println("Heroes :");
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (collection.getCards().get(i) instanceof Hero) {
@@ -99,7 +98,7 @@ public class View {
     }
 
     public void printBuff(Card card) {
-
+        System.out.println();
     }
 
     public void printItem(Item item) {
@@ -108,7 +107,7 @@ public class View {
     }
 
     public void printItemBuff(Item item) {
-
+        System.out.println();
     }
 
     public void printNonSpellCard(Card card) {
@@ -275,12 +274,24 @@ public class View {
     }
 
     public void printDeck(Deck deck) {
+        System.out.println("Name: " + deck.getName());
         System.out.println("Heroes :");
-        printNonSpellCard(deck.getHero());
+        try {
+            printNonSpellCard(deck.getHero());
+        } catch (NullPointerException e) {
+        }
         System.out.println("Items :");
-        printNonSpellCard(deck.getHero());
+        try {
+            printItem(deck.getItem());
+        } catch (NullPointerException e) {
+        }
         System.out.println("Cards :");
-        printCards(false, deck.getCards().toArray(new Card[deck.getCards().size()]));
+        try {
+            printCards(false, deck.getCards().toArray(new Card[deck.getCards().size()]));
+        } catch (NullPointerException e) {
+        }
+
+
     }
 
     public void printSellMessages(Boolean successful) {
