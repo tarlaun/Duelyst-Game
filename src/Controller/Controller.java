@@ -49,7 +49,7 @@ public class Controller {
                 case NULL:
                     invalidCommand();
                     break;
-                case SHOWMATCHHISTORY:
+                case SHOW_MATCH_HISTORY:
                     showMatchHistory(request);
                 case CREATE_ACCOUNT:
                     createAccount(request);

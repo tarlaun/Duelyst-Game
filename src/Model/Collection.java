@@ -67,13 +67,11 @@ public class Collection {
                 System.out.println("Name: " + card2.getName() + "id: " + card2.getId());
             }
             if (card != null) {
-                System.out.println("Prev");
                 if (Card.getCardByID(objectID, deck.getCards().toArray(new Card[deck.getCards().size()])) == null) {
-                    System.out.println("next");
                     if (card instanceof Hero && deck.getHero() == null) {
                         deck.setHero((Hero) Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
                         return Message.OBJECT_ADDED;
-                    } else if (deck.getHero() != null) {
+                    } else if (card instanceof Hero && deck.getHero() != null) {
                         return Message.MAXIMUM_HERO_COUNT;
                     }
                     if ((card instanceof Spell || Card.getCardByID(objectID) instanceof Minion)

@@ -72,7 +72,7 @@ public class Request {
     }
 
     public boolean checkMatchHistory(){
-        return this.getCommand().matches(this.getStrings()[RequestType.SHOWMATCHHISTORY.ordinal()]+ "\\s\\w");
+        return this.getCommand().matches(this.getStrings()[RequestType.SHOW_MATCH_HISTORY.ordinal()]+ "\\s\\w");
     }
 
     public boolean checkMenuEntrnaceSyntax() {
