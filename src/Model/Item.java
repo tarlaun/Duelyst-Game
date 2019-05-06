@@ -56,6 +56,9 @@ public class Item {
         this.price = price;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public static ArrayList<Item> getAllItemsId(String name, Item... items) {
         ArrayList<Item> output = new ArrayList<>();
