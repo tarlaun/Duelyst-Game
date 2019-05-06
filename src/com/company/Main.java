@@ -1,6 +1,7 @@
 package com.company;
 
 import Controller.Controller;
+import Model.Game;
 
 public class Main {
 
