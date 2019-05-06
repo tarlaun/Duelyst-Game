@@ -1,15 +1,15 @@
 {
   "id": 0,
-  "name": "BAPTISM",
-  "price": 20000,
+  "name": "RANDOM_DAMAGE",
+  "price": 0,
   "buffs": [
     {
-      "type": "HOLY",
-      "power": 1,
-      "turnsCount": 2,
-      "targetCard": "Minion",
+      "type": "HIT_POWER",
+      "power": 2,
+      "turnsCount": 1000000,
+      "targetCard": "Card",
       "side": "ALL",
-      "activationType": "ON_SPAWN",
+      "activationType": "UNDEFINED",
       "casterActivationType": "UNDEFINED",
       "casterCard": "Account",
       "rangeType": "ALL",

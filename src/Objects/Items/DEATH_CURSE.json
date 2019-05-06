@@ -1,17 +1,17 @@
 {
   "id": 0,
-  "name": "NOOSHDAAROO",
+  "name": "DEATH_CURSE",
   "price": 0,
   "buffs": [
     {
-      "type": "HEALTH_POWER",
-      "power": 6,
-      "turnsCount": 1000000,
+      "type": "POISON",
+      "power": 8,
+      "turnsCount": 0,
       "targetCard": "Card",
       "side": "ALL",
       "activationType": "UNDEFINED",
-      "casterActivationType": "UNDEFINED",
-      "casterCard": "Account",
+      "casterActivationType": "ON_DEATH",
+      "casterCard": "Minion",
       "rangeType": "ALL",
       "casterRangeType": "ALL"
     }

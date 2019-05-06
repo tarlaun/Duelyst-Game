@@ -1,15 +1,15 @@
 {
   "id": 0,
-  "name": "BAPTISM",
-  "price": 20000,
+  "name": "ULTRA_SHIELD",
+  "price": 4000,
   "buffs": [
     {
       "type": "HOLY",
-      "power": 1,
-      "turnsCount": 2,
-      "targetCard": "Minion",
-      "side": "ALL",
-      "activationType": "ON_SPAWN",
+      "power": 12,
+      "turnsCount": 0,
+      "targetCard": "Hero",
+      "side": "COMRADE",
+      "activationType": "UNDEFINED",
       "casterActivationType": "UNDEFINED",
       "casterCard": "Account",
       "rangeType": "ALL",

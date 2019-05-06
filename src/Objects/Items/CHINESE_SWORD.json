@@ -1,30 +1,30 @@
 {
   "id": 0,
-  "name": "ELIXIR",
+  "name": "CHINESE_SWORD",
   "price": 0,
   "buffs": [
     {
-      "type": "HEALTH_POWER",
-      "power": 3,
-      "turnsCount": 1000000,
-      "targetCard": "Card",
-      "side": "ALL",
-      "activationType": "UNDEFINED",
-      "casterActivationType": "UNDEFINED",
-      "casterCard": "Account",
-      "rangeType": "ALL",
-      "casterRangeType": "ALL"
-    },
-    {
       "type": "HIT_POWER",
-      "power": 3,
+      "power": 5,
       "turnsCount": 1000000,
       "targetCard": "Minion",
       "side": "ALL",
       "activationType": "UNDEFINED",
       "casterActivationType": "UNDEFINED",
       "casterCard": "Account",
-      "rangeType": "ALL",
+      "rangeType": "MELEE",
+      "casterRangeType": "ALL"
+    },
+    {
+      "type": "HIT_POWER",
+      "power": 5,
+      "turnsCount": 1000000,
+      "targetCard": "Hero",
+      "side": "ALL",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
+      "rangeType": "MELEE",
       "casterRangeType": "ALL"
     }
   ]

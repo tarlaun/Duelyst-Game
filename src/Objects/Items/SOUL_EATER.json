@@ -1,17 +1,17 @@
 {
   "id": 0,
-  "name": "NOOSHDAAROO",
-  "price": 0,
+  "name": "SOUL_EATER",
+  "price": 25000,
   "buffs": [
     {
-      "type": "HEALTH_POWER",
-      "power": 6,
+      "type": "HIT_POWER",
+      "power": 1,
       "turnsCount": 1000000,
       "targetCard": "Card",
-      "side": "ALL",
+      "side": "COMRADE",
       "activationType": "UNDEFINED",
-      "casterActivationType": "UNDEFINED",
-      "casterCard": "Account",
+      "casterActivationType": "ON_DEATH",
+      "casterCard": "Card",
       "rangeType": "ALL",
       "casterRangeType": "ALL"
     }

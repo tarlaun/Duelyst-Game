@@ -1,0 +1,19 @@
+{
+  "id": 0,
+  "name": "SHOCK_HAMMER",
+  "price": 15000,
+  "buffs": [
+    {
+      "type": "DISARM",
+      "power": 0,
+      "turnsCount": 1,
+      "targetCard": "Card",
+      "side": "ENEMY",
+      "activationType": "UNDEFINED",
+      "casterActivationType": "ON_ATTACK",
+      "casterCard": "Hero",
+      "rangeType": "ALL",
+      "casterRangeType": "ALL"
+    }
+  ]
+}

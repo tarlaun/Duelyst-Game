@@ -1,0 +1,33 @@
+{
+  "id": 0,
+  "name": "LIGHTNING_BOLT",
+  "maxPossibleMoving": -1,
+  "price": 1250,
+  "healthPoint": -1,
+  "minRange": -1,
+  "maxRange": -1,
+  "assaultPower": -1,
+  "originalAssaultPower": -1,
+  "assaultType": "NULL",
+  "buffs": [
+    {
+      "type": "HIT_WEAKNESS",
+      "power": 8,
+      "targetType": "Hero",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 0,
+      "side": "ENEMY",
+      "effectArea": []
+    }
+  ],
+  "castedBuffs": [],
+  "castedItems": [],
+  "manaPoint": 2,
+  "ableToAttack": false,
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0
+}

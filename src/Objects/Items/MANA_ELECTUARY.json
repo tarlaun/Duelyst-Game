@@ -1,14 +1,14 @@
 {
   "id": 0,
-  "name": "NOOSHDAAROO",
+  "name": "MANA_ELECTUARY",
   "price": 0,
   "buffs": [
     {
-      "type": "HEALTH_POWER",
-      "power": 6,
-      "turnsCount": 1000000,
+      "type": "MANA",
+      "power": 3,
+      "turnsCount": -1,
       "targetCard": "Card",
-      "side": "ALL",
+      "side": "COMRADE",
       "activationType": "UNDEFINED",
       "casterActivationType": "UNDEFINED",
       "casterCard": "Account",
