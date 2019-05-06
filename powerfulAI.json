@@ -2,7 +2,7 @@
   "name": "powerfulAI",
   "id": 10001,
   "password": "ai",
-  "budget": 1475250,
+  "budget": 1421500,
   "matchHistory": [],
   "collection": {
     "cards": [
@@ -644,6 +644,2851 @@
         "ableToCounter": false,
         "cardHolder": 0,
         "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30003,
+        "name": "PERSIAN_SWORDS_WOMAN",
+        "maxPossibleMoving": 2,
+        "price": 400,
+        "healthPoint": 6,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 4,
+        "originalAssaultPower": 4,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "STUN",
+            "power": -1,
+            "activationType": "ON_ATTACK",
+            "turnCount": 2,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30004,
+        "name": "PERSIAN_LANCER",
+        "maxPossibleMoving": 2,
+        "price": 500,
+        "healthPoint": 5,
+        "minRange": -1,
+        "maxRange": 3,
+        "assaultPower": 3,
+        "originalAssaultPower": 3,
+        "assaultType": "HYBRID",
+        "buffs": [],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 1,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30026,
+        "name": "PERSIAN_CHAMPION",
+        "maxPossibleMoving": 2,
+        "price": 600,
+        "healthPoint": 24,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 6,
+        "originalAssaultPower": 6,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "CHAMPION",
+            "power": 5,
+            "activationType": "ON_ATTACK",
+            "turnCount": -1,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 9,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30022,
+        "name": "TURANIAN_CATAPULT",
+        "maxPossibleMoving": 2,
+        "price": 600,
+        "healthPoint": 4,
+        "minRange": -1,
+        "maxRange": 7,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
+        "assaultType": "RANGED",
+        "buffs": [],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 1,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30036,
+        "name": "TURANIAN_PRINCE",
+        "maxPossibleMoving": 2,
+        "price": 800,
+        "healthPoint": 6,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 10,
+        "originalAssaultPower": 10,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "COMBO",
+            "power": -1,
+            "activationType": "COMBO",
+            "turnCount": -1,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 6,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30029,
+        "name": "EAGLE",
+        "maxPossibleMoving": 2,
+        "price": 200,
+        "healthPoint": 0,
+        "minRange": -1,
+        "maxRange": 3,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
+        "assaultType": "RANGED",
+        "buffs": [
+          {
+            "type": "POWER",
+            "power": 10,
+            "activationType": "PASSIVE",
+            "turnCount": -1,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30029,
+        "name": "EAGLE",
+        "maxPossibleMoving": 2,
+        "price": 200,
+        "healthPoint": 0,
+        "minRange": -1,
+        "maxRange": 3,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
+        "assaultType": "RANGED",
+        "buffs": [
+          {
+            "type": "POWER",
+            "power": 10,
+            "activationType": "PASSIVE",
+            "turnCount": -1,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30005,
+        "name": "DRAGON",
+        "maxPossibleMoving": 2,
+        "price": 250,
+        "healthPoint": 9,
+        "minRange": -1,
+        "maxRange": 4,
+        "assaultPower": 5,
+        "originalAssaultPower": 5,
+        "assaultType": "RANGED",
+        "buffs": [],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 5,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30020,
+        "name": "PALANG",
+        "maxPossibleMoving": 2,
+        "price": 400,
+        "healthPoint": 6,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "WEAKNESS",
+            "power": 8,
+            "activationType": "ON_ATTACK",
+            "turnCount": 2,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 4,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30017,
+        "name": "JEN",
+        "maxPossibleMoving": 2,
+        "price": 500,
+        "healthPoint": 10,
+        "minRange": -1,
+        "maxRange": 4,
+        "assaultPower": 4,
+        "originalAssaultPower": 4,
+        "assaultType": "RANGED",
+        "buffs": [
+          {
+            "type": "JEN_JOON",
+            "power": 1,
+            "activationType": "PASSIVE",
+            "turnCount": -1,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 5,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30007,
+        "name": "GIV",
+        "maxPossibleMoving": 2,
+        "price": 450,
+        "healthPoint": 5,
+        "minRange": -1,
+        "maxRange": 5,
+        "assaultPower": 7,
+        "originalAssaultPower": 7,
+        "assaultType": "RANGED",
+        "buffs": [
+          {
+            "type": "NEGATIVE_DISPEL",
+            "power": -1,
+            "activationType": "ON_DEFENCE",
+            "turnCount": -1,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 4,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30002,
+        "name": "IRAJ",
+        "maxPossibleMoving": 2,
+        "price": 500,
+        "healthPoint": 6,
+        "minRange": -1,
+        "maxRange": 3,
+        "assaultPower": 20,
+        "originalAssaultPower": 20,
+        "assaultType": "RANGED",
+        "buffs": [],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 4,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30014,
+        "name": "SHAGHUL",
+        "maxPossibleMoving": 2,
+        "price": 600,
+        "healthPoint": 10,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 4,
+        "originalAssaultPower": 4,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "COMBO",
+            "power": -1,
+            "activationType": "COMBO",
+            "turnCount": -1,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 5,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "cooldown": 0,
+        "id": 40006,
+        "name": "ZAHAK",
+        "maxPossibleMoving": 2,
+        "price": 10000,
+        "healthPoint": 50,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "POISON",
+            "power": -1,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "ON_ATTACK",
+            "turnCount": 6,
+            "side": "ENEMY",
+            "effectArea": [
+              {
+                "x": -1,
+                "y": 0
+              }
+            ]
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": -1,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 20007,
+        "name": "AREA_DISPEL",
+        "maxPossibleMoving": -1,
+        "price": 1500,
+        "healthPoint": -1,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": -1,
+        "originalAssaultPower": -1,
+        "assaultType": "NULL",
+        "buffs": [
+          {
+            "type": "POSITIVE_DISPEL",
+            "power": 0,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 0,
+            "side": "ENEMY",
+            "effectArea": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 0,
+                "y": 1
+              },
+              {
+                "x": 1,
+                "y": 0
+              },
+              {
+                "x": 1,
+                "y": 1
+              }
+            ]
+          },
+          {
+            "type": "NEGATIVE_DISPEL",
+            "power": 0,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 0,
+            "side": "COMRADE",
+            "effectArea": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 0,
+                "y": 1
+              },
+              {
+                "x": 1,
+                "y": 0
+              },
+              {
+                "x": 1,
+                "y": 1
+              }
+            ]
+          },
+          {
+            "type": "HIT_POWER",
+            "power": 2,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 1000000,
+            "side": "COMRADE",
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 20009,
+        "name": "EMPOWER",
+        "maxPossibleMoving": -1,
+        "price": 250,
+        "healthPoint": -1,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": -1,
+        "originalAssaultPower": -1,
+        "assaultType": "NULL",
+        "buffs": [
+          {
+            "type": "HIT_POWER",
+            "power": 2,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 1000000,
+            "side": "COMRADE",
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 1,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 20002,
+        "name": "GOD_STRENGTH",
+        "maxPossibleMoving": -1,
+        "price": 450,
+        "healthPoint": -1,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": -1,
+        "originalAssaultPower": -1,
+        "assaultType": "NULL",
+        "buffs": [
+          {
+            "type": "HIT_POWER",
+            "power": 4,
+            "targetType": "Hero",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 0,
+            "side": "COMRADE",
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 20006,
+        "name": "POISON_LAKE",
+        "maxPossibleMoving": -1,
+        "price": 900,
+        "healthPoint": -1,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": -1,
+        "originalAssaultPower": -1,
+        "assaultType": "NULL",
+        "buffs": [
+          {
+            "type": "POISON",
+            "power": 1,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 1,
+            "side": "ALL",
+            "effectArea": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 0,
+                "y": 1
+              },
+              {
+                "x": 1,
+                "y": 0
+              },
+              {
+                "x": 0,
+                "y": 2
+              },
+              {
+                "x": 2,
+                "y": 0
+              },
+              {
+                "x": 1,
+                "y": 1
+              },
+              {
+                "x": 2,
+                "y": 2
+              },
+              {
+                "x": 1,
+                "y": 2
+              },
+              {
+                "x": 2,
+                "y": 1
+              }
+            ]
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 5,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 20013,
+        "name": "MADNESS",
+        "maxPossibleMoving": -1,
+        "price": 650,
+        "healthPoint": -1,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": -1,
+        "originalAssaultPower": -1,
+        "assaultType": "NULL",
+        "buffs": [
+          {
+            "type": "HIT_POWER",
+            "power": 4,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 3,
+            "side": "COMRADE",
+            "effectArea": []
+          },
+          {
+            "type": "DISARM",
+            "power": 0,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 3,
+            "side": "ALL",
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 0,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 20005,
+        "name": "HEALTH_WITH_PROFIT",
+        "maxPossibleMoving": -1,
+        "price": 2250,
+        "healthPoint": -1,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": -1,
+        "originalAssaultPower": -1,
+        "assaultType": "NULL",
+        "buffs": [
+          {
+            "type": "HEALTH_WEAKNESS",
+            "power": 6,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 3,
+            "side": "COMRADE",
+            "effectArea": []
+          },
+          {
+            "type": "HOLY",
+            "power": 2,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 3,
+            "side": "COMRADE",
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 0,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 20004,
+        "name": "KINGS_GUARD",
+        "maxPossibleMoving": -1,
+        "price": 1750,
+        "healthPoint": -1,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": -1,
+        "originalAssaultPower": -1,
+        "assaultType": "NULL",
+        "buffs": [
+          {
+            "type": "HIT_WEAKNESS",
+            "power": 100,
+            "targetType": "Minion",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 0,
+            "side": "ENEMY",
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 9,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
       }
     ],
     "items": [
@@ -661,6 +3506,44 @@
             "activationType": "UNDEFINED",
             "casterActivationType": "UNDEFINED",
             "casterCard": "Account",
+            "rangeType": "ALL",
+            "casterRangeType": "ALL"
+          }
+        ]
+      },
+      {
+        "id": 50026,
+        "name": "SOUL_EATER",
+        "price": 25000,
+        "buffs": [
+          {
+            "type": "HIT_POWER",
+            "power": 1,
+            "turnsCount": 1000000,
+            "targetCard": "Card",
+            "side": "COMRADE",
+            "activationType": "UNDEFINED",
+            "casterActivationType": "ON_DEATH",
+            "casterCard": "Card",
+            "rangeType": "ALL",
+            "casterRangeType": "ALL"
+          }
+        ]
+      },
+      {
+        "id": 50027,
+        "name": "TERROR_HODD",
+        "price": 5000,
+        "buffs": [
+          {
+            "type": "HIT_WEAKNESS",
+            "power": 2,
+            "turnsCount": 1,
+            "targetCard": "Card",
+            "side": "ENEMY",
+            "activationType": "UNDEFINED",
+            "casterActivationType": "ON_ATTACK",
+            "casterCard": "Card",
             "rangeType": "ALL",
             "casterRangeType": "ALL"
           }
