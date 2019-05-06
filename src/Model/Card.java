@@ -94,11 +94,11 @@ public class Card {
         this.manaPoint = Integer.parseInt(info[MainInfoOrder.MANA.ordinal()]);
         this.assaultType = AssaultType.valueOf(info[MainInfoOrder.ASSAULT_TYPE.ordinal()]);
         if (this instanceof Minion) {
-            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
-                this.buffs.add(new Buff(info));
+            if(info.length>9) {
+                this.buffs.add(new Buff(info[MainInfoOrder.BUFF.ordinal()]));
             }
         } else {
-            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
+            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length - 1; i++) {
                 this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
             }
         }

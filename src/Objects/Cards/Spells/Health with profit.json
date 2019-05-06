@@ -24,21 +24,6 @@
           "y": 0
         }
       ]
-    },
-    {
-      "type": "HOLY",
-      "power": 2,
-      "targetType": "Card",
-      "dispelType": "TEMPORARY",
-      "activationType": "UNDEFINED",
-      "turnCount": 3,
-      "side": "COMRADE",
-      "effectArea": [
-        {
-          "x": 0,
-          "y": 0
-        }
-      ]
     }
   ],
   "castedBuffs": [],

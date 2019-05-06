@@ -9,23 +9,7 @@
   "assaultPower": -1,
   "originalAssaultPower": -1,
   "assaultType": "NULL",
-  "buffs": [
-    {
-      "type": "HEALTH_WEAKNESS",
-      "power": 6,
-      "targetType": "Card",
-      "dispelType": "TEMPORARY",
-      "activationType": "UNDEFINED",
-      "turnCount": 0,
-      "side": "ENEMY",
-      "effectArea": [
-        {
-          "x": -2,
-          "y": -2
-        }
-      ]
-    }
-  ],
+  "buffs": [],
   "castedBuffs": [],
   "castedItems": [],
   "manaPoint": 4,

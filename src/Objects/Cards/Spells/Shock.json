@@ -9,23 +9,7 @@
   "assaultPower": -1,
   "originalAssaultPower": -1,
   "assaultType": "NULL",
-  "buffs": [
-    {
-      "type": "STUN",
-      "power": 0,
-      "targetType": "Card",
-      "dispelType": "TEMPORARY",
-      "activationType": "UNDEFINED",
-      "turnCount": 2,
-      "side": "ENEMY",
-      "effectArea": [
-        {
-          "x": 0,
-          "y": 0
-        }
-      ]
-    }
-  ],
+  "buffs": [],
   "castedBuffs": [],
   "castedItems": [],
   "manaPoint": 1,

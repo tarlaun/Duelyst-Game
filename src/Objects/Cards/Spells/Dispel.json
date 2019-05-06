@@ -24,21 +24,6 @@
           "y": 0
         }
       ]
-    },
-    {
-      "type": "NEGATIVE_DISPEL",
-      "power": 0,
-      "targetType": "Card",
-      "dispelType": "TEMPORARY",
-      "activationType": "UNDEFINED",
-      "turnCount": 0,
-      "side": "COMRADE",
-      "effectArea": [
-        {
-          "x": 0,
-          "y": 0
-        }
-      ]
     }
   ],
   "castedBuffs": [],

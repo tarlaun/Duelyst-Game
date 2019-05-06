@@ -9,23 +9,7 @@
   "assaultPower": -1,
   "originalAssaultPower": -1,
   "assaultType": "NULL",
-  "buffs": [
-    {
-      "type": "HIT_WEAKNESS",
-      "power": 4,
-      "targetType": "Minion",
-      "dispelType": "TEMPORARY",
-      "activationType": "UNDEFINED",
-      "turnCount": 1000000,
-      "side": "ENEMY",
-      "effectArea": [
-        {
-          "x": 0,
-          "y": 0
-        }
-      ]
-    }
-  ],
+  "buffs": [],
   "castedBuffs": [],
   "castedItems": [],
   "manaPoint": 1,
