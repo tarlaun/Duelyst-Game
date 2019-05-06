@@ -71,12 +71,14 @@ public class Collection {
                     }
                     if ((card instanceof Spell || card instanceof Minion)
                             && deck.getCards().size() < 20) {
+                        System.out.println("Buban");
                         deck.getCards().add(Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
                         return Message.OBJECT_ADDED;
                     } else if (deck.getCards().size() == 20) {
                         return Message.FULL_DECK;
                     }
                 }
+                System.out.println("Zein");
                 return Message.EXISTS_IN_DECK;
             }
             Item item = Item.getItemByID(objectID, this.items.toArray(new Item[items.size()]));

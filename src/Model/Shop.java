@@ -66,9 +66,6 @@ public class Shop {
         } catch (IndexOutOfBoundsException e) {
 
         }
-        if (account.getCollection().getItems().size() == 3) {
-            return Message.MAXIMUM_ITEM_COUNT;
-        }
         Card card = Card.getCardByID(search(objectName), cards.toArray(new Card[cards.size()]));
         if (card != null) {
             account.getCollection().getCards().add(card);
@@ -76,6 +73,9 @@ public class Shop {
         }
         Item item = Item.getItemByID(search(objectName), items.toArray(new Item[items.size()]));
         if (item != null) {
+            if (account.getCollection().getItems().size() == 3) {
+                return Message.MAXIMUM_ITEM_COUNT;
+            }
             account.getCollection().getItems().add(item);
             account.modifyAccountBudget(-item.getPrice());
         }
