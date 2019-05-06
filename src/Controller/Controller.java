@@ -195,6 +195,8 @@ public class Controller {
             view.passwordInsertion();
             String password = request.getNewCommand();
             view.login(Account.login(request.getAccountName(username), request.getPassword(password)));
+            if (Account.login(request.getAccountName(username), request.getPassword(password)) == Message.SUCCESSFUL_LOGIN)
+                this.account = game.getAccounts().get(Account.accountIndex(username));
         }
     }
 
