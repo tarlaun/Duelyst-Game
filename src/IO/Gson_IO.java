@@ -32,27 +32,22 @@ public class Gson_IO {
             switch (name) {
                 case "Spell":
                     Spell spell = new Spell(info);
-                    //gson.toJson(spell, System.out);
                     json = gson.toJson(spell);
                     writer(path + "Cards/Spells/" + spell.getName() + ".json", json);
                     break;
                 case "Item":
                     Item item = new Item(info);
-                    //gson.toJson(item, System.out);
                     json = gson.toJson(item);
                     writer(path + "Items/" + item.getName() + ".json", json);
                     break;
                 case "Minion":
-                    System.out.println("\n" + name);
                     Minion minion = new Minion(info);
-                    //gson.toJson(minion, System.out);
                     json = gson.toJson(minion);
-                    writer(   path + "Cards/Minions/"+ minion.getName() + ".json", json);
+                    writer(path + "Cards/Minions/" + minion.getName() + ".json", json);
 
                     break;
                 case "Hero":
                     Hero hero = new Hero(info);
-                    gson.toJson(hero, System.out);
                     json = gson.toJson(hero);
                     writer(hero.getName() + ".json", json);
                     break;
