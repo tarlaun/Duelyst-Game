@@ -1742,4 +1742,9 @@ public class Battle {
     public void selectItem(int id) {
 
     }
+    public void endGame(){
+        if(!checkForWin()){
+            resign();
+        }
+    }
 }

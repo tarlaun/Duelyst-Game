@@ -538,6 +538,7 @@ public class Controller {
 
     public void endGame() {
         if (menu.getStat() == MenuStat.BATTLE) {
+            battle.endGame();
             view.endGame(battle);
         }
     }
