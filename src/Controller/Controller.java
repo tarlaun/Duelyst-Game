@@ -558,6 +558,17 @@ public class Controller {
         String multiOrSingle = request.getNewCommand();
         if (multiOrSingle.equals("Multiplayer")) {
             battle.setGameType(GameType.MULTI_PLAYER);
+            Account[] accounts = new Account[2];
+            if(battle.getAccounts().length==1){
+                accounts[0]=battle.getAccounts()[0];
+                accounts[1]=account;
+                battle.setAccounts(accounts);
+            }
+            if(battle.getAccounts().length==0){
+                accounts[0] = account;
+                accounts[1] = null;
+                battle.setAccounts(accounts);
+            }
         } else if (multiOrSingle.equals("Singleplayer")) {
             battle.setGameType(GameType.SINGLE_PLAYER);
         } else {
@@ -568,12 +579,15 @@ public class Controller {
         switch (modeString) {
             case "KILL_OPPONENT_HERO":
                 battle.setMode(BattleMode.KILL_OPPONENT_HERO);
+                view.battleCreating();
                 break;
             case "HOLD_FLAG":
                 battle.setMode(BattleMode.HOLD_FLAG);
+                view.battleCreating();
                 break;
             case "COLLECT_FLAG":
                 battle.setMode(BattleMode.COLLECT_FLAG);
+                view.battleCreating();
                 break;
             default:
                 view.printInvalidCommand();
