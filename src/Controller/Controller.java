@@ -155,11 +155,17 @@ public class Controller {
                     if(battle.getGameType().equals(GameType.SINGLE_PLAYER)&& turnCounter%2==1){
                         for (int i = 0; i <battle.getFieldCards()[1].length ; i++) {
                             battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
+                            break;
                         }
                     }
                     moveToInBattle(request);
                     break;
                 case ATTACK:
+                    if(battle.getGameType().equals(GameType.SINGLE_PLAYER)&& turnCounter%2==1){
+                        for (int i = 0; i <battle.getFieldCards()[1].length ; i++) {
+                            battle.attack(opponentCardFinder(i).getId(),battle.getFieldCards()[1][i]);
+                        }
+                    }
                     battleAttack(request);
                     break;
                 case COMBO:
@@ -205,6 +211,16 @@ public class Controller {
                     break;
             }
         }
+    }
+
+    public Card opponentCardFinder(int i){
+        for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
+            if(battle.getFieldCards()[0][j].getCoordinate().getX()==battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getX()&&
+                    battle.getFieldCards()[0][j].getCoordinate().getY()==battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getY()){
+                    return battle.getFieldCards()[0][j];
+            }
+        }
+        return null;
     }
 
     private void invalidCommand() {
