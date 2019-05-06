@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
+import Model.*;
 
 public class View {
     private static final View view = new View();
@@ -30,6 +31,10 @@ public class View {
             return;
         }
         System.out.println("Account already exists");
+    }
+
+    public void showMatchHistory(){
+
     }
 
     public void login(Message message) {

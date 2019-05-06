@@ -4,6 +4,7 @@ public enum RequestType {
     CREATE_ACCOUNT,
     LOGIN,
     LEADERBOARD,
+    SHOW_MATCH_HISTORY,
     SAVE,
     LOGOUT,
     HELP,

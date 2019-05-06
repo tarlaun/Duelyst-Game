@@ -98,7 +98,7 @@ public class Card {
                 this.buffs.add(new Buff(info[MainInfoOrder.BUFF.ordinal()]));
             }
         } else {
-            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length ; i++) {
+            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length - 1; i++) {
                 this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
             }
         }

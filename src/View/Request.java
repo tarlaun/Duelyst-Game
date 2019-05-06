@@ -11,6 +11,7 @@ public class Request {
             "createAccount",
             "login",
             "showLeaderboard",
+            "showMatchHistory",
             "save",
             "logout",
             "help",
@@ -68,6 +69,10 @@ public class Request {
 
     public boolean checkLoginSyntax() {
         return this.getCommand().matches(this.getStrings()[RequestType.LOGIN.ordinal()] + "\\s\\w+");
+    }
+
+    public boolean checkMatchHistory(){
+        return this.getCommand().matches(this.getStrings()[RequestType.SHOWMATCHHISTORY.ordinal()]+ "\\s\\w");
     }
 
     public boolean checkMenuEntrnaceSyntax() {
