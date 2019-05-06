@@ -3,14 +3,26 @@ package Controller;
 import Model.*;
 import View.*;
 
+import java.util.ArrayList;
+
 public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
+    private int turnCounter = 0;
     private Account account;
     private Battle battle = Battle.getInstance();
     private static final Controller controller = new Controller();
+
+   /* public boolean checkForAIAccount(Account account){
+        for (int i = 0; i < game.getAccounts().size() ; i++) {
+            if(game.getAccounts().get(i).getName().equals("powerfulAI")){
+                return true;
+            }
+        }
+        return false;
+    }*/
 
     private Controller() {
 
@@ -44,10 +56,11 @@ public class Controller {
         }
         try {
             game.initializeItem();
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
         Request request = new Request();
+
         while (true) {
             request.getNewCommand();
             switch (request.getType()) {
@@ -141,9 +154,11 @@ public class Controller {
                     select(request);
                     break;
                 case MOVE:
+                    moveAI();
                     moveToInBattle(request);
                     break;
                 case ATTACK:
+                    attackAI();
                     battleAttack(request);
                     break;
                 case COMBO:
@@ -152,15 +167,16 @@ public class Controller {
                 case USE_SP:
                     specialPowerValidation();
 
-                if (battle.validSpecialPower().equals(null)) {
-                    useSpecialPower(request);
-                }
+                    if (battle.validSpecialPower().equals(null)) {
+                        useSpecialPower(request);
+                    }
 
                     break;
                 case SHOW_HAND:
                     showHand();
                     break;
                 case INSERTION:
+                    if (insertAI()) break;
                     insertCard(request);
                     break;
                 case END_TURN:
@@ -189,6 +205,51 @@ public class Controller {
                     break;
             }
         }
+    }
+
+    private void moveAI() {
+        if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+            for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
+                battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
+                break;
+            }
+        }
+    }
+
+    private void attackAI() {
+        if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+            for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
+                battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
+                break;
+            }
+        }
+    }
+
+    private boolean insertAI() {
+        if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+            ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
+          battle.insertCard(battle.setCardCoordinates(battle.chooseCard(cards)),battle.chooseCard(cards).getName());
+            return true;
+        }
+        return false;
+    }
+
+    public ArrayList<Card> convertArrayToList(Card[] cards){
+        ArrayList<Card> cards1 = new ArrayList<>();
+        for (int i = 0; i <cards.length ; i++) {
+            cards1.add(cards[i]);
+        }
+        return cards1;
+    }
+
+    public Card opponentCardFinder(int i) {
+        for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
+            if (battle.getFieldCards()[0][j].getCoordinate().getX() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getX() &&
+                    battle.getFieldCards()[0][j].getCoordinate().getY() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getY()) {
+                return battle.getFieldCards()[0][j];
+            }
+        }
+        return null;
     }
 
     private void invalidCommand() {
@@ -457,8 +518,7 @@ public class Controller {
         if (request.checkAssaultSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
                     battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
-            view.showAttack(battle.attack(card.getId(),
-                    battle.getCurrentCard()));
+            view.showAttack(battle.attack(card.getId(), battle.getCurrentCard()));
         }
     }
 
@@ -500,6 +560,7 @@ public class Controller {
             battle.endTurn();
             view.endTurn();
         }
+        turnCounter++;
     }
 
     public void showCollectables() {
@@ -558,7 +619,27 @@ public class Controller {
         String multiOrSingle = request.getNewCommand();
         if (multiOrSingle.equals("Multiplayer")) {
             battle.setGameType(GameType.MULTI_PLAYER);
+            Account[] accounts = new Account[2];
+            if (battle.getAccounts().length == 1) {
+                accounts[0] = battle.getAccounts()[0];
+                accounts[1] = account;
+                battle.setAccounts(accounts);
+            }
+            if (battle.getAccounts().length == 0) {
+                accounts[0] = account;
+                accounts[1] = null;
+                battle.setAccounts(accounts);
+            }
         } else if (multiOrSingle.equals("Singleplayer")) {
+            Account[] accounts = new Account[2];
+            accounts[0] = account;
+            for (int i = 0; i < game.getAccounts().size(); i++) {
+                if (game.getAccounts().get(i).getName().equals("powerfulAI")) {
+                    accounts[1] = game.getAccounts().get(i);
+
+                }
+            }
+            battle.setAccounts(accounts);
             battle.setGameType(GameType.SINGLE_PLAYER);
         } else {
             view.printInvalidCommand();
@@ -568,12 +649,15 @@ public class Controller {
         switch (modeString) {
             case "KILL_OPPONENT_HERO":
                 battle.setMode(BattleMode.KILL_OPPONENT_HERO);
+                view.battleCreating();
                 break;
             case "HOLD_FLAG":
                 battle.setMode(BattleMode.HOLD_FLAG);
+                view.battleCreating();
                 break;
             case "COLLECT_FLAG":
                 battle.setMode(BattleMode.COLLECT_FLAG);
+                view.battleCreating();
                 break;
             default:
                 view.printInvalidCommand();

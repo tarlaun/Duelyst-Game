@@ -138,6 +138,10 @@ public class View {
         printBuff(spell);
     }
 
+    public void battleCreating(){
+        System.out.println("BATTLE CREATED");
+    }
+
     public void printBuff(Card card) {
         System.out.println();
     }
