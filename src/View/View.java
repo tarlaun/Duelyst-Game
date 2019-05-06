@@ -110,7 +110,7 @@ public class View {
         System.out.println("Heroes :");
         int index = 1;
         for (int i = 0; i < collection.getCards().size(); i++) {
-            if (collection.getCards().get(i) instanceof Hero) {
+            if (collection.getCards().get(i).getType().equals("Hero")) {
                 System.out.print("Id: " + collection.getCards().get(i).getId() + " - ");
                 System.out.print(index + " : ");
                 printNonSpellCard(collection.getCards().get(i));
@@ -133,7 +133,7 @@ public class View {
         printCards(isInShop, collection.getCards().toArray(new Card[collection.getCards().size()]));
     }
 
-    public void printSpell(Spell spell) {
+    public void printSpell(Card spell) {
         System.out.print("Name : " + spell.getName() + " - MP : " + spell.getManaPoint() + " - Desc :");
         printBuff(spell);
     }
@@ -203,12 +203,12 @@ public class View {
     private void printCards(boolean isInShop, Card... cards) {
         int index = 1;
         for (int i = 0; i < cards.length; i++) {
-            if (!(cards[i] instanceof Hero)) {
+            if (!(cards[i].getType().equals("hero"))) {
                 System.out.print("Id: " + cards[i].getId()+ " - ");
                 System.out.print(index + " : ");
-                if (cards[i] instanceof Spell) {
+                if (cards[i].getType().equals("Spell")) {
                     System.out.print("Type : Spell - ");
-                    printSpell((Spell) cards[i]);
+                    printSpell(cards[i]);
                 } else {
                     System.out.print("Type : Minion - ");
                     printNonSpellCard(cards[i]);
