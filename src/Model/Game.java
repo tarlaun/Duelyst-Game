@@ -162,34 +162,37 @@ public class Game {
         sortItems(account.getCollection().getItems());
         Collection collection = account.getCollection();
         for (int i = 0; i < collection.getCards().size(); i++) {
-            switch (collection.getCards().get(i).getClass().getName()) {
-                case "Hero":
-                    if (i + 1 == collection.getCards().size())
-                        lastHeroId = collection.getCards().get(i).getId();
-                    break;
-                case "Minion":
-                    if (i + 1 == collection.getCards().size()
-                            || !collection.getCards().get(i + 1).getClass().getName().equals("Minions"))
-                        lastMinionId = collection.getCards().get(i).getId();
-                    break;
-                case "Spell":
-                    if (i + 1 == collection.getCards().size()
-                            || !collection.getCards().get(i + 1).getClass().getName().equals("Spell"))
-                        lastSpellId = collection.getCards().get(i).getId();
-                    break;
+            if (collection.getCards().get(i).getId() < Constants.minionId) {
+                if (i + 1 == collection.getCards().size()
+                        || collection.getCards().get(i + 1).getId() > Constants.minionId) {
+                    lastSpellId = collection.getCards().get(i).getId();
+                }
+            } else if (collection.getCards().get(i).getId() < Constants.heroId) {
+                if (i + 1 == collection.getCards().size()
+                        || collection.getCards().get(i + 1).getId() > Constants.heroId) {
+                    lastMinionId = collection.getCards().get(i).getId();
+                }
+            }
+            if (collection.getCards().get(i).getId() > Constants.heroId) {
+                if (i + 1 == collection.getCards().size()) {
+                    lastHeroId = collection.getCards().get(i).getId();
+                }
             }
         }
-        lastItemId = account.getCollection().getItems().get(account.getCollection().getItems().size() - 1).getId();
+        try {
+            lastItemId = account.getCollection().getItems().get(account.getCollection().getItems().size() - 1).getId();
+        } catch (Exception e) {
+        }
     }
 
     private void sortCards(ArrayList<Card> cards) {
         Comparator<Card> compareById = Comparator.comparingInt(Card::getId);
-        cards.sort(compareById.reversed());
+        cards.sort(compareById);
     }
 
     private void sortItems(ArrayList<Item> items) {
         Comparator<Item> compareById = Comparator.comparingInt(Item::getId);
-        items.sort(compareById.reversed());
+        items.sort(compareById);
     }
 
     public void initializeHero() throws Exception {
@@ -200,6 +203,7 @@ public class Game {
                     if (file.isFile()) {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Hero hero = new Gson().fromJson(reader, Hero.class);
+                        hero.setType("Hero");
                         hero.setId(++lastHeroId);
                         shop.getCards().add(hero);
                     }
@@ -216,6 +220,7 @@ public class Game {
                     if (file.isFile()) {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Minion minion = new Gson().fromJson(reader, Minion.class);
+                        minion.setType("Minion");
                         minion.setId(++lastMinionId);
                         shop.getCards().add(minion);
                     }
@@ -232,6 +237,7 @@ public class Game {
                     if (file.isFile()) {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Spell spell = new Gson().fromJson(reader, Spell.class);
+                        spell.setType("Spell");
                         spell.setId(++lastSpellId);
                         shop.getCards().add(spell);
                     }
