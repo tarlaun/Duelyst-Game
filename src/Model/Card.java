@@ -97,6 +97,9 @@ public class Card {
             this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
         }
     }
+    public Card(){
+
+    }
 
     public boolean isAbleToCounter() {
         return ableToCounter;
