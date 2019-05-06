@@ -35,34 +35,34 @@ public class View {
         System.out.println("Account already exists");
     }
 
-    public void showMatchHistory(ArrayList<Match> matches, int level){
+    public void showMatchHistory(ArrayList<Match> matches, int level) {
         System.out.println("number level win/lose time");
         LocalDateTime time = LocalDateTime.now();
         int hour = time.getHour();
         int minutes = time.getMinute();
 
-        for (int i = 0; i < matches.size() ; i++) {
-            if(matches.get(i).getTime().getHour()== hour){
+        for (int i = 0; i < matches.size(); i++) {
+            if (matches.get(i).getTime().getHour() == hour) {
                 int mins = minutes - matches.get(i).getTime().getMinute();
-                System.out.println(i+" . LEVEL:"+ level + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+ mins  );
-            }else {
+                System.out.println(i + " . LEVEL:" + level + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + mins);
+            } else {
                 int hours = hour - matches.get(i).getTime().getHour();
-                System.out.println(i+" . LEVEL:"+ level + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+hours  );
+                System.out.println(i + " . LEVEL:" + level + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + hours);
             }
         }
     }
 
-    public void showMatchHistory(ArrayList<Match> matches,String name){
+    public void showMatchHistory(ArrayList<Match> matches, String name) {
         LocalDateTime time = LocalDateTime.now();
         int hour = time.getHour();
         int minutes = time.getMinute();
-        for (int i = 0; i < matches.size() ; i++) {
-            if(matches.get(i).getTime().getHour()== hour){
+        for (int i = 0; i < matches.size(); i++) {
+            if (matches.get(i).getTime().getHour() == hour) {
                 int mins = minutes - matches.get(i).getTime().getMinute();
-                System.out.println(i+" . OPPONENT:"+ name + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+ mins  );
-            }else {
+                System.out.println(i + " . OPPONENT:" + name + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + mins);
+            } else {
                 int hours = hour - matches.get(i).getTime().getHour();
-                System.out.println(i+" . NAME:"+ name + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+hours  );
+                System.out.println(i + " . NAME:" + name + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + hours);
             }
         }
     }
@@ -111,6 +111,7 @@ public class View {
         int index = 1;
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (collection.getCards().get(i) instanceof Hero) {
+                System.out.print("Id: " + collection.getCards().get(i).getId() + " - ");
                 System.out.print(index + " : ");
                 printNonSpellCard(collection.getCards().get(i));
                 if (isInShop)
@@ -121,10 +122,11 @@ public class View {
         index = 1;
         System.out.println("Items :");
         for (int i = 0; i < collection.getItems().size(); i++) {
+            System.out.print("Id: " + collection.getItems().get(i).getId() + " - ");
             System.out.print(index + " : ");
             printItem(collection.getItems().get(i));
             if (isInShop)
-                System.out.println(collection.getCards().get(i).getPrice());
+                System.out.println(collection.getItems().get(i).getPrice());
             index++;
         }
         System.out.println("Cards :");
@@ -202,6 +204,7 @@ public class View {
         int index = 1;
         for (int i = 0; i < cards.length; i++) {
             if (!(cards[i] instanceof Hero)) {
+                System.out.print("Id: " + cards[i].getId()+ " - ");
                 System.out.print(index + " : ");
                 if (cards[i] instanceof Spell) {
                     System.out.print("Type : Spell - ");
@@ -451,18 +454,21 @@ public class View {
     public void printInvalidCommand() {
         System.out.println("INVALID COMMAND");
     }
-    public void chooseBattleMode(){
+
+    public void chooseBattleMode() {
         System.out.println("Choose between:KILL_OPPONENT_HERO   HOLD_FLAG    COLLECT_FLAG");
     }
-    public void chooseMultiOrSingle(){
+
+    public void chooseMultiOrSingle() {
         System.out.println("Choose between: Multiplayer   Singleplayer");
     }
-    public void chooseLevels(){
+
+    public void chooseLevels() {
         System.out.println("Choose between : Level1 Level2 Level3 Custom");
     }
 
-    public void comboErrors(Message message){
-        switch (message){
+    public void comboErrors(Message message) {
+        switch (message) {
             case INVALID_TARGET:
                 System.out.println("Target doesn't exist");
                 break;

@@ -59,22 +59,17 @@ public class Collection {
 
     public Message add(String deckName, int objectID) {
         if (deckExistance(deckName) != -1) {
-            System.out.println("DeckName: " + deckName + " id: " + objectID);
             Deck deck = decks.get(deckExistance(deckName));
-            System.out.println("Name e deck: " + deck.getName());
             Card card = Card.getCardByID(objectID, this.cards.toArray(new Card[cards.size()]));
-            for (Card card2 : deck.getCards()) {
-                System.out.println("Name: " + card2.getName() + "id: " + card2.getId());
-            }
             if (card != null) {
-                if (Card.getCardByID(objectID, deck.getCards().toArray(new Card[deck.getCards().size()])) == null) {
+                if (deck.getCards().indexOf(card) == -1) {
                     if (card instanceof Hero && deck.getHero() == null) {
                         deck.setHero((Hero) Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
                         return Message.OBJECT_ADDED;
                     } else if (card instanceof Hero && deck.getHero() != null) {
                         return Message.MAXIMUM_HERO_COUNT;
                     }
-                    if ((card instanceof Spell || Card.getCardByID(objectID) instanceof Minion)
+                    if ((card instanceof Spell || card instanceof Minion)
                             && deck.getCards().size() < 20) {
                         deck.getCards().add(Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
                         return Message.OBJECT_ADDED;
@@ -86,7 +81,7 @@ public class Collection {
             }
             Item item = Item.getItemByID(objectID, this.items.toArray(new Item[items.size()]));
             if (item != null) {
-                if (Item.getItemByID(objectID) != null && deck.getItem() == null) {
+                if (deck.getItem() == null || deck.getItem().getId() != item.getId()) {
                     deck.setItem(Item.getItemByID(objectID, this.getItems().toArray(new Item[this.getItems().size()])));
                     return Message.OBJECT_ADDED;
                 } else if (deck.getItem() != null) {
@@ -118,11 +113,11 @@ public class Collection {
                     return Message.UNAVAILABLE;
                 }
                 deck.getCards().remove(card);
-                return null;
+                return Message.SUCCESSFUL_REMOVE;
             }
             if (item != null) {
                 deck.setItem(null);
-                return null;
+                return Message.SUCCESSFUL_REMOVE;
             }
             return Message.UNAVAILABLE;
         }

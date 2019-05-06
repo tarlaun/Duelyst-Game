@@ -28,5 +28,6 @@ public enum Message {
     ACCOUNT_CREATION,
     EXISTS_IN_DECK,
     OBJECT_ADDED,
-    FULL_CELL
+    SUCCESSFUL_REMOVE,
+    FULL_CELL;
 }
