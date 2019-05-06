@@ -8,7 +8,7 @@ public class Controller {
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
-    private int turnCounter =0 ;
+    private int turnCounter = 0;
     private Account account;
     private Battle battle = Battle.getInstance();
     private static final Controller controller = new Controller();
@@ -54,7 +54,7 @@ public class Controller {
         }
         try {
             game.initializeItem();
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
         Request request = new Request();
@@ -152,8 +152,8 @@ public class Controller {
                     select(request);
                     break;
                 case MOVE:
-                    if(battle.getGameType().equals(GameType.SINGLE_PLAYER)&& turnCounter%2==1){
-                        for (int i = 0; i <battle.getFieldCards()[1].length ; i++) {
+                    if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+                        for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                             battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
                             break;
                         }
@@ -161,9 +161,10 @@ public class Controller {
                     moveToInBattle(request);
                     break;
                 case ATTACK:
-                    if(battle.getGameType().equals(GameType.SINGLE_PLAYER)&& turnCounter%2==1){
-                        for (int i = 0; i <battle.getFieldCards()[1].length ; i++) {
-                            battle.attack(opponentCardFinder(i).getId(),battle.getFieldCards()[1][i]);
+                    if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+                        for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
+                            battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
+                            break;
                         }
                     }
                     battleAttack(request);
@@ -174,15 +175,19 @@ public class Controller {
                 case USE_SP:
                     specialPowerValidation();
 
-                if (battle.validSpecialPower().equals(null)) {
-                    useSpecialPower(request);
-                }
+                    if (battle.validSpecialPower().equals(null)) {
+                        useSpecialPower(request);
+                    }
 
                     break;
                 case SHOW_HAND:
                     showHand();
                     break;
                 case INSERTION:
+                    if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+                      battle.insertCard(battle.setCardCoordinates(battle.getPlayerHands()[1][0]),battle.getPlayerHands()[1][0].getName());
+                        break;
+                    }
                     insertCard(request);
                     break;
                 case END_TURN:
@@ -213,11 +218,11 @@ public class Controller {
         }
     }
 
-    public Card opponentCardFinder(int i){
+    public Card opponentCardFinder(int i) {
         for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
-            if(battle.getFieldCards()[0][j].getCoordinate().getX()==battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getX()&&
-                    battle.getFieldCards()[0][j].getCoordinate().getY()==battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getY()){
-                    return battle.getFieldCards()[0][j];
+            if (battle.getFieldCards()[0][j].getCoordinate().getX() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getX() &&
+                    battle.getFieldCards()[0][j].getCoordinate().getY() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getY()) {
+                return battle.getFieldCards()[0][j];
             }
         }
         return null;
@@ -591,22 +596,22 @@ public class Controller {
         if (multiOrSingle.equals("Multiplayer")) {
             battle.setGameType(GameType.MULTI_PLAYER);
             Account[] accounts = new Account[2];
-            if(battle.getAccounts().length==1){
-                accounts[0]=battle.getAccounts()[0];
-                accounts[1]=account;
+            if (battle.getAccounts().length == 1) {
+                accounts[0] = battle.getAccounts()[0];
+                accounts[1] = account;
                 battle.setAccounts(accounts);
             }
-            if(battle.getAccounts().length==0){
+            if (battle.getAccounts().length == 0) {
                 accounts[0] = account;
                 accounts[1] = null;
                 battle.setAccounts(accounts);
             }
         } else if (multiOrSingle.equals("Singleplayer")) {
             Account[] accounts = new Account[2];
-            accounts[0]=account;
+            accounts[0] = account;
             for (int i = 0; i < game.getAccounts().size(); i++) {
-                if(game.getAccounts().get(i).getName().equals("powerfulAI")){
-                    accounts[1]=game.getAccounts().get(i);
+                if (game.getAccounts().get(i).getName().equals("powerfulAI")) {
+                    accounts[1] = game.getAccounts().get(i);
 
                 }
             }

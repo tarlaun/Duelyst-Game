@@ -1452,7 +1452,6 @@ public class Battle {
         }
         return card.getCoordinate();
     }
-
     //collectFlag
     private Coordinate setDestinationCoordinationModeThree(Card card) {
         int leastDistance = 15;
