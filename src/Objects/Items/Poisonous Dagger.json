@@ -10,7 +10,7 @@
       "targetCard": "Card",
       "side": "ENEMY",
       "activationType": "ON_ATTACK",
-      "casterActivationType": "UNDEFINED",
+      "casterActivationType": "ON_ATTACK",
       "casterCard": "Card",
       "rangeType": "ALL",
       "casterRangeType": "ALL"

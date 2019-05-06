@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
 
 public class ItemBuff {
     private BuffType type;

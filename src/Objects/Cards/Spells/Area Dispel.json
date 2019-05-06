@@ -7,6 +7,7 @@
   "minRange": -1,
   "maxRange": -1,
   "assaultPower": -1,
+  "originalAssaultPower": -1,
   "assaultType": "NULL",
   "buffs": [
     {
@@ -80,7 +81,12 @@
     }
   ],
   "castedBuffs": [],
+  "castedItems": [],
   "manaPoint": 2,
   "ableToAttack": false,
-  "ableToMove": false
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0
 }

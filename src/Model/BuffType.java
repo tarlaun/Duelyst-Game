@@ -25,6 +25,5 @@ public enum BuffType {
     ON_SPAWN_WEAKNESS,
     NEGATIVE_DISARM,
     NEGATIVE_POISON,
-    NEGATIVE_DISPEL,
     ASHBUS
 }
