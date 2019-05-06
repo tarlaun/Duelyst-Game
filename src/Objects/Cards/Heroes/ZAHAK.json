@@ -1,29 +1,35 @@
 {
+  "cooldown": 0,
   "id": 0,
-  "name": "All Poison",
-  "maxPossibleMoving": -1,
-  "price": 1500,
-  "healthPoint": -1,
+  "name": "ZAHAK",
+  "maxPossibleMoving": 2,
+  "price": 10000,
+  "healthPoint": 50,
   "minRange": -1,
   "maxRange": -1,
-  "assaultPower": -1,
-  "originalAssaultPower": -1,
-  "assaultType": "NULL",
+  "assaultPower": 2,
+  "originalAssaultPower": 2,
+  "assaultType": "MELEE",
   "buffs": [
     {
       "type": "POISON",
-      "power": 0,
+      "power": -1,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
-      "activationType": "UNDEFINED",
-      "turnCount": 4,
+      "activationType": "ON_ATTACK",
+      "turnCount": 6,
       "side": "ENEMY",
-      "effectArea": []
+      "effectArea": [
+        {
+          "x": -1,
+          "y": 0
+        }
+      ]
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 8,
+  "manaPoint": -1,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

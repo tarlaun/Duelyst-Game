@@ -1,24 +1,30 @@
 {
+  "cooldown": 0,
   "id": 0,
-  "name": "Total Disarm",
-  "maxPossibleMoving": -1,
-  "price": 1000,
-  "healthPoint": -1,
+  "name": "SEVEN_HEADED_DRAGON",
+  "maxPossibleMoving": 2,
+  "price": 8000,
+  "healthPoint": 50,
   "minRange": -1,
   "maxRange": -1,
-  "assaultPower": -1,
-  "originalAssaultPower": -1,
-  "assaultType": "NULL",
+  "assaultPower": 4,
+  "originalAssaultPower": 4,
+  "assaultType": "MELEE",
   "buffs": [
     {
       "type": "DISARM",
-      "power": 0,
+      "power": -1,
       "targetType": "Card",
       "dispelType": "PERMANENT",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
+      "turnCount": -1,
       "side": "ENEMY",
-      "effectArea": []
+      "effectArea": [
+        {
+          "x": 1,
+          "y": 0
+        }
+      ]
     }
   ],
   "castedBuffs": [],

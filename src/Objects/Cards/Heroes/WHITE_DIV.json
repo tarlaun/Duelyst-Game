@@ -1,29 +1,35 @@
 {
+  "cooldown": 0,
   "id": 0,
-  "name": "All Power",
-  "maxPossibleMoving": -1,
-  "price": 2000,
-  "healthPoint": -1,
+  "name": "WHITE_DIV",
+  "maxPossibleMoving": 2,
+  "price": 8000,
+  "healthPoint": 50,
   "minRange": -1,
   "maxRange": -1,
-  "assaultPower": -1,
-  "originalAssaultPower": -1,
-  "assaultType": "NULL",
+  "assaultPower": 4,
+  "originalAssaultPower": 4,
+  "assaultType": "MELEE",
   "buffs": [
     {
       "type": "HIT_POWER",
-      "power": 2,
-      "targetType": "Card",
+      "power": 4,
+      "targetType": "Hero",
       "dispelType": "PERMANENT",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
+      "turnCount": -1,
       "side": "COMRADE",
-      "effectArea": []
+      "effectArea": [
+        {
+          "x": 2,
+          "y": 0
+        }
+      ]
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 4,
+  "manaPoint": 1,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

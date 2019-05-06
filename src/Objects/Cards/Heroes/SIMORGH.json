@@ -1,29 +1,35 @@
 {
+  "cooldown": 0,
   "id": 0,
-  "name": "All Disarm ",
-  "maxPossibleMoving": -1,
-  "price": 2000,
-  "healthPoint": -1,
+  "name": "SIMORGH",
+  "maxPossibleMoving": 2,
+  "price": 9000,
+  "healthPoint": 50,
   "minRange": -1,
   "maxRange": -1,
-  "assaultPower": -1,
-  "originalAssaultPower": -1,
-  "assaultType": "NULL",
+  "assaultPower": 4,
+  "originalAssaultPower": 4,
+  "assaultType": "MELEE",
   "buffs": [
     {
-      "type": "DISARM",
-      "power": 0,
+      "type": "STUN",
+      "power": -1,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
       "turnCount": 1,
       "side": "ENEMY",
-      "effectArea": []
+      "effectArea": [
+        {
+          "x": 8,
+          "y": -1
+        }
+      ]
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 9,
+  "manaPoint": 3,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

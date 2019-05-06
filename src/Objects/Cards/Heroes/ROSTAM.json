@@ -1,0 +1,23 @@
+{
+  "cooldown": 0,
+  "id": 0,
+  "name": "ROSTAM",
+  "maxPossibleMoving": 2,
+  "price": 8000,
+  "healthPoint": 55,
+  "minRange": -1,
+  "maxRange": 4,
+  "assaultPower": 7,
+  "originalAssaultPower": 7,
+  "assaultType": "HYBRID",
+  "buffs": [],
+  "castedBuffs": [],
+  "castedItems": [],
+  "manaPoint": -1,
+  "ableToAttack": false,
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0
+}
