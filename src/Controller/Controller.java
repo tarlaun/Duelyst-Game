@@ -152,21 +152,11 @@ public class Controller {
                     select(request);
                     break;
                 case MOVE:
-                    if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
-                        for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                            battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
-                            break;
-                        }
-                    }
+                    moveAI();
                     moveToInBattle(request);
                     break;
                 case ATTACK:
-                    if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
-                        for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                            battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
-                            break;
-                        }
-                    }
+                    attackAI();
                     battleAttack(request);
                     break;
                 case COMBO:
@@ -184,10 +174,7 @@ public class Controller {
                     showHand();
                     break;
                 case INSERTION:
-                    if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
-                      battle.insertCard(battle.setCardCoordinates(battle.getPlayerHands()[1][0]),battle.getPlayerHands()[1][0].getName());
-                        break;
-                    }
+                    if (insertAI()) break;
                     insertCard(request);
                     break;
                 case END_TURN:
@@ -216,6 +203,32 @@ public class Controller {
                     break;
             }
         }
+    }
+
+    private void moveAI() {
+        if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+            for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
+                battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
+                break;
+            }
+        }
+    }
+
+    private void attackAI() {
+        if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+            for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
+                battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
+                break;
+            }
+        }
+    }
+
+    private boolean insertAI() {
+        if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+          battle.insertCard(battle.setCardCoordinates(battle.getPlayerHands()[1][0]),battle.getPlayerHands()[1][0].getName());
+            return true;
+        }
+        return false;
     }
 
     public Card opponentCardFinder(int i) {
