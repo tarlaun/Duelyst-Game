@@ -8,9 +8,19 @@ public class Controller {
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
+    private int turnCounter =0 ;
     private Account account;
     private Battle battle = Battle.getInstance();
     private static final Controller controller = new Controller();
+
+   /* public boolean checkForAIAccount(Account account){
+        for (int i = 0; i < game.getAccounts().size() ; i++) {
+            if(game.getAccounts().get(i).getName().equals("powerfulAI")){
+                return true;
+            }
+        }
+        return false;
+    }*/
 
     private Controller() {
 
@@ -48,6 +58,7 @@ public class Controller {
 
         }
         Request request = new Request();
+
         while (true) {
             request.getNewCommand();
             switch (request.getType()) {
@@ -141,6 +152,11 @@ public class Controller {
                     select(request);
                     break;
                 case MOVE:
+                    if(battle.getGameType().equals(GameType.SINGLE_PLAYER)&& turnCounter%2==1){
+                        for (int i = 0; i <battle.getFieldCards()[1].length ; i++) {
+                            battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
+                        }
+                    }
                     moveToInBattle(request);
                     break;
                 case ATTACK:
@@ -457,8 +473,7 @@ public class Controller {
         if (request.checkAssaultSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
                     battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
-            view.showAttack(battle.attack(card.getId(),
-                    battle.getCurrentCard()));
+            view.showAttack(battle.attack(card.getId(), battle.getCurrentCard()));
         }
     }
 
@@ -500,6 +515,7 @@ public class Controller {
             battle.endTurn();
             view.endTurn();
         }
+        turnCounter++;
     }
 
     public void showCollectables() {
