@@ -137,7 +137,6 @@ public class Game {
     public void sortAccounts() {
         Comparator<Account> compareById = Comparator.comparingInt(Account::getWins);
         accounts.sort(compareById.reversed());
-
     }
 
     public void initializeAccounts() throws Exception {
@@ -150,11 +149,72 @@ public class Game {
                             continue;
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Account account = new Gson().fromJson(reader, Account.class);
+                        accountObjectInitializer(account);
                         accounts.add(account);
                     }
                 }
             }
         }
+    }
+
+    private void accountObjectInitializer(Account account) {
+        Collection temp = new Collection();
+        for (Card card : account.getCollection().getCards()) {
+            for (Deck deck : account.getCollection().getDecks()) {
+                if (Card.getCardByID(card.getId(), deck.getCards().toArray(new Card[deck.getCards().size()])) != null)
+                    continue;
+                temp.getCards().add(card);
+            }
+        }
+        for (Item item : account.getCollection().getItems()) {
+            for (Deck deck : account.getCollection().getDecks()) {
+                if (Item.getItemByID(item.getId(), deck.getItem()) != null)
+                    continue;
+                temp.getItems().add(item);
+            }
+        }
+        account.getCollection().getCards().clear();
+        account.getCollection().getItems().clear();
+        accountCardRefactor(account.getCollection(), temp.getCards().toArray(new Card[temp.getCards().size()]));
+        accountItemRefactor(account.getCollection(), temp.getItems().toArray(new Item[temp.getItems().size()]));
+        for (Deck deck : account.getCollection().getDecks()) {
+            accountCardRefactor(account.getCollection(), deck.getCards().toArray(new Card[deck.getCards().size()]));
+            accountItemRefactor(account.getCollection(), deck.getItem());
+        }
+    }
+
+    private void accountCardRefactor(Collection collection, Card... cards) {
+        for (int i = 0; i < cards.length; i++) {
+            switch (cards[i].getClass().getName()) {
+                case "Hero":
+                    cards[i].setId(++lastHeroId);
+                    break;
+                case "Minion":
+                    cards[i].setId(++lastMinionId);
+                    break;
+                case "Spell":
+                    cards[i].setId(++lastSpellId);
+                    break;
+            }
+            collection.getCards().add(cards[i]);
+        }
+    }
+
+    private void accountItemRefactor(Collection collection, Item... items) {
+        for (int i = 0; i < items.length; i++) {
+            items[i].setId(++lastItemId);
+            collection.getItems().add(items[i]);
+        }
+    }
+
+    private void sortCards(ArrayList<Card> cards) {
+        Comparator<Card> compareById = Comparator.comparingInt(Card::getId);
+        cards.sort(compareById.reversed());
+    }
+
+    private void sortItems(ArrayList<Item> items) {
+        Comparator<Item> compareById = Comparator.comparingInt(Item::getId);
+        items.sort(compareById.reversed());
     }
 
     public void initializeHero() throws Exception {
