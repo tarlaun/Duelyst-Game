@@ -225,9 +225,7 @@ public class Controller {
     }
 
     public void enter(Request request) {
-        System.out.println("PLZ");
         if (request.checkMenuEntrnaceSyntax()) {
-            System.out.println("Schwifty!");
             switch (request.getMenu(request.getCommand())) {
                 case "Exit":
                     exit();

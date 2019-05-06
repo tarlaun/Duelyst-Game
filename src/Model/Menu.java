@@ -18,7 +18,7 @@ public class Menu {
                             "game", "logout", "save", "show leaderboard", "help", "exit", "show menu"
                     },
                     {
-                            "Enter [option name]", "help", "exit", "show menu"
+                            "Enter [option name](Battle)", "help", "exit", "show menu"
                     },
                     {
                             "search [card name|item name]", "save", "create deck [deck name]", "delete deck [deck name]",
@@ -33,10 +33,10 @@ public class Menu {
                     {
                             "Game info", "Show my minions", "Show opponent minions", "Show card info [card id]",
                             "Select [card id]", "Move to ( [x] , [y] )", "Attack [opponent card id]", "Show hand",
-                            "Attack combo [opponent card id][my card id][my card id][...]", "Select [collectable id]",
+                            "Attack combo [opponent card id][my card id][my card id][...]", "Select [collectible id]",
                             "Use special power ( [x] , [y] )", "Insert [card name] in ( [x] , [y] )", "End turn",
                             "Show collectables", "Show info", "Use ( [x] , [y] )", "Show Next Card", "Enter graveyard",
-                            "Show info [card id]", "Show cards", "Help", "End Game", "help", "exit", "show menu"
+                            "Show info [card id]", "Show cards", "End Game", "help", "exit", "show menu"
                     }
             };
     private String[][] options =
