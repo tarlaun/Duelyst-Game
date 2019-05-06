@@ -49,7 +49,7 @@ public class Request {
             "Show Next Card",
             "Show cards",
             "End Game",
-            "Show menu"
+            "show menu"
     };
     private String command;
     private RequestType type;
