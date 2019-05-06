@@ -30,16 +30,16 @@ public class Controller {
         } catch (Exception e) {
 
         }
-        try{
+        try {
             game.initializeHero();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
-        try{
+        try {
             game.initializeMinion();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         Request request = new Request();
@@ -203,8 +203,21 @@ public class Controller {
 
     public void showMatchHistory(Request request){
         if(request.checkMatchHistory()&& menu.getStat() == MenuStat.ACCOUNT){
-            view.showMatchHistory();
+            if(battle.getGameType() == GameType.SINGLE_PLAYER){
+                view.showMatchHistory(account.getMatchHistory(), battle.getLevel());
+            }else {
+                view.showMatchHistory(account.getMatchHistory(), getOpponentName(account));
+            }
         }
+    }
+
+    public String getOpponentName(Account account){
+        for (int i = 0; i < battle.getAccounts().length ; i++) {
+            if(!battle.getAccounts()[i].getName().equals(account.getName())){
+                return battle.getAccounts()[i].getName();
+            }
+        }
+        return null;
     }
 
     public void login(Request request) {
@@ -332,8 +345,12 @@ public class Controller {
 
     public void showDeck(Request request) {
         if (request.checkShowDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.printDeck(this.account.getCollection().getDecks().get(
-                    this.account.getCollection().deckExistance(request.getDeckName(request.getCommand()))));
+            Collection collection = this.account.getCollection();
+            try {
+                view.printDeck(collection.getDecks().get(collection.deckExistance(request.getDeckName(request.getCommand()))));
+            } catch (ArrayIndexOutOfBoundsException e){
+                view.printDeck(null);
+            }
         }
     }
 

@@ -117,6 +117,7 @@ public class Game {
 
     public boolean logout(Account account) {
         account.setLoggedIn(false);
+        save(account);
         menu.setStat(MenuStat.MAIN);
         return true;
     }
@@ -155,6 +156,7 @@ public class Game {
             }
         }
     }
+
     public void initializeHero() throws Exception {
         File dir = new File("./src/Objects/Cards/Heroes");
         if (dir.exists()) {
@@ -170,6 +172,7 @@ public class Game {
             }
         }
     }
+
     public void initializeMinion() throws Exception {
         File dir = new File("./src/Objects/Cards/Minions");
         if (dir.exists()) {

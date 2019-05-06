@@ -2,10 +2,12 @@ package View;
 
 import Model.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
+
 import Model.*;
 
 public class View {
@@ -33,8 +35,36 @@ public class View {
         System.out.println("Account already exists");
     }
 
-    public void showMatchHistory(){
+    public void showMatchHistory(ArrayList<Match> matches, int level){
+        System.out.println("number level win/lose time");
+        LocalDateTime time = LocalDateTime.now();
+        int hour = time.getHour();
+        int minutes = time.getMinute();
 
+        for (int i = 0; i < matches.size() ; i++) {
+            if(matches.get(i).getTime().getHour()== hour){
+                int mins = minutes - matches.get(i).getTime().getMinute();
+                System.out.println(i+" . LEVEL:"+ level + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+ mins  );
+            }else {
+                int hours = hour - matches.get(i).getTime().getHour();
+                System.out.println(i+" . LEVEL:"+ level + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+hours  );
+            }
+        }
+    }
+
+    public void showMatchHistory(ArrayList<Match> matches,String name){
+        LocalDateTime time = LocalDateTime.now();
+        int hour = time.getHour();
+        int minutes = time.getMinute();
+        for (int i = 0; i < matches.size() ; i++) {
+            if(matches.get(i).getTime().getHour()== hour){
+                int mins = minutes - matches.get(i).getTime().getMinute();
+                System.out.println(i+" . OPPONENT:"+ name + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+ mins  );
+            }else {
+                int hours = hour - matches.get(i).getTime().getHour();
+                System.out.println(i+" . NAME:"+ name + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+hours  );
+            }
+        }
     }
 
     public void login(Message message) {
@@ -78,20 +108,24 @@ public class View {
 
     public void printCollection(Collection collection, boolean isInShop) {
         System.out.println("Heroes :");
+        int index = 1;
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (collection.getCards().get(i) instanceof Hero) {
-                System.out.print(i + 1 + " : ");
+                System.out.print(index + " : ");
                 printNonSpellCard(collection.getCards().get(i));
                 if (isInShop)
                     System.out.println(collection.getCards().get(i).getPrice());
+                index++;
             }
         }
+        index = 1;
         System.out.println("Items :");
         for (int i = 0; i < collection.getItems().size(); i++) {
-            System.out.print(i + 1 + " : ");
+            System.out.print(index + " : ");
             printItem(collection.getItems().get(i));
             if (isInShop)
                 System.out.println(collection.getCards().get(i).getPrice());
+            index++;
         }
         System.out.println("Cards :");
         printCards(isInShop, collection.getCards().toArray(new Card[collection.getCards().size()]));
@@ -165,9 +199,10 @@ public class View {
     }
 
     private void printCards(boolean isInShop, Card... cards) {
+        int index = 1;
         for (int i = 0; i < cards.length; i++) {
             if (!(cards[i] instanceof Hero)) {
-                System.out.print(i + 1 + " : ");
+                System.out.print(index + " : ");
                 if (cards[i] instanceof Spell) {
                     System.out.print("Type : Spell - ");
                     printSpell((Spell) cards[i]);
@@ -177,6 +212,7 @@ public class View {
                 }
                 if (isInShop)
                     System.out.println(cards[i].getPrice());
+                index++;
 
             }
         }
@@ -279,6 +315,10 @@ public class View {
     }
 
     public void printDeck(Deck deck) {
+        if (deck == null) {
+            System.out.println("Deck doesn't exist!");
+            return;
+        }
         System.out.println("Name: " + deck.getName());
         System.out.println("Heroes :");
         try {
@@ -302,8 +342,9 @@ public class View {
     public void printSellMessages(Boolean successful) {
         if (successful) {
             System.out.println("SUCCESSFUL SELL");
+            return;
         }
-        System.out.println("OBJECT NOT FOUNT");
+        System.out.println("OBJECT NOT FOUND");
     }
 
     public void printBuyMessages(Message message) {

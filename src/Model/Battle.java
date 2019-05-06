@@ -23,6 +23,7 @@ public class Battle {
     private BattleMode mode;
     private GameType gameType;
     private Card[][] fieldCards = new Card[2][];
+    private int level;
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
     private Random rand = new Random();
@@ -36,6 +37,26 @@ public class Battle {
     private boolean isOnSpawn;
 
     private Battle() {
+    }
+
+    public void setCollectibles(Item[][] collectibles) {
+        this.collectibles = collectibles;
+    }
+
+    public ArrayList<Item> getBattleCollectibles() {
+        return battleCollectibles;
+    }
+
+    public void setBattleCollectibles(ArrayList<Item> battleCollectibles) {
+        this.battleCollectibles = battleCollectibles;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public static Battle getInstance() {
