@@ -39,6 +39,8 @@ public class Controller {
                 case NULL:
                     invalidCommand();
                     break;
+                case SHOWMATCHHISTORY:
+                    showMatchHistory(request);
                 case CREATE_ACCOUNT:
                     createAccount(request);
                     break;
@@ -186,6 +188,12 @@ public class Controller {
             Account account = new Account(request.getAccountName(username), request.getPassword(password));
             this.account = account;
             view.accountCreation(account.createAccount());
+        }
+    }
+
+    public void showMatchHistory(Request request){
+        if(request.checkMatchHistory()&& menu.getStat() == MenuStat.ACCOUNT){
+            view.showMatchHistory();
         }
     }
 
