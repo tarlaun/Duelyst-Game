@@ -133,7 +133,6 @@ public class Collection {
         if (deckExistance(deckName) != -1) {
             Deck deck = decks.get(deckExistance(deckName));
             return deck.getCards().size() == 20 && deck.getItem() != null && deck.getHero() != null;
-
         }
         return false;
     }
@@ -147,4 +146,11 @@ public class Collection {
         }
     }
 
+    public void deleteFromAllDecks(int id) {
+        for (Deck deck : decks) {
+            deck.getCards().remove(Card.getCardByID(id, deck.getCards().toArray(new Card[deck.getCards().size()])));
+            if (deck.getItem().getId() == id)
+                deck.setItem(null);
+        }
+    }
 }
