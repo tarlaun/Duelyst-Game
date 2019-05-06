@@ -7,6 +7,7 @@ import java.util.List;
 public class Card {
     private int id;
     private String name;
+    private String type;
     private int maxPossibleMoving;
     private int price;
     private int healthPoint;
@@ -313,4 +314,11 @@ public class Card {
         this.rangeType = rangeType;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
