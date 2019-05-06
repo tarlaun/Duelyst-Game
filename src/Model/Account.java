@@ -103,8 +103,10 @@ public class Account {
     public static Message login(String username, String password) {
         if (accountIndex(username) == -1)
             return Message.INVALID_ACCOUNT;
-        if (!game.getAccounts().get(accountIndex(username)).password.equals(encrypted(password)))
+        if (!game.getAccounts().get(accountIndex(username)).password.equals(password)) {
+            System.out.println("yours: " + password + "  theirs: " + game.getAccounts().get(accountIndex(username)).password);
             return Message.INVALID_PASSWORD;
+        }
         Menu.getInstance().setStat(MenuStat.ACCOUNT);
         return Message.SUCCESSFUL_LOGIN;
     }
@@ -134,9 +136,9 @@ public class Account {
     }
 
     public static int accountIndex(String name) {
-        for (Account account : game.getAccounts()) {
-            if (account.name.equals(name))
-                return account.id - 1;
+        for (int i = 0; i < game.getAccounts().size(); i++) {
+            if (game.getAccounts().get(i).name.equals(name))
+                return i;
         }
         return -1;
     }
