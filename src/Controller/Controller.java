@@ -3,6 +3,8 @@ package Controller;
 import Model.*;
 import View.*;
 
+import java.util.ArrayList;
+
 public class Controller {
     private View view = View.getInstance();
     private Game game = Game.getInstance();
@@ -225,10 +227,19 @@ public class Controller {
 
     private boolean insertAI() {
         if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
-          battle.insertCard(battle.setCardCoordinates(battle.getPlayerHands()[1][0]),battle.getPlayerHands()[1][0].getName());
+            ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
+          battle.insertCard(battle.setCardCoordinates(battle.chooseCard(cards)),battle.chooseCard(cards).getName());
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Card> convertArrayToList(Card[] cards){
+        ArrayList<Card> cards1 = new ArrayList<>();
+        for (int i = 0; i <cards.length ; i++) {
+            cards1.add(cards[i]);
+        }
+        return cards1;
     }
 
     public Card opponentCardFinder(int i) {
