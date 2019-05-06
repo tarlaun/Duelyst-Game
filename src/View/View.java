@@ -460,4 +460,18 @@ public class View {
     public void chooseLevels(){
         System.out.println("Choose between : Level1 Level2 Level3 Custom");
     }
+
+    public void comboErrors(Message message){
+        switch (message){
+            case INVALID_TARGET:
+                System.out.println("Target doesn't exist");
+                break;
+            case UNAVAILABLE:
+                System.out.println("Target out of range");
+                break;
+            case NOT_ABLE_TO_ATTACK:
+                System.out.println("Not all selected cards are able to combo attack");
+                break;
+        }
+    }
 }

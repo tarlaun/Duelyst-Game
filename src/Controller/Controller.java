@@ -465,6 +465,7 @@ public class Controller {
             for (int i = 0; i < ids.length; i++) {
                 cards[i] = Card.getCardByID(ids[i], battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
             }
+            view.comboErrors(battle.attackCombo(oppId, cards));
             view.showCombo(oppId, cards);
         }
     }
