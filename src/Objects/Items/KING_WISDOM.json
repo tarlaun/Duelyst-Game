@@ -1,13 +1,13 @@
 {
   "id": 0,
-  "name": "Random Damage",
-  "price": 0,
+  "name": "KING_WISDOM",
+  "price": 9000,
   "buffs": [
     {
-      "type": "HIT_POWER",
-      "power": 2,
+      "type": "MANA",
+      "power": 1,
       "turnsCount": 1000000,
-      "targetCard": "Card",
+      "targetCard": "Account",
       "side": "ALL",
       "activationType": "UNDEFINED",
       "casterActivationType": "UNDEFINED",

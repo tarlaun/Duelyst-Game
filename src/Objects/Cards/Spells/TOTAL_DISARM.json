@@ -1,8 +1,8 @@
 {
   "id": 0,
-  "name": "Lightning Bolt",
+  "name": "TOTAL_DISARM",
   "maxPossibleMoving": -1,
-  "price": 1250,
+  "price": 1000,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,19 +11,19 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HIT_WEAKNESS",
-      "power": 8,
-      "targetType": "Hero",
-      "dispelType": "TEMPORARY",
+      "type": "DISARM",
+      "power": 0,
+      "targetType": "Card",
+      "dispelType": "PERMANENT",
       "activationType": "UNDEFINED",
-      "turnCount": 0,
+      "turnCount": 1000000,
       "side": "ENEMY",
       "effectArea": []
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 2,
+  "manaPoint": 0,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

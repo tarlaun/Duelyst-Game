@@ -1,11 +1,11 @@
 {
   "id": 0,
-  "name": "Blades of Agility",
+  "name": "RANDOM_DAMAGE",
   "price": 0,
   "buffs": [
     {
       "type": "HIT_POWER",
-      "power": 6,
+      "power": 2,
       "turnsCount": 1000000,
       "targetCard": "Card",
       "side": "ALL",

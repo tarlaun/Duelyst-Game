@@ -1,14 +1,14 @@
 {
   "id": 0,
-  "name": "King Wisdom",
-  "price": 9000,
+  "name": "IMPREGNABILITY_ELECTUARY",
+  "price": 0,
   "buffs": [
     {
-      "type": "MANA",
-      "power": 1,
-      "turnsCount": 1000000,
-      "targetCard": "Account",
-      "side": "ALL",
+      "type": "HOLY",
+      "power": 10,
+      "turnsCount": 2,
+      "targetCard": "Card",
+      "side": "COMRADE",
       "activationType": "UNDEFINED",
       "casterActivationType": "UNDEFINED",
       "casterCard": "Account",

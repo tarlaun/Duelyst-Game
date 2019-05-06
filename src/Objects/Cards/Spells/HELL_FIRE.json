@@ -1,8 +1,8 @@
 {
   "id": 0,
-  "name": "All Power",
+  "name": "HELL_FIRE",
   "maxPossibleMoving": -1,
-  "price": 2000,
+  "price": 600,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,19 +11,36 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HIT_POWER",
-      "power": 2,
+      "type": "HEALTH_WEAKNESS",
+      "power": 1,
       "targetType": "Card",
-      "dispelType": "PERMANENT",
+      "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
-      "side": "COMRADE",
-      "effectArea": []
+      "turnCount": 2,
+      "side": "ALL",
+      "effectArea": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 4,
+  "manaPoint": 3,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

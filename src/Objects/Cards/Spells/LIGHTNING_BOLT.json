@@ -1,8 +1,8 @@
 {
   "id": 0,
-  "name": "All Poison",
+  "name": "LIGHTNING_BOLT",
   "maxPossibleMoving": -1,
-  "price": 1500,
+  "price": 1250,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,19 +11,19 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "POISON",
-      "power": 0,
-      "targetType": "Card",
+      "type": "HIT_WEAKNESS",
+      "power": 8,
+      "targetType": "Hero",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 4,
+      "turnCount": 0,
       "side": "ENEMY",
       "effectArea": []
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 8,
+  "manaPoint": 2,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

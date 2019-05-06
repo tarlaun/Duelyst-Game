@@ -1,8 +1,8 @@
 {
   "id": 0,
-  "name": "Hell Fire",
+  "name": "GOD_STRENGTH",
   "maxPossibleMoving": -1,
-  "price": 600,
+  "price": 450,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,36 +11,19 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HEALTH_WEAKNESS",
-      "power": 1,
-      "targetType": "Card",
+      "type": "HIT_POWER",
+      "power": 4,
+      "targetType": "Hero",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 2,
-      "side": "ALL",
-      "effectArea": [
-        {
-          "x": 0,
-          "y": 0
-        },
-        {
-          "x": 0,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        }
-      ]
+      "turnCount": 0,
+      "side": "COMRADE",
+      "effectArea": []
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 3,
+  "manaPoint": 2,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

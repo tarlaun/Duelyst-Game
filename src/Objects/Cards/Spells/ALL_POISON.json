@@ -1,8 +1,8 @@
 {
   "id": 0,
-  "name": "Power Up",
+  "name": "ALL_POISON",
   "maxPossibleMoving": -1,
-  "price": 2500,
+  "price": 1500,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,19 +11,19 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HIT_POWER",
-      "power": 6,
+      "type": "POISON",
+      "power": 0,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
-      "side": "COMRADE",
+      "turnCount": 4,
+      "side": "ENEMY",
       "effectArea": []
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 2,
+  "manaPoint": 8,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

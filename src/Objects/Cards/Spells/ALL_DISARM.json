@@ -1,8 +1,8 @@
 {
   "id": 0,
-  "name": "Health with profit",
+  "name": "ALL_DISARM",
   "maxPossibleMoving": -1,
-  "price": 2250,
+  "price": 2000,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,29 +11,19 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HEALTH_WEAKNESS",
-      "power": 6,
+      "type": "DISARM",
+      "power": 0,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 3,
-      "side": "COMRADE",
-      "effectArea": []
-    },
-    {
-      "type": "HOLY",
-      "power": 2,
-      "targetType": "Card",
-      "dispelType": "TEMPORARY",
-      "activationType": "UNDEFINED",
-      "turnCount": 3,
-      "side": "COMRADE",
+      "turnCount": 1,
+      "side": "ENEMY",
       "effectArea": []
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 0,
+  "manaPoint": 9,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

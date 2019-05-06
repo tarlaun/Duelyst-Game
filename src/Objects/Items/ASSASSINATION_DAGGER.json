@@ -1,16 +1,16 @@
 {
   "id": 0,
-  "name": "Ultra Shield",
-  "price": 4000,
+  "name": "ASSASSINATION_DAGGER",
+  "price": 15000,
   "buffs": [
     {
-      "type": "HOLY",
-      "power": 12,
+      "type": "HEALTH_WEAKNESS",
+      "power": 1,
       "turnsCount": 0,
       "targetCard": "Hero",
-      "side": "COMRADE",
+      "side": "ENEMY",
       "activationType": "UNDEFINED",
-      "casterActivationType": "UNDEFINED",
+      "casterActivationType": "ON_SPAWN",
       "casterCard": "Account",
       "rangeType": "ALL",
       "casterRangeType": "ALL"

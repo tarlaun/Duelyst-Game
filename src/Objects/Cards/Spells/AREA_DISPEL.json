@@ -1,8 +1,8 @@
 {
   "id": 0,
-  "name": "Poison Lake",
+  "name": "AREA_DISPEL",
   "maxPossibleMoving": -1,
-  "price": 900,
+  "price": 1500,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,13 +11,13 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "POISON",
-      "power": 1,
+      "type": "POSITIVE_DISPEL",
+      "power": 0,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1,
-      "side": "ALL",
+      "turnCount": 0,
+      "side": "ENEMY",
       "effectArea": [
         {
           "x": 0,
@@ -32,35 +32,52 @@
           "y": 0
         },
         {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "type": "NEGATIVE_DISPEL",
+      "power": 0,
+      "targetType": "Card",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 0,
+      "side": "COMRADE",
+      "effectArea": [
+        {
           "x": 0,
-          "y": 2
+          "y": 0
         },
         {
-          "x": 2,
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 1,
           "y": 0
         },
         {
           "x": 1,
           "y": 1
-        },
-        {
-          "x": 2,
-          "y": 2
-        },
-        {
-          "x": 1,
-          "y": 2
-        },
-        {
-          "x": 2,
-          "y": 1
         }
       ]
+    },
+    {
+      "type": "HIT_POWER",
+      "power": 2,
+      "targetType": "Card",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 1000000,
+      "side": "COMRADE",
+      "effectArea": []
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 5,
+  "manaPoint": 2,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

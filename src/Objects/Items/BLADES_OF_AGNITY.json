@@ -1,17 +1,17 @@
 {
   "id": 0,
-  "name": "Soul Eater",
-  "price": 25000,
+  "name": "BLADES_OF_AGNITY",
+  "price": 0,
   "buffs": [
     {
       "type": "HIT_POWER",
-      "power": 1,
+      "power": 6,
       "turnsCount": 1000000,
       "targetCard": "Card",
-      "side": "COMRADE",
+      "side": "ALL",
       "activationType": "UNDEFINED",
-      "casterActivationType": "ON_DEATH",
-      "casterCard": "Card",
+      "casterActivationType": "UNDEFINED",
+      "casterCard": "Account",
       "rangeType": "ALL",
       "casterRangeType": "ALL"
     }

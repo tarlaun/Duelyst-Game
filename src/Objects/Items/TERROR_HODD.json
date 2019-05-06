@@ -1,17 +1,17 @@
 {
   "id": 0,
-  "name": "Shock Hammer",
-  "price": 15000,
+  "name": "TERROR_HODD",
+  "price": 5000,
   "buffs": [
     {
-      "type": "DISARM",
-      "power": 0,
+      "type": "HIT_WEAKNESS",
+      "power": 2,
       "turnsCount": 1,
       "targetCard": "Card",
       "side": "ENEMY",
       "activationType": "UNDEFINED",
       "casterActivationType": "ON_ATTACK",
-      "casterCard": "Hero",
+      "casterCard": "Card",
       "rangeType": "ALL",
       "casterRangeType": "ALL"
     }

@@ -1,8 +1,8 @@
 {
   "id": 0,
-  "name": "All Attack",
+  "name": "POWER_UP",
   "maxPossibleMoving": -1,
-  "price": 1500,
+  "price": 2500,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,19 +11,19 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "HEALTH_WEAKNESS",
+      "type": "HIT_POWER",
       "power": 6,
       "targetType": "Card",
       "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 0,
-      "side": "ENEMY",
+      "turnCount": 1000000,
+      "side": "COMRADE",
       "effectArea": []
     }
   ],
   "castedBuffs": [],
   "castedItems": [],
-  "manaPoint": 4,
+  "manaPoint": 2,
   "ableToAttack": false,
   "ableToMove": false,
   "ableToResist": false,

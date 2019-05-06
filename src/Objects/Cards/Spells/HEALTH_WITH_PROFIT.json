@@ -1,8 +1,8 @@
 {
   "id": 0,
-  "name": "Total Disarm",
+  "name": "HEALTH_WITH_PROFIT",
   "maxPossibleMoving": -1,
-  "price": 1000,
+  "price": 2250,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
@@ -11,13 +11,23 @@
   "assaultType": "NULL",
   "buffs": [
     {
-      "type": "DISARM",
-      "power": 0,
+      "type": "HEALTH_WEAKNESS",
+      "power": 6,
       "targetType": "Card",
-      "dispelType": "PERMANENT",
+      "dispelType": "TEMPORARY",
       "activationType": "UNDEFINED",
-      "turnCount": 1000000,
-      "side": "ENEMY",
+      "turnCount": 3,
+      "side": "COMRADE",
+      "effectArea": []
+    },
+    {
+      "type": "HOLY",
+      "power": 2,
+      "targetType": "Card",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 3,
+      "side": "COMRADE",
       "effectArea": []
     }
   ],
