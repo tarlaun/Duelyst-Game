@@ -115,7 +115,7 @@ public class Collection {
             if (card != null) {
                 if (card instanceof Hero) {
                     deck.setHero(null);
-                    return null;
+                    return Message.UNAVAILABLE;
                 }
                 deck.getCards().remove(card);
                 return null;
@@ -124,7 +124,7 @@ public class Collection {
                 deck.setItem(null);
                 return null;
             }
-            return Message.OBJECT_NOT_FOUND;
+            return Message.UNAVAILABLE;
         }
         return Message.INVALID_DECK;
     }
