@@ -101,9 +101,11 @@ public class Game {
                 for (File file : dir.listFiles()) {
                     if (file.isFile()) {
                         System.out.println(file.getName());
-                        BufferedReader reader = new BufferedReader(new FileReader(file));
-                        Account account = new Gson().fromJson(reader, Account.class);
-                        accounts.add(account);
+                        if(!file.getName().equals(".gitignore")) {
+                            BufferedReader reader = new BufferedReader(new FileReader(file));
+                            Account account = new Gson().fromJson(reader, Account.class);
+                            accounts.add(account);
+                        }
                     }
                 }
             }
