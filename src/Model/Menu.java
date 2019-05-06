@@ -22,7 +22,7 @@ public class Menu {
                     },
                     {
                             "search [card name|item name]", "save", "createDeck [deck name]", "deleteDeck [deck name]",
-                            "add [card id|item id|hero id] from deck [deck name]", "validateDeck [deck name]",
+                            "add [card id|item id|hero id] to deck [deck name]", "validateDeck [deck name]",
                             "remove [card id|item id|hero id] from deck [deck name]", "selectDeck [deck name]",
                             "ShowAllDecks", "showDeck [deck name]", "show", "help", "exit", "showMenu"
                     },

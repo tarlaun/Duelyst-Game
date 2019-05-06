@@ -99,7 +99,7 @@ public class Request {
     }
 
     public boolean checkFromDeckDeletionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.REMOVE.ordinal()] + "\\s\\d+\\sto\\sdeck\\s\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.REMOVE.ordinal()] + "\\s\\d+\\sfrom\\sdeck\\s\\w+");
 
     }
 

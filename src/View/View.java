@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
+
 import Model.*;
 
 public class View {
@@ -33,7 +34,7 @@ public class View {
         System.out.println("Account already exists");
     }
 
-    public void showMatchHistory(){
+    public void showMatchHistory() {
 
     }
 
@@ -258,6 +259,8 @@ public class View {
             case INVALID_DECK:
                 System.out.println("INVALID DECK");
                 break;
+            default:
+                System.out.println("REMOVED SUCCESSFULLY");
         }
     }
 
@@ -285,6 +288,10 @@ public class View {
     }
 
     public void printDeck(Deck deck) {
+        if (deck == null) {
+            System.out.println("Deck doesn't exist!");
+            return;
+        }
         System.out.println("Name: " + deck.getName());
         System.out.println("Heroes :");
         try {
@@ -308,8 +315,9 @@ public class View {
     public void printSellMessages(Boolean successful) {
         if (successful) {
             System.out.println("SUCCESSFUL SELL");
+            return;
         }
-        System.out.println("OBJECT NOT FOUNT");
+        System.out.println("OBJECT NOT FOUND");
     }
 
     public void printBuyMessages(Message message) {

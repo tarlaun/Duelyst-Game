@@ -201,8 +201,8 @@ public class Controller {
         }
     }
 
-    public void showMatchHistory(Request request){
-        if(request.checkMatchHistory()&& menu.getStat() == MenuStat.ACCOUNT){
+    public void showMatchHistory(Request request) {
+        if (request.checkMatchHistory() && menu.getStat() == MenuStat.ACCOUNT) {
             view.showMatchHistory();
         }
     }
@@ -333,7 +333,11 @@ public class Controller {
     public void showDeck(Request request) {
         if (request.checkShowDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             Collection collection = this.account.getCollection();
-            view.printDeck(collection.getDecks().get(collection.deckExistance(request.getDeckName(request.getCommand()))));
+            try {
+                view.printDeck(collection.getDecks().get(collection.deckExistance(request.getDeckName(request.getCommand()))));
+            } catch (ArrayIndexOutOfBoundsException e){
+                view.printDeck(null);
+            }
         }
     }
 
