@@ -9,6 +9,7 @@
       {
         "id": 40006,
         "name": "ZAHAK",
+        "type": "Hero",
         "maxPossibleMoving": 2,
         "price": 10000,
         "healthPoint": 50,
@@ -47,6 +48,7 @@
       {
         "id": 40001,
         "name": "WHITE_DIV",
+        "type": "Hero",
         "maxPossibleMoving": 2,
         "price": 8000,
         "healthPoint": 50,
@@ -115,6 +117,7 @@
       {
         "id": 30039,
         "name": "TURANIAN_LANCER",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 600,
         "healthPoint": 4,
@@ -137,6 +140,7 @@
       {
         "id": 30038,
         "name": "WILD_HOG",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 500,
         "healthPoint": 10,
@@ -167,6 +171,7 @@
       {
         "id": 30036,
         "name": "TURANIAN_PRINCE",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 800,
         "healthPoint": 6,
@@ -197,6 +202,7 @@
       {
         "id": 30036,
         "name": "TURANIAN_PRINCE",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 800,
         "healthPoint": 6,
@@ -227,6 +233,7 @@
       {
         "id": 30035,
         "name": "PIRAN",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 400,
         "healthPoint": 20,
@@ -257,6 +264,7 @@
       {
         "id": 30034,
         "name": "WHITE_WOLF",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 400,
         "healthPoint": 8,
@@ -287,6 +295,7 @@
       {
         "id": 30033,
         "name": "BAHMAN",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 450,
         "healthPoint": 16,
@@ -317,6 +326,7 @@
       {
         "id": 30032,
         "name": "GONDE_BACK_GIANT",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 600,
         "healthPoint": 30,
@@ -339,6 +349,7 @@
       {
         "id": 30031,
         "name": "ARZHANG",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 600,
         "healthPoint": 6,
@@ -369,6 +380,7 @@
       {
         "id": 30030,
         "name": "TURANIAN_ARCHER",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 500,
         "healthPoint": 3,
@@ -391,6 +403,7 @@
       {
         "id": 30029,
         "name": "EAGLE",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 200,
         "healthPoint": 0,
@@ -421,6 +434,7 @@
       {
         "id": 30029,
         "name": "EAGLE",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 200,
         "healthPoint": 0,
@@ -451,6 +465,7 @@
       {
         "id": 30027,
         "name": "NANE_SARMA",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 500,
         "healthPoint": 3,
@@ -481,6 +496,7 @@
       {
         "id": 30026,
         "name": "PERSIAN_CHAMPION",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 600,
         "healthPoint": 24,
@@ -511,6 +527,7 @@
       {
         "id": 30025,
         "name": "WITCH",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 550,
         "healthPoint": 5,
@@ -541,6 +558,7 @@
       {
         "id": 30024,
         "name": "TURANIAN_SPY",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 700,
         "healthPoint": 6,
@@ -571,6 +589,7 @@
       {
         "id": 30023,
         "name": "SIAVASH",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 350,
         "healthPoint": 8,
@@ -601,6 +620,7 @@
       {
         "id": 30022,
         "name": "TURANIAN_CATAPULT",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 600,
         "healthPoint": 4,
@@ -623,6 +643,7 @@
       {
         "id": 30021,
         "name": "BLACK_GIANT",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 300,
         "healthPoint": 14,
@@ -645,6 +666,7 @@
       {
         "id": 30020,
         "name": "PALANG",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 400,
         "healthPoint": 6,
@@ -675,6 +697,7 @@
       {
         "id": 30019,
         "name": "GIANT_SNAKE",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 500,
         "healthPoint": 14,
@@ -705,6 +728,7 @@
       {
         "id": 30018,
         "name": "NANE_WITCH",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 550,
         "healthPoint": 6,
@@ -735,6 +759,7 @@
       {
         "id": 30017,
         "name": "JEN",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 500,
         "healthPoint": 10,
@@ -765,6 +790,7 @@
       {
         "id": 30016,
         "name": "HOG_RIDER_GIANT",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 300,
         "healthPoint": 16,
@@ -787,6 +813,7 @@
       {
         "id": 30016,
         "name": "HOG_RIDER_GIANT",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 300,
         "healthPoint": 16,
@@ -809,6 +836,7 @@
       {
         "id": 30015,
         "name": "PERSIAN_ARCHER",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 300,
         "healthPoint": 6,
@@ -831,6 +859,7 @@
       {
         "id": 30014,
         "name": "SHAGHUL",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 600,
         "healthPoint": 10,
@@ -861,6 +890,7 @@
       {
         "id": 30012,
         "name": "WOLF",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 400,
         "healthPoint": 6,
@@ -891,6 +921,7 @@
       {
         "id": 30010,
         "name": "CYCLOPS",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 500,
         "healthPoint": 12,
@@ -921,6 +952,7 @@
       {
         "id": 30009,
         "name": "LION",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 600,
         "healthPoint": 1,
@@ -951,6 +983,7 @@
       {
         "id": 30008,
         "name": "CATAPULT_GIANT",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 300,
         "healthPoint": 12,
@@ -973,6 +1006,7 @@
       {
         "id": 30007,
         "name": "GIV",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 450,
         "healthPoint": 5,
@@ -1003,6 +1037,7 @@
       {
         "id": 30006,
         "name": "VENOM_SNAKE",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 300,
         "healthPoint": 5,
@@ -1033,6 +1068,7 @@
       {
         "id": 30005,
         "name": "DRAGON",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 250,
         "healthPoint": 9,
@@ -1055,6 +1091,7 @@
       {
         "id": 30004,
         "name": "PERSIAN_LANCER",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 500,
         "healthPoint": 5,
@@ -1077,6 +1114,7 @@
       {
         "id": 30003,
         "name": "PERSIAN_SWORDS_WOMAN",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 400,
         "healthPoint": 6,
@@ -1107,6 +1145,7 @@
       {
         "id": 30002,
         "name": "IRAJ",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 500,
         "healthPoint": 6,
@@ -1129,6 +1168,7 @@
       {
         "id": 30001,
         "name": "TURANIAN_MACER",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 450,
         "healthPoint": 3,
@@ -1151,6 +1191,7 @@
       {
         "id": 30001,
         "name": "TURANIAN_MACER",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 450,
         "healthPoint": 3,
@@ -1173,6 +1214,7 @@
       {
         "id": 20020,
         "name": "LIGHTNING_BOLT",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 1250,
         "healthPoint": -1,
@@ -1206,6 +1248,7 @@
       {
         "id": 20019,
         "name": "ALL_POISON",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 1500,
         "healthPoint": -1,
@@ -1239,6 +1282,7 @@
       {
         "id": 20018,
         "name": "SACRIFICE",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 1600,
         "healthPoint": -1,
@@ -1282,6 +1326,7 @@
       {
         "id": 20017,
         "name": "ALL_DISARM",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 2000,
         "healthPoint": -1,
@@ -1315,6 +1360,7 @@
       {
         "id": 20015,
         "name": "DISPEL",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 2100,
         "healthPoint": -1,
@@ -1358,6 +1404,7 @@
       {
         "id": 20014,
         "name": "TOTAL_DISARM",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 1000,
         "healthPoint": -1,
@@ -1391,6 +1438,7 @@
       {
         "id": 20013,
         "name": "MADNESS",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 650,
         "healthPoint": -1,
@@ -1434,6 +1482,7 @@
       {
         "id": 20009,
         "name": "EMPOWER",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 250,
         "healthPoint": -1,
@@ -1467,6 +1516,7 @@
       {
         "id": 20007,
         "name": "AREA_DISPEL",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 1500,
         "healthPoint": -1,
@@ -1554,6 +1604,7 @@
       {
         "id": 20006,
         "name": "POISON_LAKE",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 900,
         "healthPoint": -1,
@@ -1624,6 +1675,7 @@
       {
         "id": 20005,
         "name": "HEALTH_WITH_PROFIT",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 2250,
         "healthPoint": -1,
@@ -1667,6 +1719,7 @@
       {
         "id": 20004,
         "name": "KINGS_GUARD",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 1750,
         "healthPoint": -1,
@@ -1700,6 +1753,7 @@
       {
         "id": 20002,
         "name": "GOD_STRENGTH",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 450,
         "healthPoint": -1,
@@ -1733,6 +1787,7 @@
       {
         "id": 20001,
         "name": "SHOCK",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 1200,
         "healthPoint": -1,
@@ -1767,6 +1822,7 @@
         "cooldown": 0,
         "id": 40010,
         "name": "ARASH",
+        "type": "Hero",
         "maxPossibleMoving": 2,
         "price": 10000,
         "healthPoint": 30,
@@ -1805,6 +1861,7 @@
       {
         "id": 20011,
         "name": "WEAKENING",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 1000,
         "healthPoint": -1,
@@ -1838,6 +1895,7 @@
       {
         "id": 20012,
         "name": "ALL_ATTACK",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 1500,
         "healthPoint": -1,
@@ -1871,6 +1929,7 @@
       {
         "id": 20010,
         "name": "ALL_POWER",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 2000,
         "healthPoint": -1,
@@ -1904,6 +1963,7 @@
       {
         "id": 20008,
         "name": "POWER_UP",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 2500,
         "healthPoint": -1,
@@ -1937,6 +1997,7 @@
       {
         "id": 20015,
         "name": "DISPEL",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 2100,
         "healthPoint": -1,
@@ -1980,6 +2041,7 @@
       {
         "id": 20017,
         "name": "ALL_DISARM",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 2000,
         "healthPoint": -1,
@@ -2013,6 +2075,7 @@
       {
         "id": 20016,
         "name": "HELL_FIRE",
+        "type": "Spell",
         "maxPossibleMoving": -1,
         "price": 600,
         "healthPoint": -1,
