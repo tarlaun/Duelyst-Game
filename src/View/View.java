@@ -33,6 +33,10 @@ public class View {
         System.out.println("Account already exists");
     }
 
+    public void showMatchHistory(){
+
+    }
+
     public void login(Message message) {
         switch (message) {
             case INVALID_ACCOUNT:
