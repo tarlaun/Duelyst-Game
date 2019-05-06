@@ -100,7 +100,8 @@ public class Game {
             if (dir.isDirectory()) {
                 for (File file : dir.listFiles()) {
                     if (file.isFile()) {
-                        System.out.println(file.getName());
+                        if (!file.getName().matches("\\w+[.]json"))
+                            continue;
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Account account = new Gson().fromJson(reader, Account.class);
                         accounts.add(account);
