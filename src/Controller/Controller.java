@@ -166,11 +166,9 @@ public class Controller {
                     break;
                 case USE_SP:
                     specialPowerValidation();
-
-                    if (battle.validSpecialPower().equals(null)) {
+                    if (battle.validSpecialPower() == null) {
                         useSpecialPower(request);
                     }
-
                     break;
                 case SHOW_HAND:
                     showHand();
@@ -228,15 +226,15 @@ public class Controller {
     private boolean insertAI() {
         if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
-          battle.insertCard(battle.setCardCoordinates(battle.chooseCard(cards)),battle.chooseCard(cards).getName());
+            battle.insertCard(battle.setCardCoordinates(battle.chooseCard(cards)), battle.chooseCard(cards).getName());
             return true;
         }
         return false;
     }
 
-    public ArrayList<Card> convertArrayToList(Card[] cards){
+    public ArrayList<Card> convertArrayToList(Card[] cards) {
         ArrayList<Card> cards1 = new ArrayList<>();
-        for (int i = 0; i <cards.length ; i++) {
+        for (int i = 0; i < cards.length; i++) {
             cards1.add(cards[i]);
         }
         return cards1;
@@ -578,7 +576,7 @@ public class Controller {
     public void useItem(Request request) {
         if (request.checkItemUseSyntax()) {
             if (menu.getStat() == MenuStat.BATTLE || menu.getStat() == MenuStat.ITEM_SELECTION) {
-                view.printItemUsage(battle.useItem(battle.getCurrentItem()));
+                battle.useItem(battle.getCurrentItem());
             }
         }
     }
