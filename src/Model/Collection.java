@@ -63,13 +63,14 @@ public class Collection {
             Card card = Card.getCardByID(objectID, this.cards.toArray(new Card[cards.size()]));
             if (card != null) {
                 if (deck.getCards().indexOf(card) == -1) {
-                    if (card instanceof Hero && deck.getHero() == null) {
+                    System.out.println(card.getClass().getName());
+                    if (card.getType().equals("Hero") && deck.getHero() == null) {
                         deck.setHero((Hero) Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
                         return Message.OBJECT_ADDED;
-                    } else if (card instanceof Hero && deck.getHero() != null) {
+                    } else if (card.getType().equals("Hero") && deck.getHero() != null) {
                         return Message.MAXIMUM_HERO_COUNT;
                     }
-                    if ((card instanceof Spell || card instanceof Minion)
+                    if ((card.getType().equals("Minion") || card.getType().equals("Spell"))
                             && deck.getCards().size() < 20) {
                         System.out.println("Buban");
                         deck.getCards().add(Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
@@ -78,7 +79,6 @@ public class Collection {
                         return Message.FULL_DECK;
                     }
                 }
-                System.out.println("Zein");
                 return Message.EXISTS_IN_DECK;
             }
             Item item = Item.getItemByID(objectID, this.items.toArray(new Item[items.size()]));
@@ -110,7 +110,7 @@ public class Collection {
             Card card = Card.getCardByID(objectID, this.cards.toArray(new Card[cards.size()]));
             Item item = Item.getItemByID(objectID, this.items.toArray(new Item[items.size()]));
             if (card != null) {
-                if (card instanceof Hero) {
+                if (card.getType().equals("Hero")) {
                     deck.setHero(null);
                     return Message.UNAVAILABLE;
                 }
