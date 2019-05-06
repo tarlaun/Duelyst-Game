@@ -86,7 +86,6 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        menu.setStat(MenuStat.MAIN);
     }
 
     public void sortAccounts() {
@@ -123,9 +122,6 @@ public class Game {
                     }
                 }
             }
-        }
-        for (Card card: shop.getCards()) {
-            System.out.println(card.getName());
         }
     }
 
