@@ -766,10 +766,6 @@ public class Battle {
         return Message.NOT_IN_HAND;
     }
 
-    public void showHand() {
-
-    }
-
     public void endTurn() {
         buffTurnEnd();
         deholifyCell();
@@ -919,10 +915,6 @@ public class Battle {
         }
     }
 
-    public void showcollectibles() {
-
-    }
-
     public void showInfo(int objectId) {
         if (menu.getStat() == MenuStat.ITEM_SELECTION) {
             Item.getItemByID(objectId, collectibles[turn % 2]);
@@ -959,10 +951,6 @@ public class Battle {
             return false;
         return true;
     }
-
-   /* public Message useSpecialPower(Coordinate coordinate) {
-
-    }*/
 
     public void enterGraveyard() {
         menu.setStat(MenuStat.GRAVEYARD);
@@ -1653,7 +1641,7 @@ public class Battle {
         }
     }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public int getTurnByAccount(Account account) {
         if (this.accounts[0].getId() == account.getId())
             return 0;
