@@ -39,6 +39,7 @@ public class Battle {
     private Battle() {
     }
 
+
     public void setCollectibles(Item[][] collectibles) {
         this.collectibles = collectibles;
     }

@@ -451,4 +451,13 @@ public class View {
     public void printInvalidCommand() {
         System.out.println("INVALID COMMAND");
     }
+    public void chooseBattleMode(){
+        System.out.println("Choose between:KILL_OPPONENT_HERO   HOLD_FLAG    COLLECT_FLAG");
+    }
+    public void chooseMultiOrSingle(){
+        System.out.println("Choose between: Multiplayer   Singleplayer");
+    }
+    public void chooseLevels(){
+        System.out.println("Choose between : Level1 Level2 Level3 Custom");
+    }
 }

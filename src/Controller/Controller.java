@@ -201,19 +201,19 @@ public class Controller {
         }
     }
 
-    public void showMatchHistory(Request request){
-        if(request.checkMatchHistory()&& menu.getStat() == MenuStat.ACCOUNT){
-            if(battle.getGameType() == GameType.SINGLE_PLAYER){
+    public void showMatchHistory(Request request) {
+        if (request.checkMatchHistory() && menu.getStat() == MenuStat.ACCOUNT) {
+            if (battle.getGameType() == GameType.SINGLE_PLAYER) {
                 view.showMatchHistory(account.getMatchHistory(), battle.getLevel());
-            }else {
+            } else {
                 view.showMatchHistory(account.getMatchHistory(), getOpponentName(account));
             }
         }
     }
 
-    public String getOpponentName(Account account){
-        for (int i = 0; i < battle.getAccounts().length ; i++) {
-            if(!battle.getAccounts()[i].getName().equals(account.getName())){
+    public String getOpponentName(Account account) {
+        for (int i = 0; i < battle.getAccounts().length; i++) {
+            if (!battle.getAccounts()[i].getName().equals(account.getName())) {
                 return battle.getAccounts()[i].getName();
             }
         }
@@ -263,6 +263,10 @@ public class Controller {
                     break;
                 case "Help":
                     help();
+                    break;
+                case "Battle":
+                    menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
+                    chooseBattleDetails(request);
                     break;
                 default:
                     menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
@@ -348,7 +352,7 @@ public class Controller {
             Collection collection = this.account.getCollection();
             try {
                 view.printDeck(collection.getDecks().get(collection.deckExistance(request.getDeckName(request.getCommand()))));
-            } catch (ArrayIndexOutOfBoundsException e){
+            } catch (ArrayIndexOutOfBoundsException e) {
                 view.printDeck(null);
             }
         }
@@ -540,5 +544,37 @@ public class Controller {
 
     public void showMenu() {
         view.printOptions();
+    }
+
+    public void chooseBattleDetails(Request request) {
+        GameType type;
+        BattleMode mode;
+        view.chooseMultiOrSingle();
+        String multiOrSingle = request.getNewCommand();
+        if (multiOrSingle.equals("Multiplayer")) {
+            battle.setGameType(GameType.MULTI_PLAYER);
+        } else if (multiOrSingle.equals("Singleplayer")) {
+            battle.setGameType(GameType.SINGLE_PLAYER);
+        } else {
+            view.printInvalidCommand();
+        }
+        view.chooseBattleMode();
+        String modeString = request.getNewCommand();
+        switch (modeString) {
+            case "KILL_OPPONENT_HERO":
+                battle.setMode(BattleMode.KILL_OPPONENT_HERO);
+                break;
+            case "HOLD_FLAG":
+                battle.setMode(BattleMode.HOLD_FLAG);
+                break;
+            case "COLLECT_FLAG":
+                battle.setMode(BattleMode.COLLECT_FLAG);
+                break;
+            default:
+                view.printInvalidCommand();
+                break;
+        }
+
+
     }
 }
