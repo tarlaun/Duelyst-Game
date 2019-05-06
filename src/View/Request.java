@@ -8,54 +8,54 @@ import java.util.Scanner;
 public class Request {
     private Scanner scanner = new Scanner(System.in);
     private final String[] strings = {
-            "create account ",
-            "login ",
-            "show leaderboard",
+            "createAccount",
+            "login",
+            "showLeaderboard",
             "save",
             "logout",
             "help",
-            "Enter ",
+            "Enter",
             "exit",
             "show",
-            "search ",
-            "create deck ",
-            "delete deck ",
-            "add ",
-            "remove ",
-            "validate deck ",
-            "select deck ",
-            "show deck ",
-            "show all decks",
-            "show collection",
-            "search collection ",
-            "save in collection ",
-            "buy ",
-            "sell ",
-            "Game info",
-            "Show my minions",
-            "Show opponent minions",
-            "Show card info ",
-            "Select ",
-            "Move to (",
-            "Attack ",
-            "Attack combo ",
-            "Use special power (",
-            "Show hand",
-            "Insert ",
-            "End turn",
-            "Show collectables",
-            "Show info",
-            "Use (",
-            "Show Next Card",
-            "Show cards",
-            "End Game",
-            "show menu"
+            "search",
+            "createDeck",
+            "deleteDeck",
+            "add",
+            "remove",
+            "validateDeck",
+            "selectDeck",
+            "showDeck",
+            "showAllDecks",
+            "showCollection",
+            "searchCollection",
+            "saveInCollection",
+            "buy",
+            "sell",
+            "GameInfo",
+            "ShowMyMinions",
+            "ShowOpponentMinions",
+            "ShowCardInfo",
+            "Select",
+            "MoveTo (",
+            "Attack",
+            "AttackCombo",
+            "UseSpecialPower(",
+            "ShowHand",
+            "Insert",
+            "EndTurn",
+            "ShowCollectables",
+            "ShowInfo",
+            "Use(",
+            "ShowNextCard",
+            "ShowCards",
+            "EndGame",
+            "showMenu"
     };
     private String command;
     private RequestType type;
 
     public boolean checkAccountCreationSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_ACCOUNT.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_ACCOUNT.ordinal()] + "\\s\\w+");
     }
 
     public boolean checkLeaderBoardSyntax() {
@@ -67,48 +67,48 @@ public class Request {
     }
 
     public boolean checkLoginSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.LOGIN.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.LOGIN.ordinal()] + "\\s\\w+");
     }
 
     public boolean checkMenuEntrnaceSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.ENTRANCE.ordinal()] + "(Collection|Shop|Battle|Exit|Game)");
+        return this.getCommand().matches(this.getStrings()[RequestType.ENTRANCE.ordinal()] + "\\s(Collection|Shop|Battle|Exit|Game)");
 
     }
 
     public boolean checkSearchSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH.ordinal()] + "\\s\\w+");
     }
 
     public boolean checkSearchTheCollectionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SEARCH_COLLECTION.ordinal()] + "\\s\\w+");
     }
 
     public boolean checkDeckSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_DECK.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.CREATE_DECK.ordinal()] + "\\s\\w+");
     }
 
 
     public boolean checkToDeckAdditionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.ADD.ordinal()] + "\\d+\\sto\\sdeck\\s\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.ADD.ordinal()] + "\\s\\d+\\sto\\sdeck\\s\\w+");
 
     }
 
     public boolean checkFromDeckDeletionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.REMOVE.ordinal()] + "\\d+\\sto\\sdeck\\s\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.REMOVE.ordinal()] + "\\s\\d+\\sto\\sdeck\\s\\w+");
 
     }
 
     public boolean checkValidationSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.VALIDATION.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.VALIDATION.ordinal()] + "\\s\\w+");
     }
 
     public boolean checkShowDeckSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SHOW_DECK.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SHOW_DECK.ordinal()] + "\\s\\w+");
 
     }
 
     public boolean checkDeckSelectionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SELECT_DECK.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SELECT_DECK.ordinal()] + "\\s\\w+");
 
     }
 
@@ -118,53 +118,53 @@ public class Request {
     }
 
     public boolean checkBuySyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.BUY.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.BUY.ordinal()] + "\\s\\w+");
 
     }
 
     public boolean checkCardSelectionSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SELECTION.ordinal()] + "\\d+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SELECTION.ordinal()] + "\\s\\d+");
 
     }
 
     public boolean checkSellSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.SELL.ordinal()] + "\\d+");
+        return this.getCommand().matches(this.getStrings()[RequestType.SELL.ordinal()] + "\\s\\d+");
 
     }
 
     public boolean checkMoveSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.MOVE.ordinal()] + "\\d+,\\d+\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.MOVE.ordinal()] + "\\s\\d+\\s[,]\\s\\d+\\s\\)");
 
     }
 
     public boolean checkAssaultSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.ATTACK.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.ATTACK.ordinal()] + "\\s\\w+");
 
     }
 
     public boolean checkComboSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.COMBO.ordinal()] + "\\w+");
+        return this.getCommand().matches(this.getStrings()[RequestType.COMBO.ordinal()] + "\\s\\w+");
 
     }
 
     public boolean checkSPUsageSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.USE_SP.ordinal()] + "\\d+,\\d+\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.USE_SP.ordinal()] + "\\s\\d+\\s,\\s\\d+\\s\\)");
 
     }
 
     public boolean checkCardInsertSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.INSERTION.ordinal()] + "\\w+\\sto\\s\\(\\d+,\\d+\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.INSERTION.ordinal()] + "\\w+\\sto\\s\\(\\s\\d+\\s,\\s\\d+\\s\\)");
     }
 
     public boolean checkItemUseSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.USE_ITEM.ordinal()] + "\\d+,\\d+\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.USE_ITEM.ordinal()] + "\\s\\d+\\s,\\s\\d+\\s\\)");
 
     }
 
     public RequestType getType() {
         for (int i = 0; i < strings.length; i++) {
             try {
-                if (command.substring(0, strings[i].length()).equals(strings[i]))
+                if (this.getSplittedCommand(this.command)[0].equals(strings[i]))
                     return RequestType.values()[i];
             } catch (StringIndexOutOfBoundsException e) {
 
@@ -226,14 +226,14 @@ public class Request {
     }
 
     public int[] getComboComradesId(String input) {
-        int[] comradesId = new int[this.getSplittedCommand(input).length - 3];
-        for (int i = 3; i < this.getSplittedCommand(input).length; i++) {
-            comradesId[i - 3] = Integer.parseInt(this.getSplittedCommand(input)[i]);
+        int[] comradesId = new int[this.getSplittedCommand(input).length - 2];
+        for (int i = 2; i < this.getSplittedCommand(input).length; i++) {
+            comradesId[i - 2] = Integer.parseInt(this.getSplittedCommand(input)[i]);
         }
         return comradesId;
     }
 
     public int getOppIdInCombo(String input) {
-        return Integer.parseInt(this.getSplittedCommand(input)[2]);
+        return Integer.parseInt(this.getSplittedCommand(input)[1]);
     }
 }

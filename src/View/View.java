@@ -72,6 +72,7 @@ public class View {
     }
 
     public void printCollection(Collection collection, boolean isInShop) {
+        System.out.println("Size is:" + collection.getCards().size());
         System.out.println("Heroes :");
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (collection.getCards().get(i) instanceof Hero) {
