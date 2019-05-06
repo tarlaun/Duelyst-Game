@@ -664,6 +664,14 @@ public class Battle {
     }
 
     private void useSpecialPower(Card card, Buff buff) {
+        if(card instanceof Hero){
+            useHeroSP((Hero)card, currentCoordinate);
+            return;
+        }
+        if(card instanceof Spell){
+            useSpell((Spell) card, currentCoordinate);
+            return;
+        }
         int r;
         switch (buff.getType()) {
             case HOLY:
