@@ -1,0 +1,39 @@
+{
+  "cooldown": 0,
+  "id": 0,
+  "name": "ZAHAK",
+  "maxPossibleMoving": 2,
+  "price": 10000,
+  "healthPoint": 50,
+  "minRange": -1,
+  "maxRange": -1,
+  "assaultPower": 2,
+  "originalAssaultPower": 2,
+  "assaultType": "MELEE",
+  "buffs": [
+    {
+      "type": "POISON",
+      "power": -1,
+      "targetType": "Card",
+      "dispelType": "TEMPORARY",
+      "activationType": "ON_ATTACK",
+      "turnCount": 6,
+      "side": "ENEMY",
+      "effectArea": [
+        {
+          "x": -1,
+          "y": 0
+        }
+      ]
+    }
+  ],
+  "castedBuffs": [],
+  "castedItems": [],
+  "manaPoint": -1,
+  "ableToAttack": false,
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0
+}

@@ -1,0 +1,192 @@
+{
+  "attackCount": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "id": 0,
+  "name": "TURANIAN_PRINCE",
+  "maxPossibleMoving": 2,
+  "price": 800,
+  "healthPoint": 6,
+  "minRange": -1,
+  "maxRange": -1,
+  "assaultPower": 10,
+  "originalAssaultPower": 10,
+  "assaultType": "MELEE",
+  "buffs": [
+    {
+      "type": "COMBO",
+      "power": -1,
+      "activationType": "COMBO",
+      "turnCount": -1,
+      "effectArea": []
+    }
+  ],
+  "castedBuffs": [],
+  "castedItems": [],
+  "manaPoint": 6,
+  "ableToAttack": false,
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0
+}

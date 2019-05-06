@@ -86,16 +86,27 @@ public class Card {
         this.name = info[MainInfoOrder.NAME.ordinal()];
         this.price = Integer.parseInt(info[MainInfoOrder.PRICE.ordinal()]);
         this.assaultPower = Integer.parseInt(info[MainInfoOrder.AP.ordinal()]);
-        this.originalAssaultPower = this.assaultPower;
+        this.setOriginalAssaultPower(assaultPower);
         this.maxPossibleMoving = Integer.parseInt(info[MainInfoOrder.MAX_MOVE.ordinal()]);
         this.healthPoint = Integer.parseInt(info[MainInfoOrder.HP.ordinal()]);
         this.minRange = Integer.parseInt(info[MainInfoOrder.MIN_RANGE.ordinal()]);
         this.maxRange = Integer.parseInt(info[MainInfoOrder.MAX_RANGE.ordinal()]);
         this.manaPoint = Integer.parseInt(info[MainInfoOrder.MANA.ordinal()]);
         this.assaultType = AssaultType.valueOf(info[MainInfoOrder.ASSAULT_TYPE.ordinal()]);
-        for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
-            this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
+        if (this instanceof Minion) {
+            if(info.length>9) {
+                this.buffs.add(new Buff(info[MainInfoOrder.BUFF.ordinal()]));
+            }
+        } else {
+            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length ; i++) {
+                this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
+            }
         }
+    }
+
+
+    public Card() {
+
     }
 
     public boolean isAbleToCounter() {

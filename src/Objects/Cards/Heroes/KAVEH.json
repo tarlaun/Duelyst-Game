@@ -1,0 +1,39 @@
+{
+  "cooldown": 0,
+  "id": 0,
+  "name": "KAVEH",
+  "maxPossibleMoving": 2,
+  "price": 8000,
+  "healthPoint": 50,
+  "minRange": -1,
+  "maxRange": -1,
+  "assaultPower": 4,
+  "originalAssaultPower": 4,
+  "assaultType": "MELEE",
+  "buffs": [
+    {
+      "type": "HOLY",
+      "power": -1,
+      "targetType": "Cell",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 3,
+      "side": "ALL",
+      "effectArea": [
+        {
+          "x": 3,
+          "y": 0
+        }
+      ]
+    }
+  ],
+  "castedBuffs": [],
+  "castedItems": [],
+  "manaPoint": 1,
+  "ableToAttack": false,
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0
+}

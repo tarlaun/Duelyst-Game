@@ -7,6 +7,7 @@
   "minRange": -1,
   "maxRange": -1,
   "assaultPower": -1,
+  "originalAssaultPower": -1,
   "assaultType": "NULL",
   "buffs": [
     {
@@ -17,16 +18,16 @@
       "activationType": "UNDEFINED",
       "turnCount": 1000000,
       "side": "ENEMY",
-      "effectArea": [
-        {
-          "x": 0,
-          "y": 0
-        }
-      ]
+      "effectArea": []
     }
   ],
   "castedBuffs": [],
+  "castedItems": [],
   "manaPoint": 0,
   "ableToAttack": false,
-  "ableToMove": false
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0
 }

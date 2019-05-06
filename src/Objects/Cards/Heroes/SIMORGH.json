@@ -1,0 +1,39 @@
+{
+  "cooldown": 0,
+  "id": 0,
+  "name": "SIMORGH",
+  "maxPossibleMoving": 2,
+  "price": 9000,
+  "healthPoint": 50,
+  "minRange": -1,
+  "maxRange": -1,
+  "assaultPower": 4,
+  "originalAssaultPower": 4,
+  "assaultType": "MELEE",
+  "buffs": [
+    {
+      "type": "STUN",
+      "power": -1,
+      "targetType": "Card",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": 1,
+      "side": "ENEMY",
+      "effectArea": [
+        {
+          "x": 8,
+          "y": -1
+        }
+      ]
+    }
+  ],
+  "castedBuffs": [],
+  "castedItems": [],
+  "manaPoint": 3,
+  "ableToAttack": false,
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0
+}

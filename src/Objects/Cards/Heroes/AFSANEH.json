@@ -1,0 +1,39 @@
+{
+  "cooldown": 0,
+  "id": 0,
+  "name": "AFSANEH",
+  "maxPossibleMoving": 2,
+  "price": 11000,
+  "healthPoint": 40,
+  "minRange": -1,
+  "maxRange": 3,
+  "assaultPower": 3,
+  "originalAssaultPower": 3,
+  "assaultType": "RANGED",
+  "buffs": [
+    {
+      "type": "POSITIVE_DISPEL",
+      "power": -1,
+      "targetType": "Card",
+      "dispelType": "TEMPORARY",
+      "activationType": "UNDEFINED",
+      "turnCount": -1,
+      "side": "ENEMY",
+      "effectArea": [
+        {
+          "x": 2,
+          "y": 0
+        }
+      ]
+    }
+  ],
+  "castedBuffs": [],
+  "castedItems": [],
+  "manaPoint": 1,
+  "ableToAttack": false,
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0
+}
