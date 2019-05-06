@@ -88,6 +88,7 @@ public class Shop {
         if (card != null) {
             account.modifyAccountBudget(card.getPrice());
             account.getCollection().getCards().remove(card);
+            account.getCollection().deleteFromAllDecks(card.getId());
             return true;
         }
         Item item = Item.getItemByID(objectId, account.getCollection().getItems().toArray(new Item[
@@ -95,6 +96,7 @@ public class Shop {
         if (item != null) {
             account.modifyAccountBudget(item.getPrice());
             account.getCollection().getItems().remove(item);
+            account.getCollection().deleteFromAllDecks(item.getId());
             return true;
         }
         return false;
