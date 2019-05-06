@@ -10,7 +10,7 @@ public class Controller {
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
-    private Account account = new Account();
+    private Account account;
     private Battle battle = Battle.getInstance();
     private static final Controller controller = new Controller();
 
@@ -195,6 +195,8 @@ public class Controller {
             view.passwordInsertion();
             String password = request.getNewCommand();
             view.login(Account.login(request.getAccountName(username), request.getPassword(password)));
+            if (Account.login(request.getAccountName(username), request.getPassword(password)) == Message.SUCCESSFUL_LOGIN)
+                this.account = game.getAccounts().get(Account.accountIndex(username));
         }
     }
 
@@ -223,9 +225,7 @@ public class Controller {
     }
 
     public void enter(Request request) {
-        System.out.println("PLZ");
         if (request.checkMenuEntrnaceSyntax()) {
-            System.out.println("Schwifty!");
             switch (request.getMenu(request.getCommand())) {
                 case "Exit":
                     exit();
@@ -234,7 +234,6 @@ public class Controller {
                     help();
                     break;
                 default:
-                    System.out.println(request.getMenu(request.getCommand()));
                     menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
             }
         }
@@ -245,7 +244,7 @@ public class Controller {
     }
 
     public void showTheCollection() {
-        if (menu.getStat() == MenuStat.COLLECTION && menu.getStat() == MenuStat.SHOP)
+        if (menu.getStat() == MenuStat.SHOP)
             view.printCollection(this.account.getCollection(), true);
     }
 
@@ -349,7 +348,10 @@ public class Controller {
 
     public void showShop() {
         if (menu.getStat() == MenuStat.SHOP) {
-            view.printShopCollection(new Collection(shop.getCards(), shop.getItems()));
+            view.printCollection(new Collection(shop.getCards(), shop.getItems()), true);
+        }
+        if (menu.getStat() == MenuStat.COLLECTION) {
+            view.printCollection(account.getCollection(), true);
         }
     }
 
