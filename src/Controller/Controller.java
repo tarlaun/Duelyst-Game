@@ -570,6 +570,15 @@ public class Controller {
                 battle.setAccounts(accounts);
             }
         } else if (multiOrSingle.equals("Singleplayer")) {
+            Account[] accounts = new Account[2];
+            accounts[0]=account;
+            for (int i = 0; i < game.getAccounts().size(); i++) {
+                if(game.getAccounts().get(i).getName().equals("powerfulAI")){
+                    accounts[1]=game.getAccounts().get(i);
+
+                }
+            }
+            battle.setAccounts(accounts);
             battle.setGameType(GameType.SINGLE_PLAYER);
         } else {
             view.printInvalidCommand();
