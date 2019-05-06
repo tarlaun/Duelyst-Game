@@ -2,6 +2,7 @@ package View;
 
 import Model.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,8 +33,21 @@ public class View {
         System.out.println("Account already exists");
     }
 
-    public void showMatchHistory(){
+    public void showMatchHistory(ArrayList<Match> matches, int level){
+        System.out.println("number level win/lose time");
+        LocalDateTime time = LocalDateTime.now();
+        int hour = time.getHour();
+        int minutes = time.getMinute();
 
+        for (int i = 0; i < matches.size() ; i++) {
+            if(matches.get(i).getTime().getHour()== hour){
+                int mins = minutes - matches.get(i).getTime().getMinute();
+                System.out.println(i+" . LEVEL:"+ level + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+ mins  );
+            }else {
+                int hours = hour - matches.get(i).getTime().getHour();
+                System.out.println(i+" . LEVEL:"+ level + "WIN OR LOST"+matches.get(i).getResult()+"TIME: "+hours  );
+            }
+        }
     }
 
     public void login(Message message) {

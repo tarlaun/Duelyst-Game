@@ -49,7 +49,7 @@ public class Controller {
                 case NULL:
                     invalidCommand();
                     break;
-                case SHOWMATCHHISTORY:
+                case SHOW_MATCH_HISTORY:
                     showMatchHistory(request);
                 case CREATE_ACCOUNT:
                     createAccount(request);
@@ -203,7 +203,11 @@ public class Controller {
 
     public void showMatchHistory(Request request){
         if(request.checkMatchHistory()&& menu.getStat() == MenuStat.ACCOUNT){
-            view.showMatchHistory();
+            if(battle.getGameType() == GameType.SINGLE_PLAYER){
+                view.showMatchHistory(account.getMatchHistory(), battle.getLevel());
+            }
+
+            //view.showMatchHistory(account.getMatchHistory());
         }
     }
 
