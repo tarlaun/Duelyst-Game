@@ -27,4 +27,9 @@ public class Constants {
     static final int randomYGenerator = 4;
     static final int shiftColumn = 6;
     static final int initialBudget = 15000;
+    static final int spellId = 20000;
+    static final int minionId = 30000;
+    static final int heroId = 40000;
+    static final int itemId = 50000;
+    static final int accoutnId = 10000;
 }
