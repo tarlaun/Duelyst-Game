@@ -337,10 +337,10 @@ public class Battle {
     }
 
     public boolean isAttackable(Card currentCard, Card targetCard) {
-        if (targetCard.getName().equals("GIV")) {
+        if (targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISPEL)) {
             return false;
         }
-        if (targetCard.getName().equals("ASHKBOOS") && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
+        if (targetCard.getBuffs().get(0).getType().equals(BuffType.ASHBUS) && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
             return false;
         }
         return true;
@@ -348,7 +348,7 @@ public class Battle {
 
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
-        if (targetCard.equals(null))
+        if (targetCard == null)
             return Message.INVALID_TARGET;
         if (!isInRange(targetCard, currentCard)) {
             return Message.UNAVAILABLE;
@@ -361,7 +361,7 @@ public class Battle {
             }
         }
         checkAttackHistory(opponentCardId, currentCard);
-        onAttackSpecialPower();
+        checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         if (isAttackable(currentCard, targetCard))
@@ -370,6 +370,12 @@ public class Battle {
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
         return null;
+    }
+
+    private void checkOnAttackSpecials(Card currentCard) {
+        if (currentCard.getBuffs().size() >= 1 && currentCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_ATTACK)) {
+            onAttackSpecialPower();
+        }
     }
 
     public Card getCurrentCard() {
@@ -481,8 +487,13 @@ public class Battle {
 
     private void killEnemy(Card targetCard) {
         if (targetCard.getHealthPoint() <= 0) {
-            if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH)) {
-                useSpecialPower(targetCard, targetCard.getBuffs().get(0));
+            if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH) &&
+                    targetCard.getBuffs().get(0).getType().equals(BuffType.WEAKNESS)) {
+                for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
+                    if (fieldCards[(turn + 1) % 2][i] instanceof Hero) {
+                        fieldCards[(turn + 1) % 2][i].modifyHealth(-fieldCards[(turn + 1) % 2][i].getBuffs().get(0).getPower());
+                    }
+                }
             }
             if (mode.equals(BattleMode.HOLD_FLAG)) {
                 mainFlag.setTurnCounter(0);
@@ -566,8 +577,7 @@ public class Battle {
 
     public boolean useSpecialPowerForCombo(Card... cards) {
         for (Card card : cards) {
-            if (!(card.getName().equals("PERSIAN_COMMANDER")) && !(card.getName().equals("TURANIAN_PRINCE")) &&
-                    !(card.getName().equals("SHAGHUL")) && !(card.getName().equals("ARZHANG"))) {
+            if (card.getBuffs().size() == 1 && !card.getBuffs().get(0).getType().equals(BuffType.COMBO)) {
                 return false;
             }
         }
@@ -592,23 +602,18 @@ public class Battle {
 
         for (int i = 0; i < 2; i++) {
             switch (currentCard.getBuffs().get(i).getType()) {
-                case STUN:
-                    targetCard.setAbleToAttack(false);
-                    targetCard.setAbleToMove(false);
-                    targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                    break;
                 case CHAMPION:
                     int multiply = ((Minion) currentCard).getAttackCount(targetCard.getId()) * 5;
                     targetCard.modifyHealth(-multiply);
                     break;
                 case DISARM:
-                    if (!targetCard.getName().equals("WILD_HOG")) {
+                    if (targetCard.getBuffs().size() == 1 && !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISARM)) {
                         targetCard.setAbleToAttack(false);
                         targetCard.addToBuffs(currentCard.getBuffs().get(i));
                     }
                     break;
                 case POISON:
-                    if (!targetCard.getName().equals("PIRAN")) {
+                    if (targetCard.getBuffs().size() == 1 && !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_POISON)) {
                         targetCard.addToBuffs(currentCard.getBuffs().get(1));
                     }
                     break;
@@ -620,6 +625,8 @@ public class Battle {
                     }
                     break;
                 case WEAKNESS:
+                case WHITE_WALKER_WOLF:
+                case STUN:
                     targetCard.addToBuffs(currentCard.getBuffs().get(0));
                     break;
                 case POSITIVE_DISPEL:
@@ -648,8 +655,6 @@ public class Battle {
                                     card.getCoordinate().getY() + j).getCardID(), fieldCards[(turn + 1) % 2]);
                             if (target != null) {
                                 target.addToBuffs(card.getBuffs().get(0));
-                                target.setAbleToAttack(false);
-                                target.setAbleToMove(false);
                             }
                         }
                     }
@@ -663,8 +668,7 @@ public class Battle {
                             Card target = Card.getCardByID(getField(card.getCoordinate().getX() + i,
                                     card.getCoordinate().getY() + j).getCardID(), fieldCards[turn % 2]);
                             if (target != null) {
-                                target.addToBuffs(card.getBuffs().get(0));
-                                target.addToBuffs(card.getBuffs().get(1));
+                                targetCard.setAssaultPower(card.getAssaultPower() + buff.getPower());
                             }
                         }
                     }
@@ -678,6 +682,7 @@ public class Battle {
                 }
                 break;
             case POWER:
+                //OGHAB
                 card.addToBuffs(card.getBuffs().get(0));
                 break;
             case WEAKNESS:
@@ -707,7 +712,6 @@ public class Battle {
                             Card target = Card.getCardByID(field[i][j].getCardID(), fieldCards[turn % 2]);
                             assert target != null;
                             target.addToBuffs(card.getBuffs().get(0));
-
                         }
                     }
                 }
@@ -718,7 +722,9 @@ public class Battle {
                     r += 1;
                     Card target = Card.getCardByID(r, fieldCards[(turn + 1) % 2]);
                     assert target != null;
-                    target.addToBuffs(card.getBuffs().get(0));
+                    if (target instanceof Minion) {
+                        targetCard.modifyHealth(buff.getPower());
+                    }
                 }
                 break;
         }
@@ -799,70 +805,74 @@ public class Battle {
     }
 
     public void buffTurnEnd() {
-        for (Card card : fieldCards[0]) {
-            for (Buff buff : card.getCastedBuffs()) {
-                if (card.getName().equals("GIV") && (buff.getType().equals(BuffType.DISARM)
-                        || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
-                        || buff.getType().equals(BuffType.STUN))) {
-                    card.removeFromBuffs(buff);
-                    card.setAbleToMove(true);
-                    card.setAbleToAttack(true);
-                    card.setAssaultPower(card.getOriginalAssaultPower());
+        for (int i = 0; i < 2; i++) {
+            for (Card card : fieldCards[i]) {
+                for (Buff buff : card.getCastedBuffs()) {
+                    if ((buff.getType().equals(BuffType.NEGATIVE_DISPEL)) && (buff.getType().equals(BuffType.DISARM)
+                            || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
+                            || buff.getType().equals(BuffType.STUN))) {
+                        card.removeFromBuffs(buff);
+                        card.setAbleToMove(true);
+                        card.setAbleToAttack(true);
+                        card.setAssaultPower(card.getOriginalAssaultPower());
 
-                }
-                if (buff.getTurnCount() > 0) {
-                    buff.setTurnCount(buff.getTurnCount() - 1);
-                }
-                if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() != 0) {
-                    card.setAbleToAttack(false);
-                    card.setAbleToMove(false);
-                }
-                if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() == 0) {
-                    card.setAbleToMove(true);
-                    card.setAbleToAttack(true);
-                }
-                if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
-                    card.modifyHealth(-buff.getPower());
-                } else if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
-                    card.setAbleToAttack(true);
-                }
-                if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
-                    card.modifyHealth(buff.getPower());
-                    buff.setPower(4);
-                }
-                if (((buff.getType().equals(BuffType.WEAKNESS)) || (buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) ||
-                        (buff.getType().equals(BuffType.ON_SPAWN_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
-                        && buff.getTargetType().equals("HEALTH") && buff.getTurnCount() == 1) {
-                    targetCard.modifyHealth(buff.getPower());
-                }
-                if (buff.getActivationType().equals(ActivationType.PASSIVE)) {
-                    if (buff.getTargetType().equals("HEALTH")) {
-                        card.setHealthPoint(card.getHealthPoint() + card.getBuffs().get(0).getPower());
                     }
-                }
-                if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0) {
-                    card.setIsHoly(buff.getPower());
-                }
-                if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
-                    card.setIsHoly(0);
-                }
-                if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
-                    card.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                }
-                if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
-                    card.setAssaultPower(card.getOriginalAssaultPower());
-                }
-                if (buff.getType().equals(BuffType.JEN_JOON)) {
-                    card.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                }
-                if ((buff.getType().equals(BuffType.CHAMPION) || (buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() == 0) {
-                    card.setAssaultPower(card.getOriginalAssaultPower());
-                }
-                if ((buff.getType().equals(BuffType.CHAMPION) || (buff.getType().equals(BuffType.BWITCH))) && buff.getTurnCount() > 0 && buff.getTurnCount() % 2 == 0) {
-                    card.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                }
-                if (buff.getTurnCount() == 0) {
-                    card.removeFromBuffs(buff);
+                    if (buff.getTurnCount() > 0) {
+                        buff.setTurnCount(buff.getTurnCount() - 1);
+                    }
+                    //
+                    if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() != 0) {
+                        card.setAbleToAttack(false);
+                        card.setAbleToMove(false);
+                    }
+                    if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() == 0) {
+                        card.setAbleToMove(true);
+                        card.setAbleToAttack(true);
+                    }
+                    //
+                    if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
+                        card.setAbleToAttack(true);
+                    }
+                    if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() % 2 == 0) {
+                        card.modifyHealth(-buff.getPower());
+                    }
+                    //
+                    if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() != 0) {
+                        card.setAssaultPower(card.getAssaultPower() + buff.getPower());
+                    }
+                    if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
+                        card.setAssaultPower(card.getOriginalAssaultPower());
+                    }
+                    //
+                    if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
+                        card.modifyHealth(buff.getPower());
+                        buff.setPower(4);
+                    }
+                    //
+                    if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && !buff.getActivationType().equals(ActivationType.ON_DEATH)) {
+                        card.modifyHealth(0);
+                        buff.setPower(buff.getPower());
+                    }
+                    //
+                    if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && buff.getActivationType().equals(ActivationType.ON_DEATH)) {
+                        targetCard.modifyHealth(buff.getPower());
+                    }
+                    if (((buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
+                            && buff.getTurnCount() != 0) {
+                        targetCard.modifyHealth(buff.getPower());
+                    }
+                    if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0 && buff.getTurnCount() % 2 == 0) {
+                        card.setIsHoly(buff.getPower());
+                    }
+                    if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
+                        card.setIsHoly(0);
+                    }
+                    if (buff.getType().equals(BuffType.JEN_JOON) && buff.getTurnCount() == -1) {
+                        card.setAssaultPower(card.getAssaultPower() + buff.getPower());
+                    }
+                    if (buff.getTurnCount() == 0) {
+                        card.removeFromBuffs(buff);
+                    }
                 }
             }
         }

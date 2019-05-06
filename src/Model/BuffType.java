@@ -5,6 +5,7 @@ public enum BuffType {
     STUN,
     POWER,
     HOLY,
+    COMBO,
     WEAKNESS,
     WHITE_WALKER_WOLF,
     POISON,
@@ -21,5 +22,9 @@ public enum BuffType {
     JEN_JOON,
     ON_DEATH_WEAKNESS,
     HOLY_WEAKNESS,
-    ON_SPAWN_WEAKNESS
+    ON_SPAWN_WEAKNESS,
+    NEGATIVE_DISARM,
+    NEGATIVE_POISON,
+    NEGATIVE_DISPEL,
+    ASHBUS
 }
