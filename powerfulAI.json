@@ -87,6 +87,7 @@
       {
         "id": 30040,
         "name": "PERSIAN_COMMANDER",
+        "type": "Minion",
         "maxPossibleMoving": 2,
         "price": 800,
         "healthPoint": 12,
