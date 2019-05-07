@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Deck {
     private String name;
     private ArrayList<Card> cards = new ArrayList<>();
-    private Hero hero;
+    private Card hero;
     private Item item;
 
     public Deck(String name) {
@@ -32,11 +32,11 @@ public class Deck {
         this.cards = cards;
     }
 
-    public Hero getHero() {
+    public Card getHero() {
         return hero;
     }
 
-    public void setHero(Hero hero) {
+    public void setHero(Card hero) {
         this.hero = hero;
     }
 

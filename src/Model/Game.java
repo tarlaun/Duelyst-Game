@@ -162,22 +162,15 @@ public class Game {
         sortItems(account.getCollection().getItems());
         Collection collection = account.getCollection();
         for (int i = 0; i < collection.getCards().size(); i++) {
-            if (collection.getCards().get(i).getId() < Constants.minionId) {
-                if (i + 1 == collection.getCards().size()
-                        || collection.getCards().get(i + 1).getId() > Constants.minionId) {
+            if (collection.getCards().get(i).getType().equals("Spell"))
+                if (lastSpellId < collection.getCards().get(i).getId())
                     lastSpellId = collection.getCards().get(i).getId();
-                }
-            } else if (collection.getCards().get(i).getId() < Constants.heroId) {
-                if (i + 1 == collection.getCards().size()
-                        || collection.getCards().get(i + 1).getId() > Constants.heroId) {
+            if (collection.getCards().get(i).getType().equals("Minion"))
+                if (lastMinionId < collection.getCards().get(i).getId())
                     lastMinionId = collection.getCards().get(i).getId();
-                }
-            }
-            if (collection.getCards().get(i).getId() > Constants.heroId) {
-                if (i + 1 == collection.getCards().size()) {
+            if (collection.getCards().get(i).getType().equals("Hero"))
+                if (lastHeroId < collection.getCards().get(i).getId())
                     lastHeroId = collection.getCards().get(i).getId();
-                }
-            }
         }
         try {
             lastItemId = account.getCollection().getItems().get(account.getCollection().getItems().size() - 1).getId();

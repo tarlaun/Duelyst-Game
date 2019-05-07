@@ -63,16 +63,14 @@ public class Collection {
             Card card = Card.getCardByID(objectID, this.cards.toArray(new Card[cards.size()]));
             if (card != null) {
                 if (deck.getCards().indexOf(card) == -1) {
-                    System.out.println(card.getClass().getName());
                     if (card.getType().equals("Hero") && deck.getHero() == null) {
-                        deck.setHero((Hero) Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
+                        deck.setHero(Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
                         return Message.OBJECT_ADDED;
                     } else if (card.getType().equals("Hero") && deck.getHero() != null) {
                         return Message.MAXIMUM_HERO_COUNT;
                     }
                     if ((card.getType().equals("Minion") || card.getType().equals("Spell"))
                             && deck.getCards().size() < 20) {
-                        System.out.println("Buban");
                         deck.getCards().add(Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
                         return Message.OBJECT_ADDED;
                     } else if (deck.getCards().size() == 20) {
@@ -83,8 +81,8 @@ public class Collection {
             }
             Item item = Item.getItemByID(objectID, this.items.toArray(new Item[items.size()]));
             if (item != null) {
-                if (deck.getItem() == null || deck.getItem().getId() != item.getId()) {
-                    deck.setItem(Item.getItemByID(objectID, this.getItems().toArray(new Item[this.getItems().size()])));
+                if (deck.getItem() == null) {
+                    deck.setItem(Item.getItemByID(objectID, this.items.toArray(new Item[this.items.size()])));
                     return Message.OBJECT_ADDED;
                 } else if (deck.getItem() != null) {
                     return Message.MAXIMUM_ITEM_COUNT;

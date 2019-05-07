@@ -207,7 +207,7 @@ public class View {
     private void printCards(boolean isInShop, Card... cards) {
         int index = 1;
         for (int i = 0; i < cards.length; i++) {
-            if (!(cards[i].getType().equals("hero"))) {
+            if (!(cards[i].getType().equals("Hero"))) {
                 System.out.print("Id: " + cards[i].getId()+ " - ");
                 System.out.print(index + " : ");
                 if (cards[i].getType().equals("Spell")) {
