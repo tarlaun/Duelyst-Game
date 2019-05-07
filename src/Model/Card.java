@@ -95,7 +95,7 @@ public class Card {
         this.manaPoint = Integer.parseInt(info[MainInfoOrder.MANA.ordinal()]);
         this.assaultType = AssaultType.valueOf(info[MainInfoOrder.ASSAULT_TYPE.ordinal()]);
         if (this instanceof Minion) {
-            if(info.length>9) {
+            if (info.length > 9) {
                 this.buffs.add(new Buff(info[MainInfoOrder.BUFF.ordinal()]));
             }
         } else {
@@ -121,6 +121,7 @@ public class Card {
     public Card(Card card) {
         this.name = card.name;
         this.price = card.price;
+        this.type = card.type;
         this.assaultPower = card.assaultPower;
         this.maxPossibleMoving = card.maxPossibleMoving;
         this.healthPoint = card.healthPoint;

@@ -8,6 +8,7 @@ public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private static final Shop shop = new Shop();
+    private Game game = Game.getInstance();
 
     private Shop() {
 
@@ -68,6 +69,20 @@ public class Shop {
         }
         Card card = Card.getCardByID(search(objectName), cards.toArray(new Card[cards.size()]));
         if (card != null) {
+            Card instance = new Card(card);
+            if (card.getType().equals("Hero")) {
+                game.incrementHeroId();
+                instance.setId(game.getLastHeroId());
+            }
+            if (card.getType().equals("Minon")) {
+                game.incrementMinionId();
+                instance.setId(game.getLastMinionId());
+            }
+            if (card.getType().equals("Spell")) {
+                game.incrementSpellId();
+                instance.setId(game.getLastSpellId());
+            }
+            this.cards.add(instance);
             account.getCollection().getCards().add(card);
             account.modifyAccountBudget(-card.getPrice());
         }
