@@ -2,7 +2,7 @@
   "name": "powerfulAI",
   "id": 10001,
   "password": "ai",
-  "budget": 1392600,
+  "budget": 1364600,
   "matchHistory": [],
   "collection": {
     "cards": [
@@ -604,50 +604,6 @@
         "isHoly": 0
       },
       {
-        "id": 20015,
-        "name": "DISPEL",
-        "type": "Spell",
-        "maxPossibleMoving": -1,
-        "price": 2100,
-        "healthPoint": -1,
-        "minRange": -1,
-        "maxRange": -1,
-        "assaultPower": -1,
-        "originalAssaultPower": -1,
-        "assaultType": "NULL",
-        "buffs": [
-          {
-            "type": "POSITIVE_DISPEL",
-            "power": 0,
-            "targetType": "Card",
-            "dispelType": "TEMPORARY",
-            "activationType": "UNDEFINED",
-            "turnCount": 0,
-            "side": "ENEMY",
-            "effectArea": []
-          },
-          {
-            "type": "NEGATIVE_DISPEL",
-            "power": 0,
-            "targetType": "Card",
-            "dispelType": "TEMPORARY",
-            "activationType": "UNDEFINED",
-            "turnCount": 0,
-            "side": "COMRADE",
-            "effectArea": []
-          }
-        ],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 0,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
         "id": 20016,
         "name": "HELL_FIRE",
         "type": "Spell",
@@ -691,40 +647,6 @@
         "castedBuffs": [],
         "castedItems": [],
         "manaPoint": 3,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
-        "id": 20017,
-        "name": "ALL_DISARM",
-        "type": "Spell",
-        "maxPossibleMoving": -1,
-        "price": 2000,
-        "healthPoint": -1,
-        "minRange": -1,
-        "maxRange": -1,
-        "assaultPower": -1,
-        "originalAssaultPower": -1,
-        "assaultType": "NULL",
-        "buffs": [
-          {
-            "type": "DISARM",
-            "power": 0,
-            "targetType": "Card",
-            "dispelType": "TEMPORARY",
-            "activationType": "UNDEFINED",
-            "turnCount": 1,
-            "side": "ENEMY",
-            "effectArea": []
-          }
-        ],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 9,
         "ableToAttack": false,
         "ableToMove": false,
         "ableToResist": false,
@@ -868,29 +790,6 @@
             "effectArea": []
           }
         ],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 2,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
-        "id": 30001,
-        "name": "TURANIAN_MACER",
-        "type": "Minion",
-        "maxPossibleMoving": 2,
-        "price": 450,
-        "healthPoint": 3,
-        "minRange": -1,
-        "maxRange": -1,
-        "assaultPower": 10,
-        "originalAssaultPower": 10,
-        "assaultType": "MELEE",
-        "buffs": [],
         "castedBuffs": [],
         "castedItems": [],
         "manaPoint": 2,
@@ -1280,29 +1179,6 @@
         "isHoly": 0
       },
       {
-        "id": 30016,
-        "name": "HOG_RIDER_GIANT",
-        "type": "Minion",
-        "maxPossibleMoving": 2,
-        "price": 300,
-        "healthPoint": 16,
-        "minRange": -1,
-        "maxRange": -1,
-        "assaultPower": 8,
-        "originalAssaultPower": 8,
-        "assaultType": "MELEE",
-        "buffs": [],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 6,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
         "id": 30017,
         "name": "JEN",
         "type": "Minion",
@@ -1659,37 +1535,6 @@
         "isHoly": 0
       },
       {
-        "id": 30029,
-        "name": "EAGLE",
-        "type": "Minion",
-        "maxPossibleMoving": 2,
-        "price": 200,
-        "healthPoint": 0,
-        "minRange": -1,
-        "maxRange": 3,
-        "assaultPower": 2,
-        "originalAssaultPower": 2,
-        "assaultType": "RANGED",
-        "buffs": [
-          {
-            "type": "POWER",
-            "power": 10,
-            "activationType": "PASSIVE",
-            "turnCount": -1,
-            "effectArea": []
-          }
-        ],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 2,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
         "id": 30030,
         "name": "TURANIAN_ARCHER",
         "type": "Minion",
@@ -1852,37 +1697,6 @@
         "castedBuffs": [],
         "castedItems": [],
         "manaPoint": 8,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
-        "id": 30036,
-        "name": "TURANIAN_PRINCE",
-        "type": "Minion",
-        "maxPossibleMoving": 2,
-        "price": 800,
-        "healthPoint": 6,
-        "minRange": -1,
-        "maxRange": -1,
-        "assaultPower": 10,
-        "originalAssaultPower": 10,
-        "assaultType": "MELEE",
-        "buffs": [
-          {
-            "type": "COMBO",
-            "power": -1,
-            "activationType": "COMBO",
-            "turnCount": -1,
-            "effectArea": []
-          }
-        ],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 6,
         "ableToAttack": false,
         "ableToMove": false,
         "ableToResist": false,
@@ -2122,6 +1936,960 @@
         "ableToCounter": false,
         "cardHolder": 0,
         "isHoly": 0
+      },
+      {
+        "cooldown": 0,
+        "id": 40033,
+        "name": "WHITE_DIV",
+        "type": "Hero",
+        "maxPossibleMoving": 2,
+        "price": 8000,
+        "healthPoint": 50,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 4,
+        "originalAssaultPower": 4,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "HIT_POWER",
+            "power": 4,
+            "targetType": "Hero",
+            "dispelType": "PERMANENT",
+            "activationType": "UNDEFINED",
+            "turnCount": -1,
+            "side": "COMRADE",
+            "effectArea": [
+              {
+                "x": 2,
+                "y": 0
+              }
+            ]
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 1,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "cooldown": 0,
+        "id": 40032,
+        "name": "ZAHAK",
+        "type": "Hero",
+        "maxPossibleMoving": 2,
+        "price": 10000,
+        "healthPoint": 50,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "POISON",
+            "power": -1,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "ON_ATTACK",
+            "turnCount": 6,
+            "side": "ENEMY",
+            "effectArea": [
+              {
+                "x": -1,
+                "y": 0
+              }
+            ]
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": -1,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "cooldown": 0,
+        "id": 40028,
+        "name": "ARASH",
+        "type": "Hero",
+        "maxPossibleMoving": 2,
+        "price": 10000,
+        "healthPoint": 30,
+        "minRange": -1,
+        "maxRange": 6,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
+        "assaultType": "RANGED",
+        "buffs": [
+          {
+            "type": "HEALTH_WEAKNESS",
+            "power": 4,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": -1,
+            "side": "ALL",
+            "effectArea": [
+              {
+                "x": 2,
+                "y": -3
+              }
+            ]
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30156,
+        "name": "TURANIAN_PRINCE",
+        "type": "Minion",
+        "maxPossibleMoving": 2,
+        "price": 800,
+        "healthPoint": 6,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 10,
+        "originalAssaultPower": 10,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "COMBO",
+            "power": -1,
+            "activationType": "COMBO",
+            "turnCount": -1,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 6,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30126,
+        "name": "HOG_RIDER_GIANT",
+        "type": "Minion",
+        "maxPossibleMoving": 2,
+        "price": 300,
+        "healthPoint": 16,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 8,
+        "originalAssaultPower": 8,
+        "assaultType": "MELEE",
+        "buffs": [],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 6,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30155,
+        "name": "TURANIAN_MACER",
+        "type": "Minion",
+        "maxPossibleMoving": 2,
+        "price": 450,
+        "healthPoint": 3,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 10,
+        "originalAssaultPower": 10,
+        "assaultType": "MELEE",
+        "buffs": [],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 20044,
+        "name": "ALL_DISARM",
+        "type": "Spell",
+        "maxPossibleMoving": -1,
+        "price": 2000,
+        "healthPoint": -1,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": -1,
+        "originalAssaultPower": -1,
+        "assaultType": "NULL",
+        "buffs": [
+          {
+            "type": "DISARM",
+            "power": 0,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 1,
+            "side": "ENEMY",
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 9,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 20057,
+        "name": "DISPEL",
+        "type": "Spell",
+        "maxPossibleMoving": -1,
+        "price": 2100,
+        "healthPoint": -1,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": -1,
+        "originalAssaultPower": -1,
+        "assaultType": "NULL",
+        "buffs": [
+          {
+            "type": "POSITIVE_DISPEL",
+            "power": 0,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 0,
+            "side": "ENEMY",
+            "effectArea": []
+          },
+          {
+            "type": "NEGATIVE_DISPEL",
+            "power": 0,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": 0,
+            "side": "COMRADE",
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 0,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "attackCount": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "id": 30125,
+        "name": "EAGLE",
+        "type": "Minion",
+        "maxPossibleMoving": 2,
+        "price": 200,
+        "healthPoint": 0,
+        "minRange": -1,
+        "maxRange": 3,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
+        "assaultType": "RANGED",
+        "buffs": [
+          {
+            "type": "POWER",
+            "power": 10,
+            "activationType": "PASSIVE",
+            "turnCount": -1,
+            "effectArea": []
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
       }
     ],
     "items": [
@@ -2226,29 +2994,6 @@
             "castedBuffs": [],
             "castedItems": [],
             "manaPoint": 1,
-            "ableToAttack": false,
-            "ableToMove": false,
-            "ableToResist": false,
-            "ableToCounter": false,
-            "cardHolder": 0,
-            "isHoly": 0
-          },
-          {
-            "id": 30001,
-            "name": "TURANIAN_MACER",
-            "type": "Minion",
-            "maxPossibleMoving": 2,
-            "price": 450,
-            "healthPoint": 3,
-            "minRange": -1,
-            "maxRange": -1,
-            "assaultPower": 10,
-            "originalAssaultPower": 10,
-            "assaultType": "MELEE",
-            "buffs": [],
-            "castedBuffs": [],
-            "castedItems": [],
-            "manaPoint": 2,
             "ableToAttack": false,
             "ableToMove": false,
             "ableToResist": false,
@@ -2618,37 +3363,6 @@
             "isHoly": 0
           },
           {
-            "id": 30036,
-            "name": "TURANIAN_PRINCE",
-            "type": "Minion",
-            "maxPossibleMoving": 2,
-            "price": 800,
-            "healthPoint": 6,
-            "minRange": -1,
-            "maxRange": -1,
-            "assaultPower": 10,
-            "originalAssaultPower": 10,
-            "assaultType": "MELEE",
-            "buffs": [
-              {
-                "type": "COMBO",
-                "power": -1,
-                "activationType": "COMBO",
-                "turnCount": -1,
-                "effectArea": []
-              }
-            ],
-            "castedBuffs": [],
-            "castedItems": [],
-            "manaPoint": 6,
-            "ableToAttack": false,
-            "ableToMove": false,
-            "ableToResist": false,
-            "ableToCounter": false,
-            "cardHolder": 0,
-            "isHoly": 0
-          },
-          {
             "id": 30022,
             "name": "TURANIAN_CATAPULT",
             "type": "Minion",
@@ -2664,37 +3378,6 @@
             "castedBuffs": [],
             "castedItems": [],
             "manaPoint": 1,
-            "ableToAttack": false,
-            "ableToMove": false,
-            "ableToResist": false,
-            "ableToCounter": false,
-            "cardHolder": 0,
-            "isHoly": 0
-          },
-          {
-            "id": 30029,
-            "name": "EAGLE",
-            "type": "Minion",
-            "maxPossibleMoving": 2,
-            "price": 200,
-            "healthPoint": 0,
-            "minRange": -1,
-            "maxRange": 3,
-            "assaultPower": 2,
-            "originalAssaultPower": 2,
-            "assaultType": "RANGED",
-            "buffs": [
-              {
-                "type": "POWER",
-                "power": 10,
-                "activationType": "PASSIVE",
-                "turnCount": -1,
-                "effectArea": []
-              }
-            ],
-            "castedBuffs": [],
-            "castedItems": [],
-            "manaPoint": 2,
             "ableToAttack": false,
             "ableToMove": false,
             "ableToResist": false,
