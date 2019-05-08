@@ -460,15 +460,15 @@ public class View {
     }
 
     public void chooseBattleMode() {
-        System.out.println("Choose between:KILL_OPPONENT_HERO   HOLD_FLAG    COLLECT_FLAG");
+        System.out.println("Choose game mode:");
     }
 
     public void chooseMultiOrSingle() {
-        System.out.println("Choose between: Multiplayer   Singleplayer");
+        System.out.println("Choose battle type:");
     }
 
     public void chooseLevels() {
-        System.out.println("Choose between : Level1 Level2 Level3 Custom");
+        System.out.println("Choose cpu level:");
     }
 
     public void comboErrors(Message message) {
