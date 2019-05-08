@@ -460,15 +460,23 @@ public class View {
     }
 
     public void chooseBattleMode() {
-        System.out.println("Choose game mode:");
+        System.out.println("Choose battle mode:");
+        System.out.println("KillEnemyHero");
+        System.out.println("Collecting");
+        System.out.println("Flag");
     }
 
     public void chooseMultiOrSingle() {
-        System.out.println("Choose battle type:");
+        System.out.println("Choose game type:");
+        System.out.println("SinglePlayer");
+        System.out.println("MultiPlayer");
     }
 
     public void chooseLevels() {
         System.out.println("Choose AI level:");
+        System.out.println("level1");
+        System.out.println("level2");
+        System.out.println("level3");
     }
 
     public void comboErrors(Message message) {

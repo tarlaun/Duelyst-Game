@@ -219,7 +219,7 @@ public class Battle {
         boolean firstPlayerWon = false;
         boolean secondPlayerWon = false;
         switch (mode) {
-            case KILL_OPPONENT_HERO:
+            case KILLENEMYHERO:
                 for (int i = 0; i < 2; i++) {
                     for (int j = 0; j < fieldCards[i].length; j++) {
                         if (fieldCards[i][j] instanceof Hero && fieldCards[i][j].getHealthPoint() <= 0) {
@@ -229,7 +229,7 @@ public class Battle {
                     }
                 }
                 break;
-            case HOLD_FLAG:
+            case FLAG:
                 if (mainFlag.getTurnCounter() >= Constants.TURNS_HOLDING_FLAG) {
                     if (mainFlag.getAccount().equals(accounts[0])) {
                         firstPlayerWon = true;
@@ -240,7 +240,7 @@ public class Battle {
                 }
 
                 break;
-            case COLLECT_FLAG:
+            case COLLECTING:
                 for (int i = 0; i < 2; i++) {
                     if (accounts[i].getFlagsCollected() >= Constants.MAXIMUM_FLAGS / 2) {
                         if (i == 1) secondPlayerWon = true;
@@ -341,7 +341,7 @@ public class Battle {
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
         currentCard.setCoordinate(Coordinate.getPathDirections(currentCard.getCoordinate(), coordinate, field));
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
-        if (mode.equals(BattleMode.COLLECT_FLAG)) {
+        if (mode.equals(BattleMode.COLLECTING)) {
             for (Flag flag :
                     flagsOnTheGround) {
                 if (currentCard.getCoordinate().equals(flag.getCoordinate())) {
@@ -349,7 +349,7 @@ public class Battle {
                 }
             }
         }
-        if (mode.equals(BattleMode.HOLD_FLAG)) {
+        if (mode.equals(BattleMode.FLAG)) {
             if (currentCard.getCoordinate().equals(mainFlag.getCoordinate())) {
                 holdMainFlag();
             }
@@ -517,7 +517,7 @@ public class Battle {
                     }
                 }
             }
-            if (mode.equals(BattleMode.HOLD_FLAG)) {
+            if (mode.equals(BattleMode.FLAG)) {
                 mainFlag.setTurnCounter(0);
                 mainFlag.setHeld(false);
             }
@@ -800,10 +800,10 @@ public class Battle {
         buffTurnEnd();
         deholifyCell();
         randomItemAppearance();
-        if (mode.equals(BattleMode.COLLECT_FLAG) && (turn % Constants.ITEM_APPEARANCE) == 1) {
+        if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();
         }
-        if (mode.equals(BattleMode.HOLD_FLAG)) {
+        if (mode.equals(BattleMode.FLAG)) {
             if (mainFlag.isHeld()) {
                 mainFlag.setTurnCounter(mainFlag.getTurnCounter() + 1);
             }
@@ -1325,11 +1325,11 @@ public class Battle {
 
     public Coordinate setDestinationCoordinate(Card card) {
         switch (mode) {
-            case COLLECT_FLAG:
+            case COLLECTING:
                 return setDestinationCoordinationModeThree(card);
-            case HOLD_FLAG:
+            case FLAG:
                 return setDestinationCoordinatesModeTwo(card);
-            case KILL_OPPONENT_HERO:
+            case KILLENEMYHERO:
                 return setDestinationCoordinatesModeOne(card);
         }
         return null;

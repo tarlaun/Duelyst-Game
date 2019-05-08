@@ -142,6 +142,21 @@ public class Controller {
                 case SHOW:
                     showShop();
                     break;
+                case SINGLE_PLAYER:
+                    setGameType(request);
+                    break;
+                case MULTI_PLAYER:
+                    setGameType(request);
+                    break;
+                case KILL_ENEMY_HERO:
+                    setBattleMode(request);
+                    break;
+                case COLLECTING:
+                    setBattleMode(request);
+                    break;
+                case FLAG:
+                    setBattleMode(request);
+                    break;
                 case GAME_INFO:
                     gameInfo();
                     break;
@@ -209,8 +224,23 @@ public class Controller {
         }
     }
 
+    private void setBattleMode(Request request) {
+        if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
+            battle.setMode(request.getBattleMode(request.getCommand()));
+            menu.setStat(MenuStat.BATTLE);
+        }
+    }
+
+    private void setGameType(Request request) {
+        if (request.isGameType() && menu.getStat() == MenuStat.GAME_TYPE) {
+            battle.setGameType(request.getGameType(request.getCommand()));
+            menu.setStat(MenuStat.BATTLE_MODE);
+            view.chooseBattleMode();
+        }
+    }
+
     private void moveAI() {
-        if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && turnCounter % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                 battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
                 break;
@@ -219,7 +249,7 @@ public class Controller {
     }
 
     private void attackAI() {
-        if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && turnCounter % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                 battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
                 break;
@@ -228,7 +258,7 @@ public class Controller {
     }
 
     private boolean insertAI() {
-        if (battle.getGameType().equals(GameType.SINGLE_PLAYER) && turnCounter % 2 == 1) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && turnCounter % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
             battle.insertCard(battle.setCardCoordinates(battle.chooseCard(cards)), battle.chooseCard(cards).getName());
             return true;
@@ -258,7 +288,7 @@ public class Controller {
         view.printInvalidCommand();
     }
 
-    public void createAccount(Request request){
+    public void createAccount(Request request) {
         if (request.checkAccountCreationSyntax() && menu.getStat() == MenuStat.MAIN) {
             String username = request.getAccountName(request.getCommand());
             view.passwordInsertion();
@@ -271,7 +301,7 @@ public class Controller {
 
     public void showMatchHistory(Request request) {
         if (request.checkMatchHistory() && menu.getStat() == MenuStat.ACCOUNT) {
-            if (battle.getGameType() == GameType.SINGLE_PLAYER) {
+            if (battle.getGameType() == GameType.SINGLEPLAYER) {
                 view.showMatchHistory(account.getMatchHistory(), battle.getLevel());
             } else {
                 view.showMatchHistory(account.getMatchHistory(), getOpponentName(account));
@@ -288,7 +318,7 @@ public class Controller {
         return null;
     }
 
-    public void login(Request request){
+    public void login(Request request) {
         if (request.checkLoginSyntax() && menu.getStat() == MenuStat.MAIN) {
             String username = request.getAccountName(request.getCommand());
             view.passwordInsertion();
@@ -305,13 +335,13 @@ public class Controller {
         }
     }
 
-    public void save(){
+    public void save() {
         if (menu.getStat() == MenuStat.ACCOUNT) {
             game.save(account);
         }
     }
 
-    public void logout(){
+    public void logout() {
         if (menu.getStat() == MenuStat.ACCOUNT) {
             game.logout(account);
             this.account = null;
@@ -333,8 +363,8 @@ public class Controller {
                     help();
                     break;
                 case "Battle":
-                    menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
-                    chooseBattleDetails(request);
+                    view.chooseMultiOrSingle();
+                    menu.setStat(MenuStat.GAME_TYPE);
                     break;
                 default:
                     menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
@@ -614,7 +644,7 @@ public class Controller {
         view.printOptions();
     }
 
-    public void chooseBattleDetails(Request request) {
+/*    public void chooseBattleDetails(Request request) {
         GameType type;
         BattleMode mode;
         view.chooseMultiOrSingle();
@@ -649,8 +679,8 @@ public class Controller {
         view.chooseBattleMode();
         String modeString = request.getNewCommand();
         switch (modeString) {
-            case "KILL_OPPONENT_HERO":
-                battle.setMode(BattleMode.KILL_OPPONENT_HERO);
+            case "KILLENEMYHERO":
+                battle.setMode(BattleMode.KILLENEMYHERO);
                 view.battleCreating();
                 break;
             case "HOLD_FLAG":
@@ -667,5 +697,5 @@ public class Controller {
         }
 
 
-    }
+    }*/
 }

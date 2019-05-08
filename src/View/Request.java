@@ -1,7 +1,9 @@
 package View;
 
+import Model.BattleMode;
 import Model.Card;
 import Model.Coordinate;
+import Model.GameType;
 
 import java.util.Scanner;
 
@@ -244,5 +246,21 @@ public class Request {
 
     public int getOppIdInCombo(String input) {
         return Integer.parseInt(this.getSplittedCommand(input)[1]);
+    }
+
+    public GameType getGameType(String input) {
+        return GameType.valueOf(input.toUpperCase());
+    }
+
+    public BattleMode getBattleMode(String input) {
+        return BattleMode.valueOf(input.toUpperCase());
+    }
+
+    public boolean isBattleMode(){
+        return this.command.matches("(KillEnemyHero|Collecting|Flag)");
+    }
+
+    public boolean isGameType(){
+        return this.command.matches("(SinglePlayer|MultiPlayer)");
     }
 }

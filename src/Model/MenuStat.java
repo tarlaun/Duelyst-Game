@@ -6,8 +6,8 @@ public enum MenuStat {
     GAME,
     COLLECTION,
     SHOP,
-    BATTLE_TYPE,
-    GAME_MODE,
+    GAME_TYPE,
+    BATTLE_MODE,
     BATTLE,
     ITEM_SELECTION,
     GRAVEYARD;
@@ -21,9 +21,9 @@ public enum MenuStat {
             case GAME:
                 return ACCOUNT;
             case BATTLE:
-                return GAME_MODE;
-            case GAME_MODE:
-                return BATTLE_TYPE;
+                return BATTLE_MODE;
+            case BATTLE_MODE:
+                return GAME_TYPE;
             case GRAVEYARD:
                 return BATTLE;
             case ITEM_SELECTION:
