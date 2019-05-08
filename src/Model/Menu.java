@@ -48,7 +48,7 @@ public class Menu {
                             "AttackCombo [opponent card id][my card id][my card id][...]", "Select [collectable id]",
                             "UseSpecialPower( [x] , [y] )", "Insert [card name] in ( [x] , [y] )", "EndTurn",
                             "ShowCollectables", "ShowNextCard", "Enter graveyard",
-                            "Help", "EndGame", "help", "exit", "showMenu"
+                            "Help", "showMap", "EndGame", "help", "exit", "showMenu"
                     },
                     {
                             "ShowInfo", "Use( [x] , [y] )"
