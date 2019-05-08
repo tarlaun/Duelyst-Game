@@ -308,7 +308,7 @@ public class Card {
     }
 
     public boolean isClass(String name) {
-        return this.getClass().getName().equals(name);
+        return this.getType().equals(name);
     }
 
     public void setRangeType(RangeType rangeType) {
