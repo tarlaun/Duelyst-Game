@@ -60,7 +60,8 @@ public class Request {
             "Collecting",
             "Flag",
             "Story",
-            "Custom"
+            "Custom",
+            "selectUser"
     };
     private String command;
 
@@ -173,6 +174,10 @@ public class Request {
     public boolean checkItemUseSyntax() {
         return this.getCommand().matches(this.getStrings()[RequestType.USE_ITEM.ordinal()] + "\\s\\d+\\s,\\s\\d+\\s\\)");
 
+    }
+
+    public boolean checkSelectUserSyntax() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SELECT_USER.ordinal()] + "\\s\\w+");
     }
 
     public RequestType getType() {

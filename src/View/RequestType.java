@@ -51,5 +51,6 @@ public enum RequestType {
     FLAG,
     STORY,
     CUSTOM,
+    SELECT_USER,
     NULL
 }

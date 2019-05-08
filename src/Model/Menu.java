@@ -40,6 +40,9 @@ public class Menu {
                             "KillEnemyHero", "Collecting", "Flag", "help", "exit"
                     },
                     {
+                            "selectUser [name]", "help", "exit"
+                    },
+                    {
                             "GameInfo", "ShowMyMinions", "ShowOpponentMinions", "ShowCardInfo [card id]",
                             "Select [card id]", "MoveTo( [x] , [y] )", "Attack [opponent card id]", "ShowHand",
                             "AttackCombo [opponent card id][my card id][my card id][...]", "Select [collectable id]",
@@ -64,6 +67,9 @@ public class Menu {
                     },
                     {
                             "Collection", "Shop", "Battle", "Help", "Exit"
+                    },
+                    {
+                            "Help", "Exit"
                     },
                     {
                             "Help", "Exit"

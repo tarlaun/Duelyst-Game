@@ -154,4 +154,12 @@ public class Account {
     public void modifyMana(int power) {
         this.mana += power;
     }
+
+    public static Account getAccountByName(String name, ArrayList<Account> accounts) {
+        for (int i = 0; i < accounts.size(); i++) {
+            if (accounts.get(i).name.equals(name))
+                return accounts.get(i);
+        }
+        return null;
+    }
 }

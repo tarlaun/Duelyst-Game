@@ -503,4 +503,12 @@ public class View {
         System.out.println("Story");
         System.out.println("Custom");
     }
+
+    public void playerAdded(Account account) {
+        if (account == null) {
+            System.out.println("Account doesn't exist!");
+        } else {
+            System.out.println(account.getName() + " successfully added!");
+        }
+    }
 }

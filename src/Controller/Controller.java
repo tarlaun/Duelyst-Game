@@ -163,6 +163,9 @@ public class Controller {
                 case FLAG:
                     setBattleMode(request);
                     break;
+                case SELECT_USER:
+                    selectUser(request);
+                    break;
                 case GAME_INFO:
                     gameInfo();
                     break;
@@ -230,6 +233,19 @@ public class Controller {
         }
     }
 
+    private void selectUser(Request request) {
+        if (request.checkSelectUserSyntax() && menu.getStat() == MenuStat.SELECT_USER) {
+            String username = request.getAccountName(request.getCommand());
+            view.playerAdded(Account.getAccountByName(username, game.getAccounts()));
+            try {
+                battle.setAccounts(account, Account.getAccountByName(username, game.getAccounts()));
+                menu.setStat(MenuStat.BATTLE);
+                battle.startBattle();
+            } catch (NullPointerException e) {
+            }
+        }
+    }
+
     private void setProcess(Request request) {
         if (request.isProcess() && menu.getStat() == MenuStat.PROCESS) {
             battle.setProcess(request.getProcess(request.getCommand()));
@@ -241,8 +257,12 @@ public class Controller {
     private void setBattleMode(Request request) {
         if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
             battle.setMode(request.getBattleMode(request.getCommand()));
-            menu.setStat(MenuStat.BATTLE);
-            battle.startBattle();
+            if (battle.getGameType() == GameType.MULTIPLAYER) {
+                menu.setStat(MenuStat.SELECT_USER);
+            } else {
+                menu.setStat(MenuStat.BATTLE);
+                battle.startBattle();
+            }
         }
     }
 

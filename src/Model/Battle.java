@@ -103,7 +103,7 @@ public class Battle {
         this.currentItem = currentItem;
     }
 
-    public void setAccounts(Account[] accounts) {
+    public void setAccounts(Account... accounts) {
         this.accounts = accounts;
     }
 
@@ -234,6 +234,10 @@ public class Battle {
             addToHand(1);
         }
         setManaPoints();
+        insertCard(new Coordinate(0, Constants.WIDTH / 2),
+                accounts[0].getCollection().getMainDeck().getHero().getName());
+        insertCard(new Coordinate(Constants.LENGTH, Constants.WIDTH / 2),
+                accounts[1].getCollection().getMainDeck().getHero().getName());
         return Message.BATTLE_STARTED;
     }
 
@@ -483,8 +487,8 @@ public class Battle {
 
     public void setManaPoints() {
         if (turn <= 14) {
-            accounts[0].setMana((turn%2)+ 1);
-            accounts[1].setMana((turn%2) + 2);
+            accounts[0].setMana((turn % 2) + 1);
+            accounts[1].setMana((turn % 2) + 2);
         } else {
             accounts[0].setMana(Constants.MAX_MANA);
             accounts[0].setMana(Constants.MAX_MANA);
