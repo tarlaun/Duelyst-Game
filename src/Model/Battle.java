@@ -19,7 +19,7 @@ public class Battle {
     private ArrayList<Item> battleCollectibles = new ArrayList<>();
     private Card[][] playerHands = new Card[2][Constants.MAXIMUM_HAND_SIZE];
     private int turn;
-    private Cell[][] field;
+    private Cell[][] field = new Cell[Constants.WIDTH][Constants.LENGTH];
     private BattleMode mode;
     private GameType gameType;
     private Process process;
@@ -215,14 +215,6 @@ public class Battle {
         this.mainFlag = mainFlag;
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
     public Message startBattle() {
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
             return Message.INVALID_PLAYERS;
@@ -234,6 +226,11 @@ public class Battle {
             addToHand(1);
         }
         setManaPoints();
+        for (int i = 0; i < Constants.WIDTH; i++) {
+            for (int j = 0; j < Constants.LENGTH; j++) {
+                this.field[i][j] = new Cell();
+            }
+        }
         insertCard(new Coordinate(0, Constants.WIDTH / 2),
                 accounts[0].getCollection().getMainDeck().getHero().getName());
         insertCard(new Coordinate(Constants.LENGTH, Constants.WIDTH / 2),
@@ -334,9 +331,6 @@ public class Battle {
     public Coordinate getCurrentCoordinate() {
         return currentCoordinate;
     }
-
-    private final int length = 9;
-    private final int width = 5;
 
     public void setCurrentCoordinate(Coordinate currentCoordinate) {
         this.currentCoordinate = currentCoordinate;

@@ -517,8 +517,8 @@ public class View {
 
     public void drawMap(Battle battle) {
         int id;
-        for (int i = 0; i < Constants.LENGTH; i++) {
-            for (int j = 0; j < Constants.WIDTH; j++) {
+        for (int i = 0; i < Constants.WIDTH; i++) {
+            for (int j = 0; j < Constants.LENGTH; j++) {
                 id = battle.getField(i, j).getCardID();
                 if (id == 0) {
                     if (battle.getField(i, j).isHoly())
