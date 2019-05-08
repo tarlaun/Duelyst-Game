@@ -138,7 +138,7 @@ public class View {
         printBuff(spell);
     }
 
-    public void battleCreating(){
+    public void battleCreating() {
         System.out.println("BATTLE CREATED");
     }
 
@@ -147,7 +147,7 @@ public class View {
     }
 
     public void printItem(Item item) {
-        System.out.print("Name : " + item.getName() + " - Desc :");
+        System.out.print("Id: " + item.getId() + " - Name : " + item.getName() + " - Desc :");
         printItemBuff(item);
     }
 
@@ -156,8 +156,8 @@ public class View {
     }
 
     public void printNonSpellCard(Card card) {
-        System.out.print("Name : " + card.getName() + " - MP : " + card.getManaPoint() + " - AP : " +
-                card.getAssaultPower() + " - HP : " + card.getHealthPoint() + " - Class : " + card.getActivationType());
+        System.out.print("Id: " + card.getId() + " - Name : " + card.getName() + " - MP : " + card.getManaPoint() + " - AP : " +
+                card.getAssaultPower() + " - HP : " + card.getHealthPoint() + " - Class : " + card.getAssaultType());
         if (card.getAssaultType() != AssaultType.MELEE)
             System.out.print(" - Range : " + card.getMaxRange());
         System.out.print(" - Special power : ");
@@ -208,7 +208,7 @@ public class View {
         int index = 1;
         for (int i = 0; i < cards.length; i++) {
             if (!(cards[i].getType().equals("Hero"))) {
-                System.out.print("Id: " + cards[i].getId()+ " - ");
+                System.out.print("Id: " + cards[i].getId() + " - ");
                 System.out.print(index + " : ");
                 if (cards[i].getType().equals("Spell")) {
                     System.out.print("Type : Spell - ");
