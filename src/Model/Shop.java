@@ -48,7 +48,7 @@ public class Shop {
         return list;
     }
 
-    public Message buy(String objectName, Account account) throws OutOfMemoryError{
+    public Message buy(String objectName, Account account) throws OutOfMemoryError {
 
         if (search(objectName) == -1) {
             return Message.OBJECT_NOT_FOUND;
@@ -71,6 +71,7 @@ public class Shop {
         if (card != null) {
             Card instance = new Card(card);
             if (card.getType().equals("Hero")) {
+                System.out.println(game == null);
                 game.incrementHeroId();
                 instance.setId(game.getLastHeroId());
             }
@@ -88,11 +89,15 @@ public class Shop {
         }
         Item item = Item.getItemByID(search(objectName), items.toArray(new Item[items.size()]));
         if (item != null) {
+            Item instance = new Item(item);
             if (account.getCollection().getItems().size() == 3) {
                 return Message.MAXIMUM_ITEM_COUNT;
             }
             account.getCollection().getItems().add(item);
             account.modifyAccountBudget(-item.getPrice());
+            game.incrementItemId();
+            instance.setId(game.getLastItemId());
+            shop.items.add(instance);
         }
         return Message.SUCCESSFUL_PURCHASE;
     }

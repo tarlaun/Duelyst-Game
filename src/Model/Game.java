@@ -10,7 +10,7 @@ import java.util.Comparator;
 public class Game {
     private ArrayList<Account> accounts = new ArrayList<>();
     private ArrayList<Account> loggedInAccounts = new ArrayList<>();
-    private static final Game SINGLETON_CLASS = new Game();
+    private static final Game game = new Game();
     private GameType gameType;
     private BattleMode mode;
     private Menu menu = Menu.getInstance();
@@ -65,16 +65,8 @@ public class Game {
         this.lastAccountId++;
     }
 
-    public void incrementSpellId(ArrayList<Account> accounts) {
-        this.accounts = accounts;
-    }
-
     public void setLoggedInAccounts(ArrayList<Account> loggedInAccounts) {
         this.loggedInAccounts = loggedInAccounts;
-    }
-
-    public static Game getSingletonClass() {
-        return SINGLETON_CLASS;
     }
 
     public GameType getGameType() {
@@ -112,7 +104,7 @@ public class Game {
     }
 
     public static Game getInstance() {
-        return SINGLETON_CLASS;
+        return game;
     }
 
     public boolean logout(Account account) {
@@ -122,7 +114,7 @@ public class Game {
         return true;
     }
 
-    public void save(Account account) throws OutOfMemoryError{
+    public void save(Account account) throws OutOfMemoryError {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(account);
         try {
