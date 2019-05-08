@@ -22,6 +22,7 @@ public class Battle {
     private Cell[][] field;
     private BattleMode mode;
     private GameType gameType;
+    private Process process;
     private Card[][] fieldCards = new Card[2][];
     private int level;
     private Menu menu = Menu.getInstance();
@@ -42,6 +43,14 @@ public class Battle {
 
     public void setCollectibles(Item[][] collectibles) {
         this.collectibles = collectibles;
+    }
+
+    public Process getProcess() {
+        return process;
+    }
+
+    public void setProcess(Process process) {
+        this.process = process;
     }
 
     public ArrayList<Item> getBattleCollectibles() {

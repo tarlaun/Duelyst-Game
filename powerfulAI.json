@@ -2185,7 +2185,7 @@
     ],
     "decks": [
       {
-        "name": "first",
+        "name": "level1",
         "cards": [
           {
             "id": 30015,
@@ -2869,7 +2869,7 @@
         }
       },
       {
-        "name": "scnd",
+        "name": "level2",
         "cards": [
           {
             "id": 30026,
@@ -3652,7 +3652,7 @@
         }
       },
       {
-        "name": "third",
+        "name": "level3",
         "cards": [
           {
             "id": 20008,

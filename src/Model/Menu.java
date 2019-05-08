@@ -34,6 +34,9 @@ public class Menu {
                             "SinglePlayer", "MultiPlayer", "help", "exit"
                     },
                     {
+                            "Story", "Custom", "help", "exit"
+                    },
+                    {
                             "KillEnemyHero", "Collecting", "Flag", "help", "exit"
                     },
                     {
@@ -61,6 +64,9 @@ public class Menu {
                     },
                     {
                             "Collection", "Shop", "Battle", "Help", "Exit"
+                    },
+                    {
+                            "Help", "Exit"
                     },
                     {
                             "Help", "Exit"

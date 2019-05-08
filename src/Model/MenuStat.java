@@ -7,6 +7,7 @@ public enum MenuStat {
     COLLECTION,
     SHOP,
     GAME_TYPE,
+    PROCESS,
     BATTLE_MODE,
     BATTLE,
     ITEM_SELECTION,
@@ -28,6 +29,8 @@ public enum MenuStat {
                 return BATTLE;
             case ITEM_SELECTION:
                 return BATTLE;
+            case PROCESS:
+                return GAME_TYPE;
             default:
                 return GAME;
         }
