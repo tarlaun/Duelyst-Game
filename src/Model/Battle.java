@@ -830,6 +830,8 @@ public class Battle {
                 mainFlag.setTurnCounter(mainFlag.getTurnCounter() + 1);
             }
         }
+        addToHand(0);
+        addToHand(1);
         turn++;
         currentCard = null;
         targetCard = null;
@@ -1780,6 +1782,15 @@ public class Battle {
     }
 
     private void addToHand(int current) {
+        if (playerHands[current].length < 5) {
+            ArrayList<Card> hand = new ArrayList<>();
+            for (int i = 0; i < playerHands[current].length; i++) {
+                hand.add(playerHands[current][i]);
+
+            }
+            hand.add(accounts[current].getCollection().getMainDeck().getCards().get(0));
+            playerHands[current] = (Card[]) hand.toArray();
+        }
 
     }
 
