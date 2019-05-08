@@ -242,6 +242,7 @@ public class Controller {
         if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
             battle.setMode(request.getBattleMode(request.getCommand()));
             menu.setStat(MenuStat.BATTLE);
+            battle.startBattle();
         }
     }
 
