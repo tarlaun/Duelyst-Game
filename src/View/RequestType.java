@@ -49,5 +49,7 @@ public enum RequestType {
     KILL_ENEMY_HERO,
     COLLECTING,
     FLAG,
+    STORY,
+    CUSTOM,
     NULL
 }

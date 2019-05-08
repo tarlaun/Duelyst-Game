@@ -492,4 +492,15 @@ public class View {
                 break;
         }
     }
+
+    public void printGameInfo(Battle battle) {
+        System.out.println("Game Type: " + battle.getGameType());
+        System.out.println("Battle Mode: " + battle.getMode());
+    }
+
+    public void chooseProcess() {
+        System.out.println("Choose Process: ");
+        System.out.println("Story");
+        System.out.println("Custom");
+    }
 }

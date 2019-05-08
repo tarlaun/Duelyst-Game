@@ -148,6 +148,12 @@ public class Controller {
                 case MULTI_PLAYER:
                     setGameType(request);
                     break;
+                case STORY:
+                    setProcess(request);
+                    break;
+                case CUSTOM:
+                    setProcess(request);
+                    break;
                 case KILL_ENEMY_HERO:
                     setBattleMode(request);
                     break;
@@ -224,6 +230,14 @@ public class Controller {
         }
     }
 
+    private void setProcess(Request request) {
+        if (request.isProcess() && menu.getStat() == MenuStat.PROCESS) {
+            battle.setProcess(request.getProcess(request.getCommand()));
+            menu.setStat(MenuStat.BATTLE_MODE);
+            view.chooseBattleMode();
+        }
+    }
+
     private void setBattleMode(Request request) {
         if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
             battle.setMode(request.getBattleMode(request.getCommand()));
@@ -234,8 +248,13 @@ public class Controller {
     private void setGameType(Request request) {
         if (request.isGameType() && menu.getStat() == MenuStat.GAME_TYPE) {
             battle.setGameType(request.getGameType(request.getCommand()));
-            menu.setStat(MenuStat.BATTLE_MODE);
-            view.chooseBattleMode();
+            if (battle.getGameType() == GameType.SINGLEPLAYER) {
+                menu.setStat(MenuStat.PROCESS);
+                view.chooseProcess();
+            } else {
+                menu.setStat(MenuStat.BATTLE_MODE);
+                view.chooseBattleMode();
+            }
         }
     }
 
@@ -495,7 +514,7 @@ public class Controller {
 
     public void gameInfo() {
         if (menu.getStat() == MenuStat.BATTLE) {
-
+            view.printGameInfo(battle);
         }
     }
 

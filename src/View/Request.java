@@ -4,6 +4,7 @@ import Model.BattleMode;
 import Model.Card;
 import Model.Coordinate;
 import Model.GameType;
+import Model.Process;
 
 import java.util.Scanner;
 
@@ -57,7 +58,9 @@ public class Request {
             "MultiPlayer",
             "KillEnemyHero",
             "Collecting",
-            "Flag"
+            "Flag",
+            "Story",
+            "Custom"
     };
     private String command;
 
@@ -256,11 +259,19 @@ public class Request {
         return BattleMode.valueOf(input.toUpperCase());
     }
 
-    public boolean isBattleMode(){
+    public boolean isBattleMode() {
         return this.command.matches("(KillEnemyHero|Collecting|Flag)");
     }
 
-    public boolean isGameType(){
+    public boolean isGameType() {
         return this.command.matches("(SinglePlayer|MultiPlayer)");
+    }
+
+    public boolean isProcess() {
+        return this.command.matches("(Story|Custom)");
+    }
+
+    public Process getProcess(String input) {
+        return Process.valueOf(input.toUpperCase());
     }
 }
