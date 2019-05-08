@@ -105,22 +105,7 @@ public class Menu {
     }
 
     public String[] getStrings(String[][] strings) {
-        switch (this.stat) {
-            case MAIN:
-                return strings[MenuStat.MAIN.ordinal()];
-            case GAME:
-                return strings[MenuStat.GAME.ordinal()];
-            case COLLECTION:
-                return strings[MenuStat.COLLECTION.ordinal()];
-            case SHOP:
-                return strings[MenuStat.SHOP.ordinal()];
-            case BATTLE:
-                return strings[MenuStat.BATTLE.ordinal()];
-            case GRAVEYARD:
-                return strings[MenuStat.GRAVEYARD.ordinal()];
-            default:
-                return strings[MenuStat.ACCOUNT.ordinal()];
-        }
+        return strings[this.stat.ordinal()];
     }
 
     public String[] getCommands() {
