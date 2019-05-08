@@ -1,6 +1,6 @@
 package Model;
 
-import View.Message;
+import View.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class Battle {
     private Card[][] graveyard = new Card[2][];
     private Item[][] collectibles = new Item[2][];
     private ArrayList<Item> battleCollectibles = new ArrayList<>();
-    private Card[][] playerHands = new Card[2][];
+    private Card[][] playerHands = new Card[2][Constants.MAXIMUM_HAND_SIZE];
     private int turn;
     private Cell[][] field;
     private BattleMode mode;
@@ -1795,15 +1795,12 @@ public class Battle {
 
     private void randomizeDeck(int current) {
         ArrayList<Card> random = new ArrayList<>();
-        int[] visited = new int[20];
+        Deck deck = accounts[current].getCollection().getMainDeck();
         int r;
-        r = rand.nextInt(20);
-
-        while (random.size() < 20) {
-            while (visited[r] != 0) {
-                r = rand.nextInt(20);
-            }
-            random.add(accounts[current].getCollection().getMainDeck().getCards().get(r));
+        for (int i = 20; i > 0; i--) {
+            r = rand.nextInt(i);
+            random.add(deck.getCards().get(r));
+            deck.getCards().remove(r);
         }
         accounts[current].getCollection().getMainDeck().setCards(random);
 
@@ -1811,15 +1808,13 @@ public class Battle {
     }
 
     private void addToHand(int current) {
-        if (playerHands[current].length < 5) {
-            ArrayList<Card> hand = new ArrayList<>();
-            for (int i = 0; i < playerHands[current].length; i++) {
-                hand.add(playerHands[current][i]);
-
-            }
-            hand.add(accounts[current].getCollection().getMainDeck().getCards().get(0));
-            playerHands[current] = (Card[]) hand.toArray();
+        Deck deck = accounts[current].getCollection().getMainDeck();
+        if (deck.getCards().size() > Constants.MAXIMUM_DECK_SIZE - Constants.MAXIMUM_HAND_SIZE) {
+            playerHands[current][Constants.MAXIMUM_DECK_SIZE - deck.getCards().size()] = deck.getCards().get(0);
+        } else {
+            playerHands[current][Constants.MAXIMUM_HAND_SIZE] = deck.getCards().get(0);
         }
+        deck.getCards().remove(0);
 
     }
 
