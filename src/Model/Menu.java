@@ -31,12 +31,24 @@ public class Menu {
                             "buy [card name|item name]", "sell [card id|item it]", "show", "help", "exit", "showMenu"
                     },
                     {
+                            "SINGLE_PLAYER", "MULTI_PLAYER", "help", "exit"
+                    },
+                    {
+                            "KILL_ENEMY_HERO", "COLLECTING", "FLAG", "help", "exit"
+                    },
+                    {
                             "GameInfo", "ShowMyMinions", "ShowOpponentMinions", "ShowCardInfo [card id]",
                             "Select [card id]", "MoveTo( [x] , [y] )", "Attack [opponent card id]", "ShowHand",
                             "AttackCombo [opponent card id][my card id][my card id][...]", "Select [collectable id]",
                             "UseSpecialPower( [x] , [y] )", "Insert [card name] in ( [x] , [y] )", "EndTurn",
-                            "ShowCollectables", "ShowInfo", "Use( [x] , [y] )", "ShowNextCard", "Enter graveyard",
-                            "ShowInfo [card id]", "ShowCards", "Help", "EndGame", "help", "exit", "showMenu"
+                            "ShowCollectables", "ShowNextCard", "Enter graveyard",
+                            "Help", "EndGame", "help", "exit", "showMenu"
+                    },
+                    {
+                            "ShowInfo", "Use( [x] , [y] )"
+                    },
+                    {
+                            "ShowInfo [card id]", "ShowCards", "help", "exit", "showMenu"
                     }
             };
     private String[][] options =
@@ -51,7 +63,16 @@ public class Menu {
                             "Collection", "Shop", "Battle", "Help", "Exit"
                     },
                     {
+                            "Help", "Exit"
+                    },
+                    {
+                            "Help", "Exit"
+                    },
+                    {
                             "Graveyard", "Help", "Exit"
+                    },
+                    {
+                            "Help", "Exit"
                     },
                     {
                             "Help", "Exit"
