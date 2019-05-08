@@ -1520,6 +1520,763 @@
         }
       }
     ],
+    "mainDeck": {
+      "name": "first",
+      "cards": [
+        {
+          "id": 20201,
+          "name": "SHOCK",
+          "type": "Spell",
+          "maxPossibleMoving": -1,
+          "price": 1200,
+          "healthPoint": -1,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": -1,
+          "originalAssaultPower": -1,
+          "assaultType": "NULL",
+          "buffs": [
+            {
+              "type": "STUN",
+              "power": 0,
+              "targetType": "Card",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 2,
+              "side": "ENEMY",
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 1,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 20202,
+          "name": "GOD_STRENGTH",
+          "type": "Spell",
+          "maxPossibleMoving": -1,
+          "price": 450,
+          "healthPoint": -1,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": -1,
+          "originalAssaultPower": -1,
+          "assaultType": "NULL",
+          "buffs": [
+            {
+              "type": "HIT_POWER",
+              "power": 4,
+              "targetType": "Hero",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 0,
+              "side": "COMRADE",
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 2,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 20204,
+          "name": "KINGS_GUARD",
+          "type": "Spell",
+          "maxPossibleMoving": -1,
+          "price": 1750,
+          "healthPoint": -1,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": -1,
+          "originalAssaultPower": -1,
+          "assaultType": "NULL",
+          "buffs": [
+            {
+              "type": "HIT_WEAKNESS",
+              "power": 100,
+              "targetType": "Minion",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 0,
+              "side": "ENEMY",
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 9,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 20205,
+          "name": "HEALTH_WITH_PROFIT",
+          "type": "Spell",
+          "maxPossibleMoving": -1,
+          "price": 2250,
+          "healthPoint": -1,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": -1,
+          "originalAssaultPower": -1,
+          "assaultType": "NULL",
+          "buffs": [
+            {
+              "type": "HEALTH_WEAKNESS",
+              "power": 6,
+              "targetType": "Card",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 3,
+              "side": "COMRADE",
+              "effectArea": []
+            },
+            {
+              "type": "HOLY",
+              "power": 2,
+              "targetType": "Card",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 3,
+              "side": "COMRADE",
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 0,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 20206,
+          "name": "POISON_LAKE",
+          "type": "Spell",
+          "maxPossibleMoving": -1,
+          "price": 900,
+          "healthPoint": -1,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": -1,
+          "originalAssaultPower": -1,
+          "assaultType": "NULL",
+          "buffs": [
+            {
+              "type": "POISON",
+              "power": 1,
+              "targetType": "Card",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 1,
+              "side": "ALL",
+              "effectArea": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 0,
+                  "y": 1
+                },
+                {
+                  "x": 1,
+                  "y": 0
+                },
+                {
+                  "x": 0,
+                  "y": 2
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "x": 1,
+                  "y": 1
+                },
+                {
+                  "x": 2,
+                  "y": 2
+                },
+                {
+                  "x": 1,
+                  "y": 2
+                },
+                {
+                  "x": 2,
+                  "y": 1
+                }
+              ]
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 5,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 20207,
+          "name": "AREA_DISPEL",
+          "type": "Spell",
+          "maxPossibleMoving": -1,
+          "price": 1500,
+          "healthPoint": -1,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": -1,
+          "originalAssaultPower": -1,
+          "assaultType": "NULL",
+          "buffs": [
+            {
+              "type": "POSITIVE_DISPEL",
+              "power": 0,
+              "targetType": "Card",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 0,
+              "side": "ENEMY",
+              "effectArea": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 0,
+                  "y": 1
+                },
+                {
+                  "x": 1,
+                  "y": 0
+                },
+                {
+                  "x": 1,
+                  "y": 1
+                }
+              ]
+            },
+            {
+              "type": "NEGATIVE_DISPEL",
+              "power": 0,
+              "targetType": "Card",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 0,
+              "side": "COMRADE",
+              "effectArea": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 0,
+                  "y": 1
+                },
+                {
+                  "x": 1,
+                  "y": 0
+                },
+                {
+                  "x": 1,
+                  "y": 1
+                }
+              ]
+            },
+            {
+              "type": "HIT_POWER",
+              "power": 2,
+              "targetType": "Card",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 1000000,
+              "side": "COMRADE",
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 2,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 20208,
+          "name": "POWER_UP",
+          "type": "Spell",
+          "maxPossibleMoving": -1,
+          "price": 2500,
+          "healthPoint": -1,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": -1,
+          "originalAssaultPower": -1,
+          "assaultType": "NULL",
+          "buffs": [
+            {
+              "type": "HIT_POWER",
+              "power": 6,
+              "targetType": "Card",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": 1000000,
+              "side": "COMRADE",
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 2,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30201,
+          "name": "TURANIAN_MACER",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 450,
+          "healthPoint": 3,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": 10,
+          "originalAssaultPower": 10,
+          "assaultType": "MELEE",
+          "buffs": [],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 2,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30202,
+          "name": "IRAJ",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 500,
+          "healthPoint": 6,
+          "minRange": -1,
+          "maxRange": 3,
+          "assaultPower": 20,
+          "originalAssaultPower": 20,
+          "assaultType": "RANGED",
+          "buffs": [],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 4,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30203,
+          "name": "PERSIAN_SWORDS_WOMAN",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 400,
+          "healthPoint": 6,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": 4,
+          "originalAssaultPower": 4,
+          "assaultType": "MELEE",
+          "buffs": [
+            {
+              "type": "STUN",
+              "power": -1,
+              "activationType": "ON_ATTACK",
+              "turnCount": 2,
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 2,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30204,
+          "name": "PERSIAN_LANCER",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 500,
+          "healthPoint": 5,
+          "minRange": -1,
+          "maxRange": 3,
+          "assaultPower": 3,
+          "originalAssaultPower": 3,
+          "assaultType": "HYBRID",
+          "buffs": [],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 1,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30205,
+          "name": "DRAGON",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 250,
+          "healthPoint": 9,
+          "minRange": -1,
+          "maxRange": 4,
+          "assaultPower": 5,
+          "originalAssaultPower": 5,
+          "assaultType": "RANGED",
+          "buffs": [],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 5,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30206,
+          "name": "VENOM_SNAKE",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 300,
+          "healthPoint": 5,
+          "minRange": -1,
+          "maxRange": 4,
+          "assaultPower": 6,
+          "originalAssaultPower": 6,
+          "assaultType": "RANGED",
+          "buffs": [
+            {
+              "type": "POISON",
+              "power": 1,
+              "activationType": "ON_ATTACK",
+              "turnCount": 6,
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 4,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30207,
+          "name": "GIV",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 450,
+          "healthPoint": 5,
+          "minRange": -1,
+          "maxRange": 5,
+          "assaultPower": 7,
+          "originalAssaultPower": 7,
+          "assaultType": "RANGED",
+          "buffs": [
+            {
+              "type": "NEGATIVE_DISPEL",
+              "power": -1,
+              "activationType": "ON_DEFENCE",
+              "turnCount": -1,
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 4,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30208,
+          "name": "CATAPULT_GIANT",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 300,
+          "healthPoint": 12,
+          "minRange": -1,
+          "maxRange": 7,
+          "assaultPower": 12,
+          "originalAssaultPower": 12,
+          "assaultType": "RANGED",
+          "buffs": [],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 9,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30209,
+          "name": "LION",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 600,
+          "healthPoint": 1,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": 8,
+          "originalAssaultPower": 8,
+          "assaultType": "MELEE",
+          "buffs": [
+            {
+              "type": "LION_ROAR",
+              "power": -1,
+              "activationType": "ON_ATTACK",
+              "turnCount": -1,
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 2,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30210,
+          "name": "CYCLOPS",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 500,
+          "healthPoint": 12,
+          "minRange": -1,
+          "maxRange": 3,
+          "assaultPower": 11,
+          "originalAssaultPower": 11,
+          "assaultType": "HYBRID",
+          "buffs": [
+            {
+              "type": "ON_DEATH_WEAKNESS",
+              "power": 2,
+              "activationType": "ON_DEATH",
+              "turnCount": 1,
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 7,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30212,
+          "name": "WOLF",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 400,
+          "healthPoint": 6,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": 1,
+          "originalAssaultPower": 1,
+          "assaultType": "MELEE",
+          "buffs": [
+            {
+              "type": "WEAKNESS",
+              "power": 6,
+              "activationType": "ON_ATTACK",
+              "turnCount": 2,
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 3,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30214,
+          "name": "SHAGHUL",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 600,
+          "healthPoint": 10,
+          "minRange": -1,
+          "maxRange": -1,
+          "assaultPower": 4,
+          "originalAssaultPower": 4,
+          "assaultType": "MELEE",
+          "buffs": [
+            {
+              "type": "COMBO",
+              "power": -1,
+              "activationType": "COMBO",
+              "turnCount": -1,
+              "effectArea": []
+            }
+          ],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 5,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 30215,
+          "name": "PERSIAN_ARCHER",
+          "type": "Minion",
+          "maxPossibleMoving": 2,
+          "price": 300,
+          "healthPoint": 6,
+          "minRange": -1,
+          "maxRange": 7,
+          "assaultPower": 4,
+          "originalAssaultPower": 4,
+          "assaultType": "RANGED",
+          "buffs": [],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 2,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        }
+      ],
+      "hero": {
+        "id": 40128,
+        "name": "ARASH",
+        "type": "Hero",
+        "maxPossibleMoving": 2,
+        "price": 10000,
+        "healthPoint": 30,
+        "minRange": -1,
+        "maxRange": 6,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
+        "assaultType": "RANGED",
+        "buffs": [
+          {
+            "type": "HEALTH_WEAKNESS",
+            "power": 4,
+            "targetType": "Card",
+            "dispelType": "TEMPORARY",
+            "activationType": "UNDEFINED",
+            "turnCount": -1,
+            "side": "ALL",
+            "effectArea": [
+              {
+                "x": 2,
+                "y": -3
+              }
+            ]
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      "item": {
+        "id": 50112,
+        "name": "SAGACITY_CROWN",
+        "price": 300,
+        "buffs": [
+          {
+            "type": "MANA",
+            "power": 1,
+            "turnsCount": 3,
+            "targetCard": "Account",
+            "side": "COMRADE",
+            "activationType": "UNDEFINED",
+            "casterActivationType": "UNDEFINED",
+            "casterCard": "Account",
+            "rangeType": "ALL",
+            "casterRangeType": "ALL"
+          }
+        ]
+      }
+    },
     "levelDecks": []
   },
   "isLoggedIn": false,
