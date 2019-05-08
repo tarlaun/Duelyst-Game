@@ -122,7 +122,7 @@ public class Game {
         return true;
     }
 
-    public void save(Account account) {
+    public void save(Account account) throws OutOfMemoryError{
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(account);
         try {
@@ -139,7 +139,7 @@ public class Game {
         accounts.sort(compareById.reversed());
     }
 
-    public void initializeAccounts() throws Exception {
+    public void initializeAccounts() throws IOException {
         File dir = new File("./");
         if (dir.exists()) {
             if (dir.isDirectory()) {
@@ -150,14 +150,18 @@ public class Game {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Account account = new Gson().fromJson(reader, Account.class);
                         accounts.add(account);
-                        accountObjectInitializer(account);
+                        try {
+                            accountObjectInitializer(account);
+                        } catch (OutOfMemoryError e) {
+                            System.out.println("Goorbaa");
+                        }
                     }
                 }
             }
         }
     }
 
-    private void accountObjectInitializer(Account account) {
+    private void accountObjectInitializer(Account account) throws OutOfMemoryError {
         sortCards(account.getCollection().getCards());
         sortItems(account.getCollection().getItems());
         Collection collection = account.getCollection();
@@ -188,7 +192,7 @@ public class Game {
         items.sort(compareById);
     }
 
-    public void initializeHero() throws Exception {
+    public void initializeHero() throws IOException {
         File dir = new File("./src/Objects/Cards/Heroes");
         if (dir.exists()) {
             if (dir.isDirectory()) {
@@ -205,7 +209,7 @@ public class Game {
         }
     }
 
-    public void initializeMinion() throws Exception {
+    public void initializeMinion() throws IOException {
         File dir = new File("./src/Objects/Cards/Minions");
         if (dir.exists()) {
             if (dir.isDirectory()) {
@@ -222,7 +226,7 @@ public class Game {
         }
     }
 
-    public void initializeSpell() throws Exception {
+    public void initializeSpell() throws IOException {
         File dir = new File("./src/Objects/Cards/Spells");
         if (dir.exists()) {
             if (dir.isDirectory()) {
@@ -239,7 +243,7 @@ public class Game {
         }
     }
 
-    public void initializeItem() throws Exception {
+    public void initializeItem() throws IOException {
         File dir = new File("./src/Objects/Items");
         if (dir.exists()) {
             if (dir.isDirectory()) {

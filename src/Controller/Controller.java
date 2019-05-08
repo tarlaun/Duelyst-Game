@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import View.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller {
@@ -35,29 +36,28 @@ public class Controller {
     public void main() {
         try {
             game.initializeAccounts();
-        } catch (Exception e) {
-        }
-        try {
-            game.initializeSpell();
-        } catch (Exception e) {
-
+        } catch (IOException f) {
+            System.out.println("Account");
         }
         try {
             game.initializeHero();
-
-        } catch (Exception e) {
-
+        } catch (IOException f) {
+            System.out.println("Hero");
         }
         try {
             game.initializeMinion();
-
-        } catch (Exception e) {
-
+        } catch (IOException f) {
+            System.out.println("Minion");
+        }
+        try {
+            game.initializeSpell();
+        } catch (IOException f) {
+            System.out.println("Spell");
         }
         try {
             game.initializeItem();
-        } catch (Exception e) {
-
+        } catch (IOException f) {
+            System.out.println("Item");
         }
         Request request = new Request();
 
@@ -79,7 +79,11 @@ public class Controller {
                     showLeaderBoard(request);
                     break;
                 case SAVE:
-                    save();
+                    try {
+                        save();
+                    } catch (OutOfMemoryError h) {
+                        System.out.println("Save problem");
+                    }
                     break;
                 case LOGOUT:
                     logout();
@@ -254,7 +258,7 @@ public class Controller {
         view.printInvalidCommand();
     }
 
-    public void createAccount(Request request) {
+    public void createAccount(Request request){
         if (request.checkAccountCreationSyntax() && menu.getStat() == MenuStat.MAIN) {
             String username = request.getAccountName(request.getCommand());
             view.passwordInsertion();
@@ -284,7 +288,7 @@ public class Controller {
         return null;
     }
 
-    public void login(Request request) {
+    public void login(Request request){
         if (request.checkLoginSyntax() && menu.getStat() == MenuStat.MAIN) {
             String username = request.getAccountName(request.getCommand());
             view.passwordInsertion();
@@ -301,13 +305,13 @@ public class Controller {
         }
     }
 
-    public void save() {
+    public void save(){
         if (menu.getStat() == MenuStat.ACCOUNT) {
             game.save(account);
         }
     }
 
-    public void logout() {
+    public void logout(){
         if (menu.getStat() == MenuStat.ACCOUNT) {
             game.logout(account);
             this.account = null;

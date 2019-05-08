@@ -16,7 +16,7 @@ public class Account {
     private int wins = 0;
     private int mana;
     private int flagsCollected = 0;
-    private Menu menu = Menu.getInstance();
+    private transient Menu menu = Menu.getInstance();
 
     public int getFlagsCollected() {
         return flagsCollected;

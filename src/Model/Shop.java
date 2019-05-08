@@ -48,7 +48,7 @@ public class Shop {
         return list;
     }
 
-    public Message buy(String objectName, Account account) {
+    public Message buy(String objectName, Account account) throws OutOfMemoryError{
 
         if (search(objectName) == -1) {
             return Message.OBJECT_NOT_FOUND;
