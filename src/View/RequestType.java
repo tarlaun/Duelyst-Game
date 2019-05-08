@@ -52,5 +52,6 @@ public enum RequestType {
     STORY,
     CUSTOM,
     SELECT_USER,
+    SHOW_MAP,
     NULL
 }

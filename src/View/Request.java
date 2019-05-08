@@ -61,7 +61,8 @@ public class Request {
             "Flag",
             "Story",
             "Custom",
-            "selectUser"
+            "selectUser",
+            "showMap"
     };
     private String command;
 

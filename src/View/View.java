@@ -14,6 +14,9 @@ public class View {
     private static final View view = new View();
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     private View() {
 
@@ -511,4 +514,33 @@ public class View {
             System.out.println(account.getName() + " successfully added!");
         }
     }
+
+    public void drawMap(Battle battle) {
+        int id;
+        for (int i = 0; i < Constants.LENGTH; i++) {
+            for (int j = 0; j < Constants.WIDTH; j++) {
+                id = battle.getField(i, j).getCardID();
+                if (id == 0) {
+                    if (battle.getField(i, j).isHoly())
+                        System.out.print("H ");
+                    else if (battle.getField(i, j).isFire())
+                        System.out.print("F ");
+                    else if (battle.getField(i, j).isPoison())
+                        System.out.print("P ");
+                    else
+                        System.out.print("_ ");
+                } else {
+                    Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
+                    if (card != null) {
+                        System.out.print(ANSI_GREEN + card.getName().charAt(0) + ANSI_RESET + " ");
+                    } else {
+                        System.out.print(ANSI_RED + card.getName().charAt(0) + ANSI_RESET + " ");
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+
 }

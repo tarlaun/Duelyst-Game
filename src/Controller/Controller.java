@@ -169,6 +169,9 @@ public class Controller {
                 case GAME_INFO:
                     gameInfo();
                     break;
+                case SHOW_MAP:
+                    showMap();
+                    break;
                 case SHOW_MY_MININOS:
                     showMyMinions();
                     break;
@@ -230,6 +233,12 @@ public class Controller {
                     showMenu();
                     break;
             }
+        }
+    }
+
+    private void showMap() {
+        if (menu.getStat() == MenuStat.BATTLE) {
+            view.drawMap(battle);
         }
     }
 
@@ -541,7 +550,10 @@ public class Controller {
 
     public void showMyMinions() {
         if (menu.getStat() == MenuStat.BATTLE) {
-            view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
+            try {
+                view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
+            } catch (NullPointerException e) {
+            }
         }
     }
 
