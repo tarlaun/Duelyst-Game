@@ -1778,6 +1778,19 @@ public class Battle {
     }
 
     private void randomizeDeck(int current) {
+        ArrayList<Card> random = new ArrayList<>();
+        int[] visited = new int[20];
+        int r;
+        r = rand.nextInt(20);
+
+        while (random.size() < 20) {
+            while (visited[r] != 0) {
+                r = rand.nextInt(20);
+            }
+            random.add(accounts[current].getCollection().getMainDeck().getCards().get(r));
+        }
+        accounts[current].getCollection().getMainDeck().setCards(random);
+
 
     }
 
@@ -1795,6 +1808,18 @@ public class Battle {
     }
 
     private void refactorDeck(int current) {
+        for (int i = 0; i < playerHands[current].length; i++) {
+            accounts[current].getCollection().getCards().add(playerHands[current][i]);
+
+        }
+        for (int i = 0; i < graveyard[current].length; i++) {
+            accounts[current].getCollection().getCards().add(graveyard[current][i]);
+
+        }
+        for (Card card :
+                fieldCards[current]) {
+            accounts[current].getCollection().getCards().add(card);
+        }
 
     }
 }
