@@ -11,7 +11,6 @@ public class Request {
             "createAccount",
             "login",
             "showLeaderboard",
-            "showMatchHistory",
             "save",
             "logout",
             "help",
@@ -50,10 +49,15 @@ public class Request {
             "ShowNextCard",
             "ShowCards",
             "EndGame",
-            "showMenu"
+            "showMenu",
+            "showMatchHistory",
+            "SinglePlayer",
+            "MultiPlayer",
+            "KillEnemyHero",
+            "Collecting",
+            "Flag"
     };
     private String command;
-    private RequestType type;
 
     public boolean checkAccountCreationSyntax() {
         return this.getCommand().matches(this.getStrings()[RequestType.CREATE_ACCOUNT.ordinal()] + "\\s\\w+");
@@ -71,8 +75,8 @@ public class Request {
         return this.getCommand().matches(this.getStrings()[RequestType.LOGIN.ordinal()] + "\\s\\w+");
     }
 
-    public boolean checkMatchHistory(){
-        return this.getCommand().matches(this.getStrings()[RequestType.SHOW_MATCH_HISTORY.ordinal()]+ "\\s\\w");
+    public boolean checkMatchHistory() {
+        return this.getCommand().matches(this.getStrings()[RequestType.SHOW_MATCH_HISTORY.ordinal()] + "\\s\\w");
     }
 
     public boolean checkMenuEntrnaceSyntax() {

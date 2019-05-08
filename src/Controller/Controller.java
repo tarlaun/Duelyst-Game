@@ -37,27 +37,27 @@ public class Controller {
         try {
             game.initializeAccounts();
         } catch (IOException f) {
-            System.out.println("Account");
+            System.out.println("Account initializing error!");
         }
         try {
             game.initializeHero();
         } catch (IOException f) {
-            System.out.println("Hero");
+            System.out.println("Hero initializing error!");
         }
         try {
             game.initializeMinion();
         } catch (IOException f) {
-            System.out.println("Minion");
+            System.out.println("Minion initializing error!");
         }
         try {
             game.initializeSpell();
         } catch (IOException f) {
-            System.out.println("Spell");
+            System.out.println("Spell initializing error!");
         }
         try {
             game.initializeItem();
         } catch (IOException f) {
-            System.out.println("Item");
+            System.out.println("Item initializing error!");
         }
         Request request = new Request();
 
@@ -82,7 +82,7 @@ public class Controller {
                     try {
                         save();
                     } catch (OutOfMemoryError h) {
-                        System.out.println("Save problem");
+                        System.out.println("Saving error!");
                     }
                     break;
                 case LOGOUT:

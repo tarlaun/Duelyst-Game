@@ -31,10 +31,10 @@ public class Menu {
                             "buy [card name|item name]", "sell [card id|item it]", "show", "help", "exit", "showMenu"
                     },
                     {
-                            "SINGLE_PLAYER", "MULTI_PLAYER", "help", "exit"
+                            "SinglePlayer", "MultiPlayer", "help", "exit"
                     },
                     {
-                            "KILL_ENEMY_HERO", "COLLECTING", "FLAG", "help", "exit"
+                            "KillEnemyHero", "Collecting", "Flag", "help", "exit"
                     },
                     {
                             "GameInfo", "ShowMyMinions", "ShowOpponentMinions", "ShowCardInfo [card id]",

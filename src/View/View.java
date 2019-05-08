@@ -468,7 +468,7 @@ public class View {
     }
 
     public void chooseLevels() {
-        System.out.println("Choose cpu level:");
+        System.out.println("Choose AI level:");
     }
 
     public void comboErrors(Message message) {
