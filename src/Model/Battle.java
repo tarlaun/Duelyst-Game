@@ -856,34 +856,11 @@ public class Battle {
                         if (buff.getTurnCount() > 0) {
                             buff.setTurnCount(buff.getTurnCount() - 1);
                         }
-                        //
-                        if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() != 0) {
-                            card.setAbleToAttack(false);
-                            card.setAbleToMove(false);
-                        }
-                        if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() == 0) {
-                            card.setAbleToMove(true);
-                            card.setAbleToAttack(true);
-                        }
-                        //
-                        if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
-                            card.setAbleToAttack(true);
-                        }
-                        if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() % 2 == 0) {
-                            card.modifyHealth(-buff.getPower());
-                        }
-                        //
-                        if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() != 0) {
-                            card.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                        }
-                        if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
-                            card.setAssaultPower(card.getOriginalAssaultPower());
-                        }
-                        //
-                        if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
-                            card.modifyHealth(buff.getPower());
-                            buff.setPower(4);
-                        }
+                        checkForStun(card, buff);
+                        checkForDisarm(card, buff);
+                        checkForPoison(card, buff);
+                        checkForPower(card, buff);
+                        checkWhiteWolf(card, buff);
                         //
                         if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && !buff.getActivationType().equals(ActivationType.ON_DEATH)) {
                             card.modifyHealth(0);
@@ -897,12 +874,7 @@ public class Battle {
                                 && buff.getTurnCount() != 0) {
                             targetCard.modifyHealth(buff.getPower());
                         }
-                        if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0 && buff.getTurnCount() % 2 == 0) {
-                            card.setIsHoly(buff.getPower());
-                        }
-                        if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
-                            card.setIsHoly(0);
-                        }
+                        checkForHoly(card, buff);
                         if (buff.getType().equals(BuffType.JEN_JOON) && buff.getTurnCount() == -1) {
                             card.setAssaultPower(card.getAssaultPower() + buff.getPower());
                         }
@@ -913,6 +885,54 @@ public class Battle {
                 } catch (NullPointerException e) {
                 }
             }
+        }
+    }
+
+    private void checkWhiteWolf(Card card, Buff buff) {
+        if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
+            card.modifyHealth(buff.getPower());
+            buff.setPower(4);
+        }
+    }
+
+    private void checkForPoison(Card card, Buff buff) {
+        if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() % 2 == 0) {
+            card.modifyHealth(-buff.getPower());
+        }
+    }
+
+    private void checkForDisarm(Card card, Buff buff) {
+        if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
+            card.setAbleToAttack(true);
+        }
+    }
+
+    private void checkForHoly(Card card, Buff buff) {
+        if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0 && buff.getTurnCount() % 2 == 0) {
+            card.setIsHoly(buff.getPower());
+        }
+        if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
+            card.setIsHoly(0);
+        }
+    }
+
+    private void checkForPower(Card card, Buff buff) {
+        if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() != 0) {
+            card.setAssaultPower(card.getAssaultPower() + buff.getPower());
+        }
+        if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
+            card.setAssaultPower(card.getOriginalAssaultPower());
+        }
+    }
+
+    private void checkForStun(Card card, Buff buff) {
+        if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() != 0) {
+            card.setAbleToAttack(false);
+            card.setAbleToMove(false);
+        }
+        if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() == 0) {
+            card.setAbleToMove(true);
+            card.setAbleToAttack(true);
         }
     }
 
