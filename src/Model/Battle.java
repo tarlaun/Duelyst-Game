@@ -1,7 +1,7 @@
 package Model;
 
 import View.*;
-import jdk.nashorn.internal.objects.NativeUint8Array;
+/*import jdk.nashorn.internal.objects.NativeUint8Array;*/
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -378,7 +378,7 @@ public class Battle {
             return false;
         }
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
-        currentCard.setCoordinate(Coordinate.getPathDirections(currentCard.getCoordinate(), coordinate, field));
+        currentCard.setCoordinate(coordinate);
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
         if (mode.equals(BattleMode.COLLECTING)) {
             for (Flag flag :

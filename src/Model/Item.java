@@ -8,6 +8,10 @@ public class Item {
     private int price;
     private ArrayList<ItemBuff> buffs = new ArrayList<>();
 
+    public Item(){
+
+    }
+
     public Item(String information) {
         String[] info = information.split(Constants.CARD_INFO_SPLITTER);
         this.name = info[ItemInfoOrder.NAME.ordinal()];

@@ -12,10 +12,6 @@ public class Deck {
         this.name = name;
     }
 
-    public Deck() {
-
-    }
-
     public ArrayList<Card> getCards() {
         return cards;
     }

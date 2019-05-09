@@ -41,8 +41,7 @@ public class Collection {
 
     public boolean createDeck(String deckName) {
         if (deckExistance(deckName) == -1) {
-            Deck deck = new Deck();
-            deck.setName(deckName);
+            Deck deck = new Deck(deckName);
             decks.add(deck);
             return true;
         }

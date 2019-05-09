@@ -105,10 +105,10 @@ public class Card {
         }
     }
 
-
+/*
     public Card() {
 
-    }
+    }*/
 
     public boolean isAbleToCounter() {
         return ableToCounter;
