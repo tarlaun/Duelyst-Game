@@ -325,7 +325,7 @@ public class Controller {
     private boolean insertAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
-            battle.insertCard(battle.setCardCoordinates(battle.chooseCard(cards)), battle.chooseCard(cards).getName());
+            battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
             return true;
         }
         return false;
