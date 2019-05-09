@@ -1805,12 +1805,14 @@ public class Battle {
 
     private void addToHand(int current) {
         Deck deck = accounts[current].getCollection().getMainDeck();
-        if (deck.getCards().size() > Constants.MAXIMUM_DECK_SIZE - Constants.MAXIMUM_HAND_SIZE) {
-            playerHands[current][Constants.MAXIMUM_DECK_SIZE - deck.getCards().size()] = deck.getCards().get(0);
-        } else {
-            playerHands[current][Constants.MAXIMUM_HAND_SIZE] = deck.getCards().get(0);
+        if((Constants.MAXIMUM_DECK_SIZE - deck.getCards().size()
+                -fieldCards[current].length-graveyard[current].length)<Constants.MAXIMUM_HAND_SIZE){
+            playerHands[current][Constants.MAXIMUM_DECK_SIZE - deck.getCards().size()
+                    -fieldCards[current].length-graveyard[current].length] = deck.getCards().get(0);
+            deck.getCards().remove(0);
+
         }
-        deck.getCards().remove(0);
+
 
     }
 
