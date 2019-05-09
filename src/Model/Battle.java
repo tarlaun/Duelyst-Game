@@ -1259,14 +1259,6 @@ public class Battle {
     //AI FUNCTIONS BELOW
 
     public Coordinate setCardCoordinates() {
-        /*if (getFieldCards().length == 0) {
-            int ranx = rand.nextInt(Constants.randomXGenerator);
-            int rany = rand.nextInt(Constants.randomYGenerator);
-            return new Coordinate(ranx + Constants.shiftColumn, rany);
-        } else {
-            return new Coordinate(getFieldCards()[1][getFieldCards().length - 1].getCoordinate().getX(),
-                    (getField()[1][getFieldCards().length - 1].getCoordinate().getY() + 1) % 5);
-        }*/
         for (int i = 0; i < fieldCards[1].length ; i++) {
             if(fieldCards[1][i]!=null){
                 if(field[fieldCards[1][i].getCoordinate().getX()+1][fieldCards[1][i].getCoordinate().getY()].getCardID()==0){

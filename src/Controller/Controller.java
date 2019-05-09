@@ -361,12 +361,19 @@ public class Controller {
                 }
                 if (battle.getFieldCards()[1][i] != null && battle.getFieldCards()[0][j] != null && (battle.getFieldCards()[1][i].getCoordinate().getX() + k == battle.getFieldCards()[0][j].getCoordinate().getX()) &&
                         battle.getFieldCards()[1][i].getCoordinate().getY() + l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
-                    battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
+                    battle.attack(battle.getFieldCards()[0][j].getId(),battle.getFieldCards()[1][i] );
+                    return;
                 }
+               /* if(battle.setTargetCoordinates(battle.getFieldCards()[1][i])!=null &&  ){
+                    battle.attack(,battle.getFieldCards()[1][i]);
+                }*/
             }
         }
     }
 
+    public int findEnemy(Coordinate c1){
+        return battle.getField(c1.getX(),c1.getY()).getCardID();
+    }
 
     private boolean insertAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
@@ -465,6 +472,7 @@ public class Controller {
                     break;
                 default:
                     menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
+                    view.showEntrance(request);
             }
         }
     }

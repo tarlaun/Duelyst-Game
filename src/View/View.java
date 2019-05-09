@@ -495,6 +495,20 @@ public class View {
         System.out.println("Flag");
     }
 
+    public void showEntrance(Request request){
+        switch (request.getMenu(request.getCommand())){
+            case "Game":
+                System.out.println("Successful Entrance to Game");
+                break;
+            case "Collection":
+                System.out.println("Successful Entrance to Collection");
+                break;
+            case "Shop":
+                System.out.println("Successful Entrance to Shop");
+                break;
+        }
+    }
+
     public void chooseMultiOrSingle() {
         System.out.println("Choose game type:");
         System.out.println("SinglePlayer");
