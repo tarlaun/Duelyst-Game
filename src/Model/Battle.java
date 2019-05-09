@@ -1710,11 +1710,14 @@ public class Battle {
                 return card.getCoordinate();
             }
         }
-        return new Coordinate(card.getCoordinate().getX()-1 , card.getCoordinate().getY());
-        //return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
+        else if(card.getType().equals("Hero")){
+            return validateMovement(new Coordinate(card.getCoordinate().getX() , card.getCoordinate().getY()-2));
+        }
+        return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
     }
 
     private Coordinate validateMovement(Coordinate coordinate) {
+
         if (field[coordinate.getX()][coordinate.getY()].getCardID() == 0) {
             return coordinate;
         }
