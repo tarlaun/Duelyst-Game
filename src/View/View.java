@@ -396,6 +396,10 @@ public class View {
     }
 
     public void showAttack(Message message) {
+        if(message == null){
+            System.out.println("ATTACK DONE!!!");
+            return;
+        }
         switch (message) {
             case INVALID_TARGET:
                 System.out.println("Card doesn't exist on field");
@@ -406,7 +410,6 @@ public class View {
             case NOT_ABLE_TO_ATTACK:
                 System.out.println("You are not able to attack right now... (exhausted)");
                 break;
-
         }
     }
 

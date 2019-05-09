@@ -587,7 +587,7 @@ public class Battle {
                 Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
                         < currentCard.getMinRange())
             return false;
-        if (currentCard.getRangeType().equals(RangeType.MELEE)) {
+        if ( currentCard instanceof  Minion &&currentCard.getRangeType().equals(RangeType.MELEE)) {
             if (Math.abs(currentCard.getCoordinate().getY() - targetCard.getCoordinate().getY()) > 1 ||
                     Math.abs(currentCard.getCoordinate().getX() - targetCard.getCoordinate().getX()) > 1) {
                 return false;
