@@ -281,7 +281,9 @@ public class Controller {
     private void setBattleMode(Request request) {
         if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
             battle.setMode(request.getBattleMode(request.getCommand()));
-            setMainDeckForAI();
+            if(battle.getGameType().equals(GameType.SINGLEPLAYER)) {
+                setMainDeckForAI();
+            }
             if (battle.getGameType() == GameType.MULTIPLAYER) {
                 menu.setStat(MenuStat.SELECT_USER);
             } else {

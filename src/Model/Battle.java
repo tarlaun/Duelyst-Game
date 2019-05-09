@@ -40,33 +40,12 @@ public class Battle {
     private Battle() {
     }
 
-
-    public void setCollectibles(Item[][] collectibles) {
-        this.collectibles = collectibles;
-    }
-
-    public Process getProcess() {
-        return process;
-    }
-
     public void setProcess(Process process) {
         this.process = process;
     }
 
-    public ArrayList<Item> getBattleCollectibles() {
-        return battleCollectibles;
-    }
-
-    public void setBattleCollectibles(ArrayList<Item> battleCollectibles) {
-        this.battleCollectibles = battleCollectibles;
-    }
-
     public int getLevel() {
         return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     public static Battle getInstance() {
@@ -91,17 +70,10 @@ public class Battle {
         this.targetCard = targetCard;
     }
 
-    public void setCurrentItem(Item currentItem) {
-        this.currentItem = currentItem;
-    }
-
     public void setAccounts(Account... accounts) {
         this.accounts = accounts;
     }
 
-    public void setField(Cell[][] field) {
-        this.field = field;
-    }
 
     public void setMode(BattleMode mode) {
         this.mode = mode;
@@ -764,7 +736,6 @@ public class Battle {
         setAbleToAttackForHeros();
         buffTurnEnd();
         deholifyCell();
-//        randomItemAppearance();
         if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();
         }
