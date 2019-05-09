@@ -822,23 +822,6 @@ public class Battle {
         }
     }
 
-    public void randomItemAppearance() {
-        if ((turn % Constants.ITEM_APPEARANCE) == 1) {
-            boolean ableToAddItem = true;
-            while (ableToAddItem) {
-                int randomX = rand.nextInt(9);
-                int randomY = rand.nextInt(5);
-                int randomCollectibleItem = rand.nextInt(9);
-                if (field[randomX][randomY].getCardID() == 0) {
-                    ableToAddItem = false;
-                    field[randomX][randomY].setCardID(chooseCollectibleItems(shop.getItems()).get(randomCollectibleItem).getId());
-                    //effect item
-                }
-            }
-        }
-
-    }
-
     public void buffTurnEnd() {
         for (int i = 0; i < 2; i++) {
             for (Card card : fieldCards[i]) {
@@ -861,23 +844,9 @@ public class Battle {
                         checkForPoison(card, buff);
                         checkForPower(card, buff);
                         checkWhiteWolf(card, buff);
-                        //
-                        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && !buff.getActivationType().equals(ActivationType.ON_DEATH)) {
-                            card.modifyHealth(0);
-                            buff.setPower(buff.getPower());
-                        }
-                        //
-                        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && buff.getActivationType().equals(ActivationType.ON_DEATH)) {
-                            targetCard.modifyHealth(buff.getPower());
-                        }
-                        if (((buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
-                                && buff.getTurnCount() != 0) {
-                            targetCard.modifyHealth(buff.getPower());
-                        }
+                        checkForWeakness(card, buff);
                         checkForHoly(card, buff);
-                        if (buff.getType().equals(BuffType.JEN_JOON) && buff.getTurnCount() == -1) {
-                            card.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                        }
+                        checkForJen(card, buff);
                         if (buff.getTurnCount() == 0) {
                             card.removeFromBuffs(buff);
                         }
@@ -885,6 +854,26 @@ public class Battle {
                 } catch (NullPointerException e) {
                 }
             }
+        }
+    }
+
+    private void checkForJen(Card card, Buff buff) {
+        if (buff.getType().equals(BuffType.JEN_JOON) && buff.getTurnCount() == -1) {
+            card.setAssaultPower(card.getAssaultPower() + buff.getPower());
+        }
+    }
+
+    private void checkForWeakness(Card card, Buff buff) {
+        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && !buff.getActivationType().equals(ActivationType.ON_DEATH)) {
+            card.modifyHealth(0);
+            buff.setPower(buff.getPower());
+        }
+        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && buff.getActivationType().equals(ActivationType.ON_DEATH)) {
+            targetCard.modifyHealth(buff.getPower());
+        }
+        if (((buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
+                && buff.getTurnCount() != 0) {
+            targetCard.modifyHealth(buff.getPower());
         }
     }
 
@@ -1792,9 +1781,6 @@ public class Battle {
         card.getCastedItems().add(buff);
     }
 
-    public void selectItem(int id) {
-
-    }
 
     public void endGame() {
         if (!checkForWin()) {
