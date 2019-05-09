@@ -169,7 +169,8 @@ public class Request {
     }
 
     public boolean checkCardInsertSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.INSERTION.ordinal()] + "\\w+\\sto\\s\\(\\s\\d+\\s,\\s\\d+\\s\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.INSERTION.ordinal()] + "\\s\\w+\\sin" +
+                "\\s\\(\\s\\d+\\s,\\s\\d+\\s\\)");
     }
 
     public boolean checkItemUseSyntax() {
@@ -240,8 +241,8 @@ public class Request {
 
     public Coordinate getCoordinate(String input) {
         return new Coordinate(
-                Integer.parseInt(this.getSplittedCommand(input)[this.getSplittedCommand(input).length - 2]),
-                Integer.parseInt(this.getSplittedCommand(input)[this.getSplittedCommand(input).length - 1])
+                Integer.parseInt(this.getSplittedCommand(input)[this.getSplittedCommand(input).length - 4]),
+                Integer.parseInt(this.getSplittedCommand(input)[this.getSplittedCommand(input).length - 2])
         );
     }
 

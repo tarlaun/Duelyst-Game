@@ -205,7 +205,7 @@ public class Controller {
                     showHand();
                     break;
                 case INSERTION:
-                    if (insertAI()) break;
+//                    if (insertAI()) break;
                     insertCard(request);
                     break;
                 case END_TURN:
@@ -634,8 +634,9 @@ public class Controller {
 
     public void insertCard(Request request) {
         if (request.checkCardInsertSyntax() && menu.getStat() == MenuStat.BATTLE) {
+            System.out.println("Goorba");
             view.printInsertionMessage(battle.insertCard(request.getCoordinate(request.getCommand()),
-                    request.getInsertedName(request.getCommand())));
+                    request.getInsertedName(request.getCommand())), battle);
         }
     }
 

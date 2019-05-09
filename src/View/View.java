@@ -398,7 +398,7 @@ public class View {
     public void showCombo(int oppId, Card[] comboComrades) {
     }
 
-    public void printInsertionMessage(Message message) {
+    public void printInsertionMessage(Message message, Battle battle) {
         switch (message) {
             case FULL_CELL:
                 System.out.println("This cell is full.");
@@ -409,6 +409,8 @@ public class View {
             case INSUFFICIENT_MANA:
                 System.out.println("Your mana is not sufficient!");
                 break;
+            case SUCCESSFUL_INSERT:
+                drawMap(battle);
         }
     }
 
