@@ -220,12 +220,7 @@ public class Battle {
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
             return Message.INVALID_PLAYERS;
         }
-        randomizeDeck(0);
-        randomizeDeck(1);
-        for (int i = 0; i < 5; i++) {
-            addToHand(0);
-            addToHand(1);
-        }
+        initializeHands();
         setManaPoints();
         for (int i = 0; i < Constants.WIDTH; i++) {
             for (int j = 0; j < Constants.LENGTH; j++) {
@@ -1835,17 +1830,18 @@ public class Battle {
     }
 
     private void addToHand(int current) {
-/*
-        if (playerHands[current][Constants.MAXIMUM_HAND_SIZE - 1] != null)
-            return;
-*/
         Deck deck = accounts[current].getCollection().getMainDeck();
-        if (deck.getCards().size() > Constants.MAXIMUM_DECK_SIZE - Constants.MAXIMUM_HAND_SIZE) {
-            playerHands[current][Constants.MAXIMUM_DECK_SIZE - deck.getCards().size()] = deck.getCards().get(0);
-        } else {
-            playerHands[current][Constants.MAXIMUM_HAND_SIZE - 1] = deck.getCards().get(0);
+        int last = Constants.MAXIMUM_HAND_SIZE;
+        for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
+            if (playerHands[current][i] == null) {
+                last = i;
+                break;
+            }
         }
-        deck.getCards().remove(0);
+        for (int i = last; i < Constants.MAXIMUM_HAND_SIZE; i++) {
+            playerHands[current][i] = deck.getCards().get(0);
+            deck.getCards().remove(0);
+        }
 
     }
 
@@ -1863,5 +1859,18 @@ public class Battle {
             accounts[current].getCollection().getCards().add(card);
         }
 
+    }
+
+    private void initializeHands() {
+        randomizeDeck(0);
+        randomizeDeck(1);
+        playerHands[0] = accounts[0].getCollection().getMainDeck().getCards()
+                .subList(0, Constants.MAXIMUM_HAND_SIZE).toArray(new Card[Constants.MAXIMUM_HAND_SIZE]);
+        playerHands[1] = accounts[1].getCollection().getMainDeck().getCards()
+                .subList(0, Constants.MAXIMUM_HAND_SIZE).toArray(new Card[Constants.MAXIMUM_HAND_SIZE]);
+        for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
+            accounts[0].getCollection().getMainDeck().getCards().remove(0);
+            accounts[1].getCollection().getMainDeck().getCards().remove(0);
+        }
     }
 }
