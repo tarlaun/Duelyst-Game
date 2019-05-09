@@ -363,6 +363,8 @@ public class Battle {
     }
 
     public boolean moveTo(Coordinate coordinate) {
+        if (currentCard == null)
+            return false;
         if (!currentCard.isAbleToMove())
             return false;
         if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getY() < 0 || coordinate.getX() < 0)
@@ -492,7 +494,7 @@ public class Battle {
             accounts[1].setMana((turn / 2) + Constants.INITIAL_MANA + 1);
         } else {
             accounts[0].setMana(Constants.MAX_MANA);
-            accounts[0].setMana(Constants.MAX_MANA);
+            accounts[1].setMana(Constants.MAX_MANA);
         }
     }
 
@@ -804,6 +806,8 @@ public class Battle {
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
+                if (insert.getType().equals("Spell"))
+                    return Message.INVALID_CARD;
                 if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getX() < 0 || coordinate.getY() < 0)
                     return Message.INVALID_TARGET;
                 if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
@@ -850,8 +854,8 @@ public class Battle {
             }
         }
         addToHand(turn % 2);
-        setManaPoints();
         turn++;
+        setManaPoints();
         currentPlayer = this.accounts[turn % 2];
         currentCard = null;
         targetCard = null;
@@ -1831,6 +1835,10 @@ public class Battle {
     }
 
     private void addToHand(int current) {
+/*
+        if (playerHands[current][Constants.MAXIMUM_HAND_SIZE - 1] != null)
+            return;
+*/
         Deck deck = accounts[current].getCollection().getMainDeck();
         if (deck.getCards().size() > Constants.MAXIMUM_DECK_SIZE - Constants.MAXIMUM_HAND_SIZE) {
             playerHands[current][Constants.MAXIMUM_DECK_SIZE - deck.getCards().size()] = deck.getCards().get(0);
