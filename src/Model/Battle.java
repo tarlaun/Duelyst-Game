@@ -421,7 +421,7 @@ public class Battle {
         checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);
         targetCard.modifyHealth(-currentCard.getAssaultPower());
-        if (isAttackable(currentCard, targetCard) && targetCard.getIsHoly()!=0)
+        if (isAttackable(currentCard, targetCard) && targetCard.getIsHoly() != 0)
             targetCard.setHealthPoint(targetCard.getHealthPoint() - targetCard.getIsHoly());
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         attack(currentCard.getId(), targetCard);
@@ -526,24 +526,24 @@ public class Battle {
         if (currentCard.getType().equals("Minion")) {
             for (int i = 0; i < 40; i++) {
                 if (opponentCardId == currentCard.getAttackCount(opponentCardId)) {
-                    ( currentCard).setAttackCount(i, 1, ( currentCard).getAttackCount(opponentCardId) + 1);
+                    (currentCard).setAttackCount(i, 1, (currentCard).getAttackCount(opponentCardId) + 1);
                     newMinion = false;
                     break;
                 }
-                if (( currentCard).getAttackCount(currentCard.getId()) == 0) {
+                if ((currentCard).getAttackCount(currentCard.getId()) == 0) {
                     emptyCell = i;
                     break;
                 }
             }
             if (newMinion) {
-                ( currentCard).setAttackCount(emptyCell, 0, opponentCardId);
-                ( currentCard).setAttackCount(emptyCell, 1, 1);
+                (currentCard).setAttackCount(emptyCell, 0, opponentCardId);
+                (currentCard).setAttackCount(emptyCell, 1, 1);
             }
         }
     }
 
     private void killEnemy(Card targetCard) {
-        if (targetCard!= null && targetCard.getHealthPoint() <= 0) {
+        if (targetCard != null && targetCard.getHealthPoint() <= 0) {
             if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH) &&
                     targetCard.getBuffs().get(0).getType().equals(BuffType.WEAKNESS)) {
                 for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
@@ -585,7 +585,7 @@ public class Battle {
     }
 
     public boolean isInRange(Card targetCard, Card currentCard) {
-        if(targetCard==null || currentCard==null){
+        if (targetCard == null || currentCard == null) {
             return false;
         }
         if (Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
@@ -593,7 +593,7 @@ public class Battle {
                 Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
                         < currentCard.getMinRange())
             return false;
-        if ( currentCard instanceof  Minion &&currentCard.getRangeType().equals(RangeType.MELEE)) {
+        if (currentCard instanceof Minion && currentCard.getRangeType().equals(RangeType.MELEE)) {
             if (Math.abs(currentCard.getCoordinate().getY() - targetCard.getCoordinate().getY()) > 1 ||
                     Math.abs(currentCard.getCoordinate().getX() - targetCard.getCoordinate().getX()) > 1) {
                 return false;
@@ -703,11 +703,11 @@ public class Battle {
 
     private void useSpecialPower(Card card, Buff buff) {
         if (card.getType().equals("Hero")) {
-            useHeroSP( card, currentCoordinate);
+            useHeroSP(card, currentCoordinate);
             return;
         }
         if (card.getType().equals("Spell")) {
-            useSpell( card, currentCoordinate);
+            useSpell(card, currentCoordinate);
             return;
         }
         int r;
@@ -804,34 +804,37 @@ public class Battle {
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (insert.getType().equals("Spell"))
-                    return Message.INVALID_CARD;
-                if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getX() < 0 || coordinate.getY() < 0)
-                    return Message.INVALID_TARGET;
-                if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
-                    return Message.FULL_CELL;
-                }
-                for (Card card : fieldCards[turn % 2]) {
-                    try {
-                        if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
-                            validTarget = true;
-                            break;
-                        }
-                    } catch (NullPointerException e) {
+                if (insert.isClass("Minion")) {
+                    if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getX() < 0 || coordinate.getY() < 0)
+                        return Message.INVALID_TARGET;
+                    if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
+                        return Message.FULL_CELL;
                     }
+                    for (Card card : fieldCards[turn % 2]) {
+                        try {
+                            if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
+                                validTarget = true;
+                                break;
+                            }
+                        } catch (NullPointerException e) {
+                        }
+                    }
+                    if (!validTarget) {
+                        return Message.INVALID_TARGET;
+                    }
+                    if (insert != null && !spendMana(insert.getManaPoint())) {
+                        return Message.INSUFFICIENT_MANA;
+                    }
+                    assert insert != null;
+                    field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
+                    insert.setCoordinate(coordinate);
+                    playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
+                    fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
+                    return Message.SUCCESSFUL_INSERT;
                 }
-                if (!validTarget) {
-                    return Message.INVALID_TARGET;
+                if (insert.isClass("Spell")) {
+                    useSpell(insert, coordinate);
                 }
-                if (insert != null && !spendMana(insert.getManaPoint())) {
-                    return Message.INSUFFICIENT_MANA;
-                }
-                assert insert != null;
-                field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
-                insert.setCoordinate(coordinate);
-                playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
-                fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
-                return Message.SUCCESSFUL_INSERT;
             }
 
         }
@@ -885,16 +888,16 @@ public class Battle {
     }
 
     private void setAbleToAttackForHeros() {
-        if(turn ==1 ){
-            for (int i = 0; i <fieldCards.length ; i++) {
-                if(fieldCards[0][i] instanceof Hero){
+        if (turn == 1) {
+            for (int i = 0; i < fieldCards.length; i++) {
+                if (fieldCards[0][i] instanceof Hero) {
                     fieldCards[0][i].setAbleToAttack(true);
                 }
             }
         }
-        if(turn==2){
+        if (turn == 2) {
             for (int i = 0; i < fieldCards[1].length; i++) {
-                if(fieldCards[1][i] instanceof Hero){
+                if (fieldCards[1][i] instanceof Hero) {
                     fieldCards[1][i].setAbleToAttack(true);
                 }
             }
@@ -1684,7 +1687,7 @@ public class Battle {
                 return card.getCoordinate();
             }
         }
-        return new Coordinate(card.getCoordinate().getX()-1 , card.getCoordinate().getY());
+        return new Coordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY());
         //return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
     }
 
