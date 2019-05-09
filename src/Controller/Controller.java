@@ -5,6 +5,7 @@ import View.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Controller {
     private View view = View.getInstance();
@@ -235,7 +236,7 @@ public class Controller {
 
     private void AiFunctions() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
-             insertAI();
+            insertAI();
             moveAI();
             attackAI();
         }
@@ -355,8 +356,8 @@ public class Controller {
                                     if (l == 0 && k == 0) {
                                         break;
                                     }
-                                    if (battle.getFieldCards()[1][i]!=null&&battle.getFieldCards()[0][j]!=null&& (battle.getFieldCards()[1][i].getCoordinate().getX()+k==battle.getFieldCards()[0][j].getCoordinate().getX())&&
-                                    battle.getFieldCards()[1][i].getCoordinate().getY()+l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
+                                    if (battle.getFieldCards()[1][i] != null && battle.getFieldCards()[0][j] != null && (battle.getFieldCards()[1][i].getCoordinate().getX() + k == battle.getFieldCards()[0][j].getCoordinate().getX()) &&
+                                            battle.getFieldCards()[1][i].getCoordinate().getY() + l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
                                         battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
                                     }
                                 }
@@ -370,21 +371,16 @@ public class Controller {
 
 
     private boolean insertAI() {
-       /* if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
+       if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
             battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
             return true;
         }
-        return false;*/
         return false;
     }
 
     public ArrayList<Card> convertArrayToList(Card[] cards) {
-        ArrayList<Card> cards1 = new ArrayList<>();
-        for (int i = 0; i < cards.length; i++) {
-            cards1.add(cards[i]);
-        }
-        return cards1;
+        return new ArrayList<>(Arrays.asList(cards));
     }
 
     private void invalidCommand() {

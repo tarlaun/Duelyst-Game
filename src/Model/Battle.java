@@ -1258,7 +1258,7 @@ public class Battle {
     //******************************************************************************************************************
     //AI FUNCTIONS BELOW
 
-    public Coordinate setCardCoordinates(Card card) {
+    public Coordinate setCardCoordinates() {
         if (getFieldCards().length == 0) {
             int ranx = rand.nextInt(Constants.randomXGenerator);
             int rany = rand.nextInt(Constants.randomYGenerator);
