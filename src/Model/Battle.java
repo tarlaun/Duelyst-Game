@@ -1,7 +1,7 @@
 package Model;
 
 import View.*;
-import jdk.nashorn.internal.objects.NativeUint8Array;
+//import jdk.nashorn.internal.objects.NativeUint8Array;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,7 +40,6 @@ public class Battle {
 
     private Battle() {
     }
-
 
     public void setCollectibles(Item[][] collectibles) {
         this.collectibles = collectibles;
@@ -868,23 +867,6 @@ public class Battle {
                 }
             }
         }
-    }
-
-    public void randomItemAppearance() {
-        if ((turn % Constants.ITEM_APPEARANCE) == 1) {
-            boolean ableToAddItem = true;
-            while (ableToAddItem) {
-                int randomX = rand.nextInt(9);
-                int randomY = rand.nextInt(5);
-                int randomCollectibleItem = rand.nextInt(9);
-                if (field[randomX][randomY].getCardID() == 0) {
-                    ableToAddItem = false;
-                    field[randomX][randomY].setCardID(chooseCollectibleItems(shop.getItems()).get(randomCollectibleItem).getId());
-                    //effect item
-                }
-            }
-        }
-
     }
 
     public void buffTurnEnd() {
