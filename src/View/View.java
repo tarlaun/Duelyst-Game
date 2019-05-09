@@ -230,7 +230,8 @@ public class View {
                     index++;
 
                 }
-            } catch (NullPointerException e){}
+            } catch (NullPointerException e) {
+            }
         }
     }
 
@@ -420,11 +421,13 @@ public class View {
         }
     }
 
-    public void printUnsuccessfulSelection(int collctablesLength) {
-        if (collctablesLength == 0)
-            System.out.println("Invalid card id");
+    public void printSelectionResult(boolean card, boolean item) {
+        if (card)
+            System.out.println("Card selected");
+        else if (item)
+            System.out.println("Item selected");
         else
-            System.out.println("No card/item exists with this id");
+            System.out.println("No card/item found with this id!");
     }
 
     public void specialPowerValidation(Message message) {

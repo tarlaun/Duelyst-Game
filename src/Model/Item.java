@@ -36,9 +36,14 @@ public class Item {
     }
 
     public static Item getItemByID(int id, Item... items) {
+        if (items == null)
+            return null;
         for (Item item : items) {
-            if (item.getId() == id) {
-                return item;
+            try {
+                if (item.getId() == id) {
+                    return item;
+                }
+            } catch (NullPointerException e) {
             }
         }
         return null;

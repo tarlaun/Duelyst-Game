@@ -16,7 +16,7 @@ public class Battle {
     private Account[] accounts;
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][Constants.MAXIMUM_DECK_SIZE + 1];
-    private Item[][] collectibles = new Item[2][];
+    private Item[][] collectibles = new Item[2][Constants.MAXIMUM_DECK_SIZE];
     private ArrayList<Item> battleCollectibles = new ArrayList<>();
     private Card[][] playerHands = new Card[2][Constants.MAXIMUM_HAND_SIZE];
     private int turn = 0;
@@ -355,7 +355,7 @@ public class Battle {
 
     public boolean selectCard(int cardId) {
         Card card = Card.getCardByID(cardId, fieldCards[turn % 2]);
-        if (card.equals(null)) {
+        if (card == null) {
             return false;
         }
         currentCard = card;
@@ -837,7 +837,7 @@ public class Battle {
     public void endTurn() {
         buffTurnEnd();
         deholifyCell();
-        randomItemAppearance();
+//        randomItemAppearance();
         if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();
         }
@@ -1013,14 +1013,15 @@ public class Battle {
         return newItemList;
     }
 
-    public Message selectCollectibleId(int collectibleId) {
+    public boolean selectCollectibleId(int collectibleId) {
         for (Item collectible :
                 collectibles[turn % 2]) {
             if (collectible.getId() == collectibleId) {
                 menu.setStat(MenuStat.ITEM_SELECTION);
+                return true;
             }
         }
-        return null;
+        return false;
 
     }
 

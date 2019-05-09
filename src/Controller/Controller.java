@@ -184,7 +184,7 @@ public class Controller {
                     select(request);
                     break;
                 case MOVE:
-                    moveAI();
+//                    moveAI();
                     moveToInBattle(request);
                     break;
                 case ATTACK:
@@ -249,6 +249,7 @@ public class Controller {
                 battle.setAccounts(account, Account.getAccountByName(username, game.getAccounts()));
                 menu.setStat(MenuStat.BATTLE);
                 battle.startBattle();
+                view.endTurn(account);
             } catch (NullPointerException e) {
             }
         }
@@ -576,14 +577,9 @@ public class Controller {
     public void select(Request request) {
         if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int turn = battle.getTurnByAccount(account);
-            Card card = Card.getCardByID(request.getObjectID(request.getCommand()), battle.getFieldCards()[turn]);
-            Item item = Item.getItemByID(request.getObjectID(request.getCommand()), battle.getCollectibles()[turn]);
-            if (card != null)
-                battle.selectCard(card.getId());
-            else if (item != null)
-                battle.selectItem(item.getId());
-            else
-                view.printUnsuccessfulSelection(battle.getCollectibles()[turn].length);
+            int card = request.getObjectID(request.getCommand());
+            int item = request.getObjectID(request.getCommand());
+            view.printSelectionResult(battle.selectCard(card), battle.selectCollectibleId(item));
         }
     }
 

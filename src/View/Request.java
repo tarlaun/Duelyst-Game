@@ -39,16 +39,16 @@ public class Request {
             "ShowOpponentMinions",
             "ShowCardInfo",
             "Select",
-            "MoveTo (",
+            "MoveTo",
             "Attack",
             "AttackCombo",
-            "UseSpecialPower(",
+            "UseSpecialPower",
             "ShowHand",
             "Insert",
             "EndTurn",
             "ShowCollectables",
             "ShowInfo",
-            "Use(",
+            "Use",
             "ShowNextCard",
             "ShowCards",
             "EndGame",
@@ -149,7 +149,7 @@ public class Request {
     }
 
     public boolean checkMoveSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.MOVE.ordinal()] + "\\s\\d+\\s,\\s\\d+\\s\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.MOVE.ordinal()] + "\\s\\(\\s\\d+\\s,\\s\\d+\\s\\)");
 
     }
 
@@ -164,7 +164,7 @@ public class Request {
     }
 
     public boolean checkSPUsageSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.USE_SP.ordinal()] + "\\s\\d+\\s,\\s\\d+\\s\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.USE_SP.ordinal()] + "\\s\\(\\s\\d+\\s,\\s\\d+\\s\\)");
 
     }
 
@@ -174,7 +174,7 @@ public class Request {
     }
 
     public boolean checkItemUseSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.USE_ITEM.ordinal()] + "\\s\\d+\\s,\\s\\d+\\s\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.USE_ITEM.ordinal()] + "\\s\\(\\s\\d+\\s,\\s\\d+\\s\\)");
 
     }
 
