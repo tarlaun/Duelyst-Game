@@ -860,9 +860,17 @@ public class Battle {
                             return;
                     }
                     fieldCards[i][j].setAbleToMove(true);
+
+
                 } catch (NullPointerException e) {
 
                 }
+                try {
+                    for (Buff buff : fieldCards[i][j].getCastedBuffs()) {
+                        if (buff.getType() == BuffType.DISARM)
+                            return;
+                    }
+                    fieldCards[i][j].setAbleToAttack(true);
             }
         }
     }
