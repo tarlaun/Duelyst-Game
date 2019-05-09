@@ -522,21 +522,23 @@ public class View {
                 id = battle.getField(i, j).getCardID();
                 if (id == 0) {
                     if (battle.getField(i, j).isHoly())
-                        System.out.print("H ");
+                        System.out.print("H");
                     else if (battle.getField(i, j).isFire())
-                        System.out.print("F ");
+                        System.out.print("F");
                     else if (battle.getField(i, j).isPoison())
-                        System.out.print("P ");
+                        System.out.print("P");
                     else
-                        System.out.print("_ ");
+                        System.out.print("-");
                 } else {
                     Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
                     if (card != null) {
-                        System.out.print(ANSI_GREEN + card.getName().charAt(0) + ANSI_RESET + " ");
+                        System.out.print(ANSI_GREEN + card.getType().charAt(0) + ANSI_RESET);
                     } else {
-                        System.out.print(ANSI_RED + card.getName().charAt(0) + ANSI_RESET + " ");
+                        card = Card.getCardByID(id, battle.getFieldCards()[1]);
+                        System.out.print(ANSI_RED + card.getType().charAt(0) + ANSI_RESET);
                     }
                 }
+                System.out.print(" ");;
             }
             System.out.println();
         }

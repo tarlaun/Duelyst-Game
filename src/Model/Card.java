@@ -177,15 +177,14 @@ public class Card {
     }
 
     public static Card getCardByID(int id, Card... cards) {
+        if (cards == null)
+            return null;
         for (Card card : cards) {
             try {
                 if (card.getId() == id) {
                     return card;
                 }
-
-            } catch (NullPointerException e) {
-                System.out.println("You failed!");
-            }
+            } catch (NullPointerException e){}
         }
         return null;
     }

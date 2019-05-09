@@ -23,7 +23,7 @@ public class Battle {
     private BattleMode mode;
     private GameType gameType;
     private Process process;
-    private Card[][] fieldCards = new Card[2][];
+    private Card[][] fieldCards = new Card[2][Constants.MAXIMUM_DECK_SIZE + 1];
     private int level;
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
@@ -231,10 +231,10 @@ public class Battle {
                 this.field[i][j] = new Cell();
             }
         }
-        insertCard(new Coordinate(0, Constants.WIDTH / 2),
-                accounts[0].getCollection().getMainDeck().getHero().getName());
-        insertCard(new Coordinate(Constants.LENGTH, Constants.WIDTH / 2),
-                accounts[1].getCollection().getMainDeck().getHero().getName());
+        field[Constants.WIDTH / 2][0].setCardID(accounts[0].getCollection().getMainDeck().getHero().getId());
+        fieldCards[0][0] = accounts[0].getCollection().getMainDeck().getHero();
+        field[Constants.WIDTH / 2][Constants.LENGTH - 1].setCardID(accounts[1].getCollection().getMainDeck().getHero().getId());
+        fieldCards[1][0] = accounts[1].getCollection().getMainDeck().getHero();
         return Message.BATTLE_STARTED;
     }
 
