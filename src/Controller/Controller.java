@@ -279,12 +279,28 @@ public class Controller {
     private void setBattleMode(Request request) {
         if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
             battle.setMode(request.getBattleMode(request.getCommand()));
+            setMainDeckForAI();
             if (battle.getGameType() == GameType.MULTIPLAYER) {
                 menu.setStat(MenuStat.SELECT_USER);
             } else {
                 menu.setStat(MenuStat.BATTLE);
                 battle.startBattle();
             }
+        }
+    }
+
+    private void setMainDeckForAI() {
+        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
+                battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
+            battle.getAccounts()[1].getCollection().selectDeck("level1");
+        }
+        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
+                battle.getMode().equals(BattleMode.FLAG)) {
+            battle.getAccounts()[1].getCollection().selectDeck("level2");
+        }
+        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
+                battle.getMode().equals(BattleMode.COLLECTING)) {
+            battle.getAccounts()[1].getCollection().selectDeck("level3");
         }
     }
 
@@ -329,7 +345,7 @@ public class Controller {
     private boolean insertAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
-            battle.insertCard(battle.setCardCoordinates(battle.chooseCard(cards)), battle.chooseCard(cards).getName());
+            battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
             return true;
         }
         return false;
