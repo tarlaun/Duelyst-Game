@@ -523,19 +523,19 @@ public class Battle {
 
         if (currentCard.getType().equals("Minion")) {
             for (int i = 0; i < 40; i++) {
-                if (opponentCardId == ((Minion) currentCard).getAttackCount(opponentCardId)) {
-                    ((Minion) currentCard).setAttackCount(i, 1, ((Minion) currentCard).getAttackCount(opponentCardId) + 1);
+                if (opponentCardId == currentCard.getAttackCount(opponentCardId)) {
+                    ( currentCard).setAttackCount(i, 1, ( currentCard).getAttackCount(opponentCardId) + 1);
                     newMinion = false;
                     break;
                 }
-                if (((Minion) currentCard).getAttackCount(currentCard.getId()) == 0) {
+                if (( currentCard).getAttackCount(currentCard.getId()) == 0) {
                     emptyCell = i;
                     break;
                 }
             }
             if (newMinion) {
-                ((Minion) currentCard).setAttackCount(emptyCell, 0, opponentCardId);
-                ((Minion) currentCard).setAttackCount(emptyCell, 1, 1);
+                ( currentCard).setAttackCount(emptyCell, 0, opponentCardId);
+                ( currentCard).setAttackCount(emptyCell, 1, 1);
             }
         }
     }
@@ -658,7 +658,7 @@ public class Battle {
         for (int i = 0; i < 2; i++) {
             switch (currentCard.getBuffs().get(i).getType()) {
                 case CHAMPION:
-                    int multiply = ((Minion) currentCard).getAttackCount(targetCard.getId()) * 5;
+                    int multiply = currentCard.getAttackCount(targetCard.getId()) * 5;
                     targetCard.modifyHealth(-multiply);
                     break;
                 case DISARM:
@@ -698,11 +698,11 @@ public class Battle {
 
     private void useSpecialPower(Card card, Buff buff) {
         if (card.getType().equals("Hero")) {
-            useHeroSP((Hero) card, currentCoordinate);
+            useHeroSP( card, currentCoordinate);
             return;
         }
         if (card.getType().equals("Spell")) {
-            useSpell((Spell) card, currentCoordinate);
+            useSpell( card, currentCoordinate);
             return;
         }
         int r;
@@ -1051,7 +1051,7 @@ public class Battle {
         menu.setStat(MenuStat.GRAVEYARD);
     }
 
-    public boolean useHeroSP(Hero hero, Coordinate target) {
+    public boolean useHeroSP(Card hero, Coordinate target) {
         if (!spendMana(hero.getPrice())) {
             return false;
         }
@@ -1144,7 +1144,7 @@ public class Battle {
         return false;
     }
 
-    public boolean useSpell(Spell spell, Coordinate target) {
+    public boolean useSpell(Card spell, Coordinate target) {
         for (Buff buff : spell.getBuffs()) {
             switch (buff.getEffectArea().get(0).getX()) {
                 case 0:
