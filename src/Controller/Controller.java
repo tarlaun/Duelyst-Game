@@ -279,15 +279,15 @@ public class Controller {
     private void setMainDeckForAI() {
         if(battle.getAccounts()[1].getName().equals("powerfulAI")&&
                 battle.getMode().equals(BattleMode.KILLENEMYHERO)){
-            battle.getAccounts()[1].getCollection().selectDeck("first");
+            battle.getAccounts()[1].getCollection().selectDeck("level1");
         }
         if(battle.getAccounts()[1].getName().equals("powerfulAI")&&
                 battle.getMode().equals(BattleMode.FLAG)){
-            battle.getAccounts()[1].getCollection().selectDeck("second");
+            battle.getAccounts()[1].getCollection().selectDeck("level2");
         }
         if(battle.getAccounts()[1].getName().equals("powerfulAI")&&
                 battle.getMode().equals(BattleMode.COLLECTING)){
-            battle.getAccounts()[1].getCollection().selectDeck("third");
+            battle.getAccounts()[1].getCollection().selectDeck("level3");
         }
     }
 

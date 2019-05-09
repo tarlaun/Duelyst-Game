@@ -287,6 +287,7 @@ public class Battle {
                 refactorDeck(1);
                 return true;
             }
+            if (setAIStoryAwards()) return true;
             firstPlayerMatch.setResult(MatchResult.WON);
             secondPlayerMatch.setResult(MatchResult.LOST);
             accounts[0].setBudget(accounts[0].getBudget() + 1000);
@@ -303,6 +304,26 @@ public class Battle {
             refactorDeck(1);
             return true;
 
+        }
+        return false;
+    }
+
+    private boolean setAIStoryAwards() {
+        if(accounts[1].getName().equals("powerfulAI")){
+            if(mode.equals(BattleMode.KILLENEMYHERO)){
+                accounts[0].setBudget(accounts[0].getBudget() + 500);
+            }
+            if(mode.equals(BattleMode.FLAG)){
+                accounts[0].setBudget(accounts[0].getBudget() + 1000);
+            }
+            if(mode.equals(BattleMode.COLLECTING)){
+                accounts[0].setBudget(accounts[0].getBudget() + 1500);
+            }
+            firstPlayerMatch.setResult(MatchResult.WON);
+            setMatchInfo();
+            refactorDeck(0);
+            refactorDeck(1);
+            return true;
         }
         return false;
     }
