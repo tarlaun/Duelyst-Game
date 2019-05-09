@@ -14,7 +14,10 @@ public class Coordinate {
     }
 
     public boolean equals(Coordinate coordinate) {
-        return (this.x == coordinate.x && this.y == coordinate.y);
+        if (coordinate == null)
+            return false;
+        return this.x == coordinate.x && this.y == coordinate.y;
+
     }
 
     public int getX() {
@@ -35,22 +38,21 @@ public class Coordinate {
 
     public static Coordinate getPathDirections(Coordinate c1, Coordinate c2, Cell[][] field) { // move from c1 to c2
         Coordinate answer = c1;
-            if (c1.getX() > c2.getX() && field[c1.getX() - 1][c1.getY()].getCardID() == 0) {
-                c1.setX(c1.getX() - 1);
-                return answer;
-            } else if (c1.getX() < c2.getX() && field[c1.getX() + 1][c1.getY()].getCardID() == 0) {
-                c1.setX(c1.getX() + 1);
-                return answer;
-            }
-            else if (c1.getY() > c2.getY() && field[c1.getX()][c1.getY() - 1].getCardID() == 0) {
-                c2.setY(c2.getY() - 1);
-                return answer;
-            } else if (c1.getY() < c2.getY() && field[c1.getX()][c1.getY() + 1].getCardID() == 0) {
-                c1.setY(c1.getY() + 1);
-                return answer;
-            }else {
-                return answer; //IS UNABLE TO MOVE TO C2. WHAT SHOULD WE DO ??
-            }
+        if (c1.getX() > c2.getX() && field[c1.getX() - 1][c1.getY()].getCardID() == 0) {
+            c1.setX(c1.getX() - 1);
+            return answer;
+        } else if (c1.getX() < c2.getX() && field[c1.getX() + 1][c1.getY()].getCardID() == 0) {
+            c1.setX(c1.getX() + 1);
+            return answer;
+        } else if (c1.getY() > c2.getY() && field[c1.getX()][c1.getY() - 1].getCardID() == 0) {
+            c2.setY(c2.getY() - 1);
+            return answer;
+        } else if (c1.getY() < c2.getY() && field[c1.getX()][c1.getY() + 1].getCardID() == 0) {
+            c1.setY(c1.getY() + 1);
+            return answer;
+        } else {
+            return answer; //IS UNABLE TO MOVE TO C2. WHAT SHOULD WE DO ??
+        }
 
 
     }
