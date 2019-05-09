@@ -184,11 +184,11 @@ public class Controller {
                     select(request);
                     break;
                 case MOVE:
-//                    moveAI();
+                  //  moveAI();
                     moveToInBattle(request);
                     break;
                 case ATTACK:
-                    attackAI();
+                  //  attackAI();
                     battleAttack(request);
                     break;
                 case COMBO:
@@ -204,11 +204,16 @@ public class Controller {
                     showHand();
                     break;
                 case INSERTION:
-//                    if (insertAI()) break;
+                   // if (insertAI()) break;
                     insertCard(request);
                     break;
                 case END_TURN:
                     endTurn();
+                    if(battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getTurn()%2==1){
+                        insertAI();
+                        moveAI();
+                        attackAI();
+                    }
                     break;
                 case SHOW_COLLECTABLES:
                     showCollectables();
