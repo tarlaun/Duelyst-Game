@@ -184,11 +184,11 @@ public class Controller {
                     select(request);
                     break;
                 case MOVE:
-                  //  moveAI();
+                    //  moveAI();
                     moveToInBattle(request);
                     break;
                 case ATTACK:
-                  //  attackAI();
+                    //  attackAI();
                     battleAttack(request);
                     break;
                 case COMBO:
@@ -204,13 +204,13 @@ public class Controller {
                     showHand();
                     break;
                 case INSERTION:
-                   // if (insertAI()) break;
+                    // if (insertAI()) break;
                     insertCard(request);
                     break;
                 case END_TURN:
                     endTurn();
-                    if(battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getTurn()%2==1){
-                       // insertAI();
+                    if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
+                        // insertAI();
                         moveAI();
                         attackAI();
                     }
@@ -266,10 +266,10 @@ public class Controller {
             menu.setStat(MenuStat.BATTLE_MODE);
             view.chooseBattleMode();
             Account[] accounts = new Account[2];
-            accounts[0]=account;
-            for (int i = 0; i < game.getAccounts().size() ; i++) {
-                if(game.getAccounts().get(i).getName().equals("powerfulAI")){
-                    accounts[1]= game.getAccounts().get(i);
+            accounts[0] = account;
+            for (int i = 0; i < game.getAccounts().size(); i++) {
+                if (game.getAccounts().get(i).getName().equals("powerfulAI")) {
+                    accounts[1] = game.getAccounts().get(i);
                 }
             }
             battle.setAccounts(accounts);
@@ -320,7 +320,7 @@ public class Controller {
     private void moveAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                System.out.println(battle.getFieldCards()[1][i].getName());
+                //System.out.println(battle.getFieldCards()[1][i].getName());
                 battle.setCurrentCard(battle.getFieldCards()[1][i]);
                 battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
                 break;
@@ -328,18 +328,51 @@ public class Controller {
         }
     }
 
+    /* public Card opponentCardFinder(int i) {
+     *//*for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
+            if (battle.getFieldCards()[0][j].getCoordinate().getX() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getX() &&
+                    battle.getFieldCards()[0][j].getCoordinate().getY() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getY()) {
+                return battle.getFieldCards()[0][j];
+            }
+        }*//*
+
+        return null;
+    }*/
+
     private void attackAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                if(opponentCardFinder(i)!=null && battle.getFieldCards()[1][i]!=null) {
-                    if (Coordinate.getManhattanDistance(opponentCardFinder(i).getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
-                            battle.getFieldCards()[1][i].getMaxRange()) {
-                        battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
-                        break;
+                for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
+                    if (battle.getFieldCards()[0][j] != null && battle.getFieldCards()[1][i] != null) {
+                        if (!battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE) && Coordinate.getManhattanDistance(battle.getFieldCards()[0][j].getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
+                                battle.getFieldCards()[1][i].getMaxRange()) {
+                            battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
+                            break;
+                        } else if (battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE)) {
+                            for (int k = -1; k < 2; k++) {
+                                for (int l = -1; l < 2; l++) {
+                                    if (l == 0 && k == 0) {
+                                        break;
+                                    }
+                                    if (battle.getFieldCards()[1][i]!=null&&battle.getFieldCards()[0][j]!=null&& (battle.getFieldCards()[1][i].getCoordinate().getX()+k==battle.getFieldCards()[0][j].getCoordinate().getX())&&
+                                    battle.getFieldCards()[1][i].getCoordinate().getY()+l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
+                                        battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
+                                        System.out.println("attack shod ?");
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+
+    public boolean CoordinationEquality(Coordinate c1, Coordinate c2) {
+        if (c1.getY() == c2.getY() && c1.getX() == c2.getX()) {
+            return true;
+        }
+        return false;
     }
 
     private boolean insertAI() {
@@ -349,7 +382,7 @@ public class Controller {
             return true;
         }
         return false;*/
-       return false;
+        return false;
     }
 
     public ArrayList<Card> convertArrayToList(Card[] cards) {
@@ -358,16 +391,6 @@ public class Controller {
             cards1.add(cards[i]);
         }
         return cards1;
-    }
-
-    public Card opponentCardFinder(int i) {
-       /* for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
-            if (battle.getFieldCards()[0][j].getCoordinate().getX() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getX() &&
-                    battle.getFieldCards()[0][j].getCoordinate().getY() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getY()) {
-                return battle.getFieldCards()[0][j];
-            }
-        }*/
-        return null;
     }
 
     private void invalidCommand() {
