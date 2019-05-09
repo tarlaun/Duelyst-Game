@@ -414,6 +414,7 @@ public class View {
     }
 
     public void showCombo(int oppId, Card[] comboComrades) {
+
     }
 
     public void printInsertionMessage(Message message, Battle battle) {
