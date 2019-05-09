@@ -550,10 +550,7 @@ public class Controller {
 
     public void showMyMinions() {
         if (menu.getStat() == MenuStat.BATTLE) {
-            try {
-                view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
-            } catch (NullPointerException e) {
-            }
+            view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
         }
     }
 
@@ -634,7 +631,6 @@ public class Controller {
 
     public void insertCard(Request request) {
         if (request.checkCardInsertSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            System.out.println("Goorba");
             view.printInsertionMessage(battle.insertCard(request.getCoordinate(request.getCommand()),
                     request.getInsertedName(request.getCommand())), battle);
         }

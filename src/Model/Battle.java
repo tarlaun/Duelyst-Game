@@ -492,8 +492,6 @@ public class Battle {
     }
 
     public boolean spendMana(int mana) {
-        System.out.println("The mana: " + mana);
-        System.out.println("Theeee mana: " + accounts[turn % 2].getMana());
         if (accounts[turn % 2].getMana() < mana) {
             return false;
         }

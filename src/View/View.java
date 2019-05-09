@@ -169,11 +169,15 @@ public class View {
 
     public void printMinionsInfo(Card... cards) {
         for (Card card : cards) {
-            printMinionInBattleInfo((Minion) card);
+            try {
+                if (card.getType().equals("Minion"))
+                    printMinionInBattleInfo(card);
+            } catch (NullPointerException e) {
+            }
         }
     }
 
-    public void printMinionInBattleInfo(Minion minion) {
+    public void printMinionInBattleInfo(Card minion) {
         System.out.println(minion.getId() + " " + minion.getName() + " " + ", health : " + minion.getHealthPoint()
                 + ", location : ( " + minion.getCoordinate().getX() + " , " + minion.getCoordinate().getY()
                 + " ), power : " + minion.getAssaultPower());
