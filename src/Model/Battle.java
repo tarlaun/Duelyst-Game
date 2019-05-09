@@ -430,26 +430,19 @@ public class Battle {
 
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
-        System.out.println("hagcdg");
         if (targetCard == null) {
-            System.out.println("shitppps");
             return Message.INVALID_TARGET;
         }
         if (!isInRange(targetCard, currentCard) &&  !accounts[1].getName().equals("powerfulAI")) {
-            System.out.println("shituuus");
             return Message.UNAVAILABLE;
         }
         if (!currentCard.isAbleToAttack()) {
-            System.out.println("shitsllll");
             if (targetCard.isAbleToAttack()) {
-                System.out.println("shitshhh");
                 return Message.NOT_ABLE_TO_ATTACK;
             } else {
-                System.out.println("shits");
                 return Message.NOT_ABLE_TO_ATTACK;
             }
         }
-        System.out.println("shit");
         checkAttackHistory(opponentCardId, currentCard);
         checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);

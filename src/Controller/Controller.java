@@ -357,7 +357,6 @@ public class Controller {
                                     if (battle.getFieldCards()[1][i]!=null&&battle.getFieldCards()[0][j]!=null&& (battle.getFieldCards()[1][i].getCoordinate().getX()+k==battle.getFieldCards()[0][j].getCoordinate().getX())&&
                                     battle.getFieldCards()[1][i].getCoordinate().getY()+l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
                                         battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
-                                        System.out.println("attack shod ?");
                                     }
                                 }
                             }
