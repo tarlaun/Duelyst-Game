@@ -370,9 +370,6 @@ public class Battle {
         if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
             return false;
         }
-        if (Coordinate.getPathDirections(coordinate, currentCard.getCoordinate(), field).equals(currentCard.getCoordinate())) {
-            return false;
-        }
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
         currentCard.setCoordinate(coordinate);
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
@@ -389,7 +386,8 @@ public class Battle {
                 holdMainFlag();
             }
         }
-        return moveTo(coordinate);
+        return true;
+
     }
 
     public boolean isAttackable(Card currentCard, Card targetCard) {
