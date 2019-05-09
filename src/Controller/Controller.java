@@ -624,7 +624,6 @@ public class Controller {
 
     public void showHand() {
         if (menu.getStat() == MenuStat.BATTLE) {
-            System.out.println(account.getName());
             view.printCards(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
         }
     }
@@ -639,8 +638,8 @@ public class Controller {
     public void endTurn() {
         if (menu.getStat() == MenuStat.BATTLE) {
             battle.endTurn();
-            view.endTurn();
             this.account = battle.getCurrentPlayer();
+            view.endTurn(account);
         }
     }
 

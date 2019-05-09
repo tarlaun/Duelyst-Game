@@ -149,7 +149,7 @@ public class Request {
     }
 
     public boolean checkMoveSyntax() {
-        return this.getCommand().matches(this.getStrings()[RequestType.MOVE.ordinal()] + "\\s\\d+\\s[,]\\s\\d+\\s\\)");
+        return this.getCommand().matches(this.getStrings()[RequestType.MOVE.ordinal()] + "\\s\\d+\\s,\\s\\d+\\s\\)");
 
     }
 

@@ -440,7 +440,8 @@ public class View {
         }
     }
 
-    public void endTurn() {
+    public void endTurn(Account account) {
+        System.out.println("Player: " + account.getName() + "  Mana: " + account.getMana());
     }
 
     public void printItemUsage(boolean valid) {
