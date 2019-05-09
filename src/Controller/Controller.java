@@ -210,7 +210,7 @@ public class Controller {
                 case END_TURN:
                     endTurn();
                     if(battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getTurn()%2==1){
-                        insertAI();
+                       // insertAI();
                         moveAI();
                         attackAI();
                     }
@@ -313,8 +313,13 @@ public class Controller {
     private void attackAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
-                break;
+                if(opponentCardFinder(i)!=null && battle.getFieldCards()[1][i]!=null) {
+                    if (Coordinate.getManhattanDistance(opponentCardFinder(i).getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
+                            battle.getFieldCards()[1][i].getMaxRange()) {
+                        battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
+                        break;
+                    }
+                }
             }
         }
     }
@@ -337,12 +342,12 @@ public class Controller {
     }
 
     public Card opponentCardFinder(int i) {
-        for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
+       /* for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
             if (battle.getFieldCards()[0][j].getCoordinate().getX() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getX() &&
                     battle.getFieldCards()[0][j].getCoordinate().getY() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getY()) {
                 return battle.getFieldCards()[0][j];
             }
-        }
+        }*/
         return null;
     }
 
