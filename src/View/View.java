@@ -214,21 +214,23 @@ public class View {
     private void printCards(boolean isInShop, Card... cards) {
         int index = 1;
         for (int i = 0; i < cards.length; i++) {
-            if (!(cards[i].getType().equals("Hero"))) {
-                System.out.print("Id: " + cards[i].getId() + " - ");
-                System.out.print(index + " : ");
-                if (cards[i].getType().equals("Spell")) {
-                    System.out.print("Type : Spell - ");
-                    printSpell(cards[i]);
-                } else {
-                    System.out.print("Type : Minion - ");
-                    printNonSpellCard(cards[i]);
-                }
-                if (isInShop)
-                    System.out.println(cards[i].getPrice());
-                index++;
+            try {
+                if (!(cards[i].getType().equals("Hero"))) {
+                    System.out.print("Id: " + cards[i].getId() + " - ");
+                    System.out.print(index + " : ");
+                    if (cards[i].getType().equals("Spell")) {
+                        System.out.print("Type : Spell - ");
+                        printSpell(cards[i]);
+                    } else {
+                        System.out.print("Type : Minion - ");
+                        printNonSpellCard(cards[i]);
+                    }
+                    if (isInShop)
+                        System.out.println(cards[i].getPrice());
+                    index++;
 
-            }
+                }
+            } catch (NullPointerException e){}
         }
     }
 

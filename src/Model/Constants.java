@@ -34,4 +34,5 @@ public class Constants {
     public static final int accoutnId = 10000;
     public static final int MAXIMUM_DECK_SIZE = 20;
     public static final int MAXIMUM_HAND_SIZE = 5;
+    public static final int INITIAL_MANA = 2;
 }

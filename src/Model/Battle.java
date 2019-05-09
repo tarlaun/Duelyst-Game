@@ -1,6 +1,7 @@
 package Model;
 
 import View.*;
+import jdk.nashorn.internal.objects.NativeUint8Array;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,11 +15,11 @@ public class Battle {
     private Item currentItem;
     private Account[] accounts;
     private Account currentPlayer;
-    private Card[][] graveyard = new Card[2][];
+    private Card[][] graveyard = new Card[2][Constants.MAXIMUM_DECK_SIZE + 1];
     private Item[][] collectibles = new Item[2][];
     private ArrayList<Item> battleCollectibles = new ArrayList<>();
     private Card[][] playerHands = new Card[2][Constants.MAXIMUM_HAND_SIZE];
-    private int turn;
+    private int turn = 0;
     private Cell[][] field = new Cell[Constants.WIDTH][Constants.LENGTH];
     private BattleMode mode;
     private GameType gameType;
@@ -234,9 +235,10 @@ public class Battle {
         accounts[0].getCollection().getMainDeck().getHero().setCoordinate(new Coordinate(Constants.WIDTH / 2, 0));
         field[Constants.WIDTH / 2][0].setCardID(accounts[0].getCollection().getMainDeck().getHero().getId());
         fieldCards[0][0] = accounts[0].getCollection().getMainDeck().getHero();
-        accounts[1].getCollection().getMainDeck().getHero().setCoordinate(new Coordinate(Constants.WIDTH / 2, Constants.LENGTH));
+        accounts[1].getCollection().getMainDeck().getHero().setCoordinate(new Coordinate(Constants.WIDTH / 2, Constants.LENGTH - 1));
         field[Constants.WIDTH / 2][Constants.LENGTH - 1].setCardID(accounts[1].getCollection().getMainDeck().getHero().getId());
         fieldCards[1][0] = accounts[1].getCollection().getMainDeck().getHero();
+        currentPlayer = accounts[0];
         return Message.BATTLE_STARTED;
     }
 
@@ -483,8 +485,8 @@ public class Battle {
 
     public void setManaPoints() {
         if (turn <= 14) {
-            accounts[0].setMana(accounts[0].getMana() + (turn % 2) + 1);
-            accounts[1].setMana(accounts[1].getMana() + (turn % 2) + 2);
+            accounts[0].setMana((turn / 2) + Constants.INITIAL_MANA);
+            accounts[1].setMana((turn / 2) + Constants.INITIAL_MANA + 1);
         } else {
             accounts[0].setMana(Constants.MAX_MANA);
             accounts[0].setMana(Constants.MAX_MANA);
@@ -798,23 +800,26 @@ public class Battle {
         boolean validTarget = false;
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
-                System.out.println(playerHands[turn % 2][i].getName());
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
+                if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getX() < 0 || coordinate.getY() < 0)
+                    return Message.INVALID_TARGET;
                 if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
                     return Message.FULL_CELL;
                 }
-                if (insert != null && !spendMana(insert.getManaPoint())) {
-                    return Message.INSUFFICIENT_MANA;
-                }
-
                 for (Card card : fieldCards[turn % 2]) {
-                    if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
-                        validTarget = true;
-                        break;
+                    try {
+                        if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
+                            validTarget = true;
+                            break;
+                        }
+                    } catch (NullPointerException e) {
                     }
                 }
                 if (!validTarget) {
                     return Message.INVALID_TARGET;
+                }
+                if (insert != null && !spendMana(insert.getManaPoint())) {
+                    return Message.INSUFFICIENT_MANA;
                 }
                 assert insert != null;
                 field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
@@ -841,10 +846,10 @@ public class Battle {
                 mainFlag.setTurnCounter(mainFlag.getTurnCounter() + 1);
             }
         }
-        addToHand(0);
-        addToHand(1);
+        addToHand(turn % 2);
         setManaPoints();
         turn++;
+        currentPlayer = this.accounts[turn % 2];
         currentCard = null;
         targetCard = null;
     }
@@ -869,85 +874,92 @@ public class Battle {
     public void buffTurnEnd() {
         for (int i = 0; i < 2; i++) {
             for (Card card : fieldCards[i]) {
-                for (Buff buff : card.getCastedBuffs()) {
-                    if ((buff.getType().equals(BuffType.NEGATIVE_DISPEL)) && (buff.getType().equals(BuffType.DISARM)
-                            || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
-                            || buff.getType().equals(BuffType.STUN))) {
-                        card.removeFromBuffs(buff);
-                        card.setAbleToMove(true);
-                        card.setAbleToAttack(true);
-                        card.setAssaultPower(card.getOriginalAssaultPower());
+                try {
+                    for (Buff buff : card.getCastedBuffs()) {
+                        if ((buff.getType().equals(BuffType.NEGATIVE_DISPEL)) && (buff.getType().equals(BuffType.DISARM)
+                                || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
+                                || buff.getType().equals(BuffType.STUN))) {
+                            card.removeFromBuffs(buff);
+                            card.setAbleToMove(true);
+                            card.setAbleToAttack(true);
+                            card.setAssaultPower(card.getOriginalAssaultPower());
 
+                        }
+                        if (buff.getTurnCount() > 0) {
+                            buff.setTurnCount(buff.getTurnCount() - 1);
+                        }
+                        //
+                        if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() != 0) {
+                            card.setAbleToAttack(false);
+                            card.setAbleToMove(false);
+                        }
+                        if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() == 0) {
+                            card.setAbleToMove(true);
+                            card.setAbleToAttack(true);
+                        }
+                        //
+                        if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
+                            card.setAbleToAttack(true);
+                        }
+                        if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() % 2 == 0) {
+                            card.modifyHealth(-buff.getPower());
+                        }
+                        //
+                        if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() != 0) {
+                            card.setAssaultPower(card.getAssaultPower() + buff.getPower());
+                        }
+                        if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
+                            card.setAssaultPower(card.getOriginalAssaultPower());
+                        }
+                        //
+                        if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
+                            card.modifyHealth(buff.getPower());
+                            buff.setPower(4);
+                        }
+                        //
+                        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && !buff.getActivationType().equals(ActivationType.ON_DEATH)) {
+                            card.modifyHealth(0);
+                            buff.setPower(buff.getPower());
+                        }
+                        //
+                        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && buff.getActivationType().equals(ActivationType.ON_DEATH)) {
+                            targetCard.modifyHealth(buff.getPower());
+                        }
+                        if (((buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
+                                && buff.getTurnCount() != 0) {
+                            targetCard.modifyHealth(buff.getPower());
+                        }
+                        if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0 && buff.getTurnCount() % 2 == 0) {
+                            card.setIsHoly(buff.getPower());
+                        }
+                        if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
+                            card.setIsHoly(0);
+                        }
+                        if (buff.getType().equals(BuffType.JEN_JOON) && buff.getTurnCount() == -1) {
+                            card.setAssaultPower(card.getAssaultPower() + buff.getPower());
+                        }
+                        if (buff.getTurnCount() == 0) {
+                            card.removeFromBuffs(buff);
+                        }
                     }
-                    if (buff.getTurnCount() > 0) {
-                        buff.setTurnCount(buff.getTurnCount() - 1);
-                    }
-                    //
-                    if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() != 0) {
-                        card.setAbleToAttack(false);
-                        card.setAbleToMove(false);
-                    }
-                    if (buff.getType().equals(BuffType.STUN) && buff.getTurnCount() == 0) {
-                        card.setAbleToMove(true);
-                        card.setAbleToAttack(true);
-                    }
-                    //
-                    if (buff.getType().equals(BuffType.DISARM) && buff.getTurnCount() == 0) {
-                        card.setAbleToAttack(true);
-                    }
-                    if (buff.getType().equals(BuffType.POISON) && buff.getTurnCount() % 2 == 0) {
-                        card.modifyHealth(-buff.getPower());
-                    }
-                    //
-                    if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() != 0) {
-                        card.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                    }
-                    if (buff.getType().equals(BuffType.POWER) && buff.getTurnCount() == 0) {
-                        card.setAssaultPower(card.getOriginalAssaultPower());
-                    }
-                    //
-                    if (buff.getType().equals(BuffType.WHITE_WALKER_WOLF)) {
-                        card.modifyHealth(buff.getPower());
-                        buff.setPower(4);
-                    }
-                    //
-                    if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && !buff.getActivationType().equals(ActivationType.ON_DEATH)) {
-                        card.modifyHealth(0);
-                        buff.setPower(buff.getPower());
-                    }
-                    //
-                    if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && buff.getActivationType().equals(ActivationType.ON_DEATH)) {
-                        targetCard.modifyHealth(buff.getPower());
-                    }
-                    if (((buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
-                            && buff.getTurnCount() != 0) {
-                        targetCard.modifyHealth(buff.getPower());
-                    }
-                    if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() != 0 && buff.getTurnCount() % 2 == 0) {
-                        card.setIsHoly(buff.getPower());
-                    }
-                    if (buff.getType().equals(BuffType.HOLY) && buff.getTurnCount() == 0) {
-                        card.setIsHoly(0);
-                    }
-                    if (buff.getType().equals(BuffType.JEN_JOON) && buff.getTurnCount() == -1) {
-                        card.setAssaultPower(card.getAssaultPower() + buff.getPower());
-                    }
-                    if (buff.getTurnCount() == 0) {
-                        card.removeFromBuffs(buff);
-                    }
+                } catch (NullPointerException e) {
                 }
             }
         }
     }
 
     public void deholifyCell() {
-        for (int i = 0; i < Constants.LENGTH; i++) { //deholify cells
-            for (int j = 0; j < Constants.WIDTH; j++) {
-                if (field[i][j].isHoly()) {
-                    field[i][j].setHolyTurn(field[i][j].getHolyTurn() - 1);
-                    if (field[i][j].getHolyTurn() == 0) {
-                        field[i][j].setHoly(false);
+        for (int i = 0; i < Constants.WIDTH; i++) { //deholify cells
+            for (int j = 0; j < Constants.LENGTH; j++) {
+                try {
+                    if (field[i][j].isHoly()) {
+                        field[i][j].setHolyTurn(field[i][j].getHolyTurn() - 1);
+                        if (field[i][j].getHolyTurn() == 0) {
+                            field[i][j].setHoly(false);
+                        }
                     }
+
+                } catch (NullPointerException e) {
                 }
             }
 
@@ -1805,14 +1817,12 @@ public class Battle {
 
     private void addToHand(int current) {
         Deck deck = accounts[current].getCollection().getMainDeck();
-        if((Constants.MAXIMUM_DECK_SIZE - deck.getCards().size()
-                -fieldCards[current].length-graveyard[current].length)<Constants.MAXIMUM_HAND_SIZE){
-            playerHands[current][Constants.MAXIMUM_DECK_SIZE - deck.getCards().size()
-                    -fieldCards[current].length-graveyard[current].length] = deck.getCards().get(0);
-            deck.getCards().remove(0);
-
+        if (deck.getCards().size() > Constants.MAXIMUM_DECK_SIZE - Constants.MAXIMUM_HAND_SIZE) {
+            playerHands[current][Constants.MAXIMUM_DECK_SIZE - deck.getCards().size()] = deck.getCards().get(0);
+        } else {
+            playerHands[current][Constants.MAXIMUM_HAND_SIZE - 1] = deck.getCards().get(0);
         }
-
+        deck.getCards().remove(0);
 
     }
 

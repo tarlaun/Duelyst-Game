@@ -272,7 +272,7 @@ public class Card {
     public static Card[] removeFromArray(Card[] cards, Card card) {
         List<Card> cardsArrayList = new ArrayList<>(Arrays.asList(cards));
         cardsArrayList.remove(card);
-        return cardsArrayList.toArray(new Card[cardsArrayList.size()]);
+        return cardsArrayList.toArray(new Card[cardsArrayList.size() + 1]);
     }
 
     public static Card[] addToArray(Card[] cards, Card card) {

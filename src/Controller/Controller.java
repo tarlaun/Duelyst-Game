@@ -11,7 +11,6 @@ public class Controller {
     private Game game = Game.getInstance();
     private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
-    private int turnCounter = 0;
     private Account account;
     private Battle battle = Battle.getInstance();
     private static final Controller controller = new Controller();
@@ -289,7 +288,7 @@ public class Controller {
     }
 
     private void moveAI() {
-        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && turnCounter % 2 == 1) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                 battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
                 break;
@@ -298,7 +297,7 @@ public class Controller {
     }
 
     private void attackAI() {
-        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && turnCounter % 2 == 1) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                 battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
                 break;
@@ -307,7 +306,7 @@ public class Controller {
     }
 
     private boolean insertAI() {
-        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && turnCounter % 2 == 1) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
             battle.insertCard(battle.setCardCoordinates(battle.chooseCard(cards)), battle.chooseCard(cards).getName());
             return true;
@@ -625,6 +624,7 @@ public class Controller {
 
     public void showHand() {
         if (menu.getStat() == MenuStat.BATTLE) {
+            System.out.println(account.getName());
             view.printCards(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
         }
     }
@@ -640,8 +640,8 @@ public class Controller {
         if (menu.getStat() == MenuStat.BATTLE) {
             battle.endTurn();
             view.endTurn();
+            this.account = battle.getCurrentPlayer();
         }
-        turnCounter++;
     }
 
     public void showCollectables() {
