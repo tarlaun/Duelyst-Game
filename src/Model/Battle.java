@@ -231,8 +231,10 @@ public class Battle {
                 this.field[i][j] = new Cell();
             }
         }
+        accounts[0].getCollection().getMainDeck().getHero().setCoordinate(new Coordinate(Constants.WIDTH / 2, 0));
         field[Constants.WIDTH / 2][0].setCardID(accounts[0].getCollection().getMainDeck().getHero().getId());
         fieldCards[0][0] = accounts[0].getCollection().getMainDeck().getHero();
+        accounts[1].getCollection().getMainDeck().getHero().setCoordinate(new Coordinate(Constants.WIDTH / 2, Constants.LENGTH));
         field[Constants.WIDTH / 2][Constants.LENGTH - 1].setCardID(accounts[1].getCollection().getMainDeck().getHero().getId());
         fieldCards[1][0] = accounts[1].getCollection().getMainDeck().getHero();
         return Message.BATTLE_STARTED;
@@ -481,19 +483,21 @@ public class Battle {
 
     public void setManaPoints() {
         if (turn <= 14) {
-            accounts[0].setMana((turn % 2) + 1);
-            accounts[1].setMana((turn % 2) + 2);
+            accounts[0].setMana(accounts[0].getMana() + (turn % 2) + 1);
+            accounts[1].setMana(accounts[1].getMana() + (turn % 2) + 2);
         } else {
             accounts[0].setMana(Constants.MAX_MANA);
             accounts[0].setMana(Constants.MAX_MANA);
         }
     }
 
-    public boolean spendMana(int price) {
-        if (accounts[turn % 2].getMana() < price) {
+    public boolean spendMana(int mana) {
+        System.out.println("The mana: " + mana);
+        System.out.println("Theeee mana: " + accounts[turn % 2].getMana());
+        if (accounts[turn % 2].getMana() < mana) {
             return false;
         }
-        accounts[turn % 2].setMana(accounts[turn % 2].getMana() - price);
+        accounts[turn % 2].setMana(accounts[turn % 2].getMana() - mana);
         return true;
     }
 
@@ -794,8 +798,9 @@ public class Battle {
 
     public Message insertCard(Coordinate coordinate, String cardName) {
         boolean validTarget = false;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
+                System.out.println(playerHands[turn % 2][i].getName());
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
                 if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
                     return Message.FULL_CELL;
@@ -804,8 +809,7 @@ public class Battle {
                     return Message.INSUFFICIENT_MANA;
                 }
 
-                for (Card card :
-                        fieldCards[turn % 2]) {
+                for (Card card : fieldCards[turn % 2]) {
                     if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
                         validTarget = true;
                         break;
@@ -819,7 +823,7 @@ public class Battle {
                 insert.setCoordinate(coordinate);
                 playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
                 fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
-                return null;
+                return Message.SUCCESSFUL_INSERT;
             }
 
         }
