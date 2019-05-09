@@ -17,6 +17,7 @@ public class Coordinate {
         if (coordinate == null)
             return false;
         return this.x == coordinate.x && this.y == coordinate.y;
+
     }
 
     public int getX() {
