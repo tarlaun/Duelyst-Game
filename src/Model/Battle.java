@@ -77,14 +77,6 @@ public class Battle {
         return collectibles;
     }
 
-    public boolean isAttackMode() {
-        return attackMode;
-    }
-
-    public boolean isOnSpawn() {
-        return isOnSpawn;
-    }
-
     public Battle(Account[] accounts, GameType gameType, BattleMode mode) {
         this.accounts = accounts;
         this.gameType = gameType;
@@ -107,38 +99,6 @@ public class Battle {
         this.accounts = accounts;
     }
 
-    public void setCurrentPlayer(Account currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    public void setGraveyard(Card[][] graveyard) {
-        this.graveyard = graveyard;
-    }
-
-    public Item[][] getcollectibles() {
-        return collectibles;
-    }
-
-    public void setcollectibles(Item[][] collectibles) {
-        this.collectibles = collectibles;
-    }
-
-    public ArrayList<Item> getBattlecollectibles() {
-        return battleCollectibles;
-    }
-
-    public void setBattlecollectibles(ArrayList<Item> battlecollectibles) {
-        this.battleCollectibles = battlecollectibles;
-    }
-
-    public void setPlayerHands(Card[][] playerHands) {
-        this.playerHands = playerHands;
-    }
-
-    public void setTurn(int turn) {
-        this.turn = turn;
-    }
-
     public void setField(Cell[][] field) {
         this.field = field;
     }
@@ -149,70 +109,6 @@ public class Battle {
 
     public void setGameType(GameType gameType) {
         this.gameType = gameType;
-    }
-
-    public void setFieldCards(Card[][] fieldCards) {
-        this.fieldCards = fieldCards;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
-    public Shop getShop() {
-        return shop;
-    }
-
-    public void setShop(Shop shop) {
-        this.shop = shop;
-    }
-
-    public Random getRand() {
-        return rand;
-    }
-
-    public void setRand(Random rand) {
-        this.rand = rand;
-    }
-
-    public Match getFirstPlayerMatch() {
-        return firstPlayerMatch;
-    }
-
-    public void setFirstPlayerMatch(Match firstPlayerMatch) {
-        this.firstPlayerMatch = firstPlayerMatch;
-    }
-
-    public Match getSecondPlayerMatch() {
-        return secondPlayerMatch;
-    }
-
-    public void setSecondPlayerMatch(Match secondPlayerMatch) {
-        this.secondPlayerMatch = secondPlayerMatch;
-    }
-
-    public ArrayList<Flag> getFlagsOnTheGround() {
-        return flagsOnTheGround;
-    }
-
-    public void setFlagsOnTheGround(ArrayList<Flag> flagsOnTheGround) {
-        this.flagsOnTheGround = flagsOnTheGround;
-    }
-
-    public int getFlagsAppeared() {
-        return flagsAppeared;
-    }
-
-    public void setFlagsAppeared(int flagsAppeared) {
-        this.flagsAppeared = flagsAppeared;
-    }
-
-    public Flag getMainFlag() {
-        return mainFlag;
-    }
-
-    public void setMainFlag(Flag mainFlag) {
-        this.mainFlag = mainFlag;
     }
 
     public Message startBattle() {

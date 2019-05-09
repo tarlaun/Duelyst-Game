@@ -367,12 +367,6 @@ public class Controller {
         }
     }
 
-    public boolean CoordinationEquality(Coordinate c1, Coordinate c2) {
-        if (c1.getY() == c2.getY() && c1.getX() == c2.getX()) {
-            return true;
-        }
-        return false;
-    }
 
     private boolean insertAI() {
        /* if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
