@@ -871,6 +871,9 @@ public class Battle {
                             return;
                     }
                     fieldCards[i][j].setAbleToAttack(true);
+                } catch (NullPointerException e) {
+
+                }
             }
         }
     }
