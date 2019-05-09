@@ -404,34 +404,25 @@ public class Battle {
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
         if (targetCard == null) {
-            System.out.println("gdgfg");
             return Message.INVALID_TARGET;
         }
         if (!isInRange(targetCard, currentCard)) {
-            System.out.println("shitbbs");
             return Message.UNAVAILABLE;
         }
-        System.out.println("shits");
         if (!currentCard.isAbleToAttack()) {
-            System.out.println("shitss");
             if (targetCard.isAbleToAttack()) {
-                System.out.println("shitsh");
                 return Message.NOT_ABLE_TO_ATTACK;
             } else {
-                System.out.println("shitsyy");
                 return null;
             }
         }
-        System.out.println("Shit");
         checkAttackHistory(opponentCardId, currentCard);
         checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         if (isAttackable(currentCard, targetCard))
             targetCard.setHealthPoint(targetCard.getHealthPoint() - targetCard.getIsHoly());
-        System.out.println("fuk "+ targetCard.getHealthPoint());
         targetCard.modifyHealth(-currentCard.getAssaultPower());
-        System.out.println("fuk "+ targetCard.getHealthPoint());
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
         return null;
@@ -551,7 +542,7 @@ public class Battle {
     }
 
     private void killEnemy(Card targetCard) {
-        if (targetCard.getHealthPoint() <= 0) {
+        if (targetCard!= null && targetCard.getHealthPoint() <= 0) {
             if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH) &&
                     targetCard.getBuffs().get(0).getType().equals(BuffType.WEAKNESS)) {
                 for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
@@ -1821,6 +1812,7 @@ public class Battle {
                 card.modifyHealth(buff.getPower());
             case STUN:
                 card.setAbleToAttack(false);
+                System.out.println("1812");
                 card.setAbleToMove(false);
                 break;
             case DISARM:
