@@ -360,7 +360,6 @@ public class Battle {
         }
         currentCard = card;
         return true;
-
     }
 
     public boolean moveTo(Coordinate coordinate) {
@@ -1014,14 +1013,12 @@ public class Battle {
     }
 
     public boolean selectCollectibleId(int collectibleId) {
-        for (Item collectible :
-                collectibles[turn % 2]) {
-            if (collectible.getId() == collectibleId) {
-                menu.setStat(MenuStat.ITEM_SELECTION);
-                return true;
-            }
+        Item item = Item.getItemByID(collectibleId, collectibles[turn % 2]);
+        if (item == null) {
+            return false;
         }
-        return false;
+        currentItem = item;
+        return true;
 
     }
 

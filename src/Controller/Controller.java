@@ -576,7 +576,6 @@ public class Controller {
 
     public void select(Request request) {
         if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            int turn = battle.getTurnByAccount(account);
             int card = request.getObjectID(request.getCommand());
             int item = request.getObjectID(request.getCommand());
             view.printSelectionResult(battle.selectCard(card), battle.selectCollectibleId(item));
