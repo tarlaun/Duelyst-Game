@@ -386,6 +386,7 @@ public class Battle {
                 holdMainFlag();
             }
         }
+        currentCard.setAbleToMove(false);
         return true;
 
     }
