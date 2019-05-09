@@ -29,6 +29,7 @@ public class Card {
     private int cardHolder;
     private int isHoly = 0;
     private RangeType rangeType;
+    int[][] attackCount = new int[40][2];
 
     public ArrayList<ItemBuff> getCastedItems() {
         return castedItems;
@@ -184,7 +185,8 @@ public class Card {
                 if (card.getId() == id) {
                     return card;
                 }
-            } catch (NullPointerException e){}
+            } catch (NullPointerException e) {
+            }
         }
         return null;
     }
@@ -320,5 +322,18 @@ public class Card {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getAttackCount(int id) {
+        for (int i = 0; i < 40; i++) {
+            if (this.attackCount[i][0] == id) {
+                return attackCount[i][1];
+            }
+        }
+        return 0;
+    }
+
+    public void setAttackCount(int i, int j, int k) {
+        this.attackCount[i][j] = k;
     }
 }
