@@ -5031,6 +5031,6 @@
   },
   "isLoggedIn": false,
   "wins": 0,
-  "mana": 0,
+  "mana": 10,
   "flagsCollected": 0
 }

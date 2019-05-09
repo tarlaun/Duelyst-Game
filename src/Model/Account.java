@@ -14,7 +14,7 @@ public class Account {
     private static Game game = Game.getInstance();
     private boolean isLoggedIn = true;
     private int wins = 0;
-    private int mana;
+    private int mana = 2;
     private int flagsCollected = 0;
     private transient Menu menu = Menu.getInstance();
 
