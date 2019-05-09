@@ -413,14 +413,14 @@ public class Battle {
             if (targetCard.isAbleToAttack()) {
                 return Message.NOT_ABLE_TO_ATTACK;
             } else {
-                return null;
+                return Message.NOT_ABLE_TO_ATTACK;
             }
         }
         checkAttackHistory(opponentCardId, currentCard);
         checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);
         targetCard.modifyHealth(-currentCard.getAssaultPower());
-        if (isAttackable(currentCard, targetCard))
+        if (isAttackable(currentCard, targetCard) && targetCard.getIsHoly()!=0)
             targetCard.setHealthPoint(targetCard.getHealthPoint() - targetCard.getIsHoly());
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         attack(currentCard.getId(), targetCard);
