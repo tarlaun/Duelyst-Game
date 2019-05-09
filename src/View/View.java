@@ -383,8 +383,11 @@ public class View {
         }
     }
 
-    public void showMovement(boolean validMove) {
-
+    public void showMovement(boolean validMove,Battle battle) {
+        if (validMove)
+            drawMap(battle);
+        else
+            System.out.println("Invalid move!");
     }
 
     public void showAttack(Message message) {

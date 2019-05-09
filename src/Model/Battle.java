@@ -363,7 +363,12 @@ public class Battle {
     }
 
     public boolean moveTo(Coordinate coordinate) {
+        if (!currentCard.isAbleToMove())
+            return false;
+        if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getY() < 0 || coordinate.getX() < 0)
+            return false;
         if (currentCard.getCoordinate() == coordinate) {
+            currentCard.setAbleToMove(false);
             return true;
         }
         if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
@@ -388,8 +393,7 @@ public class Battle {
                 holdMainFlag();
             }
         }
-        moveTo(coordinate);
-        return true;
+        return moveTo(coordinate);
     }
 
     public boolean isAttackable(Card currentCard, Card targetCard) {
@@ -851,6 +855,19 @@ public class Battle {
         currentPlayer = this.accounts[turn % 2];
         currentCard = null;
         targetCard = null;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < fieldCards[i].length; j++) {
+                try {
+                    for (Buff buff : fieldCards[i][j].getCastedBuffs()) {
+                        if (buff.getType() == BuffType.STUN)
+                            return;
+                    }
+                    fieldCards[i][j].setAbleToMove(true);
+                } catch (NullPointerException e) {
+
+                }
+            }
+        }
     }
 
     public void randomItemAppearance() {

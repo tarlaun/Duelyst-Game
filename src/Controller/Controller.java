@@ -585,7 +585,7 @@ public class Controller {
     public void moveToInBattle(Request request) {
         if (request.checkMoveSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Coordinate coordinate = request.getCoordinate(request.getCommand());
-            view.showMovement(battle.moveTo(coordinate));
+            view.showMovement(battle.moveTo(coordinate), battle);
         }
     }
 
