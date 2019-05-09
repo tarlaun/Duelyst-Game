@@ -184,7 +184,7 @@ public class Controller {
                     select(request);
                     break;
                 case MOVE:
-//                    moveAI();
+                    moveAI();
                     moveToInBattle(request);
                     break;
                 case ATTACK:
@@ -204,7 +204,7 @@ public class Controller {
                     showHand();
                     break;
                 case INSERTION:
-//                    if (insertAI()) break;
+                    if (insertAI()) break;
                     insertCard(request);
                     break;
                 case END_TURN:
@@ -277,16 +277,16 @@ public class Controller {
     }
 
     private void setMainDeckForAI() {
-        if(battle.getAccounts()[1].getName().equals("powerfulAI")&&
-                battle.getMode().equals(BattleMode.KILLENEMYHERO)){
+        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
+                battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
             battle.getAccounts()[1].getCollection().selectDeck("level1");
         }
-        if(battle.getAccounts()[1].getName().equals("powerfulAI")&&
-                battle.getMode().equals(BattleMode.FLAG)){
+        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
+                battle.getMode().equals(BattleMode.FLAG)) {
             battle.getAccounts()[1].getCollection().selectDeck("level2");
         }
-        if(battle.getAccounts()[1].getName().equals("powerfulAI")&&
-                battle.getMode().equals(BattleMode.COLLECTING)){
+        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
+                battle.getMode().equals(BattleMode.COLLECTING)) {
             battle.getAccounts()[1].getCollection().selectDeck("level3");
         }
     }
@@ -341,8 +341,8 @@ public class Controller {
 
     public Card opponentCardFinder(int i) {
         for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
-            if (battle.getFieldCards()[0][j].getCoordinate().getX() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getX() &&
-                    battle.getFieldCards()[0][j].getCoordinate().getY() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getY()) {
+            if (battle.getFieldCards()[0][j].getCoordinate().getX() == battle.setTargetCoordinates(battle.getFieldCards()[1][i]).getX() &&
+                    battle.getFieldCards()[0][j].getCoordinate().getY() == battle.setTargetCoordinates(battle.getFieldCards()[1][i]).getY()) {
                 return battle.getFieldCards()[0][j];
             }
         }

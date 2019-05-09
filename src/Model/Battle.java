@@ -860,7 +860,6 @@ public class Battle {
     public void endTurn() {
         buffTurnEnd();
         deholifyCell();
-//        randomItemAppearance();
         if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();
         }
@@ -1309,7 +1308,7 @@ public class Battle {
     //******************************************************************************************************************
     //AI FUNCTIONS BELOW
 
-    public Coordinate setCardCoordinates(Card card) {
+    public Coordinate setCardCoordinates() {
         if (getFieldCards().length == 0) {
             int ranx = rand.nextInt(Constants.randomXGenerator);
             int rany = rand.nextInt(Constants.randomYGenerator);
@@ -1320,7 +1319,7 @@ public class Battle {
         }
     }
 
-    public Coordinate setTargetCoordiantes(Card card) {
+    public Coordinate setTargetCoordinates(Card card) {
         if (card.getType().equals("Minion")) {
             ArrayList<Card> closestEnemyCards = new ArrayList<>();
             switch (card.getAssaultType()) {
@@ -1334,9 +1333,9 @@ public class Battle {
                     }
 
                     int miratarin = getMiratarin(closestEnemyCards);
-                    for (int i = 0; i < closestEnemyCards.size(); i++) {
-                        if (closestEnemyCards.get(i).getType().equals("Hero")) {
-                            return closestEnemyCards.get(i).getCoordinate();
+                    for (Card closestEnemyCard : closestEnemyCards) {
+                        if (closestEnemyCard.getType().equals("Hero")) {
+                            return closestEnemyCard.getCoordinate();
                         }
                     }
                     return closestEnemyCards.get(miratarin).getCoordinate();
@@ -1354,9 +1353,9 @@ public class Battle {
                     }
 
                     int miratarinn = getMiratarin(closestEnemyCards);
-                    for (int i = 0; i < closestEnemyCards.size(); i++) {
-                        if (closestEnemyCards.get(i).getType().equals("Hero")) {
-                            return closestEnemyCards.get(i).getCoordinate();
+                    for (Card closestEnemyCard : closestEnemyCards) {
+                        if (closestEnemyCard.getType().equals("Hero")) {
+                            return closestEnemyCard.getCoordinate();
                         }
                     }
                     return closestEnemyCards.get(miratarinn).getCoordinate();
@@ -1426,7 +1425,7 @@ public class Battle {
 
     //holdFlag
     private Coordinate setDestinationCoordinatesModeTwo(Card card) {
-        //agar flag dasteshe 
+        //agar flag dasteshe
         if (checkCardEquality(mainFlag.getFlagHolder(), card)) {
             if (card.getCoordinate().getX() <= 6 &&
                     !checkForDevilExistence(makeNewCoordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY())) &&
