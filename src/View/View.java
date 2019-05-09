@@ -406,6 +406,9 @@ public class View {
             case INVALID_TARGET:
                 System.out.println("You are out of range, please insert card near a comrade minion or your hero");
                 break;
+            case INSUFFICIENT_MANA:
+                System.out.println("Your mana is not sufficient!");
+                break;
         }
     }
 
@@ -538,7 +541,7 @@ public class View {
                         System.out.print(ANSI_RED + card.getType().charAt(0) + ANSI_RESET);
                     }
                 }
-                System.out.print(" ");;
+                System.out.print(" ");
             }
             System.out.println();
         }
