@@ -216,6 +216,7 @@ public class Battle {
     }
 
     public Message startBattle() {
+        System.out.println(battle.accounts.length);
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
             return Message.INVALID_PLAYERS;
         }

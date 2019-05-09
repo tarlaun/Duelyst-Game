@@ -260,6 +260,14 @@ public class Controller {
             battle.setProcess(request.getProcess(request.getCommand()));
             menu.setStat(MenuStat.BATTLE_MODE);
             view.chooseBattleMode();
+            Account[] accounts = new Account[2];
+            accounts[0]=account;
+            for (int i = 0; i < game.getAccounts().size() ; i++) {
+                if(game.getAccounts().get(i).getName().equals("powerfulAI")){
+                    accounts[1]= game.getAccounts().get(i);
+                }
+            }
+            battle.setAccounts(accounts);
         }
     }
 
