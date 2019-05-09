@@ -582,6 +582,9 @@ public class Battle {
     }
 
     public boolean isInRange(Card targetCard, Card currentCard) {
+        if(targetCard==null || currentCard==null){
+            return false;
+        }
         if (Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
                 > currentCard.getMaxRange() ||
                 Coordinate.getManhattanDistance(targetCard.getCoordinate(), currentCard.getCoordinate())
