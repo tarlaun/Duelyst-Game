@@ -402,25 +402,35 @@ public class Battle {
 
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
-        if (targetCard == null)
+        if (targetCard == null) {
+            System.out.println("gdgfg");
             return Message.INVALID_TARGET;
+        }
         if (!isInRange(targetCard, currentCard)) {
+            System.out.println("shitbbs");
             return Message.UNAVAILABLE;
         }
+        System.out.println("shits");
         if (!currentCard.isAbleToAttack()) {
+            System.out.println("shitss");
             if (targetCard.isAbleToAttack()) {
+                System.out.println("shitsh");
                 return Message.NOT_ABLE_TO_ATTACK;
             } else {
+                System.out.println("shitsyy");
                 return null;
             }
         }
+        System.out.println("Shit");
         checkAttackHistory(opponentCardId, currentCard);
         checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         if (isAttackable(currentCard, targetCard))
             targetCard.setHealthPoint(targetCard.getHealthPoint() - targetCard.getIsHoly());
+        System.out.println("fuk "+ targetCard.getHealthPoint());
         targetCard.modifyHealth(-currentCard.getAssaultPower());
+        System.out.println("fuk "+ targetCard.getHealthPoint());
         attack(currentCard.getId(), targetCard);
         killEnemy(targetCard);
         return null;
@@ -837,6 +847,7 @@ public class Battle {
     }
 
     public void endTurn() {
+        setAbleToAttackForHeros();
         buffTurnEnd();
         deholifyCell();
 //        randomItemAppearance();
@@ -864,6 +875,23 @@ public class Battle {
                     fieldCards[i][j].setAbleToMove(true);
                 } catch (NullPointerException e) {
 
+                }
+            }
+        }
+    }
+
+    private void setAbleToAttackForHeros() {
+        if(turn ==1 ){
+            for (int i = 0; i <fieldCards.length ; i++) {
+                if(fieldCards[0][i] instanceof Hero){
+                    fieldCards[0][i].setAbleToAttack(true);
+                }
+            }
+        }
+        if(turn==2){
+            for (int i = 0; i < fieldCards[1].length; i++) {
+                if(fieldCards[1][i] instanceof Hero){
+                    fieldCards[1][i].setAbleToAttack(true);
                 }
             }
         }
