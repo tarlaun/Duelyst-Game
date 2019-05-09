@@ -170,6 +170,10 @@ public class View {
     public void printMinionsInfo(Card... cards) {
         for (Card card : cards) {
             try {
+                if (card.getType().equals("Hero")) {
+                    System.out.println("Hero: ");
+                    printNonSpellCard(card);
+                }
                 if (card.getType().equals("Minion"))
                     printMinionInBattleInfo(card);
             } catch (NullPointerException e) {
@@ -383,7 +387,7 @@ public class View {
         }
     }
 
-    public void showMovement(boolean validMove,Battle battle) {
+    public void showMovement(boolean validMove, Battle battle) {
         if (validMove)
             drawMap(battle);
         else
