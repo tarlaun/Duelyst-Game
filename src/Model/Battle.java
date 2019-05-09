@@ -1684,7 +1684,8 @@ public class Battle {
                 return card.getCoordinate();
             }
         }
-        return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
+        return new Coordinate(card.getCoordinate().getX()-1 , card.getCoordinate().getY());
+        //return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
     }
 
     private Coordinate validateMovement(Coordinate coordinate) {

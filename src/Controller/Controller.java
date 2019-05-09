@@ -304,6 +304,8 @@ public class Controller {
     private void moveAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
+                System.out.println(battle.getFieldCards()[1][i].getName());
+                battle.setCurrentCard(battle.getFieldCards()[1][i]);
                 battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
                 break;
             }
