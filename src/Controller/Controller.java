@@ -5,6 +5,7 @@ import View.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Controller {
     private View view = View.getInstance();
@@ -184,11 +185,9 @@ public class Controller {
                     select(request);
                     break;
                 case MOVE:
-                  //  moveAI();
                     moveToInBattle(request);
                     break;
                 case ATTACK:
-                  //  attackAI();
                     battleAttack(request);
                     break;
                 case COMBO:
@@ -204,16 +203,11 @@ public class Controller {
                     showHand();
                     break;
                 case INSERTION:
-                   // if (insertAI()) break;
                     insertCard(request);
                     break;
                 case END_TURN:
                     endTurn();
-                    if(battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getTurn()%2==1){
-                       // insertAI();
-                        moveAI();
-                        attackAI();
-                    }
+                    AiFunctions();
                     break;
                 case SHOW_COLLECTABLES:
                     showCollectables();
@@ -237,6 +231,14 @@ public class Controller {
                     showMenu();
                     break;
             }
+        }
+    }
+
+    private void AiFunctions() {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
+            insertAI();
+            moveAI();
+            attackAI();
         }
     }
 
@@ -266,10 +268,10 @@ public class Controller {
             menu.setStat(MenuStat.BATTLE_MODE);
             view.chooseBattleMode();
             Account[] accounts = new Account[2];
-            accounts[0]=account;
-            for (int i = 0; i < game.getAccounts().size() ; i++) {
-                if(game.getAccounts().get(i).getName().equals("powerfulAI")){
-                    accounts[1]= game.getAccounts().get(i);
+            accounts[0] = account;
+            for (int i = 0; i < game.getAccounts().size(); i++) {
+                if (game.getAccounts().get(i).getName().equals("powerfulAI")) {
+                    accounts[1] = game.getAccounts().get(i);
                 }
             }
             battle.setAccounts(accounts);
@@ -279,12 +281,30 @@ public class Controller {
     private void setBattleMode(Request request) {
         if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
             battle.setMode(request.getBattleMode(request.getCommand()));
+            if(battle.getGameType().equals(GameType.SINGLEPLAYER)) {
+                setMainDeckForAI();
+            }
             if (battle.getGameType() == GameType.MULTIPLAYER) {
                 menu.setStat(MenuStat.SELECT_USER);
             } else {
                 menu.setStat(MenuStat.BATTLE);
                 battle.startBattle();
             }
+        }
+    }
+
+    private void setMainDeckForAI() {
+        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
+                battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
+            battle.getAccounts()[1].getCollection().selectDeck("level1");
+        }
+        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
+                battle.getMode().equals(BattleMode.FLAG)) {
+            battle.getAccounts()[1].getCollection().selectDeck("level2");
+        }
+        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
+                battle.getMode().equals(BattleMode.COLLECTING)) {
+            battle.getAccounts()[1].getCollection().selectDeck("level3");
         }
     }
 
@@ -304,7 +324,6 @@ public class Controller {
     private void moveAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                System.out.println(battle.getFieldCards()[1][i].getName());
                 battle.setCurrentCard(battle.getFieldCards()[1][i]);
                 battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
                 break;
@@ -312,45 +331,63 @@ public class Controller {
         }
     }
 
+
     private void attackAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                if(opponentCardFinder(i)!=null && battle.getFieldCards()[1][i]!=null) {
-                    if (Coordinate.getManhattanDistance(opponentCardFinder(i).getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
-                            battle.getFieldCards()[1][i].getMaxRange()) {
-                        battle.attack(opponentCardFinder(i).getId(), battle.getFieldCards()[1][i]);
-                        break;
+                for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
+                    if (battle.getFieldCards()[0][j] != null && battle.getFieldCards()[1][i] != null) {
+                        if (AIAssaultTypeBasedInsertion(i, j)) break;
                     }
                 }
             }
         }
     }
 
+    private boolean AIAssaultTypeBasedInsertion(int i, int j) {
+        if (!battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE) && Coordinate.getManhattanDistance(battle.getFieldCards()[0][j].getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
+                battle.getFieldCards()[1][i].getMaxRange()) {
+            battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
+            return true;
+        } else if (battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE)) {
+            AIbestCoInsrtion(i, j);
+        }
+        return false;
+    }
+
+    private void AIbestCoInsrtion(int i, int j) {
+        for (int k = -1; k < 2; k++) {
+            for (int l = -1; l < 2; l++) {
+                if (l == 0 && k == 0) {
+                    break;
+                }
+                if (battle.getFieldCards()[1][i] != null && battle.getFieldCards()[0][j] != null && (battle.getFieldCards()[1][i].getCoordinate().getX() + k == battle.getFieldCards()[0][j].getCoordinate().getX()) &&
+                        battle.getFieldCards()[1][i].getCoordinate().getY() + l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
+                    battle.attack(battle.getFieldCards()[0][j].getId(),battle.getFieldCards()[1][i] );
+                    return;
+                }
+               /* if(battle.setTargetCoordinates(battle.getFieldCards()[1][i])!=null &&  ){
+                    battle.attack(,battle.getFieldCards()[1][i]);
+                }*/
+            }
+        }
+    }
+
+    public int findEnemy(Coordinate c1){
+        return battle.getField(c1.getX(),c1.getY()).getCardID();
+    }
+
     private boolean insertAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
-            battle.insertCard(battle.setCardCoordinates(battle.chooseCard(cards)), battle.chooseCard(cards).getName());
+            battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
             return true;
         }
         return false;
     }
 
     public ArrayList<Card> convertArrayToList(Card[] cards) {
-        ArrayList<Card> cards1 = new ArrayList<>();
-        for (int i = 0; i < cards.length; i++) {
-            cards1.add(cards[i]);
-        }
-        return cards1;
-    }
-
-    public Card opponentCardFinder(int i) {
-       /* for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
-            if (battle.getFieldCards()[0][j].getCoordinate().getX() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getX() &&
-                    battle.getFieldCards()[0][j].getCoordinate().getY() == battle.setTargetCoordiantes(battle.getFieldCards()[1][i]).getY()) {
-                return battle.getFieldCards()[0][j];
-            }
-        }*/
-        return null;
+        return new ArrayList<>(Arrays.asList(cards));
     }
 
     private void invalidCommand() {
@@ -437,6 +474,7 @@ public class Controller {
                     break;
                 default:
                     menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
+                    view.showEntrance(request);
             }
         }
     }

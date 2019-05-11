@@ -414,6 +414,7 @@ public class View {
     }
 
     public void showCombo(int oppId, Card[] comboComrades) {
+
     }
 
     public void printInsertionMessage(Message message, Battle battle) {
@@ -493,6 +494,20 @@ public class View {
         System.out.println("KillEnemyHero");
         System.out.println("Collecting");
         System.out.println("Flag");
+    }
+
+    public void showEntrance(Request request){
+        switch (request.getMenu(request.getCommand())){
+            case "Game":
+                System.out.println("Successful Entrance to Game");
+                break;
+            case "Collection":
+                System.out.println("Successful Entrance to Collection");
+                break;
+            case "Shop":
+                System.out.println("Successful Entrance to Shop");
+                break;
+        }
     }
 
     public void chooseMultiOrSingle() {
