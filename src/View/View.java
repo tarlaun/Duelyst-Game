@@ -165,7 +165,7 @@ public class View {
             System.out.print(" - Range : " + card.getMaxRange());
         System.out.print(" - Special power : ");
         printBuff(card);
-        System.out.println("coordinates  x: "+ card.getCoordinate().getX() +" y "+ card.getCoordinate().getY());
+        System.out.println("coordinates  x: " + card.getCoordinate().getX() + " y " + card.getCoordinate().getY());
     }
 
     public void printMinionsInfo(Card... cards) {
@@ -396,7 +396,7 @@ public class View {
     }
 
     public void showAttack(Message message) {
-        if(message == null){
+        if (message == null) {
             System.out.println("ATTACK DONE!!!");
             return;
         }
@@ -500,8 +500,8 @@ public class View {
         System.out.println("Flag");
     }
 
-    public void showEntrance(Request request){
-        switch (request.getMenu(request.getCommand())){
+    public void showEntrance(Request request) {
+        switch (request.getMenu(request.getCommand())) {
             case "Game":
                 System.out.println("Successful Entrance to Game");
                 break;
@@ -544,18 +544,28 @@ public class View {
     public void printGameInfo(Battle battle) {
         System.out.println("Game Type: " + battle.getGameType());
         System.out.println("Battle Mode: " + battle.getMode());
-        if(battle.getMode().equals(BattleMode.COLLECTING)){
-            System.out.println("Player1 :"+battle.getAccounts()[0].getName()+" flags collected:"+battle.getAccounts()[0].getFlagsCollected());
-            System.out.println("Player2 :"+battle.getAccounts()[1].getName()+" flags collected:"+battle.getAccounts()[1].getFlagsCollected());
+        if (battle.getMode().equals(BattleMode.COLLECTING)) {
+            System.out.println("Player1 :" + battle.getAccounts()[0].getName() + " flags collected:" + battle.getAccounts()[0].getFlagsCollected());
+            System.out.println("Player2 :" + battle.getAccounts()[1].getName() + " flags collected:" + battle.getAccounts()[1].getFlagsCollected());
         }
-        if(battle.getMode().equals(BattleMode.FLAG)){
+        if (battle.getMode().equals(BattleMode.FLAG)) {
             System.out.println("Flagholder: ");
-            if(battle.getMainFlag().getFlagHolder()!=null){
-                Card card = Card.getCardByID(battle.getMainFlag().getFlagHolder().getId(),battle.getFieldCards()[0]);
-                if(card!=null)
-                System.out.print(battle.getAccounts()[0].getName());
+            if (battle.getMainFlag().getFlagHolder() != null) {
+                Card card = Card.getCardByID(battle.getMainFlag().getFlagHolder().getId(), battle.getFieldCards()[0]);
+                if (card != null)
+                    System.out.print(battle.getAccounts()[0].getName());
                 else System.out.print(battle.getAccounts()[1].getName());
+                System.out.print(" For number of turns: " + battle.getMainFlag().getTurnCounter());
+            } else {
+                System.out.print("NO ONE !");
             }
+
+
+        }
+        if (battle.getMode().equals(BattleMode.KILLENEMYHERO)){
+            System.out.println("Player1 :" + battle.getAccounts()[0].getName() + " hero health points:" + battle.getFieldCards()[0][0].getHealthPoint());
+            System.out.println("Player2 :" + battle.getAccounts()[1].getName() + " hero health points:" + battle.getFieldCards()[1][0].getHealthPoint());
+
         }
     }
 
@@ -579,9 +589,9 @@ public class View {
             for (int j = 0; j < Constants.LENGTH; j++) {
                 id = battle.getField(i, j).getCardID();
                 if (id == 0) {
-                    for (Flag flag:
+                    for (Flag flag :
                             battle.getFlagsOnTheGround()) {
-                        if(flag.getCoordinate().getX()==i && flag.getCoordinate().getY()==j){
+                        if (flag.getCoordinate().getX() == i && flag.getCoordinate().getY() == j) {
                             System.out.print("*");
                             continue;
                         }
