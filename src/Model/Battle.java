@@ -84,7 +84,7 @@ public class Battle {
     }
 
     public Message startBattle() {
-        System.out.println(battle.accounts.length);
+        System.out.println(battle.accounts.length); //be_deleted
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
             return Message.INVALID_PLAYERS;
         }
@@ -1774,7 +1774,7 @@ public class Battle {
         ArrayList<Card> random = new ArrayList<>();
         Deck deck = accounts[current].getCollection().getMainDeck();
         int r;
-        for (int i = 20; i > 0; i--) {
+        for (int i = Constants.MAXIMUM_DECK_SIZE; i > 0; i--) {
             r = rand.nextInt(i);
             random.add(deck.getCards().get(r));
             deck.getCards().remove(r);

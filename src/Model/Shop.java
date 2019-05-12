@@ -8,7 +8,7 @@ public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private static final Shop shop = new Shop();
-    private Game game = Game.getInstance();
+    private Game game;
 
     private Shop() {
 
@@ -16,6 +16,10 @@ public class Shop {
 
     public static Shop getInstance() {
         return shop;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public int search(String objectName) {
@@ -80,6 +84,7 @@ public class Shop {
                 instance.setId(game.getLastMinionId());
             }
             if (card.getType().equals("Spell")) {
+                System.out.println(game == null);
                 game.incrementSpellId();
                 instance.setId(game.getLastSpellId());
             }

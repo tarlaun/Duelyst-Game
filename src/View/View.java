@@ -165,7 +165,7 @@ public class View {
             System.out.print(" - Range : " + card.getMaxRange());
         System.out.print(" - Special power : ");
         printBuff(card);
-        System.out.println("coordinates  x: "+ card.getCoordinate().getX() +" y "+ card.getCoordinate().getY());
+//        System.out.println("coordinates  x: "+ card.getCoordinate().getX() +" y "+ card.getCoordinate().getY());
     }
 
     public void printMinionsInfo(Card... cards) {

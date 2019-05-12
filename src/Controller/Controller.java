@@ -281,7 +281,7 @@ public class Controller {
     private void setBattleMode(Request request) {
         if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
             battle.setMode(request.getBattleMode(request.getCommand()));
-            if(battle.getGameType().equals(GameType.SINGLEPLAYER)) {
+            if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
                 setMainDeckForAI();
             }
             if (battle.getGameType() == GameType.MULTIPLAYER) {
@@ -363,7 +363,7 @@ public class Controller {
                 }
                 if (battle.getFieldCards()[1][i] != null && battle.getFieldCards()[0][j] != null && (battle.getFieldCards()[1][i].getCoordinate().getX() + k == battle.getFieldCards()[0][j].getCoordinate().getX()) &&
                         battle.getFieldCards()[1][i].getCoordinate().getY() + l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
-                    battle.attack(battle.getFieldCards()[0][j].getId(),battle.getFieldCards()[1][i] );
+                    battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
                     return;
                 }
                /* if(battle.setTargetCoordinates(battle.getFieldCards()[1][i])!=null &&  ){
@@ -373,8 +373,8 @@ public class Controller {
         }
     }
 
-    public int findEnemy(Coordinate c1){
-        return battle.getField(c1.getX(),c1.getY()).getCardID();
+    public int findEnemy(Coordinate c1) {
+        return battle.getField(c1.getX(), c1.getY()).getCardID();
     }
 
     private boolean insertAI() {
@@ -581,6 +581,7 @@ public class Controller {
 
     public void buy(Request request) {
         if (request.checkBuySyntax() && menu.getStat() == MenuStat.SHOP) {
+            shop.setGame(this.game);
             view.printBuyMessages(shop.buy(request.getObjectName(request.getCommand()), this.account));
         }
     }
