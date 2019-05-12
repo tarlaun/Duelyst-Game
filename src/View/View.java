@@ -165,7 +165,10 @@ public class View {
             System.out.print(" - Range : " + card.getMaxRange());
         System.out.print(" - Special power : ");
         printBuff(card);
-//        System.out.println("coordinates  x: "+ card.getCoordinate().getX() +" y "+ card.getCoordinate().getY());
+        try {
+            System.out.println("coordinates  x: " + card.getCoordinate().getX() + " y " + card.getCoordinate().getY());
+        } catch (NullPointerException e) {
+        }
     }
 
     public void printMinionsInfo(Card... cards) {
@@ -396,7 +399,7 @@ public class View {
     }
 
     public void showAttack(Message message) {
-        if(message == null){
+        if (message == null) {
             System.out.println("ATTACK DONE!!!");
             return;
         }
@@ -496,8 +499,8 @@ public class View {
         System.out.println("Flag");
     }
 
-    public void showEntrance(Request request){
-        switch (request.getMenu(request.getCommand())){
+    public void showEntrance(Request request) {
+        switch (request.getMenu(request.getCommand())) {
             case "Game":
                 System.out.println("Successful Entrance to Game");
                 break;
