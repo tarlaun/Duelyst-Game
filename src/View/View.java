@@ -452,6 +452,10 @@ public class View {
                 break;
             case NOT_ABLE_TO_ATTACK:
                 System.out.println("Card doesn't have a special power");
+                break;
+            case NULL:
+                System.out.println("Valid Special Power.");
+
         }
     }
 
@@ -540,6 +544,19 @@ public class View {
     public void printGameInfo(Battle battle) {
         System.out.println("Game Type: " + battle.getGameType());
         System.out.println("Battle Mode: " + battle.getMode());
+        if(battle.getMode().equals(BattleMode.COLLECTING)){
+            System.out.println("Player1 :"+battle.getAccounts()[0].getName()+" flags collected:"+battle.getAccounts()[0].getFlagsCollected());
+            System.out.println("Player2 :"+battle.getAccounts()[1].getName()+" flags collected:"+battle.getAccounts()[1].getFlagsCollected());
+        }
+        if(battle.getMode().equals(BattleMode.FLAG)){
+            System.out.println("Flagholder: ");
+            if(battle.getMainFlag().getFlagHolder()!=null){
+                Card card = Card.getCardByID(battle.getMainFlag().getFlagHolder().getId(),battle.getFieldCards()[0]);
+                if(card!=null)
+                System.out.print(battle.getAccounts()[0].getName());
+                else System.out.print(battle.getAccounts()[1].getName());
+            }
+        }
     }
 
     public void chooseProcess() {
@@ -562,6 +579,13 @@ public class View {
             for (int j = 0; j < Constants.LENGTH; j++) {
                 id = battle.getField(i, j).getCardID();
                 if (id == 0) {
+                    for (Flag flag:
+                            battle.getFlagsOnTheGround()) {
+                        if(flag.getCoordinate().getX()==i && flag.getCoordinate().getY()==j){
+                            System.out.print("*");
+                            continue;
+                        }
+                    }
                     if (battle.getField(i, j).isHoly())
                         System.out.print("H");
                     else if (battle.getField(i, j).isFire())
@@ -570,6 +594,7 @@ public class View {
                         System.out.print("P");
                     else
                         System.out.print("-");
+
                 } else {
                     Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
                     if (card != null) {
