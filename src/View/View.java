@@ -599,7 +599,8 @@ public class View {
                         isPrinted = true;
                     }
                 }
-                if (battle.getMainFlag().getCoordinate().getX() == i && battle.getMainFlag().getCoordinate().getY() == j) {
+                if (battle.getMode().equals(BattleMode.FLAG) &&
+                        battle.getMainFlag().getCoordinate().getX() == i && battle.getMainFlag().getCoordinate().getY() == j) {
                     System.out.print("#");
                     isPrinted = true;
                 }
