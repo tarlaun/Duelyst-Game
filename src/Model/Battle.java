@@ -92,7 +92,6 @@ public class Battle {
     }
 
     public Message startBattle() {
-        System.out.println(battle.accounts.length); //be_deleted
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
             return Message.INVALID_PLAYERS;
         }
@@ -107,6 +106,11 @@ public class Battle {
             for (int j = 0; j < Constants.LENGTH; j++) {
                 this.field[i][j] = new Cell();
             }
+        }
+        if(mode.equals(BattleMode.FLAG)){
+            mainFlag = new Flag();
+            Coordinate coordinate= new Coordinate(2,4);
+            mainFlag.setCoordinate(coordinate);
         }
         accounts[0].getCollection().getMainDeck().getHero().setCoordinate(new Coordinate(Constants.WIDTH / 2, 0));
         field[Constants.WIDTH / 2][0].setCardID(accounts[0].getCollection().getMainDeck().getHero().getId());
@@ -278,17 +282,15 @@ public class Battle {
         currentCard.setCoordinate(coordinate);
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
         if (mode.equals(BattleMode.COLLECTING)) {
-            for (Flag flag :
-                    flagsOnTheGround) {
-                if (currentCard.getCoordinate().equals(flag.getCoordinate())) {
+            for (int i = 0; i < flagsOnTheGround.size(); i++) {
+                if (currentCard.getCoordinate().equals(flagsOnTheGround.get(i).getCoordinate())) {
                     collectFlags();
+                    i--;
                 }
             }
         }
         if (mode.equals(BattleMode.FLAG)) {
-            if (currentCard.getCoordinate().equals(mainFlag.getCoordinate())) {
-                holdMainFlag();
-            }
+            holdMainFlag();
         }
         currentCard.setAbleToMove(false);
         return true;
