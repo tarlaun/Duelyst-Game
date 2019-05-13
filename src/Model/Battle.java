@@ -92,7 +92,6 @@ public class Battle {
     }
 
     public Message startBattle() {
-        System.out.println(battle.accounts.length); //be_deleted
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
             return Message.INVALID_PLAYERS;
         }
@@ -291,9 +290,7 @@ public class Battle {
             }
         }
         if (mode.equals(BattleMode.FLAG)) {
-            if (currentCard.getCoordinate().equals(mainFlag.getCoordinate())) {
-                holdMainFlag();
-            }
+            holdMainFlag();
         }
         currentCard.setAbleToMove(false);
         return true;

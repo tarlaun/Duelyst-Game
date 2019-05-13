@@ -565,7 +565,7 @@ public class View {
 
 
         }
-        if (battle.getMode().equals(BattleMode.KILLENEMYHERO)){
+        if (battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
             System.out.println("Player1 :" + battle.getAccounts()[0].getName() + " hero health points:" + battle.getFieldCards()[0][0].getHealthPoint());
             System.out.println("Player2 :" + battle.getAccounts()[1].getName() + " hero health points:" + battle.getFieldCards()[1][0].getHealthPoint());
 
@@ -592,42 +592,44 @@ public class View {
         for (int i = 0; i < Constants.WIDTH; i++) {
             for (int j = 0; j < Constants.LENGTH; j++) {
                 id = battle.getField(i, j).getCardID();
-                if (id == 0) {
-                    for (Flag flag :
-                            battle.getFlagsOnTheGround()) {
-                        if (flag.getCoordinate().getX() == i && flag.getCoordinate().getY() == j) {
-                            System.out.print("*");
-                            isPrinted = true;
-                        }
-                    }
-                    if (battle.getMainFlag().getCoordinate().getX() == i && battle.getMainFlag().getCoordinate().getX() == j) {
-                        System.out.println("#");
+                for (Flag flag :
+                        battle.getFlagsOnTheGround()) {
+                    if (flag.getCoordinate().getX() == i && flag.getCoordinate().getY() == j) {
+                        System.out.print("*");
                         isPrinted = true;
                     }
-                    if (!isPrinted) {
-                        if (battle.getField(i, j).isHoly())
-                            System.out.print("H");
-                        else if (battle.getField(i, j).isFire())
-                            System.out.print("F");
-                        else if (battle.getField(i, j).isPoison())
-                            System.out.print("P");
-                        else
-                            System.out.print("-");
+                }
+                if (battle.getMainFlag().getCoordinate().getX() == i && battle.getMainFlag().getCoordinate().getY() == j) {
+                    System.out.print("#");
+                    isPrinted = true;
+                }
+                if (id == 0 && !isPrinted) {
+                    if (battle.getField(i, j).isHoly())
+                        System.out.print("H");
+                    else if (battle.getField(i, j).isFire())
+                        System.out.print("F");
+                    else if (battle.getField(i, j).isPoison())
+                        System.out.print("P");
+                    else
+                        System.out.print("-");
+                } else if (id != 0) {
+                    Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
+                    if (card != null) {
+                        System.out.print(ANSI_GREEN + card.getType().charAt(0) + ANSI_RESET);
                     } else {
-                        Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
-                        if (card != null) {
-                            System.out.print(ANSI_GREEN + card.getType().charAt(0) + ANSI_RESET);
-                        } else {
-                            card = Card.getCardByID(id, battle.getFieldCards()[1]);
-                            System.out.print(ANSI_RED + card.getType().charAt(0) + ANSI_RESET);
-                        }
+                        card = Card.getCardByID(id, battle.getFieldCards()[1]);
+                        System.out.print(ANSI_RED + card.getType().charAt(0) + ANSI_RESET);
                     }
                 }
+
                 System.out.print(" ");
+                isPrinted = false;
             }
             System.out.println();
         }
+
     }
-
-
 }
+
+
+
