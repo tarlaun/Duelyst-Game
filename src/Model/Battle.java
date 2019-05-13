@@ -697,13 +697,8 @@ public class Battle {
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (insert.getType().equals("Spell"))
-                    return Message.INVALID_CARD;
                 if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getX() < 0 || coordinate.getY() < 0)
                     return Message.INVALID_TARGET;
-                if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
-                    return Message.FULL_CELL;
-                }
                 for (Card card : fieldCards[turn % 2]) {
                     try {
                         if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
@@ -720,11 +715,17 @@ public class Battle {
                     return Message.INSUFFICIENT_MANA;
                 }
                 assert insert != null;
-                field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
-                insert.setCoordinate(coordinate);
-                playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
-                fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
-                return Message.SUCCESSFUL_INSERT;
+                if (insert.isClass("Minion")) {
+                    if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0)
+                        return Message.FULL_CELL;
+                    field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
+                    insert.setCoordinate(coordinate);
+                    playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
+                    fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
+                    return Message.SUCCESSFUL_INSERT;
+                } else if (insert.isClass("Spell")) {
+                    useSpell(insert, coordinate);
+                }
             }
 
         }

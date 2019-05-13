@@ -1,20 +1,20 @@
-Total Disarm , 1000 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , DISARM ; 0 ; UNDEFINED ; 1000000 ; Card ; ENEMY ; PERMANENT ; 0 ; 0
-Area Dispel , 1500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL ; 0 ; UNDEFINED ; 0 ; Card ; ENEMY ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1 , NEGATIVE_DISPEL ; 0 ; UNDEFINED ; 0 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1 , HIT_POWER ; 2 ; UNDEFINED ; 1000000 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
-Empower , 250 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 2 ; UNDEFINED ; 1000000 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
-Fireball , 400 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 4 ; UNDEFINED ; 0 ; Hero ; ENEMY ; TEMPORARY ; 0 ; 0
-God Strength , 450 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 4 ; UNDEFINED ; 0 ; Hero ; COMRADE ; TEMPORARY ; 0 ; 0
-Hell Fire , 600 , 3 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 1 ; UNDEFINED ; 2 ; Card ; ALL ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1
-Lightning Bolt , 1250 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_WEAKNESS ; 8 ; UNDEFINED ; 0 ; Hero ; ENEMY ; TEMPORARY ; 0 ; 0
-Poison Lake , 900 , 5 , -1 , -1 , NULL , -1 , -1 , -1 , POISON ; 1 ; UNDEFINED ; 1 ; Card ; ALL ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 0 ; 2 ; 2 ; 0 ; 1 ; 1 ; 2 ; 2 ; 1 ; 2 ; 2 ; 1
-Madness , 650 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 4 ; UNDEFINED ; 3 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0 , DISARM ; 0 ; UNDEFINED ; 3 ; Card ; ALL ; TEMPORARY ; 0 ; 0
-All Disarm  , 2000 , 9 , -1 , -1 , NULL , -1 , -1 , -1 , DISARM ; 0 ; UNDEFINED ; 1 ; Card ; ENEMY ; TEMPORARY ; -1 ; -1
-All Poison , 1500 , 8 , -1 , -1 , NULL , -1 , -1 , -1 , POISON ; 0 ; UNDEFINED ; 4 ; Card ; ENEMY ; TEMPORARY ; -1 ; -1
-Dispel , 2100 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL ; 0 ; UNDEFINED ; 0 ; Card ; ENEMY ; TEMPORARY ; 0 ; 0 , NEGATIVE_DISPEL ; 0 ; UNDEFINED ; 0 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
-Health with profit , 2250 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 6 ; UNDEFINED ; 3 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0 , HOLY ; 2 ; UNDEFINED ; 3 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
-Power Up , 2500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 6 ; UNDEFINED ; 1000000 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
-All Power , 2000 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 2 ; UNDEFINED ; 1000000 ; Card ; COMRADE ; PERMANENT ; -1 ; -1
-All Attack , 1500 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 6 ; UNDEFINED ; 0 ; Card ; ENEMY ; TEMPORARY ; -2 ; -2
-Weakening , 1000 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_WEAKNESS ; 4 ; UNDEFINED ; 1000000 ; Minion ; ENEMY ; TEMPORARY ; 0 ; 0
-Sacrifice , 1600 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 6 ; UNDEFINED ; 1000000 ; Minion ; COMRADE ; TEMPORARY ; 0 ; 0 , HIT_POWER ; 8 ; UNDEFINED ; 1000000 ; Minion ; COMRADE ; TEMPORARY ; 0 ; 0
-Kings Guard , 1750 , 9 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_WEAKNESS ; 100 ; UNDEFINED ; 0 ; Minion ; ENEMY ; TEMPORARY ; 3 ; 3
-Shock , 1200 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , STUN ; 0 ; UNDEFINED ; 2 ; Card ; ENEMY ; TEMPORARY ; 0 ; 0
+TOTAL_DISARM , 1000 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , DISARM ; 0 ; UNDEFINED ; 1000000 ; Card ; ENEMY ; PERMANENT ; 0 ; 0
+AREA_DISPEL , 1500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL ; 0 ; UNDEFINED ; 0 ; Card ; ENEMY ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1 , NEGATIVE_DISPEL ; 0 ; UNDEFINED ; 0 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1 , HIT_POWER ; 2 ; UNDEFINED ; 1000000 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
+EMPOWER , 250 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 2 ; UNDEFINED ; 1000000 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
+FIREBALL , 400 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 4 ; UNDEFINED ; 0 ; Hero ; ENEMY ; TEMPORARY ; 0 ; 0
+GOD_STRENGTH , 450 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 4 ; UNDEFINED ; 0 ; Hero ; COMRADE ; TEMPORARY ; 0 ; 0
+HELL_FIRE , 600 , 3 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 1 ; UNDEFINED ; 2 ; Card ; ALL ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 1 ; 1
+LIGHTNING_BOLT , 1250 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_WEAKNESS ; 8 ; UNDEFINED ; 0 ; Hero ; ENEMY ; TEMPORARY ; 0 ; 0
+POISON_LAKE , 900 , 5 , -1 , -1 , NULL , -1 , -1 , -1 , POISON ; 1 ; UNDEFINED ; 1 ; Card ; ALL ; TEMPORARY ; 0 ; 0 ; 0 ; 1 ; 1 ; 0 ; 0 ; 2 ; 2 ; 0 ; 1 ; 1 ; 2 ; 2 ; 1 ; 2 ; 2 ; 1
+MADNESS , 650 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 4 ; UNDEFINED ; 3 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0 , DISARM ; 0 ; UNDEFINED ; 3 ; Card ; ALL ; TEMPORARY ; 0 ; 0
+ALL_DISARM  , 2000 , 9 , -1 , -1 , NULL , -1 , -1 , -1 , DISARM ; 0 ; UNDEFINED ; 1 ; Card ; ENEMY ; TEMPORARY ; -1 ; -1
+ALL_POISON , 1500 , 8 , -1 , -1 , NULL , -1 , -1 , -1 , POISON ; 0 ; UNDEFINED ; 4 ; Card ; ENEMY ; TEMPORARY ; -1 ; -1
+DISPEL , 2100 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , POSITIVE_DISPEL ; 0 ; UNDEFINED ; 0 ; Card ; ENEMY ; TEMPORARY ; 0 ; 0 , NEGATIVE_DISPEL ; 0 ; UNDEFINED ; 0 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
+HEALTH_WITH_PROFIT , 2250 , 0 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 6 ; UNDEFINED ; 3 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0 , HOLY ; 2 ; UNDEFINED ; 3 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
+POWER_UP , 2500 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 6 ; UNDEFINED ; 1000000 ; Card ; COMRADE ; TEMPORARY ; 0 ; 0
+ALL_POWER , 2000 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_POWER ; 2 ; UNDEFINED ; 1000000 ; Card ; COMRADE ; PERMANENT ; -1 ; -1
+ALL_ATTACK , 1500 , 4 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 6 ; UNDEFINED ; 0 ; Card ; ENEMY ; TEMPORARY ; -2 ; -2
+WEAKENING , 1000 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_WEAKNESS ; 4 ; UNDEFINED ; 1000000 ; Minion ; ENEMY ; TEMPORARY ; 0 ; 0
+SACRIFICE , 1600 , 2 , -1 , -1 , NULL , -1 , -1 , -1 , HEALTH_WEAKNESS ; 6 ; UNDEFINED ; 1000000 ; Minion ; COMRADE ; TEMPORARY ; 0 ; 0 , HIT_POWER ; 8 ; UNDEFINED ; 1000000 ; Minion ; COMRADE ; TEMPORARY ; 0 ; 0
+KINGS_GUARD , 1750 , 9 , -1 , -1 , NULL , -1 , -1 , -1 , HIT_WEAKNESS ; 100 ; UNDEFINED ; 0 ; Minion ; ENEMY ; TEMPORARY ; 3 ; 3
+SHOCK , 1200 , 1 , -1 , -1 , NULL , -1 , -1 , -1 , STUN ; 0 ; UNDEFINED ; 2 ; Card ; ENEMY ; TEMPORARY ; 0 ; 0

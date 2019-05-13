@@ -7,29 +7,29 @@ import java.util.List;
 public class Card {
     private int id;
     private String name;
-    private String type;
+    private transient String type;
     private int maxPossibleMoving;
     private int price;
     private int healthPoint;
     private int minRange;
     private int maxRange;
     private int assaultPower;
-    private int originalAssaultPower;
+    private transient int originalAssaultPower;
     private AssaultType assaultType;
-    private ActivationType activationType;
+    private transient ActivationType activationType;
     private ArrayList<Buff> buffs = new ArrayList<>();
-    private ArrayList<Buff> castedBuffs = new ArrayList<>();
-    private ArrayList<ItemBuff> castedItems = new ArrayList<>();
+    private transient ArrayList<Buff> castedBuffs = new ArrayList<>();
+    private transient ArrayList<ItemBuff> castedItems = new ArrayList<>();
     private int manaPoint;
-    private Coordinate coordinate;
-    private boolean ableToAttack = false;
-    private boolean ableToMove = false;
-    private boolean ableToResist = false;
-    private boolean ableToCounter = false;
-    private int cardHolder;
-    private int isHoly = 0;
-    private RangeType rangeType;
-    int[][] attackCount = new int[40][2];
+    private transient Coordinate coordinate;
+    private transient boolean ableToAttack = false;
+    private transient boolean ableToMove = false;
+    private transient boolean ableToResist = false;
+    private transient boolean ableToCounter = false;
+    private transient int cardHolder;
+    private transient int isHoly = 0;
+    private transient RangeType rangeType;
+    transient int[][] attackCount = new int[40][2];
 
     public ArrayList<ItemBuff> getCastedItems() {
         return castedItems;
@@ -100,16 +100,12 @@ public class Card {
                 this.buffs.add(new Buff(info[MainInfoOrder.BUFF.ordinal()]));
             }
         } else {
-            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length - 1; i++) {
+            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
+                System.out.println(this.name + "    " + info[i-1] + "   " + info[i]);
                 this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
             }
         }
     }
-
-/*
-    public Card() {
-
-    }*/
 
     public boolean isAbleToCounter() {
         return ableToCounter;
