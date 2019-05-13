@@ -21,7 +21,7 @@ public class Constants {
     public static final int LENGTH = 9;
     public static final int WIDTH = 5;
     public static final int ITEM_APPEARANCE = 3;
-    public static final int MAXIMUM_FLAGS = 11;
+    public static final int MAXIMUM_FLAGS = 6;
     public static final int TURNS_HOLDING_FLAG = 6;
     public static final int randomXGenerator = 2;
     public static final int randomYGenerator = 4;

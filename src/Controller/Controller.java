@@ -238,6 +238,12 @@ public class Controller {
     private void AiFunctions() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             moveAI();
+            if(battle.getMode().equals(BattleMode.COLLECTING)){
+                if (battle.checkForWin()) {
+                    menu.setStat(MenuStat.GAME);
+                    view.Success();
+                }
+            }
             insertAI();
             attackAI();
             endTurn();

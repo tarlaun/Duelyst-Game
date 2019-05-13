@@ -37,6 +37,10 @@ public class Battle {
     private boolean attackMode;
     private boolean isOnSpawn;
 
+    public ArrayList<Flag> getFlagsOnTheGround() {
+        return flagsOnTheGround;
+    }
+
     private Battle() {
     }
 
@@ -118,18 +122,18 @@ public class Battle {
         switch (mode) {
             case KILLENEMYHERO:
                 for (int i = 0; i < 2; i++) {
-                    int countey =0;
+                    int countey = 0;
                     for (int k = 0; k < battle.getFieldCards()[i].length; k++) {
-                        if(battle.getFieldCards()[i][k]!=null){
+                        if (battle.getFieldCards()[i][k] != null) {
                             countey++;
                         }
                     }
-                    if(countey==0){
+                    if (countey == 0) {
                         if (i == 0) secondPlayerWon = true;
                         if (i == 1) firstPlayerWon = true;
                     }
                     for (int j = 0; j < fieldCards[i].length; j++) {
-                        if (fieldCards[i][j] != null && fieldCards[i][j].getType().equals("Hero") ) {
+                        if (fieldCards[i][j] != null && fieldCards[i][j].getType().equals("Hero")) {
                             HeroExcistance = 1;
                         }
                     }
@@ -139,7 +143,6 @@ public class Battle {
                     }
                     HeroExcistance = 0;
                 }
-/*
                 break;
             case FLAG:
                 if (mainFlag.getTurnCounter() >= Constants.TURNS_HOLDING_FLAG) {
@@ -159,7 +162,7 @@ public class Battle {
                         if (i == 0) firstPlayerWon = true;
                     }
                 }
-                break;*/
+                break;
         }
         if (firstPlayerWon) {
             if (secondPlayerWon) {
@@ -168,8 +171,8 @@ public class Battle {
                 accounts[0].setBudget(accounts[0].getBudget() + 500);
                 accounts[1].setBudget(accounts[0].getBudget() + 500);
                 setMatchInfo();
-                // refactorDeck(0);
-                //  refactorDeck(1);
+                refactorDeck(0);
+                refactorDeck(1);
                 return true;
             }
             if (setAIStoryAwards()) return true;
@@ -177,16 +180,16 @@ public class Battle {
             secondPlayerMatch.setResult(MatchResult.LOST);
             accounts[0].setBudget(accounts[0].getBudget() + 1000);
             setMatchInfo();
-            // refactorDeck(0);
-            //refactorDeck(1);
+            refactorDeck(0);
+            refactorDeck(1);
             return true;
         } else if (secondPlayerWon) {
             firstPlayerMatch.setResult(MatchResult.LOST);
             secondPlayerMatch.setResult(MatchResult.WON);
             accounts[1].setBudget(accounts[0].getBudget() + 1000);
             setMatchInfo();
-            // refactorDeck(0);
-            // refactorDeck(1);
+            refactorDeck(0);
+            refactorDeck(1);
             return true;
 
         }
@@ -219,7 +222,6 @@ public class Battle {
         firstPlayerMatch.setRival(accounts[1].getName());
         secondPlayerMatch.setRival(accounts[0].getName());
     }
-/*
 
     public void resign() {
         if ((turn % 2) == 0) {
@@ -237,7 +239,6 @@ public class Battle {
         refactorDeck(0);
         refactorDeck(1);
     }
-*/
 
     public Coordinate getCurrentCoordinate() {
         return currentCoordinate;
@@ -276,6 +277,9 @@ public class Battle {
         if (!currentCard.isAbleToMove()) {
             return false;
         }
+        if (coordinate == null) {
+            return false;
+        }
         if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getY() < 0 || coordinate.getX() < 0) {
             return false;
         }
@@ -289,14 +293,16 @@ public class Battle {
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
         currentCard.setCoordinate(coordinate);
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
-        /*if (mode.equals(BattleMode.COLLECTING)) {
-            for (Flag flag :
-                    flagsOnTheGround) {
-                if (currentCard.getCoordinate().equals(flag.getCoordinate())) {
-                    collectFlags();
+        if (mode.equals(BattleMode.COLLECTING) && flagsOnTheGround.size() >= 1) {
+            for (int i = 0; i < flagsOnTheGround.size(); i++) {
+                if (flagsOnTheGround.get(i) != null) {
+                    if (currentCard.getCoordinate().equals(flagsOnTheGround.get(i).getCoordinate())) {
+                        collectFlags();
+                    }
+
                 }
             }
-        }*/
+        }
         if (mode.equals(BattleMode.FLAG)) {
             if (currentCard.getCoordinate().equals(mainFlag.getCoordinate())) {
                 holdMainFlag();
@@ -318,10 +324,6 @@ public class Battle {
     }
 
 
-
-
-
-
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
         if (targetCard == null) {
@@ -340,7 +342,7 @@ public class Battle {
         currentCard.setAbleToAttack(false);
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         killEnemy(targetCard);
-        if(checkForWin()){
+        if (checkForWin()) {
             menu.setStat(MenuStat.GAME);
             return Message.BATTLE_FINISHED;
         }
@@ -484,15 +486,12 @@ public class Battle {
             }
             fieldCards[(turn + 1) % 2][opponentFieldCards.size()] = null;*/
 
-            for (int i = 0; i <fieldCards[(turn + 1) % 2].length ; i++) {
-                if(fieldCards[(turn + 1) % 2][i]!=null && fieldCards[(turn + 1) % 2][i].getName().equals(targetCard.getName())){
-                    fieldCards[(turn + 1) % 2][i]=null;
+            for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
+                if (fieldCards[(turn + 1) % 2][i] != null && fieldCards[(turn + 1) % 2][i].getName().equals(targetCard.getName())) {
+                    fieldCards[(turn + 1) % 2][i] = null;
                 }
             }
             field[targetCard.getCoordinate().getX()][targetCard.getCoordinate().getY()].setCardID(0);
-           /* for (int i = 0; i <graveyard[(turn+1)%2].length ; i++) {
-
-            }*/
 
         }
     }
@@ -776,9 +775,9 @@ public class Battle {
         setAbleToAttackForHeros();
         buffTurnEnd();
         // deholifyCell();
-       /* if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
+        if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();
-        }*/
+        }
         /*if (mode.equals(BattleMode.FLAG)) {
             if (mainFlag.isHeld()) {
                 mainFlag.setTurnCounter(mainFlag.getTurnCounter() + 1);
@@ -835,7 +834,7 @@ public class Battle {
     }
 
     public void buffTurnEnd() {
-      /*  for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
             for (Card card : fieldCards[i]) {
                 try {
                     for (Buff buff : card.getCastedBuffs()) {
@@ -866,9 +865,9 @@ public class Battle {
                 } catch (NullPointerException e) {
                 }
             }
-        }*/
+        }
     }
-/*
+
     private void checkForJen(Card card, Buff buff) {
         if (buff.getType().equals(BuffType.JEN_JOON) && buff.getTurnCount() == -1) {
             card.setAssaultPower(card.getAssaultPower() + buff.getPower());
@@ -959,6 +958,7 @@ public class Battle {
         for (int i = 0; i < flagsOnTheGround.size(); i++) {
             if (Coordinate.getManhattanDistance(flagsOnTheGround.get(i).getCoordinate(), currentCard.getCoordinate()) == 0) {
                 accounts[turn % 2].setFlagsCollected(accounts[turn % 2].getFlagsCollected() + 1);
+                System.out.println(accounts[1].getFlagsCollected());
                 flagsOnTheGround.remove(flagsOnTheGround.get(i));
                 checkForWin();
                 return;
@@ -969,8 +969,8 @@ public class Battle {
     public void flagAppearance() {
         boolean ableToAddFlag = true;
         while (ableToAddFlag) {
-            int randomX = rand.nextInt(9);
-            int randomY = rand.nextInt(5);
+            int randomX = rand.nextInt(5);
+            int randomY = rand.nextInt(9);
             if (field[randomX][randomY].getCardID() == 0 && flagsAppeared < Constants.MAXIMUM_FLAGS) {
                 Flag flag = new Flag();
                 flag.setCoordinate(new Coordinate(randomX, randomY));
@@ -1274,7 +1274,6 @@ public class Battle {
                 break;
         }
     }
-*/
 
     //******************************************************************************************************************
     //AI FUNCTIONS BELOW
@@ -1282,16 +1281,17 @@ public class Battle {
     public Coordinate setCardCoordinates() {
         for (int i = 0; i < fieldCards[1].length; i++) {
             if (fieldCards[1][i] != null) {
-                if (field[fieldCards[1][i].getCoordinate().getX() + 1][fieldCards[1][i].getCoordinate().getY()].getCardID() == 0&& turn%8==1) {
+                if (fieldCards[1][i].getCoordinate().getX() <= 3 && field[fieldCards[1][i].getCoordinate().getX() + 1][fieldCards[1][i].getCoordinate().getY()].getCardID() == 0 && turn % 8 == 1) {
                     return new Coordinate(fieldCards[1][i].getCoordinate().getX() + 1, fieldCards[1][i].getCoordinate().getY());
                 }
-                if (field[fieldCards[1][i].getCoordinate().getX() - 1][fieldCards[1][i].getCoordinate().getY()].getCardID() == 0&& turn%8==3) {
+                if (fieldCards[1][i].getCoordinate().getX() >= 1 && field[fieldCards[1][i].getCoordinate().getX() - 1][fieldCards[1][i].getCoordinate().getY()].getCardID() == 0 && turn % 8 == 3) {
                     return new Coordinate(fieldCards[1][i].getCoordinate().getX() - 1, fieldCards[1][i].getCoordinate().getY());
                 }
-                if (field[fieldCards[1][i].getCoordinate().getX()][fieldCards[1][i].getCoordinate().getY() - 1].getCardID() == 0&& turn%8==5) {
-                    return new Coordinate(fieldCards[1][i].getCoordinate().getX() + 1, fieldCards[1][i].getCoordinate().getY() - 1);
+                if (field[fieldCards[1][i].getCoordinate().getX()][fieldCards[1][i].getCoordinate().getY() - 1].getCardID() == 0 && turn % 8 == 5) {
+                    return validateMovement(new Coordinate(fieldCards[1][i].getCoordinate().getX() + 1, fieldCards[1][i].getCoordinate().getY() - 1));
                 }
-                if (field[fieldCards[1][i].getCoordinate().getX()][fieldCards[1][i].getCoordinate().getY() + 1].getCardID() == 0&& turn%8==7) {
+                if (fieldCards[1][i].getCoordinate().getY() <= 7 &&
+                        field[fieldCards[1][i].getCoordinate().getX()][fieldCards[1][i].getCoordinate().getY() + 1].getCardID() == 0 && turn % 8 == 7) {
                     return new Coordinate(fieldCards[1][i].getCoordinate().getX(), fieldCards[1][i].getCoordinate().getY() + 1);
                 }
             }
@@ -1342,7 +1342,7 @@ public class Battle {
 
             }
         }
-        if(card.getType().equals("Hero")){
+        if (card.getType().equals("Hero")) {
 
         }
         return null;
@@ -1350,7 +1350,7 @@ public class Battle {
     }
 
     public boolean AIAssaultTypeBasedInsertion(int i, int j) {
-        if (!battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE) && Coordinate.getManhattanDistance(battle.getFieldCards()[0][j].getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
+        if (getFieldCards()[1][i] != null && getFieldCards()[0][j] != null && !battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE) && Coordinate.getManhattanDistance(battle.getFieldCards()[0][j].getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
                 battle.getFieldCards()[1][i].getMaxRange()) {
             battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
             return true;
@@ -1371,9 +1371,6 @@ public class Battle {
                     battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
                     return;
                 }
-               /* if(battle.setTargetCoordinates(battle.getFieldCards()[1][i])!=null &&  ){
-                    battle.attack(,battle.getFieldCards()[1][i]);
-                }*/
             }
         }
     }
@@ -1536,7 +1533,7 @@ public class Battle {
         }
         if (leastDistance <= 2) {
             return getCoordinate(card.getCoordinate(), flagsOnTheGround.get(leastDistanceIndex).getCoordinate());
-        } else {
+        } else if (flagsOnTheGround.size() != 0) {
             switch (checkFourQuartersOfGround(card.getCoordinate(), flagsOnTheGround.get(leastDistanceIndex).getCoordinate())) {
                 case 1:
                     return validateMovement(makeNewCoordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY() + 1));
@@ -1613,7 +1610,7 @@ public class Battle {
                         for (int k = -1; k < 2; k++) {
                             for (int j = -1; j < 2; j++) {
                                 for (int i = 0; i < getFieldCards()[0].length; i++) {
-                                    if (fieldCards[0][i]!= null &&getFieldCards()[0][i].getCoordinate().equals(new Coordinate(card.getCoordinate().getX() + k, card.getCoordinate().getY() + j))) {
+                                    if (fieldCards[0][i] != null && getFieldCards()[0][i].getCoordinate().equals(new Coordinate(card.getCoordinate().getX() + k, card.getCoordinate().getY() + j))) {
                                         if (getFieldCards()[0][i].getType().equals("Hero")) {
                                             return card.getCoordinate();
                                         }
@@ -1625,14 +1622,14 @@ public class Battle {
                         Coordinate i = checkHeroDistance(card);
                         if (i != null) return i;
                         if (enemyIsNear) return card.getCoordinate();
-                        return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY()-1);
+                        return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1);
                     }
                     break;
                 case RANGED:
                 case HYBRID:
                     if (checkForHero(card)) return card.getCoordinate();
                     for (int i = 0; i < fieldCards[0].length; i++) {
-                        if (fieldCards[0][i]!=null&&fieldCards[0][i].getType().equals("Hero") && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) <= card.getMaxRange() + 2) {
+                        if (fieldCards[0][i] != null && fieldCards[0][i].getType().equals("Hero") && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) <= card.getMaxRange() + 2) {
                             if (checkFourQuartersOfGround(fieldCards[0][i].getCoordinate(), card.getCoordinate()) == 1) {
                                 return validateMovement(new Coordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() - 1));
                             }
@@ -1649,20 +1646,20 @@ public class Battle {
                     }
                     ArrayList<Card> cards = new ArrayList<>();
                     for (int i = 0; i < fieldCards.length; i++) {
-                        if (fieldCards[0][i]!=null&&Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) < card.getMaxRange()) {
+                        if (fieldCards[0][i] != null && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) < card.getMaxRange()) {
                             cards.add(fieldCards[0][i]);
                         }
                     }
                     if (cards.size() != 0) return cards.get(0).getCoordinate();
-                    return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY()-1);
+                    return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1);
             }
             if (!card.isAbleToMove()) {
                 return card.getCoordinate();
             }
         } else if (card.getType().equals("Hero")) {
             for (int i = 0; i < fieldCards[turn % 2].length; i++) {
-                if (fieldCards[turn % 2][i]!=null) {
-                    Card enemyCard = Card.getCardByName(fieldCards[turn % 2][i].getName(),fieldCards[(turn ) % 2]);
+                if (fieldCards[turn % 2][i] != null) {
+                    Card enemyCard = Card.getCardByName(fieldCards[turn % 2][i].getName(), fieldCards[(turn) % 2]);
                     if (card.getCoordinate().getX() == enemyCard.getCoordinate().getX()) {
                         return validateMovement(new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1));
                     }
@@ -1692,7 +1689,7 @@ public class Battle {
 
     private Coordinate validateMovement(Coordinate coordinate) {
 
-        if (field[coordinate.getX()][coordinate.getY()].getCardID() == 0) {
+        if (coordinate.getX() >= 0 && coordinate.getY() >= 0 && coordinate.getY() <= 8 && coordinate.getX() <= 4 && field[coordinate.getX()][coordinate.getY()].getCardID() == 0) {
             return coordinate;
         }
         return currentCard.getCoordinate();
@@ -1700,7 +1697,7 @@ public class Battle {
 
     private boolean checkForHero(Card card) {
         for (int i = 0; i < fieldCards[0].length; i++) {
-            if (fieldCards[0][i]!=null&&fieldCards[0][i].getType().equals("Hero") && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) <= card.getMaxRange()) {
+            if (fieldCards[0][i] != null && fieldCards[0][i].getType().equals("Hero") && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) <= card.getMaxRange()) {
                 return true;
             }
         }
@@ -1748,13 +1745,13 @@ public class Battle {
         }
         int leastMana = 20;
         int whichCard2 = 0;
-        for (int i = 0; i <getPlayerHands()[1].length ; i++) {
-            if(getPlayerHands()[1][i].getManaPoint()<leastMana){
-                leastMana=getPlayerHands()[1][i].getManaPoint();
+        for (int i = 0; i < getPlayerHands()[1].length; i++) {
+            if (getPlayerHands()[1][i].getManaPoint() < leastMana) {
+                leastMana = getPlayerHands()[1][i].getManaPoint();
                 whichCard2 = i;
             }
-            if(getPlayerHands()[1][whichCard].getManaPoint()==getPlayerHands()[1][i].getManaPoint()){
-                whichCard2=whichCard;
+            if (getPlayerHands()[1][whichCard].getManaPoint() == getPlayerHands()[1][i].getManaPoint()) {
+                whichCard2 = whichCard;
             }
         }
         Card card = cards.get(whichCard2);
@@ -1786,7 +1783,7 @@ public class Battle {
             return 0;
         return 1;
     }
- /*
+
     public void useItem(Item item) {
         for (ItemBuff buff : item.getBuffs()) {
             if (buff.getTargetCard().equals("Account")) {
@@ -1878,7 +1875,6 @@ public class Battle {
 
 
     }
-    */
 
     private void addToHand(int current) {
         Deck deck = accounts[current].getCollection().getMainDeck();
@@ -1896,7 +1892,7 @@ public class Battle {
 
     }
 
-  /*  private void refactorDeck(int current) {
+    private void refactorDeck(int current) {
         for (int i = 0; i < playerHands[current].length; i++) {
             accounts[current].getCollection().getCards().add(playerHands[current][i]);
 
@@ -1923,5 +1919,5 @@ public class Battle {
             accounts[0].getCollection().getMainDeck().getCards().remove(0);
             accounts[1].getCollection().getMainDeck().getCards().remove(0);
         }
-    }*/
+    }
 }

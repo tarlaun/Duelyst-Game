@@ -165,7 +165,7 @@ public class View {
             System.out.print(" - Range : " + card.getMaxRange());
         System.out.print(" - Special power : ");
         printBuff(card);
-        System.out.println("coordinates  x: "+ card.getCoordinate().getX() +" y "+ card.getCoordinate().getY());
+        System.out.println("coordinates  x: " + card.getCoordinate().getX() + " y " + card.getCoordinate().getY());
     }
 
     public void printMinionsInfo(Card... cards) {
@@ -396,7 +396,7 @@ public class View {
     }
 
     public void showAttack(Message message) {
-        if(message == null){
+        if (message == null) {
             System.out.println("ATTACK DONE!!!");
             return;
         }
@@ -498,8 +498,8 @@ public class View {
         System.out.println("Flag");
     }
 
-    public void showEntrance(Request request){
-        switch (request.getMenu(request.getCommand())){
+    public void showEntrance(Request request) {
+        switch (request.getMenu(request.getCommand())) {
             case "Game":
                 System.out.println("Successful Entrance to Game");
                 break;
@@ -558,19 +558,30 @@ public class View {
         }
     }
 
+    public void Success(){
+        System.out.println("AI WON THE GAME");
+    }
+
     public void drawMap(Battle battle) {
         int id;
         for (int i = 0; i < Constants.WIDTH; i++) {
             for (int j = 0; j < Constants.LENGTH; j++) {
+                int flagExistance = 0;
+                for (int k = 0; k <battle.getFlagsOnTheGround().size() ; k++) {
+                    if(battle.getFlagsOnTheGround().get(k).getCoordinate().getX()==i &&
+                            battle.getFlagsOnTheGround().get(k).getCoordinate().getY()==j){
+                        System.out.print(ANSI_GREEN + "F"+ ANSI_RESET);
+                        flagExistance=1;
+                    }
+                }
                 id = battle.getField(i, j).getCardID();
                 if (id == 0) {
                     if (battle.getField(i, j).isHoly())
                         System.out.print("H");
-                    else if (battle.getField(i, j).isFire())
-                        System.out.print("F");
                     else if (battle.getField(i, j).isPoison())
                         System.out.print("P");
-                    else
+
+                    else if(flagExistance==0)
                         System.out.print("-");
                 } else {
                     Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
