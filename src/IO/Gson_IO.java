@@ -16,11 +16,9 @@ public class Gson_IO {
 
     public static void main(String[] args) throws IOException {
         gsonGenerator(new File("src/Spells"), "Spell");
-/*
         gsonGenerator(new File("src/Items"), "Item");
         gsonGenerator(new File("src/Heroes"), "Hero");
         gsonGenerator(new File("src/Minions"), "Minion");
-*/
     }
 
     private static void gsonGenerator(File file, String name) throws IOException {

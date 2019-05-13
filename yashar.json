@@ -27,7 +27,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 2,
             "side": "ENEMY",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -61,7 +66,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 0,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -95,7 +105,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 0,
             "side": "ENEMY",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -129,7 +144,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 3,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           },
           {
             "type": "HOLY",
@@ -139,7 +159,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 3,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -298,7 +323,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 1000000,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -332,7 +362,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 1000000,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -409,7 +444,12 @@
             "power": -1,
             "activationType": "ON_ATTACK",
             "turnCount": 2,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -486,7 +526,12 @@
             "power": 1,
             "activationType": "ON_ATTACK",
             "turnCount": 6,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -517,7 +562,12 @@
             "power": -1,
             "activationType": "ON_DEFENCE",
             "turnCount": -1,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -571,7 +621,12 @@
             "power": -1,
             "activationType": "ON_ATTACK",
             "turnCount": -1,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -602,7 +657,12 @@
             "power": 2,
             "activationType": "ON_DEATH",
             "turnCount": 1,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -633,7 +693,12 @@
             "power": 6,
             "activationType": "ON_ATTACK",
             "turnCount": 2,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -664,7 +729,12 @@
             "power": -1,
             "activationType": "COMBO",
             "turnCount": -1,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -786,7 +856,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 2,
                 "side": "ENEMY",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -820,7 +895,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 0,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -854,7 +934,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 0,
                 "side": "ENEMY",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -888,7 +973,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 3,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               },
               {
                 "type": "HOLY",
@@ -898,7 +988,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 3,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1057,7 +1152,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 1000000,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1091,7 +1191,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 1000000,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1168,7 +1273,12 @@
                 "power": -1,
                 "activationType": "ON_ATTACK",
                 "turnCount": 2,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1245,7 +1355,12 @@
                 "power": 1,
                 "activationType": "ON_ATTACK",
                 "turnCount": 6,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1276,7 +1391,12 @@
                 "power": -1,
                 "activationType": "ON_DEFENCE",
                 "turnCount": -1,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1330,7 +1450,12 @@
                 "power": -1,
                 "activationType": "ON_ATTACK",
                 "turnCount": -1,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1361,7 +1486,12 @@
                 "power": 2,
                 "activationType": "ON_DEATH",
                 "turnCount": 1,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1392,7 +1522,12 @@
                 "power": 6,
                 "activationType": "ON_ATTACK",
                 "turnCount": 2,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1423,7 +1558,12 @@
                 "power": -1,
                 "activationType": "COMBO",
                 "turnCount": -1,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1544,7 +1684,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 2,
               "side": "ENEMY",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1578,7 +1723,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 0,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1612,7 +1762,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 0,
               "side": "ENEMY",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1646,7 +1801,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 3,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             },
             {
               "type": "HOLY",
@@ -1656,7 +1816,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 3,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1815,7 +1980,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 1000000,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1849,7 +2019,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 1000000,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1926,7 +2101,12 @@
               "power": -1,
               "activationType": "ON_ATTACK",
               "turnCount": 2,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2003,7 +2183,12 @@
               "power": 1,
               "activationType": "ON_ATTACK",
               "turnCount": 6,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2034,7 +2219,12 @@
               "power": -1,
               "activationType": "ON_DEFENCE",
               "turnCount": -1,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2088,7 +2278,12 @@
               "power": -1,
               "activationType": "ON_ATTACK",
               "turnCount": -1,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2119,7 +2314,12 @@
               "power": 2,
               "activationType": "ON_DEATH",
               "turnCount": 1,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2150,7 +2350,12 @@
               "power": 6,
               "activationType": "ON_ATTACK",
               "turnCount": 2,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2181,7 +2386,12 @@
               "power": -1,
               "activationType": "COMBO",
               "turnCount": -1,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
