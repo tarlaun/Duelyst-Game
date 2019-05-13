@@ -410,6 +410,8 @@ public class View {
             case NOT_ABLE_TO_ATTACK:
                 System.out.println("You are not able to attack right now... (exhausted)");
                 break;
+            case BATTLE_FINISHED:
+                System.out.println("Battle finished >:D");
         }
     }
 

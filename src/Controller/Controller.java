@@ -182,7 +182,7 @@ public class Controller {
                     showCardInfo(request);
                     break;
                 case SELECTION:
-                    select(request);
+                    // select(request);
                     break;
                 case MOVE:
                     moveToInBattle(request);
@@ -190,18 +190,18 @@ public class Controller {
                 case ATTACK:
                     battleAttack(request);
                     break;
-                case COMBO:
+                /*case COMBO:
                     battleComboAttack(request);
                     break;
                 case USE_SP:
                     specialPowerValidation();
-                    if (battle.validSpecialPower() == null) {
+                    *//*if (battle.validSpecialPower() == null) {
                         useSpecialPower(request);
-                    }
+                    }*//*
                     break;
                 case SHOW_HAND:
                     showHand();
-                    break;
+                    break;*/
                 case INSERTION:
                     insertCard(request);
                     break;
@@ -209,7 +209,7 @@ public class Controller {
                     endTurn();
                     AiFunctions();
                     break;
-                case SHOW_COLLECTABLES:
+             /*   case SHOW_COLLECTABLES:
                     showCollectables();
                     break;
                 case SHOW_COLLECTABLE_INFO:
@@ -230,6 +230,7 @@ public class Controller {
                 case SHOW_MENU:
                     showMenu();
                     break;
+                    */
             }
         }
     }
@@ -239,6 +240,8 @@ public class Controller {
             insertAI();
             moveAI();
             attackAI();
+            endTurn();
+            showMap();
         }
     }
 
@@ -281,7 +284,7 @@ public class Controller {
     private void setBattleMode(Request request) {
         if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
             battle.setMode(request.getBattleMode(request.getCommand()));
-            if(battle.getGameType().equals(GameType.SINGLEPLAYER)) {
+            if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
                 setMainDeckForAI();
             }
             if (battle.getGameType() == GameType.MULTIPLAYER) {
@@ -341,6 +344,15 @@ public class Controller {
                     }
                 }
             }
+            int counter = 0;
+            for (int i = 0; i < battle.getFieldCards()[0].length; i++) {
+                if (battle.getFieldCards()[0][i] != null) {
+                    counter++;
+                }
+            }
+            if (counter == 0) {
+                view.showAttack(Message.BATTLE_FINISHED);
+            }
         }
     }
 
@@ -356,14 +368,14 @@ public class Controller {
     }
 
     private void AIbestCoInsrtion(int i, int j) {
-        for (int k = -1; k < 2; k++) {
-            for (int l = -1; l < 2; l++) {
-                if (l == 0 && k == 0) {
+        for (int k = -6; k < 7; k++) {
+            for (int l = -6; l < 7; l++) {
+                if ((l == 0 && k == 0) || l + k > 6) {
                     break;
                 }
                 if (battle.getFieldCards()[1][i] != null && battle.getFieldCards()[0][j] != null && (battle.getFieldCards()[1][i].getCoordinate().getX() + k == battle.getFieldCards()[0][j].getCoordinate().getX()) &&
                         battle.getFieldCards()[1][i].getCoordinate().getY() + l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
-                    battle.attack(battle.getFieldCards()[0][j].getId(),battle.getFieldCards()[1][i] );
+                    battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
                     return;
                 }
                /* if(battle.setTargetCoordinates(battle.getFieldCards()[1][i])!=null &&  ){
@@ -373,13 +385,14 @@ public class Controller {
         }
     }
 
-    public int findEnemy(Coordinate c1){
-        return battle.getField(c1.getX(),c1.getY()).getCardID();
+    public int findEnemy(Coordinate c1) {
+        return battle.getField(c1.getX(), c1.getY()).getCardID();
     }
 
     private boolean insertAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
+            //estefade az se tabe baraye piadesazi insertion ai
             battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
             return true;
         }
@@ -632,13 +645,13 @@ public class Controller {
         }
     }
 
-    public void select(Request request) {
+    /*public void select(Request request) {
         if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int card = request.getObjectID(request.getCommand());
             int item = request.getObjectID(request.getCommand());
             view.printSelectionResult(battle.selectCard(card), battle.selectCollectibleId(item));
         }
-    }
+    }*/
 
     public void moveToInBattle(Request request) {
         if (request.checkMoveSyntax() && menu.getStat() == MenuStat.BATTLE) {
@@ -655,7 +668,7 @@ public class Controller {
         }
     }
 
-    public void battleComboAttack(Request request) {
+    /*public void battleComboAttack(Request request) {
         if (request.checkComboSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int oppId = request.getOppIdInCombo(request.getCommand());
             int[] ids = request.getComboComradesId(request.getCommand());
@@ -679,7 +692,7 @@ public class Controller {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCards(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
         }
-    }
+    }*/
 
     public void insertCard(Request request) {
         if (request.checkCardInsertSyntax() && menu.getStat() == MenuStat.BATTLE) {
@@ -696,7 +709,7 @@ public class Controller {
         }
     }
 
-    public void showCollectables() {
+    /*public void showCollectables() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCollectables(battle.getCollectibles()[battle.getTurnByAccount(account)]);
         }
@@ -714,9 +727,9 @@ public class Controller {
                 battle.useItem(battle.getCurrentItem());
             }
         }
-    }
+    }*/
 
-    public void showNextCard() {
+    /*public void showNextCard() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCardInfo(account.getCollection().getMainDeck().getCards().get(0));
         }
@@ -740,7 +753,7 @@ public class Controller {
             view.endGame(battle);
         }
     }
-
+*/
     public void showMenu() {
         view.printOptions();
     }
