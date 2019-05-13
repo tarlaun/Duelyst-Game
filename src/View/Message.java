@@ -35,5 +35,6 @@ public enum Message {
     FULL_CELL,
     SUCCESSFUL_INSERT,
     INVALID_CARD,
-    BATTLE_STARTED
+    BATTLE_STARTED,
+    NULL
 }

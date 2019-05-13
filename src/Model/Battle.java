@@ -52,6 +52,14 @@ public class Battle {
         return battle;
     }
 
+    public ArrayList<Flag> getFlagsOnTheGround() {
+        return flagsOnTheGround;
+    }
+
+    public void setFlagsOnTheGround(ArrayList<Flag> flagsOnTheGround) {
+        this.flagsOnTheGround = flagsOnTheGround;
+    }
+
     public Item[][] getCollectibles() {
         return collectibles;
     }
@@ -248,6 +256,7 @@ public class Battle {
             return false;
         }
         currentCard = card;
+        currentCoordinate = currentCard.getCoordinate();
         return true;
     }
 
@@ -301,7 +310,7 @@ public class Battle {
         if (targetCard == null) {
             return Message.INVALID_TARGET;
         }
-        if (!isInRange(targetCard, currentCard) && !accounts[1].getName().equals("powerfulAI")) {
+        if (!isInRange(targetCard, currentCard)) {//&& !accounts[1].getName().equals("powerfulAI")
             return Message.UNAVAILABLE;
         }
         if (!currentCard.isAbleToAttack()) {
@@ -548,7 +557,7 @@ public class Battle {
             return Message.NOT_ABLE_TO_ATTACK;
         }
         useSpecialPower(card, card.getBuffs().get(0));
-        return null;
+        return Message.NULL;
     }
 
     private void onAttackSpecialPower() {
@@ -936,8 +945,8 @@ public class Battle {
     public void flagAppearance() {
         boolean ableToAddFlag = true;
         while (ableToAddFlag) {
-            int randomX = rand.nextInt(9);
-            int randomY = rand.nextInt(5);
+            int randomX = rand.nextInt(Constants.WIDTH);
+            int randomY = rand.nextInt(Constants.LENGTH);
             if (field[randomX][randomY].getCardID() == 0 && flagsAppeared < Constants.MAXIMUM_FLAGS) {
                 Flag flag = new Flag();
                 flag.setCoordinate(new Coordinate(randomX, randomY));
@@ -948,14 +957,12 @@ public class Battle {
         }
     }
 
-    public void showInfo(int objectId) {
-        if (menu.getStat() == MenuStat.ITEM_SELECTION) {
-            Item.getItemByID(objectId, collectibles[turn % 2]);
-        }
+    public Flag getMainFlag() {
+        return mainFlag;
     }
 
-    public void showNextCard() {
-        showCardInfo(accounts[turn % 2].getCollection().getMainDeck().getCards().get(0).getId());
+    public void setMainFlag(Flag mainFlag) {
+        this.mainFlag = mainFlag;
     }
 
     public ArrayList<Item> chooseCollectibleItems(ArrayList<Item> items) {
@@ -1247,6 +1254,7 @@ public class Battle {
     }
 
     public void applyBuff(Buff buff, Card card) {
+        buff.setTurnCount(buff.getTurnCount() - 1);
         card.getCastedBuffs().add(buff);
         switch (buff.getType()) {
             case POISON:
