@@ -834,7 +834,7 @@ public class Battle {
                         checkForWeakness(card, buff);
                         checkForHoly(card, buff);
                         checkForJen(card, buff);
-                        if (buff.getTurnCount() == 0) {
+                        if (buff.getTurnCount() == 0 && buff.getDispelType()!=DispelType.PERMANENT) {
                             card.removeFromBuffs(buff);
                         }
                     }
