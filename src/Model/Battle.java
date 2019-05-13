@@ -1282,16 +1282,16 @@ public class Battle {
     public Coordinate setCardCoordinates() {
         for (int i = 0; i < fieldCards[1].length; i++) {
             if (fieldCards[1][i] != null) {
-                if (field[fieldCards[1][i].getCoordinate().getX() + 1][fieldCards[1][i].getCoordinate().getY()].getCardID() == 0) {
+                if (field[fieldCards[1][i].getCoordinate().getX() + 1][fieldCards[1][i].getCoordinate().getY()].getCardID() == 0&& turn%8==1) {
                     return new Coordinate(fieldCards[1][i].getCoordinate().getX() + 1, fieldCards[1][i].getCoordinate().getY());
                 }
-                if (field[fieldCards[1][i].getCoordinate().getX() - 1][fieldCards[1][i].getCoordinate().getY()].getCardID() == 0) {
+                if (field[fieldCards[1][i].getCoordinate().getX() - 1][fieldCards[1][i].getCoordinate().getY()].getCardID() == 0&& turn%8==3) {
                     return new Coordinate(fieldCards[1][i].getCoordinate().getX() - 1, fieldCards[1][i].getCoordinate().getY());
                 }
-                if (field[fieldCards[1][i].getCoordinate().getX()][fieldCards[1][i].getCoordinate().getY() - 1].getCardID() == 0) {
+                if (field[fieldCards[1][i].getCoordinate().getX()][fieldCards[1][i].getCoordinate().getY() - 1].getCardID() == 0&& turn%8==5) {
                     return new Coordinate(fieldCards[1][i].getCoordinate().getX() + 1, fieldCards[1][i].getCoordinate().getY() - 1);
                 }
-                if (field[fieldCards[1][i].getCoordinate().getX()][fieldCards[1][i].getCoordinate().getY() + 1].getCardID() == 0) {
+                if (field[fieldCards[1][i].getCoordinate().getX()][fieldCards[1][i].getCoordinate().getY() + 1].getCardID() == 0&& turn%8==7) {
                     return new Coordinate(fieldCards[1][i].getCoordinate().getX(), fieldCards[1][i].getCoordinate().getY() + 1);
                 }
             }
@@ -1342,10 +1342,41 @@ public class Battle {
 
             }
         }
+        if(card.getType().equals("Hero")){
+
+        }
         return null;
 
     }
 
+    public boolean AIAssaultTypeBasedInsertion(int i, int j) {
+        if (!battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE) && Coordinate.getManhattanDistance(battle.getFieldCards()[0][j].getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
+                battle.getFieldCards()[1][i].getMaxRange()) {
+            battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
+            return true;
+        } else if (battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE)) {
+            AIbestCoInsrtion(i, j);
+        }
+        return false;
+    }
+
+    private void AIbestCoInsrtion(int i, int j) {
+        for (int k = -6; k < 7; k++) {
+            for (int l = -6; l < 7; l++) {
+                if ((l == 0 && k == 0) || l + k > 6) {
+                    break;
+                }
+                if (battle.getFieldCards()[1][i] != null && battle.getFieldCards()[0][j] != null && (battle.getFieldCards()[1][i].getCoordinate().getX() + k == battle.getFieldCards()[0][j].getCoordinate().getX()) &&
+                        battle.getFieldCards()[1][i].getCoordinate().getY() + l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
+                    battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
+                    return;
+                }
+               /* if(battle.setTargetCoordinates(battle.getFieldCards()[1][i])!=null &&  ){
+                    battle.attack(,battle.getFieldCards()[1][i]);
+                }*/
+            }
+        }
+    }
 
     private int getMiratarin(ArrayList<Card> closestEnemyCards) {
         int leastHp = 100;
@@ -1582,7 +1613,7 @@ public class Battle {
                         for (int k = -1; k < 2; k++) {
                             for (int j = -1; j < 2; j++) {
                                 for (int i = 0; i < getFieldCards()[0].length; i++) {
-                                    if (getFieldCards()[0][i].getCoordinate().equals(new Coordinate(card.getCoordinate().getX() + k, card.getCoordinate().getY() + j))) {
+                                    if (fieldCards[0][i]!= null &&getFieldCards()[0][i].getCoordinate().equals(new Coordinate(card.getCoordinate().getX() + k, card.getCoordinate().getY() + j))) {
                                         if (getFieldCards()[0][i].getType().equals("Hero")) {
                                             return card.getCoordinate();
                                         }
@@ -1594,14 +1625,14 @@ public class Battle {
                         Coordinate i = checkHeroDistance(card);
                         if (i != null) return i;
                         if (enemyIsNear) return card.getCoordinate();
-                        return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY());
+                        return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY()-1);
                     }
                     break;
                 case RANGED:
                 case HYBRID:
                     if (checkForHero(card)) return card.getCoordinate();
                     for (int i = 0; i < fieldCards[0].length; i++) {
-                        if (fieldCards[0][i].getType().equals("Hero") && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) <= card.getMaxRange() + 2) {
+                        if (fieldCards[0][i]!=null&&fieldCards[0][i].getType().equals("Hero") && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) <= card.getMaxRange() + 2) {
                             if (checkFourQuartersOfGround(fieldCards[0][i].getCoordinate(), card.getCoordinate()) == 1) {
                                 return validateMovement(new Coordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY() - 1));
                             }
@@ -1618,18 +1649,17 @@ public class Battle {
                     }
                     ArrayList<Card> cards = new ArrayList<>();
                     for (int i = 0; i < fieldCards.length; i++) {
-                        if (Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) < card.getMaxRange()) {
+                        if (fieldCards[0][i]!=null&&Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) < card.getMaxRange()) {
                             cards.add(fieldCards[0][i]);
                         }
                     }
                     if (cards.size() != 0) return cards.get(0).getCoordinate();
-                    return card.getCoordinate();
+                    return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY()-1);
             }
             if (!card.isAbleToMove()) {
                 return card.getCoordinate();
             }
         } else if (card.getType().equals("Hero")) {
-           // return validateMovement(new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1));
             for (int i = 0; i < fieldCards[turn % 2].length; i++) {
                 if (fieldCards[turn % 2][i]!=null) {
                     Card enemyCard = Card.getCardByName(fieldCards[turn % 2][i].getName(),fieldCards[(turn ) % 2]);
@@ -1644,20 +1674,6 @@ public class Battle {
                     }
                 }
             }
-          /*  for (int i = 0; i < playerHands[turn % 2].length; i++) {
-                if (playerHands[turn % 2][i]!=null) {
-                    Card enemyCard = playerHands[turn % 2][i];
-                    if (card.getCoordinate().getX() == enemyCard.getCoordinate().getX()) {
-                        return validateMovement(new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1));
-                    }
-                    if (card.getCoordinate().getX() >= enemyCard.getCoordinate().getX()) {
-                        return validateMovement(new Coordinate(card.getCoordinate().getX() - 1, card.getCoordinate().getY()));
-                    }
-                    if (card.getCoordinate().getX() <= enemyCard.getCoordinate().getX()) {
-                        return validateMovement(new Coordinate(card.getCoordinate().getX() + 1, card.getCoordinate().getY()));
-                    }
-                }
-            }*/
         }
         return card.getCoordinate();
     }
@@ -1684,7 +1700,7 @@ public class Battle {
 
     private boolean checkForHero(Card card) {
         for (int i = 0; i < fieldCards[0].length; i++) {
-            if (fieldCards[0][i].getType().equals("Hero") && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) <= card.getMaxRange()) {
+            if (fieldCards[0][i]!=null&&fieldCards[0][i].getType().equals("Hero") && Coordinate.getManhattanDistance(fieldCards[0][i].getCoordinate(), card.getCoordinate()) <= card.getMaxRange()) {
                 return true;
             }
         }
@@ -1730,8 +1746,19 @@ public class Battle {
                 whichCard = i;
             }
         }
-        Card card = cards.get(whichCard);
-        cards.remove(whichCard);
+        int leastMana = 20;
+        int whichCard2 = 0;
+        for (int i = 0; i <getPlayerHands()[1].length ; i++) {
+            if(getPlayerHands()[1][i].getManaPoint()<leastMana){
+                leastMana=getPlayerHands()[1][i].getManaPoint();
+                whichCard2 = i;
+            }
+            if(getPlayerHands()[1][whichCard].getManaPoint()==getPlayerHands()[1][i].getManaPoint()){
+                whichCard2=whichCard;
+            }
+        }
+        Card card = cards.get(whichCard2);
+        cards.remove(whichCard2);
         return card;
     }
 
