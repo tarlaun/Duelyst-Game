@@ -37,6 +37,58 @@ public class Battle {
     private boolean attackMode;
     private boolean isOnSpawn;
 
+    public Card[][] getGraveyard() {
+        return graveyard;
+    }
+
+    public ArrayList<Item> getBattleCollectibles() {
+        return battleCollectibles;
+    }
+
+    public Process getProcess() {
+        return process;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public Random getRand() {
+        return rand;
+    }
+
+    public Match getFirstPlayerMatch() {
+        return firstPlayerMatch;
+    }
+
+    public Match getSecondPlayerMatch() {
+        return secondPlayerMatch;
+    }
+
+    public int getFlagsAppeared() {
+        return flagsAppeared;
+    }
+
+    public Flag getMainFlag() {
+        return mainFlag;
+    }
+
+    public static Battle getBattle() {
+        return battle;
+    }
+
+    public boolean isAttackMode() {
+        return attackMode;
+    }
+
+    public boolean isOnSpawn() {
+        return isOnSpawn;
+    }
+
     public ArrayList<Flag> getFlagsOnTheGround() {
         return flagsOnTheGround;
     }
@@ -92,8 +144,8 @@ public class Battle {
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
             return Message.INVALID_PLAYERS;
         }
-        // randomizeDeck(0);
-        //randomizeDeck(1);
+         randomizeDeck(0);
+        randomizeDeck(1);
         for (int i = 0; i < 5; i++) {
             addToHand(0);
             addToHand(1);
@@ -357,14 +409,12 @@ public class Battle {
 
 
 
-/*
 
     private void checkOnAttackSpecials(Card currentCard) {
         if (currentCard.getBuffs().size() >= 1 && currentCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_ATTACK)) {
             onAttackSpecialPower();
         }
     }
-*/
 
     public Card getCurrentCard() {
         return currentCard;
@@ -495,7 +545,6 @@ public class Battle {
 
         }
     }
-/*
 
     public Message attackCombo(int opponentCardId, Card... cards) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
@@ -515,7 +564,6 @@ public class Battle {
         }
         return null;
     }
-*/
 
     public boolean isInRange(Card targetCard, Card currentCard) {
         if (targetCard == null || currentCard == null) {
@@ -534,7 +582,7 @@ public class Battle {
         }
         return true;
     }
-/*
+
     public Message holifyCell(Coordinate coordinate) {
         Cell cell = field[coordinate.getX()][coordinate.getY()];
         if (!cell.isHoly()) {
@@ -730,7 +778,7 @@ public class Battle {
                 break;
         }
         useSpecialPower(card, card.getBuffs().get(1));
-    }*/
+    }
 
     public Message insertCard(Coordinate coordinate, String cardName) {
         boolean validTarget = false;

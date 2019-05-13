@@ -16,14 +16,14 @@ public class Controller {
     private Battle battle = Battle.getInstance();
     private static final Controller controller = new Controller();
 
-   /* public boolean checkForAIAccount(Account account){
+    public boolean checkForAIAccount(Account account){
         for (int i = 0; i < game.getAccounts().size() ; i++) {
             if(game.getAccounts().get(i).getName().equals("powerfulAI")){
                 return true;
             }
         }
         return false;
-    }*/
+    }
 
     private Controller() {
 
@@ -209,7 +209,7 @@ public class Controller {
                     endTurn();
                     AiFunctions();
                     break;
-             /*   case SHOW_COLLECTABLES:
+                case SHOW_COLLECTABLES:
                     showCollectables();
                     break;
                 case SHOW_COLLECTABLE_INFO:
@@ -230,7 +230,6 @@ public class Controller {
                 case SHOW_MENU:
                     showMenu();
                     break;
-                    */
             }
         }
     }
@@ -628,13 +627,13 @@ public class Controller {
         }
     }
 
-    /*public void select(Request request) {
+    public void select(Request request) {
         if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int card = request.getObjectID(request.getCommand());
             int item = request.getObjectID(request.getCommand());
             view.printSelectionResult(battle.selectCard(card), battle.selectCollectibleId(item));
         }
-    }*/
+    }
 
     public void moveToInBattle(Request request) {
         if (request.checkMoveSyntax() && menu.getStat() == MenuStat.BATTLE) {
@@ -651,7 +650,7 @@ public class Controller {
         }
     }
 
-    /*public void battleComboAttack(Request request) {
+    public void battleComboAttack(Request request) {
         if (request.checkComboSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int oppId = request.getOppIdInCombo(request.getCommand());
             int[] ids = request.getComboComradesId(request.getCommand());
@@ -670,7 +669,7 @@ public class Controller {
 
         }
     }
-*/
+
     public void showHand() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCards(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
@@ -692,7 +691,7 @@ public class Controller {
         }
     }
 
-    /*public void showCollectables() {
+    public void showCollectables() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCollectables(battle.getCollectibles()[battle.getTurnByAccount(account)]);
         }
@@ -710,9 +709,9 @@ public class Controller {
                 battle.useItem(battle.getCurrentItem());
             }
         }
-    }*/
+    }
 
-    /*public void showNextCard() {
+    public void showNextCard() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCardInfo(account.getCollection().getMainDeck().getCards().get(0));
         }
@@ -736,63 +735,9 @@ public class Controller {
             view.endGame(battle);
         }
     }
-*/
+
     public void showMenu() {
         view.printOptions();
     }
 
-/*    public void chooseBattleDetails(Request request) {
-        GameType type;
-        BattleMode mode;
-        view.chooseMultiOrSingle();
-        String multiOrSingle = request.getNewCommand();
-        if (multiOrSingle.equals("Multiplayer")) {
-            battle.setGameType(GameType.MULTI_PLAYER);
-            Account[] accounts = new Account[2];
-            if (battle.getAccounts().length == 1) {
-                accounts[0] = battle.getAccounts()[0];
-                accounts[1] = account;
-                battle.setAccounts(accounts);
-            }
-            if (battle.getAccounts().length == 0) {
-                accounts[0] = account;
-                accounts[1] = null;
-                battle.setAccounts(accounts);
-            }
-        } else if (multiOrSingle.equals("Singleplayer")) {
-            Account[] accounts = new Account[2];
-            accounts[0] = account;
-            for (int i = 0; i < game.getAccounts().size(); i++) {
-                if (game.getAccounts().get(i).getName().equals("powerfulAI")) {
-                    accounts[1] = game.getAccounts().get(i);
-
-                }
-            }
-            battle.setAccounts(accounts);
-            battle.setGameType(GameType.SINGLE_PLAYER);
-        } else {
-            view.printInvalidCommand();
-        }
-        view.chooseBattleMode();
-        String modeString = request.getNewCommand();
-        switch (modeString) {
-            case "KILLENEMYHERO":
-                battle.setMode(BattleMode.KILLENEMYHERO);
-                view.battleCreating();
-                break;
-            case "HOLD_FLAG":
-                battle.setMode(BattleMode.HOLD_FLAG);
-                view.battleCreating();
-                break;
-            case "COLLECT_FLAG":
-                battle.setMode(BattleMode.COLLECT_FLAG);
-                view.battleCreating();
-                break;
-            default:
-                view.printInvalidCommand();
-                break;
-        }
-
-
-    }*/
 }
