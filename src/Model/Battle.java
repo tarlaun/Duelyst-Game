@@ -599,10 +599,12 @@ public class Battle {
             useHeroSP(card, currentCoordinate);
             return;
         }
+/*
         if (card.getType().equals("Spell")) {
             useSpell(card, currentCoordinate);
             return;
         }
+*/
         int r;
         switch (buff.getType()) {
             case HOLY:
@@ -701,7 +703,7 @@ public class Battle {
                     return Message.INVALID_TARGET;
                 for (Card card : fieldCards[turn % 2]) {
                     try {
-                        if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) == 1) {
+                        if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) <= 1) {
                             validTarget = true;
                             break;
                         }
@@ -724,7 +726,11 @@ public class Battle {
                     fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
                     return Message.SUCCESSFUL_INSERT;
                 } else if (insert.isClass("Spell")) {
-                    useSpell(insert, coordinate);
+                    if (useSpell(insert, coordinate)) {
+                        playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
+                        return Message.SUCCESSFUL_INSERT;
+                    }
+                    return Message.INVALID_TARGET;
                 }
             }
 
@@ -1077,31 +1083,37 @@ public class Battle {
                         switch (buff.getSide()) {
                             case COMRADE:
                                 for (Card card : fieldCards[turn % 2]) {
-                                    if (card.isClass(buff.getTargetType())
-                                            || card.getCoordinate().equals(target.sum(coordinate)))
-                                        continue;
-                                    applyBuff(buff, card);
-                                    return true;
+                                    try {
+                                        if (checkForValidSpellTargetSpecific(card, buff, target, coordinate)) {
+                                            applyBuff(buff, card);
+                                            return true;
+                                        }
+                                    } catch (NullPointerException e) {
+                                    }
                                 }
                                 break;
                             case ENEMY:
                                 for (Card card : fieldCards[(turn + 1) % 2]) {
-                                    if (card.isClass(buff.getTargetType())
-                                            || card.getCoordinate().equals(target.sum(coordinate)))
-                                        continue;
-                                    applyBuff(buff, card);
-                                    return true;
+                                    try {
+                                        if (checkForValidSpellTargetSpecific(card, buff, target, coordinate)) {
+                                            applyBuff(buff, card);
+                                            return true;
+                                        }
+                                    } catch (NullPointerException e) {
+                                    }
                                 }
                                 break;
                             default:
                                 for (Card[] cards : fieldCards) {
                                     for (Card card : cards) {
-                                        if (card.isClass(buff.getTargetType())
-                                                || card.getCoordinate().equals(target.sum(coordinate)))
-                                            continue;
-                                        applyBuff(buff, card);
-                                        return true;
+                                        try {
+                                            if (checkForValidSpellTargetSpecific(card, buff, target, coordinate)) {
+                                                applyBuff(buff, card);
+                                                return true;
+                                            }
+                                        } catch (NullPointerException e) {
 
+                                        }
                                     }
                                 }
                         }
@@ -1111,31 +1123,39 @@ public class Battle {
                     switch (buff.getSide()) {
                         case COMRADE:
                             for (Card card : fieldCards[turn % 2]) {
-                                if (card.isClass(buff.getTargetType())
-                                        || card.getCoordinate().getY() != target.getY())
-                                    continue;
-                                applyBuff(buff, card);
-                                return true;
+                                try {
+                                    if (checkForValidSpellTargetY(card, buff, target)) {
+                                        applyBuff(buff, card);
+                                        return true;
+                                    }
+                                } catch (NullPointerException e) {
+
+                                }
                             }
                             break;
                         case ENEMY:
                             for (Card card : fieldCards[(turn + 1) % 2]) {
-                                if (card.isClass(buff.getTargetType())
-                                        || card.getCoordinate().getY() != target.getY())
-                                    continue;
-                                applyBuff(buff, card);
-                                return true;
+                                try {
+                                    if (checkForValidSpellTargetY(card, buff, target)) {
+                                        applyBuff(buff, card);
+                                        return true;
+                                    }
+                                } catch (NullPointerException e) {
+
+                                }
                             }
                             break;
                         default:
                             for (Card[] cards : fieldCards) {
                                 for (Card card : cards) {
-                                    if (card.isClass(buff.getTargetType())
-                                            || card.getCoordinate().getY() != target.getY())
-                                        continue;
-                                    applyBuff(buff, card);
-                                    return true;
+                                    try {
+                                        if (checkForValidSpellTargetY(card, buff, target)) {
+                                            applyBuff(buff, card);
+                                            return true;
+                                        }
+                                    } catch (NullPointerException e) {
 
+                                    }
                                 }
                             }
 
@@ -1145,31 +1165,37 @@ public class Battle {
                     switch (buff.getSide()) {
                         case COMRADE:
                             for (Card card : fieldCards[turn % 2]) {
-                                if (card.isClass(buff.getTargetType())
-                                        || card.getCoordinate().getX() != target.getX())
-                                    continue;
-                                applyBuff(buff, card);
-                                return true;
+                                try {
+                                    if (checkForValidSpellTargetX(card, buff, target)) {
+                                        applyBuff(buff, card);
+                                        return true;
+                                    }
+                                } catch (NullPointerException e) {
+                                }
                             }
                             break;
                         case ENEMY:
                             for (Card card : fieldCards[(turn + 1) % 2]) {
-                                if (card.isClass(buff.getTargetType())
-                                        || card.getCoordinate().getX() != target.getX())
-                                    continue;
-                                applyBuff(buff, card);
-                                return true;
+                                try {
+                                    if (checkForValidSpellTargetX(card, buff, target)) {
+                                        applyBuff(buff, card);
+                                        return true;
+                                    }
+                                } catch (NullPointerException e) {
+                                }
                             }
                             break;
                         default:
                             for (Card[] cards : fieldCards) {
                                 for (Card card : cards) {
-                                    if (card.isClass(buff.getTargetType())
-                                            || card.getCoordinate().getX() != target.getX())
-                                        continue;
-                                    applyBuff(buff, card);
-                                    return true;
+                                    try {
+                                        if (checkForValidSpellTargetX(card, buff, target)) {
+                                            applyBuff(buff, card);
+                                            return true;
+                                        }
+                                    } catch (NullPointerException e) {
 
+                                    }
                                 }
                             }
                     }
@@ -1178,28 +1204,39 @@ public class Battle {
                     switch (buff.getSide()) {
                         case COMRADE:
                             for (Card card : fieldCards[turn % 2]) {
-                                if (card.isClass(buff.getTargetType()))
-                                    continue;
-                                applyBuff(buff, card);
-                                return true;
+                                try {
+                                    if (checkForValidSpellTarget(card, buff)) {
+                                        applyBuff(buff, card);
+                                        return true;
+                                    }
+                                } catch (NullPointerException e) {
+
+                                }
                             }
                             break;
                         case ENEMY:
                             for (Card card : fieldCards[(turn + 1) % 2]) {
-                                if (card.isClass(buff.getTargetType()))
-                                    continue;
-                                applyBuff(buff, card);
-                                return true;
+                                try {
+                                    if (checkForValidSpellTarget(card, buff)) {
+                                        applyBuff(buff, card);
+                                        return true;
+                                    }
+                                } catch (NullPointerException e) {
+
+                                }
                             }
                             break;
                         default:
                             for (Card[] cards : fieldCards) {
                                 for (Card card : cards) {
-                                    if (card.isClass(buff.getTargetType()))
-                                        continue;
-                                    applyBuff(buff, card);
-                                    return true;
+                                    try {
+                                        if (checkForValidSpellTarget(card, buff)) {
+                                            applyBuff(buff, card);
+                                            return true;
+                                        }
+                                    } catch (NullPointerException e) {
 
+                                    }
                                 }
                             }
                     }
@@ -1234,6 +1271,40 @@ public class Battle {
                 card.modifyHealth(buff.getPower());
                 break;
         }
+    }
+
+    private boolean checkForValidSpellTargetSpecific(Card card, Buff buff, Coordinate target, Coordinate coordinate) {
+        if (checkForValidSpellTarget(card, buff)) {
+            if (card.getCoordinate().equals(target.sum(coordinate))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkForValidSpellTargetY(Card card, Buff buff, Coordinate target) {
+        if (checkForValidSpellTarget(card, buff)) {
+            if (card.getCoordinate().getY() == target.getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkForValidSpellTargetX(Card card, Buff buff, Coordinate target) {
+        if (checkForValidSpellTarget(card, buff)) {
+            if (card.getCoordinate().getX() == target.getX()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkForValidSpellTarget(Card card, Buff buff) {
+        if (card.isClass(buff.getTargetType()) || buff.getTargetType().equals("Card")) {
+            return true;
+        }
+        return false;
     }
 
     //******************************************************************************************************************
