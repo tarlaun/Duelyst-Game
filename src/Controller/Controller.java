@@ -16,15 +16,6 @@ public class Controller {
     private Battle battle = Battle.getInstance();
     private static final Controller controller = new Controller();
 
-    public boolean checkForAIAccount(Account account){
-        for (int i = 0; i < game.getAccounts().size() ; i++) {
-            if(game.getAccounts().get(i).getName().equals("powerfulAI")){
-                return true;
-            }
-        }
-        return false;
-    }
-
     private Controller() {
 
     }
@@ -182,7 +173,7 @@ public class Controller {
                     showCardInfo(request);
                     break;
                 case SELECTION:
-                    // select(request);
+                     select(request);
                     break;
                 case MOVE:
                     moveToInBattle(request);
@@ -190,18 +181,18 @@ public class Controller {
                 case ATTACK:
                     battleAttack(request);
                     break;
-                /*case COMBO:
+                case COMBO:
                     battleComboAttack(request);
                     break;
                 case USE_SP:
                     specialPowerValidation();
-                    *//*if (battle.validSpecialPower() == null) {
+                    if (battle.validSpecialPower() == null) {
                         useSpecialPower(request);
-                    }*//*
+                    }
                     break;
                 case SHOW_HAND:
                     showHand();
-                    break;*/
+                    break;
                 case INSERTION:
                     insertCard(request);
                     break;
@@ -236,6 +227,7 @@ public class Controller {
 
     private void AiFunctions() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
+            System.out.println(battle.getAccounts()[1].getBudget());
             moveAI();
             if(battle.getMode().equals(BattleMode.COLLECTING)){
                 if (battle.checkForWin()) {
@@ -265,7 +257,7 @@ public class Controller {
                 menu.setStat(MenuStat.BATTLE);
                 battle.startBattle();
                 view.endTurn(account);
-            } catch (NullPointerException e) {
+            } catch (NullPointerException ignored) {
             }
         }
     }
@@ -365,23 +357,15 @@ public class Controller {
         }
     }
 
-
-
-    public int findEnemy(Coordinate c1) {
-        return battle.getField(c1.getX(), c1.getY()).getCardID();
-    }
-
-    private boolean insertAI() {
+    private void insertAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
             //estefade az se tabe baraye piadesazi insertion ai
             battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
-            return true;
         }
-        return false;
     }
 
-    public ArrayList<Card> convertArrayToList(Card[] cards) {
+    private ArrayList<Card> convertArrayToList(Card[] cards) {
         return new ArrayList<>(Arrays.asList(cards));
     }
 
@@ -389,7 +373,7 @@ public class Controller {
         view.printInvalidCommand();
     }
 
-    public void createAccount(Request request) {
+    private void createAccount(Request request) {
         if (request.checkAccountCreationSyntax() && menu.getStat() == MenuStat.MAIN) {
             String username = request.getAccountName(request.getCommand());
             view.passwordInsertion();
@@ -400,7 +384,7 @@ public class Controller {
         }
     }
 
-    public void showMatchHistory(Request request) {
+    private void showMatchHistory(Request request) {
         if (request.checkMatchHistory() && menu.getStat() == MenuStat.ACCOUNT) {
             if (battle.getGameType() == GameType.SINGLEPLAYER) {
                 view.showMatchHistory(account.getMatchHistory(), battle.getLevel());
@@ -410,7 +394,7 @@ public class Controller {
         }
     }
 
-    public String getOpponentName(Account account) {
+    private String getOpponentName(Account account) {
         for (int i = 0; i < battle.getAccounts().length; i++) {
             if (!battle.getAccounts()[i].getName().equals(account.getName())) {
                 return battle.getAccounts()[i].getName();
@@ -419,7 +403,7 @@ public class Controller {
         return null;
     }
 
-    public void login(Request request) {
+    private void login(Request request) {
         if (request.checkLoginSyntax() && menu.getStat() == MenuStat.MAIN) {
             String username = request.getAccountName(request.getCommand());
             view.passwordInsertion();
@@ -430,19 +414,19 @@ public class Controller {
         }
     }
 
-    public void showLeaderBoard(Request request) {
+    private void showLeaderBoard(Request request) {
         if (request.checkLeaderBoardSyntax() && menu.getStat() == MenuStat.ACCOUNT) {
             view.printLeaderboard();
         }
     }
 
-    public void save() {
+    private void save() {
         if (menu.getStat() == MenuStat.ACCOUNT) {
             game.save(account);
         }
     }
 
-    public void logout() {
+    private void logout() {
         if (menu.getStat() == MenuStat.ACCOUNT) {
             game.logout(account);
             this.account = null;
@@ -450,11 +434,11 @@ public class Controller {
         }
     }
 
-    public void help() {
+    private void help() {
         view.printHelp();
     }
 
-    public void enter(Request request) {
+    private void enter(Request request) {
         if (request.checkMenuEntrnaceSyntax()) {
             switch (request.getMenu(request.getCommand())) {
                 case "Exit":
@@ -474,18 +458,18 @@ public class Controller {
         }
     }
 
-    public void exit() {
+    private void exit() {
         menu.exitMenu();
     }
 
-    public void showTheCollection() {
+    private void showTheCollection() {
         if (menu.getStat() == MenuStat.SHOP) {
             view.printCollection(this.account.getCollection(), true);
         }
     }
 
 
-    public void searchInCollection(Request request) {
+    private void searchInCollection(Request request) {
         if (request.checkSearchTheCollectionSyntax()) {
             if (menu.getStat() == MenuStat.COLLECTION) {
                 String name = request.getObjectName(request.getCommand());
@@ -501,53 +485,53 @@ public class Controller {
         }
     }
 
-    public void saveCollection() {
+    private void saveCollection() {
 
     }
 
-    public void createDeck(Request request) {
+    private void createDeck(Request request) {
         if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
         }
     }
 
-    public void deleteDeck(Request request) {
+    private void deleteDeck(Request request) {
         if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.deleteDeck(this.account.getCollection().deleteDeck(request.getDeckName(request.getCommand())));
         }
     }
 
-    public void addToDeck(Request request) {
+    private void addToDeck(Request request) {
         if (request.checkToDeckAdditionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.addToCollection(this.account.getCollection().add(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
         }
     }
 
-    public void removeFromDeck(Request request) {
+    private void removeFromDeck(Request request) {
         if (request.checkFromDeckDeletionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.removeFromDeck(this.account.getCollection().remove(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
         }
     }
 
-    public void validateDeck(Request request) {
+    private void validateDeck(Request request) {
         if (request.checkValidationSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.checkValidation(this.account.getCollection().validate(request.getDeckName(request.getCommand())));
         }
     }
 
-    public void selectDeck(Request request) {
+    private void selectDeck(Request request) {
         if (request.checkDeckSelectionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.printDeckSelection(this.account.getCollection().selectDeck(request.getDeckName(request.getCommand())));
         }
     }
 
-    public void showAllDecks(Request request) {
+    private void showAllDecks(Request request) {
         if (request.checkShowAllDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.showAllDeck(this.account.getCollection().getDecks());
         }
     }
 
-    public void showDeck(Request request) {
+    private void showDeck(Request request) {
         if (request.checkShowDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             Collection collection = this.account.getCollection();
             try {
@@ -558,7 +542,7 @@ public class Controller {
         }
     }
 
-    public void search(Request request) {
+    private void search(Request request) {
         if (request.checkSearchSyntax()) {
             if (menu.getStat() == MenuStat.COLLECTION) {
                 searchInCollection(request);
@@ -574,19 +558,19 @@ public class Controller {
         }
     }
 
-    public void buy(Request request) {
+    private void buy(Request request) {
         if (request.checkBuySyntax() && menu.getStat() == MenuStat.SHOP) {
             view.printBuyMessages(shop.buy(request.getObjectName(request.getCommand()), this.account));
         }
     }
 
-    public void sell(Request request) {
+    private void sell(Request request) {
         if (request.checkSellSyntax() && menu.getStat() == MenuStat.SHOP) {
             view.printSellMessages(shop.sell(request.getObjectID(request.getCommand()), this.account));
         }
     }
 
-    public void showShop() {
+    private void showShop() {
         if (menu.getStat() == MenuStat.SHOP) {
             view.printCollection(new Collection(shop.getCards(), shop.getItems()), true);
         }
@@ -595,25 +579,25 @@ public class Controller {
         }
     }
 
-    public void gameInfo() {
+    private void gameInfo() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printGameInfo(battle);
         }
     }
 
-    public void showMyMinions() {
+    private void showMyMinions() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
         }
     }
 
-    public void showOppMinions() {
+    private void showOppMinions() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printMinionsInfo(battle.getFieldCards()[(battle.getTurnByAccount(this.account) + 1) % 2]);
         }
     }
 
-    public void showCardInfo(Request request) {
+    private void showCardInfo(Request request) {
         if (menu.getStat() == MenuStat.BATTLE) {
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
                     battle.getPlayerHands()[battle.getTurnByAccount(account)]);
@@ -627,7 +611,7 @@ public class Controller {
         }
     }
 
-    public void select(Request request) {
+    private void select(Request request) {
         if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int card = request.getObjectID(request.getCommand());
             int item = request.getObjectID(request.getCommand());
@@ -635,14 +619,14 @@ public class Controller {
         }
     }
 
-    public void moveToInBattle(Request request) {
+    private void moveToInBattle(Request request) {
         if (request.checkMoveSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Coordinate coordinate = request.getCoordinate(request.getCommand());
             view.showMovement(battle.moveTo(coordinate), battle);
         }
     }
 
-    public void battleAttack(Request request) {
+    private void battleAttack(Request request) {
         if (request.checkAssaultSyntax() && menu.getStat() == MenuStat.BATTLE) {
             Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
                     battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
@@ -650,7 +634,7 @@ public class Controller {
         }
     }
 
-    public void battleComboAttack(Request request) {
+    private void battleComboAttack(Request request) {
         if (request.checkComboSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int oppId = request.getOppIdInCombo(request.getCommand());
             int[] ids = request.getComboComradesId(request.getCommand());
@@ -663,27 +647,27 @@ public class Controller {
         }
     }
 
-    public void useSpecialPower(Request request) {
+    private void useSpecialPower(Request request) {
         if (request.checkSPUsageSyntax() && menu.getStat() == MenuStat.BATTLE) {
             battle.setCurrentCoordinate(request.getCoordinate(request.getCommand()));
 
         }
     }
 
-    public void showHand() {
+    private void showHand() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCards(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
         }
     }
 
-    public void insertCard(Request request) {
+    private void insertCard(Request request) {
         if (request.checkCardInsertSyntax() && menu.getStat() == MenuStat.BATTLE) {
             view.printInsertionMessage(battle.insertCard(request.getCoordinate(request.getCommand()),
                     request.getInsertedName(request.getCommand())), battle);
         }
     }
 
-    public void endTurn() {
+    private void endTurn() {
         if (menu.getStat() == MenuStat.BATTLE) {
             battle.endTurn();
             this.account = battle.getCurrentPlayer();
@@ -691,7 +675,7 @@ public class Controller {
         }
     }
 
-    public void showCollectables() {
+    private void showCollectables() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCollectables(battle.getCollectibles()[battle.getTurnByAccount(account)]);
         }
@@ -703,7 +687,7 @@ public class Controller {
         }
     }
 
-    public void useItem(Request request) {
+    private void useItem(Request request) {
         if (request.checkItemUseSyntax()) {
             if (menu.getStat() == MenuStat.BATTLE || menu.getStat() == MenuStat.ITEM_SELECTION) {
                 battle.useItem(battle.getCurrentItem());
@@ -711,32 +695,32 @@ public class Controller {
         }
     }
 
-    public void showNextCard() {
+    private void showNextCard() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.printCardInfo(account.getCollection().getMainDeck().getCards().get(0));
         }
     }
 
-    public void specialPowerValidation() {
+    private void specialPowerValidation() {
         if (menu.getStat() == MenuStat.BATTLE) {
             view.specialPowerValidation(battle.validSpecialPower());
         }
     }
 
-    public void showCards() {
+    private void showCards() {
         if (menu.getStat() == MenuStat.GRAVEYARD) {
             view.printCards(battle.getGraveyard()[battle.getTurnByAccount(account)]);
         }
     }
 
-    public void endGame() {
+    private void endGame() {
         if (menu.getStat() == MenuStat.BATTLE) {
             battle.endGame();
             view.endGame(battle);
         }
     }
 
-    public void showMenu() {
+    private void showMenu() {
         view.printOptions();
     }
 

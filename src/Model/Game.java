@@ -158,7 +158,7 @@ public class Game {
         sortItems(account.getCollection().getItems());
         Collection collection = account.getCollection();
         for (int i = 0; i < collection.getCards().size(); i++) {
-            if (collection.getCards().get(i).getType().equals("Spell"))
+           /* if (collection.getCards().get(i).getType().equals("Spell"))
                 if (lastSpellId < collection.getCards().get(i).getId())
                     lastSpellId = collection.getCards().get(i).getId();
             if (collection.getCards().get(i).getType().equals("Minion"))
@@ -166,7 +166,7 @@ public class Game {
                     lastMinionId = collection.getCards().get(i).getId();
             if (collection.getCards().get(i).getType().equals("Hero"))
                 if (lastHeroId < collection.getCards().get(i).getId())
-                    lastHeroId = collection.getCards().get(i).getId();
+                    lastHeroId = collection.getCards().get(i).getId();*/
         }
         try {
             lastItemId = account.getCollection().getItems().get(account.getCollection().getItems().size() - 1).getId();
@@ -176,7 +176,7 @@ public class Game {
 
     private void sortCards(ArrayList<Card> cards) {
         Comparator<Card> compareById = Comparator.comparingInt(Card::getId);
-        cards.sort(compareById);
+//        cards.sort(compareById);
     }
 
     private void sortItems(ArrayList<Item> items) {
