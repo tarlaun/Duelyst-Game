@@ -604,31 +604,18 @@
         "isHoly": 0
       },
       {
-        "id": 30309,
-        "name": "LION",
+        "id": 30215,
+        "name": "PERSIAN_ARCHER",
         "type": "Minion",
         "maxPossibleMoving": 2,
-        "price": 600,
-        "healthPoint": 1,
+        "price": 300,
+        "healthPoint": 6,
         "minRange": -1,
-        "maxRange": -1,
-        "assaultPower": 8,
-        "originalAssaultPower": 8,
-        "assaultType": "MELEE",
-        "buffs": [
-          {
-            "type": "LION_ROAR",
-            "power": -1,
-            "activationType": "ON_ATTACK",
-            "turnCount": -1,
-            "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
-          }
-        ],
+        "maxRange": 7,
+        "assaultPower": 4,
+        "originalAssaultPower": 4,
+        "assaultType": "RANGED",
+        "buffs": [],
         "castedBuffs": [],
         "castedItems": [],
         "manaPoint": 2,
@@ -712,34 +699,28 @@
         "isHoly": 0
       },
       {
-        "id": 30314,
-        "name": "SHAGHUL",
-        "type": "Minion",
+        "id": 30313,
+        "name": "PALANG",
         "maxPossibleMoving": 2,
-        "price": 600,
-        "healthPoint": 10,
+        "price": 400,
+        "healthPoint": 6,
         "minRange": -1,
         "maxRange": -1,
-        "assaultPower": 4,
-        "originalAssaultPower": 4,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
         "assaultType": "MELEE",
         "buffs": [
           {
-            "type": "COMBO",
-            "power": -1,
-            "activationType": "COMBO",
-            "turnCount": -1,
-            "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+            "type": "WEAKNESS",
+            "power": 8,
+            "activationType": "ON_ATTACK",
+            "turnCount": 2,
+            "effectArea": []
           }
         ],
         "castedBuffs": [],
         "castedItems": [],
-        "manaPoint": 5,
+        "manaPoint": 4,
         "ableToAttack": false,
         "ableToMove": false,
         "ableToResist": false,
