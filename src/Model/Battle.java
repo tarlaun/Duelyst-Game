@@ -107,9 +107,9 @@ public class Battle {
                 this.field[i][j] = new Cell();
             }
         }
-        if(mode.equals(BattleMode.FLAG)){
+        if (mode.equals(BattleMode.FLAG)) {
             mainFlag = new Flag();
-            Coordinate coordinate= new Coordinate(2,4);
+            Coordinate coordinate = new Coordinate(2, 4);
             mainFlag.setCoordinate(coordinate);
         }
         accounts[0].getCollection().getMainDeck().getHero().setCoordinate(new Coordinate(Constants.WIDTH / 2, 0));
@@ -119,6 +119,7 @@ public class Battle {
         field[Constants.WIDTH / 2][Constants.LENGTH - 1].setCardID(accounts[1].getCollection().getMainDeck().getHero().getId());
         fieldCards[1][0] = accounts[1].getCollection().getMainDeck().getHero();
         currentPlayer = accounts[0];
+        useItem(currentPlayer.getCollection().getMainDeck().getItem());
         return Message.BATTLE_STARTED;
     }
 
@@ -768,6 +769,7 @@ public class Battle {
         currentPlayer = this.accounts[turn % 2];
         currentCard = null;
         targetCard = null;
+        useItem(currentPlayer.getCollection().getMainDeck().getItem());
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < fieldCards[i].length; j++) {
                 try {
@@ -836,7 +838,7 @@ public class Battle {
                         checkForWeakness(card, buff);
                         checkForHoly(card, buff);
                         checkForJen(card, buff);
-                        if (buff.getTurnCount() == 0 && buff.getDispelType()!=DispelType.PERMANENT) {
+                        if (buff.getTurnCount() == 0 && buff.getDispelType() != DispelType.PERMANENT) {
                             card.removeFromBuffs(buff);
                         }
                     }
@@ -1774,6 +1776,7 @@ public class Battle {
     }
 
     public void useItem(Item item) {
+        currentItem = item;
         for (ItemBuff buff : item.getBuffs()) {
             if (buff.getTargetCard().equals("Account")) {
                 applyItem(buff, targetCard);
@@ -1840,6 +1843,7 @@ public class Battle {
                 break;
             case MANA:
                 accounts[turn % 2].modifyMana(buff.getPower());
+                accounts[turn % 2].getCollection().getMainDeck().getHero().getCastedItems().add(buff);
                 return;
         }
         card.getCastedItems().add(buff);
