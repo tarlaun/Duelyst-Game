@@ -108,6 +108,11 @@ public class Battle {
                 this.field[i][j] = new Cell();
             }
         }
+        if(mode.equals(BattleMode.FLAG)){
+            mainFlag = new Flag();
+            Coordinate coordinate= new Coordinate(2,4);
+            mainFlag.setCoordinate(coordinate);
+        }
         accounts[0].getCollection().getMainDeck().getHero().setCoordinate(new Coordinate(Constants.WIDTH / 2, 0));
         field[Constants.WIDTH / 2][0].setCardID(accounts[0].getCollection().getMainDeck().getHero().getId());
         fieldCards[0][0] = accounts[0].getCollection().getMainDeck().getHero();
@@ -278,10 +283,10 @@ public class Battle {
         currentCard.setCoordinate(coordinate);
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
         if (mode.equals(BattleMode.COLLECTING)) {
-            for (Flag flag :
-                    flagsOnTheGround) {
-                if (currentCard.getCoordinate().equals(flag.getCoordinate())) {
+            for (int i = 0; i < flagsOnTheGround.size(); i++) {
+                if (currentCard.getCoordinate().equals(flagsOnTheGround.get(i).getCoordinate())) {
                     collectFlags();
+                    i--;
                 }
             }
         }

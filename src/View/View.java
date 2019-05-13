@@ -588,6 +588,7 @@ public class View {
 
     public void drawMap(Battle battle) {
         int id;
+        boolean isPrinted = false;
         for (int i = 0; i < Constants.WIDTH; i++) {
             for (int j = 0; j < Constants.LENGTH; j++) {
                 id = battle.getField(i, j).getCardID();
@@ -596,24 +597,30 @@ public class View {
                             battle.getFlagsOnTheGround()) {
                         if (flag.getCoordinate().getX() == i && flag.getCoordinate().getY() == j) {
                             System.out.print("*");
-                            continue;
+                            isPrinted = true;
                         }
                     }
-                    if (battle.getField(i, j).isHoly())
-                        System.out.print("H");
-                    else if (battle.getField(i, j).isFire())
-                        System.out.print("F");
-                    else if (battle.getField(i, j).isPoison())
-                        System.out.print("P");
-                    else
-                        System.out.print("-");
-                } else {
-                    Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
-                    if (card != null) {
-                        System.out.print(ANSI_GREEN + card.getType().charAt(0) + ANSI_RESET);
+                    if (battle.getMainFlag().getCoordinate().getX() == i && battle.getMainFlag().getCoordinate().getX() == j) {
+                        System.out.println("#");
+                        isPrinted = true;
+                    }
+                    if (!isPrinted) {
+                        if (battle.getField(i, j).isHoly())
+                            System.out.print("H");
+                        else if (battle.getField(i, j).isFire())
+                            System.out.print("F");
+                        else if (battle.getField(i, j).isPoison())
+                            System.out.print("P");
+                        else
+                            System.out.print("-");
                     } else {
-                        card = Card.getCardByID(id, battle.getFieldCards()[1]);
-                        System.out.print(ANSI_RED + card.getType().charAt(0) + ANSI_RESET);
+                        Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
+                        if (card != null) {
+                            System.out.print(ANSI_GREEN + card.getType().charAt(0) + ANSI_RESET);
+                        } else {
+                            card = Card.getCardByID(id, battle.getFieldCards()[1]);
+                            System.out.print(ANSI_RED + card.getType().charAt(0) + ANSI_RESET);
+                        }
                     }
                 }
                 System.out.print(" ");
