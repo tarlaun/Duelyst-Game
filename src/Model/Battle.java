@@ -23,8 +23,8 @@ public class Battle {
     private Cell[][] field = new Cell[Constants.WIDTH][Constants.LENGTH];
     private BattleMode mode;
     private GameType gameType;
-    private int saveTurn ;
-    public int opponentCardID=0;
+    private int saveTurn;
+    public int opponentCardID = 0;
     private Process process;
     private Card[][] fieldCards = new Card[2][Constants.MAXIMUM_DECK_SIZE + 1];
     private int level;
@@ -76,9 +76,6 @@ public class Battle {
         return flagsAppeared;
     }
 
-    public Flag getMainFlag() {
-        return mainFlag;
-    }
 
     public static Battle getBattle() {
         return battle;
@@ -90,10 +87,6 @@ public class Battle {
 
     public boolean isOnSpawn() {
         return isOnSpawn;
-    }
-
-    public ArrayList<Flag> getFlagsOnTheGround() {
-        return flagsOnTheGround;
     }
 
     private Battle() {
@@ -389,7 +382,7 @@ public class Battle {
         if (targetCard == null) {
             return Message.INVALID_TARGET;
         }
-        if(currentCard.getName().equals("WOLF")) {
+        if (currentCard.getName().equals("WOLF")) {
             saveTurn = turn;
             opponentCardID = opponentCardId;
         }
@@ -406,7 +399,7 @@ public class Battle {
         checkAttackHistory(opponentCardId, currentCard);
         checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);
-        if(isAttackable(currentCard,targetCard)) {
+        if (isAttackable(currentCard, targetCard)) {
             targetCard.modifyHealth(-currentCard.getAssaultPower());
         }
         killEnemy(targetCard);
@@ -414,8 +407,8 @@ public class Battle {
             menu.setStat(MenuStat.GAME);
             return Message.BATTLE_FINISHED;
         }
-         checkOnAttackSpecials(currentCard);
-         attack(currentCard.getId(), targetCard);
+        checkOnAttackSpecials(currentCard);
+        attack(currentCard.getId(), targetCard);
         return null;
     }
 
@@ -545,7 +538,7 @@ public class Battle {
             for (int i = 0; i < opponentFieldCards.size(); i++) {
                 fieldCards[(turn + 1) % 2][i] = opponentFieldCards.get(i);
             }
-            fieldCards[(turn + 1) % 2][opponentFieldCards.size()] = null;*/
+            fieldCards[(turn + 1) % 2][opponentFieldCards.size()] = null;
 
             for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
                 if (fieldCards[(turn + 1) % 2][i] != null && fieldCards[(turn + 1) % 2][i].getName().equals(targetCard.getName())) {
@@ -652,49 +645,47 @@ public class Battle {
 
     private void onAttackSpecialPower() {
 
-            switch (currentCard.getBuffs().get(0).getType()) {
-                case CHAMPION:
-                    int multiply = currentCard.getAttackCount(targetCard.getId()) * 5;
-                    targetCard.modifyHealth(-multiply);
-                    break;
-                case DISARM:
-                    if (targetCard.getBuffs().size() == 1 &&
-                            !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISARM)) {
-                        targetCard.setAbleToAttack(false);
-                        targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                    }
-                    break;
-                case POISON:
-                    if (targetCard.getBuffs().size() == 1 && !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_POISON)) {
-                        targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                    }
-                    break;
-                case LION_ROAR:
-                    for (Buff buff : targetCard.getCastedBuffs()) {
-                        if (buff.getType().equals(BuffType.HOLY) && buff.getPower() > 0) {
-                            targetCard.modifyHealth(1);
-                        }
-                    }
-                    break;
-                case WEAKNESS:
-                case WHITE_WALKER_WOLF:
-                case STUN:
+        switch (currentCard.getBuffs().get(0).getType()) {
+            case CHAMPION:
+                int multiply = currentCard.getAttackCount(targetCard.getId()) * 5;
+                targetCard.modifyHealth(-multiply);
+                break;
+            case DISARM:
+                if (targetCard.getBuffs().size() == 1 &&
+                        !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISARM)) {
+                    targetCard.setAbleToAttack(false);
                     targetCard.addToBuffs(currentCard.getBuffs().get(0));
-                    break;
-                case POSITIVE_DISPEL:
-                    Iterator<Buff> buffIterator = targetCard.getCastedBuffs().iterator();
-                    while (buffIterator.hasNext()) {
-                        switch (buffIterator.next().getType()) {
-                            case HOLY:
-                            case HIT_POWER:
-                            case HEALTH_POWER:
-                                buffIterator.remove();
-                        }
+                }
+                break;
+            case POISON:
+                if (targetCard.getBuffs().size() == 1 && !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_POISON)) {
+                    targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                }
+                break;
+            case LION_ROAR:
+                for (Buff buff : targetCard.getCastedBuffs()) {
+                    if (buff.getType().equals(BuffType.HOLY) && buff.getPower() > 0) {
+                        targetCard.modifyHealth(1);
                     }
-                    break;
-            }
+                }
+                break;
+            case WEAKNESS:
+            case WHITE_WALKER_WOLF:
+            case STUN:
+                targetCard.addToBuffs(currentCard.getBuffs().get(0));
+                break;
+            case POSITIVE_DISPEL:
+                Iterator<Buff> buffIterator = targetCard.getCastedBuffs().iterator();
+                while (buffIterator.hasNext()) {
+                    switch (buffIterator.next().getType()) {
+                        case HOLY:
+                        case HIT_POWER:
+                        case HEALTH_POWER:
+                            buffIterator.remove();
+                    }
+                }
+                break;
         }
-
     }
 
     private void useSpecialPower(Card card, Buff buff) {
@@ -858,8 +849,8 @@ public class Battle {
                 mainFlag.setTurnCounter(mainFlag.getTurnCounter() + 1);
             }
         }
-        if(opponentCardID!=0){
-            if(turn==saveTurn+1){
+        if (opponentCardID != 0) {
+            if (turn == saveTurn + 1) {
                 targetCard = Card.getCardByID(opponentCardID, fieldCards[(turn + 1) % 2]);
                 targetCard.modifyHealth(-currentCard.getAssaultPower());
             }
@@ -1816,8 +1807,8 @@ public class Battle {
                                 }
                             }
                         }
-                       // Coordinate i = checkHeroDistance(card);
-                       // if (i != null) return i;
+                        // Coordinate i = checkHeroDistance(card);
+                        // if (i != null) return i;
                         if (enemyIsNear) return card.getCoordinate();
                         return new Coordinate(card.getCoordinate().getX(), card.getCoordinate().getY() - 1);
                     }
@@ -2118,5 +2109,19 @@ public class Battle {
             accounts[0].getCollection().getMainDeck().getCards().remove(0);
             accounts[1].getCollection().getMainDeck().getCards().remove(0);
         }
+    }
+
+    private void randomizeDeck(int current) {
+        ArrayList<Card> random = new ArrayList<>();
+        Deck deck = accounts[current].getCollection().getMainDeck();
+        int r;
+        for (int i = Constants.MAXIMUM_DECK_SIZE; i > 0; i--) {
+            r = rand.nextInt(i);
+            random.add(deck.getCards().get(r));
+            deck.getCards().remove(r);
+        }
+        accounts[current].getCollection().getMainDeck().setCards(random);
+
+
     }
 }

@@ -619,8 +619,6 @@ public class View {
                     else if (battle.getField(i, j).isPoison())
                         System.out.print("P");
 
-                    else if(flagExistance==0)
-                        System.out.print("-");
                 } else {
                     Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
                     if (card != null) {
