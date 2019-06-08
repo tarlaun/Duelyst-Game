@@ -186,7 +186,7 @@ public class Controller {
                     break;
                 case USE_SP:
                     specialPowerValidation();
-                    if (battle.validSpecialPower() == null) {
+                    if (battle.validSpecialPower() == Message.NULL) {
                         useSpecialPower(request);
                     }
                     break;

@@ -1,13 +1,12 @@
 {
   "id": 0,
-  "name": "ALL_DISARM",
+  "name": "ALL_DISARM ",
   "maxPossibleMoving": -1,
   "price": 2000,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
   "assaultPower": -1,
-  "originalAssaultPower": -1,
   "assaultType": "NULL",
   "buffs": [
     {
@@ -18,16 +17,13 @@
       "activationType": "UNDEFINED",
       "turnCount": 1,
       "side": "ENEMY",
-      "effectArea": []
+      "effectArea": [
+        {
+          "x": -1,
+          "y": -1
+        }
+      ]
     }
   ],
-  "castedBuffs": [],
-  "castedItems": [],
-  "manaPoint": 9,
-  "ableToAttack": false,
-  "ableToMove": false,
-  "ableToResist": false,
-  "ableToCounter": false,
-  "cardHolder": 0,
-  "isHoly": 0
+  "manaPoint": 9
 }

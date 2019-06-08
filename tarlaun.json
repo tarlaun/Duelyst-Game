@@ -27,7 +27,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 2,
             "side": "ENEMY",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -61,7 +66,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 0,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -95,7 +105,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 0,
             "side": "ENEMY",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -129,7 +144,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 3,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           },
           {
             "type": "HOLY",
@@ -139,7 +159,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 3,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -298,7 +323,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 1000000,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -332,7 +362,12 @@
             "activationType": "UNDEFINED",
             "turnCount": 1000000,
             "side": "COMRADE",
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -369,24 +404,134 @@
         "isHoly": 0
       },
       {
-        "id": 30307,
-        "name": "GIV",
+        "id": 30303,
+        "name": "IRAJ",
         "type": "Minion",
         "maxPossibleMoving": 2,
-        "price": 450,
+        "price": 500,
+        "healthPoint": 6,
+        "minRange": -1,
+        "maxRange": 3,
+        "assaultPower": 20,
+        "originalAssaultPower": 20,
+        "assaultType": "RANGED",
+        "buffs": [],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 4,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 30303,
+        "name": "PERSIAN_SWORDS_WOMAN",
+        "type": "Minion",
+        "maxPossibleMoving": 2,
+        "price": 400,
+        "healthPoint": 6,
+        "minRange": -1,
+        "maxRange": -1,
+        "assaultPower": 4,
+        "originalAssaultPower": 4,
+        "assaultType": "MELEE",
+        "buffs": [
+          {
+            "type": "STUN",
+            "power": -1,
+            "activationType": "ON_ATTACK",
+            "turnCount": 2,
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
+          }
+        ],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 2,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 30304,
+        "name": "PERSIAN_LANCER",
+        "type": "Minion",
+        "maxPossibleMoving": 2,
+        "price": 500,
         "healthPoint": 5,
         "minRange": -1,
-        "maxRange": 5,
-        "assaultPower": 7,
-        "originalAssaultPower": 7,
+        "maxRange": 3,
+        "assaultPower": 3,
+        "originalAssaultPower": 3,
+        "assaultType": "HYBRID",
+        "buffs": [],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 1,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 30305,
+        "name": "DRAGON",
+        "type": "Minion",
+        "maxPossibleMoving": 2,
+        "price": 250,
+        "healthPoint": 9,
+        "minRange": -1,
+        "maxRange": 4,
+        "assaultPower": 5,
+        "originalAssaultPower": 5,
+        "assaultType": "RANGED",
+        "buffs": [],
+        "castedBuffs": [],
+        "castedItems": [],
+        "manaPoint": 5,
+        "ableToAttack": false,
+        "ableToMove": false,
+        "ableToResist": false,
+        "ableToCounter": false,
+        "cardHolder": 0,
+        "isHoly": 0
+      },
+      {
+        "id": 30306,
+        "name": "VENOM_SNAKE",
+        "type": "Minion",
+        "maxPossibleMoving": 2,
+        "price": 300,
+        "healthPoint": 5,
+        "minRange": -1,
+        "maxRange": 4,
+        "assaultPower": 6,
+        "originalAssaultPower": 6,
         "assaultType": "RANGED",
         "buffs": [
           {
-            "type": "NEGATIVE_DISPEL",
-            "power": -1,
-            "activationType": "ON_DEFENCE",
-            "turnCount": -1,
-            "effectArea": []
+            "type": "POISON",
+            "power": 1,
+            "activationType": "ON_ATTACK",
+            "turnCount": 6,
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -417,131 +562,12 @@
             "power": -1,
             "activationType": "ON_DEFENCE",
             "turnCount": -1,
-            "effectArea": []
-          }
-        ],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 4,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
-        "id": 30307,
-        "name": "GIV",
-        "type": "Minion",
-        "maxPossibleMoving": 2,
-        "price": 450,
-        "healthPoint": 5,
-        "minRange": -1,
-        "maxRange": 5,
-        "assaultPower": 7,
-        "originalAssaultPower": 7,
-        "assaultType": "RANGED",
-        "buffs": [
-          {
-            "type": "NEGATIVE_DISPEL",
-            "power": -1,
-            "activationType": "ON_DEFENCE",
-            "turnCount": -1,
-            "effectArea": []
-          }
-        ],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 4,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
-        "id": 30307,
-        "name": "GIV",
-        "type": "Minion",
-        "maxPossibleMoving": 2,
-        "price": 450,
-        "healthPoint": 5,
-        "minRange": -1,
-        "maxRange": 5,
-        "assaultPower": 7,
-        "originalAssaultPower": 7,
-        "assaultType": "RANGED",
-        "buffs": [
-          {
-            "type": "NEGATIVE_DISPEL",
-            "power": -1,
-            "activationType": "ON_DEFENCE",
-            "turnCount": -1,
-            "effectArea": []
-          }
-        ],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 4,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
-        "id": 30307,
-        "name": "GIV",
-        "type": "Minion",
-        "maxPossibleMoving": 2,
-        "price": 450,
-        "healthPoint": 5,
-        "minRange": -1,
-        "maxRange": 5,
-        "assaultPower": 7,
-        "originalAssaultPower": 7,
-        "assaultType": "RANGED",
-        "buffs": [
-          {
-            "type": "NEGATIVE_DISPEL",
-            "power": -1,
-            "activationType": "ON_DEFENCE",
-            "turnCount": -1,
-            "effectArea": []
-          }
-        ],
-        "castedBuffs": [],
-        "castedItems": [],
-        "manaPoint": 4,
-        "ableToAttack": false,
-        "ableToMove": false,
-        "ableToResist": false,
-        "ableToCounter": false,
-        "cardHolder": 0,
-        "isHoly": 0
-      },
-      {
-        "id": 30307,
-        "name": "GIV",
-        "type": "Minion",
-        "maxPossibleMoving": 2,
-        "price": 450,
-        "healthPoint": 5,
-        "minRange": -1,
-        "maxRange": 5,
-        "assaultPower": 7,
-        "originalAssaultPower": 7,
-        "assaultType": "RANGED",
-        "buffs": [
-          {
-            "type": "NEGATIVE_DISPEL",
-            "power": -1,
-            "activationType": "ON_DEFENCE",
-            "turnCount": -1,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -595,7 +621,12 @@
             "power": -1,
             "activationType": "ON_ATTACK",
             "turnCount": -1,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
@@ -609,29 +640,34 @@
         "isHoly": 0
       },
       {
-        "id": 30307,
-        "name": "GIV",
+        "id": 30310,
+        "name": "CYCLOPS",
         "type": "Minion",
         "maxPossibleMoving": 2,
-        "price": 450,
-        "healthPoint": 5,
+        "price": 500,
+        "healthPoint": 12,
         "minRange": -1,
-        "maxRange": 5,
-        "assaultPower": 7,
-        "originalAssaultPower": 7,
-        "assaultType": "RANGED",
+        "maxRange": 3,
+        "assaultPower": 11,
+        "originalAssaultPower": 11,
+        "assaultType": "HYBRID",
         "buffs": [
           {
-            "type": "NEGATIVE_DISPEL",
-            "power": -1,
-            "activationType": "ON_DEFENCE",
-            "turnCount": -1,
-            "effectArea": []
+            "type": "ON_DEATH_WEAKNESS",
+            "power": 2,
+            "activationType": "ON_DEATH",
+            "turnCount": 1,
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
         "castedItems": [],
-        "manaPoint": 4,
+        "manaPoint": 7,
         "ableToAttack": false,
         "ableToMove": false,
         "ableToResist": false,
@@ -640,29 +676,34 @@
         "isHoly": 0
       },
       {
-        "id": 30307,
-        "name": "GIV",
+        "id": 30312,
+        "name": "WOLF",
         "type": "Minion",
         "maxPossibleMoving": 2,
-        "price": 450,
-        "healthPoint": 5,
+        "price": 400,
+        "healthPoint": 6,
         "minRange": -1,
-        "maxRange": 5,
-        "assaultPower": 7,
-        "originalAssaultPower": 7,
-        "assaultType": "RANGED",
+        "maxRange": -1,
+        "assaultPower": 1,
+        "originalAssaultPower": 1,
+        "assaultType": "MELEE",
         "buffs": [
           {
-            "type": "NEGATIVE_DISPEL",
-            "power": -1,
-            "activationType": "ON_DEFENCE",
-            "turnCount": -1,
-            "effectArea": []
+            "type": "WEAKNESS",
+            "power": 6,
+            "activationType": "ON_ATTACK",
+            "turnCount": 2,
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
         "castedItems": [],
-        "manaPoint": 4,
+        "manaPoint": 3,
         "ableToAttack": false,
         "ableToMove": false,
         "ableToResist": false,
@@ -671,29 +712,34 @@
         "isHoly": 0
       },
       {
-        "id": 30307,
-        "name": "GIV",
+        "id": 30314,
+        "name": "SHAGHUL",
         "type": "Minion",
         "maxPossibleMoving": 2,
-        "price": 450,
-        "healthPoint": 5,
+        "price": 600,
+        "healthPoint": 10,
         "minRange": -1,
-        "maxRange": 5,
-        "assaultPower": 7,
-        "originalAssaultPower": 7,
-        "assaultType": "RANGED",
+        "maxRange": -1,
+        "assaultPower": 4,
+        "originalAssaultPower": 4,
+        "assaultType": "MELEE",
         "buffs": [
           {
-            "type": "NEGATIVE_DISPEL",
+            "type": "COMBO",
             "power": -1,
-            "activationType": "ON_DEFENCE",
+            "activationType": "COMBO",
             "turnCount": -1,
-            "effectArea": []
+            "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
           }
         ],
         "castedBuffs": [],
         "castedItems": [],
-        "manaPoint": 4,
+        "manaPoint": 5,
         "ableToAttack": false,
         "ableToMove": false,
         "ableToResist": false,
@@ -702,29 +748,21 @@
         "isHoly": 0
       },
       {
-        "id": 30307,
-        "name": "GIV",
+        "id": 30315,
+        "name": "PERSIAN_ARCHER",
         "type": "Minion",
         "maxPossibleMoving": 2,
-        "price": 450,
-        "healthPoint": 5,
+        "price": 300,
+        "healthPoint": 6,
         "minRange": -1,
-        "maxRange": 5,
-        "assaultPower": 7,
-        "originalAssaultPower": 7,
+        "maxRange": 7,
+        "assaultPower": 4,
+        "originalAssaultPower": 4,
         "assaultType": "RANGED",
-        "buffs": [
-          {
-            "type": "NEGATIVE_DISPEL",
-            "power": -1,
-            "activationType": "ON_DEFENCE",
-            "turnCount": -1,
-            "effectArea": []
-          }
-        ],
+        "buffs": [],
         "castedBuffs": [],
         "castedItems": [],
-        "manaPoint": 4,
+        "manaPoint": 2,
         "ableToAttack": false,
         "ableToMove": false,
         "ableToResist": false,
@@ -818,7 +856,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 2,
                 "side": "ENEMY",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -852,7 +895,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 0,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -886,7 +934,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 0,
                 "side": "ENEMY",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -920,7 +973,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 3,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               },
               {
                 "type": "HOLY",
@@ -930,7 +988,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 3,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1089,7 +1152,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 1000000,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1123,7 +1191,12 @@
                 "activationType": "UNDEFINED",
                 "turnCount": 1000000,
                 "side": "COMRADE",
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1200,7 +1273,12 @@
                 "power": -1,
                 "activationType": "ON_ATTACK",
                 "turnCount": 2,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1277,7 +1355,12 @@
                 "power": 1,
                 "activationType": "ON_ATTACK",
                 "turnCount": 6,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1308,7 +1391,12 @@
                 "power": -1,
                 "activationType": "ON_DEFENCE",
                 "turnCount": -1,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1362,7 +1450,12 @@
                 "power": -1,
                 "activationType": "ON_ATTACK",
                 "turnCount": -1,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1393,7 +1486,12 @@
                 "power": 2,
                 "activationType": "ON_DEATH",
                 "turnCount": 1,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1424,7 +1522,12 @@
                 "power": 6,
                 "activationType": "ON_ATTACK",
                 "turnCount": 2,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1455,7 +1558,12 @@
                 "power": -1,
                 "activationType": "COMBO",
                 "turnCount": -1,
-                "effectArea": []
+                "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
               }
             ],
             "castedBuffs": [],
@@ -1576,7 +1684,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 2,
               "side": "ENEMY",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1610,7 +1723,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 0,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1644,7 +1762,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 0,
               "side": "ENEMY",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1678,7 +1801,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 3,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             },
             {
               "type": "HOLY",
@@ -1688,7 +1816,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 3,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1847,7 +1980,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 1000000,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1881,7 +2019,12 @@
               "activationType": "UNDEFINED",
               "turnCount": 1000000,
               "side": "COMRADE",
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -1958,7 +2101,12 @@
               "power": -1,
               "activationType": "ON_ATTACK",
               "turnCount": 2,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2035,7 +2183,12 @@
               "power": 1,
               "activationType": "ON_ATTACK",
               "turnCount": 6,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2066,7 +2219,12 @@
               "power": -1,
               "activationType": "ON_DEFENCE",
               "turnCount": -1,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2120,7 +2278,12 @@
               "power": -1,
               "activationType": "ON_ATTACK",
               "turnCount": -1,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2151,7 +2314,12 @@
               "power": 2,
               "activationType": "ON_DEATH",
               "turnCount": 1,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2182,7 +2350,12 @@
               "power": 6,
               "activationType": "ON_ATTACK",
               "turnCount": 2,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],
@@ -2213,7 +2386,12 @@
               "power": -1,
               "activationType": "COMBO",
               "turnCount": -1,
-              "effectArea": []
+              "effectArea": [
+{
+"x": 0,
+"y": 0
+}
+]
             }
           ],
           "castedBuffs": [],

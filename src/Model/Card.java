@@ -100,16 +100,12 @@ public class Card {
                 this.buffs.add(new Buff(info[MainInfoOrder.BUFF.ordinal()]));
             }
         } else {
-            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length - 1; i++) {
+            for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
+                System.out.println(this.name + "    " + info[i-1] + "   " + info[i]);
                 this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
             }
         }
     }
-
-/*
-    public Card() {
-
-    }*/
 
     public boolean isAbleToCounter() {
         return ableToCounter;

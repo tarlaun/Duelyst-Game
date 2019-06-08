@@ -85,8 +85,8 @@ public class Buff {
         return effectArea;
     }
 
-    public Buff(String superInfo){
-        String[] info= superInfo.split(Constants.BUFF_INFO_SPLITTER);
+    public Buff(String superInfo) {
+        String[] info = superInfo.split(Constants.BUFF_INFO_SPLITTER);
         this.type = BuffType.valueOf(info[BuffInfoOrder.BUFF_TYPE.ordinal()]);
         this.power = Integer.parseInt(info[BuffInfoOrder.POWER.ordinal()]);
         this.activationType = ActivationType.valueOf(info[BuffInfoOrder.ACTIVATION_TYPE.ordinal()]);
@@ -102,10 +102,8 @@ public class Buff {
         this.activationType = ActivationType.valueOf(info[BuffInfoOrder.ACTIVATION_TYPE.ordinal()]);
         this.turnCount = Integer.parseInt(info[BuffInfoOrder.TURN_COUNT.ordinal()]);
         this.side = Side.valueOf(info[BuffInfoOrder.SIDE.ordinal()]);
-        if(info.length>9) {
-            for (int i = BuffInfoOrder.EFFECT_AREA.ordinal(); i < info.length-1; i += 2) {
-                this.effectArea.add(new Coordinate(Integer.parseInt(info[i]), Integer.parseInt(info[i + 1])));
-            }
+        for (int i = BuffInfoOrder.EFFECT_AREA.ordinal(); i < info.length - 1; i += 2) {
+            this.effectArea.add(new Coordinate(Integer.parseInt(info[i]), Integer.parseInt(info[i + 1])));
         }
     }
 
