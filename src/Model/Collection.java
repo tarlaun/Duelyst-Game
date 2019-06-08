@@ -1,6 +1,6 @@
 package Model;
 
-import View.Message;
+import View.*;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,7 @@ public class Collection {
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck;
+    private View view = View.getInstance();
     private ArrayList<Deck> levelDecks = new ArrayList<>();
 
     public Collection() {
@@ -126,7 +127,7 @@ public class Collection {
     public boolean validate(String deckName) {
         if (deckExistance(deckName) != -1) {
             Deck deck = decks.get(deckExistance(deckName));
-            return deck.getCards().size() == 20 && deck.getItem() != null && deck.getHero() != null;
+            return deck.getCards().size() - 1 == Constants.MAXIMUM_DECK_SIZE && deck.getItem() != null && deck.getHero() != null;
         }
         return false;
     }

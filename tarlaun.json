@@ -28,11 +28,11 @@
             "turnCount": 2,
             "side": "ENEMY",
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -67,11 +67,11 @@
             "turnCount": 0,
             "side": "COMRADE",
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -106,11 +106,11 @@
             "turnCount": 0,
             "side": "ENEMY",
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -145,11 +145,11 @@
             "turnCount": 3,
             "side": "COMRADE",
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           },
           {
             "type": "HOLY",
@@ -160,11 +160,11 @@
             "turnCount": 3,
             "side": "COMRADE",
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -324,11 +324,11 @@
             "turnCount": 1000000,
             "side": "COMRADE",
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -363,11 +363,11 @@
             "turnCount": 1000000,
             "side": "COMRADE",
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -404,7 +404,7 @@
         "isHoly": 0
       },
       {
-        "id": 30303,
+        "id": 30302,
         "name": "IRAJ",
         "type": "Minion",
         "maxPossibleMoving": 2,
@@ -445,11 +445,11 @@
             "activationType": "ON_ATTACK",
             "turnCount": 2,
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -527,11 +527,11 @@
             "activationType": "ON_ATTACK",
             "turnCount": 6,
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -563,11 +563,11 @@
             "activationType": "ON_DEFENCE",
             "turnCount": -1,
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -605,30 +605,17 @@
       },
       {
         "id": 30309,
-        "name": "LION",
+        "name": "PERSIAN_ARCHER",
         "type": "Minion",
         "maxPossibleMoving": 2,
-        "price": 600,
-        "healthPoint": 1,
+        "price": 300,
+        "healthPoint": 6,
         "minRange": -1,
-        "maxRange": -1,
-        "assaultPower": 8,
-        "originalAssaultPower": 8,
-        "assaultType": "MELEE",
-        "buffs": [
-          {
-            "type": "LION_ROAR",
-            "power": -1,
-            "activationType": "ON_ATTACK",
-            "turnCount": -1,
-            "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
-          }
-        ],
+        "maxRange": 7,
+        "assaultPower": 4,
+        "originalAssaultPower": 4,
+        "assaultType": "RANGED",
+        "buffs": [],
         "castedBuffs": [],
         "castedItems": [],
         "manaPoint": 2,
@@ -658,11 +645,11 @@
             "activationType": "ON_DEATH",
             "turnCount": 1,
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -694,11 +681,11 @@
             "activationType": "ON_ATTACK",
             "turnCount": 2,
             "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              {
+                "x": 0,
+                "y": 0
+              }
+            ]
           }
         ],
         "castedBuffs": [],
@@ -712,34 +699,29 @@
         "isHoly": 0
       },
       {
-        "id": 30314,
-        "name": "SHAGHUL",
+        "id": 30313,
+        "name": "PALANG",
         "type": "Minion",
         "maxPossibleMoving": 2,
-        "price": 600,
-        "healthPoint": 10,
+        "price": 400,
+        "healthPoint": 6,
         "minRange": -1,
         "maxRange": -1,
-        "assaultPower": 4,
-        "originalAssaultPower": 4,
+        "assaultPower": 2,
+        "originalAssaultPower": 2,
         "assaultType": "MELEE",
         "buffs": [
           {
-            "type": "COMBO",
-            "power": -1,
-            "activationType": "COMBO",
-            "turnCount": -1,
-            "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+            "type": "WEAKNESS",
+            "power": 8,
+            "activationType": "ON_ATTACK",
+            "turnCount": 2,
+            "effectArea": []
           }
         ],
         "castedBuffs": [],
         "castedItems": [],
-        "manaPoint": 5,
+        "manaPoint": 4,
         "ableToAttack": false,
         "ableToMove": false,
         "ableToResist": false,
@@ -857,11 +839,11 @@
                 "turnCount": 2,
                 "side": "ENEMY",
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -896,11 +878,11 @@
                 "turnCount": 0,
                 "side": "COMRADE",
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -935,11 +917,11 @@
                 "turnCount": 0,
                 "side": "ENEMY",
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -974,11 +956,11 @@
                 "turnCount": 3,
                 "side": "COMRADE",
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               },
               {
                 "type": "HOLY",
@@ -989,11 +971,11 @@
                 "turnCount": 3,
                 "side": "COMRADE",
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -1153,11 +1135,11 @@
                 "turnCount": 1000000,
                 "side": "COMRADE",
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -1192,11 +1174,11 @@
                 "turnCount": 1000000,
                 "side": "COMRADE",
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -1233,7 +1215,7 @@
             "isHoly": 0
           },
           {
-            "id": 30303,
+            "id": 30302,
             "name": "IRAJ",
             "type": "Minion",
             "maxPossibleMoving": 2,
@@ -1274,11 +1256,11 @@
                 "activationType": "ON_ATTACK",
                 "turnCount": 2,
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -1356,11 +1338,11 @@
                 "activationType": "ON_ATTACK",
                 "turnCount": 6,
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -1392,11 +1374,11 @@
                 "activationType": "ON_DEFENCE",
                 "turnCount": -1,
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -1434,30 +1416,17 @@
           },
           {
             "id": 30309,
-            "name": "LION",
+            "name": "PERSIAN_ARCHER",
             "type": "Minion",
             "maxPossibleMoving": 2,
-            "price": 600,
-            "healthPoint": 1,
+            "price": 300,
+            "healthPoint": 6,
             "minRange": -1,
-            "maxRange": -1,
-            "assaultPower": 8,
-            "originalAssaultPower": 8,
-            "assaultType": "MELEE",
-            "buffs": [
-              {
-                "type": "LION_ROAR",
-                "power": -1,
-                "activationType": "ON_ATTACK",
-                "turnCount": -1,
-                "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
-              }
-            ],
+            "maxRange": 7,
+            "assaultPower": 4,
+            "originalAssaultPower": 4,
+            "assaultType": "RANGED",
+            "buffs": [],
             "castedBuffs": [],
             "castedItems": [],
             "manaPoint": 2,
@@ -1487,11 +1456,11 @@
                 "activationType": "ON_DEATH",
                 "turnCount": 1,
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -1523,11 +1492,11 @@
                 "activationType": "ON_ATTACK",
                 "turnCount": 2,
                 "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                  {
+                    "x": 0,
+                    "y": 0
+                  }
+                ]
               }
             ],
             "castedBuffs": [],
@@ -1541,34 +1510,29 @@
             "isHoly": 0
           },
           {
-            "id": 30314,
-            "name": "SHAGHUL",
+            "id": 30313,
+            "name": "PALANG",
             "type": "Minion",
             "maxPossibleMoving": 2,
-            "price": 600,
-            "healthPoint": 10,
+            "price": 400,
+            "healthPoint": 6,
             "minRange": -1,
             "maxRange": -1,
-            "assaultPower": 4,
-            "originalAssaultPower": 4,
+            "assaultPower": 2,
+            "originalAssaultPower": 2,
             "assaultType": "MELEE",
             "buffs": [
               {
-                "type": "COMBO",
-                "power": -1,
-                "activationType": "COMBO",
-                "turnCount": -1,
-                "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                "type": "WEAKNESS",
+                "power": 8,
+                "activationType": "ON_ATTACK",
+                "turnCount": 2,
+                "effectArea": []
               }
             ],
             "castedBuffs": [],
             "castedItems": [],
-            "manaPoint": 5,
+            "manaPoint": 4,
             "ableToAttack": false,
             "ableToMove": false,
             "ableToResist": false,
@@ -1589,6 +1553,45 @@
             "originalAssaultPower": 4,
             "assaultType": "RANGED",
             "buffs": [],
+            "castedBuffs": [],
+            "castedItems": [],
+            "manaPoint": 2,
+            "ableToAttack": false,
+            "ableToMove": false,
+            "ableToResist": false,
+            "ableToCounter": false,
+            "cardHolder": 0,
+            "isHoly": 0
+          },
+          {
+            "id": 40228,
+            "name": "ARASH",
+            "type": "Hero",
+            "maxPossibleMoving": 2,
+            "price": 10000,
+            "healthPoint": 30,
+            "minRange": -1,
+            "maxRange": 6,
+            "assaultPower": 2,
+            "originalAssaultPower": 2,
+            "assaultType": "RANGED",
+            "buffs": [
+              {
+                "type": "HEALTH_WEAKNESS",
+                "power": 4,
+                "targetType": "Card",
+                "dispelType": "TEMPORARY",
+                "activationType": "UNDEFINED",
+                "turnCount": -1,
+                "side": "ALL",
+                "effectArea": [
+                  {
+                    "x": 2,
+                    "y": -3
+                  }
+                ]
+              }
+            ],
             "castedBuffs": [],
             "castedItems": [],
             "manaPoint": 2,
@@ -1685,11 +1688,11 @@
               "turnCount": 2,
               "side": "ENEMY",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -1724,11 +1727,11 @@
               "turnCount": 0,
               "side": "COMRADE",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -1763,11 +1766,11 @@
               "turnCount": 0,
               "side": "ENEMY",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -1802,11 +1805,11 @@
               "turnCount": 3,
               "side": "COMRADE",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             },
             {
               "type": "HOLY",
@@ -1817,11 +1820,11 @@
               "turnCount": 3,
               "side": "COMRADE",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -1981,11 +1984,11 @@
               "turnCount": 1000000,
               "side": "COMRADE",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -2020,11 +2023,11 @@
               "turnCount": 1000000,
               "side": "COMRADE",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -2061,7 +2064,7 @@
           "isHoly": 0
         },
         {
-          "id": 30303,
+          "id": 30302,
           "name": "IRAJ",
           "type": "Minion",
           "maxPossibleMoving": 2,
@@ -2102,11 +2105,11 @@
               "activationType": "ON_ATTACK",
               "turnCount": 2,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -2184,11 +2187,11 @@
               "activationType": "ON_ATTACK",
               "turnCount": 6,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -2220,11 +2223,11 @@
               "activationType": "ON_DEFENCE",
               "turnCount": -1,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -2262,30 +2265,17 @@
         },
         {
           "id": 30309,
-          "name": "LION",
+          "name": "PERSIAN_ARCHER",
           "type": "Minion",
           "maxPossibleMoving": 2,
-          "price": 600,
-          "healthPoint": 1,
+          "price": 300,
+          "healthPoint": 6,
           "minRange": -1,
-          "maxRange": -1,
-          "assaultPower": 8,
-          "originalAssaultPower": 8,
-          "assaultType": "MELEE",
-          "buffs": [
-            {
-              "type": "LION_ROAR",
-              "power": -1,
-              "activationType": "ON_ATTACK",
-              "turnCount": -1,
-              "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
-            }
-          ],
+          "maxRange": 7,
+          "assaultPower": 4,
+          "originalAssaultPower": 4,
+          "assaultType": "RANGED",
+          "buffs": [],
           "castedBuffs": [],
           "castedItems": [],
           "manaPoint": 2,
@@ -2315,11 +2305,11 @@
               "activationType": "ON_DEATH",
               "turnCount": 1,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -2351,11 +2341,11 @@
               "activationType": "ON_ATTACK",
               "turnCount": 2,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -2369,34 +2359,29 @@
           "isHoly": 0
         },
         {
-          "id": 30314,
-          "name": "SHAGHUL",
+          "id": 30313,
+          "name": "PALANG",
           "type": "Minion",
           "maxPossibleMoving": 2,
-          "price": 600,
-          "healthPoint": 10,
+          "price": 400,
+          "healthPoint": 6,
           "minRange": -1,
           "maxRange": -1,
-          "assaultPower": 4,
-          "originalAssaultPower": 4,
+          "assaultPower": 2,
+          "originalAssaultPower": 2,
           "assaultType": "MELEE",
           "buffs": [
             {
-              "type": "COMBO",
-              "power": -1,
-              "activationType": "COMBO",
-              "turnCount": -1,
-              "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+              "type": "WEAKNESS",
+              "power": 8,
+              "activationType": "ON_ATTACK",
+              "turnCount": 2,
+              "effectArea": []
             }
           ],
           "castedBuffs": [],
           "castedItems": [],
-          "manaPoint": 5,
+          "manaPoint": 4,
           "ableToAttack": false,
           "ableToMove": false,
           "ableToResist": false,
@@ -2417,6 +2402,45 @@
           "originalAssaultPower": 4,
           "assaultType": "RANGED",
           "buffs": [],
+          "castedBuffs": [],
+          "castedItems": [],
+          "manaPoint": 2,
+          "ableToAttack": false,
+          "ableToMove": false,
+          "ableToResist": false,
+          "ableToCounter": false,
+          "cardHolder": 0,
+          "isHoly": 0
+        },
+        {
+          "id": 40228,
+          "name": "ARASH",
+          "type": "Hero",
+          "maxPossibleMoving": 2,
+          "price": 10000,
+          "healthPoint": 30,
+          "minRange": -1,
+          "maxRange": 6,
+          "assaultPower": 2,
+          "originalAssaultPower": 2,
+          "assaultType": "RANGED",
+          "buffs": [
+            {
+              "type": "HEALTH_WEAKNESS",
+              "power": 4,
+              "targetType": "Card",
+              "dispelType": "TEMPORARY",
+              "activationType": "UNDEFINED",
+              "turnCount": -1,
+              "side": "ALL",
+              "effectArea": [
+                {
+                  "x": 2,
+                  "y": -3
+                }
+              ]
+            }
+          ],
           "castedBuffs": [],
           "castedItems": [],
           "manaPoint": 2,
