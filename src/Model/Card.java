@@ -28,6 +28,7 @@ public class Card {
     private boolean ableToCounter = false;
     private int cardHolder;
     private int isHoly = 0;
+    private int recievedHit = 0;
     private RangeType rangeType;
     int[][] attackCount = new int[40][2];
 
@@ -80,10 +81,6 @@ public class Card {
         this.castedBuffs.add(buff);
     }
 
-    public void removeFromBuffs(Buff buff) {
-        this.castedBuffs.remove(buff);
-    }
-
     public Card(String[] info) {
         this.name = info[MainInfoOrder.NAME.ordinal()];
         this.price = Integer.parseInt(info[MainInfoOrder.PRICE.ordinal()]);
@@ -101,10 +98,18 @@ public class Card {
             }
         } else {
             for (int i = MainInfoOrder.BUFF.ordinal(); i < info.length; i++) {
-                System.out.println(this.name + "    " + info[i-1] + "   " + info[i]);
+                System.out.println(this.name + "    " + info[i - 1] + "   " + info[i]);
                 this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
             }
         }
+    }
+
+    public int getRecievedHit() {
+        return recievedHit;
+    }
+
+    public void setRecievedHit(int recievedHit) {
+        this.recievedHit = recievedHit;
     }
 
     public boolean isAbleToCounter() {

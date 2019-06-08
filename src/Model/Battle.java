@@ -5,6 +5,7 @@ import View.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Battle {
@@ -270,7 +271,8 @@ public class Battle {
             return false;
         if (!currentCard.isAbleToMove())
             return false;
-        if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getY() < 0 || coordinate.getX() < 0)
+        if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
+                || coordinate.getY() < 0 || coordinate.getX() < 0)
             return false;
         if (currentCard.getCoordinate() == coordinate) {
             currentCard.setAbleToMove(false);
@@ -302,7 +304,8 @@ public class Battle {
         if (targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISPEL)) {
             return false;
         }
-        if (targetCard.getBuffs().get(0).getType().equals(BuffType.ASHBUS) && targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
+        if (targetCard.getBuffs().get(0).getType().equals(BuffType.ASHBUS) &&
+                targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
             return false;
         }
         return true;
@@ -335,7 +338,8 @@ public class Battle {
     }
 
     private void checkOnAttackSpecials(Card currentCard) {
-        if (currentCard.getBuffs().size() >= 1 && currentCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_ATTACK)) {
+        if (currentCard.getBuffs().size() >= 1 &&
+                currentCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_ATTACK)) {
             onAttackSpecialPower();
         }
     }
@@ -449,7 +453,8 @@ public class Battle {
 
     private void killEnemy(Card targetCard) {
         if (targetCard != null && targetCard.getHealthPoint() <= 0) {
-            if (targetCard.getBuffs().size() == 1 && targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH) &&
+            if (targetCard.getBuffs().size() == 1 &&
+                    targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH) &&
                     targetCard.getBuffs().get(0).getType().equals(BuffType.WEAKNESS)) {
                 for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
                     if (fieldCards[(turn + 1) % 2][i].getType().equals("Hero")) {
@@ -572,13 +577,15 @@ public class Battle {
                     targetCard.modifyHealth(-multiply);
                     break;
                 case DISARM:
-                    if (targetCard.getBuffs().size() == 1 && !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISARM)) {
+                    if (targetCard.getBuffs().size() == 1 &&
+                            !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISARM)) {
                         targetCard.setAbleToAttack(false);
                         targetCard.addToBuffs(currentCard.getBuffs().get(i));
                     }
                     break;
                 case POISON:
-                    if (targetCard.getBuffs().size() == 1 && !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_POISON)) {
+                    if (targetCard.getBuffs().size() == 1 &&
+                            !targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_POISON)) {
                         targetCard.addToBuffs(currentCard.getBuffs().get(1));
                     }
                     break;
@@ -595,9 +602,13 @@ public class Battle {
                     targetCard.addToBuffs(currentCard.getBuffs().get(0));
                     break;
                 case POSITIVE_DISPEL:
-                    for (Buff buff : targetCard.getCastedBuffs()) {
-                        if (buff.getType().equals(BuffType.HOLY) || buff.getType().equals(BuffType.POWER)) {
-                            targetCard.removeFromBuffs(buff);
+                    Iterator<Buff> buffIterator = targetCard.getCastedBuffs().iterator();
+                    while (buffIterator.hasNext()) {
+                        switch (buffIterator.next().getType()) {
+                            case HOLY:
+                            case HIT_POWER:
+                            case HEALTH_POWER:
+                                buffIterator.remove();
                         }
                     }
                     break;
@@ -711,7 +722,8 @@ public class Battle {
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (coordinate.getX() > 8 || coordinate.getY() > 8 || coordinate.getX() < 0 || coordinate.getY() < 0)
+                if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
+                        || coordinate.getX() < 0 || coordinate.getY() < 0)
                     return Message.INVALID_TARGET;
                 for (Card card : fieldCards[turn % 2]) {
                     try {
@@ -817,34 +829,82 @@ public class Battle {
         for (int i = 0; i < 2; i++) {
             for (Card card : fieldCards[i]) {
                 try {
-                    for (Buff buff : card.getCastedBuffs()) {
-                        if ((buff.getType().equals(BuffType.NEGATIVE_DISPEL)) && (buff.getType().equals(BuffType.DISARM)
-                                || buff.getType().equals(BuffType.WEAKNESS) || buff.getType().equals(BuffType.POISON)
-                                || buff.getType().equals(BuffType.STUN))) {
-                            card.removeFromBuffs(buff);
-                            card.setAbleToMove(true);
-                            card.setAbleToAttack(true);
-                            card.setAssaultPower(card.getOriginalAssaultPower());
+                    Iterator<Buff> buffIterator = card.getCastedBuffs().iterator();
+                    while (buffIterator.hasNext()) {
+                        switch (buffIterator.next().getType()) {
+                            case HEALTH_WEAKNESS:
+                            case HIT_WEAKNESS:
+                            case POISON:
+                            case STUN:
+                                endBuff(card, buffIterator);
+                                break;
+                            case NEGATIVE_DISPEL:
+                                if (buffIterator.next().getType().equals(BuffType.DISARM))
+                                    endBuff(card, buffIterator);
 
                         }
-                        if (buff.getTurnCount() > 0) {
-                            buff.setTurnCount(buff.getTurnCount() - 1);
+                        if (buffIterator.next().getTurnCount() > 0) {
+                            buffIterator.next().setTurnCount(buffIterator.next().getTurnCount() - 1);
                         }
-                        checkForStun(card, buff);
-                        checkForDisarm(card, buff);
-                        checkForPoison(card, buff);
-                        checkForPower(card, buff);
-                        checkWhiteWolf(card, buff);
-                        checkForWeakness(card, buff);
-                        checkForHoly(card, buff);
-                        checkForJen(card, buff);
-                        if (buff.getTurnCount() == 0 && buff.getDispelType() != DispelType.PERMANENT) {
-                            card.removeFromBuffs(buff);
+                        checkForBuff(card, buffIterator.next());
+                        if (buffIterator.next().getTurnCount() == 0 && buffIterator.next().getDispelType() != DispelType.PERMANENT) {
+                            buffIterator.remove();
                         }
                     }
                 } catch (NullPointerException e) {
                 }
             }
+        }
+    }
+
+    private void endBuff(Card card, Iterator<Buff> buffIterator) {
+        buffIterator.remove();
+        card.setAbleToMove(true);
+        card.setAbleToAttack(true);
+        card.setAssaultPower(card.getOriginalAssaultPower());
+    }
+
+    private void checkForBuff(Card card, Buff buff) {
+        checkForStun(card, buff);
+        checkForDisarm(card, buff);
+        checkForPoison(card, buff);
+        checkForPower(card, buff);
+        checkWhiteWolf(card, buff);
+        checkForWeakness(card, buff);
+        checkForHoly(card, buff);
+        checkForJen(card, buff);
+        checkForDispel(card, buff);
+    }
+
+    private void checkForDispel(Card card, Buff buff) {
+        Iterator<Buff> buffIterator;
+        switch (buff.getType()) {
+            case NEGATIVE_DISPEL:
+                buffIterator = card.getCastedBuffs().iterator();
+                while (buffIterator.hasNext()) {
+                    switch (buffIterator.next().getType()) {
+                        case POSITIVE_DISPEL:
+                        case HOLY:
+                        case HEALTH_POWER:
+                        case HIT_POWER:
+                            buffIterator.remove();
+                    }
+                }
+                break;
+            case POSITIVE_DISPEL:
+                buffIterator = card.getCastedBuffs().iterator();
+                while (buffIterator.hasNext()) {
+                    switch (buffIterator.next().getType()) {
+                        case NEGATIVE_DISPEL:
+                        case DISARM:
+                        case HEALTH_WEAKNESS:
+                        case HIT_WEAKNESS:
+                        case STUN:
+                        case POISON:
+                            buffIterator.remove();
+                    }
+                }
+                break;
         }
     }
 
@@ -855,11 +915,13 @@ public class Battle {
     }
 
     private void checkForWeakness(Card card, Buff buff) {
-        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && !buff.getActivationType().equals(ActivationType.ON_DEATH)) {
+        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 &&
+                !buff.getActivationType().equals(ActivationType.ON_DEATH)) {
             card.modifyHealth(0);
             buff.setPower(buff.getPower());
         }
-        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 && buff.getActivationType().equals(ActivationType.ON_DEATH)) {
+        if ((buff.getType().equals(BuffType.WEAKNESS)) && buff.getTurnCount() % 2 == 1 &&
+                buff.getActivationType().equals(ActivationType.ON_DEATH)) {
             targetCard.modifyHealth(buff.getPower());
         }
         if (((buff.getType().equals(BuffType.ON_DEATH_WEAKNESS)) || (buff.getType().equals(BuffType.HOLY_WEAKNESS)))
@@ -1032,7 +1094,8 @@ public class Battle {
                                     if (buff.getTargetType().equals("Minion")) {
                                         for (Card card :
                                                 fieldCards[(turn + 1) % 2]) {
-                                            if (card.getType().equals("Minion") && card.getCoordinate().sum(buff.getEffectArea().get(0)).equals(target)) {
+                                            if (card.getType().equals("Minion") &&
+                                                    card.getCoordinate().sum(buff.getEffectArea().get(0)).equals(target)) {
                                                 card.addToBuffs(buff);
                                                 applyBuff(buff, card);
                                                 return true;
@@ -1069,7 +1132,8 @@ public class Battle {
                                     if (buff.getTargetType().equals("Minion")) {
                                         for (Card card :
                                                 fieldCards[(turn + 1) % 2]) {
-                                            if (card.getType().equals("Minion") && card.getCoordinate().getX() == hero.getCoordinate().getX()) {
+                                            if (card.getType().equals("Minion") &&
+                                                    card.getCoordinate().getX() == hero.getCoordinate().getX()) {
                                                 card.addToBuffs(buff);
                                                 applyBuff(buff, card);
                                                 return true;
@@ -1262,7 +1326,7 @@ public class Battle {
         card.getCastedBuffs().add(buff);
         switch (buff.getType()) {
             case POISON:
-                card.modifyHealth(buff.getPower());
+                card.modifyHealth(-buff.getPower());
             case STUN:
                 card.setAbleToAttack(false);
                 card.setAbleToMove(false);
@@ -1277,10 +1341,10 @@ public class Battle {
                 card.modifyHealth(buff.getPower());
                 break;
             case HIT_WEAKNESS:
-                card.modifyHit(buff.getPower());
+                card.modifyHit(-buff.getPower());
                 break;
             case HEALTH_WEAKNESS:
-                card.modifyHealth(buff.getPower());
+                card.modifyHealth(-buff.getPower());
                 break;
         }
     }
