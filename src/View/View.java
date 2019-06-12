@@ -649,15 +649,39 @@ public class View {
     //Graphic
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
-        ImageView background = new ImageView(new Image("scenes/frostfire/background.jpg"));
-        background.setFitWidth(Constants.WINDOW_WIDTH);
-        background.setFitHeight(Constants.WINDOW_HEIGHT);
+        Image background = new Image("scenes/frostfire/background.jpg");
+        ImageView backgroundView = new ImageView(background);
+        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
+        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
+        Image foreground = new Image("scenes/frostfire/foreground.png");
+        ImageView foregroundView = new ImageView(foreground);
+        foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
+        foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
+        foregroundView.setLayoutY(Constants.WINDOW_HEIGHT - foregroundView.getFitHeight());
         login.setText("Login");
         login.setPrefWidth(Constants.BUTTON_WIDTH);
         login.setPrefHeight(Constants.BUTTON_HEIGHT);
         login.setLayoutX(Constants.CENTRE_X - Constants.BUTTON_WIDTH / 2);
         login.setLayoutY(Constants.CENTRE_Y + Constants.BUTTON_HEIGHT);
-        root.getChildren().addAll(background,login);
+        create.setText("Create Account");
+        create.setPrefWidth(2 * Constants.BUTTON_WIDTH);
+        create.setPrefHeight(Constants.BUTTON_HEIGHT);
+        create.setLayoutX(Constants.CENTRE_X - Constants.BUTTON_WIDTH);
+        create.setLayoutY(login.getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
+        exit.setText("Exit");
+        exit.setPrefWidth(Constants.BUTTON_WIDTH);
+        exit.setPrefHeight(Constants.BUTTON_HEIGHT);
+        exit.setLayoutX(login.getLayoutX());
+        exit.setLayoutY(create.getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
+        password.setPrefWidth(Constants.FIELD_WIDTH);
+        password.setPrefHeight(Constants.FIELD_HEIGHT);
+        password.setLayoutX(Constants.CENTRE_X - password.getPrefWidth() / 2);
+        password.setLayoutY(Constants.CENTRE_Y - password.getPrefHeight());
+        username.setPrefWidth(Constants.FIELD_WIDTH);
+        username.setPrefHeight(Constants.FIELD_HEIGHT);
+        username.setLayoutX(password.getLayoutX());
+        username.setLayoutY(password.getLayoutY() - 2 * Constants.FIELD_HEIGHT);
+        root.getChildren().addAll(backgroundView, foregroundView, login, create, exit, username, password);
     }
 }
 

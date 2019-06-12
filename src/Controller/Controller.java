@@ -63,7 +63,7 @@ public class Controller {
         }
     }
 
-    public void handleCommands() {
+    /*public void handleCommands() {
         Request request = new Request();
 
 //        while (true) {
@@ -237,7 +237,7 @@ public class Controller {
                 break;
         }
 //        }
-    }
+    }*/
 
     public void main() {
         switch (menu.getStat()) {
@@ -248,8 +248,10 @@ public class Controller {
         handleButtons();
     }
 
-    public void handleButtons(){
-        buttons[Buttons.LOGIN.ordinal()].setOnMouseClicked(event -> System.exit(0));
+    public void handleButtons() {
+        buttons[Buttons.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
+        buttons[Buttons.LOGIN.ordinal()].setOnMouseClicked(event -> login());
+        buttons[Buttons.EXIT.ordinal()].setOnMouseClicked(event -> exit());
     }
 
     private void AiFunctions() {
@@ -400,15 +402,12 @@ public class Controller {
         view.printInvalidCommand();
     }
 
-    private void createAccount(Request request) {
-        if (request.checkAccountCreationSyntax() && menu.getStat() == MenuStat.MAIN) {
-            String username = request.getAccountName(request.getCommand());
-            view.passwordInsertion();
-            String password = request.getNewCommand();
-            Account account = new Account(request.getAccountName(username), request.getPassword(password));
-            this.account = account;
-            view.accountCreation(account.createAccount());
-        }
+    private void createAccount() {
+        String username = fields[Texts.USERNAME.ordinal()].getText();
+        String password = fields[Texts.PASSWORD.ordinal()].getText();
+        this.account = new Account(username, password);
+        menu.setStat(MenuStat.ACCOUNT);
+        main();
     }
 
     private void showMatchHistory(Request request) {
@@ -430,14 +429,13 @@ public class Controller {
         return null;
     }
 
-    private void login(Request request) {
-        if (request.checkLoginSyntax() && menu.getStat() == MenuStat.MAIN) {
-            String username = request.getAccountName(request.getCommand());
-            view.passwordInsertion();
-            String password = request.getNewCommand();
-            view.login(Account.login(request.getAccountName(username), request.getPassword(password)));
-            if (Account.login(request.getAccountName(username), request.getPassword(password)) == Message.SUCCESSFUL_LOGIN)
-                this.account = game.getAccounts().get(Account.accountIndex(username));
+    private void login() {
+        String username = fields[Texts.USERNAME.ordinal()].getText();
+        String password = fields[Texts.PASSWORD.ordinal()].getText();
+        if (Account.login(username, password) == Message.SUCCESSFUL_LOGIN) {
+            this.account = game.getAccounts().get(Account.accountIndex(username));
+            menu.setStat(MenuStat.ACCOUNT);
+            main();
         }
     }
 

@@ -41,4 +41,9 @@ public class Constants {
     public static final double BUTTON_HEIGHT = 20;
     public static final double CENTRE_X = WINDOW_WIDTH / 2.0;
     public static final double CENTRE_Y = WINDOW_HEIGHT / 2.0;
+    public static final double FONT_SIZE = 20;
+    public static final double SIGN_SIZE = 50;
+    public static final String TEXT_FONT = "Ubuntu Mono";
+    public static final double FIELD_WIDTH = 120;
+    public static final double FIELD_HEIGHT = 30;
 }
