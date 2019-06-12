@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import View.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -244,6 +245,11 @@ public class Controller {
             case MAIN:
                 view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
                         buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], fields[Texts.PASSWORD.ordinal()]);
+                break;
+            case ACCOUNT:
+                view.accountMenu(buttons[Buttons.PLAY.ordinal()], buttons[Buttons.COLLECTION.ordinal()],
+                        buttons[Buttons.SHOP.ordinal()], buttons[Buttons.LEADER_BOARD.ordinal()],
+                        buttons[Buttons.LOGOUT.ordinal()]);
         }
         handleButtons();
     }
@@ -252,6 +258,11 @@ public class Controller {
         buttons[Buttons.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
         buttons[Buttons.LOGIN.ordinal()].setOnMouseClicked(event -> login());
         buttons[Buttons.EXIT.ordinal()].setOnMouseClicked(event -> exit());
+        buttons[Buttons.PLAY.ordinal()].setOnMouseClicked(event -> {
+        });
+        buttons[Buttons.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
+        buttons[Buttons.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
+        //buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> );
     }
 
     private void AiFunctions() {
@@ -439,11 +450,9 @@ public class Controller {
         }
     }
 
-    private void showLeaderBoard(Request request) {
-        if (request.checkLeaderBoardSyntax() && menu.getStat() == MenuStat.ACCOUNT) {
-            game.sortAccounts();
-            view.printLeaderboard(game.getAccounts());
-        }
+    private void showLeaderBoard() {
+        game.sortAccounts();
+        view.printLeaderboard(game.getAccounts());
     }
 
     private void save() {
@@ -453,11 +462,10 @@ public class Controller {
     }
 
     private void logout() {
-        if (menu.getStat() == MenuStat.ACCOUNT) {
-            game.logout(account);
-            this.account = null;
-            view.logout();
-        }
+        game.logout(account);
+        this.account = null;
+        menu.setStat(MenuStat.MAIN);
+        main();
     }
 
     private void help() {
@@ -486,6 +494,7 @@ public class Controller {
 
     private void exit() {
         menu.exitMenu();
+        main();
     }
 
     private void showTheCollection() {

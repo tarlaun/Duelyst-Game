@@ -649,6 +649,32 @@ public class View {
     //Graphic
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
+        Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
+        ImageView backgroundView = new ImageView(background);
+        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
+        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
+        Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
+        ImageView foregroundView = new ImageView(foreground);
+        foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
+        foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
+        foregroundView.setLayoutY(Constants.WINDOW_HEIGHT - foregroundView.getFitHeight());
+        login.setText("Login");
+        create.setText("Create Account");
+        exit.setText("Exit");
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, login, create, exit);
+        password.setPrefWidth(Constants.FIELD_WIDTH);
+        password.setPrefHeight(Constants.FIELD_HEIGHT);
+        password.setLayoutX(Constants.CENTRE_X - password.getPrefWidth() / 2);
+        password.setLayoutY(login.getLayoutY() - 2 * password.getPrefHeight());
+        username.setPrefWidth(Constants.FIELD_WIDTH);
+        username.setPrefHeight(Constants.FIELD_HEIGHT);
+        username.setLayoutX(password.getLayoutX());
+        username.setLayoutY(password.getLayoutY() - 2 * Constants.FIELD_HEIGHT);
+        root.getChildren().addAll(backgroundView, foregroundView, login, create, exit, username, password);
+    }
+
+    public void accountMenu(Button play, Button collection, Button shop, Button leaderboard, Button logout) {
+        root.getChildren().clear();
         Image background = new Image("scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
@@ -658,30 +684,37 @@ public class View {
         foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
         foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
         foregroundView.setLayoutY(Constants.WINDOW_HEIGHT - foregroundView.getFitHeight());
-        login.setText("Login");
-        login.setPrefWidth(Constants.BUTTON_WIDTH);
-        login.setPrefHeight(Constants.BUTTON_HEIGHT);
-        login.setLayoutX(Constants.CENTRE_X - Constants.BUTTON_WIDTH / 2);
-        login.setLayoutY(Constants.CENTRE_Y + Constants.BUTTON_HEIGHT);
-        create.setText("Create Account");
-        create.setPrefWidth(2 * Constants.BUTTON_WIDTH);
-        create.setPrefHeight(Constants.BUTTON_HEIGHT);
-        create.setLayoutX(Constants.CENTRE_X - Constants.BUTTON_WIDTH);
-        create.setLayoutY(login.getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
-        exit.setText("Exit");
-        exit.setPrefWidth(Constants.BUTTON_WIDTH);
-        exit.setPrefHeight(Constants.BUTTON_HEIGHT);
-        exit.setLayoutX(login.getLayoutX());
-        exit.setLayoutY(create.getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
-        password.setPrefWidth(Constants.FIELD_WIDTH);
-        password.setPrefHeight(Constants.FIELD_HEIGHT);
-        password.setLayoutX(Constants.CENTRE_X - password.getPrefWidth() / 2);
-        password.setLayoutY(Constants.CENTRE_Y - password.getPrefHeight());
-        username.setPrefWidth(Constants.FIELD_WIDTH);
-        username.setPrefHeight(Constants.FIELD_HEIGHT);
-        username.setLayoutX(password.getLayoutX());
-        username.setLayoutY(password.getLayoutY() - 2 * Constants.FIELD_HEIGHT);
-        root.getChildren().addAll(backgroundView, foregroundView, login, create, exit, username, password);
+        play.setText("Play");
+        collection.setText("Collection");
+        shop.setText("Shop");
+        leaderboard.setText("Leaderboard");
+        logout.setText("Logout");
+        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y, play, collection, shop, leaderboard, logout);
+        root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, leaderboard, logout);
+    }
+
+    public void verticalList(Alignment alignment, double x, double y, Button... buttons) {
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].setPrefHeight(Constants.BUTTON_HEIGHT);
+            if (buttons[i].getText().length() >= 8)
+                buttons[i].setPrefWidth(2 * Constants.BUTTON_WIDTH);
+            else
+                buttons[i].setPrefWidth(Constants.BUTTON_WIDTH);
+            switch (alignment) {
+                case LEFT:
+                    buttons[i].setLayoutX(x);
+                    break;
+                case CENTRE:
+                    buttons[i].setLayoutX(x - buttons[i].getPrefWidth() / 2);
+            }
+        }
+        buttons[buttons.length / 2 + 1].setLayoutY(y);
+        for (int i = buttons.length / 2; i >= 0; i--) {
+            buttons[i].setLayoutY(buttons[i + 1].getLayoutY() - 2 * Constants.BUTTON_HEIGHT);
+        }
+        for (int i = buttons.length / 2 + 2; i < buttons.length; i++) {
+            buttons[i].setLayoutY(buttons[i - 1].getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
+        }
     }
 }
 

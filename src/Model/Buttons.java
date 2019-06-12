@@ -3,5 +3,10 @@ package Model;
 public enum Buttons {
     LOGIN,
     CREATE_ACCOUNT,
-    EXIT
+    EXIT,
+    PLAY,
+    COLLECTION,
+    SHOP,
+    LOGOUT,
+    LEADER_BOARD
 }
