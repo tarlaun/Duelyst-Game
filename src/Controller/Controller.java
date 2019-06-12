@@ -2,6 +2,8 @@ package Controller;
 
 import Model.*;
 import View.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,17 +16,26 @@ public class Controller {
     private Shop shop = Shop.getInstance();
     private Account account;
     private Battle battle = Battle.getInstance();
+    private Button[] buttons = new Button[Buttons.values().length];
+    private TextField[] fields = new TextField[Texts.values().length];
     private static final Controller controller = new Controller();
 
     private Controller() {
-
+        initializeGame();
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i] = new Button();
+        }
+        for (int i = 0; i < fields.length; i++) {
+            fields[i] = new TextField();
+        }
+        menu.setStat(MenuStat.MAIN);
     }
 
     public static Controller getInstance() {
         return controller;
     }
 
-    public void main() {
+    public void initializeGame() {
         try {
             game.initializeAccounts();
         } catch (IOException f) {
@@ -50,186 +61,202 @@ public class Controller {
         } catch (IOException f) {
             System.out.println("Item initializing error!");
         }
+    }
+
+    public void handleCommands() {
         Request request = new Request();
 
-        while (true) {
-            request.getNewCommand();
-            switch (request.getType()) {
-                case NULL:
-                    invalidCommand();
-                    break;
-                case SHOW_MATCH_HISTORY:
-                    showMatchHistory(request);
-                case CREATE_ACCOUNT:
-                    createAccount(request);
-                    break;
-                case LOGIN:
-                    login(request);
-                    break;
-                case LEADERBOARD:
-                    showLeaderBoard(request);
-                    break;
-                case SAVE:
-                    try {
-                        save();
-                    } catch (OutOfMemoryError h) {
-                        System.out.println("Saving error!");
-                    }
-                    break;
-                case LOGOUT:
-                    logout();
-                    break;
-                case HELP:
-                    help();
-                    break;
-                case EXIT:
-                    exit();
-                    break;
-                case ENTRANCE:
-                    enter(request);
-                    break;
-                case SHOW_COLLECTION:
-                    showTheCollection();
-                    break;
-                case SEARCH_COLLECTION:
-                    searchInCollection(request);
-                    break;
-                case SAVE_IN_COLLECTION:
-                    saveCollection();
-                    break;
-                case CREATE_DECK:
-                    createDeck(request);
-                    break;
-                case DELETE_DECK:
-                    deleteDeck(request);
-                    break;
-                case ADD:
-                    addToDeck(request);
-                    break;
-                case REMOVE:
-                    removeFromDeck(request);
-                    break;
-                case VALIDATION:
-                    validateDeck(request);
-                    break;
-                case SELECT_DECK:
-                    selectDeck(request);
-                    break;
-                case SHOW_ALL_DECK:
-                    showAllDecks(request);
-                    break;
-                case SHOW_DECK:
-                    showDeck(request);
-                    break;
-                case SEARCH:
-                    search(request);
-                    break;
-                case BUY:
-                    buy(request);
-                    break;
-                case SELL:
-                    sell(request);
-                    break;
-                case SHOW:
-                    showShop();
-                    break;
-                case SINGLE_PLAYER:
-                    setGameType(request);
-                    break;
-                case MULTI_PLAYER:
-                    setGameType(request);
-                    break;
-                case STORY:
-                    setProcess(request);
-                    break;
-                case CUSTOM:
-                    setProcess(request);
-                    break;
-                case KILL_ENEMY_HERO:
-                    setBattleMode(request);
-                    break;
-                case COLLECTING:
-                    setBattleMode(request);
-                    break;
-                case FLAG:
-                    setBattleMode(request);
-                    break;
-                case SELECT_USER:
-                    selectUser(request);
-                    break;
-                case GAME_INFO:
-                    gameInfo();
-                    break;
-                case SHOW_MAP:
-                    showMap();
-                    break;
-                case SHOW_MY_MININOS:
-                    showMyMinions();
-                    break;
-                case SHOW_OPP_MINIONS:
-                    showOppMinions();
-                    break;
-                case SHOW_CARD_INFO:
-                    showCardInfo(request);
-                    break;
-                case SELECTION:
-                     select(request);
-                    break;
-                case MOVE:
-                    moveToInBattle(request);
-                    break;
-                case ATTACK:
-                    battleAttack(request);
-                    break;
-                case COMBO:
-                    battleComboAttack(request);
-                    break;
-                case USE_SP:
-                    specialPowerValidation();
-                    if (battle.validSpecialPower() == Message.NULL) {
-                        useSpecialPower(request);
-                    }
-                    break;
-                case SHOW_HAND:
-                    showHand();
-                    break;
-                case INSERTION:
-                    insertCard(request);
-                    break;
-                case END_TURN:
-                    endTurn();
-                    AiFunctions();
-                    break;
-                case SHOW_COLLECTABLES:
-                    showCollectables();
-                    break;
-                case SHOW_COLLECTABLE_INFO:
-                    showCollectableInfo();
-                    break;
-                case USE_ITEM:
-                    useItem(request);
-                    break;
-                case NEXT_CARD:
-                    showNextCard();
-                    break;
-                case SHOW_CARDS:
-                    showCards();
-                    break;
-                case END_GAME:
-                    endGame();
-                    break;
-                case SHOW_MENU:
-                    showMenu();
-                    break;
-            }
+//        while (true) {
+        request.getNewCommand();
+        switch (request.getType()) {
+            case NULL:
+                invalidCommand();
+                break;
+            case SHOW_MATCH_HISTORY:
+                showMatchHistory(request);
+            case CREATE_ACCOUNT:
+                createAccount(request);
+                break;
+            case LOGIN:
+                login(request);
+                break;
+            case LEADERBOARD:
+                showLeaderBoard(request);
+                break;
+            case SAVE:
+                try {
+                    save();
+                } catch (OutOfMemoryError h) {
+                    System.out.println("Saving error!");
+                }
+                break;
+            case LOGOUT:
+                logout();
+                break;
+            case HELP:
+                help();
+                break;
+            case EXIT:
+                exit();
+                break;
+            case ENTRANCE:
+                enter(request);
+                break;
+            case SHOW_COLLECTION:
+                showTheCollection();
+                break;
+            case SEARCH_COLLECTION:
+                searchInCollection(request);
+                break;
+            case SAVE_IN_COLLECTION:
+                saveCollection();
+                break;
+            case CREATE_DECK:
+                createDeck(request);
+                break;
+            case DELETE_DECK:
+                deleteDeck(request);
+                break;
+            case ADD:
+                addToDeck(request);
+                break;
+            case REMOVE:
+                removeFromDeck(request);
+                break;
+            case VALIDATION:
+                validateDeck(request);
+                break;
+            case SELECT_DECK:
+                selectDeck(request);
+                break;
+            case SHOW_ALL_DECK:
+                showAllDecks(request);
+                break;
+            case SHOW_DECK:
+                showDeck(request);
+                break;
+            case SEARCH:
+                search(request);
+                break;
+            case BUY:
+                buy(request);
+                break;
+            case SELL:
+                sell(request);
+                break;
+            case SHOW:
+                showShop();
+                break;
+            case SINGLE_PLAYER:
+                setGameType(request);
+                break;
+            case MULTI_PLAYER:
+                setGameType(request);
+                break;
+            case STORY:
+                setProcess(request);
+                break;
+            case CUSTOM:
+                setProcess(request);
+                break;
+            case KILL_ENEMY_HERO:
+                setBattleMode(request);
+                break;
+            case COLLECTING:
+                setBattleMode(request);
+                break;
+            case FLAG:
+                setBattleMode(request);
+                break;
+            case SELECT_USER:
+                selectUser(request);
+                break;
+            case GAME_INFO:
+                gameInfo();
+                break;
+            case SHOW_MAP:
+                showMap();
+                break;
+            case SHOW_MY_MININOS:
+                showMyMinions();
+                break;
+            case SHOW_OPP_MINIONS:
+                showOppMinions();
+                break;
+            case SHOW_CARD_INFO:
+                showCardInfo(request);
+                break;
+            case SELECTION:
+                select(request);
+                break;
+            case MOVE:
+                moveToInBattle(request);
+                break;
+            case ATTACK:
+                battleAttack(request);
+                break;
+            case COMBO:
+                battleComboAttack(request);
+                break;
+            case USE_SP:
+                specialPowerValidation();
+                if (battle.validSpecialPower() == Message.NULL) {
+                    useSpecialPower(request);
+                }
+                break;
+            case SHOW_HAND:
+                showHand();
+                break;
+            case INSERTION:
+                insertCard(request);
+                break;
+            case END_TURN:
+                endTurn();
+                AiFunctions();
+                break;
+            case SHOW_COLLECTABLES:
+                showCollectables();
+                break;
+            case SHOW_COLLECTABLE_INFO:
+                showCollectableInfo();
+                break;
+            case USE_ITEM:
+                useItem(request);
+                break;
+            case NEXT_CARD:
+                showNextCard();
+                break;
+            case SHOW_CARDS:
+                showCards();
+                break;
+            case END_GAME:
+                endGame();
+                break;
+            case SHOW_MENU:
+                showMenu();
+                break;
         }
+//        }
+    }
+
+    public void main() {
+        switch (menu.getStat()) {
+            case MAIN:
+                view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
+                        buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], fields[Texts.PASSWORD.ordinal()]);
+        }
+        handleButtons();
+    }
+
+    public void handleButtons(){
+        buttons[Buttons.LOGIN.ordinal()].setOnMouseClicked(event -> System.exit(0));
     }
 
     private void AiFunctions() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             System.out.println(battle.getAccounts()[1].getBudget());
             moveAI();
-            if(battle.getMode().equals(BattleMode.COLLECTING)){
+            if (battle.getMode().equals(BattleMode.COLLECTING)) {
                 if (battle.checkForWin()) {
                     menu.setStat(MenuStat.GAME);
                     view.Success();
@@ -324,7 +351,7 @@ public class Controller {
     private void moveAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                if(battle.getFieldCards()[1][i]!=null) {
+                if (battle.getFieldCards()[1][i] != null) {
                     battle.setCurrentCard(battle.getFieldCards()[1][i]);
                     battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
                 }
@@ -338,8 +365,8 @@ public class Controller {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                 for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
                     if (battle.getFieldCards()[0][j] != null && battle.getFieldCards()[1][i] != null) {
-                        battle.attack(battle.getFieldCards()[0][j].getId(),battle.getFieldCards()[1][i]);
-                        if(battle.getFieldCards()[1][i].getType().equals("Hero")) {
+                        battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
+                        if (battle.getFieldCards()[1][i].getType().equals("Hero")) {
                             if (battle.AIAssaultTypeBasedInsertion(i, j)) break;
                         }
                     }
@@ -416,7 +443,8 @@ public class Controller {
 
     private void showLeaderBoard(Request request) {
         if (request.checkLeaderBoardSyntax() && menu.getStat() == MenuStat.ACCOUNT) {
-            view.printLeaderboard();
+            game.sortAccounts();
+            view.printLeaderboard(game.getAccounts());
         }
     }
 

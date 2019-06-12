@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Model.*;
 
 import java.time.LocalDateTime;
@@ -9,17 +10,28 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 import Model.*;
+import Model.Menu;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.AnchorPane;
 
 public class View {
-    private static final View view = new View();
-    private Game game = Game.getInstance();
+    private Group root = new Group();
+    private Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
     private Menu menu = Menu.getInstance();
+    private static final View view = new View();
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RESET = "\u001B[0m";
 
     private View() {
 
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     public static View getInstance() {
@@ -88,11 +100,10 @@ public class View {
         System.out.println("Successful logout!!!:))))");
     }
 
-    public void printLeaderboard() {
-        game.sortAccounts();
-        for (int i = 0; i < game.getAccounts().size(); i++) {
-            System.out.println(i + 1 + " - UserName : " + game.getAccounts().get(i).getName() +
-                    " - Wins : " + game.getAccounts().get(i).getWins());
+    public void printLeaderboard(ArrayList<Account> accounts) {
+        for (int i = 0; i < accounts.size(); i++) {
+            System.out.println(i + 1 + " - UserName : " + accounts.get(i).getName() +
+                    " - Wins : " + accounts.get(i).getWins());
         }
 
     }
@@ -169,7 +180,6 @@ public class View {
             System.out.println("coordinates  x: " + card.getCoordinate().getX() + " y " + card.getCoordinate().getY());
         } catch (NullPointerException e) {
         }
-        System.out.println("coordinates  x: " + card.getCoordinate().getX() + " y " + card.getCoordinate().getY());
     }
 
     public void printMinionsInfo(Card... cards) {
@@ -589,7 +599,7 @@ public class View {
         }
     }
 
-    public void Success(){
+    public void Success() {
         System.out.println("AI WON THE GAME");
     }
 
@@ -635,6 +645,19 @@ public class View {
             System.out.println();
         }
 
+    }
+    //Graphic
+
+    public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
+        ImageView background = new ImageView(new Image("scenes/frostfire/background.jpg"));
+        background.setFitWidth(Constants.WINDOW_WIDTH);
+        background.setFitHeight(Constants.WINDOW_HEIGHT);
+        login.setText("Login");
+        login.setPrefWidth(Constants.BUTTON_WIDTH);
+        login.setPrefHeight(Constants.BUTTON_HEIGHT);
+        login.setLayoutX(Constants.CENTRE_X - Constants.BUTTON_WIDTH / 2);
+        login.setLayoutY(Constants.CENTRE_Y + Constants.BUTTON_HEIGHT);
+        root.getChildren().addAll(background,login);
     }
 }
 

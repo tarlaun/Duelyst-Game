@@ -172,7 +172,7 @@ public class Game {
 
     private void sortCards(ArrayList<Card> cards) {
         Comparator<Card> compareById = Comparator.comparingInt(Card::getId);
-//        cards.sort(compareById);
+        cards.sort(compareById);
     }
 
     private void sortItems(ArrayList<Item> items) {
