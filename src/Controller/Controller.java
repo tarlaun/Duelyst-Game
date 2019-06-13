@@ -259,9 +259,10 @@ public class Controller {
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
                 break;
             case BATTLE:
-
+                view.battleMenu();
                 break;
             case SELECT_USER:
+                view.selectUserMenu();
                 break;
         }
         handleButtons();
@@ -295,7 +296,7 @@ public class Controller {
         }
         if(battle.getGameType().equals(GameType.SINGLEPLAYER)){
             menu.setStat(MenuStat.BATTLE);
-            battle.startBattle();
+            //battle.startBattle();
         }else {
             menu.setStat(MenuStat.SELECT_USER);
         }

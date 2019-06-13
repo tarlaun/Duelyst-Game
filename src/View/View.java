@@ -11,14 +11,17 @@ import java.util.Scanner;
 
 import Model.*;
 import Model.Menu;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -656,6 +659,32 @@ public class View {
     }
     //Graphic
 
+    public void selectUserMenu() {
+        root.getChildren().clear();
+        Image background = new Image("resources/scenes/shimzar/bg@2x.jpg");
+        ImageView backgroundView = new ImageView(background);
+        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
+        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
+        TableView <Account>table = new TableView<>();
+        table.setEditable(true);
+        TableColumn firstNameCol = new TableColumn("NAME");
+        TableColumn lastNameCol = new TableColumn("STATUS");
+        firstNameCol.setMinWidth(100);
+        firstNameCol.setCellValueFactory(
+                new PropertyValueFactory< Account, String>("firstName"));
+        firstNameCol.setResizable(true);
+        table.getColumns().addAll(firstNameCol, lastNameCol);
+        final VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(100, 100, 100, 100));
+        vbox.getChildren().addAll( table);
+        root.getChildren().addAll(backgroundView,vbox);
+    }
+
+    public void battleMenu() {
+
+    }
+
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
         Image background = new Image("resources/scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -728,9 +757,6 @@ public class View {
         lightnings(firstImageView);
         lightnings(secondImageView);
         lightnings(thirdImageView);
-        firstImageView.setOnMouseClicked(event -> controller.setBattleMode(1));
-        secondImageView.setOnMouseClicked(event -> controller.setBattleMode(2));
-        secondImageView.setOnMouseClicked(event -> controller.setBattleMode(3));
         buttonSettings(first, 40, "-fx-background-color: #091841; ", 209, 188, 208, "KILL ENEMY HERO", 10, 50);
         buttonSettings(second, 37, "-fx-background-color: #091841; ", 209, 188, 208, "COLLECTING FLAGS", 430, 50);
         buttonSettings(third, 37, "-fx-background-color: #091841; ", 209, 188, 208, "HOLD SPECIAL FLAG", 855, 50);
