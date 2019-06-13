@@ -258,6 +258,11 @@ public class Controller {
                 view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()],buttons[Buttons.FLAG_COLLECTING.ordinal()],
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
                 break;
+            case BATTLE:
+
+                break;
+            case SELECT_USER:
+                break;
         }
         handleButtons();
     }
@@ -274,7 +279,6 @@ public class Controller {
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
-        //buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> );
     }
 
     public void setBattleMode(int a ){

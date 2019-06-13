@@ -662,10 +662,7 @@ public class View {
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("resources/scenes/obsidian_woods/obsidian_woods_cliff.png");
-        ImageView foregroundView = new ImageView(foreground);
-        foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
-        foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
-        foregroundView.setLayoutY(Constants.WINDOW_HEIGHT - foregroundView.getFitHeight());
+        ImageView foregroundView = getImageView(background, foreground);
         login.setText("Login");
         create.setText("Create Account");
         exit.setText("Exit");
@@ -688,10 +685,7 @@ public class View {
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("resources/scenes/frostfire/foreground.png");
-        ImageView foregroundView = new ImageView(foreground);
-        foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
-        foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
-        foregroundView.setLayoutY(Constants.WINDOW_HEIGHT - foregroundView.getFitHeight());
+        ImageView foregroundView = getImageView(background, foreground);
         play.setText("Play");
         collection.setText("Collection");
         shop.setText("Shop");
@@ -699,6 +693,14 @@ public class View {
         logout.setText("Logout");
         verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y, play, collection, shop, leaderboard, logout);
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, leaderboard, logout);
+    }
+
+    private ImageView getImageView(Image background, Image foreground) {
+        ImageView foregroundView = new ImageView(foreground);
+        foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
+        foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
+        foregroundView.setLayoutY(Constants.WINDOW_HEIGHT - foregroundView.getFitHeight());
+        return foregroundView;
     }
 
     public void battleMode(Button first, Button second, Button third) {
