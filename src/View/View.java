@@ -14,8 +14,11 @@ import Model.Menu;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 public class View {
     private Group root = new Group();
@@ -695,7 +698,7 @@ public class View {
 
     public void gameTypeMenu(Button single , Button multi){
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/load/scene_load_background.jpg");
+        Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
@@ -711,10 +714,32 @@ public class View {
         singleMview.setFitHeight(300);
         singleMview.setLayoutY(200);
         singleMview.setLayoutX(700);
+        single.setText("SINGLE PLAYER");
+        multi.setText("MULTI PLAYER");
+        single.setTextFill(Color.rgb(255,255,255));
+        multi.setTextFill(Color.rgb(255,255,255));
+        single.relocate(400,500);
+        multi.relocate(800,500);
+        single.setStyle("-fx-background-color: #111143; ");
+        multi.setStyle("-fx-background-color: #091841; ");
+        lightning(singlePview);
+        lightning(singleMview);
+        root.getChildren().addAll(backgroundView,singlePview,singleMview,single,multi);
 
+    }
 
-        root.getChildren().addAll(backgroundView,singlePview,singleMview);
+    private void lightning(ImageView singlePview) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(0.5);
 
+        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
+
+            singlePview.setEffect(colorAdjust);
+
+        });
+        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
+            singlePview.setEffect(null);
+        });
     }
 
     public void verticalList(Alignment alignment, double x, double y, Button... buttons) {
