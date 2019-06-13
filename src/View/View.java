@@ -22,9 +22,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class View {
     private Group root = new Group();
+    private Controller controller = Controller.getInstance();
     private Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
     private Menu menu = Menu.getInstance();
     private static final View view = new View();
@@ -699,11 +701,64 @@ public class View {
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, leaderboard, logout);
     }
 
-    public void battleMode(Button first , Button second , Button third){
-
+    public void battleMode(Button first, Button second, Button third) {
+        root.getChildren().clear();
+        // Image background = new Image("resources/scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg");
+        Image background = new Image("resources/scenes/load/scene_load_background@2x.jpg");
+        ImageView backgroundView = new ImageView(background);
+        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
+        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
+        Image firstImage = new Image("resources/challenges/gate_013@2x.jpg");
+        ImageView firstImageView = new ImageView(firstImage);
+        firstImageView.setFitWidth(425);
+        firstImageView.setFitHeight(Constants.WINDOW_HEIGHT);
+        firstImageView.setLayoutX(0);
+        Image secondImage = new Image("resources/challenges/gate_005@2x.jpg");
+        ImageView secondImageView = new ImageView(secondImage);
+        secondImageView.setFitWidth(425);
+        secondImageView.setFitHeight(Constants.WINDOW_HEIGHT);
+        secondImageView.setLayoutX(425);
+        Image thirdImage = new Image("resources/challenges/gate_004@2x.jpg");
+        ImageView thirdImageView = new ImageView(thirdImage);
+        thirdImageView.setFitWidth(425);
+        thirdImageView.setFitHeight(Constants.WINDOW_HEIGHT);
+        thirdImageView.setLayoutX(850);
+        lightnings(firstImageView);
+        lightnings(secondImageView);
+        lightnings(thirdImageView);
+        firstImageView.setOnMouseClicked(event -> controller.setBattleMode(1));
+        secondImageView.setOnMouseClicked(event -> controller.setBattleMode(2));
+        secondImageView.setOnMouseClicked(event -> controller.setBattleMode(3));
+        buttonSettings(first, 40, "-fx-background-color: #091841; ", 209, 188, 208, "KILL ENEMY HERO", 10, 50);
+        buttonSettings(second, 37, "-fx-background-color: #091841; ", 209, 188, 208, "COLLECTING FLAGS", 430, 50);
+        buttonSettings(third, 37, "-fx-background-color: #091841; ", 209, 188, 208, "HOLD SPECIAL FLAG", 855, 50);
+        root.getChildren().addAll(backgroundView, firstImageView, secondImageView, thirdImageView, first, second, third);
     }
 
-    public void gameTypeMenu(Button single , Button multi){
+    private void buttonSettings(Button first, int font, String s, int a, int b, int c, String t, int x, int y) {
+        first.relocate(x, y);
+        first.setText(t);
+        first.setFont(Font.font(font));
+        first.setStyle(s);
+        first.setTextFill(Color.rgb(a, b, c));
+    }
+
+    private void lightnings(ImageView singlePview) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.7);
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
+
+            singlePview.setEffect(null);
+
+        });
+        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
+            singlePview.setEffect(colorAdjust);
+        });
+    }
+
+    public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
         Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -723,15 +778,15 @@ public class View {
         singleMview.setLayoutX(700);
         single.setText("SINGLE PLAYER");
         multi.setText("MULTI PLAYER");
-        single.setTextFill(Color.rgb(255,255,255));
-        multi.setTextFill(Color.rgb(255,255,255));
-        single.relocate(400,500);
-        multi.relocate(800,500);
+        single.setTextFill(Color.rgb(255, 255, 255));
+        multi.setTextFill(Color.rgb(255, 255, 255));
+        single.relocate(400, 500);
+        multi.relocate(800, 500);
         single.setStyle("-fx-background-color: #111143; ");
         multi.setStyle("-fx-background-color: #091841; ");
         lightning(singlePview);
         lightning(singleMview);
-        root.getChildren().addAll(backgroundView,singlePview,singleMview,single,multi);
+        root.getChildren().addAll(backgroundView, singlePview, singleMview, single, multi);
 
     }
 

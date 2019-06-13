@@ -277,7 +277,7 @@ public class Controller {
         //buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> );
     }
 
-    private void setBattleMode(int a ){
+    public void setBattleMode(int a ){
         switch (a){
             case 1:
                 battle.setMode(BattleMode.KILLENEMYHERO);
@@ -358,7 +358,7 @@ public class Controller {
 
     private void setBattleModeSingle() {
         battle.setGameType(GameType.SINGLEPLAYER);
-        setMainDeckForAI();
+       // setMainDeckForAI();
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
     }
