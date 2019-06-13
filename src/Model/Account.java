@@ -2,6 +2,7 @@ package Model;
 
 import View.Message;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Account {
@@ -11,11 +12,11 @@ public class Account {
     private int budget = Constants.initialBudget;
     private ArrayList<Match> matchHistory = new ArrayList<>();
     private Collection collection = new Collection();
-    private static Game game = Game.getInstance();
-    private boolean isLoggedIn = true;
+    private transient static Game game = Game.getInstance();
+    private transient boolean isLoggedIn = true;
     private int wins = 0;
-    private int mana = 2;
-    private int flagsCollected = 0;
+    private transient int mana = 2;
+    private transient int flagsCollected = 0;
     private transient Menu menu = Menu.getInstance();
 
     public int getFlagsCollected() {
@@ -24,10 +25,6 @@ public class Account {
 
     public void setFlagsCollected(int flagsCollected) {
         this.flagsCollected = flagsCollected;
-    }
-
-    public static Game getGame() {
-        return game;
     }
 
     public Account() {
@@ -66,10 +63,6 @@ public class Account {
         this.collection = collection;
     }
 
-    public static void setGame(Game game) {
-        Account.game = game;
-    }
-
     public void setLoggedIn(boolean loggedIn) {
         isLoggedIn = loggedIn;
     }
@@ -89,16 +82,6 @@ public class Account {
     public Account(String name, String password) {
         this.name = name;
         this.password = password;
-    }
-
-    public boolean createAccount() {
-        if (accountIndex(this.name) != -1)
-            return false;
-        this.id = game.getLastAccountId() + 1;
-        game.incrementAccountId();
-        game.getAccounts().add(this);
-        menu.setStat(MenuStat.ACCOUNT);
-        return true;
     }
 
     public static Message login(String username, String password) {
@@ -161,5 +144,18 @@ public class Account {
                 return accounts.get(i);
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", password='" + password + '\'' +
+                ", budget=" + budget +
+                ", matchHistory=" + matchHistory +
+                ", collection=" + collection +
+                ", wins=" + wins +
+                '}';
     }
 }

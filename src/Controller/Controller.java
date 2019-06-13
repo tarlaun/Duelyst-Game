@@ -17,8 +17,8 @@ public class Controller {
     private Shop shop = Shop.getInstance();
     private Account account;
     private Battle battle = Battle.getInstance();
-    private Button[] buttons = new Button[Buttons.values().length];
-    private TextField[] fields = new TextField[Texts.values().length];
+    private transient Button[] buttons = new Button[Buttons.values().length];
+    private transient TextField[] fields = new TextField[Texts.values().length];
     private static final Controller controller = new Controller();
 
     private Controller() {

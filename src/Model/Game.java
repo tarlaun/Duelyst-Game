@@ -2,6 +2,7 @@ package Model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -115,7 +116,7 @@ public class Game {
     }
 
     public void save(Account account) throws OutOfMemoryError {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new Gson();
         String json = gson.toJson(account);
         try {
             FileWriter writer = new FileWriter(account.getName() + ".json");
