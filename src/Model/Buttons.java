@@ -10,5 +10,8 @@ public enum Buttons {
     LOGOUT,
     LEADER_BOARD,
     SINGLE_PLAYER,
-    MULTI_PLAYER
+    MULTI_PLAYER,
+    KILL_ENEMY_HERO,
+    FLAG_COLLECTING,
+    HOLD_FLAG
 }

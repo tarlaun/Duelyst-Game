@@ -46,4 +46,6 @@ public class Constants {
     public static final String TEXT_FONT = "Ubuntu Mono";
     public static final double FIELD_WIDTH = 120;
     public static final double FIELD_HEIGHT = 30;
+    public static final double SINGLE_PLAYER_WIDTH = 300;
+    public static final double SINGLE_PLAYER_HEIGHT = 300;
 }

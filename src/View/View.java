@@ -15,9 +15,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 public class View {
@@ -696,6 +699,10 @@ public class View {
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, leaderboard, logout);
     }
 
+    public void battleMode(Button first , Button second , Button third){
+
+    }
+
     public void gameTypeMenu(Button single , Button multi){
         root.getChildren().clear();
         Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
@@ -704,14 +711,14 @@ public class View {
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image singleP = new Image("resources/resources/crests/crest_f1@2x.png");
         ImageView singlePview = new ImageView(singleP);
-        singlePview.setFitWidth(300);
-        singlePview.setFitHeight(300);
+        singlePview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
+        singlePview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setLayoutY(200);
-        singlePview.setLayoutX(300);
+        singlePview.setLayoutX(Constants.SINGLE_PLAYER_HEIGHT);
         Image singleM = new Image("resources/resources/crests/crest_f2@2x.png");
         ImageView singleMview = new ImageView(singleM);
-        singleMview.setFitWidth(300);
-        singleMview.setFitHeight(300);
+        singleMview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
+        singleMview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
         singleMview.setLayoutY(200);
         singleMview.setLayoutX(700);
         single.setText("SINGLE PLAYER");
@@ -730,8 +737,9 @@ public class View {
 
     private void lightning(ImageView singlePview) {
         ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(0.5);
-
+        colorAdjust.setBrightness(-0.5);
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
         singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
 
             singlePview.setEffect(colorAdjust);

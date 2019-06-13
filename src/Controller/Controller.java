@@ -254,6 +254,10 @@ public class Controller {
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()],buttons[Buttons.MULTI_PLAYER.ordinal()]);
                 break;
+            case BATTLE_MODE:
+                view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()],buttons[Buttons.FLAG_COLLECTING.ordinal()],
+                        buttons[Buttons.HOLD_FLAG.ordinal()]);
+                break;
         }
         handleButtons();
     }
@@ -265,9 +269,33 @@ public class Controller {
         buttons[Buttons.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType() );
         buttons[Buttons.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         buttons[Buttons.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
-        buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> chooseBattleType());
-        buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> chooseBattleType());
+        buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
+        buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
+        buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
+        buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
+        buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
         //buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> );
+    }
+
+    private void setBattleMode(int a ){
+        switch (a){
+            case 1:
+                battle.setMode(BattleMode.KILLENEMYHERO);
+                break;
+            case 2:
+                battle.setMode(BattleMode.COLLECTING);
+                break;
+            case 3:
+                battle.setMode(BattleMode.FLAG);
+                break;
+        }
+        if(battle.getGameType().equals(GameType.SINGLEPLAYER)){
+            menu.setStat(MenuStat.BATTLE);
+            battle.startBattle();
+        }else {
+            menu.setStat(MenuStat.SELECT_USER);
+        }
+        main();
     }
 
     private void chooseBattleType(){
@@ -326,6 +354,19 @@ public class Controller {
             }
             battle.setAccounts(accounts);
         }
+    }
+
+    private void setBattleModeSingle() {
+        battle.setGameType(GameType.SINGLEPLAYER);
+        setMainDeckForAI();
+        menu.setStat(MenuStat.BATTLE_MODE);
+        main();
+    }
+
+    private void setBattleModeMulti() {
+        battle.setGameType(GameType.MULTIPLAYER);
+        menu.setStat(MenuStat.BATTLE_MODE);
+        main();
     }
 
     private void setBattleMode(Request request) {
