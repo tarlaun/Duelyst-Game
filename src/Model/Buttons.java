@@ -8,5 +8,7 @@ public enum Buttons {
     COLLECTION,
     SHOP,
     LOGOUT,
-    LEADER_BOARD
+    LEADER_BOARD,
+    SINGLE_PLAYER,
+    MULTI_PLAYER
 }

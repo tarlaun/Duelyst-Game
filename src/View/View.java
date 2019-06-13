@@ -649,11 +649,11 @@ public class View {
     //Graphic
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
-        Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
+        Image background = new Image("resources/scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
+        Image foreground = new Image("resources/scenes/obsidian_woods/obsidian_woods_cliff.png");
         ImageView foregroundView = new ImageView(foreground);
         foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
         foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
@@ -675,11 +675,11 @@ public class View {
 
     public void accountMenu(Button play, Button collection, Button shop, Button leaderboard, Button logout) {
         root.getChildren().clear();
-        Image background = new Image("scenes/frostfire/background.jpg");
+        Image background = new Image("resources/scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("scenes/frostfire/foreground.png");
+        Image foreground = new Image("resources/scenes/frostfire/foreground.png");
         ImageView foregroundView = new ImageView(foreground);
         foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
         foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
@@ -691,6 +691,30 @@ public class View {
         logout.setText("Logout");
         verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y, play, collection, shop, leaderboard, logout);
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, leaderboard, logout);
+    }
+
+    public void gameTypeMenu(Button single , Button multi){
+        root.getChildren().clear();
+        Image background = new Image("resources/scenes/load/scene_load_background.jpg");
+        ImageView backgroundView = new ImageView(background);
+        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
+        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
+        Image singleP = new Image("resources/resources/crests/crest_f1@2x.png");
+        ImageView singlePview = new ImageView(singleP);
+        singlePview.setFitWidth(300);
+        singlePview.setFitHeight(300);
+        singlePview.setLayoutY(200);
+        singlePview.setLayoutX(300);
+        Image singleM = new Image("resources/resources/crests/crest_f2@2x.png");
+        ImageView singleMview = new ImageView(singleM);
+        singleMview.setFitWidth(300);
+        singleMview.setFitHeight(300);
+        singleMview.setLayoutY(200);
+        singleMview.setLayoutX(700);
+
+
+        root.getChildren().addAll(backgroundView,singlePview,singleMview);
+
     }
 
     public void verticalList(Alignment alignment, double x, double y, Button... buttons) {

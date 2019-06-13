@@ -250,6 +250,10 @@ public class Controller {
                 view.accountMenu(buttons[Buttons.PLAY.ordinal()], buttons[Buttons.COLLECTION.ordinal()],
                         buttons[Buttons.SHOP.ordinal()], buttons[Buttons.LEADER_BOARD.ordinal()],
                         buttons[Buttons.LOGOUT.ordinal()]);
+                break;
+            case GAME_TYPE:
+                view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()],buttons[Buttons.MULTI_PLAYER.ordinal()]);
+                break;
         }
         handleButtons();
     }
@@ -258,11 +262,17 @@ public class Controller {
         buttons[Buttons.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
         buttons[Buttons.LOGIN.ordinal()].setOnMouseClicked(event -> login());
         buttons[Buttons.EXIT.ordinal()].setOnMouseClicked(event -> exit());
-        buttons[Buttons.PLAY.ordinal()].setOnMouseClicked(event -> {
-        });
+        buttons[Buttons.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType() );
         buttons[Buttons.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         buttons[Buttons.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
+        buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> chooseBattleType());
+        buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> chooseBattleType());
         //buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> );
+    }
+
+    private void chooseBattleType(){
+        menu.setStat(MenuStat.GAME_TYPE);
+        main();
     }
 
     private void AiFunctions() {
