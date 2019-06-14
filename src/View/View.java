@@ -11,7 +11,10 @@ import java.util.Scanner;
 
 import Model.*;
 import Model.Menu;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -659,26 +662,30 @@ public class View {
     }
     //Graphic
 
-    public void selectUserMenu() {
+    public void selectUserMenu(ArrayList<Account> accounts) {
         root.getChildren().clear();
         Image background = new Image("resources/scenes/shimzar/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        TableView <Account>table = new TableView<>();
-        table.setEditable(true);
-        TableColumn firstNameCol = new TableColumn("NAME");
-        TableColumn lastNameCol = new TableColumn("STATUS");
-        firstNameCol.setMinWidth(100);
-        firstNameCol.setCellValueFactory(
-                new PropertyValueFactory< Account, String>("firstName"));
-        firstNameCol.setResizable(true);
-        table.getColumns().addAll(firstNameCol, lastNameCol);
-        final VBox vbox = new VBox();
-        vbox.setSpacing(10);
-        vbox.setPadding(new Insets(100, 100, 100, 100));
-        vbox.getChildren().addAll( table);
-        root.getChildren().addAll(backgroundView,vbox);
+        ArrayList<Users> users = new ArrayList<>();
+
+        for (int i = 0; i < accounts.size(); i++) {
+            String s = "OFFLINE";
+            if(accounts.get(i).isLoggedIn()) s="ONLINE";
+            Users users1 = new Users(accounts.get(i).getName(),s);
+            users.add(users1);
+        }
+
+        ListView<Users> list = new ListView<>();
+        ObservableList<Users> items = FXCollections.observableArrayList(users);
+        list.setItems(items);
+        list.setOrientation(Orientation.VERTICAL);
+        if(accounts.size()==0){
+            list.getItems().add(new Users("NOBODY","ONLINE"));
+        }
+
+        root.getChildren().addAll(backgroundView,list);
     }
 
     public void battleMenu() {

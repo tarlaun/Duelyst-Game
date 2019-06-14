@@ -262,7 +262,7 @@ public class Controller {
                 view.battleMenu();
                 break;
             case SELECT_USER:
-                view.selectUserMenu();
+                view.selectUserMenu(game.getAccounts());
                 break;
         }
         handleButtons();
