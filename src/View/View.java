@@ -662,7 +662,7 @@ public class View {
     }
     //Graphic
 
-    public void selectUserMenu(ArrayList<Account> accounts) {
+    public void selectUserMenu(ArrayList<Account> accounts , Label label , TextField textField) {
         root.getChildren().clear();
         Image background = new Image("resources/scenes/shimzar/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -684,8 +684,16 @@ public class View {
         if(accounts.size()==0){
             list.getItems().add(new Users("NOBODY","ONLINE"));
         }
-
-        root.getChildren().addAll(backgroundView,list);
+        list.setStyle("-fx-control-inner-background: #74e9cf;-fx-font-size:20;");
+        list.setMinWidth(200);
+        list.setMaxHeight(300);
+        list.relocate(175,125);
+        label.setText("FRIENDS");
+        label.relocate(225,80);
+        label.setFont(Font.font(35));
+        textField.relocate(215,450);
+        textField.setStyle("-fx-control-inner-background: #2b7b71;");
+        root.getChildren().addAll(backgroundView,list,label,textField);
     }
 
     public void battleMenu() {

@@ -18,6 +18,7 @@ public class Controller {
     private Account account;
     private Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
+    private transient Label[] labels = new Label[Labels.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
     private static final Controller controller = new Controller();
 
@@ -25,6 +26,9 @@ public class Controller {
         initializeGame();
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new Button();
+        }
+        for (int i = 0; i < labels.length; i++) {
+            labels[i] = new Label();
         }
         for (int i = 0; i < fields.length; i++) {
             fields[i] = new TextField();
@@ -262,10 +266,11 @@ public class Controller {
                 view.battleMenu();
                 break;
             case SELECT_USER:
-                view.selectUserMenu(game.getAccounts());
+                view.selectUserMenu(game.getAccounts(),labels[Labels.STATUS.ordinal()],fields[Texts.USER_NAME.ordinal()] );
                 break;
         }
         handleButtons();
+        handleTextFields();
     }
 
     public void handleButtons() {
@@ -280,6 +285,10 @@ public class Controller {
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
+    }
+
+    public void handleTextFields() {
+        fields[Texts.USER_NAME.ordinal()].setOnAction(event -> System.exit(1));
     }
 
     public void setBattleMode(int a ){
