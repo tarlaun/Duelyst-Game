@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -288,7 +289,7 @@ public class Controller {
     }
 
     public void handleTextFields() {
-        fields[Texts.USER_NAME.ordinal()].setOnAction(event -> System.exit(1));
+        fields[Texts.USER_NAME.ordinal()].setOnAction(event -> selectUser(fields[Texts.USER_NAME.ordinal()].getText()));
     }
 
     public void setBattleMode(int a ){
@@ -340,18 +341,11 @@ public class Controller {
         }
     }
 
-    private void selectUser(Request request) {
-        if (request.checkSelectUserSyntax() && menu.getStat() == MenuStat.SELECT_USER) {
-            String username = request.getAccountName(request.getCommand());
-            view.playerAdded(Account.getAccountByName(username, game.getAccounts()));
-            try {
-                battle.setAccounts(account, Account.getAccountByName(username, game.getAccounts()));
-                menu.setStat(MenuStat.BATTLE);
-                battle.startBattle();
-                view.endTurn(account);
-            } catch (NullPointerException ignored) {
-            }
-        }
+    private void selectUser(String name) {
+       // battle.setAccounts(account, Account.getAccountByName(name, game.getAccounts()));
+        menu.setStat(MenuStat.BATTLE);
+        //battle.startBattle();
+        main();
     }
 
     private void setProcess(Request request) {

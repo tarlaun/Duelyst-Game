@@ -697,7 +697,14 @@ public class View {
     }
 
     public void battleMenu() {
-
+        root.getChildren().clear();
+        Image background = new Image("resources/maps/abyssian/background@2x.jpg");
+        ImageView backgroundView = new ImageView(background);
+        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
+        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
+        Image foreground = new Image("resources/maps/abyssian/midground@2x.png");
+        ImageView foregroundView = getImageView(background, foreground);
+        root.getChildren().addAll(backgroundView,foregroundView);
     }
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
