@@ -1,7 +1,10 @@
 package Model;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -116,8 +119,7 @@ public class Game {
     }
 
     public void save(Account account) throws OutOfMemoryError {
-        Gson gson = new Gson();
-        String json = gson.toJson(account);
+        String json = new Gson().toJson(account);
         try {
             FileWriter writer = new FileWriter(account.getName() + ".json");
             writer.write(json);
@@ -140,8 +142,10 @@ public class Game {
                     if (file.isFile()) {
                         if (!file.getName().matches("\\w+[.]json"))
                             continue;
-                        BufferedReader reader = new BufferedReader(new FileReader(file));
-                        Account account = new Gson().fromJson(reader, Account.class);
+                        JsonParser jsonParser = new JsonParser();
+                        FileReader reader = new FileReader(file);
+                        JsonElement element = jsonParser.parse(reader);
+                        Account account = new Gson().fromJson(element, Account.class);
                         accounts.add(account);
                         accountObjectInitializer(account);
                     }
@@ -192,6 +196,7 @@ public class Game {
                         hero.setType("Hero");
                         hero.setId(++lastHeroId);
                         shop.getCards().add(hero);
+                        System.out.println(hero.getName());
                     }
                 }
             }

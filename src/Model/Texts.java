@@ -3,5 +3,6 @@ package Model;
 public enum Texts {
     USERNAME,
     PASSWORD,
-    USER_NAME
+    USER_NAME,
+    CARD
 }

@@ -14,6 +14,10 @@ public class Shop {
 
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     public static Shop getInstance() {
         return shop;
     }

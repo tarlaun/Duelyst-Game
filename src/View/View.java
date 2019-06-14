@@ -11,29 +11,15 @@ import java.util.Scanner;
 
 import Model.*;
 import Model.Menu;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 public class View {
-    private Group root = new Group();
-    private Controller controller = Controller.getInstance();
-    private Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+    private transient Group root = new Group();
+    private transient Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
     private Menu menu = Menu.getInstance();
     private static final View view = new View();
     public static final String ANSI_RED = "\u001B[31m";
@@ -662,58 +648,16 @@ public class View {
     }
     //Graphic
 
-    public void selectUserMenu(ArrayList<Account> accounts , Label label , TextField textField) {
-        root.getChildren().clear();
-        Image background = new Image("resources/scenes/shimzar/bg@2x.jpg");
-        ImageView backgroundView = new ImageView(background);
-        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
-        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        ArrayList<Users> users = new ArrayList<>();
-
-        for (int i = 0; i < accounts.size(); i++) {
-            String s = "OFFLINE";
-            if(accounts.get(i).isLoggedIn()) s="ONLINE";
-            Users users1 = new Users(accounts.get(i).getName(),s);
-            users.add(users1);
-        }
-
-        ListView<Users> list = new ListView<>();
-        ObservableList<Users> items = FXCollections.observableArrayList(users);
-        list.setItems(items);
-        list.setOrientation(Orientation.VERTICAL);
-        if(accounts.size()==0){
-            list.getItems().add(new Users("NOBODY","ONLINE"));
-        }
-        list.setStyle("-fx-control-inner-background: #74e9cf;-fx-font-size:20;");
-        list.setMinWidth(200);
-        list.setMaxHeight(300);
-        list.relocate(175,125);
-        label.setText("FRIENDS");
-        label.relocate(225,80);
-        label.setFont(Font.font(35));
-        textField.relocate(215,450);
-        textField.setStyle("-fx-control-inner-background: #2b7b71;");
-        root.getChildren().addAll(backgroundView,list,label,textField);
-    }
-
-    public void battleMenu() {
-        root.getChildren().clear();
-        Image background = new Image("resources/maps/abyssian/background@2x.jpg");
-        ImageView backgroundView = new ImageView(background);
-        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
-        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/maps/abyssian/midground@2x.png");
-        ImageView foregroundView = getImageView(background, foreground);
-        root.getChildren().addAll(backgroundView,foregroundView);
-    }
-
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
-        Image background = new Image("resources/scenes/obsidian_woods/obsidian_woods_background.jpg");
+        Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/obsidian_woods/obsidian_woods_cliff.png");
-        ImageView foregroundView = getImageView(background, foreground);
+        Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
+        ImageView foregroundView = new ImageView(foreground);
+        foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
+        foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
+        foregroundView.setLayoutY(Constants.WINDOW_HEIGHT - foregroundView.getFitHeight());
         login.setText("Login");
         create.setText("Create Account");
         exit.setText("Exit");
@@ -731,12 +675,15 @@ public class View {
 
     public void accountMenu(Button play, Button collection, Button shop, Button leaderboard, Button logout) {
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/frostfire/background.jpg");
+        Image background = new Image("scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/frostfire/foreground.png");
-        ImageView foregroundView = getImageView(background, foreground);
+        Image foreground = new Image("scenes/frostfire/foreground.png");
+        ImageView foregroundView = new ImageView(foreground);
+        foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
+        foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
+        foregroundView.setLayoutY(Constants.WINDOW_HEIGHT - foregroundView.getFitHeight());
         play.setText("Play");
         collection.setText("Collection");
         shop.setText("Shop");
@@ -746,113 +693,16 @@ public class View {
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, leaderboard, logout);
     }
 
-    private ImageView getImageView(Image background, Image foreground) {
-        ImageView foregroundView = new ImageView(foreground);
-        foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
-        foregroundView.setFitHeight(foreground.getWidth() / background.getWidth() * Constants.WINDOW_HEIGHT);
-        foregroundView.setLayoutY(Constants.WINDOW_HEIGHT - foregroundView.getFitHeight());
-        return foregroundView;
-    }
-
-    public void battleMode(Button first, Button second, Button third) {
+    public void shopMenu(Button buy, Button exit, TextField name) {
         root.getChildren().clear();
-        // Image background = new Image("resources/scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg");
-        Image background = new Image("resources/scenes/load/scene_load_background@2x.jpg");
-        ImageView backgroundView = new ImageView(background);
-        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
-        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image firstImage = new Image("resources/challenges/gate_013@2x.jpg");
-        ImageView firstImageView = new ImageView(firstImage);
-        firstImageView.setFitWidth(425);
-        firstImageView.setFitHeight(Constants.WINDOW_HEIGHT);
-        firstImageView.setLayoutX(0);
-        Image secondImage = new Image("resources/challenges/gate_005@2x.jpg");
-        ImageView secondImageView = new ImageView(secondImage);
-        secondImageView.setFitWidth(425);
-        secondImageView.setFitHeight(Constants.WINDOW_HEIGHT);
-        secondImageView.setLayoutX(425);
-        Image thirdImage = new Image("resources/challenges/gate_004@2x.jpg");
-        ImageView thirdImageView = new ImageView(thirdImage);
-        thirdImageView.setFitWidth(425);
-        thirdImageView.setFitHeight(Constants.WINDOW_HEIGHT);
-        thirdImageView.setLayoutX(850);
-        lightnings(firstImageView);
-        lightnings(secondImageView);
-        lightnings(thirdImageView);
-        buttonSettings(first, 40, "-fx-background-color: #091841; ", 209, 188, 208, "KILL ENEMY HERO", 10, 50);
-        buttonSettings(second, 37, "-fx-background-color: #091841; ", 209, 188, 208, "COLLECTING FLAGS", 430, 50);
-        buttonSettings(third, 37, "-fx-background-color: #091841; ", 209, 188, 208, "HOLD SPECIAL FLAG", 855, 50);
-        root.getChildren().addAll(backgroundView, firstImageView, secondImageView, thirdImageView, first, second, third);
-    }
-
-    private void buttonSettings(Button first, int font, String s, int a, int b, int c, String t, int x, int y) {
-        first.relocate(x, y);
-        first.setText(t);
-        first.setFont(Font.font(font));
-        first.setStyle(s);
-        first.setTextFill(Color.rgb(a, b, c));
-    }
-
-    private void lightnings(ImageView singlePview) {
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-0.7);
-        Glow glow = new Glow();
-        glow.setLevel(0.9);
-        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-            singlePview.setEffect(null);
-
-        });
-        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            singlePview.setEffect(colorAdjust);
-        });
-    }
-
-    public void gameTypeMenu(Button single, Button multi) {
-        root.getChildren().clear();
-        Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
-        ImageView backgroundView = new ImageView(background);
-        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
-        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image singleP = new Image("resources/resources/crests/crest_f1@2x.png");
-        ImageView singlePview = new ImageView(singleP);
-        singlePview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
-        singlePview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
-        singlePview.setLayoutY(200);
-        singlePview.setLayoutX(Constants.SINGLE_PLAYER_HEIGHT);
-        Image singleM = new Image("resources/resources/crests/crest_f2@2x.png");
-        ImageView singleMview = new ImageView(singleM);
-        singleMview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
-        singleMview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
-        singleMview.setLayoutY(200);
-        singleMview.setLayoutX(700);
-        single.setText("SINGLE PLAYER");
-        multi.setText("MULTI PLAYER");
-        single.setTextFill(Color.rgb(255, 255, 255));
-        multi.setTextFill(Color.rgb(255, 255, 255));
-        single.relocate(400, 500);
-        multi.relocate(800, 500);
-        single.setStyle("-fx-background-color: #111143; ");
-        multi.setStyle("-fx-background-color: #091841; ");
-        lightning(singlePview);
-        lightning(singleMview);
-        root.getChildren().addAll(backgroundView, singlePview, singleMview, single, multi);
-
-    }
-
-    private void lightning(ImageView singlePview) {
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-0.5);
-        Glow glow = new Glow();
-        glow.setLevel(0.9);
-        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-            singlePview.setEffect(colorAdjust);
-
-        });
-        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            singlePview.setEffect(null);
-        });
+        buy.setText("Buy");
+        exit.setText("Exit");
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, buy, exit);
+        name.setPrefWidth(Constants.FIELD_WIDTH);
+        name.setPrefHeight(Constants.FIELD_HEIGHT);
+        name.setLayoutX(buy.getLayoutX());
+        name.setLayoutY(buy.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
+        root.getChildren().addAll(buy, exit, name);
     }
 
     public void verticalList(Alignment alignment, double x, double y, Button... buttons) {
@@ -870,13 +720,14 @@ public class View {
                     buttons[i].setLayoutX(x - buttons[i].getPrefWidth() / 2);
             }
         }
-        buttons[buttons.length / 2 + 1].setLayoutY(y);
-        for (int i = buttons.length / 2; i >= 0; i--) {
+        buttons[buttons.length / 2].setLayoutY(y);
+        for (int i = buttons.length / 2 - 1; i >= 0; i--) {
             buttons[i].setLayoutY(buttons[i + 1].getLayoutY() - 2 * Constants.BUTTON_HEIGHT);
         }
-        for (int i = buttons.length / 2 + 2; i < buttons.length; i++) {
+        for (int i = buttons.length / 2 + 1; i < buttons.length; i++) {
             buttons[i].setLayoutY(buttons[i - 1].getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
         }
+        System.out.println(buttons[1].getLayoutY());
     }
 }
 
