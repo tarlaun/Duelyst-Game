@@ -28,6 +28,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 
 public class View {
@@ -704,7 +706,38 @@ public class View {
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("resources/maps/abyssian/midground@2x.png");
         ImageView foregroundView = getImageView(background, foreground);
+        Polygon []polygon = new Polygon[45];
+        //polygon.getPoints().addAll(380.0, 205.0, 920.0, 205.0, 960.0, 450.0, 340.0, 450.0);
+       // polygon.setFill(Color.rgb(72,89,180,0.4));
+        //polygon[0].getPoints().addAll(380.0,205.0,437.0,205.0,372,252,)
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.7);
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+        for (int i = 0; i <5 ; i++) {
+            for (int j = 0; j <9 ; j++) {
+                polygon[j+9*i]=new Polygon();
+                polygon[j+9*i].getPoints().addAll(-i*8+380.0+(60+i*2)*j+2,205.0+i*50+2,-i*8+380.0+(60+i*2)*(j+1)-2,205.0+i*50+2,-(i+1)*8+380.0+(60+(i+1)*2)*(j+1)-2,205.0+((i+1)*50)-2,-(i+1)*8+380.0+(60+(i+1)*2)*j+2,205.0+((i+1)*50)-2);
+                polygon[j+9*i].setFill(Color.rgb(119,104,180,0.6));
+                glowPolygon(colorAdjust, polygon[j + 9 * i]);
+            }
+        }
+
         root.getChildren().addAll(backgroundView,foregroundView);
+        for (int i = 0; i <45 ; i++) {
+            root.getChildren().add(polygon[i]);
+        }
+    }
+
+    private void glowPolygon(ColorAdjust colorAdjust, Polygon polygon1) {
+        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
+
+            polygon1.setEffect(colorAdjust);
+
+        });
+        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
+            polygon1.setEffect(null);
+        });
     }
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
