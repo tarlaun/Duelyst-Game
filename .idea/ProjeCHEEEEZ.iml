@@ -11,5 +11,7 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.5" level="project" />
     <orderEntry type="library" name="org.json" level="project" />
+    <orderEntry type="library" name="com.fasterxml.jackson.databind" level="project" />
+    <orderEntry type="library" name="com.fasterxml.jackson.core" level="project" />
   </component>
 </module>

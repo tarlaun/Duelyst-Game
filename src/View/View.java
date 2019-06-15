@@ -33,9 +33,9 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 
 public class View {
-    private Group root = new Group();
+    private transient AnchorPane root = new AnchorPane();
     private Controller controller = Controller.getInstance();
-    private Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+    private transient Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
     private Menu menu = Menu.getInstance();
     private static final View view = new View();
     public static final String ANSI_RED = "\u001B[31m";
