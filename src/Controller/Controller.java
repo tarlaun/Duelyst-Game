@@ -272,6 +272,9 @@ public class Controller {
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
                 break;
+            case GRAVEYARD:
+                view.graveYardMenu();
+                break;
         }
         handleButtons();
         handleTextFields();

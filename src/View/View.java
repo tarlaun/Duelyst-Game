@@ -1,46 +1,33 @@
 package View;
 
-import Controller.Controller;
 import Model.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
 
-import Model.*;
 import Model.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 
 public class View {
     private transient AnchorPane root = new AnchorPane();
-    private Controller controller = Controller.getInstance();
     private transient Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
     private Menu menu = Menu.getInstance();
     private static final View view = new View();
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_RESET = "\u001B[0m";
 
     private View() {
 
@@ -664,7 +651,12 @@ public class View {
     }
     //Graphic
 
-    public void selectUserMenu(ArrayList<Account> accounts , Label label , TextField textField) {
+    public void graveYardMenu(){
+
+    }
+
+
+    public void selectUserMenu(ArrayList<Account> accounts, Label label, TextField textField) {
         root.getChildren().clear();
         Image background = new Image("resources/scenes/shimzar/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -674,8 +666,8 @@ public class View {
 
         for (int i = 0; i < accounts.size(); i++) {
             String s = "OFFLINE";
-            if(accounts.get(i).isLoggedIn()) s="ONLINE";
-            Users users1 = new Users(accounts.get(i).getName(),s);
+            if (accounts.get(i).isLoggedIn()) s = "ONLINE";
+            Users users1 = new Users(accounts.get(i).getName(), s);
             users.add(users1);
         }
 
@@ -683,19 +675,19 @@ public class View {
         ObservableList<Users> items = FXCollections.observableArrayList(users);
         list.setItems(items);
         list.setOrientation(Orientation.VERTICAL);
-        if(accounts.size()==0){
-            list.getItems().add(new Users("NOBODY","ONLINE"));
+        if (accounts.size() == 0) {
+            list.getItems().add(new Users("NOBODY", "ONLINE"));
         }
         list.setStyle("-fx-control-inner-background: #74e9cf;-fx-font-size:20;");
         list.setMinWidth(200);
         list.setMaxHeight(300);
-        list.relocate(175,125);
+        list.relocate(175, 125);
         label.setText("FRIENDS");
-        label.relocate(225,80);
+        label.relocate(225, 80);
         label.setFont(Font.font(35));
-        textField.relocate(215,450);
+        textField.relocate(215, 450);
         textField.setStyle("-fx-control-inner-background: #2b7b71;");
-        root.getChildren().addAll(backgroundView,list,label,textField);
+        root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
     public void battleMenu() {
@@ -706,33 +698,33 @@ public class View {
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("resources/maps/abyssian/midground@2x.png");
         ImageView foregroundView = getImageView(background, foreground);
-        Polygon []polygon = new Polygon[45];
-        //polygon.getPoints().addAll(380.0, 205.0, 920.0, 205.0, 960.0, 450.0, 340.0, 450.0);
-       // polygon.setFill(Color.rgb(72,89,180,0.4));
-        //polygon[0].getPoints().addAll(380.0,205.0,437.0,205.0,372,252,)
+        Polygon[] polygon = new Polygon[45];
+        battleField(polygon);
+        root.getChildren().addAll(backgroundView, foregroundView);
+        for (int i = 0; i < 45; i++) {
+            root.getChildren().add(polygon[i]);
+        }
+    }
+
+    private void battleField(Polygon[] polygon) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.7);
         Glow glow = new Glow();
         glow.setLevel(0.9);
-        for (int i = 0; i <5 ; i++) {
-            for (int j = 0; j <9 ; j++) {
-                polygon[j+9*i]=new Polygon();
-                polygon[j+9*i].getPoints().addAll(-i*8+380.0+(60+i*2)*j+2,205.0+i*50+2,-i*8+380.0+(60+i*2)*(j+1)-2,205.0+i*50+2,-(i+1)*8+380.0+(60+(i+1)*2)*(j+1)-2,205.0+((i+1)*50)-2,-(i+1)*8+380.0+(60+(i+1)*2)*j+2,205.0+((i+1)*50)-2);
-                polygon[j+9*i].setFill(Color.rgb(119,104,180,0.6));
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 9; j++) {
+                polygon[j + 9 * i] = new Polygon();
+                polygon[j + 9 * i].getPoints().addAll(-i * 8 + 380.0 + (60 + i * 2) * j + 2, 205.0 + i * 50 + 2, -i * 8 + 380.0 + (60 + i * 2) * (j + 1) - 2, 205.0 + i * 50 + 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * (j + 1) - 2, 205.0 + ((i + 1) * 50) - 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * j + 2, 205.0 + ((i + 1) * 50) - 2);
+                polygon[j + 9 * i].setFill(Color.rgb(119, 104, 180, 0.6));
                 glowPolygon(colorAdjust, polygon[j + 9 * i]);
             }
-        }
-
-        root.getChildren().addAll(backgroundView,foregroundView);
-        for (int i = 0; i <45 ; i++) {
-            root.getChildren().add(polygon[i]);
         }
     }
 
     private void glowPolygon(ColorAdjust colorAdjust, Polygon polygon1) {
         polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
 
-            polygon1.setEffect(colorAdjust);
+            polygon1.setEffect(colorAdjust);;
 
         });
         polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
