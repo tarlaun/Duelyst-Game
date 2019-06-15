@@ -277,10 +277,11 @@ public class Controller {
                  player = new MediaPlayer(media);
                 break;
             case COLLECTION:
-                view.collectionMenu(buttons[Buttons.CREATE_DECK.ordinal()]);
+                view.collectionMenu(buttons[Buttons.CREATE_DECK.ordinal()], buttons[Buttons.EXIT.ordinal()], fields[Texts.DECKNAME.ordinal()]);
                 file=new File("resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
                 media=new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
+                break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
                 file=new File("resources/music/music_battlemap_firesofvictory.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/

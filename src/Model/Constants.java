@@ -48,4 +48,7 @@ public class Constants {
     public static final double FIELD_HEIGHT = 30;
     public static final double SINGLE_PLAYER_WIDTH = 300;
     public static final double SINGLE_PLAYER_HEIGHT = 300;
+    public static final double CARD_WIDTH = 500;
+    public static final double CARD_HEIGHT = 500;
+
 }

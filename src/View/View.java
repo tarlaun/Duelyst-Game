@@ -3,6 +3,7 @@ package View;
 import Model.*;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -959,8 +960,15 @@ public class View {
 
     }
 
-    public void collectionMenu(Button createDeck){
-
+    public void collectionMenu(Button createDeck,Button exit, TextField name){
+        root.getChildren().clear();
+        createDeck.setText("Create Deck");
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck, exit);
+        name.setPrefWidth(Constants.FIELD_WIDTH);
+        name.setPrefHeight(Constants.FIELD_HEIGHT);
+        name.setLayoutX(createDeck.getLayoutX());
+        name.setLayoutY(createDeck.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
+        root.getChildren().addAll(createDeck, exit, name);
     }
 
     private void lightning(ImageView singlePview) {
@@ -976,6 +984,45 @@ public class View {
         singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
             singlePview.setEffect(null);
         });
+    }
+
+    public void setCardImage(String name){
+        Image image=new Image("resources/generals/general_f4.jpg");
+        switch (name){
+            case "WHITE_DIV":
+                 image = new Image("resources/generals/general_f6third.jpg");
+                break;
+            case "SIMORGH":
+                image = new Image("resources/generals/general_f5alt.jpg");
+                break;
+            case "SEVEN_HEADED_DRAGON":
+                image = new Image("resources/generals/general_f5third.jpg");
+                break;
+            case "RAKHSH":
+                image = new Image("resources/generals/general_f3third.jpg");
+                break;
+            case "ZAHAK":
+                image = new Image("resources/generals/general_f2.jpg");
+                break;
+            case "KAVEH":
+                image = new Image("resources/generals/general_f3.jpg");
+                break;
+            case "ARASH":
+                image = new Image("resources/generals/general_f3alt.jpg");
+                break;
+            case "AFSANEH":
+                image = new Image("resources/generals/general_f4.jpg");
+                break;
+            case "ESFANDIAR":
+                image = new Image("resources/generals/general_f6.jpg");
+                break;
+            case "ROSTAM":
+                image = new Image("resources/generals/general_f1.jpg");
+                break;
+        }
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(Constants.CARD_WIDTH);
+        imageView.setFitHeight(Constants.CARD_HEIGHT);
     }
 
 }
