@@ -1,3 +1,4 @@
+
 package Model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -120,6 +121,7 @@ public class Game {
 
     public void save(Account account) throws OutOfMemoryError {
         String json = new Gson().toJson(account);
+        System.out.println("Hey Buggy!");
         try {
             FileWriter writer = new FileWriter(account.getName() + ".json");
             writer.write(json);
@@ -196,7 +198,6 @@ public class Game {
                         hero.setType("Hero");
                         hero.setId(++lastHeroId);
                         shop.getCards().add(hero);
-                        System.out.println(hero.getName());
                     }
                 }
             }

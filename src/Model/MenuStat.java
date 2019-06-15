@@ -3,7 +3,6 @@ package Model;
 public enum MenuStat {
     MAIN,
     ACCOUNT,
-    GAME,
     COLLECTION,
     SHOP,
     GAME_TYPE,
@@ -20,8 +19,6 @@ public enum MenuStat {
                 System.exit(0);
             case ACCOUNT:
                 return MAIN;
-            case GAME:
-                return ACCOUNT;
             case BATTLE:
                 return BATTLE_MODE;
             case BATTLE_MODE:
@@ -35,7 +32,7 @@ public enum MenuStat {
             case SELECT_USER:
                 return GAME_TYPE;
             default:
-                return GAME;
+                return ACCOUNT;
         }
     }
 }

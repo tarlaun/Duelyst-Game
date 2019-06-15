@@ -79,7 +79,6 @@ public class Shop {
         if (card != null) {
             Card instance = new Card(card);
             if (card.getType().equals("Hero")) {
-                System.out.println(game == null);
                 game.incrementHeroId();
                 instance.setId(game.getLastHeroId());
             }
@@ -88,7 +87,6 @@ public class Shop {
                 instance.setId(game.getLastMinionId());
             }
             if (card.getType().equals("Spell")) {
-                System.out.println(game == null);
                 game.incrementSpellId();
                 instance.setId(game.getLastSpellId());
             }
