@@ -897,9 +897,9 @@ public class View {
         thirdImageView.setFitWidth(425);
         thirdImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         thirdImageView.setLayoutX(850);
-        lightnings(firstImageView);
-        lightnings(secondImageView);
-        lightnings(thirdImageView);
+        lightning(firstImageView);
+        lightning(secondImageView);
+        lightning(thirdImageView);
         buttonSettings(first, 40, "-fx-background-color: #091841; ", 209, 188, 208, "KILL ENEMY HERO", 10, 50);
         buttonSettings(second, 37, "-fx-background-color: #091841; ", 209, 188, 208, "COLLECTING FLAGS", 430, 50);
         buttonSettings(third, 37, "-fx-background-color: #091841; ", 209, 188, 208, "HOLD SPECIAL FLAG", 855, 50);

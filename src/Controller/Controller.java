@@ -257,7 +257,7 @@ public class Controller {
             case MAIN:
                 view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
                         buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], fields[Texts.PASSWORD.ordinal()]);
-                 file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap02.m4a");
+                 file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_bluemonolith.m4a");
                  media=new Media(file.toURI().toString());
                  player = new MediaPlayer(media);
                 break;
