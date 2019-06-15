@@ -404,7 +404,7 @@ public class Battle {
         }
         killEnemy(targetCard);
         if (checkForWin()) {
-            menu.setStat(MenuStat.GAME);
+//            menu.setStat(MenuStat.GAME);
             return Message.BATTLE_FINISHED;
         }
         checkOnAttackSpecials(currentCard);

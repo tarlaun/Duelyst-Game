@@ -1,6 +1,7 @@
 package Model;
 
 import View.Message;
+import com.fasterxml.jackson.databind.deser.Deserializers;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ public class Account {
     private int wins = 0;
     private transient int mana = 2;
     private transient int flagsCollected = 0;
-    private transient Menu menu = Menu.getInstance();
 
     public int getFlagsCollected() {
         return flagsCollected;

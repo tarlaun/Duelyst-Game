@@ -9,6 +9,7 @@ public enum Buttons {
     SHOP,
     LOGOUT,
     LEADER_BOARD,
+    BUY,
     SINGLE_PLAYER,
     MULTI_PLAYER,
     KILL_ENEMY_HERO,

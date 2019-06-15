@@ -762,6 +762,42 @@ public class View {
         root.getChildren().addAll(backgroundView, foregroundView, login, create, exit, username, password);
     }
 
+    public void shopMenu(Button buy, Button exit, TextField name) {
+        root.getChildren().clear();
+        buy.setText("Buy");
+        exit.setText("Exit");
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, buy, exit);
+        name.setPrefWidth(Constants.FIELD_WIDTH);
+        name.setPrefHeight(Constants.FIELD_HEIGHT);
+        name.setLayoutX(buy.getLayoutX());
+        name.setLayoutY(buy.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
+        root.getChildren().addAll(buy, exit, name);
+    }
+
+    public void verticalList(Alignment alignment, double x, double y, Button... buttons) {
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].setPrefHeight(Constants.BUTTON_HEIGHT);
+            if (buttons[i].getText().length() >= 8)
+                buttons[i].setPrefWidth(2 * Constants.BUTTON_WIDTH);
+            else
+                buttons[i].setPrefWidth(Constants.BUTTON_WIDTH);
+            switch (alignment) {
+                case LEFT:
+                    buttons[i].setLayoutX(x);
+                    break;
+                case CENTRE:
+                    buttons[i].setLayoutX(x - buttons[i].getPrefWidth() / 2);
+            }
+        }
+        buttons[buttons.length / 2].setLayoutY(y);
+        for (int i = buttons.length / 2 - 1; i >= 0; i--) {
+            buttons[i].setLayoutY(buttons[i + 1].getLayoutY() - 2 * Constants.BUTTON_HEIGHT);
+        }
+        for (int i = buttons.length / 2 + 1; i < buttons.length; i++) {
+            buttons[i].setLayoutY(buttons[i - 1].getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
+        }
+    }
+
     public void accountMenu(Button play, Button collection, Button shop, Button leaderboard, Button logout) {
         root.getChildren().clear();
         Image background = new Image("resources/scenes/frostfire/background.jpg");
@@ -888,29 +924,6 @@ public class View {
         });
     }
 
-    public void verticalList(Alignment alignment, double x, double y, Button... buttons) {
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].setPrefHeight(Constants.BUTTON_HEIGHT);
-            if (buttons[i].getText().length() >= 8)
-                buttons[i].setPrefWidth(2 * Constants.BUTTON_WIDTH);
-            else
-                buttons[i].setPrefWidth(Constants.BUTTON_WIDTH);
-            switch (alignment) {
-                case LEFT:
-                    buttons[i].setLayoutX(x);
-                    break;
-                case CENTRE:
-                    buttons[i].setLayoutX(x - buttons[i].getPrefWidth() / 2);
-            }
-        }
-        buttons[buttons.length / 2 + 1].setLayoutY(y);
-        for (int i = buttons.length / 2; i >= 0; i--) {
-            buttons[i].setLayoutY(buttons[i + 1].getLayoutY() - 2 * Constants.BUTTON_HEIGHT);
-        }
-        for (int i = buttons.length / 2 + 2; i < buttons.length; i++) {
-            buttons[i].setLayoutY(buttons[i - 1].getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
-        }
-    }
 }
 
 
