@@ -696,10 +696,6 @@ public class View {
 
     public void battleMenu(Account[] accounts) {
         root.getChildren().clear();
-        File file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
-        Media media=new Media(file.toURI().toString());
-        final MediaPlayer player = new MediaPlayer(media);
-        player.play();
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
