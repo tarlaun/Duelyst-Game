@@ -690,7 +690,7 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu() {
+    public void battleMenu(Account[] accounts) {
         root.getChildren().clear();
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -704,6 +704,43 @@ public class View {
         for (int i = 0; i < 45; i++) {
             root.getChildren().add(polygon[i]);
         }
+        Image firstHero = null;
+        Image secondHero = null;
+        for (int i = 0; i <2 ; i++) {
+            switch (accounts[i].getCollection().getMainDeck().getHero().getName()){
+                case "WHITE_DIV":
+                    if(i==0) {
+                        firstHero = new Image("resources/boss_battles/boss_portal_guardian_portrait_image_hex@2x.png");
+                    }else {
+                        secondHero=new Image("resources/boss_battles/boss_portal_guardian_portrait_image_hex@2x.png");
+                    }
+                    break;
+                case "ZAHAK":
+                    if(i==0) {
+                        firstHero = new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
+                    }else {
+                        secondHero=new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
+                    }
+                    break;
+                case "ARASH":
+                    if(i==0) {
+                        firstHero = new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
+                    }else {
+                        secondHero=new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
+                    }
+                    break;
+
+            }
+        }
+        ImageView firstHeroView = new ImageView(firstHero);
+        ImageView secondHeroView = new ImageView(secondHero);
+        firstHeroView.relocate(100,100);
+        firstHeroView.setFitHeight(100);
+        firstHeroView.setFitWidth(100);
+        secondHeroView.relocate(800,100);
+        secondHeroView.setFitHeight(100);
+        secondHeroView.setFitWidth(100);
+        root.getChildren().addAll(firstHeroView,secondHeroView);
     }
 
     private void battleField(Polygon[] polygon) {

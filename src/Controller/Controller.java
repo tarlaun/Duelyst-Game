@@ -267,7 +267,7 @@ public class Controller {
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
                 break;
             case BATTLE:
-                view.battleMenu();
+                view.battleMenu(battle.getAccounts());
                 break;
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
@@ -317,7 +317,16 @@ public class Controller {
         }
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
             menu.setStat(MenuStat.BATTLE);
-            //battle.startBattle();
+            Account[] accounts = new Account[2];
+            accounts[0] = account;
+            for (int i = 0; i < game.getAccounts().size(); i++) {
+                if (game.getAccounts().get(i).getName().equals("powerfulAI")) {
+                    accounts[1] = game.getAccounts().get(i);
+                }
+            }
+            battle.setAccounts(accounts);
+            setMainDeckForAI();
+            battle.startBattle();
         } else {
             menu.setStat(MenuStat.SELECT_USER);
         }
@@ -353,13 +362,16 @@ public class Controller {
     }
 
     private void selectUser(String name) {
-        // battle.setAccounts(account, Account.getAccountByName(name, game.getAccounts()));
-        menu.setStat(MenuStat.BATTLE);
-        //battle.startBattle();
+        Account accountt = Account.getAccountByName(name, game.getAccounts());
+        if(accountt!=null) {
+            battle.setAccounts(account, accountt);
+            menu.setStat(MenuStat.BATTLE);
+            battle.startBattle();
+        }
         main();
     }
 
-    private void setProcess(Request request) {
+   /* private void setProcess(Request request) {
         if (request.isProcess() && menu.getStat() == MenuStat.PROCESS) {
             battle.setProcess(request.getProcess(request.getCommand()));
             menu.setStat(MenuStat.BATTLE_MODE);
@@ -373,11 +385,10 @@ public class Controller {
             }
             battle.setAccounts(accounts);
         }
-    }
+    }*/
 
     private void setBattleModeSingle() {
         battle.setGameType(GameType.SINGLEPLAYER);
-        // setMainDeckForAI();
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
     }
@@ -404,16 +415,13 @@ public class Controller {
     }
 
     private void setMainDeckForAI() {
-        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
-                battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
+        if (battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
             battle.getAccounts()[1].getCollection().selectDeck("level1");
         }
-        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
-                battle.getMode().equals(BattleMode.FLAG)) {
+        if (battle.getMode().equals(BattleMode.FLAG)) {
             battle.getAccounts()[1].getCollection().selectDeck("level2");
         }
-        if (battle.getAccounts()[1].getName().equals("powerfulAI") &&
-                battle.getMode().equals(BattleMode.COLLECTING)) {
+        if (battle.getMode().equals(BattleMode.COLLECTING)) {
             battle.getAccounts()[1].getCollection().selectDeck("level3");
         }
     }
