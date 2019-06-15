@@ -2,6 +2,8 @@ package View;
 
 import Model.*;
 
+import java.io.File;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -16,6 +18,8 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
@@ -692,6 +696,10 @@ public class View {
 
     public void battleMenu(Account[] accounts) {
         root.getChildren().clear();
+        File file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
+        Media media=new Media(file.toURI().toString());
+        final MediaPlayer player = new MediaPlayer(media);
+        player.play();
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
@@ -728,7 +736,7 @@ public class View {
         Image firstHero = null;
         switch (account.getCollection().getMainDeck().getHero().getName()) {
             case "WHITE_DIV":
-                    firstHero = new Image("resources/boss_battles/boss_portal_guardian_portrait_image_hex@2x.png");
+                    firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
             case "ZAHAK":
                     firstHero = new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
@@ -911,17 +919,15 @@ public class View {
     }
 
     private void lightnings(ImageView singlePview) {
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-0.7);
         Glow glow = new Glow();
         glow.setLevel(0.9);
         singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
 
-            singlePview.setEffect(null);
+            singlePview.setEffect(glow);
 
         });
         singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            singlePview.setEffect(colorAdjust);
+            singlePview.setEffect(null);
         });
     }
 
