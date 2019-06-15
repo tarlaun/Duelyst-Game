@@ -18,6 +18,7 @@ public class Controller {
     private Account account;
     private Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
+    private transient Label[] labels = new Label[Labels.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
     private static final Controller controller = new Controller();
 
@@ -25,6 +26,9 @@ public class Controller {
         initializeGame();
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new Button();
+        }
+        for (int i = 0; i < labels.length; i++) {
+            labels[i] = new Label();
         }
         for (int i = 0; i < fields.length; i++) {
             fields[i] = new TextField();
@@ -37,6 +41,11 @@ public class Controller {
     }
 
     public void initializeGame() {
+        try {
+            game.initializeAccounts();
+        } catch (IOException f) {
+            System.out.println("Account initializing error!");
+        }
         try {
             game.initializeHero();
         } catch (IOException f) {
@@ -56,11 +65,6 @@ public class Controller {
             game.initializeItem();
         } catch (IOException f) {
             System.out.println("Item initializing error!");
-        }
-        try {
-            game.initializeAccounts();
-        } catch (IOException f) {
-            System.out.println("Account initializing error!");
         }
     }
 
@@ -255,16 +259,29 @@ public class Controller {
                 view.shopMenu(buttons[Buttons.BUY.ordinal()], buttons[Buttons.EXIT.ordinal()],
                         fields[Texts.CARD.ordinal()]);
                 break;
+            case GAME_TYPE:
+                view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
+                break;
+            case BATTLE_MODE:
+                view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()], buttons[Buttons.FLAG_COLLECTING.ordinal()],
+                        buttons[Buttons.HOLD_FLAG.ordinal()]);
+                break;
+            case BATTLE:
+                view.battleMenu();
+                break;
+            case SELECT_USER:
+                view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
+                break;
         }
         handleButtons();
+        handleTextFields();
     }
 
     public void handleButtons() {
         buttons[Buttons.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
         buttons[Buttons.LOGIN.ordinal()].setOnMouseClicked(event -> login());
         buttons[Buttons.EXIT.ordinal()].setOnMouseClicked(event -> exit());
-        buttons[Buttons.PLAY.ordinal()].setOnMouseClicked(event -> {
-        });
+        buttons[Buttons.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType());
         buttons[Buttons.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         buttons[Buttons.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
         buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> {
@@ -272,6 +289,41 @@ public class Controller {
             main();
         });
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
+        buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
+        buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
+        buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
+        buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
+        buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
+    }
+
+    public void handleTextFields() {
+        fields[Texts.USER_NAME.ordinal()].setOnAction(event -> selectUser(fields[Texts.USER_NAME.ordinal()].getText()));
+    }
+
+    public void setBattleMode(int a) {
+        switch (a) {
+            case 1:
+                battle.setMode(BattleMode.KILLENEMYHERO);
+                break;
+            case 2:
+                battle.setMode(BattleMode.COLLECTING);
+                break;
+            case 3:
+                battle.setMode(BattleMode.FLAG);
+                break;
+        }
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
+            menu.setStat(MenuStat.BATTLE);
+            //battle.startBattle();
+        } else {
+            menu.setStat(MenuStat.SELECT_USER);
+        }
+        main();
+    }
+
+    private void chooseBattleType() {
+        menu.setStat(MenuStat.GAME_TYPE);
+        main();
     }
 
     private void AiFunctions() {
@@ -280,7 +332,7 @@ public class Controller {
             moveAI();
             if (battle.getMode().equals(BattleMode.COLLECTING)) {
                 if (battle.checkForWin()) {
-                    menu.setStat(MenuStat.GAME);
+//                    menu.setStat(MenuStat.GAME);
                     view.Success();
                 }
             }
@@ -297,18 +349,11 @@ public class Controller {
         }
     }
 
-    private void selectUser(Request request) {
-        if (request.checkSelectUserSyntax() && menu.getStat() == MenuStat.SELECT_USER) {
-            String username = request.getAccountName(request.getCommand());
-            view.playerAdded(Account.getAccountByName(username, game.getAccounts()));
-            try {
-                battle.setAccounts(account, Account.getAccountByName(username, game.getAccounts()));
-                menu.setStat(MenuStat.BATTLE);
-                battle.startBattle();
-                view.endTurn(account);
-            } catch (NullPointerException ignored) {
-            }
-        }
+    private void selectUser(String name) {
+        // battle.setAccounts(account, Account.getAccountByName(name, game.getAccounts()));
+        menu.setStat(MenuStat.BATTLE);
+        //battle.startBattle();
+        main();
     }
 
     private void setProcess(Request request) {
@@ -325,6 +370,19 @@ public class Controller {
             }
             battle.setAccounts(accounts);
         }
+    }
+
+    private void setBattleModeSingle() {
+        battle.setGameType(GameType.SINGLEPLAYER);
+        // setMainDeckForAI();
+        menu.setStat(MenuStat.BATTLE_MODE);
+        main();
+    }
+
+    private void setBattleModeMulti() {
+        battle.setGameType(GameType.MULTIPLAYER);
+        menu.setStat(MenuStat.BATTLE_MODE);
+        main();
     }
 
     private void setBattleMode(Request request) {
