@@ -24,7 +24,7 @@ public class Controller {
     private transient Label[] labels = new Label[Labels.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
     private static final Controller controller = new Controller();
-    File file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
+    File file=new File("resources/music/music_mainmenu_lyonar.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/resources/
     Media media=new Media(file.toURI().toString());
      MediaPlayer player = new MediaPlayer(media);
 
@@ -257,7 +257,7 @@ public class Controller {
             case MAIN:
                 view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
                         buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], fields[Texts.PASSWORD.ordinal()]);
-                 file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_bluemonolith.m4a");
+                 file=new File("resources/music/music_battlemap_bluemonolith.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
                  media=new Media(file.toURI().toString());
                  player = new MediaPlayer(media);
                 break;
@@ -265,39 +265,44 @@ public class Controller {
                 view.accountMenu(buttons[Buttons.PLAY.ordinal()], buttons[Buttons.COLLECTION.ordinal()],
                         buttons[Buttons.SHOP.ordinal()], buttons[Buttons.LEADER_BOARD.ordinal()],
                         buttons[Buttons.LOGOUT.ordinal()]);
-                 file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_playmode.m4a");
+                 file=new File("resources/music/music_playmode.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
                  media=new Media(file.toURI().toString());
                  player = new MediaPlayer(media);
                 break;
             case SHOP:
                 view.shopMenu(buttons[Buttons.BUY.ordinal()], buttons[Buttons.EXIT.ordinal()],
                         fields[Texts.CARD.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
+                file=new File("resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
                  media=new Media(file.toURI().toString());
                  player = new MediaPlayer(media);
                 break;
+            case COLLECTION:
+                view.collectionMenu(buttons[Buttons.CREATE_DECK.ordinal()]);
+                file=new File("resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
+                media=new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_firesofvictory.m4a");
+                file=new File("resources/music/music_battlemap_firesofvictory.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
                 media=new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case BATTLE_MODE:
                 view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()], buttons[Buttons.FLAG_COLLECTING.ordinal()],
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_songhai.m4a");
+                file=new File("resources/music/music_battlemap_songhai.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
                 media=new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
                 view.battleMenu(battle.getAccounts());
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
+                file=new File("resources/music/music_battlemap01.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
                 media=new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
+                file=new File("resources/music/music_battlemap_abyssian.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
                 media=new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -322,12 +327,17 @@ public class Controller {
             menu.setStat(MenuStat.SHOP);
             main();
         });
+        buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event-> {
+            menu.setStat(MenuStat.COLLECTION);
+            main();
+        });
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
+        buttons[Buttons.CREATE_DECK.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
     }
 
     public void handleTextFields() {
@@ -618,10 +628,11 @@ public class Controller {
 
     }
 
-    private void createDeck(Request request) {
-        if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
+    private void createDeck(String deckName) {
+        /*if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
-        }
+        }*/
+        this.account.getCollection().createDeck(deckName);
     }
 
     private void deleteDeck(Request request) {
@@ -844,7 +855,7 @@ public class Controller {
 
     private void endGame() {
         if (menu.getStat() == MenuStat.BATTLE) {
-            battle.endGame();
+            battle.resign();
             view.endGame(battle);
         }
     }

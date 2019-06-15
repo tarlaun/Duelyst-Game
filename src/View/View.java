@@ -793,11 +793,11 @@ public class View {
     }
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
-        Image background = new Image("resources/scenes/obsidian_woods/obsidian_woods_background.jpg");
+        Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/obsidian_woods/obsidian_woods_cliff.png");
+        Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
         ImageView foregroundView = getImageView(background, foreground);
         login.setText("Login");
         create.setText("Create Account");
@@ -852,11 +852,11 @@ public class View {
 
     public void accountMenu(Button play, Button collection, Button shop, Button leaderboard, Button logout) {
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/frostfire/background.jpg");
+        Image background = new Image("scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/frostfire/foreground.png");
+        Image foreground = new Image("scenes/frostfire/foreground.png");
         ImageView foregroundView = getImageView(background, foreground);
         play.setText("Play");
         collection.setText("Collection");
@@ -878,21 +878,21 @@ public class View {
     public void battleMode(Button first, Button second, Button third) {
         root.getChildren().clear();
         // Image background = new Image("resources/scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg");
-        Image background = new Image("resources/scenes/load/scene_load_background@2x.jpg");
+        Image background = new Image("scenes/load/scene_load_background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image firstImage = new Image("resources/challenges/gate_013@2x.jpg");
+        Image firstImage = new Image("challenges/gate_013@2x.jpg");
         ImageView firstImageView = new ImageView(firstImage);
         firstImageView.setFitWidth(425);
         firstImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         firstImageView.setLayoutX(0);
-        Image secondImage = new Image("resources/challenges/gate_005@2x.jpg");
+        Image secondImage = new Image("challenges/gate_005@2x.jpg");
         ImageView secondImageView = new ImageView(secondImage);
         secondImageView.setFitWidth(425);
         secondImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         secondImageView.setLayoutX(425);
-        Image thirdImage = new Image("resources/challenges/gate_004@2x.jpg");
+        Image thirdImage = new Image("challenges/gate_004@2x.jpg");
         ImageView thirdImageView = new ImageView(thirdImage);
         thirdImageView.setFitWidth(425);
         thirdImageView.setFitHeight(Constants.WINDOW_HEIGHT);
@@ -929,17 +929,17 @@ public class View {
 
     public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
-        Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
+        Image background = new Image("resources/scenes/vetruvian/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image singleP = new Image("resources/resources/crests/crest_f1@2x.png");
+        Image singleP = new Image("resources/crests/crest_f1@2x.png");
         ImageView singlePview = new ImageView(singleP);
         singlePview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setLayoutY(200);
         singlePview.setLayoutX(Constants.SINGLE_PLAYER_HEIGHT);
-        Image singleM = new Image("resources/resources/crests/crest_f2@2x.png");
+        Image singleM = new Image("resources/crests/crest_f2@2x.png");
         ImageView singleMview = new ImageView(singleM);
         singleMview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singleMview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
@@ -956,6 +956,10 @@ public class View {
         lightning(singlePview);
         lightning(singleMview);
         root.getChildren().addAll(backgroundView, singlePview, singleMview, single, multi);
+
+    }
+
+    public void collectionMenu(Button createDeck){
 
     }
 

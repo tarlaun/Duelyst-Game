@@ -14,5 +14,6 @@ public enum Buttons {
     MULTI_PLAYER,
     KILL_ENEMY_HERO,
     FLAG_COLLECTING,
-    HOLD_FLAG
+    HOLD_FLAG,
+    CREATE_DECK
 }

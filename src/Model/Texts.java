@@ -4,5 +4,6 @@ public enum Texts {
     USERNAME,
     PASSWORD,
     USER_NAME,
-    CARD
+    CARD,
+    DECKNAME
 }
