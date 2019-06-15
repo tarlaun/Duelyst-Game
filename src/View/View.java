@@ -651,7 +651,7 @@ public class View {
     }
     //Graphic
 
-    public void graveYardMenu(){
+    public void graveYardMenu() {
 
     }
 
@@ -704,43 +704,61 @@ public class View {
         for (int i = 0; i < 45; i++) {
             root.getChildren().add(polygon[i]);
         }
-        Image firstHero = null;
-        Image secondHero = null;
-        for (int i = 0; i <2 ; i++) {
-            switch (accounts[i].getCollection().getMainDeck().getHero().getName()){
-                case "WHITE_DIV":
-                    if(i==0) {
-                        firstHero = new Image("resources/boss_battles/boss_portal_guardian_portrait_image_hex@2x.png");
-                    }else {
-                        secondHero=new Image("resources/boss_battles/boss_portal_guardian_portrait_image_hex@2x.png");
-                    }
-                    break;
-                case "ZAHAK":
-                    if(i==0) {
-                        firstHero = new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
-                    }else {
-                        secondHero=new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
-                    }
-                    break;
-                case "ARASH":
-                    if(i==0) {
-                        firstHero = new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
-                    }else {
-                        secondHero=new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
-                    }
-                    break;
-
-            }
-        }
+        Image firstHero ,secondHero;
+        firstHero = getImage(accounts[0]);
+        secondHero = getImage(accounts[1]);
         ImageView firstHeroView = new ImageView(firstHero);
         ImageView secondHeroView = new ImageView(secondHero);
-        firstHeroView.relocate(100,100);
-        firstHeroView.setFitHeight(100);
-        firstHeroView.setFitWidth(100);
-        secondHeroView.relocate(800,100);
-        secondHeroView.setFitHeight(100);
-        secondHeroView.setFitWidth(100);
-        root.getChildren().addAll(firstHeroView,secondHeroView);
+        bossImageSettings(firstHeroView, secondHeroView);
+        root.getChildren().addAll(firstHeroView, secondHeroView);
+    }
+
+    private void bossImageSettings(ImageView firstHeroView, ImageView secondHeroView) {
+        firstHeroView.relocate(150, -50);
+        firstHeroView.setFitHeight(250);
+        firstHeroView.setFitWidth(250);
+        secondHeroView.relocate(900, -50);
+        secondHeroView.setFitHeight(250);
+        secondHeroView.setFitWidth(250);
+        lightning(firstHeroView);
+        lightning(secondHeroView);
+    }
+
+    private Image getImage(Account account) {
+        Image firstHero = null;
+        switch (account.getCollection().getMainDeck().getHero().getName()) {
+            case "WHITE_DIV":
+                    firstHero = new Image("resources/boss_battles/boss_portal_guardian_portrait_image_hex@2x.png");
+                break;
+            case "ZAHAK":
+                    firstHero = new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
+                break;
+            case "ARASH":
+                    firstHero = new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
+                break;
+            case "SIMORGH":
+                    firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                break;
+            case "SEVEN_HEADED_DRAGON":
+                    firstHero = new Image("resources/boss_battles/boss_crystal_portrait_hex.png");
+                break;
+            case "RAKHSH":
+                    firstHero = new Image("resources/boss_battles/boss_wraith_portrait_hex@2x.png");
+                break;
+            case "KAVEH":
+                    firstHero = new Image("resources/boss_battles/boss_vampire_portrait_hex@2x.png");
+                break;
+            case "AFSANEH":
+                    firstHero = new Image("resources/boss_battles/boss_spelleater_portrait_hex@2x.png");
+                break;
+            case "ESFANDIAR":
+                    firstHero = new Image("resources/boss_battles/boss_skurge_portrait_hex@2x.png");
+                break;
+            case "ROSTAM":
+                    firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                break;
+        }
+        return firstHero;
     }
 
     private void battleField(Polygon[] polygon) {
@@ -761,7 +779,8 @@ public class View {
     private void glowPolygon(ColorAdjust colorAdjust, Polygon polygon1) {
         polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
 
-            polygon1.setEffect(colorAdjust);;
+            polygon1.setEffect(colorAdjust);
+            ;
 
         });
         polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {

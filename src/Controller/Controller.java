@@ -371,21 +371,6 @@ public class Controller {
         main();
     }
 
-   /* private void setProcess(Request request) {
-        if (request.isProcess() && menu.getStat() == MenuStat.PROCESS) {
-            battle.setProcess(request.getProcess(request.getCommand()));
-            menu.setStat(MenuStat.BATTLE_MODE);
-            view.chooseBattleMode();
-            Account[] accounts = new Account[2];
-            accounts[0] = account;
-            for (int i = 0; i < game.getAccounts().size(); i++) {
-                if (game.getAccounts().get(i).getName().equals("powerfulAI")) {
-                    accounts[1] = game.getAccounts().get(i);
-                }
-            }
-            battle.setAccounts(accounts);
-        }
-    }*/
 
     private void setBattleModeSingle() {
         battle.setGameType(GameType.SINGLEPLAYER);
