@@ -708,7 +708,7 @@ public class View {
         for (int i = 0; i < 45; i++) {
             root.getChildren().add(polygon[i]);
         }
-        Image firstHero ,secondHero;
+        Image firstHero, secondHero;
         firstHero = getImage(accounts[0]);
         secondHero = getImage(accounts[1]);
         ImageView firstHeroView = new ImageView(firstHero);
@@ -732,34 +732,34 @@ public class View {
         Image firstHero = null;
         switch (account.getCollection().getMainDeck().getHero().getName()) {
             case "WHITE_DIV":
-                    firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
             case "ZAHAK":
-                    firstHero = new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
+                firstHero = new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
                 break;
             case "ARASH":
-                    firstHero = new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
+                firstHero = new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
                 break;
             case "SIMORGH":
-                    firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
             case "SEVEN_HEADED_DRAGON":
-                    firstHero = new Image("resources/boss_battles/boss_crystal_portrait_hex.png");
+                firstHero = new Image("resources/boss_battles/boss_crystal_portrait_hex.png");
                 break;
             case "RAKHSH":
-                    firstHero = new Image("resources/boss_battles/boss_wraith_portrait_hex@2x.png");
+                firstHero = new Image("resources/boss_battles/boss_wraith_portrait_hex@2x.png");
                 break;
             case "KAVEH":
-                    firstHero = new Image("resources/boss_battles/boss_vampire_portrait_hex@2x.png");
+                firstHero = new Image("resources/boss_battles/boss_vampire_portrait_hex@2x.png");
                 break;
             case "AFSANEH":
-                    firstHero = new Image("resources/boss_battles/boss_spelleater_portrait_hex@2x.png");
+                firstHero = new Image("resources/boss_battles/boss_spelleater_portrait_hex@2x.png");
                 break;
             case "ESFANDIAR":
-                    firstHero = new Image("resources/boss_battles/boss_skurge_portrait_hex@2x.png");
+                firstHero = new Image("resources/boss_battles/boss_skurge_portrait_hex@2x.png");
                 break;
             case "ROSTAM":
-                    firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
         }
         return firstHero;
