@@ -698,7 +698,7 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts , ImageView imageView1, ImageView imageView2) {
+    public void battleMenu(Account[] accounts , ImageView imageView1, ImageView imageView2 , Polygon[] polygon) {
         root.getChildren().clear();
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -706,7 +706,6 @@ public class View {
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("resources/maps/abyssian/midground@2x.png");
         ImageView foregroundView = getImageView(background, foreground);
-        Polygon[] polygon = new Polygon[45];
         battleField(polygon);
         root.getChildren().addAll(backgroundView, foregroundView);
         for (int i = 0; i < 45; i++) {
@@ -736,6 +735,10 @@ public class View {
         secondHeroView.setFitWidth(250);
         lightning(firstHeroView);
         lightning(secondHeroView);
+    }
+
+    public void move(double x ,double y ,ImageView imageView){
+        root.getChildren().remove(imageView);
     }
 
     private Image getImage(Account account) {

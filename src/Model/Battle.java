@@ -323,7 +323,6 @@ public class Battle {
     }
 
     public boolean selectCard(int cardId) {
-        System.out.println("shit");
         Card card = Card.getCardByID(cardId, fieldCards[turn % 2]);
         if (card == null) {
             return false;

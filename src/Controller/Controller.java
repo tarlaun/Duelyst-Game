@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Polygon;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class Controller {
     private transient ImageView[] imageViews = new ImageView[ImageViews.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
     private transient ImageView[] heroes = new ImageView[Constants.HEROES_COUNT];
+    private ImageView currentImageView;
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private int[][] heroId = new int[2][2];
@@ -34,6 +36,7 @@ public class Controller {
     File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
     Media media = new Media(file.toURI().toString());
     MediaPlayer player = new MediaPlayer(media);
+    Polygon[] polygon = new Polygon[45];
 
     private Controller() {
         initializeGame();
@@ -49,6 +52,10 @@ public class Controller {
         for (int i = 0; i < imageViews.length; i++) {
             imageViews[i] = new ImageView();
         }
+        for (int i = 0; i < polygon.length; i++) {
+            polygon[i] = new Polygon();
+        }
+
         for (int i = 0; i < heroes.length; i++) {
             heroes[i] = new ImageView();
             heroes[i] = new ImageView(new Image("gifs/Abomination_idle.gif"));
@@ -134,7 +141,7 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
-                view.battleMenu(battle.getAccounts(), getImageViewGif(battle.getAccounts()[0], 0), getImageViewGif(battle.getAccounts()[1], 1));
+                view.battleMenu(battle.getAccounts(), getImageViewGif(battle.getAccounts()[0], 0), getImageViewGif(battle.getAccounts()[1], 1),polygon);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -153,6 +160,7 @@ public class Controller {
         for (int i = 0; i < heroes.length; i++) {
             System.out.println(heroes[i].getId());
         }
+        handlePolygon();
         handleButtons();
         handleTextFields();
         handleHeroGifs();
@@ -161,7 +169,16 @@ public class Controller {
     public void handleHeroGifs() {
         for (int i = 0; i < 2; i++) {
             int a=i;
-                heroes[heroId[i][0]].setOnMouseClicked(event -> battle.selectCard(heroId[a][1]));
+                heroes[heroId[i][0]].setOnMouseClicked(event ->{ battle.selectCard(heroId[a][1]);
+                        currentImageView = heroes[heroId[a][0]];
+        });
+        }
+    }
+
+    public void handlePolygon() {
+        for (int i = 0; i < polygon.length; i++) {
+            int a =i;
+            polygon[i].setOnMouseClicked(event -> view.move(polygon[a].getPoints().get(0),polygon[a].getPoints().get(1),currentImageView));
         }
     }
 
