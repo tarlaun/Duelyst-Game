@@ -340,6 +340,7 @@ public class Controller {
             menu.setStat(MenuStat.COLLECTION);
             main();
         });
+        imageViews[ImageViews.BACK.ordinal()].setOnMouseClicked(event -> exit());
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
