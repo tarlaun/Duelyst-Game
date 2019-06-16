@@ -698,7 +698,7 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts) {
+    public void battleMenu(Account[] accounts , ImageView imageView1, ImageView imageView2) {
         root.getChildren().clear();
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -712,63 +712,20 @@ public class View {
         for (int i = 0; i < 45; i++) {
             root.getChildren().add(polygon[i]);
         }
-        Image firstHero, secondHero , firstHeroGif,secondHeroGif;
+        Image firstHero, secondHero;
         firstHero = getImage(accounts[0]);
         secondHero = getImage(accounts[1]);
         ImageView firstHeroView = new ImageView(firstHero);
         ImageView secondHeroView = new ImageView(secondHero);
         bossImageSettings(firstHeroView, secondHeroView);
-        firstHeroGif = getImageGif(accounts[0]);
-        secondHeroGif = getImageGif(accounts[1]);
-        ImageView imageView2 = new ImageView(secondHeroGif);
-        ImageView imageView1 = new ImageView(firstHeroGif);
         imageView2.relocate((polygon[26].getPoints().get(0)+polygon[26].getPoints().get(2))/2-55,(polygon[26].getPoints().get(1)+polygon[26].getPoints().get(5))/2-105);
         imageView2.setScaleX(-1);
         imageView1.relocate((polygon[18].getPoints().get(0)+polygon[18].getPoints().get(2))/2-60,(polygon[18].getPoints().get(1)+polygon[18].getPoints().get(5))/2-105);
         lightning(imageView1,imageView2);
-        for (int i = 0; i <polygon[26].getPoints().size() ; i++) {
-            System.out.println(polygon[26].getPoints().get(i));
-        }
         root.getChildren().addAll(firstHeroView, secondHeroView,imageView1,imageView2);
 
     }
 
-    private Image getImageGif(Account account){
-        Image firstHero = null;
-        switch (account.getCollection().getMainDeck().getHero().getName()) {
-            case "WHITE_DIV":
-                firstHero = new Image("gifs/Abomination_idle.gif");
-                break;
-            case "ZAHAK":
-                firstHero = new Image("gifs/Abomination_idle.gif");
-                break;
-            case "ARASH":
-                firstHero = new Image("gifs/f6_altgeneraltier2_idle.gif");
-                break;
-            case "SIMORGH":
-                firstHero = new Image("gifs/f4_altgeneraltier2_idle.gif");
-                break;
-            case "SEVEN_HEADED_DRAGON":
-                firstHero = new Image("gifs/f5_altgeneraltier2_idle.gif");
-                break;
-            case "RAKHSH":
-                firstHero = new Image("gifs/f6_altgeneraltier2_idle.gif");
-                break;
-            case "KAVEH":
-                firstHero = new Image("gifs/boss_cindera_idle.gif");
-                break;
-            case "AFSANEH":
-                firstHero = new Image("gifs/f6_altgeneraltier2_idle.gif");
-                break;
-            case "ESFANDIAR":
-                firstHero = new Image("gifs/Brome Warcrest_idle.gif");
-                break;
-            case "ROSTAM":
-                firstHero = new Image("gifs/f1_tier2general_idle.gif");
-                break;
-        }
-        return firstHero;
-    }
 
     private void bossImageSettings(ImageView firstHeroView, ImageView secondHeroView) {
         firstHeroView.relocate(150, -50);
@@ -1098,7 +1055,7 @@ public class View {
     public void collectionMenu(Button createDeck, Button exit, TextField name) {
         root.getChildren().clear();
         createDeck.setText("Create Deck");
-        Image background = new Image("scenes/load/scene_load_background.jpg");
+        Image background = new Image("resources/scenes/load/scene_load_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
