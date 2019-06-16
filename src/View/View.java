@@ -838,6 +838,9 @@ public class View {
         horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, leftArrow, rightArrow);
         setImageSize(Constants.ARROW, leftArrow, rightArrow);
         root.getChildren().addAll(backView, next, prev, back, leftArrow, rightArrow);
+        lightning(back);
+        lightning(prev, leftArrow);
+        lightning(next, rightArrow);
     }
 
     public void verticalList(Alignment alignment, double x, double y, Node... nodes) {
@@ -1009,19 +1012,6 @@ public class View {
         first.setTextFill(Color.rgb(a, b, c));
     }
 
-    private void lightnings(ImageView singlePview) {
-        Glow glow = new Glow();
-        glow.setLevel(0.9);
-        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-            singlePview.setEffect(glow);
-
-        });
-        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            singlePview.setEffect(null);
-        });
-    }
-
     public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
         Image background = new Image("scenes/vetruvian/bg@2x.jpg");
@@ -1054,7 +1044,7 @@ public class View {
 
     }
 
-    public void collectionMenu(Button createDeck,Button exit, TextField name){
+    public void collectionMenu(Button createDeck, Button exit, TextField name) {
         root.getChildren().clear();
         createDeck.setText("Create Deck");
         Image background = new Image("scenes/load/scene_load_background.jpg");
@@ -1069,26 +1059,27 @@ public class View {
         root.getChildren().addAll(backgroundView, createDeck, exit, name);
     }
 
-    private void lightning(ImageView singlePview) {
+    private void lightning(ImageView... views) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
         Glow glow = new Glow();
         glow.setLevel(0.9);
-        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
+        for (ImageView view : views) {
+            view.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
+                views[0].setEffect(colorAdjust);
 
-            singlePview.setEffect(colorAdjust);
-
-        });
-        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            singlePview.setEffect(null);
-        });
+            });
+            view.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
+                views[0].setEffect(null);
+            });
+        }
     }
 
-    public void setCardImage(String name){
-        Image image=new Image("resources/generals/general_f4.jpg");
-        switch (name){
+    public void setCardImage(String name) {
+        Image image = new Image("resources/generals/general_f4.jpg");
+        switch (name) {
             case "WHITE_DIV":
-                 image = new Image("resources/generals/general_f6third.jpg");
+                image = new Image("resources/generals/general_f6third.jpg");
                 break;
             case "SIMORGH":
                 image = new Image("resources/generals/general_f5alt.jpg");
