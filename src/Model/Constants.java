@@ -54,4 +54,7 @@ public class Constants {
     public static int ITEMS_COUNT = 20;
     public static final double ARROW = 50;
     public static final double SLIDE = 100;
+    public static final double CARD_WIDTH = 500;
+    public static final double CARD_HEIGHT = 500;
+
 }

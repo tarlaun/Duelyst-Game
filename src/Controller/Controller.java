@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -283,6 +284,12 @@ public class Controller {
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
+            case COLLECTION:
+                view.collectionMenu(buttons[Buttons.CREATE_DECK.ordinal()], buttons[Buttons.EXIT.ordinal()], fields[Texts.DECKNAME.ordinal()]);
+                file=new File("resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
+                media=new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
+                break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
                 file = new File("resources/music/music_battlemap_firesofvictory.m4a");
@@ -329,13 +336,17 @@ public class Controller {
             menu.setStat(MenuStat.SHOP);
             main();
         });
-        imageViews[ImageViews.BACK.ordinal()].setOnMouseClicked(event -> exit());
+        buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event-> {
+            menu.setStat(MenuStat.COLLECTION);
+            main();
+        });
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
+        buttons[Buttons.CREATE_DECK.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
     }
 
     public void handleTextFields() {
@@ -626,10 +637,11 @@ public class Controller {
 
     }
 
-    private void createDeck(Request request) {
-        if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
+    private void createDeck(String deckName) {
+        /*if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
-        }
+        }*/
+        this.account.getCollection().createDeck(deckName);
     }
 
     private void deleteDeck(Request request) {
@@ -852,7 +864,7 @@ public class Controller {
 
     private void endGame() {
         if (menu.getStat() == MenuStat.BATTLE) {
-            battle.endGame();
+            battle.resign();
             view.endGame(battle);
         }
     }

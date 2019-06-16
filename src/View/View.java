@@ -2,6 +2,9 @@ package View;
 
 import Model.*;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -17,6 +20,8 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
@@ -1004,6 +1009,19 @@ public class View {
         first.setTextFill(Color.rgb(a, b, c));
     }
 
+    private void lightnings(ImageView singlePview) {
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
+
+            singlePview.setEffect(glow);
+
+        });
+        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
+            singlePview.setEffect(null);
+        });
+    }
+
     public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
         Image background = new Image("scenes/vetruvian/bg@2x.jpg");
@@ -1036,6 +1054,21 @@ public class View {
 
     }
 
+    public void collectionMenu(Button createDeck,Button exit, TextField name){
+        root.getChildren().clear();
+        createDeck.setText("Create Deck");
+        Image background = new Image("scenes/load/scene_load_background.jpg");
+        ImageView backgroundView = new ImageView(background);
+        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
+        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck, exit);
+        name.setPrefWidth(Constants.FIELD_WIDTH);
+        name.setPrefHeight(Constants.FIELD_HEIGHT);
+        name.setLayoutX(createDeck.getLayoutX());
+        name.setLayoutY(createDeck.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
+        root.getChildren().addAll(backgroundView, createDeck, exit, name);
+    }
+
     private void lightning(ImageView singlePview) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
@@ -1049,6 +1082,45 @@ public class View {
         singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
             singlePview.setEffect(null);
         });
+    }
+
+    public void setCardImage(String name){
+        Image image=new Image("resources/generals/general_f4.jpg");
+        switch (name){
+            case "WHITE_DIV":
+                 image = new Image("resources/generals/general_f6third.jpg");
+                break;
+            case "SIMORGH":
+                image = new Image("resources/generals/general_f5alt.jpg");
+                break;
+            case "SEVEN_HEADED_DRAGON":
+                image = new Image("resources/generals/general_f5third.jpg");
+                break;
+            case "RAKHSH":
+                image = new Image("resources/generals/general_f3third.jpg");
+                break;
+            case "ZAHAK":
+                image = new Image("resources/generals/general_f2.jpg");
+                break;
+            case "KAVEH":
+                image = new Image("resources/generals/general_f3.jpg");
+                break;
+            case "ARASH":
+                image = new Image("resources/generals/general_f3alt.jpg");
+                break;
+            case "AFSANEH":
+                image = new Image("resources/generals/general_f4.jpg");
+                break;
+            case "ESFANDIAR":
+                image = new Image("resources/generals/general_f6.jpg");
+                break;
+            case "ROSTAM":
+                image = new Image("resources/generals/general_f1.jpg");
+                break;
+        }
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(Constants.CARD_WIDTH);
+        imageView.setFitHeight(Constants.CARD_HEIGHT);
     }
 
 }
