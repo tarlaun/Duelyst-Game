@@ -965,19 +965,6 @@ public class View {
         first.setTextFill(Color.rgb(a, b, c));
     }
 
-    private void lightnings(ImageView singlePview) {
-        Glow glow = new Glow();
-        glow.setLevel(0.9);
-        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-            singlePview.setEffect(glow);
-
-        });
-        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            singlePview.setEffect(null);
-        });
-    }
-
     public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
         Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
