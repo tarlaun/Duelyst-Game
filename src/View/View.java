@@ -870,10 +870,10 @@ public class View {
     public void shopMenu(ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
                          ImageView back, ImageView next, ImageView prev) {
         root.getChildren().clear();
-        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button.png");
-        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text.png");
-        Image backArrow = new Image("ui/button_back_corner.png");
-        Image background = new Image("scenes/load/scene_load_background@2x.jpg");
+        Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button.png");
+        Image arrow = new Image("resources/ui/sliding_panel/sliding_panel_paging_button_text.png");
+        Image backArrow = new Image("resources/ui/button_back_corner.png");
+        Image background = new Image("resources/scenes/load/scene_load_background@2x.jpg");
         ImageView backView = new ImageView(background);
         ImageView leftArrow = new ImageView(arrow);
         ImageView rightArrow = new ImageView(arrow);
