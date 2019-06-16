@@ -3,6 +3,7 @@ package View;
 import Model.*;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import Model.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
@@ -865,39 +867,135 @@ public class View {
         root.getChildren().addAll(backgroundView, foregroundView, login, create, exit, username, password);
     }
 
-    public void shopMenu(Button buy, Button exit, TextField name) {
+    public void shopMenu(ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
+                         ImageView back, ImageView next, ImageView prev) {
         root.getChildren().clear();
-        buy.setText("Buy");
-        exit.setText("Exit");
-        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, buy, exit);
-        name.setPrefWidth(Constants.FIELD_WIDTH);
-        name.setPrefHeight(Constants.FIELD_HEIGHT);
-        name.setLayoutX(buy.getLayoutX());
-        name.setLayoutY(buy.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
-        root.getChildren().addAll(buy, exit, name);
+        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button.png");
+        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text.png");
+        Image backArrow = new Image("ui/button_back_corner.png");
+        Image background = new Image("scenes/load/scene_load_background@2x.jpg");
+        ImageView backView = new ImageView(background);
+        ImageView leftArrow = new ImageView(arrow);
+        ImageView rightArrow = new ImageView(arrow);
+        rightArrow.setRotate(180);
+        backView.setFitHeight(Constants.WINDOW_HEIGHT);
+        backView.setFitWidth(Constants.WINDOW_WIDTH);
+        backView.setOpacity(0.5);
+        next.setImage(slide);
+        prev.setImage(slide);
+        back.setImage(backArrow);
+        horizontalList(Alignment.UP, 0, 0, back);
+        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, prev, next);
+        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, leftArrow, rightArrow);
+        setImageSize(Constants.ARROW, leftArrow, rightArrow);
+        root.getChildren().addAll(backView, next, prev, back, leftArrow, rightArrow);
+        lightning(back);
+        lightning(prev, leftArrow);
+        lightning(next, rightArrow);
     }
 
-    public void verticalList(Alignment alignment, double x, double y, Button... buttons) {
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].setPrefHeight(Constants.BUTTON_HEIGHT);
-            if (buttons[i].getText().length() >= 8)
-                buttons[i].setPrefWidth(2 * Constants.BUTTON_WIDTH);
-            else
-                buttons[i].setPrefWidth(Constants.BUTTON_WIDTH);
-            switch (alignment) {
-                case LEFT:
-                    buttons[i].setLayoutX(x);
-                    break;
-                case CENTRE:
-                    buttons[i].setLayoutX(x - buttons[i].getPrefWidth() / 2);
+    public void verticalList(Alignment alignment, double x, double y, Node... nodes) {
+        for (int i = 0; i < nodes.length; i++) {
+            if (nodes[i] instanceof Button) {
+                Button button = (Button) nodes[i];
+                setButtonSize(button);
+                if (alignment == Alignment.CENTRE)
+                    button.setLayoutX(x - button.getPrefWidth() / 2);
+            }
+            if (nodes[i] instanceof ImageView) {
+                ImageView imageView = (ImageView) nodes[i];
+                if (alignment == Alignment.CENTRE)
+                    imageView.setLayoutX(x - imageView.getFitWidth() / 2);
+            }
+            if (alignment == Alignment.LEFT)
+                nodes[i].setLayoutX(x);
+        }
+        if (nodes[0] instanceof Button) {
+            nodes[nodes.length / 2].setLayoutY(y +
+                    ((nodes.length + 1) % 2) * ((Button) nodes[nodes.length / 2]).getPrefHeight() / 2);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutY(nodes[i + 1].getLayoutY() - 2 * Constants.BUTTON_HEIGHT);
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutY(nodes[i - 1].getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
             }
         }
-        buttons[buttons.length / 2].setLayoutY(y);
-        for (int i = buttons.length / 2 - 1; i >= 0; i--) {
-            buttons[i].setLayoutY(buttons[i + 1].getLayoutY() - 2 * Constants.BUTTON_HEIGHT);
+        if (nodes[0] instanceof ImageView) {
+            nodes[nodes.length / 2].setLayoutY(y +
+                    ((nodes.length + 1) % 2) * ((ImageView) nodes[nodes.length / 2]).getFitHeight() / 2);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutY(nodes[i + 1].getLayoutY()
+                        - ((ImageView) nodes[i]).getFitHeight() - ((ImageView) nodes[i + 1]).getFitHeight());
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutY(nodes[i - 1].getLayoutY() +
+                        ((ImageView) nodes[i]).getFitHeight() + ((ImageView) nodes[i - 1]).getFitHeight());
+            }
         }
-        for (int i = buttons.length / 2 + 1; i < buttons.length; i++) {
-            buttons[i].setLayoutY(buttons[i - 1].getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
+
+    }
+
+    public void setButtonSize(Button... buttons) {
+        for (Button button : buttons) {
+            button.setPrefHeight(Constants.BUTTON_HEIGHT);
+            if (button.getText().length() >= 8)
+                button.setPrefWidth(2 * Constants.BUTTON_WIDTH);
+            else
+                button.setPrefWidth(Constants.BUTTON_WIDTH);
+        }
+    }
+
+    public void setImageSize(double size, ImageView... imageViews) {
+        double currentSize;
+        for (ImageView imageView : imageViews) {
+            currentSize = imageView.getFitHeight();
+            imageView.setFitHeight(size);
+            imageView.setFitWidth(size);
+            imageView.setLayoutX(imageView.getLayoutX() + (currentSize - size) / 2);
+            imageView.setLayoutY(imageView.getLayoutY() + (currentSize - size) / 2);
+        }
+
+    }
+
+    public void horizontalList(Alignment alignment, double x, double y, Node... nodes) {
+        for (int i = 0; i < nodes.length; i++) {
+            if (nodes[i] instanceof Button) {
+                Button button = (Button) nodes[i];
+                setButtonSize(button);
+                if (alignment == Alignment.CENTRE)
+                    button.setLayoutY(y - button.getPrefHeight() / 2);
+            }
+            if (nodes[i] instanceof ImageView) {
+                ImageView imageView = (ImageView) nodes[i];
+                imageView.setFitWidth(Constants.SLIDE);
+                imageView.setFitHeight(Constants.SLIDE);
+                if (alignment == Alignment.CENTRE)
+                    imageView.setLayoutY(y - imageView.getFitHeight() / 2);
+            }
+            if (alignment == Alignment.UP || alignment == Alignment.DOWN)
+                nodes[i].setLayoutY(y);
+        }
+        if (nodes[0] instanceof Button) {
+            nodes[nodes.length / 2].setLayoutX(x +
+                    ((nodes.length + 1) % 2) * ((Button) nodes[nodes.length / 2]).getPrefWidth() / 2);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutX(nodes[i + 1].getLayoutX() - 2 * Constants.BUTTON_WIDTH);
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutX(nodes[i - 1].getLayoutX() + 2 * Constants.BUTTON_WIDTH);
+            }
+        }
+        if (nodes[0] instanceof ImageView) {
+            nodes[nodes.length / 2].setLayoutX(x +
+                    ((nodes.length + 1) % 2) * ((ImageView) nodes[nodes.length / 2]).getFitWidth() / 2);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutX(nodes[i + 1].getLayoutX()
+                        - ((ImageView) nodes[i]).getFitWidth() - ((ImageView) nodes[i + 1]).getFitWidth());
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutX(nodes[i - 1].getLayoutX() +
+                        ((ImageView) nodes[i]).getFitWidth() + ((ImageView) nodes[i - 1]).getFitWidth());
+            }
         }
     }
 
@@ -997,6 +1095,21 @@ public class View {
 
     }
 
+    public void collectionMenu(Button createDeck, Button exit, TextField name) {
+        root.getChildren().clear();
+        createDeck.setText("Create Deck");
+        Image background = new Image("scenes/load/scene_load_background.jpg");
+        ImageView backgroundView = new ImageView(background);
+        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
+        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck, exit);
+        name.setPrefWidth(Constants.FIELD_WIDTH);
+        name.setPrefHeight(Constants.FIELD_HEIGHT);
+        name.setLayoutX(createDeck.getLayoutX());
+        name.setLayoutY(createDeck.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
+        root.getChildren().addAll(backgroundView, createDeck, exit, name);
+    }
+
     private void lightning(ImageView ... imageViews) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
@@ -1013,6 +1126,44 @@ public class View {
                 singlePview.setEffect(null);
             });
         }
+    }
+    public void setCardImage(String name) {
+        Image image = new Image("resources/generals/general_f4.jpg");
+        switch (name) {
+            case "WHITE_DIV":
+                image = new Image("resources/generals/general_f6third.jpg");
+                break;
+            case "SIMORGH":
+                image = new Image("resources/generals/general_f5alt.jpg");
+                break;
+            case "SEVEN_HEADED_DRAGON":
+                image = new Image("resources/generals/general_f5third.jpg");
+                break;
+            case "RAKHSH":
+                image = new Image("resources/generals/general_f3third.jpg");
+                break;
+            case "ZAHAK":
+                image = new Image("resources/generals/general_f2.jpg");
+                break;
+            case "KAVEH":
+                image = new Image("resources/generals/general_f3.jpg");
+                break;
+            case "ARASH":
+                image = new Image("resources/generals/general_f3alt.jpg");
+                break;
+            case "AFSANEH":
+                image = new Image("resources/generals/general_f4.jpg");
+                break;
+            case "ESFANDIAR":
+                image = new Image("resources/generals/general_f6.jpg");
+                break;
+            case "ROSTAM":
+                image = new Image("resources/generals/general_f1.jpg");
+                break;
+        }
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(Constants.CARD_WIDTH);
+        imageView.setFitHeight(Constants.CARD_HEIGHT);
     }
 
 }

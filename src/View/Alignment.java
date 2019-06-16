@@ -3,5 +3,7 @@ package View;
 public enum Alignment {
     LEFT,
     CENTRE,
-    RIGHT
+    RIGHT,
+    UP,
+    DOWN
 }

@@ -1,10 +1,10 @@
 package Controller;
 
 import Model.*;
+import Model.Menu;
 import View.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -22,11 +22,16 @@ public class Controller {
     private Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
     private transient Label[] labels = new Label[Labels.values().length];
+    private transient ImageView[] imageViews = new ImageView[ImageViews.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
+    private transient ImageView[] heroes = new ImageView[Constants.HEROES_COUNT];
+    private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
+    private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
+    private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
-    File file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
-    Media media=new Media(file.toURI().toString());
-     MediaPlayer player = new MediaPlayer(media);
+    private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
+    private Media media = new Media(file.toURI().toString());
+    private MediaPlayer player = new MediaPlayer(media);
 
     private Controller() {
         initializeGame();
@@ -38,6 +43,9 @@ public class Controller {
         }
         for (int i = 0; i < fields.length; i++) {
             fields[i] = new TextField();
+        }
+        for (int i = 0; i < imageViews.length; i++) {
+            imageViews[i] = new ImageView();
         }
         menu.setStat(MenuStat.MAIN);
     }
@@ -265,16 +273,22 @@ public class Controller {
                 view.accountMenu(buttons[Buttons.PLAY.ordinal()], buttons[Buttons.COLLECTION.ordinal()],
                         buttons[Buttons.SHOP.ordinal()], buttons[Buttons.LEADER_BOARD.ordinal()],
                         buttons[Buttons.LOGOUT.ordinal()]);
-                 file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_playmode.m4a");
-                 media=new Media(file.toURI().toString());
-                 player = new MediaPlayer(media);
+                file = new File("resources/music/music_playmode.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(buttons[Buttons.BUY.ordinal()], buttons[Buttons.EXIT.ordinal()],
-                        fields[Texts.CARD.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
-                 media=new Media(file.toURI().toString());
-                 player = new MediaPlayer(media);
+                view.shopMenu(heroes,minions,spells,items,imageViews[ImageViews.BACK.ordinal()],
+                        imageViews[ImageViews.NEXT.ordinal()],imageViews[ImageViews.PREV.ordinal()]);
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
+                break;
+            case COLLECTION:
+                view.collectionMenu(buttons[Buttons.CREATE_DECK.ordinal()], buttons[Buttons.EXIT.ordinal()], fields[Texts.DECKNAME.ordinal()]);
+                file=new File("resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
+                media=new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
@@ -322,12 +336,18 @@ public class Controller {
             menu.setStat(MenuStat.SHOP);
             main();
         });
+        buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event-> {
+            menu.setStat(MenuStat.COLLECTION);
+            main();
+        });
+        imageViews[ImageViews.BACK.ordinal()].setOnMouseClicked(event -> exit());
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
+        buttons[Buttons.CREATE_DECK.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
     }
 
     public void handleTextFields() {
@@ -394,7 +414,7 @@ public class Controller {
 
     private void selectUser(String name) {
         Account accountt = Account.getAccountByName(name, game.getAccounts());
-        if(accountt!=null) {
+        if (accountt != null) {
             battle.setAccounts(account, accountt);
             menu.setStat(MenuStat.BATTLE);
             battle.startBattle();
@@ -618,10 +638,11 @@ public class Controller {
 
     }
 
-    private void createDeck(Request request) {
-        if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
+    private void createDeck(String deckName) {
+        /*if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
-        }
+        }*/
+        this.account.getCollection().createDeck(deckName);
     }
 
     private void deleteDeck(Request request) {
@@ -844,7 +865,7 @@ public class Controller {
 
     private void endGame() {
         if (menu.getStat() == MenuStat.BATTLE) {
-            battle.endGame();
+            battle.resign();
             view.endGame(battle);
         }
     }

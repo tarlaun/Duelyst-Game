@@ -48,4 +48,13 @@ public class Constants {
     public static final double FIELD_HEIGHT = 30;
     public static final double SINGLE_PLAYER_WIDTH = 300;
     public static final double SINGLE_PLAYER_HEIGHT = 300;
+    public static int HEROES_COUNT = 10;
+    public static int MINIONS_COUNT = 40;
+    public static int SPELLS_COUNT = 20;
+    public static int ITEMS_COUNT = 20;
+    public static final double ARROW = 50;
+    public static final double SLIDE = 100;
+    public static final double CARD_WIDTH = 500;
+    public static final double CARD_HEIGHT = 500;
+
 }
