@@ -1095,19 +1095,38 @@ public class View {
 
     }
 
-    public void collectionMenu(Button createDeck, Button exit, TextField name) {
+    public void collectionMenu(Button createDeck, Button exit, TextField name, ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
+                               ImageView back, ImageView next, ImageView prev) {
         root.getChildren().clear();
         createDeck.setText("Create Deck");
-        Image background = new Image("scenes/load/scene_load_background.jpg");
+        Image background = new Image("resources/scenes/load/scene_load_background.jpg");
+        Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button.png");
+        ImageView backView = new ImageView(background);
+        Image arrow = new Image("resources/ui/sliding_panel/sliding_panel_paging_button_text.png");
+        Image backArrow = new Image("resources/ui/button_back_corner.png");
+        ImageView leftArrow = new ImageView(arrow);
+        ImageView rightArrow = new ImageView(arrow);
+        rightArrow.setRotate(180);
+        next.setImage(slide);
+        prev.setImage(slide);
+        back.setImage(backArrow);
+        horizontalList(Alignment.UP, 0, 0, back);
+        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, prev, next);
+        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, leftArrow, rightArrow);
+        setImageSize(Constants.ARROW, leftArrow, rightArrow);
+        lightning(back);
+        lightning(prev, leftArrow);
+        lightning(next, rightArrow);
         ImageView backgroundView = new ImageView(background);
+        backgroundView.setOpacity(0.4);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck, exit);
+        verticalList(Alignment.RIGHT, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck, exit);
         name.setPrefWidth(Constants.FIELD_WIDTH);
         name.setPrefHeight(Constants.FIELD_HEIGHT);
         name.setLayoutX(createDeck.getLayoutX());
         name.setLayoutY(createDeck.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
-        root.getChildren().addAll(backgroundView, createDeck, exit, name);
+        root.getChildren().addAll(backView, next, prev, back, leftArrow, rightArrow, name, createDeck);
     }
 
     private void lightning(ImageView ... imageViews) {
