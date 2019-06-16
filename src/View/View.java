@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +24,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Rotate;
 
 public class View {
     private transient AnchorPane root = new AnchorPane();
@@ -708,13 +710,62 @@ public class View {
         for (int i = 0; i < 45; i++) {
             root.getChildren().add(polygon[i]);
         }
-        Image firstHero, secondHero;
+        Image firstHero, secondHero , firstHeroGif,secondHeroGif;
         firstHero = getImage(accounts[0]);
         secondHero = getImage(accounts[1]);
         ImageView firstHeroView = new ImageView(firstHero);
         ImageView secondHeroView = new ImageView(secondHero);
         bossImageSettings(firstHeroView, secondHeroView);
-        root.getChildren().addAll(firstHeroView, secondHeroView);
+        firstHeroGif = getImageGif(accounts[0]);
+        secondHeroGif = getImageGif(accounts[1]);
+        ImageView imageView2 = new ImageView(secondHeroGif);
+        ImageView imageView1 = new ImageView(firstHeroGif);
+        imageView2.relocate((polygon[26].getPoints().get(0)+polygon[26].getPoints().get(2))/2-55,(polygon[26].getPoints().get(1)+polygon[26].getPoints().get(5))/2-105);
+        imageView2.setScaleX(-1);
+        imageView1.relocate((polygon[18].getPoints().get(0)+polygon[18].getPoints().get(2))/2-60,(polygon[18].getPoints().get(1)+polygon[18].getPoints().get(5))/2-105);
+        lightning(imageView1,imageView2);
+        for (int i = 0; i <polygon[26].getPoints().size() ; i++) {
+            System.out.println(polygon[26].getPoints().get(i));
+        }
+        root.getChildren().addAll(firstHeroView, secondHeroView,imageView1,imageView2);
+
+    }
+
+    private Image getImageGif(Account account){
+        Image firstHero = null;
+        switch (account.getCollection().getMainDeck().getHero().getName()) {
+            case "WHITE_DIV":
+                firstHero = new Image("gifs/Abomination_idle.gif");
+                break;
+            case "ZAHAK":
+                firstHero = new Image("gifs/Abomination_idle.gif");
+                break;
+            case "ARASH":
+                firstHero = new Image("gifs/f6_altgeneraltier2_idle.gif");
+                break;
+            case "SIMORGH":
+                firstHero = new Image("gifs/f4_altgeneraltier2_idle.gif");
+                break;
+            case "SEVEN_HEADED_DRAGON":
+                firstHero = new Image("gifs/f5_altgeneraltier2_idle.gif");
+                break;
+            case "RAKHSH":
+                firstHero = new Image("gifs/f6_altgeneraltier2_idle.gif");
+                break;
+            case "KAVEH":
+                firstHero = new Image("gifs/boss_cindera_idle.gif");
+                break;
+            case "AFSANEH":
+                firstHero = new Image("gifs/f6_altgeneraltier2_idle.gif");
+                break;
+            case "ESFANDIAR":
+                firstHero = new Image("gifs/Brome Warcrest_idle.gif");
+                break;
+            case "ROSTAM":
+                firstHero = new Image("gifs/f1_tier2general_idle.gif");
+                break;
+        }
+        return firstHero;
     }
 
     private void bossImageSettings(ImageView firstHeroView, ImageView secondHeroView) {
@@ -959,19 +1010,22 @@ public class View {
 
     }
 
-    private void lightning(ImageView singlePview) {
+    private void lightning(ImageView ... imageViews) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
         Glow glow = new Glow();
         glow.setLevel(0.9);
-        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
+        for (ImageView singlePview:
+             imageViews) {
+            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
 
-            singlePview.setEffect(colorAdjust);
+                singlePview.setEffect(colorAdjust);
 
-        });
-        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            singlePview.setEffect(null);
-        });
+            });
+            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
+                singlePview.setEffect(null);
+            });
+        }
     }
 
 }
