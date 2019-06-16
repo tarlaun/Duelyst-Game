@@ -2,8 +2,6 @@ package View;
 
 import Model.*;
 
-import java.io.File;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -11,6 +9,7 @@ import Model.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
@@ -18,8 +17,6 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
@@ -662,7 +659,7 @@ public class View {
 
     public void selectUserMenu(ArrayList<Account> accounts, Label label, TextField textField) {
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/shimzar/bg@2x.jpg");
+        Image background = new Image("scenes/shimzar/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
@@ -696,11 +693,11 @@ public class View {
 
     public void battleMenu(Account[] accounts) {
         root.getChildren().clear();
-        Image background = new Image("resources/maps/abyssian/background@2x.jpg");
+        Image background = new Image("maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/maps/abyssian/midground@2x.png");
+        Image foreground = new Image("maps/abyssian/midground@2x.png");
         ImageView foregroundView = getImageView(background, foreground);
         Polygon[] polygon = new Polygon[45];
         battleField(polygon);
@@ -732,34 +729,34 @@ public class View {
         Image firstHero = null;
         switch (account.getCollection().getMainDeck().getHero().getName()) {
             case "WHITE_DIV":
-                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
             case "ZAHAK":
-                firstHero = new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_calibero_portrait_image_hex@2x.png");
                 break;
             case "ARASH":
-                firstHero = new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
                 break;
             case "SIMORGH":
-                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
             case "SEVEN_HEADED_DRAGON":
-                firstHero = new Image("resources/boss_battles/boss_crystal_portrait_hex.png");
+                firstHero = new Image("boss_battles/boss_crystal_portrait_hex.png");
                 break;
             case "RAKHSH":
-                firstHero = new Image("resources/boss_battles/boss_wraith_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_wraith_portrait_hex@2x.png");
                 break;
             case "KAVEH":
-                firstHero = new Image("resources/boss_battles/boss_vampire_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_vampire_portrait_hex@2x.png");
                 break;
             case "AFSANEH":
-                firstHero = new Image("resources/boss_battles/boss_spelleater_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_spelleater_portrait_hex@2x.png");
                 break;
             case "ESFANDIAR":
-                firstHero = new Image("resources/boss_battles/boss_skurge_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_skurge_portrait_hex@2x.png");
                 break;
             case "ROSTAM":
-                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
         }
         return firstHero;
@@ -793,11 +790,11 @@ public class View {
     }
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
-        Image background = new Image("resources/scenes/obsidian_woods/obsidian_woods_background.jpg");
+        Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/obsidian_woods/obsidian_woods_cliff.png");
+        Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
         ImageView foregroundView = getImageView(background, foreground);
         login.setText("Login");
         create.setText("Create Account");
@@ -814,49 +811,142 @@ public class View {
         root.getChildren().addAll(backgroundView, foregroundView, login, create, exit, username, password);
     }
 
-    public void shopMenu(Button buy, Button exit, TextField name) {
+    public void shopMenu(ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
+                         ImageView back, ImageView next, ImageView prev) {
         root.getChildren().clear();
-        buy.setText("Buy");
-        exit.setText("Exit");
-        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, buy, exit);
-        name.setPrefWidth(Constants.FIELD_WIDTH);
-        name.setPrefHeight(Constants.FIELD_HEIGHT);
-        name.setLayoutX(buy.getLayoutX());
-        name.setLayoutY(buy.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
-        root.getChildren().addAll(buy, exit, name);
+        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button.png");
+        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text.png");
+        Image backArrow = new Image("ui/button_back_corner.png");
+        Image background = new Image("scenes/load/scene_load_background@2x.jpg");
+        ImageView backView = new ImageView(background);
+        ImageView leftArrow = new ImageView(arrow);
+        ImageView rightArrow = new ImageView(arrow);
+        rightArrow.setRotate(180);
+        backView.setFitHeight(Constants.WINDOW_HEIGHT);
+        backView.setFitWidth(Constants.WINDOW_WIDTH);
+        backView.setOpacity(0.5);
+        next.setImage(slide);
+        prev.setImage(slide);
+        back.setImage(backArrow);
+        horizontalList(Alignment.UP, 0, 0, back);
+        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, prev, next);
+        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, leftArrow, rightArrow);
+        setImageSize(Constants.ARROW, leftArrow, rightArrow);
+        root.getChildren().addAll(backView, next, prev, back, leftArrow, rightArrow);
     }
 
-    public void verticalList(Alignment alignment, double x, double y, Button... buttons) {
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].setPrefHeight(Constants.BUTTON_HEIGHT);
-            if (buttons[i].getText().length() >= 8)
-                buttons[i].setPrefWidth(2 * Constants.BUTTON_WIDTH);
-            else
-                buttons[i].setPrefWidth(Constants.BUTTON_WIDTH);
-            switch (alignment) {
-                case LEFT:
-                    buttons[i].setLayoutX(x);
-                    break;
-                case CENTRE:
-                    buttons[i].setLayoutX(x - buttons[i].getPrefWidth() / 2);
+    public void verticalList(Alignment alignment, double x, double y, Node... nodes) {
+        for (int i = 0; i < nodes.length; i++) {
+            if (nodes[i] instanceof Button) {
+                Button button = (Button) nodes[i];
+                setButtonSize(button);
+                if (alignment == Alignment.CENTRE)
+                    button.setLayoutX(x - button.getPrefWidth() / 2);
+            }
+            if (nodes[i] instanceof ImageView) {
+                ImageView imageView = (ImageView) nodes[i];
+                if (alignment == Alignment.CENTRE)
+                    imageView.setLayoutX(x - imageView.getFitWidth() / 2);
+            }
+            if (alignment == Alignment.LEFT)
+                nodes[i].setLayoutX(x);
+        }
+        if (nodes[0] instanceof Button) {
+            nodes[nodes.length / 2].setLayoutY(y +
+                    ((nodes.length + 1) % 2) * ((Button) nodes[nodes.length / 2]).getPrefHeight() / 2);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutY(nodes[i + 1].getLayoutY() - 2 * Constants.BUTTON_HEIGHT);
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutY(nodes[i - 1].getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
             }
         }
-        buttons[buttons.length / 2].setLayoutY(y);
-        for (int i = buttons.length / 2 - 1; i >= 0; i--) {
-            buttons[i].setLayoutY(buttons[i + 1].getLayoutY() - 2 * Constants.BUTTON_HEIGHT);
+        if (nodes[0] instanceof ImageView) {
+            nodes[nodes.length / 2].setLayoutY(y +
+                    ((nodes.length + 1) % 2) * ((ImageView) nodes[nodes.length / 2]).getFitHeight() / 2);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutY(nodes[i + 1].getLayoutY()
+                        - ((ImageView) nodes[i]).getFitHeight() - ((ImageView) nodes[i + 1]).getFitHeight());
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutY(nodes[i - 1].getLayoutY() +
+                        ((ImageView) nodes[i]).getFitHeight() + ((ImageView) nodes[i - 1]).getFitHeight());
+            }
         }
-        for (int i = buttons.length / 2 + 1; i < buttons.length; i++) {
-            buttons[i].setLayoutY(buttons[i - 1].getLayoutY() + 2 * Constants.BUTTON_HEIGHT);
+
+    }
+
+    public void setButtonSize(Button... buttons) {
+        for (Button button : buttons) {
+            button.setPrefHeight(Constants.BUTTON_HEIGHT);
+            if (button.getText().length() >= 8)
+                button.setPrefWidth(2 * Constants.BUTTON_WIDTH);
+            else
+                button.setPrefWidth(Constants.BUTTON_WIDTH);
+        }
+    }
+
+    public void setImageSize(double size, ImageView... imageViews) {
+        double currentSize;
+        for (ImageView imageView : imageViews) {
+            currentSize = imageView.getFitHeight();
+            imageView.setFitHeight(size);
+            imageView.setFitWidth(size);
+            imageView.setLayoutX(imageView.getLayoutX() + (currentSize - size) / 2);
+            imageView.setLayoutY(imageView.getLayoutY() + (currentSize - size) / 2);
+        }
+
+    }
+
+    public void horizontalList(Alignment alignment, double x, double y, Node... nodes) {
+        for (int i = 0; i < nodes.length; i++) {
+            if (nodes[i] instanceof Button) {
+                Button button = (Button) nodes[i];
+                setButtonSize(button);
+                if (alignment == Alignment.CENTRE)
+                    button.setLayoutY(y - button.getPrefHeight() / 2);
+            }
+            if (nodes[i] instanceof ImageView) {
+                ImageView imageView = (ImageView) nodes[i];
+                imageView.setFitWidth(Constants.SLIDE);
+                imageView.setFitHeight(Constants.SLIDE);
+                if (alignment == Alignment.CENTRE)
+                    imageView.setLayoutY(y - imageView.getFitHeight() / 2);
+            }
+            if (alignment == Alignment.UP || alignment == Alignment.DOWN)
+                nodes[i].setLayoutY(y);
+        }
+        if (nodes[0] instanceof Button) {
+            nodes[nodes.length / 2].setLayoutX(x +
+                    ((nodes.length + 1) % 2) * ((Button) nodes[nodes.length / 2]).getPrefWidth() / 2);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutX(nodes[i + 1].getLayoutX() - 2 * Constants.BUTTON_WIDTH);
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutX(nodes[i - 1].getLayoutX() + 2 * Constants.BUTTON_WIDTH);
+            }
+        }
+        if (nodes[0] instanceof ImageView) {
+            nodes[nodes.length / 2].setLayoutX(x +
+                    ((nodes.length + 1) % 2) * ((ImageView) nodes[nodes.length / 2]).getFitWidth() / 2);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutX(nodes[i + 1].getLayoutX()
+                        - ((ImageView) nodes[i]).getFitWidth() - ((ImageView) nodes[i + 1]).getFitWidth());
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutX(nodes[i - 1].getLayoutX() +
+                        ((ImageView) nodes[i]).getFitWidth() + ((ImageView) nodes[i - 1]).getFitWidth());
+            }
         }
     }
 
     public void accountMenu(Button play, Button collection, Button shop, Button leaderboard, Button logout) {
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/frostfire/background.jpg");
+        Image background = new Image("scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/frostfire/foreground.png");
+        Image foreground = new Image("scenes/frostfire/foreground.png");
         ImageView foregroundView = getImageView(background, foreground);
         play.setText("Play");
         collection.setText("Collection");
@@ -877,22 +967,22 @@ public class View {
 
     public void battleMode(Button first, Button second, Button third) {
         root.getChildren().clear();
-        // Image background = new Image("resources/scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg");
-        Image background = new Image("resources/scenes/load/scene_load_background@2x.jpg");
+        // Image background = new Image("scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg");
+        Image background = new Image("scenes/load/scene_load_background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image firstImage = new Image("resources/challenges/gate_013@2x.jpg");
+        Image firstImage = new Image("challenges/gate_013@2x.jpg");
         ImageView firstImageView = new ImageView(firstImage);
         firstImageView.setFitWidth(425);
         firstImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         firstImageView.setLayoutX(0);
-        Image secondImage = new Image("resources/challenges/gate_005@2x.jpg");
+        Image secondImage = new Image("challenges/gate_005@2x.jpg");
         ImageView secondImageView = new ImageView(secondImage);
         secondImageView.setFitWidth(425);
         secondImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         secondImageView.setLayoutX(425);
-        Image thirdImage = new Image("resources/challenges/gate_004@2x.jpg");
+        Image thirdImage = new Image("challenges/gate_004@2x.jpg");
         ImageView thirdImageView = new ImageView(thirdImage);
         thirdImageView.setFitWidth(425);
         thirdImageView.setFitHeight(Constants.WINDOW_HEIGHT);
@@ -914,32 +1004,19 @@ public class View {
         first.setTextFill(Color.rgb(a, b, c));
     }
 
-    private void lightnings(ImageView singlePview) {
-        Glow glow = new Glow();
-        glow.setLevel(0.9);
-        singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-            singlePview.setEffect(glow);
-
-        });
-        singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            singlePview.setEffect(null);
-        });
-    }
-
     public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
-        Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
+        Image background = new Image("scenes/vetruvian/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image singleP = new Image("resources/resources/crests/crest_f1@2x.png");
+        Image singleP = new Image("crests/crest_f1@2x.png");
         ImageView singlePview = new ImageView(singleP);
         singlePview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setLayoutY(200);
         singlePview.setLayoutX(Constants.SINGLE_PLAYER_HEIGHT);
-        Image singleM = new Image("resources/resources/crests/crest_f2@2x.png");
+        Image singleM = new Image("crests/crest_f2@2x.png");
         ImageView singleMview = new ImageView(singleM);
         singleMview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singleMview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);

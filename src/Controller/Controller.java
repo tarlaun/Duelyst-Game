@@ -1,13 +1,12 @@
 package Controller;
 
 import Model.*;
+import Model.Menu;
 import View.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,11 +21,16 @@ public class Controller {
     private Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
     private transient Label[] labels = new Label[Labels.values().length];
+    private transient ImageView[] imageViews = new ImageView[ImageViews.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
+    private transient ImageView[] heroes = new ImageView[Constants.HEROES_COUNT];
+    private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
+    private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
+    private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
-    File file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
-    Media media=new Media(file.toURI().toString());
-     MediaPlayer player = new MediaPlayer(media);
+    private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
+    private Media media = new Media(file.toURI().toString());
+    private MediaPlayer player = new MediaPlayer(media);
 
     private Controller() {
         initializeGame();
@@ -38,6 +42,9 @@ public class Controller {
         }
         for (int i = 0; i < fields.length; i++) {
             fields[i] = new TextField();
+        }
+        for (int i = 0; i < imageViews.length; i++) {
+            imageViews[i] = new ImageView();
         }
         menu.setStat(MenuStat.MAIN);
     }
@@ -257,48 +264,48 @@ public class Controller {
             case MAIN:
                 view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
                         buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], fields[Texts.PASSWORD.ordinal()]);
-                 file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_bluemonolith.m4a");
-                 media=new Media(file.toURI().toString());
-                 player = new MediaPlayer(media);
+                file = new File("resources/music/music_battlemap_bluemonolith.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
                 break;
             case ACCOUNT:
                 view.accountMenu(buttons[Buttons.PLAY.ordinal()], buttons[Buttons.COLLECTION.ordinal()],
                         buttons[Buttons.SHOP.ordinal()], buttons[Buttons.LEADER_BOARD.ordinal()],
                         buttons[Buttons.LOGOUT.ordinal()]);
-                 file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_playmode.m4a");
-                 media=new Media(file.toURI().toString());
-                 player = new MediaPlayer(media);
+                file = new File("resources/music/music_playmode.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(buttons[Buttons.BUY.ordinal()], buttons[Buttons.EXIT.ordinal()],
-                        fields[Texts.CARD.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
-                 media=new Media(file.toURI().toString());
-                 player = new MediaPlayer(media);
+                view.shopMenu(heroes,minions,spells,items,imageViews[ImageViews.BACK.ordinal()],
+                        imageViews[ImageViews.NEXT.ordinal()],imageViews[ImageViews.PREV.ordinal()]);
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_firesofvictory.m4a");
-                media=new Media(file.toURI().toString());
+                file = new File("resources/music/music_battlemap_firesofvictory.m4a");
+                media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case BATTLE_MODE:
                 view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()], buttons[Buttons.FLAG_COLLECTING.ordinal()],
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_songhai.m4a");
-                media=new Media(file.toURI().toString());
+                file = new File("resources/music/music_battlemap_songhai.m4a");
+                media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
                 view.battleMenu(battle.getAccounts());
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
-                media=new Media(file.toURI().toString());
+                file = new File("resources/music/music_battlemap01.m4a");
+                media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
-                media=new Media(file.toURI().toString());
+                file = new File("resources/music/music_battlemap_abyssian.m4a");
+                media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case GRAVEYARD:
@@ -322,6 +329,7 @@ public class Controller {
             menu.setStat(MenuStat.SHOP);
             main();
         });
+        imageViews[ImageViews.BACK.ordinal()].setOnMouseClicked(event -> exit());
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
@@ -394,7 +402,7 @@ public class Controller {
 
     private void selectUser(String name) {
         Account accountt = Account.getAccountByName(name, game.getAccounts());
-        if(accountt!=null) {
+        if (accountt != null) {
             battle.setAccounts(account, accountt);
             menu.setStat(MenuStat.BATTLE);
             battle.startBattle();
