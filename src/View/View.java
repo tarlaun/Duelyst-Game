@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Model.*;
 
 import java.io.File;
@@ -27,6 +28,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 
 public class View {
@@ -38,7 +40,7 @@ public class View {
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
     Image cursor = new Image("resources/ui/mouse_auto.png");
-
+    Image battleCursor = new Image("resources/ui/mouse_attack.png");
 
 
     private View() {
@@ -46,7 +48,7 @@ public class View {
     }
 
     public Scene getScene() {
-        scene.setCursor(new ImageCursor(cursor, 16, 16));
+        scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
         return scene;
     }
 
@@ -717,7 +719,7 @@ public class View {
         for (int i = 0; i < 45; i++) {
             root.getChildren().add(polygon[i]);
         }
-        Image firstHero, secondHero , firstHeroGif,secondHeroGif;
+        Image firstHero, secondHero, firstHeroGif, secondHeroGif;
         firstHero = getImage(accounts[0]);
         secondHero = getImage(accounts[1]);
         ImageView firstHeroView = new ImageView(firstHero);
@@ -727,18 +729,18 @@ public class View {
         secondHeroGif = getImageGif(accounts[1]);
         ImageView imageView2 = new ImageView(secondHeroGif);
         ImageView imageView1 = new ImageView(firstHeroGif);
-        imageView2.relocate((polygon[26].getPoints().get(0)+polygon[26].getPoints().get(2))/2-55,(polygon[26].getPoints().get(1)+polygon[26].getPoints().get(5))/2-105);
+        imageView2.relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
         imageView2.setScaleX(-1);
-        imageView1.relocate((polygon[18].getPoints().get(0)+polygon[18].getPoints().get(2))/2-60,(polygon[18].getPoints().get(1)+polygon[18].getPoints().get(5))/2-105);
-        lightning(imageView1,imageView2);
-        for (int i = 0; i <polygon[26].getPoints().size() ; i++) {
+        imageView1.relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
+        lightning(imageView1, imageView2);
+        for (int i = 0; i < polygon[26].getPoints().size(); i++) {
             System.out.println(polygon[26].getPoints().get(i));
         }
-        root.getChildren().addAll(firstHeroView, secondHeroView,imageView1,imageView2);
+        root.getChildren().addAll(firstHeroView, secondHeroView, imageView1, imageView2);
 
     }
 
-    private Image getImageGif(Account account){
+    private Image getImageGif(Account account) {
         Image firstHero = null;
         switch (account.getCollection().getMainDeck().getHero().getName()) {
             case "WHITE_DIV":
@@ -1100,10 +1102,13 @@ public class View {
 
     }
 
-    public void collectionMenu(Button createDeck, Button exit, TextField name, ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
+    public void collectionMenu(ImageView createDeck, TextField name, ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
                                ImageView back, ImageView next, ImageView prev) {
         root.getChildren().clear();
-        createDeck.setText("Create Deck");
+        Text create = new Text("Create Deck");
+        create.setFont(Font.font("Comic Sans MS"));
+        Image createImage = new Image("resources/ui/button_primary.png");
+        createDeck.setImage(createImage);
         Image background = new Image("resources/scenes/load/scene_load_background.jpg");
         Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button.png");
         ImageView backView = new ImageView(background);
@@ -1122,25 +1127,28 @@ public class View {
         lightning(back);
         lightning(prev, leftArrow);
         lightning(next, rightArrow);
+        lightning(createDeck);
         ImageView backgroundView = new ImageView(background);
         backgroundView.setOpacity(0.4);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        verticalList(Alignment.RIGHT, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck, exit);
+        verticalList(Alignment.RIGHT, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck);
         name.setPrefWidth(Constants.FIELD_WIDTH);
         name.setPrefHeight(Constants.FIELD_HEIGHT);
-        name.setLayoutX(createDeck.getLayoutX());
+        name.setLayoutX(createDeck.getLayoutX() + 30);
         name.setLayoutY(createDeck.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
-        root.getChildren().addAll(backView, next, prev, back, leftArrow, rightArrow, name, createDeck);
+        create.setX(createDeck.getLayoutX() + Constants.BUTTON_HEIGHT * 2);
+        create.setY(createDeck.getLayoutY() + Constants.BUTTON_HEIGHT * 3 / 2);
+        root.getChildren().addAll(backView, next, prev, back, leftArrow, rightArrow, name, createDeck, create);
     }
 
-    private void lightning(ImageView ... imageViews) {
+    private void lightning(ImageView... imageViews) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
         Glow glow = new Glow();
         glow.setLevel(0.9);
-        for (ImageView singlePview:
-             imageViews) {
+        for (ImageView singlePview :
+                imageViews) {
             singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
 
                 singlePview.setEffect(colorAdjust);
@@ -1151,6 +1159,7 @@ public class View {
             });
         }
     }
+
     public void setCardImage(String name) {
         Image image = new Image("resources/generals/general_f4.jpg");
         switch (name) {

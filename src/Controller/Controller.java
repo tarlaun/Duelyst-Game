@@ -29,8 +29,8 @@ public class Controller {
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
-    File file=new File("resources/music/music_mainmenu_lyonar.m4a");
-    Media media=new Media(file.toURI().toString());
+    File file = new File("resources/music/music_mainmenu_lyonar.m4a");
+    Media media = new Media(file.toURI().toString());
     MediaPlayer player = new MediaPlayer(media);
 
     private Controller() {
@@ -265,9 +265,9 @@ public class Controller {
             case MAIN:
                 view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
                         buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], fields[Texts.PASSWORD.ordinal()]);
-                 file=new File("resources/music/music_battlemap_vetruv.m4a");
-                 media=new Media(file.toURI().toString());
-                 player = new MediaPlayer(media);
+                file = new File("resources/music/music_battlemap_vetruv.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
                 break;
             case ACCOUNT:
                 view.accountMenu(buttons[Buttons.PLAY.ordinal()], buttons[Buttons.COLLECTION.ordinal()],
@@ -278,42 +278,42 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(heroes,minions,spells,items,imageViews[ImageViews.BACK.ordinal()],
-                        imageViews[ImageViews.NEXT.ordinal()],imageViews[ImageViews.PREV.ordinal()]);
+                view.shopMenu(heroes, minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
+                        imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case COLLECTION:
-                view.collectionMenu(buttons[Buttons.CREATE_DECK.ordinal()], buttons[Buttons.EXIT.ordinal()], fields[Texts.DECKNAME.ordinal()] ,heroes,minions,spells,items,imageViews[ImageViews.BACK.ordinal()],
-                        imageViews[ImageViews.NEXT.ordinal()],imageViews[ImageViews.PREV.ordinal()]);
-                file=new File("resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
-                media=new Media(file.toURI().toString());
+                view.collectionMenu(imageViews[ImageViews.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()], heroes, minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
+                        imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
+                media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
-                file=new File("resources/music/music_battlemap_firesofvictory.m4a");
-                media=new Media(file.toURI().toString());
+                file = new File("resources/music/music_battlemap_firesofvictory.m4a");
+                media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case BATTLE_MODE:
                 view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()], buttons[Buttons.FLAG_COLLECTING.ordinal()],
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
-                file=new File("resources/music/music_battlemap_songhai.m4a");
-                media=new Media(file.toURI().toString());
+                file = new File("resources/music/music_battlemap_songhai.m4a");
+                media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
                 view.battleMenu(battle.getAccounts());
-                file=new File("resources/music/music_battlemap01.m4a");
-                media=new Media(file.toURI().toString());
+                file = new File("resources/music/music_battlemap01.m4a");
+                media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
-                file=new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
-                media=new Media(file.toURI().toString());
+                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
+                media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case GRAVEYARD:
@@ -337,11 +337,12 @@ public class Controller {
             menu.setStat(MenuStat.SHOP);
             main();
         });
-        buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event-> {
+        buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event -> {
             menu.setStat(MenuStat.COLLECTION);
             main();
         });
         imageViews[ImageViews.BACK.ordinal()].setOnMouseClicked(event -> exit());
+        imageViews[ImageViews.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
@@ -643,6 +644,7 @@ public class Controller {
         /*if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
         }*/
+
         this.account.getCollection().createDeck(deckName);
     }
 

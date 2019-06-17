@@ -56,5 +56,6 @@ public class Constants {
     public static final double SLIDE = 100;
     public static final double CARD_WIDTH = 500;
     public static final double CARD_HEIGHT = 500;
+    public static final double CURSOR_LENGTH = 16;
 
 }
