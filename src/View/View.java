@@ -12,6 +12,7 @@ import Model.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -36,12 +37,16 @@ public class View {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
+    Image cursor = new Image("resources/ui/mouse_auto.png");
+
+
 
     private View() {
 
     }
 
     public Scene getScene() {
+        scene.setCursor(new ImageCursor(cursor, 16, 16));
         return scene;
     }
 
@@ -1065,17 +1070,17 @@ public class View {
 
     public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
-        Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
+        Image background = new Image("resources/scenes/vetruvian/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image singleP = new Image("resources/resources/crests/crest_f1@2x.png");
+        Image singleP = new Image("resources/crests/crest_f1@2x.png");
         ImageView singlePview = new ImageView(singleP);
         singlePview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setLayoutY(200);
         singlePview.setLayoutX(Constants.SINGLE_PLAYER_HEIGHT);
-        Image singleM = new Image("resources/resources/crests/crest_f2@2x.png");
+        Image singleM = new Image("resources/crests/crest_f2@2x.png");
         ImageView singleMview = new ImageView(singleM);
         singleMview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singleMview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
