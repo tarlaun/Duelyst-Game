@@ -104,14 +104,6 @@ public class Card {
         }
     }
 
-    public int getRecievedHit() {
-        return recievedHit;
-    }
-
-    public void setRecievedHit(int recievedHit) {
-        this.recievedHit = recievedHit;
-    }
-
     public boolean isAbleToCounter() {
         return ableToCounter;
     }

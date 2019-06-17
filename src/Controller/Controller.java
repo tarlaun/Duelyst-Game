@@ -160,9 +160,6 @@ public class Controller {
                 break;
         }
         player.setAutoPlay(true);
-        for (int i = 0; i < heroes.length; i++) {
-            System.out.println(heroes[i][0].getId());
-        }
         handlePolygon();
         handleButtons();
         handleTextFields();
@@ -311,8 +308,12 @@ public class Controller {
                     view.Success();
                 }
             }
-            insertAI();
+           // insertAI();
+            System.out.println(battle.getFieldCards()[0][0].getHealthPoint());
             attackAI();
+            if(battle.getAccounts()[0].getCollection().getMainDeck().getHero().getHealthPoint()<0){
+                System.exit(2);
+            }
             endTurn();
             showMap();
         }
