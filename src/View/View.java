@@ -13,10 +13,12 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.Bloom;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -681,7 +683,7 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon) {
+    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon ,ImageView view ,Label  labels) {
         root.getChildren().clear();
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -705,7 +707,23 @@ public class View {
         imageView1.relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
         lightning(imageView1, imageView2);
         root.getChildren().addAll(firstHeroView, secondHeroView, imageView1, imageView2);
+        endTurnButton(view, labels);
 
+    }
+
+    private void endTurnButton(ImageView view, Label labels) {
+        view.setImage(new Image("resources/ui/button_end_turn_mine@2x.png"));
+        view.relocate(900,550);
+        view.setFitWidth(200);
+        view.setFitHeight(80);
+        labels.relocate(945,575);
+        labels.setText("END TURN");
+        Bloom bloom = new Bloom();
+        bloom.setThreshold(0.5);
+        view.setOnMouseEntered(event ->view.setEffect(bloom));
+        view.setOnMouseExited(event -> view.setEffect(null));
+        labels.setStyle("-fx-control-inner-background: #000000;-fx-font-size:20;");
+        root.getChildren().addAll(view,labels);
     }
 
 

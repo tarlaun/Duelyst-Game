@@ -143,7 +143,8 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
-                view.battleMenu(battle.getAccounts(), getImageViewGif(battle.getAccounts()[0], 0), getImageViewGif(battle.getAccounts()[1], 1),polygon);
+                view.battleMenu(battle.getAccounts(), getImageViewGif(battle.getAccounts()[0], 0),
+                        getImageViewGif(battle.getAccounts()[1], 1),polygon,imageViews[ImageViews.END_TURN.ordinal()], labels[Labels.END_TURN.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -203,6 +204,8 @@ public class Controller {
             main();
         });
         imageViews[ImageViews.BACK.ordinal()].setOnMouseClicked(event -> exit());
+        imageViews[ImageViews.END_TURN.ordinal()].setOnMouseClicked(event ->{ battle.endTurn(); AiFunctions();});
+        labels[Labels.END_TURN.ordinal()].setOnMouseClicked(event ->{ battle.endTurn();AiFunctions();});
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
@@ -390,6 +393,9 @@ public class Controller {
                 if (battle.getFieldCards()[1][i] != null) {
                     battle.setCurrentCard(battle.getFieldCards()[1][i]);
                     battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
+                    int x =battle.setDestinationCoordinate(battle.getFieldCards()[1][i]).getX();
+                    int y =battle.setDestinationCoordinate(battle.getFieldCards()[1][i]).getY();
+                    view.move(polygon[x*9+y].getPoints().get(0),polygon[x*9+y].getPoints().get(1),heroes[heroId[1][0]][0],heroes[heroId[1][0]][1]);
                 }
             }
         }

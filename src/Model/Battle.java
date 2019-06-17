@@ -838,6 +838,7 @@ public class Battle {
     }
 
     public void endTurn() {
+        System.out.println("shits in your face");
         setAbleToAttackForHeros();
         buffTurnEnd();
         deholifyCell();
