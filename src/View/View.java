@@ -2,9 +2,6 @@ package View;
 
 import Model.*;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -18,16 +15,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
-import javafx.scene.effect.Reflection;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 public class View {
@@ -49,18 +42,6 @@ public class View {
 
     public static View getInstance() {
         return view;
-    }
-
-    public void passwordInsertion() {
-        System.out.println("Password: ");
-    }
-
-    public void accountCreation(Boolean valid) {
-        if (valid) {
-            System.out.println("Account created");
-            return;
-        }
-        System.out.println("Account already exists");
     }
 
     public void showMatchHistory(ArrayList<Match> matches, int level) {
@@ -700,7 +681,7 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts , ImageView imageView1, ImageView imageView2 , Polygon[] polygon) {
+    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon) {
         root.getChildren().clear();
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -719,11 +700,11 @@ public class View {
         ImageView firstHeroView = new ImageView(firstHero);
         ImageView secondHeroView = new ImageView(secondHero);
         bossImageSettings(firstHeroView, secondHeroView);
-        imageView2.relocate((polygon[26].getPoints().get(0)+polygon[26].getPoints().get(2))/2-55,(polygon[26].getPoints().get(1)+polygon[26].getPoints().get(5))/2-105);
+        imageView2.relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
         imageView2.setScaleX(-1);
-        imageView1.relocate((polygon[18].getPoints().get(0)+polygon[18].getPoints().get(2))/2-60,(polygon[18].getPoints().get(1)+polygon[18].getPoints().get(5))/2-105);
-        lightning(imageView1,imageView2);
-        root.getChildren().addAll(firstHeroView, secondHeroView,imageView1,imageView2);
+        imageView1.relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
+        lightning(imageView1, imageView2);
+        root.getChildren().addAll(firstHeroView, secondHeroView, imageView1, imageView2);
 
     }
 
@@ -739,11 +720,12 @@ public class View {
         lightning(secondHeroView);
     }
 
-    public void move(double x ,double y ,ImageView imageView , ImageView imageView2){
+    public void move(double x, double y, ImageView imageView, ImageView imageView2) {
         Image image = imageView.getImage();
         imageView.setImage(imageView2.getImage());
-        TranslateTransition transition = new TranslateTransition(Duration.millis(2000),imageView);
-        transition.setToX(x-imageView.getLayoutX()-45);transition.setToY(y-imageView.getLayoutY()-90);
+        TranslateTransition transition = new TranslateTransition(Duration.millis(2000), imageView);
+        transition.setToX(x - imageView.getLayoutX() - 45);
+        transition.setToY(y - imageView.getLayoutY() - 90);
         transition.playFromStart();
         transition.setOnFinished(event -> imageView.setImage(image));
     }
@@ -1077,13 +1059,13 @@ public class View {
         root.getChildren().addAll(backgroundView, createDeck, exit, name);
     }
 
-    private void lightning(ImageView ... imageViews) {
+    private void lightning(ImageView... imageViews) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
         Glow glow = new Glow();
         glow.setLevel(0.9);
-        for (ImageView singlePview:
-             imageViews) {
+        for (ImageView singlePview :
+                imageViews) {
             singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
 
                 singlePview.setEffect(colorAdjust);
@@ -1094,6 +1076,7 @@ public class View {
             });
         }
     }
+
     public void setCardImage(String name) {
         Image image = new Image("resources/generals/general_f4.jpg");
         switch (name) {
