@@ -26,8 +26,8 @@ public class Controller {
     private transient Label[] labels = new Label[Labels.values().length];
     private transient ImageView[] imageViews = new ImageView[ImageViews.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
-    private transient ImageView[] heroes = new ImageView[Constants.HEROES_COUNT];
-    private ImageView currentImageView;
+    private transient ImageView[][] heroes = new ImageView[Constants.HEROES_COUNT][3];
+    private ImageView[] currentImageView = new ImageView[2];
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private int[][] heroId = new int[2][2];
@@ -57,8 +57,10 @@ public class Controller {
         }
 
         for (int i = 0; i < heroes.length; i++) {
-            heroes[i] = new ImageView();
-            heroes[i] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            heroes[i][0] = new ImageView();
+            heroes[i][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            heroes[i][1] = new ImageView();
+            heroes[i][1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
         }
         menu.setStat(MenuStat.MAIN);
     }
@@ -115,7 +117,7 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(heroes, minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
+                view.shopMenu(heroes[0], minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
                         imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
@@ -158,7 +160,7 @@ public class Controller {
         }
         player.setAutoPlay(true);
         for (int i = 0; i < heroes.length; i++) {
-            System.out.println(heroes[i].getId());
+            System.out.println(heroes[i][0].getId());
         }
         handlePolygon();
         handleButtons();
@@ -169,8 +171,9 @@ public class Controller {
     public void handleHeroGifs() {
         for (int i = 0; i < 2; i++) {
             int a=i;
-                heroes[heroId[i][0]].setOnMouseClicked(event ->{ battle.selectCard(heroId[a][1]);
-                        currentImageView = heroes[heroId[a][0]];
+                heroes[heroId[i][0]][0].setOnMouseClicked(event ->{ battle.selectCard(heroId[a][1]);
+                        currentImageView[0] = heroes[heroId[a][0]][0];
+                    currentImageView[1] = heroes[heroId[a][0]][1];
         });
         }
     }
@@ -178,7 +181,9 @@ public class Controller {
     public void handlePolygon() {
         for (int i = 0; i < polygon.length; i++) {
             int a =i;
-            polygon[i].setOnMouseClicked(event -> view.move(polygon[a].getPoints().get(0),polygon[a].getPoints().get(1),currentImageView));
+            polygon[i].setOnMouseClicked(event ->{ view.move(polygon[a].getPoints().get(0),polygon[a].getPoints().get(1),currentImageView[0],currentImageView[1]);
+                System.out.println(a);
+            });
         }
     }
 
@@ -212,34 +217,44 @@ public class Controller {
         switch (account.getCollection().getMainDeck().getHero().getName()) {
             case "WHITE_DIV":
                 heroId[a][0]=0;
-                return heroes[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                heroes[0][1] = new ImageView(new Image("gifs/Abomination_run.gif"));
+                return heroes[0][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
             case "ZAHAK":
                 heroId[a][0]=1;
-                return heroes[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                heroes[1][1] = new ImageView(new Image("gifs/Brome Warcrest_run.gif"));
+                return heroes[1][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
             case "ARASH":
                 heroId[a][0]=2;
-                return heroes[2] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
+                heroes[2][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
+                return heroes[2][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
             case "SIMORGH":
                 heroId[a][0]=3;
-                return heroes[3] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
+                heroes[3][1] = new ImageView(new Image("gifs/f4_altgeneraltier2_run.gif"));
+                return heroes[3][0] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
             case "SEVEN_HEADED_DRAGON":
                 heroId[a][0]=4;
-                return heroes[4] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                heroes[4][1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                return heroes[4][0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
             case "RAKHSH":
                 heroId[a][0]=5;
-                return heroes[5] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
+                heroes[5][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
+                return heroes[5][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
             case "KAVEH":
                 heroId[a][0]=6;
-                return heroes[6] = new ImageView(new Image("gifs/boss_cindera_idle.gif"));
+                heroes[6][1] = new ImageView(new Image("gifs/boss_cindera_run.gif"));
+                return heroes[6][0] = new ImageView(new Image("gifs/boss_cindera_idle.gif"));
             case "AFSANEH":
                 heroId[a][0]=7;
-                return heroes[7] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
+                heroes[7][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
+                return heroes[7][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
             case "ESFANDIAR":
                 heroId[a][0]=8;
-                return heroes[8] = new ImageView(new Image("gifs/Brome Warcrest_idle.gif"));
+                heroes[8][1] = new ImageView(new Image("gifs/Brome Warcrest_run.gif"));
+                return heroes[8][0] = new ImageView(new Image("gifs/Brome Warcrest_idle.gif"));
             case "ROSTAM":
                 heroId[a][0]=9;
-                return heroes[9] = new ImageView(new Image("gifs/f1_tier2general_idle.gif"));
+                heroes[9][1] = new ImageView(new Image("gifs/f1_tier2general_attack.gif"));
+                return heroes[9][0] = new ImageView(new Image("gifs/f1_tier2general_idle.gif"));
         }
         return null;
     }

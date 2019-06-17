@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import Model.Menu;
+import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
@@ -24,9 +25,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
+import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 
 public class View {
     private transient AnchorPane root = new AnchorPane();
@@ -737,8 +739,13 @@ public class View {
         lightning(secondHeroView);
     }
 
-    public void move(double x ,double y ,ImageView imageView){
-        root.getChildren().remove(imageView);
+    public void move(double x ,double y ,ImageView imageView , ImageView imageView2){
+        Image image = imageView.getImage();
+        imageView.setImage(imageView2.getImage());
+        TranslateTransition transition = new TranslateTransition(Duration.millis(2000),imageView);
+        transition.setToX(x-imageView.getLayoutX()-45);transition.setToY(y-imageView.getLayoutY()-90);
+        transition.playFromStart();
+        transition.setOnFinished(event -> imageView.setImage(image));
     }
 
     private Image getImage(Account account) {
