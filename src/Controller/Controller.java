@@ -4,9 +4,11 @@ import Model.*;
 import Model.Menu;
 import View.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -320,8 +322,8 @@ public class Controller {
                 view.graveYardMenu();
                 break;
         }
-        player.setAutoPlay(true);
 
+        player.setAutoPlay(true);
         handleButtons();
         handleTextFields();
     }

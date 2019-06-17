@@ -30,6 +30,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 
 public class View {
     private transient AnchorPane root = new AnchorPane();
@@ -48,6 +49,8 @@ public class View {
     }
 
     public Scene getScene() {
+        Image icon = new Image("resources/booster_pack_opening/booster_orb.png");
+
         scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
         return scene;
     }
