@@ -33,7 +33,7 @@ public class CardView {
             character.setFitHeight(Constants.GIF_HEIGHT);
             character.setFitWidth(Constants.GIF_WIDTH);
             character.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 2);
-            character.setLayoutX(Constants.GIF_CARD_REL_Y);
+            character.setLayoutY(Constants.GIF_CARD_REL_Y);
             pane.getChildren().addAll(template, character);
         } catch (Exception e){
 

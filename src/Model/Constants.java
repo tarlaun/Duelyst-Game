@@ -36,7 +36,7 @@ public class Constants {
     public static final int MAXIMUM_HAND_SIZE = 5;
     public static final int INITIAL_MANA = 2;
     public static final double WINDOW_WIDTH = 1300;
-    public static final double WINDOW_HEIGHT = 650;
+    public static final double WINDOW_HEIGHT = 700;
     public static final double BUTTON_WIDTH = 80;
     public static final double BUTTON_HEIGHT = 20;
     public static final double CENTRE_X = WINDOW_WIDTH / 2.0;
@@ -52,12 +52,22 @@ public class Constants {
     public static int ITEMS_COUNT = 20;
     public static final double ARROW = 50;
     public static final double SLIDE = 100;
-    public static final double CARD_WIDTH = 150;
-    public static final double CARD_HEIGHT = 250;
-    public static final double GIF_WIDTH = 60;
-    public static final double GIF_HIGHT = 60;
+    public static final double CARD_WIDTH = 120;
+    public static final double CARD_HEIGHT = 170;
+    public static final double GIF_WIDTH = 100;
+    public static final double GIF_HEIGHT = 100;
+    public static final double GIF_CARD_REL_Y = 5;
+    public static final int CARD_PER_ROW = 3;
+    public static final int CARD_PER_COLUMN = 2;
+    public static final int CARD_PER_PAGE = CARD_PER_ROW * CARD_PER_COLUMN;
+    public static final double CARD_X = 400;
+    public static final double CARD_Y = 100;
+    public static final double CARD_X_GAP = 100;
+    public static final double CARD_Y_GAP = 20;
     public static final double CURSOR_LENGTH = 16;
     public static final int FONT_SIZE = 20;
     public static final double IMAGE_BUTTON_REL_X = 23;
     public static final double IMAGE_BUTTON_REL_Y = 3;
+    public static final double SCROLLER_X = CARD_X + 1.5 * CARD_WIDTH + CARD_X_GAP;
+    public static final double SCROLLER_Y = WINDOW_HEIGHT - 100;
 }

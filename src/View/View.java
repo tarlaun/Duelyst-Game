@@ -753,7 +753,7 @@ public class View {
                 firstHero = new Image("gifs/Abomination_idle.gif");
                 break;
             case "ARASH":
-                firstHero = new Image("gifs/f6_altgeneraltier2_idle.gif");
+                firstHero = new Image("resources/gifs/f6_altgeneraltier2_idle.gif");
                 break;
             case "SIMORGH":
                 firstHero = new Image("gifs/f4_altgeneraltier2_idle.gif");
@@ -1081,10 +1081,11 @@ public class View {
     }
 
 
-    public void collectionMenu(ImageView createDeck, TextField name, ImageView back, ImageView next, ImageView prev) {
+    public void collectionMenu(Account account, ImageView createDeck, TextField name, ImageView back, ImageView next, ImageView prev) {
         root.getChildren().clear();
-        Label create = new Label("Create Deck");
-        create.setFont(Font.font(Constants.TEXT_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
+
+        Label create = new Label(); //= new Label("Create Deck");
+/*        create.setFont(Font.font(Constants.TEXT_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
         create.setTextFill(Color.LIGHTCYAN);
         Image createImage = new Image("ui/button_primary.png");
         createDeck.setImage(createImage);
@@ -1097,11 +1098,13 @@ public class View {
         name.setLayoutY(createDeck.getLayoutY() - Constants.FIELD_HEIGHT - createDeck.getFitHeight());
         name.setPrefWidth(Constants.FIELD_WIDTH);
         name.setPrefHeight(Constants.FIELD_HEIGHT);
+*/
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
         scrollPane(backView, rightArrow, leftArrow, next, prev, back);
-        lightning(createDeck, create);
-        root.getChildren().addAll(backView, next, prev, back, rightArrow, leftArrow, name, createDeck, create);
+//        lightning(createDeck, create);
+        root.getChildren().addAll(backView, next, prev, back, rightArrow, leftArrow);
+        showCards(account.getCollection().getCards(), 4);
     }
 
     private void scrollPane(ImageView backView, ImageView rightArrow, ImageView leftArrow,
@@ -1119,12 +1122,33 @@ public class View {
         prev.setImage(slide);
         back.setImage(backArrow);
         horizontalList(Alignment.UP, 0, 0, back);
-        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, prev, next);
-        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, leftArrow, rightArrow);
+        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, prev, next);
+        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, leftArrow, rightArrow);
         setImageSize(Constants.ARROW, leftArrow, rightArrow);
         lightning(back);
         lightning(prev, leftArrow);
         lightning(next, rightArrow);
+    }
+
+    private void showCards(ArrayList<Card> cards, int page) {
+        if (page <= (cards.size() - 1) / Constants.CARD_PER_PAGE) {
+            for (int i = 0; i < Constants.CARD_PER_COLUMN; i++) {
+                for (int j = 0; j < Constants.CARD_PER_ROW; j++) {
+                    try {
+                        int index = page * Constants.CARD_PER_PAGE + i * Constants.CARD_PER_ROW + j;
+                        if (cards.get(index).getType().equals("Hero")) {
+                            AnchorPane anchorPane = cards.get(index).getCardView().getPane();
+                            anchorPane.setLayoutX(Constants.CARD_X + j * (Constants.CARD_WIDTH + Constants.CARD_X_GAP));
+                            anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
+                            System.out.println(anchorPane.getLayoutX()+ " " + anchorPane.getLayoutY());
+                            root.getChildren().add(anchorPane);
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        }
     }
 
     private void lightning(Node... nodes) {

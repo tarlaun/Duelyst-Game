@@ -286,8 +286,9 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case COLLECTION:
-                view.collectionMenu(imageViews[ImageViews.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
-                        imageViews[ImageViews.BACK.ordinal()], imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
+                view.collectionMenu(account, imageViews[ImageViews.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
+                        imageViews[ImageViews.BACK.ordinal()], imageViews[ImageViews.NEXT.ordinal()],
+                        imageViews[ImageViews.PREV.ordinal()]);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -322,7 +323,6 @@ public class Controller {
                 break;
         }
         player.setAutoPlay(true);
-
         handleButtons();
         handleTextFields();
     }
