@@ -1136,13 +1136,11 @@ public class View {
                 for (int j = 0; j < Constants.CARD_PER_ROW; j++) {
                     try {
                         int index = page * Constants.CARD_PER_PAGE + i * Constants.CARD_PER_ROW + j;
-                        if (cards.get(index).getType().equals("Hero")) {
-                            AnchorPane anchorPane = cards.get(index).getCardView().getPane();
-                            anchorPane.setLayoutX(Constants.CARD_X + j * (Constants.CARD_WIDTH + Constants.CARD_X_GAP));
-                            anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
-                            System.out.println(anchorPane.getLayoutX()+ " " + anchorPane.getLayoutY());
-                            root.getChildren().add(anchorPane);
-                        }
+                        AnchorPane anchorPane = cards.get(index).getCardView().getPane();
+                        anchorPane.setLayoutX(Constants.CARD_X + j * (Constants.CARD_WIDTH + Constants.CARD_X_GAP));
+                        anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
+                        lightning(anchorPane);
+                        root.getChildren().add(anchorPane);
                     } catch (Exception e) {
 
                     }
@@ -1160,6 +1158,15 @@ public class View {
             singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
             singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> nodes[0].setEffect(null));
         }
+    }
+
+    private void lightning(AnchorPane anchorPane) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.5);
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+        anchorPane.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> anchorPane.setEffect(colorAdjust));
+        anchorPane.addEventFilter(MouseEvent.MOUSE_EXITED, e -> anchorPane.setEffect(null));
     }
 
     public void setCardImage(String name) {
