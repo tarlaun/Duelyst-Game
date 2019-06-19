@@ -41,9 +41,7 @@ public class Constants {
     public static final double BUTTON_HEIGHT = 20;
     public static final double CENTRE_X = WINDOW_WIDTH / 2.0;
     public static final double CENTRE_Y = WINDOW_HEIGHT / 2.0;
-    public static final double FONT_SIZE = 20;
-    public static final double SIGN_SIZE = 50;
-    public static final String TEXT_FONT = "Ubuntu Mono";
+    public static final String TEXT_FONT = "Chilanka";
     public static final double FIELD_WIDTH = 120;
     public static final double FIELD_HEIGHT = 30;
     public static final double SINGLE_PLAYER_WIDTH = 300;
@@ -57,5 +55,7 @@ public class Constants {
     public static final double CARD_WIDTH = 500;
     public static final double CARD_HEIGHT = 500;
     public static final double CURSOR_LENGTH = 16;
-
+    public static final int FONT_SIZE = 20;
+    public static final double IMAGE_BUTTON_REL_X = 23;
+    public static final double IMAGE_BUTTON_REL_Y = 3;
 }
