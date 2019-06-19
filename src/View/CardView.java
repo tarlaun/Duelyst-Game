@@ -9,28 +9,38 @@ import javafx.scene.layout.AnchorPane;
 public class CardView {
     private ImageView template;
     private ImageView character;
-    private AnchorPane view = new AnchorPane();
+    private AnchorPane pane = new AnchorPane();
 
     public CardView(Card card) {
-        switch (card.getType()) {
-            case "Hero":
-                character = new ImageView(new Image("characters/heroes/idle/" + card.getName() + ".gif"));
-                template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
-                break;
-            case "Minion":
-                character = new ImageView(new Image("characters/minions/idle/" + card.getName() + ".gif"));
-                template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
-                break;
-            case "Spell":
-                character = new ImageView(new Image("characters/spells/idle/" + card.getName() + ".gif"));
-                template = new ImageView(new Image("card_backgrounds/craftable_spell@2x.png"));
-                break;
+        try {
+            switch (card.getType()) {
+                case "Hero":
+                    character = new ImageView(new Image("characters/heroes/idle/" + card.getName() + ".gif"));
+                    template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
+                    break;
+                case "Minion":
+                    character = new ImageView(new Image("characters/minions/idle/" + card.getName() + ".gif"));
+                    template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
+                    break;
+                case "Spell":
+                    character = new ImageView(new Image("characters/spells/idle/" + card.getName() + ".gif"));
+                    template = new ImageView(new Image("card_backgrounds/craftable_spell@2x.png"));
+                    break;
+            }
+            assert character != null;
+            template.setFitHeight(Constants.CARD_HEIGHT);
+            template.setFitWidth(Constants.CARD_WIDTH);
+            character.setFitHeight(Constants.GIF_HEIGHT);
+            character.setFitWidth(Constants.GIF_WIDTH);
+            character.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 2);
+            character.setLayoutX(Constants.GIF_CARD_REL_Y);
+            pane.getChildren().addAll(template, character);
+        } catch (Exception e){
+
         }
-        assert character != null;
-        character.setFitHeight(Constants.CARD_HEIGHT);
-        character.setFitWidth(Constants.CARD_WIDTH);
-        template.setFitHeight(Constants.GIF_HIGHT);
-        template.setFitWidth(Constants.GIF_WIDTH);
-        view.getChildren().addAll(template, character);
+    }
+
+    public AnchorPane getPane(){
+        return pane;
     }
 }
