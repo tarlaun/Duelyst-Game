@@ -4,11 +4,9 @@ import Model.*;
 import Model.Menu;
 import View.*;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,17 +21,18 @@ public class Controller {
     private Account account;
     private Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
+    private transient PasswordField passwordField = new PasswordField();
     private transient Label[] labels = new Label[Labels.values().length];
     private transient ImageView[] imageViews = new ImageView[ImageViews.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
     private transient ImageView[] heroes = new ImageView[Constants.HEROES_COUNT];
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
-    private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
+    private transient ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
-    File file = new File("resources/music/music_mainmenu_lyonar.m4a");
-    Media media = new Media(file.toURI().toString());
-    MediaPlayer player = new MediaPlayer(media);
+    private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
+    private Media media = new Media(file.toURI().toString());
+    private MediaPlayer player = new MediaPlayer(media);
 
     private Controller() {
         initializeGame();
@@ -266,7 +265,7 @@ public class Controller {
         switch (menu.getStat()) {
             case MAIN:
                 view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
-                        buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], fields[Texts.PASSWORD.ordinal()]);
+                        buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], passwordField);
                 file = new File("resources/music/music_battlemap_vetruv.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -287,9 +286,9 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case COLLECTION:
-                view.collectionMenu(imageViews[ImageViews.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()], heroes, minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
-                        imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
-                file = new File("resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
+                view.collectionMenu(imageViews[ImageViews.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
+                        imageViews[ImageViews.BACK.ordinal()], imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -314,7 +313,7 @@ public class Controller {
                 break;
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
+                file = new File("resources/music/music_battlemap_abyssian.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -322,8 +321,8 @@ public class Controller {
                 view.graveYardMenu();
                 break;
         }
-
         player.setAutoPlay(true);
+
         handleButtons();
         handleTextFields();
     }
@@ -344,14 +343,13 @@ public class Controller {
             main();
         });
         imageViews[ImageViews.BACK.ordinal()].setOnMouseClicked(event -> exit());
-        imageViews[ImageViews.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
-        buttons[Buttons.CREATE_DECK.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
+        imageViews[ImageViews.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
     }
 
     public void handleTextFields() {
@@ -533,7 +531,7 @@ public class Controller {
 
     private void createAccount() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
-        String password = fields[Texts.PASSWORD.ordinal()].getText();
+        String password = passwordField.getText();
         this.account = new Account(username, password);
         menu.setStat(MenuStat.ACCOUNT);
         main();
@@ -560,7 +558,7 @@ public class Controller {
 
     private void login() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
-        String password = fields[Texts.PASSWORD.ordinal()].getText();
+        String password = passwordField.getText();
         if (Account.login(username, password) == Message.SUCCESSFUL_LOGIN) {
             this.account = game.getAccounts().get(Account.accountIndex(username));
             menu.setStat(MenuStat.ACCOUNT);
@@ -646,7 +644,6 @@ public class Controller {
         /*if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
         }*/
-
         this.account.getCollection().createDeck(deckName);
     }
 
