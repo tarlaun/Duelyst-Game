@@ -52,8 +52,10 @@ public class Constants {
     public static int ITEMS_COUNT = 20;
     public static final double ARROW = 50;
     public static final double SLIDE = 100;
-    public static final double CARD_WIDTH = 500;
-    public static final double CARD_HEIGHT = 500;
+    public static final double CARD_WIDTH = 150;
+    public static final double CARD_HEIGHT = 250;
+    public static final double GIF_WIDTH = 60;
+    public static final double GIF_HIGHT = 60;
     public static final double CURSOR_LENGTH = 16;
     public static final int FONT_SIZE = 20;
     public static final double IMAGE_BUTTON_REL_X = 23;
