@@ -992,7 +992,7 @@
         "isHoly": 0
       },
       {
-        "id": 40033,
+        "id": 40133,
         "name": "WHITE_DIV",
         "type": "Hero",
         "maxPossibleMoving": 2,
@@ -1031,7 +1031,7 @@
         "isHoly": 0
       },
       {
-        "id": 40128,
+        "id": 40178,
         "name": "ARASH",
         "type": "Hero",
         "maxPossibleMoving": 2,
@@ -1071,7 +1071,7 @@
         "recievedHit": 0
       },
       {
-        "id": 40032,
+        "id": 40232,
         "name": "ZAHAK",
         "type": "Hero",
         "maxPossibleMoving": 2,
@@ -1110,7 +1110,7 @@
         "isHoly": 0
       },
       {
-        "id": 40033,
+        "id": 40233,
         "name": "WHITE_DIV",
         "type": "Hero",
         "maxPossibleMoving": 2,

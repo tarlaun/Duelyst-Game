@@ -129,6 +129,7 @@ public class Card {
     }
 
     public Card(Card card) {
+        this.id = card.id;
         this.name = card.name;
         this.price = card.price;
         this.type = card.type;

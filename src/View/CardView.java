@@ -38,6 +38,7 @@ public class CardView {
                     break;
             }
             assert character != null;
+            character.setId(Integer.toString(card.getId()));
             if (!card.getType().equals("Spell")) {
                 assert power != null;
                 power.setTextFill(Color.LIGHTCYAN);
@@ -55,6 +56,7 @@ public class CardView {
             character.setFitWidth(Constants.GIF_WIDTH);
             character.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 2);
             pane.getChildren().addAll(template, character, power, health);
+            pane.setOnMouseClicked(event -> System.out.println(character.getId()));
         } catch (Exception e) {
 
         }
