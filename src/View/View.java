@@ -6,12 +6,10 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import Model.Menu;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
-import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -31,7 +29,6 @@ import javafx.util.Duration;
 public class View {
     private transient AnchorPane root = new AnchorPane();
     private transient Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
-    private Menu menu = Menu.getInstance();
     private static final View view = new View();
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
@@ -44,26 +41,13 @@ public class View {
     }
 
     public Scene getScene() {
-        Image icon = new Image("resources/booster_pack_opening/booster_orb.png");
-       // ImageCursor imageCursor = new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH);
+        // ImageCursor imageCursor = new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH);
         //scene.setCursor(imageCursor);
         return scene;
     }
 
     public static View getInstance() {
         return view;
-    }
-
-    public void passwordInsertion() {
-        System.out.println("Password: ");
-    }
-
-    public void accountCreation(Boolean valid) {
-        if (valid) {
-            System.out.println("Account created");
-            return;
-        }
-        System.out.println("Account already exists");
     }
 
     public void showMatchHistory(ArrayList<Match> matches, int level) {
@@ -124,330 +108,6 @@ public class View {
 
     }
 
-    public void printHelp() {
-        for (String str : menu.getCommands()) {
-            System.out.println(str);
-        }
-    }
-
-    public void printOptions() {
-        for (String str : menu.getOptions()) {
-            System.out.println(str);
-        }
-    }
-
-    public void printCollection(Collection collection, boolean isInShop) {
-        System.out.println("Heroes :");
-        int index = 1;
-        for (int i = 0; i < collection.getCards().size(); i++) {
-            if (collection.getCards().get(i).getType().equals("Hero")) {
-                System.out.print("Id: " + collection.getCards().get(i).getId() + " - ");
-                System.out.print(index + " : ");
-                printNonSpellCard(collection.getCards().get(i));
-                if (isInShop)
-                    System.out.println(collection.getCards().get(i).getPrice());
-                index++;
-            }
-        }
-        index = 1;
-        System.out.println("Items :");
-        for (int i = 0; i < collection.getItems().size(); i++) {
-            System.out.print("Id: " + collection.getItems().get(i).getId() + " - ");
-            System.out.print(index + " : ");
-            printItem(collection.getItems().get(i));
-            if (isInShop)
-                System.out.println(collection.getItems().get(i).getPrice());
-            index++;
-        }
-        System.out.println("Cards :");
-        printCards(isInShop, collection.getCards().toArray(new Card[collection.getCards().size()]));
-    }
-
-    public void printSpell(Card spell) {
-        System.out.print("Name : " + spell.getName() + " - MP : " + spell.getManaPoint() + " - Desc :");
-        printBuff(spell);
-    }
-
-    public void battleCreating() {
-        System.out.println("BATTLE CREATED");
-    }
-
-    public void printBuff(Card card) {
-        System.out.println();
-    }
-
-    public void printItem(Item item) {
-        System.out.print("Id: " + item.getId() + " - Name : " + item.getName() + " - Desc :");
-        printItemBuff(item);
-    }
-
-    public void printItemBuff(Item item) {
-        System.out.println();
-    }
-
-    public void printNonSpellCard(Card card) {
-        System.out.print("Id: " + card.getId() + " - Name : " + card.getName() + " - MP : " + card.getManaPoint() + " - AP : " +
-                card.getAssaultPower() + " - HP : " + card.getHealthPoint() + " - Class : " + card.getAssaultType());
-        if (card.getAssaultType() != AssaultType.MELEE)
-            System.out.print(" - Range : " + card.getMaxRange());
-        System.out.print(" - Special power : ");
-        printBuff(card);
-        try {
-            System.out.println("coordinates  x: " + card.getCoordinate().getX() + " y " + card.getCoordinate().getY());
-        } catch (NullPointerException e) {
-        }
-    }
-
-    public void printMinionsInfo(Card... cards) {
-        for (Card card : cards) {
-            try {
-                if (card.getType().equals("Hero")) {
-                    System.out.println("Hero: ");
-                    printNonSpellCard(card);
-                }
-                if (card.getType().equals("Minion"))
-                    printMinionInBattleInfo(card);
-            } catch (NullPointerException e) {
-            }
-        }
-    }
-
-    public void printMinionInBattleInfo(Card minion) {
-        System.out.println(minion.getId() + " " + minion.getName() + " " + ", health : " + minion.getHealthPoint()
-                + ", location : ( " + minion.getCoordinate().getX() + " , " + minion.getCoordinate().getY()
-                + " ), power : " + minion.getAssaultPower());
-    }
-
-    public void printCardInfo(Card card) {
-        System.out.println("Name : " + card.getName());
-        switch (card.getClass().getName()) {
-            case "Hero":
-                System.out.println("Cost : " + card.getPrice());
-                break;
-            case "Minion":
-                System.out.println("HP : " + card.getHealthPoint() + " AP : " + card.getAssaultPower()
-                        + " MP : " + card.getManaPoint());
-                System.out.print("Range : " + card.getRangeType());
-                if (card.getRangeType() != RangeType.MELEE)
-                    System.out.println(" - " + card.getMaxRange());
-                System.out.print("Combo-ability : ");
-                if (card.getActivationType() == ActivationType.COMBO)
-                    System.out.println("Yes");
-                else
-                    System.out.println("No");
-                System.out.println("Cost : " + card.getPrice());
-                break;
-            case "Spell":
-                System.out.println("MP : " + card.getManaPoint());
-                System.out.println("Cost : " + card.getPrice());
-                break;
-        }
-        System.out.print("Desc :");
-        printBuff(card);
-    }
-
-    private void printCards(boolean isInShop, Card... cards) {
-        int index = 1;
-        for (int i = 0; i < cards.length; i++) {
-            try {
-                if (!(cards[i].getType().equals("Hero"))) {
-                    System.out.print("Id: " + cards[i].getId() + " - ");
-                    System.out.print(index + " : ");
-                    if (cards[i].getType().equals("Spell")) {
-                        System.out.print("Type : Spell - ");
-                        printSpell(cards[i]);
-                    } else {
-                        System.out.print("Type : Minion - ");
-                        printNonSpellCard(cards[i]);
-                    }
-                    if (isInShop)
-                        System.out.println(cards[i].getPrice());
-                    index++;
-
-                }
-            } catch (NullPointerException e) {
-            }
-        }
-    }
-
-    public void printCollectables(Item... items) {
-        for (Item item : items) {
-            printItem(item);
-        }
-    }
-
-    public void printId(Card... cards) {
-        for (Card card : cards) {
-            System.out.println(card.getId());
-        }
-    }
-
-    public void printId(Item... items) {
-        for (Item item : items) {
-            System.out.println(item.getId());
-        }
-    }
-
-    public void createDeck(boolean okOrNot) {
-        if (okOrNot) {
-            System.out.println("DECK CREATED");
-            return;
-        }
-        System.out.println("DECK ALREADY EXISTS");
-    }
-
-    public void deleteDeck(boolean deletedOrNot) {
-        if (deletedOrNot) {
-            System.out.println("DECK IS FUCKED UP");
-            return;
-        }
-        System.out.println("DECK IS NOT FUCKED UP");
-    }
-
-    public void addToCollection(Message message) {
-
-        switch (message) {
-
-            case MAXIMUM_ITEM_COUNT:
-                System.out.println(" AN ITEM EXISTS IN DECK");
-                break;
-            case OBJECT_ADDED:
-                System.out.println(" OBJECT ADDED");
-                break;
-            case OBJECT_NOT_FOUND:
-                System.out.println("OBJECT NOT FOUND");
-                break;
-            case FULL_DECK:
-                System.out.println(" DECK IS FULL");
-                break;
-            case MAXIMUM_HERO_COUNT:
-                System.out.println(" A HERO EXISTS IN THE DECK");
-                break;
-            case EXISTS_IN_DECK:
-                System.out.println("OBJECT EXISTS IN DECK");
-                break;
-            case INVALID_DECK:
-                System.out.println(" DECK IS INVALID");
-                break;
-        }
-    }
-
-    public void removeFromDeck(Message message) {
-        switch (message) {
-            case OBJECT_NOT_FOUND:
-                System.out.println("OBJECT NOT FOUND");
-                break;
-            case INVALID_DECK:
-                System.out.println("INVALID DECK");
-                break;
-        }
-    }
-
-    public void checkValidation(boolean validOrNot) {
-        if (validOrNot) {
-            System.out.println("DECK IS VALID");
-            return;
-        }
-        System.out.println("DECK IS INVALID");
-    }
-
-    public void printDeckSelection(boolean selectedOrNot) {
-        if (selectedOrNot) {
-            System.out.println("DECK SELECTED");
-            return;
-        }
-        System.out.println("DECK IS MOTHERFUCKER");
-    }
-
-    public void showAllDeck(ArrayList<Deck> decks) {
-        for (int i = 0; i < decks.size(); i++) {
-            System.out.println(i + 1 + "-");
-            printDeck(decks.get(i));
-        }
-    }
-
-    public void printDeck(Deck deck) {
-        if (deck == null) {
-            System.out.println("Deck doesn't exist!");
-            return;
-        }
-        System.out.println("Name: " + deck.getName());
-        System.out.println("Heroes :");
-        try {
-            printNonSpellCard(deck.getHero());
-        } catch (NullPointerException e) {
-        }
-        System.out.println("Items :");
-        try {
-            printItem(deck.getItem());
-        } catch (NullPointerException e) {
-        }
-        System.out.println("Cards :");
-        try {
-            printCards(false, deck.getCards().toArray(new Card[deck.getCards().size()]));
-        } catch (NullPointerException e) {
-        }
-
-
-    }
-
-    public void printSellMessages(Boolean successful) {
-        if (successful) {
-            System.out.println("SUCCESSFUL SELL");
-            return;
-        }
-        System.out.println("OBJECT NOT FOUND");
-    }
-
-    public void printBuyMessages(Message message) {
-        switch (message) {
-            case OBJECT_NOT_FOUND:
-                System.out.println("OBJECT NOT FOUND");
-                break;
-            case INSUFFICIENCY:
-                System.out.println("INSUFFICIENCY");
-                break;
-
-            case MAXIMUM_ITEM_COUNT:
-                System.out.println("MAXIMUM ITEM COUNT");
-                break;
-
-            case SUCCESSFUL_PURCHASE:
-                System.out.println("SUCCESSFUL PURCHASE");
-                break;
-        }
-    }
-
-    public void showMovement(boolean validMove, Battle battle) {
-        if (validMove)
-            drawMap(battle);
-        else
-            System.out.println("Invalid move!");
-    }
-
-    public void showAttack(Message message) {
-        if (message == null) {
-            System.out.println("ATTACK DONE!!!");
-            return;
-        }
-        switch (message) {
-            case INVALID_TARGET:
-                System.out.println("Card doesn't exist on field");
-                break;
-            case UNAVAILABLE:
-                System.out.println("Target is out of range!");
-                break;
-            case NOT_ABLE_TO_ATTACK:
-                System.out.println("You are not able to attack right now... (exhausted)");
-                break;
-            case BATTLE_FINISHED:
-                System.out.println("Battle finished >:D");
-        }
-    }
-
-    public void showCombo(int oppId, Card[] comboComrades) {
-
-    }
 
     public void printInsertionMessage(Message message, Battle battle) {
         switch (message) {
@@ -463,100 +123,6 @@ public class View {
             case SUCCESSFUL_INSERT:
                 drawMap(battle);
         }
-    }
-
-    public void printSelectionResult(boolean card, boolean item) {
-        if (card)
-            System.out.println("Card selected");
-        else if (item)
-            System.out.println("Item selected");
-        else
-            System.out.println("No card/item found with this id!");
-    }
-
-    public void specialPowerValidation(Message message) {
-        switch (message) {
-            case INVALID_TARGET:
-                System.out.println("Cell is empty");
-                break;
-            case OBJECT_NOT_FOUND:
-                System.out.println("Card doesn't exist on field");
-                break;
-            case NOT_ABLE_TO_ATTACK:
-                System.out.println("Card doesn't have a special power");
-                break;
-            case NULL:
-                System.out.println("Valid Special Power.");
-
-        }
-    }
-
-    public void endTurn(Account account) {
-        System.out.println("Player: " + account.getName() + "  Mana: " + account.getMana());
-    }
-
-    public void printItemUsage(boolean valid) {
-
-    }
-
-    public void printShopCollection(Collection collection) {
-        printCards(true, collection.getCards().toArray(new Card[collection.getCards().size()]));
-        printItems(true, collection.getItems().toArray(new Item[collection.getItems().size()]));
-    }
-
-    private void printItems(boolean isInShop, Item... items) {
-        for (int i = 0; i < items.length; i++) {
-            System.out.print(i + 1 + " : ");
-            printItem(items[i]);
-            if (isInShop)
-                System.out.println(" - Price : " + items[i].getPrice());
-
-        }
-    }
-
-    public void printCards(Card... cards) {
-        printCards(false, cards);
-    }
-
-    public void endGame(Battle battle) {
-    }
-
-    public void printInvalidCommand() {
-        System.out.println("INVALID COMMAND");
-    }
-
-    public void chooseBattleMode() {
-        System.out.println("Choose battle mode:");
-        System.out.println("KillEnemyHero");
-        System.out.println("Collecting");
-        System.out.println("Flag");
-    }
-
-    public void showEntrance(Request request) {
-        switch (request.getMenu(request.getCommand())) {
-            case "Game":
-                System.out.println("Successful Entrance to Game");
-                break;
-            case "Collection":
-                System.out.println("Successful Entrance to Collection");
-                break;
-            case "Shop":
-                System.out.println("Successful Entrance to Shop");
-                break;
-        }
-    }
-
-    public void chooseMultiOrSingle() {
-        System.out.println("Choose game type:");
-        System.out.println("SinglePlayer");
-        System.out.println("MultiPlayer");
-    }
-
-    public void chooseLevels() {
-        System.out.println("Choose AI level:");
-        System.out.println("level1");
-        System.out.println("level2");
-        System.out.println("level3");
     }
 
     public void comboErrors(Message message) {
@@ -601,23 +167,6 @@ public class View {
         }
     }
 
-    public void chooseProcess() {
-        System.out.println("Choose Process: ");
-        System.out.println("Story");
-        System.out.println("Custom");
-    }
-
-    public void playerAdded(Account account) {
-        if (account == null) {
-            System.out.println("Account doesn't exist!");
-        } else {
-            System.out.println(account.getName() + " successfully added!");
-        }
-    }
-
-    public void Success() {
-        System.out.println("AI WON THE GAME");
-    }
 
     public void drawMap(Battle battle) {
         int id;
@@ -677,10 +226,10 @@ public class View {
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         ArrayList<Users> users = new ArrayList<>();
 
-        for (int i = 0; i < accounts.size(); i++) {
+        for (Account account : accounts) {
             String s = "OFFLINE";
-            if (accounts.get(i).isLoggedIn()) s = "ONLINE";
-            Users users1 = new Users(accounts.get(i).getName(), s);
+            if (account.isLoggedIn()) s = "ONLINE";
+            Users users1 = new Users(account.getName(), s);
             users.add(users1);
         }
 
@@ -703,16 +252,16 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view, Label labels, ImageView[] mana , ImageView[] handcards) {
+    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view, Label labels, ImageView[] mana, ImageView[] handcards) {
         root.getChildren().clear();
         maps();
         battleFieldView(polygon);
         heroGifs(accounts, imageView1, imageView2, polygon);
         endTurnButton(view, labels);
         mana(accounts[0], mana);
-        for (int i = 0; i <5 ; i++) {
+        for (int i = 0; i < 5; i++) {
             handcards[i].setImage(new Image("resources/ui/replace_outer_ring_smoke@2x.png"));
-            handcards[i].relocate(270+120*i,525);
+            handcards[i].relocate(270 + 120 * i, 525);
             handcards[i].setFitHeight(120);
             handcards[i].setFitWidth(120);
             lightning(handcards[i]);
@@ -870,15 +419,8 @@ public class View {
     }
 
     private void glowPolygon(ColorAdjust colorAdjust, Polygon polygon1) {
-        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-            polygon1.setEffect(colorAdjust);
-            ;
-
-        });
-        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            polygon1.setEffect(null);
-        });
+        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> polygon1.setEffect(colorAdjust));
+        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> polygon1.setEffect(null));
     }
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
@@ -913,38 +455,31 @@ public class View {
         ImageView backView = new ImageView(background);
         ImageView leftArrow = new ImageView(arrow);
         ImageView rightArrow = new ImageView(arrow);
-        rightArrow.setRotate(180);
-        backView.setFitHeight(Constants.WINDOW_HEIGHT);
-        backView.setFitWidth(Constants.WINDOW_WIDTH);
-        backView.setOpacity(0.5);
-        next.setImage(slide);
-        prev.setImage(slide);
-        back.setImage(backArrow);
-        horizontalList(Alignment.UP, 0, 0, back);
+        scrollPaneMethod(backView, rightArrow, next, prev, back, slide, backArrow);
         horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, prev, next);
         horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, leftArrow, rightArrow);
-        setImageSize(Constants.ARROW, leftArrow, rightArrow);
+        setImageSize(leftArrow, rightArrow);
         root.getChildren().addAll(backView, next, prev, back, leftArrow, rightArrow);
         lightning(back);
         lightning(prev, leftArrow);
         lightning(next, rightArrow);
     }
 
-    public void verticalList(Alignment alignment, double x, double y, Node... nodes) {
-        for (int i = 0; i < nodes.length; i++) {
-            if (nodes[i] instanceof Button) {
-                Button button = (Button) nodes[i];
+    private void verticalList(Alignment alignment, double x, double y, Node... nodes) {
+        for (Node node : nodes) {
+            if (node instanceof Button) {
+                Button button = (Button) node;
                 setButtonSize(button);
                 if (alignment == Alignment.CENTRE)
                     button.setLayoutX(x - button.getPrefWidth() / 2);
             }
-            if (nodes[i] instanceof ImageView) {
-                ImageView imageView = (ImageView) nodes[i];
+            if (node instanceof ImageView) {
+                ImageView imageView = (ImageView) node;
                 if (alignment == Alignment.CENTRE)
                     imageView.setLayoutX(x - imageView.getFitWidth() / 2);
             }
             if (alignment == Alignment.LEFT)
-                nodes[i].setLayoutX(x);
+                node.setLayoutX(x);
         }
         if (nodes[0] instanceof Button) {
             nodes[nodes.length / 2].setLayoutY(y +
@@ -971,7 +506,7 @@ public class View {
 
     }
 
-    public void setButtonSize(Button... buttons) {
+    private void setButtonSize(Button... buttons) {
         for (Button button : buttons) {
             button.setPrefHeight(Constants.BUTTON_HEIGHT);
             if (button.getText().length() >= 8)
@@ -981,35 +516,35 @@ public class View {
         }
     }
 
-    public void setImageSize(double size, ImageView... imageViews) {
+    private void setImageSize(ImageView... imageViews) {
         double currentSize;
         for (ImageView imageView : imageViews) {
             currentSize = imageView.getFitHeight();
-            imageView.setFitHeight(size);
-            imageView.setFitWidth(size);
-            imageView.setLayoutX(imageView.getLayoutX() + (currentSize - size) / 2);
-            imageView.setLayoutY(imageView.getLayoutY() + (currentSize - size) / 2);
+            imageView.setFitHeight(Constants.ARROW);
+            imageView.setFitWidth(Constants.ARROW);
+            imageView.setLayoutX(imageView.getLayoutX() + (currentSize - Constants.ARROW) / 2);
+            imageView.setLayoutY(imageView.getLayoutY() + (currentSize - Constants.ARROW) / 2);
         }
 
     }
 
-    public void horizontalList(Alignment alignment, double x, double y, Node... nodes) {
-        for (int i = 0; i < nodes.length; i++) {
-            if (nodes[i] instanceof Button) {
-                Button button = (Button) nodes[i];
+    private void horizontalList(Alignment alignment, double x, double y, Node... nodes) {
+        for (Node node : nodes) {
+            if (node instanceof Button) {
+                Button button = (Button) node;
                 setButtonSize(button);
                 if (alignment == Alignment.CENTRE)
                     button.setLayoutY(y - button.getPrefHeight() / 2);
             }
-            if (nodes[i] instanceof ImageView) {
-                ImageView imageView = (ImageView) nodes[i];
+            if (node instanceof ImageView) {
+                ImageView imageView = (ImageView) node;
                 imageView.setFitWidth(Constants.SLIDE);
                 imageView.setFitHeight(Constants.SLIDE);
                 if (alignment == Alignment.CENTRE)
                     imageView.setLayoutY(y - imageView.getFitHeight() / 2);
             }
             if (alignment == Alignment.UP || alignment == Alignment.DOWN)
-                nodes[i].setLayoutY(y);
+                node.setLayoutY(y);
         }
         if (nodes[0] instanceof Button) {
             nodes[nodes.length / 2].setLayoutX(x +
@@ -1085,18 +620,18 @@ public class View {
         lightning(firstImageView);
         lightning(secondImageView);
         lightning(thirdImageView);
-        buttonSettings(first, 40, "-fx-background-color: #091841; ", 209, 188, 208, "KILL ENEMY HERO", 10, 50);
-        buttonSettings(second, 37, "-fx-background-color: #091841; ", 209, 188, 208, "COLLECTING FLAGS", 430, 50);
-        buttonSettings(third, 37, "-fx-background-color: #091841; ", 209, 188, 208, "HOLD SPECIAL FLAG", 855, 50);
+        buttonSettings(first, 40, "KILL ENEMY HERO", 10, 50);
+        buttonSettings(second, 37, "COLLECTING FLAGS", 430, 50);
+        buttonSettings(third, 37, "HOLD SPECIAL FLAG", 855, 50);
         root.getChildren().addAll(backgroundView, firstImageView, secondImageView, thirdImageView, first, second, third);
     }
 
-    private void buttonSettings(Button first, int font, String s, int a, int b, int c, String t, int x, int y) {
+    private void buttonSettings(Button first, int font, String t, int x, int y) {
         first.relocate(x, y);
         first.setText(t);
         first.setFont(Font.font(font));
-        first.setStyle(s);
-        first.setTextFill(Color.rgb(a, b, c));
+        first.setStyle("-fx-background-color: #091841; ");
+        first.setTextFill(Color.rgb(209, 188, 208));
     }
 
     public void gameTypeMenu(Button single, Button multi) {
@@ -1165,6 +700,16 @@ public class View {
         Image backArrow = new Image("resources/ui/button_back_corner.png");
         leftArrow.setImage(arrow);
         rightArrow.setImage(arrow);
+        scrollPaneMethod(backView, rightArrow, next, prev, back, slide, backArrow);
+        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, prev, next);
+        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, leftArrow, rightArrow);
+        setImageSize(leftArrow, rightArrow);
+        lightning(back);
+        lightning(prev, leftArrow);
+        lightning(next, rightArrow);
+    }
+
+    private void scrollPaneMethod(ImageView backView, ImageView rightArrow, ImageView next, ImageView prev, ImageView back, Image slide, Image backArrow) {
         rightArrow.setRotate(180);
         backView.setFitHeight(Constants.WINDOW_HEIGHT);
         backView.setFitWidth(Constants.WINDOW_WIDTH);
@@ -1173,12 +718,6 @@ public class View {
         prev.setImage(slide);
         back.setImage(backArrow);
         horizontalList(Alignment.UP, 0, 0, back);
-        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, prev, next);
-        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, leftArrow, rightArrow);
-        setImageSize(Constants.ARROW, leftArrow, rightArrow);
-        lightning(back);
-        lightning(prev, leftArrow);
-        lightning(next, rightArrow);
     }
 
     private void showCards(ArrayList<Card> cards, int page) {
@@ -1192,7 +731,7 @@ public class View {
                         anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
                         //lightning(anchorPane);
                         root.getChildren().add(anchorPane);
-                    } catch (Exception e) {
+                    } catch (Exception ignored) {
 
                     }
                 }
@@ -1207,52 +746,9 @@ public class View {
         glow.setLevel(0.9);
         for (ImageView singlePview :
                 imageViews) {
-            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-                singlePview.setEffect(colorAdjust);
-            });
-            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-                singlePview.setEffect(null);
-            });
+            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> singlePview.setEffect(colorAdjust));
+            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> singlePview.setEffect(null));
         }
-    }
-
-    public void setCardImage(String name) {
-        Image image = new Image("resources/generals/general_f4.jpg");
-        switch (name) {
-            case "WHITE_DIV":
-                image = new Image("resources/generals/general_f6third.jpg");
-                break;
-            case "SIMORGH":
-                image = new Image("resources/generals/general_f5alt.jpg");
-                break;
-            case "SEVEN_HEADED_DRAGON":
-                image = new Image("resources/generals/general_f5third.jpg");
-                break;
-            case "RAKHSH":
-                image = new Image("resources/generals/general_f3third.jpg");
-                break;
-            case "ZAHAK":
-                image = new Image("resources/generals/general_f2.jpg");
-                break;
-            case "KAVEH":
-                image = new Image("resources/generals/general_f3.jpg");
-                break;
-            case "ARASH":
-                image = new Image("resources/generals/general_f3alt.jpg");
-                break;
-            case "AFSANEH":
-                image = new Image("resources/generals/general_f4.jpg");
-                break;
-            case "ESFANDIAR":
-                image = new Image("resources/generals/general_f6.jpg");
-                break;
-            case "ROSTAM":
-                image = new Image("resources/generals/general_f1.jpg");
-                break;
-        }
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(Constants.CARD_WIDTH);
-        imageView.setFitHeight(Constants.CARD_HEIGHT);
     }
 
 }

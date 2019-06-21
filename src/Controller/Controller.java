@@ -538,7 +538,7 @@ public class Controller {
             if (battle.getMode().equals(BattleMode.COLLECTING)) {
                 if (battle.checkForWin()) {
 //                    menu.setStat(MenuStat.GAME);
-                    view.Success();
+                    //view.Success();
                 }
             }
             // insertAI();
@@ -642,7 +642,7 @@ public class Controller {
                 }
             }
             if (counter == 0) {
-                view.showAttack(Message.BATTLE_FINISHED);
+                //view.showAttack(Message.BATTLE_FINISHED);
             }
         }
     }
@@ -714,29 +714,6 @@ public class Controller {
         main();
     }
 
-    private void help() {
-        view.printHelp();
-    }
-
-    private void enter(Request request) {
-        if (request.checkMenuEntrnaceSyntax()) {
-            switch (request.getMenu(request.getCommand())) {
-                case "Exit":
-                    exit();
-                    break;
-                case "Help":
-                    help();
-                    break;
-                case "Battle":
-                    view.chooseMultiOrSingle();
-                    menu.setStat(MenuStat.GAME_TYPE);
-                    break;
-                default:
-                    menu.setStat(MenuStat.valueOf(request.getMenu(request.getCommand()).toUpperCase()));
-                    view.showEntrance(request);
-            }
-        }
-    }
 
     private void exit() {
         menu.exitMenu();
@@ -750,26 +727,6 @@ public class Controller {
     }
 
 
-    private void searchInCollection(Request request) {
-        if (request.checkSearchTheCollectionSyntax()) {
-            if (menu.getStat() == MenuStat.COLLECTION) {
-                String name = request.getObjectName(request.getCommand());
-                view.printId(Card.getAllCardsId(name, account.getCollection().getCards()
-                        .toArray(new Card[account.getCollection().getCards().size()]))
-                        .toArray(new Card[Card.getAllCardsId(name, account.getCollection().getCards()
-                                .toArray(new Card[account.getCollection().getCards().size()])).size()]));
-                view.printId(Item.getAllItemsId(name, account.getCollection().getItems()
-                        .toArray(new Item[account.getCollection().getItems().size()]))
-                        .toArray(new Item[Item.getAllItemsId(name, account.getCollection().getItems()
-                                .toArray(new Item[account.getCollection().getItems().size()])).size()]));
-            }
-        }
-    }
-
-    private void saveCollection() {
-
-    }
-
     private void createDeck(String deckName) {
         /*if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
@@ -777,35 +734,6 @@ public class Controller {
         this.account.getCollection().createDeck(deckName);
     }
 
-    private void deleteDeck(Request request) {
-        if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.deleteDeck(this.account.getCollection().deleteDeck(request.getDeckName(request.getCommand())));
-        }
-    }
-
-    private void addToDeck(Request request) {
-        if (request.checkToDeckAdditionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.addToCollection(this.account.getCollection().add(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
-        }
-    }
-
-    private void removeFromDeck(Request request) {
-        if (request.checkFromDeckDeletionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.removeFromDeck(this.account.getCollection().remove(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
-        }
-    }
-
-    private void validateDeck(Request request) {
-        if (request.checkValidationSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.checkValidation(this.account.getCollection().validate(request.getDeckName(request.getCommand())));
-        }
-    }
-
-    private void selectDeck(Request request) {
-        if (request.checkDeckSelectionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.printDeckSelection(this.account.getCollection().selectDeck(request.getDeckName(request.getCommand())));
-        }
-    }
 
     private void showAllDecks(Request request) {
         if (request.checkShowAllDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
@@ -820,22 +748,6 @@ public class Controller {
                 view.printDeck(collection.getDecks().get(collection.deckExistance(request.getDeckName(request.getCommand()))));
             } catch (ArrayIndexOutOfBoundsException e) {
                 view.printDeck(null);
-            }
-        }
-    }
-
-    private void search(Request request) {
-        if (request.checkSearchSyntax()) {
-            if (menu.getStat() == MenuStat.COLLECTION) {
-                searchInCollection(request);
-            } else if (menu.getStat() == MenuStat.SHOP) {
-                String name = request.getObjectName(request.getCommand());
-                Card card = Card.getCardByName(name, shop.getCards().toArray(new Card[shop.getCards().size()]));
-                Item item = Item.getItemByName(name, shop.getItems().toArray(new Item[shop.getItems().size()]));
-                if (card != null)
-                    view.printId(card);
-                if (item != null)
-                    view.printId(item);
             }
         }
     }
@@ -893,29 +805,6 @@ public class Controller {
         }
     }
 
-    private void select(Request request) {
-        if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            int card = request.getObjectID(request.getCommand());
-            int item = request.getObjectID(request.getCommand());
-            view.printSelectionResult(battle.selectCard(card), battle.selectCollectibleId(item));
-        }
-    }
-
-    private void moveToInBattle(Request request) {
-        if (request.checkMoveSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            Coordinate coordinate = request.getCoordinate(request.getCommand());
-            view.showMovement(battle.moveTo(coordinate), battle);
-        }
-    }
-
-    private void battleAttack(Request request) {
-        if (request.checkAssaultSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
-                    battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
-            view.showAttack(battle.attack(card.getId(), battle.getCurrentCard()));
-        }
-    }
-
     private void battleComboAttack(Request request) {
         if (request.checkComboSyntax() && menu.getStat() == MenuStat.BATTLE) {
             int oppId = request.getOppIdInCombo(request.getCommand());
@@ -925,7 +814,7 @@ public class Controller {
                 cards[i] = Card.getCardByID(ids[i], battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
             }
             view.comboErrors(battle.attackCombo(oppId, cards));
-            view.showCombo(oppId, cards);
+            //view.showCombo(oppId, cards);
         }
     }
 
@@ -933,12 +822,6 @@ public class Controller {
         if (request.checkSPUsageSyntax() && menu.getStat() == MenuStat.BATTLE) {
             battle.setCurrentCoordinate(request.getCoordinate(request.getCommand()));
 
-        }
-    }
-
-    private void showHand() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printCards(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
         }
     }
 
@@ -953,7 +836,7 @@ public class Controller {
         if (menu.getStat() == MenuStat.BATTLE) {
             battle.endTurn();
             this.account = battle.getCurrentPlayer();
-            view.endTurn(account);
+            //view.endTurn(account);
         }
     }
 
@@ -977,28 +860,16 @@ public class Controller {
         }
     }
 
-    private void showNextCard() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printCardInfo(account.getCollection().getMainDeck().getCards().get(0));
-        }
-    }
-
-    private void specialPowerValidation() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.specialPowerValidation(battle.validSpecialPower());
-        }
-    }
-
     private void showCards() {
         if (menu.getStat() == MenuStat.GRAVEYARD) {
-            view.printCards(battle.getGraveyard()[battle.getTurnByAccount(account)]);
+           // view.printCards(battle.getGraveyard()[battle.getTurnByAccount(account)]);
         }
     }
 
     private void endGame() {
         if (menu.getStat() == MenuStat.BATTLE) {
             battle.resign();
-            view.endGame(battle);
+            //view.endGame(battle);
         }
     }
 
