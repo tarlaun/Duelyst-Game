@@ -37,7 +37,9 @@ public class Controller {
     private transient ImageView[] handCards = new ImageView[5];
     private int[][] heroId = new int[2][2];
     private int[] lastSelectedCardId = {0,0};
+    private BattleCards[] battleCards = new BattleCards[40];
     private int[] currentCardId = {0,0};
+    private BattleCards battleCard = new BattleCards();
     private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
     private File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
@@ -47,6 +49,9 @@ public class Controller {
 
     private Controller() {
         initializeGame();
+        for (int i = 0; i <40 ; i++) {
+            battleCards[i].setImageView(new ImageView());
+        }
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new Button();
         }
@@ -181,6 +186,17 @@ public class Controller {
         handleButtons();
         handleTextFields();
         handleHeroGifs();
+        handleBattleCards();
+
+    }
+
+    public void handleBattleCards(){
+        for (int i = 0; i < 40 ; i++) {
+            if(battleCards[i].getCardId()!=0){
+                int finalI = i;
+                battleCards[i].getImageView().setOnMouseClicked(event -> battleCard=battleCards[finalI]);
+            }
+        }
     }
 
     public void handleHeroGifs() {

@@ -50,23 +50,6 @@ public class View {
         return view;
     }
 
-    public void login(Message message) {
-        switch (message) {
-            case INVALID_ACCOUNT:
-                System.out.println("Account doesn't exist!");
-                break;
-            case INVALID_PASSWORD:
-                System.out.println("Incorrect password");
-                break;
-            case SUCCESSFUL_LOGIN:
-                System.out.println("Welcome");
-                break;
-        }
-    }
-
-    public void logout() {
-        System.out.println("Successful logout!!!:))))");
-    }
 
     public void printLeaderboard(ArrayList<Account> accounts) {
         for (int i = 0; i < accounts.size(); i++) {
