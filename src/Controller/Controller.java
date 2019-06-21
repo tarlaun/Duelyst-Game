@@ -27,12 +27,12 @@ public class Controller {
     private transient ImageView[] imageViews = new ImageView[ImageViews.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
     private transient ImageView[][] heroes = new ImageView[Constants.HEROES_COUNT][3];
-    private ImageView[] currentImageView = new ImageView[2];
+    private ImageView[] currentImageView = new ImageView[3];
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private int[][] heroId = new int[2][2];
-    private int lastSelectedCardId;
-    private int currentCardId;
+    private int[] lastSelectedCardId = new int[2];
+    private int[] currentCardId = new int[2];
     private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
     File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
@@ -172,11 +172,21 @@ public class Controller {
         for (int i = 0; i < 2; i++) {
             int a = i;
             heroes[heroId[i][0]][0].setOnMouseClicked(event -> {
-                lastSelectedCardId = currentCardId;
-                battle.selectCard(heroId[a][1]);
-                currentImageView[0] = heroes[heroId[a][0]][0];
-                currentImageView[1] = heroes[heroId[a][0]][1];
-                currentCardId = heroId[a][1] ;
+                if(lastSelectedCardId[0]!=0){
+                    battle.attack(heroId[a][1],Card.getCardByID(lastSelectedCardId[0],battle.getFieldCards()[(a+1)%2]));
+                    currentImageView[0] = heroes[heroId[(a+1)%2][0]][0];
+                    currentImageView[1] = heroes[heroId[(a+1)%2][0]][1];
+                    view.attack(currentImageView);
+                    System.out.println("hamle");
+                }else {
+                    lastSelectedCardId[0] = currentCardId[0];
+                    lastSelectedCardId[1] = currentCardId[1];
+                    battle.selectCard(heroId[a][1]);
+                    currentImageView[0] = heroes[heroId[a][0]][0];
+                    currentImageView[1] = heroes[heroId[a][0]][1];
+                    currentCardId[0] = heroId[a][1];
+                    currentCardId[1] = heroId[a][0];
+                }
             });
         }
     }
@@ -187,7 +197,7 @@ public class Controller {
             polygon[i].setOnMouseClicked(event -> {
                 view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                 battle.moveTo(new Coordinate(a-(a/9),a/9));
-                lastSelectedCardId=0;
+                lastSelectedCardId[0]=0;
             });
         }
     }

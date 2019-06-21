@@ -383,6 +383,9 @@ public class Battle {
         if (targetCard == null) {
             return Message.INVALID_TARGET;
         }
+        if(currentCard==null){
+            return Message.INVALID_TARGET;
+        }
         if (currentCard.getName().equals("WOLF")) {
             saveTurn = turn;
             opponentCardID = opponentCardId;
