@@ -28,6 +28,7 @@ public class Controller {
     private transient TextField[] fields = new TextField[Texts.values().length];
     private transient ImageView[][] heroes = new ImageView[Constants.HEROES_COUNT][3];
     private ImageView[] currentImageView = new ImageView[3];
+    private transient ImageView[] mana = new ImageView[9];
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private int[][] heroId = new int[2][2];
@@ -53,6 +54,9 @@ public class Controller {
         }
         for (int i = 0; i < imageViews.length; i++) {
             imageViews[i] = new ImageView();
+        }
+        for (int i = 0; i < 9; i++) {
+            mana[i] = new ImageView();
         }
         for (int i = 0; i < polygon.length; i++) {
             polygon[i] = new Polygon();
@@ -146,7 +150,7 @@ public class Controller {
                 break;
             case BATTLE:
                 view.battleMenu(battle.getAccounts(), getImageViewGif(battle.getAccounts()[0], 0),
-                        getImageViewGif(battle.getAccounts()[1], 1), polygon, imageViews[ImageViews.END_TURN.ordinal()], labels[Labels.END_TURN.ordinal()]);
+                        getImageViewGif(battle.getAccounts()[1], 1), polygon, imageViews[ImageViews.END_TURN.ordinal()], labels[Labels.END_TURN.ordinal()],mana);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
