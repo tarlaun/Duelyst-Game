@@ -319,7 +319,7 @@ public class Controller {
                 imageViews[2]= new ImageView(new Image("minionGifs/Kin_attack.gif"));
                 break;
             case "TOTAL_DISARM":
-            case "AREA_DISPEL":
+            case "SACRIFICE":
                     imageViews[0]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
                     imageViews[1]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
                     imageViews[2]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
@@ -327,44 +327,44 @@ public class Controller {
             case "EMPOWER":
             case "FIREBALL":
             case "GOD_STRENGTH":
-                imageViews[0]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
+                imageViews[0]= new ImageView(new Image("vspell/Unleash the Evil_active.gif"));
+                imageViews[1]= new ImageView(new Image("spell/Unleash the Evil_active.gif"));
+                imageViews[2]= new ImageView(new Image("spell/Unleash the Evil_active.gif"));
                 break;
             case "HELL_FIRE":
             case "LIGHTNING_BOLT":
             case "POISON_LAKE":
-                imageViews[0]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
+                imageViews[0]= new ImageView(new Image("spell/Lasting Judgement_active.gif"));
+                imageViews[1]= new ImageView(new Image("vspell/Lasting Judgement_active.gif"));
+                imageViews[2]= new ImageView(new Image("spell/Lasting Judgement_active.gif"));
                 break;
             case "MADNESS":
             case "ALL_DISARM":
             case "ALL_POISON":
-                imageViews[0]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
+                imageViews[0]= new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
+                imageViews[1]= new ImageView(new Image("spell/Icebreak Ambush_active.giff"));
+                imageViews[2]= new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
                 break;
             case "DISPEL":
             case "HEALTH_WITH_PROFIT":
             case "POWER_UP":
-                imageViews[0]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
+                imageViews[0]= new ImageView(new Image("spell/Horrific Visage_active.gif"));
+                imageViews[1]= new ImageView(new Image("spell/Horrific Visage_active.gif"));
+                imageViews[2]= new ImageView(new Image("spell/Horrific Visage_active.gif"));
                 break;
             case "ALL_POWER":
             case "ALL_ATTACK":
             case "WEAKENING":
-                imageViews[0]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
+                imageViews[0]= new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
+                imageViews[1]= new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
+                imageViews[2]= new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
                 break;
-            case "SACRIFICE":
             case "KINGS_GUARD":
             case "SHOCK":
-                imageViews[0]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
+            case "AREA_DISPEL":
+                imageViews[0]= new ImageView(new Image("spell/Aspect of Shim'Zar_active.gif"));
+                imageViews[1]= new ImageView(new Image("spell/Aspect of Shim'Zar_active.gif"));
+                imageViews[2]= new ImageView(new Image("spell/Aspect of Shim'Zar_active.gif"));
                 break;
         }
         return imageViews;
