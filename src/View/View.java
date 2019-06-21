@@ -20,7 +20,6 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -28,10 +27,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
 
 public class View {
     private transient AnchorPane root = new AnchorPane();
@@ -41,7 +36,7 @@ public class View {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
-   // private Image cursor = new Image("resources/ui/mouse_auto.png");
+    private Image cursor = new Image("resources/ui/mouse_attack@2x.png");
     private Image battleCursor = new Image("resources/ui/mouse_attack.png");
 
 
@@ -51,8 +46,8 @@ public class View {
 
     public Scene getScene() {
         Image icon = new Image("resources/booster_pack_opening/booster_orb.png");
-
-        //scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
+       // ImageCursor imageCursor = new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH);
+        //scene.setCursor(imageCursor);
         return scene;
     }
 
@@ -709,19 +704,35 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view, Label labels, ImageView[] mana) {
+    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view, Label labels, ImageView[] mana , ImageView[] handcards) {
         root.getChildren().clear();
+        maps();
+        battleFieldView(polygon);
+        heroGifs(accounts, imageView1, imageView2, polygon);
+        endTurnButton(view, labels);
+        mana(accounts[0], mana);
+
+
+    }
+
+    private void battleFieldView(Polygon[] polygon) {
+        battleField(polygon);
+        for (int i = 0; i < 45; i++) {
+            root.getChildren().add(polygon[i]);
+        }
+    }
+
+    private void maps() {
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("resources/maps/abyssian/midground@2x.png");
         ImageView foregroundView = getImageView(background, foreground);
-        battleField(polygon);
         root.getChildren().addAll(backgroundView, foregroundView);
-        for (int i = 0; i < 45; i++) {
-            root.getChildren().add(polygon[i]);
-        }
+    }
+
+    private void heroGifs(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon) {
         Image firstHero, secondHero;
         firstHero = getImage(accounts[0]);
         secondHero = getImage(accounts[1]);
@@ -733,9 +744,11 @@ public class View {
         imageView1.relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
         lightning(imageView1, imageView2);
         root.getChildren().addAll(firstHeroView, secondHeroView, imageView1, imageView2);
-        endTurnButton(view, labels);
+    }
+
+    private void mana(Account account, ImageView[] mana) {
         for (int i = 0; i < 9; i++) {
-            if (i < accounts[0].getMana()) {
+            if (i < account.getMana()) {
                 mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
             } else {
                 mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
@@ -745,9 +758,7 @@ public class View {
             mana[i].setFitHeight(35);
             lightning(mana[i]);
         }
-
         root.getChildren().addAll(mana);
-
     }
 
     private void endTurnButton(ImageView view, Label labels) {
@@ -1049,17 +1060,17 @@ public class View {
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image firstImage = new Image("resources/challenges/gate_013@2x.jpg");
+        Image firstImage = new Image("resources/play/play_mode_arenagauntlet@2x.jpg");
         ImageView firstImageView = new ImageView(firstImage);
         firstImageView.setFitWidth(425);
         firstImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         firstImageView.setLayoutX(0);
-        Image secondImage = new Image("resources/challenges/gate_005@2x.jpg");
+        Image secondImage = new Image("resources/play/play_mode_sandbox@2x.jpg");
         ImageView secondImageView = new ImageView(secondImage);
         secondImageView.setFitWidth(425);
         secondImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         secondImageView.setLayoutX(425);
-        Image thirdImage = new Image("resources/challenges/gate_004@2x.jpg");
+        Image thirdImage = new Image("resources/play/play_mode_rankedladder@2x.jpg");
         ImageView thirdImageView = new ImageView(thirdImage);
         thirdImageView.setFitWidth(425);
         thirdImageView.setFitHeight(Constants.WINDOW_HEIGHT);
@@ -1132,7 +1143,7 @@ public class View {
         name.setPrefWidth(Constants.FIELD_WIDTH);
         name.setPrefHeight(Constants.FIELD_HEIGHT);
 */
-        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        ImageView backView = new ImageView(new Image("resources/scenes/load/scene_load_background.jpg"));
         ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
         scrollPane(backView, rightArrow, leftArrow, next, prev, back);
 //        lightning(createDeck, create);
@@ -1142,9 +1153,9 @@ public class View {
 
     private void scrollPane(ImageView backView, ImageView rightArrow, ImageView leftArrow,
                             ImageView next, ImageView prev, ImageView back) {
-        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button.png");
-        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text.png");
-        Image backArrow = new Image("ui/button_back_corner.png");
+        Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button.png");
+        Image arrow = new Image("resources/ui/sliding_panel/sliding_panel_paging_button_text.png");
+        Image backArrow = new Image("resources/ui/button_back_corner.png");
         leftArrow.setImage(arrow);
         rightArrow.setImage(arrow);
         rightArrow.setRotate(180);
