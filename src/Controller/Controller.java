@@ -172,9 +172,11 @@ public class Controller {
         for (int i = 0; i < 2; i++) {
             int a = i;
             heroes[heroId[i][0]][0].setOnMouseClicked(event -> {
+                lastSelectedCardId = currentCardId;
                 battle.selectCard(heroId[a][1]);
                 currentImageView[0] = heroes[heroId[a][0]][0];
                 currentImageView[1] = heroes[heroId[a][0]][1];
+                currentCardId = heroId[a][1] ;
             });
         }
     }
@@ -184,6 +186,7 @@ public class Controller {
             int a = i;
             polygon[i].setOnMouseClicked(event -> {
                 view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
+                battle.moveTo(new Coordinate(a-(a/9),a/9));
                 lastSelectedCardId=0;
             });
         }
@@ -228,41 +231,51 @@ public class Controller {
             case "WHITE_DIV":
                 heroId[a][0] = 0;
                 heroes[0][1] = new ImageView(new Image("gifs/Abomination_run.gif"));
+                heroes[0][2]= new ImageView(new Image("gifs/Abomination_attack.gif"));
                 return heroes[0][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
             case "ZAHAK":
                 heroId[a][0] = 1;
-                heroes[1][1] = new ImageView(new Image("gifs/Brome Warcrest_run.gif"));
+                heroes[0][2]= new ImageView(new Image("gifs/Abomination_attack.gif"));
+                heroes[1][1] = new ImageView(new Image("gifs/Abomination_run.gif"));
                 return heroes[1][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
             case "ARASH":
                 heroId[a][0] = 2;
+                heroes[0][2]= new ImageView(new Image("gifs/f6_altgeneraltier2_attack.gif"));
                 heroes[2][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
                 return heroes[2][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
             case "SIMORGH":
                 heroId[a][0] = 3;
+                heroes[0][2]= new ImageView(new Image("gifs/f4_altgeneraltier2_attack.gif"));
                 heroes[3][1] = new ImageView(new Image("gifs/f4_altgeneraltier2_run.gif"));
                 return heroes[3][0] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
             case "SEVEN_HEADED_DRAGON":
                 heroId[a][0] = 4;
+                heroes[0][2]= new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
                 heroes[4][1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
                 return heroes[4][0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
             case "RAKHSH":
                 heroId[a][0] = 5;
+                heroes[0][2]= new ImageView(new Image("gifs/f6_altgeneraltier2_attack.gif"));
                 heroes[5][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
                 return heroes[5][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
             case "KAVEH":
                 heroId[a][0] = 6;
+                heroes[0][2]= new ImageView(new Image("gifs/boss_cindera_attack.gif"));
                 heroes[6][1] = new ImageView(new Image("gifs/boss_cindera_run.gif"));
                 return heroes[6][0] = new ImageView(new Image("gifs/boss_cindera_idle.gif"));
             case "AFSANEH":
                 heroId[a][0] = 7;
+                heroes[0][2]= new ImageView(new Image("gifs/f6_altgeneraltier2_attack.gif"));
                 heroes[7][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
                 return heroes[7][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
             case "ESFANDIAR":
                 heroId[a][0] = 8;
+                heroes[0][2]= new ImageView(new Image("gifs/Brome Warcrest_attack.gif"));
                 heroes[8][1] = new ImageView(new Image("gifs/Brome Warcrest_run.gif"));
                 return heroes[8][0] = new ImageView(new Image("gifs/Brome Warcrest_idle.gif"));
             case "ROSTAM":
                 heroId[a][0] = 9;
+                heroes[0][2]= new ImageView(new Image("gifs/f1_tier2general_attack.gif"));
                 heroes[9][1] = new ImageView(new Image("gifs/f1_tier2general_attack.gif"));
                 return heroes[9][0] = new ImageView(new Image("gifs/f1_tier2general_idle.gif"));
         }
