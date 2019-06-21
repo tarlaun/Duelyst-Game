@@ -31,8 +31,8 @@ public class Controller {
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private int[][] heroId = new int[2][2];
-    private int[] lastSelectedCardId = new int[2];
-    private int[] currentCardId = new int[2];
+    private int[] lastSelectedCardId = {0,0};
+    private int[] currentCardId = {0,0};
     private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
     File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
@@ -181,13 +181,13 @@ public class Controller {
                     System.out.println("hamle");
                     lastSelectedCardId[0]=0;
                 }else {
-                    lastSelectedCardId[0] = currentCardId[0];
-                    lastSelectedCardId[1] = currentCardId[1];
                     battle.selectCard(heroId[a][1]);
                     currentImageView[0] = heroes[heroId[a][0]][0];
                     currentImageView[1] = heroes[heroId[a][0]][1];
                     currentCardId[0] = heroId[a][1];
                     currentCardId[1] = heroId[a][0];
+                    lastSelectedCardId[0] = currentCardId[0];
+                    lastSelectedCardId[1] = currentCardId[1];
                 }
             });
         }
@@ -252,9 +252,9 @@ public class Controller {
                 return heroes[1][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
             case "ARASH":
                 heroId[a][0] = 2;
-                heroes[2][2]= new ImageView(new Image("gifs/Maehv Skinsolder_attack.gif"));
-                heroes[2][1] = new ImageView(new Image("gifs/Maehv Skinsolder_run.gif"));
-                return heroes[2][0] = new ImageView(new Image("gifs/Maehv Skinsolder_idle.gif"));
+                heroes[2][2]= new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
+                heroes[2][1] = new ImageView(new Image("gifs/f5_altgeneraltier2_run.gif"));
+                return heroes[2][0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
             case "SIMORGH":
                 heroId[a][0] = 3;
                 heroes[3][2]= new ImageView(new Image("gifs/f4_altgeneraltier2_attack.gif"));
