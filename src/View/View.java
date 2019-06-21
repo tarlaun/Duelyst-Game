@@ -37,7 +37,6 @@ public class View {
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
     private Image cursor = new Image("resources/ui/mouse_attack@2x.png");
-    private Image battleCursor = new Image("resources/ui/mouse_attack.png");
 
 
     private View() {
@@ -711,6 +710,14 @@ public class View {
         heroGifs(accounts, imageView1, imageView2, polygon);
         endTurnButton(view, labels);
         mana(accounts[0], mana);
+        for (int i = 0; i <5 ; i++) {
+            handcards[i].setImage(new Image("resources/ui/replace_outer_ring_smoke@2x.png"));
+            handcards[i].relocate(270+120*i,525);
+            handcards[i].setFitHeight(120);
+            handcards[i].setFitWidth(120);
+            lightning(handcards[i]);
+            root.getChildren().add(handcards[i]);
+        }
 
 
     }
@@ -1065,12 +1072,12 @@ public class View {
         firstImageView.setFitWidth(425);
         firstImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         firstImageView.setLayoutX(0);
-        Image secondImage = new Image("resources/play/play_mode_sandbox@2x.jpg");
+        Image secondImage = new Image("resources/codex/chapter17_preview@2x.jpg");
         ImageView secondImageView = new ImageView(secondImage);
         secondImageView.setFitWidth(425);
         secondImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         secondImageView.setLayoutX(425);
-        Image thirdImage = new Image("resources/play/play_mode_rankedladder@2x.jpg");
+        Image thirdImage = new Image("resources/codex/generic_preview@2x.jpg");
         ImageView thirdImageView = new ImageView(thirdImage);
         thirdImageView.setFitWidth(425);
         thirdImageView.setFitHeight(Constants.WINDOW_HEIGHT);
