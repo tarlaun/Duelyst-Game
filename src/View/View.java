@@ -2,6 +2,7 @@ package View;
 
 import Model.*;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -20,6 +21,8 @@ import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
@@ -683,7 +686,7 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon ,ImageView view ,Label  labels) {
+    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view, Label labels) {
         root.getChildren().clear();
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -713,17 +716,17 @@ public class View {
 
     private void endTurnButton(ImageView view, Label labels) {
         view.setImage(new Image("resources/ui/button_end_turn_mine@2x.png"));
-        view.relocate(900,550);
+        view.relocate(900, 550);
         view.setFitWidth(200);
         view.setFitHeight(80);
-        labels.relocate(945,575);
+        labels.relocate(945, 575);
         labels.setText("END TURN");
         Bloom bloom = new Bloom();
         bloom.setThreshold(0.5);
-        view.setOnMouseEntered(event ->view.setEffect(bloom));
+        view.setOnMouseEntered(event -> view.setEffect(bloom));
         view.setOnMouseExited(event -> view.setEffect(null));
         labels.setStyle("-fx-control-inner-background: #000000;-fx-font-size:20;");
-        root.getChildren().addAll(view,labels);
+        root.getChildren().addAll(view, labels);
     }
 
 
@@ -748,11 +751,15 @@ public class View {
         transition.setOnFinished(event -> imageView.setImage(image));
     }
 
-    public void attack(ImageView[] imageViews){
+    public void attack(ImageView[] imageViews) {
+        File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/sfx/sfx_f1_general_attack_swing.m4a");
+        Media media = new Media(file.toURI().toString());
+        MediaPlayer player = new MediaPlayer(media);
+        player.play();
         System.out.println("view attack");
         Image image = imageViews[0].getImage();
         imageViews[0].setImage(imageViews[2].getImage());
-        TranslateTransition transition = new TranslateTransition(Duration.millis(2000), imageViews[0]);
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1500), imageViews[0]);
         transition.playFromStart();
         transition.setOnFinished(event -> imageViews[0].setImage(image));
     }
