@@ -144,13 +144,20 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view, Label labels, ImageView[] mana, ImageView[] handcards) {
+    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view,
+                           Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards) {
         root.getChildren().clear();
         maps();
         battleFieldView(polygon);
         heroGifs(accounts, imageView1, imageView2, polygon);
         endTurnButton(view, labels);
         mana(accounts[0], mana);
+        handCardRings(handcards);
+
+
+    }
+
+    private void handCardRings(ImageView[] handcards) {
         for (int i = 0; i < 5; i++) {
             handcards[i].setImage(new Image("resources/ui/replace_outer_ring_smoke@2x.png"));
             handcards[i].relocate(270 + 120 * i, 525);
@@ -159,8 +166,6 @@ public class View {
             lightning(handcards[i]);
             root.getChildren().add(handcards[i]);
         }
-
-
     }
 
     private void battleFieldView(Polygon[] polygon) {

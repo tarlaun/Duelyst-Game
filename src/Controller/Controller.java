@@ -166,9 +166,14 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
+                for (int i = 0; i < battle.getPlayerHands()[0].length ; i++) {
+                    battleCards[i].setCard(battle.getPlayerHands()[0][i]);
+                    battleCards[i].setImageView(setGifForCards(battle.getPlayerHands()[0][i]));
+                }
+
                 view.battleMenu(battle.getAccounts(), getImageViewGif(battle.getAccounts()[0], 0),
                         getImageViewGif(battle.getAccounts()[1], 1), polygon, imageViews[ImageViews.END_TURN.ordinal()],
-                        labels[Labels.END_TURN.ordinal()],mana,handCards);
+                        labels[Labels.END_TURN.ordinal()],mana,handCards , battleCards);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -192,7 +197,8 @@ public class Controller {
 
     }
 
-    public ImageView[] setGifForCards (ImageView[] imageViews, Card card){
+    public ImageView[] setGifForCards ( Card card){
+        ImageView[] imageViews = new ImageView[3];
         switch (card.getName()){
             case "PERSIAN_ARCHER":
             case "PERSIAN_SWORDS_WOMAN":
@@ -280,7 +286,7 @@ public class Controller {
 
     private void handleBattleCards(){
         for (int i = 0; i < 40 ; i++) {
-            if(battleCards[i].getCardId()!=0){
+            if(battleCards[i].getCard()!=null){
                 int finalI = i;
                 battleCards[i].getImageView()[0].setOnMouseClicked(event -> battleCard=battleCards[finalI]);
             }

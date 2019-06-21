@@ -4,7 +4,7 @@ import javafx.scene.image.ImageView;
 
 public class BattleCards {
     private ImageView[] imageView = new ImageView[3];
-    private int cardId=0;
+    private Card card;
 
     public ImageView[] getImageView() {
         return imageView;
@@ -14,11 +14,11 @@ public class BattleCards {
         this.imageView = imageView;
     }
 
-    public int getCardId() {
-        return cardId;
+    public Card getCard() {
+        return card;
     }
 
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
+    public void setCard(Card card) {
+        this.card = card;
     }
 }
