@@ -751,7 +751,7 @@ public class View {
     public void attack(ImageView[] imageViews){
         System.out.println("view attack");
         Image image = imageViews[0].getImage();
-        imageViews[0].setImage(imageViews[1].getImage());
+        imageViews[0].setImage(imageViews[2].getImage());
         TranslateTransition transition = new TranslateTransition(Duration.millis(2000), imageViews[0]);
         transition.playFromStart();
         transition.setOnFinished(event -> imageViews[0].setImage(image));
