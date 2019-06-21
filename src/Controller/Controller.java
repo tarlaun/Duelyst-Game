@@ -23,6 +23,7 @@ public class Controller {
     private Account account;
     private Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
+    private transient PasswordField passwordField = new PasswordField();
     private transient Label[] labels = new Label[Labels.values().length];
     private transient ImageView[] imageViews = new ImageView[ImageViews.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
@@ -35,6 +36,7 @@ public class Controller {
     private int[] lastSelectedCardId = {0,0};
     private int[] currentCardId = {0,0};
     private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
+    private transient ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
     File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
     Media media = new Media(file.toURI().toString());
@@ -103,6 +105,182 @@ public class Controller {
         }
     }
 
+    /*public void handleCommands() {
+        Request request = new Request();
+
+//        while (true) {
+        request.getNewCommand();
+        switch (request.getType()) {
+            case NULL:
+                invalidCommand();
+                break;
+            case SHOW_MATCH_HISTORY:
+                showMatchHistory(request);
+            case CREATE_ACCOUNT:
+                createAccount(request);
+                break;
+            case LOGIN:
+                login(request);
+                break;
+            case LEADERBOARD:
+                showLeaderBoard(request);
+                break;
+            case SAVE:
+                try {
+                    save();
+                } catch (OutOfMemoryError h) {
+                    System.out.println("Saving error!");
+                }
+                break;
+            case LOGOUT:
+                logout();
+                break;
+            case HELP:
+                help();
+                break;
+            case EXIT:
+                exit();
+                break;
+            case ENTRANCE:
+                enter(request);
+                break;
+            case SHOW_COLLECTION:
+                showTheCollection();
+                break;
+            case SEARCH_COLLECTION:
+                searchInCollection(request);
+                break;
+            case SAVE_IN_COLLECTION:
+                saveCollection();
+                break;
+            case CREATE_DECK:
+                createDeck(request);
+                break;
+            case DELETE_DECK:
+                deleteDeck(request);
+                break;
+            case ADD:
+                addToDeck(request);
+                break;
+            case REMOVE:
+                removeFromDeck(request);
+                break;
+            case VALIDATION:
+                validateDeck(request);
+                break;
+            case SELECT_DECK:
+                selectDeck(request);
+                break;
+            case SHOW_ALL_DECK:
+                showAllDecks(request);
+                break;
+            case SHOW_DECK:
+                showDeck(request);
+                break;
+            case SEARCH:
+                search(request);
+                break;
+            case BUY:
+                buy(request);
+                break;
+            case SELL:
+                sell(request);
+                break;
+            case SHOW:
+                showShop();
+                break;
+            case SINGLE_PLAYER:
+                setGameType(request);
+                break;
+            case MULTI_PLAYER:
+                setGameType(request);
+                break;
+            case STORY:
+                setProcess(request);
+                break;
+            case CUSTOM:
+                setProcess(request);
+                break;
+            case KILL_ENEMY_HERO:
+                setBattleMode(request);
+                break;
+            case COLLECTING:
+                setBattleMode(request);
+                break;
+            case FLAG:
+                setBattleMode(request);
+                break;
+            case SELECT_USER:
+                selectUser(request);
+                break;
+            case GAME_INFO:
+                gameInfo();
+                break;
+            case SHOW_MAP:
+                showMap();
+                break;
+            case SHOW_MY_MININOS:
+                showMyMinions();
+                break;
+            case SHOW_OPP_MINIONS:
+                showOppMinions();
+                break;
+            case SHOW_CARD_INFO:
+                showCardInfo(request);
+                break;
+            case SELECTION:
+                select(request);
+                break;
+            case MOVE:
+                moveToInBattle(request);
+                break;
+            case ATTACK:
+                battleAttack(request);
+                break;
+            case COMBO:
+                battleComboAttack(request);
+                break;
+            case USE_SP:
+                specialPowerValidation();
+                if (battle.validSpecialPower() == Message.NULL) {
+                    useSpecialPower(request);
+                }
+                break;
+            case SHOW_HAND:
+                showHand();
+                break;
+            case INSERTION:
+                insertCard(request);
+                break;
+            case END_TURN:
+                endTurn();
+                AiFunctions();
+                break;
+            case SHOW_COLLECTABLES:
+                showCollectables();
+                break;
+            case SHOW_COLLECTABLE_INFO:
+                showCollectableInfo();
+                break;
+            case USE_ITEM:
+                useItem(request);
+                break;
+            case NEXT_CARD:
+                showNextCard();
+                break;
+            case SHOW_CARDS:
+                showCards();
+                break;
+            case END_GAME:
+                endGame();
+                break;
+            case SHOW_MENU:
+                showMenu();
+                break;
+        }
+//        }
+    }*/
+
     public void main() {
 
         player.stop();
@@ -126,12 +304,20 @@ public class Controller {
                 view.shopMenu(heroes[0], minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
                         imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
+                view.shopMenu(heroes, minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
+                        imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case COLLECTION:
                 view.collectionMenu(buttons[Buttons.CREATE_DECK.ordinal()], buttons[Buttons.EXIT.ordinal()], fields[Texts.DECKNAME.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
+                media = new Media(file.toURI().toString());
+                view.collectionMenu(account, imageViews[ImageViews.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
+                        imageViews[ImageViews.BACK.ordinal()], imageViews[ImageViews.NEXT.ordinal()],
+                        imageViews[ImageViews.PREV.ordinal()]);
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -245,7 +431,7 @@ public class Controller {
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
-        buttons[Buttons.CREATE_DECK.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
+        imageViews[ImageViews.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
     }
 
     private ImageView getImageViewGif(Account account, int a) {
@@ -474,7 +660,7 @@ public class Controller {
 
     private void createAccount() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
-        String password = fields[Texts.PASSWORD.ordinal()].getText();
+        String password = passwordField.getText();
         this.account = new Account(username, password);
         menu.setStat(MenuStat.ACCOUNT);
         main();
@@ -501,7 +687,7 @@ public class Controller {
 
     private void login() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
-        String password = fields[Texts.PASSWORD.ordinal()].getText();
+        String password = passwordField.getText();
         if (Account.login(username, password) == Message.SUCCESSFUL_LOGIN) {
             this.account = game.getAccounts().get(Account.accountIndex(username));
             menu.setStat(MenuStat.ACCOUNT);

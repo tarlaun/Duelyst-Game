@@ -1,5 +1,6 @@
 
 package Model;
+
 import com.google.gson.*;
 /*import com.google.gson.stream.JsonReader;
 import jdk.nashorn.internal.parser.JSONParser;
@@ -158,6 +159,8 @@ public class Game {
         sortItems(account.getCollection().getItems());
         Collection collection = account.getCollection();
         for (int i = 0; i < collection.getCards().size(); i++) {
+            Card card = new Card(collection.getCards().get(i));
+            collection.getCards().set(i, card);
             if (collection.getCards().get(i).getType().equals("Spell"))
                 if (lastSpellId < collection.getCards().get(i).getId())
                     lastSpellId = collection.getCards().get(i).getId();

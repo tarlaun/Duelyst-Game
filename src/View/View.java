@@ -11,6 +11,7 @@ import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,6 +28,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 
 public class View {
     private transient AnchorPane root = new AnchorPane();
@@ -36,17 +41,35 @@ public class View {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
+    private Image cursor = new Image("ui/mouse_auto.png");
+    private Image battleCursor = new Image("ui/mouse_attack.png");
+
 
     private View() {
 
     }
 
     public Scene getScene() {
+        Image icon = new Image("booster_pack_opening/booster_orb.png");
+
+        scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
         return scene;
     }
 
     public static View getInstance() {
         return view;
+    }
+
+    public void passwordInsertion() {
+        System.out.println("Password: ");
+    }
+
+    public void accountCreation(Boolean valid) {
+        if (valid) {
+            System.out.println("Account created");
+            return;
+        }
+        System.out.println("Account already exists");
     }
 
     public void showMatchHistory(ArrayList<Match> matches, int level) {
@@ -742,7 +765,6 @@ public class View {
         root.getChildren().addAll(view, labels);
     }
 
-
     private void bossImageSettings(ImageView firstHeroView, ImageView secondHeroView) {
         firstHeroView.relocate(150, -50);
         firstHeroView.setFitHeight(250);
@@ -1091,31 +1113,107 @@ public class View {
 
     }
 
-    public void collectionMenu(Button createDeck, Button exit, TextField name) {
+    public void shopMenu(ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
+                         ImageView back, ImageView next, ImageView prev) {
         root.getChildren().clear();
-        createDeck.setText("Create Deck");
-        Image background = new Image("resources/scenes/load/scene_load_background.jpg");
-        ImageView backgroundView = new ImageView(background);
-        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
-        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck, exit);
-        name.setPrefWidth(Constants.FIELD_WIDTH);
-        name.setPrefHeight(Constants.FIELD_HEIGHT);
-        name.setLayoutX(createDeck.getLayoutX());
-        name.setLayoutY(createDeck.getLayoutY() - Constants.FIELD_HEIGHT - Constants.BUTTON_HEIGHT);
-        root.getChildren().addAll(backgroundView, createDeck, exit, name);
+        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
+        scrollPane(backView, rightArrow, leftArrow, next, prev, back);
+        root.getChildren().addAll(backView, next, prev, back, rightArrow, leftArrow);
     }
 
+
+    public void collectionMenu(Account account, ImageView createDeck, TextField name, ImageView back, ImageView next, ImageView prev) {
+        root.getChildren().clear();
+
+        Label create = new Label(); //= new Label("Create Deck");
+/*        create.setFont(Font.font(Constants.TEXT_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
+        create.setTextFill(Color.LIGHTCYAN);
+        Image createImage = new Image("ui/button_primary.png");
+        createDeck.setImage(createImage);
+        createDeck.setFitWidth(2 * Constants.BUTTON_WIDTH);
+        createDeck.setFitHeight(2 * Constants.BUTTON_HEIGHT);
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck);
+        create.setLayoutX(createDeck.getLayoutX() + Constants.IMAGE_BUTTON_REL_X);
+        create.setLayoutY(createDeck.getLayoutY() + Constants.IMAGE_BUTTON_REL_Y);
+        name.setLayoutX(create.getLayoutX());
+        name.setLayoutY(createDeck.getLayoutY() - Constants.FIELD_HEIGHT - createDeck.getFitHeight());
+        name.setPrefWidth(Constants.FIELD_WIDTH);
+        name.setPrefHeight(Constants.FIELD_HEIGHT);
+*/
+        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
+        scrollPane(backView, rightArrow, leftArrow, next, prev, back);
+//        lightning(createDeck, create);
+        root.getChildren().addAll(backView, next, prev, back, rightArrow, leftArrow);
+        showCards(account.getCollection().getCards(), 4);
+    }
+
+    private void scrollPane(ImageView backView, ImageView rightArrow, ImageView leftArrow,
+                            ImageView next, ImageView prev, ImageView back) {
+        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button.png");
+        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text.png");
+        Image backArrow = new Image("ui/button_back_corner.png");
+        leftArrow.setImage(arrow);
+        rightArrow.setImage(arrow);
+        rightArrow.setRotate(180);
+        backView.setFitHeight(Constants.WINDOW_HEIGHT);
+        backView.setFitWidth(Constants.WINDOW_WIDTH);
+        backView.setOpacity(0.5);
+        next.setImage(slide);
+        prev.setImage(slide);
+        back.setImage(backArrow);
+        horizontalList(Alignment.UP, 0, 0, back);
+        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, prev, next);
+        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, leftArrow, rightArrow);
+        setImageSize(Constants.ARROW, leftArrow, rightArrow);
+        lightning(back);
+        lightning(prev, leftArrow);
+        lightning(next, rightArrow);
+    }
+
+    private void showCards(ArrayList<Card> cards, int page) {
+        if (page <= (cards.size() - 1) / Constants.CARD_PER_PAGE) {
+            for (int i = 0; i < Constants.CARD_PER_COLUMN; i++) {
+                for (int j = 0; j < Constants.CARD_PER_ROW; j++) {
+                    try {
+                        int index = page * Constants.CARD_PER_PAGE + i * Constants.CARD_PER_ROW + j;
+                        AnchorPane anchorPane = cards.get(index).getCardView().getPane();
+                        anchorPane.setLayoutX(Constants.CARD_X + j * (Constants.CARD_WIDTH + Constants.CARD_X_GAP));
+                        anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
+                        lightning(anchorPane);
+                        root.getChildren().add(anchorPane);
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        }
+    }
+
+    private void lightning(Node... nodes) {
     private void lightning(ImageView... imageViews) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
         Glow glow = new Glow();
         glow.setLevel(0.9);
+        for (Node singlePview : nodes) {
+            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
+            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> nodes[0].setEffect(null));
+        }
+    }
         for (ImageView singlePview :
                 imageViews) {
             singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
 
-                singlePview.setEffect(colorAdjust);
+    private void lightning(AnchorPane anchorPane) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.5);
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+        anchorPane.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> anchorPane.setEffect(colorAdjust));
+        anchorPane.addEventFilter(MouseEvent.MOUSE_EXITED, e -> anchorPane.setEffect(null));
+    }
 
             });
             singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {

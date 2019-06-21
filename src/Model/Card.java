@@ -1,5 +1,7 @@
 package Model;
 
+import View.CardView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +32,8 @@ public class Card {
     private int isHoly = 0;
     private int recievedHit = 0;
     private RangeType rangeType;
-    int[][] attackCount = new int[40][2];
+    private transient CardView cardView;
+    private int[][] attackCount = new int[40][2];
 
     public ArrayList<ItemBuff> getCastedItems() {
         return castedItems;
@@ -38,6 +41,10 @@ public class Card {
 
     public int getCardHolder() {
         return cardHolder;
+    }
+
+    public CardView getCardView() {
+        return cardView;
     }
 
     public void setOriginalAssaultPower(int originalAssaultPower) {
@@ -92,6 +99,7 @@ public class Card {
         this.maxRange = Integer.parseInt(info[MainInfoOrder.MAX_RANGE.ordinal()]);
         this.manaPoint = Integer.parseInt(info[MainInfoOrder.MANA.ordinal()]);
         this.assaultType = AssaultType.valueOf(info[MainInfoOrder.ASSAULT_TYPE.ordinal()]);
+        cardView = new CardView(this);
         if (this instanceof Minion) {
             if (info.length > 9) {
                 this.buffs.add(new Buff(info[MainInfoOrder.BUFF.ordinal()]));
@@ -113,6 +121,7 @@ public class Card {
     }
 
     public Card(Card card) {
+        this.id = card.id;
         this.name = card.name;
         this.price = card.price;
         this.type = card.type;
@@ -124,6 +133,7 @@ public class Card {
         this.manaPoint = card.manaPoint;
         this.assaultType = card.assaultType;
         this.buffs = card.buffs;
+        cardView = new CardView(this);
     }
 
     public String getName() {

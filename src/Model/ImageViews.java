@@ -4,5 +4,6 @@ public enum ImageViews {
     BACK,
     NEXT,
     PREV,
-    END_TURN
+    END_TURN,
+    CREATE
 }

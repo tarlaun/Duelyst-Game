@@ -36,14 +36,12 @@ public class Constants {
     public static final int MAXIMUM_HAND_SIZE = 5;
     public static final int INITIAL_MANA = 2;
     public static final double WINDOW_WIDTH = 1300;
-    public static final double WINDOW_HEIGHT = 650;
+    public static final double WINDOW_HEIGHT = 700;
     public static final double BUTTON_WIDTH = 80;
     public static final double BUTTON_HEIGHT = 20;
     public static final double CENTRE_X = WINDOW_WIDTH / 2.0;
     public static final double CENTRE_Y = WINDOW_HEIGHT / 2.0;
-    public static final double FONT_SIZE = 20;
-    public static final double SIGN_SIZE = 50;
-    public static final String TEXT_FONT = "Ubuntu Mono";
+    public static final String TEXT_FONT = "Chilanka";
     public static final double FIELD_WIDTH = 120;
     public static final double FIELD_HEIGHT = 30;
     public static final double SINGLE_PLAYER_WIDTH = 300;
@@ -54,7 +52,25 @@ public class Constants {
     public static int ITEMS_COUNT = 20;
     public static final double ARROW = 50;
     public static final double SLIDE = 100;
-    public static final double CARD_WIDTH = 500;
-    public static final double CARD_HEIGHT = 500;
-
+    public static final double CARD_WIDTH = 160;
+    public static final double CARD_HEIGHT = 11.0 / 8.0 * CARD_WIDTH;
+    public static final double GIF_WIDTH = 7.0 / 8.0 * CARD_WIDTH;
+    public static final double CARD_X = 400;
+    public static final double CARD_Y = 70;
+    public static final double CARD_X_GAP = 100;
+    public static final double CARD_Y_GAP = 20;
+    public static final double GIF_HEIGHT = GIF_WIDTH;
+    public static final double CARD_POWER_X = 3.0 / 16.0 * CARD_WIDTH;
+    public static final double CARD_HEALTH_X = CARD_POWER_X * 3.7;
+    public static final double CARD_INFO_Y = 6.0 / 11.0 * CARD_HEIGHT;
+    public static final int CARD_PER_ROW = 3;
+    public static final int CARD_PER_COLUMN = 2;
+    public static final int CARD_PER_PAGE = CARD_PER_ROW * CARD_PER_COLUMN;
+    public static final double CURSOR_LENGTH = 16;
+    public static final int FONT_SIZE = 20;
+    public static final double IMAGE_BUTTON_REL_X = 23;
+    public static final double IMAGE_BUTTON_REL_Y = 3;
+    public static final double SCROLLER_X = CARD_X + 1.5 * CARD_WIDTH + CARD_X_GAP;
+    public static final double SCROLLER_Y = WINDOW_HEIGHT - 100;
+    public static final String INFO_FONT = "Ubuntu";
 }
