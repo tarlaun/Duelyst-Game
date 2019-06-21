@@ -333,6 +333,7 @@ public class Battle {
     }
 
     public boolean moveTo(Coordinate coordinate) {
+        System.out.println("shit");
         if (currentCard == null)
             return false;
         if (!currentCard.isAbleToMove())
