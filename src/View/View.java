@@ -686,7 +686,7 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view, Label labels , ImageView[] mana) {
+    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view, Label labels, ImageView[] mana) {
         root.getChildren().clear();
         Image background = new Image("resources/maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -711,11 +711,16 @@ public class View {
         lightning(imageView1, imageView2);
         root.getChildren().addAll(firstHeroView, secondHeroView, imageView1, imageView2);
         endTurnButton(view, labels);
-        for (int i = 0; i <9 ; i++) {
-            mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
-            mana[i].relocate(360+i*35,100-i*4);
-            mana[i].setFitWidth(40);
-            mana[i].setFitHeight(40);
+        for (int i = 0; i < 9; i++) {
+            if (i < accounts[0].getMana()) {
+                mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
+            } else {
+                mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
+            }
+            mana[i].relocate(320 + i * 29, 150 - i * 3);
+            mana[i].setFitWidth(35);
+            mana[i].setFitHeight(35);
+            lightning(mana[i]);
         }
 
         root.getChildren().addAll(mana);

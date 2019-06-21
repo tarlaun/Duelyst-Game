@@ -231,6 +231,13 @@ public class Controller {
         labels[Labels.END_TURN.ordinal()].setOnMouseClicked(event -> {
             battle.endTurn();
             AiFunctions();
+            for (int i = 0; i < 9; i++) {
+                if (i <battle.getAccounts()[0].getMana()) {
+                    mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
+                } else {
+                    mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
+                }
+            }
         });
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
