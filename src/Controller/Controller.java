@@ -40,10 +40,10 @@ public class Controller {
     private int[] currentCardId = {0,0};
     private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
-    File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
-    Media media = new Media(file.toURI().toString());
-    MediaPlayer player = new MediaPlayer(media);
-    Polygon[] polygon = new Polygon[45];
+    private File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
+    private Media media = new Media(file.toURI().toString());
+    private MediaPlayer player = new MediaPlayer(media);
+    private Polygon[] polygon = new Polygon[45];
 
     private Controller() {
         initializeGame();
@@ -109,182 +109,6 @@ public class Controller {
             System.out.println("Item initializing error!");
         }
     }
-
-    /*public void handleCommands() {
-        Request request = new Request();
-
-//        while (true) {
-        request.getNewCommand();
-        switch (request.getType()) {
-            case NULL:
-                invalidCommand();
-                break;
-            case SHOW_MATCH_HISTORY:
-                showMatchHistory(request);
-            case CREATE_ACCOUNT:
-                createAccount(request);
-                break;
-            case LOGIN:
-                login(request);
-                break;
-            case LEADERBOARD:
-                showLeaderBoard(request);
-                break;
-            case SAVE:
-                try {
-                    save();
-                } catch (OutOfMemoryError h) {
-                    System.out.println("Saving error!");
-                }
-                break;
-            case LOGOUT:
-                logout();
-                break;
-            case HELP:
-                help();
-                break;
-            case EXIT:
-                exit();
-                break;
-            case ENTRANCE:
-                enter(request);
-                break;
-            case SHOW_COLLECTION:
-                showTheCollection();
-                break;
-            case SEARCH_COLLECTION:
-                searchInCollection(request);
-                break;
-            case SAVE_IN_COLLECTION:
-                saveCollection();
-                break;
-            case CREATE_DECK:
-                createDeck(request);
-                break;
-            case DELETE_DECK:
-                deleteDeck(request);
-                break;
-            case ADD:
-                addToDeck(request);
-                break;
-            case REMOVE:
-                removeFromDeck(request);
-                break;
-            case VALIDATION:
-                validateDeck(request);
-                break;
-            case SELECT_DECK:
-                selectDeck(request);
-                break;
-            case SHOW_ALL_DECK:
-                showAllDecks(request);
-                break;
-            case SHOW_DECK:
-                showDeck(request);
-                break;
-            case SEARCH:
-                search(request);
-                break;
-            case BUY:
-                buy(request);
-                break;
-            case SELL:
-                sell(request);
-                break;
-            case SHOW:
-                showShop();
-                break;
-            case SINGLE_PLAYER:
-                setGameType(request);
-                break;
-            case MULTI_PLAYER:
-                setGameType(request);
-                break;
-            case STORY:
-                setProcess(request);
-                break;
-            case CUSTOM:
-                setProcess(request);
-                break;
-            case KILL_ENEMY_HERO:
-                setBattleMode(request);
-                break;
-            case COLLECTING:
-                setBattleMode(request);
-                break;
-            case FLAG:
-                setBattleMode(request);
-                break;
-            case SELECT_USER:
-                selectUser(request);
-                break;
-            case GAME_INFO:
-                gameInfo();
-                break;
-            case SHOW_MAP:
-                showMap();
-                break;
-            case SHOW_MY_MININOS:
-                showMyMinions();
-                break;
-            case SHOW_OPP_MINIONS:
-                showOppMinions();
-                break;
-            case SHOW_CARD_INFO:
-                showCardInfo(request);
-                break;
-            case SELECTION:
-                select(request);
-                break;
-            case MOVE:
-                moveToInBattle(request);
-                break;
-            case ATTACK:
-                battleAttack(request);
-                break;
-            case COMBO:
-                battleComboAttack(request);
-                break;
-            case USE_SP:
-                specialPowerValidation();
-                if (battle.validSpecialPower() == Message.NULL) {
-                    useSpecialPower(request);
-                }
-                break;
-            case SHOW_HAND:
-                showHand();
-                break;
-            case INSERTION:
-                insertCard(request);
-                break;
-            case END_TURN:
-                endTurn();
-                AiFunctions();
-                break;
-            case SHOW_COLLECTABLES:
-                showCollectables();
-                break;
-            case SHOW_COLLECTABLE_INFO:
-                showCollectableInfo();
-                break;
-            case USE_ITEM:
-                useItem(request);
-                break;
-            case NEXT_CARD:
-                showNextCard();
-                break;
-            case SHOW_CARDS:
-                showCards();
-                break;
-            case END_GAME:
-                endGame();
-                break;
-            case SHOW_MENU:
-                showMenu();
-                break;
-        }
-//        }
-    }*/
 
     public void main() {
 
@@ -492,11 +316,11 @@ public class Controller {
         return null;
     }
 
-    public void handleTextFields() {
+    private void handleTextFields() {
         fields[Texts.USER_NAME.ordinal()].setOnAction(event -> selectUser(fields[Texts.USER_NAME.ordinal()].getText()));
     }
 
-    public void setBattleMode(int a) {
+    private void setBattleMode(int a) {
         switch (a) {
             case 1:
                 battle.setMode(BattleMode.KILLENEMYHERO);
@@ -667,16 +491,6 @@ public class Controller {
         main();
     }
 
-    private void showMatchHistory(Request request) {
-        if (request.checkMatchHistory() && menu.getStat() == MenuStat.ACCOUNT) {
-            if (battle.getGameType() == GameType.SINGLEPLAYER) {
-                view.showMatchHistory(account.getMatchHistory(), battle.getLevel());
-            } else {
-                view.showMatchHistory(account.getMatchHistory(), getOpponentName(account));
-            }
-        }
-    }
-
     private String getOpponentName(Account account) {
         for (int i = 0; i < battle.getAccounts().length; i++) {
             if (!battle.getAccounts()[i].getName().equals(account.getName())) {
@@ -720,12 +534,6 @@ public class Controller {
         main();
     }
 
-    private void showTheCollection() {
-        if (menu.getStat() == MenuStat.SHOP) {
-            view.printCollection(this.account.getCollection(), true);
-        }
-    }
-
 
     private void createDeck(String deckName) {
         /*if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
@@ -734,102 +542,10 @@ public class Controller {
         this.account.getCollection().createDeck(deckName);
     }
 
-
-    private void showAllDecks(Request request) {
-        if (request.checkShowAllDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.showAllDeck(this.account.getCollection().getDecks());
-        }
-    }
-
-    private void showDeck(Request request) {
-        if (request.checkShowDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            Collection collection = this.account.getCollection();
-            try {
-                view.printDeck(collection.getDecks().get(collection.deckExistance(request.getDeckName(request.getCommand()))));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                view.printDeck(null);
-            }
-        }
-    }
-
     private void buy() {
         if (shop.getGame() == null)
             shop.setGame(this.game);
         shop.buy(fields[Texts.CARD.ordinal()].getText(), this.account);
-    }
-
-    private void sell(Request request) {
-        if (request.checkSellSyntax() && menu.getStat() == MenuStat.SHOP) {
-            view.printSellMessages(shop.sell(request.getObjectID(request.getCommand()), this.account));
-        }
-    }
-
-    private void showShop() {
-        if (menu.getStat() == MenuStat.SHOP) {
-            view.printCollection(new Collection(shop.getCards(), shop.getItems()), true);
-        }
-        if (menu.getStat() == MenuStat.COLLECTION) {
-            view.printCollection(account.getCollection(), true);
-        }
-    }
-
-    private void gameInfo() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printGameInfo(battle);
-        }
-    }
-
-    private void showMyMinions() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
-        }
-    }
-
-    private void showOppMinions() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printMinionsInfo(battle.getFieldCards()[(battle.getTurnByAccount(this.account) + 1) % 2]);
-        }
-    }
-
-    private void showCardInfo(Request request) {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
-                    battle.getPlayerHands()[battle.getTurnByAccount(account)]);
-            if (card != null) {
-                view.printCardInfo(card);
-                return;
-            }
-            card = Card.getCardByID(request.getObjectID(request.getCommand()),
-                    battle.getFieldCards()[battle.getTurnByAccount(account)]);
-            view.printCardInfo(card);
-        }
-    }
-
-    private void battleComboAttack(Request request) {
-        if (request.checkComboSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            int oppId = request.getOppIdInCombo(request.getCommand());
-            int[] ids = request.getComboComradesId(request.getCommand());
-            Card[] cards = new Card[ids.length];
-            for (int i = 0; i < ids.length; i++) {
-                cards[i] = Card.getCardByID(ids[i], battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
-            }
-            view.comboErrors(battle.attackCombo(oppId, cards));
-            //view.showCombo(oppId, cards);
-        }
-    }
-
-    private void useSpecialPower(Request request) {
-        if (request.checkSPUsageSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            battle.setCurrentCoordinate(request.getCoordinate(request.getCommand()));
-
-        }
-    }
-
-    private void insertCard(Request request) {
-        if (request.checkCardInsertSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            view.printInsertionMessage(battle.insertCard(request.getCoordinate(request.getCommand()),
-                    request.getInsertedName(request.getCommand())), battle);
-        }
     }
 
     private void endTurn() {
@@ -840,41 +556,11 @@ public class Controller {
         }
     }
 
-    private void showCollectables() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printCollectables(battle.getCollectibles()[battle.getTurnByAccount(account)]);
-        }
-    }
-
-    private void showCollectableInfo() {
-        if (menu.getStat() == MenuStat.ITEM_SELECTION) {
-            view.printItem(battle.getCurrentItem());
-        }
-    }
-
-    private void useItem(Request request) {
-        if (request.checkItemUseSyntax()) {
-            if (menu.getStat() == MenuStat.BATTLE || menu.getStat() == MenuStat.ITEM_SELECTION) {
-                battle.useItem(battle.getCurrentItem());
-            }
-        }
-    }
-
-    private void showCards() {
-        if (menu.getStat() == MenuStat.GRAVEYARD) {
-           // view.printCards(battle.getGraveyard()[battle.getTurnByAccount(account)]);
-        }
-    }
-
     private void endGame() {
         if (menu.getStat() == MenuStat.BATTLE) {
             battle.resign();
             //view.endGame(battle);
         }
-    }
-
-    private void showMenu() {
-        view.printOptions();
     }
 
 }

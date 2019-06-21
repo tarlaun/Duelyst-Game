@@ -50,38 +50,6 @@ public class View {
         return view;
     }
 
-    public void showMatchHistory(ArrayList<Match> matches, int level) {
-        System.out.println("number level win/lose time");
-        LocalDateTime time = LocalDateTime.now();
-        int hour = time.getHour();
-        int minutes = time.getMinute();
-
-        for (int i = 0; i < matches.size(); i++) {
-            if (matches.get(i).getTime().getHour() == hour) {
-                int mins = minutes - matches.get(i).getTime().getMinute();
-                System.out.println(i + " . LEVEL:" + level + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + mins);
-            } else {
-                int hours = hour - matches.get(i).getTime().getHour();
-                System.out.println(i + " . LEVEL:" + level + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + hours);
-            }
-        }
-    }
-
-    public void showMatchHistory(ArrayList<Match> matches, String name) {
-        LocalDateTime time = LocalDateTime.now();
-        int hour = time.getHour();
-        int minutes = time.getMinute();
-        for (int i = 0; i < matches.size(); i++) {
-            if (matches.get(i).getTime().getHour() == hour) {
-                int mins = minutes - matches.get(i).getTime().getMinute();
-                System.out.println(i + " . OPPONENT:" + name + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + mins);
-            } else {
-                int hours = hour - matches.get(i).getTime().getHour();
-                System.out.println(i + " . NAME:" + name + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + hours);
-            }
-        }
-    }
-
     public void login(Message message) {
         switch (message) {
             case INVALID_ACCOUNT:
@@ -106,65 +74,6 @@ public class View {
                     " - Wins : " + accounts.get(i).getWins());
         }
 
-    }
-
-
-    public void printInsertionMessage(Message message, Battle battle) {
-        switch (message) {
-            case FULL_CELL:
-                System.out.println("This cell is full.");
-                break;
-            case INVALID_TARGET:
-                System.out.println("You are out of range, please insert card near a comrade minion or your hero");
-                break;
-            case INSUFFICIENT_MANA:
-                System.out.println("Your mana is not sufficient!");
-                break;
-            case SUCCESSFUL_INSERT:
-                drawMap(battle);
-        }
-    }
-
-    public void comboErrors(Message message) {
-        switch (message) {
-            case INVALID_TARGET:
-                System.out.println("Target doesn't exist");
-                break;
-            case UNAVAILABLE:
-                System.out.println("Target out of range");
-                break;
-            case NOT_ABLE_TO_ATTACK:
-                System.out.println("Not all selected cards are able to combo attack");
-                break;
-        }
-    }
-
-    public void printGameInfo(Battle battle) {
-        System.out.println("Game Type: " + battle.getGameType());
-        System.out.println("Battle Mode: " + battle.getMode());
-        if (battle.getMode().equals(BattleMode.COLLECTING)) {
-            System.out.println("Player1 :" + battle.getAccounts()[0].getName() + " flags collected:" + battle.getAccounts()[0].getFlagsCollected());
-            System.out.println("Player2 :" + battle.getAccounts()[1].getName() + " flags collected:" + battle.getAccounts()[1].getFlagsCollected());
-        }
-        if (battle.getMode().equals(BattleMode.FLAG)) {
-            System.out.println("Flagholder: ");
-            if (battle.getMainFlag().getFlagHolder() != null) {
-                Card card = Card.getCardByID(battle.getMainFlag().getFlagHolder().getId(), battle.getFieldCards()[0]);
-                if (card != null)
-                    System.out.print(battle.getAccounts()[0].getName());
-                else System.out.print(battle.getAccounts()[1].getName());
-                System.out.print(" For number of turns: " + battle.getMainFlag().getTurnCounter());
-            } else {
-                System.out.print("NO ONE !");
-            }
-
-
-        }
-        if (battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
-            System.out.println("Player1 :" + battle.getAccounts()[0].getName() + " hero health points:" + battle.getFieldCards()[0][0].getHealthPoint());
-            System.out.println("Player2 :" + battle.getAccounts()[1].getName() + " hero health points:" + battle.getFieldCards()[1][0].getHealthPoint());
-
-        }
     }
 
 
