@@ -38,6 +38,7 @@ public class Controller {
     private int[][] heroId = new int[2][2];
     private int[] lastSelectedCardId = {0,0};
     private BattleCards[] battleCards = new BattleCards[40];
+    private BattleCards[] handCardGifs = new BattleCards[5];
     private int[] currentCardId = {0,0};
     private BattleCards battleCard = new BattleCards();
     private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
@@ -50,7 +51,7 @@ public class Controller {
     private Controller() {
         initializeGame();
         for (int i = 0; i <40 ; i++) {
-            battleCards[i].setImageView(new ImageView());
+            battleCards[i].setImageView(new ImageView[3]);
         }
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new Button();
@@ -63,6 +64,7 @@ public class Controller {
         }
         for (int i = 0; i < 5; i++) {
             handCards[i] = new ImageView();
+            handCardGifs[i].setImageView(new ImageView[3]);
         }
         for (int i = 0; i < imageViews.length; i++) {
             imageViews[i] = new ImageView();
@@ -190,11 +192,92 @@ public class Controller {
 
     }
 
+    public void setGifForCards (ImageView[] imageViews, Card card){
+        switch (card.getName()){
+            case "PERSIAN_ARCHER":
+            case "PERSIAN_SWORDS_WOMAN":
+            case "PERSIAN_LANCER":
+            case "PERSIAN_HORSEMAN":
+            case "PERSIAN_CHAMPION":
+            case "PERSIAN_COMMANDER":
+                imageViews[0]= new ImageView(new Image(""));
+                imageViews[1]= new ImageView(new Image(""));
+                imageViews[2]= new ImageView(new Image(""));
+                break;
+            case "TURANIAN_ARCHER":
+            case "TURANIAN_CATAPULT":
+            case "TURANIAN_LANCER":
+            case "TURANIAN_SPY":
+            case "TURANIAN_MACER":
+            case "TURANIAN_PRINCE":
+                imageViews[0]= new ImageView(new Image(""));
+                imageViews[1]= new ImageView(new Image(""));
+                imageViews[2]= new ImageView(new Image(""));
+                break;
+            case "BLACK_GIANT":
+            case "CATAPULT_GIANT":
+            case "HOG_RIDER_GIANT":
+            case "TWO_HEADED_GIANT":
+            case "GONDE_BACK_GIANT":
+                imageViews[0]= new ImageView(new Image(""));
+                imageViews[1]= new ImageView(new Image(""));
+                imageViews[2]= new ImageView(new Image(""));
+                break;
+            case "EAGLE":
+            case "CYCLOPS":
+            case "VENOM_SNAKE":
+                imageViews[0]= new ImageView(new Image(""));
+                imageViews[1]= new ImageView(new Image(""));
+                imageViews[2]= new ImageView(new Image(""));
+                break;
+            case "DRAGON":
+            case "LION":
+            case "GIANT_SNAKE":
+                imageViews[0]= new ImageView(new Image(""));
+                imageViews[1]= new ImageView(new Image(""));
+                imageViews[2]= new ImageView(new Image(""));
+                break;
+            case "WHITE_WOLF":
+            case "PALANG":
+            case "WOLF":
+            case "WILD_HOG":
+                imageViews[0]= new ImageView(new Image(""));
+                imageViews[1]= new ImageView(new Image(""));
+                imageViews[2]= new ImageView(new Image(""));
+                break;
+            case "WITCH":
+            case "NANE_WITCH":
+            case "JEN":
+            case "PIRAN":
+                imageViews[0]= new ImageView(new Image(""));
+                imageViews[1]= new ImageView(new Image(""));
+                imageViews[2]= new ImageView(new Image(""));
+                break;
+            case "GIV":
+            case "BAHMAN":
+            case "ASHKBOOS":
+            case "IRAJ":
+                imageViews[0]= new ImageView(new Image(""));
+                imageViews[1]= new ImageView(new Image(""));
+                imageViews[2]= new ImageView(new Image(""));
+                break;
+            case "NANE_SARMA":
+            case "FOOLADZEREH":
+            case "SIAVASH":
+            case "SHAGHUL":
+            case "ARZHANG":
+                imageViews[0]= new ImageView(new Image(""));
+                imageViews[1]= new ImageView(new Image(""));
+                imageViews[2]= new ImageView(new Image(""));
+                break;
+        }
+    }
+
     public void handleBattleCards(){
         for (int i = 0; i < 40 ; i++) {
             if(battleCards[i].getCardId()!=0){
                 int finalI = i;
-                battleCards[i].getImageView().setOnMouseClicked(event -> battleCard=battleCards[finalI]);
+                battleCards[i].getImageView()[0].setOnMouseClicked(event -> battleCard=battleCards[finalI]);
             }
         }
     }
