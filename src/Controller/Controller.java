@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
+import sun.security.util.Password;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class Controller {
     private Account account;
     private Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
-    private transient PasswordField passwordField = new PasswordField();
+   // private transient PasswordField passwordField = new PasswordField();
     private transient Label[] labels = new Label[Labels.values().length];
     private transient ImageView[] imageViews = new ImageView[ImageViews.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
@@ -36,7 +38,6 @@ public class Controller {
     private int[] lastSelectedCardId = {0,0};
     private int[] currentCardId = {0,0};
     private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
-    private transient ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
     File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
     Media media = new Media(file.toURI().toString());
@@ -304,20 +305,15 @@ public class Controller {
                 view.shopMenu(heroes[0], minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
                         imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
-                view.shopMenu(heroes, minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
-                        imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
-                file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case COLLECTION:
-                view.collectionMenu(buttons[Buttons.CREATE_DECK.ordinal()], buttons[Buttons.EXIT.ordinal()], fields[Texts.DECKNAME.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
                 media = new Media(file.toURI().toString());
                 view.collectionMenu(account, imageViews[ImageViews.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
                         imageViews[ImageViews.BACK.ordinal()], imageViews[ImageViews.NEXT.ordinal()],
                         imageViews[ImageViews.PREV.ordinal()]);
-                file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -660,7 +656,7 @@ public class Controller {
 
     private void createAccount() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
-        String password = passwordField.getText();
+        String password = fields[Texts.PASSWORD.ordinal()].getText();
         this.account = new Account(username, password);
         menu.setStat(MenuStat.ACCOUNT);
         main();
@@ -687,8 +683,8 @@ public class Controller {
 
     private void login() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
-        String password = passwordField.getText();
-        if (Account.login(username, password) == Message.SUCCESSFUL_LOGIN) {
+       // String password = passwordField.getText();
+        if (Account.login(username, fields[Texts.PASSWORD.ordinal()].getText()) == Message.SUCCESSFUL_LOGIN) {
             this.account = game.getAccounts().get(Account.accountIndex(username));
             menu.setStat(MenuStat.ACCOUNT);
             main();

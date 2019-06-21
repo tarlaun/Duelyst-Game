@@ -41,8 +41,8 @@ public class View {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
-    private Image cursor = new Image("ui/mouse_auto.png");
-    private Image battleCursor = new Image("ui/mouse_attack.png");
+   // private Image cursor = new Image("resources/ui/mouse_auto.png");
+    private Image battleCursor = new Image("resources/ui/mouse_attack.png");
 
 
     private View() {
@@ -50,9 +50,9 @@ public class View {
     }
 
     public Scene getScene() {
-        Image icon = new Image("booster_pack_opening/booster_orb.png");
+        Image icon = new Image("resources/booster_pack_opening/booster_orb.png");
 
-        scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
+        //scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
         return scene;
     }
 
@@ -1113,15 +1113,6 @@ public class View {
 
     }
 
-    public void shopMenu(ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
-                         ImageView back, ImageView next, ImageView prev) {
-        root.getChildren().clear();
-        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
-        ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
-        scrollPane(backView, rightArrow, leftArrow, next, prev, back);
-        root.getChildren().addAll(backView, next, prev, back, rightArrow, leftArrow);
-    }
-
 
     public void collectionMenu(Account account, ImageView createDeck, TextField name, ImageView back, ImageView next, ImageView prev) {
         root.getChildren().clear();
@@ -1181,7 +1172,7 @@ public class View {
                         AnchorPane anchorPane = cards.get(index).getCardView().getPane();
                         anchorPane.setLayoutX(Constants.CARD_X + j * (Constants.CARD_WIDTH + Constants.CARD_X_GAP));
                         anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
-                        lightning(anchorPane);
+                        //lightning(anchorPane);
                         root.getChildren().add(anchorPane);
                     } catch (Exception e) {
 
@@ -1191,30 +1182,15 @@ public class View {
         }
     }
 
-    private void lightning(Node... nodes) {
     private void lightning(ImageView... imageViews) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
         Glow glow = new Glow();
         glow.setLevel(0.9);
-        for (Node singlePview : nodes) {
-            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
-            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> nodes[0].setEffect(null));
-        }
-    }
         for (ImageView singlePview :
                 imageViews) {
             singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-    private void lightning(AnchorPane anchorPane) {
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-0.5);
-        Glow glow = new Glow();
-        glow.setLevel(0.9);
-        anchorPane.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> anchorPane.setEffect(colorAdjust));
-        anchorPane.addEventFilter(MouseEvent.MOUSE_EXITED, e -> anchorPane.setEffect(null));
-    }
-
+                singlePview.setEffect(colorAdjust);
             });
             singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
                 singlePview.setEffect(null);
