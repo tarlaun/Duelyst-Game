@@ -89,7 +89,7 @@ public class Controller {
         return controller;
     }
 
-    public void initializeGame() {
+    private void initializeGame() {
         try {
             game.initializeAccounts();
         } catch (IOException f) {
@@ -278,7 +278,7 @@ public class Controller {
         return imageViews;
     }
 
-    public void handleBattleCards(){
+    private void handleBattleCards(){
         for (int i = 0; i < 40 ; i++) {
             if(battleCards[i].getCardId()!=0){
                 int finalI = i;
@@ -287,7 +287,7 @@ public class Controller {
         }
     }
 
-    public void handleHeroGifs() {
+    private void handleHeroGifs() {
         for (int i = 0; i < 2; i++) {
             int a = i;
             heroes[heroId[i][0]][0].setOnMouseClicked(event -> {
@@ -312,7 +312,7 @@ public class Controller {
         }
     }
 
-    public void handlePolygon() {
+    private void handlePolygon() {
         for (int i = 0; i < polygon.length; i++) {
             int a = i;
             polygon[i].setOnMouseClicked(event -> {
@@ -323,7 +323,7 @@ public class Controller {
         }
     }
 
-    public void handleButtons() {
+    private void handleButtons() {
         buttons[Buttons.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
         buttons[Buttons.LOGIN.ordinal()].setOnMouseClicked(event -> login());
         buttons[Buttons.EXIT.ordinal()].setOnMouseClicked(event -> exit());

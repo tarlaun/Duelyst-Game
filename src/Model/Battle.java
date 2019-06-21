@@ -24,7 +24,7 @@ public class Battle {
     private BattleMode mode;
     private GameType gameType;
     private int saveTurn;
-    public int opponentCardID = 0;
+    private int opponentCardID = 0;
     private Process process;
     private Card[][] fieldCards = new Card[2][Constants.MAXIMUM_DECK_SIZE + 1];
     private int level;
@@ -40,62 +40,16 @@ public class Battle {
     private boolean attackMode;
     private boolean isOnSpawn;
 
-    public Card[][] getGraveyard() {
-        return graveyard;
-    }
-
-    public ArrayList<Item> getBattleCollectibles() {
-        return battleCollectibles;
-    }
-
-    public Process getProcess() {
-        return process;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
     public Shop getShop() {
         return shop;
     }
-
-    public Random getRand() {
-        return rand;
-    }
-
-    public Match getFirstPlayerMatch() {
-        return firstPlayerMatch;
-    }
-
-    public Match getSecondPlayerMatch() {
-        return secondPlayerMatch;
-    }
-
-    public int getFlagsAppeared() {
-        return flagsAppeared;
-    }
-
 
     public static Battle getBattle() {
         return battle;
     }
 
-    public boolean isAttackMode() {
-        return attackMode;
-    }
-
-    public boolean isOnSpawn() {
-        return isOnSpawn;
-    }
-
     private Battle() {
     }
-
-    public void setProcess(Process process) {
-        this.process = process;
-    }
-
     public int getLevel() {
         return level;
     }
@@ -106,14 +60,6 @@ public class Battle {
 
     public ArrayList<Flag> getFlagsOnTheGround() {
         return flagsOnTheGround;
-    }
-
-    public void setFlagsOnTheGround(ArrayList<Flag> flagsOnTheGround) {
-        this.flagsOnTheGround = flagsOnTheGround;
-    }
-
-    public Item[][] getCollectibles() {
-        return collectibles;
     }
 
     public Battle(Account[] accounts, GameType gameType, BattleMode mode) {
@@ -143,9 +89,9 @@ public class Battle {
         this.gameType = gameType;
     }
 
-    public Message startBattle() {
+    public void startBattle() {
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
-            return Message.INVALID_PLAYERS;
+            return;
         }
         randomizeDeck(0);
         randomizeDeck(1);
@@ -172,7 +118,6 @@ public class Battle {
         fieldCards[1][0] = accounts[1].getCollection().getMainDeck().getHero();
         currentPlayer = accounts[0];
         useItem(currentPlayer.getCollection().getMainDeck().getItem());
-        return Message.BATTLE_STARTED;
     }
 
     public boolean checkForWin() {
@@ -318,35 +263,30 @@ public class Battle {
     }
 
 
-    public void showCardInfo(int cardId) {
-
-    }
-
-    public boolean selectCard(int cardId) {
+    public void selectCard(int cardId) {
         Card card = Card.getCardByID(cardId, fieldCards[turn % 2]);
         if (card == null) {
-            return false;
+            return;
         }
         currentCard = card;
         currentCoordinate = currentCard.getCoordinate();
-        return true;
     }
 
-    public boolean moveTo(Coordinate coordinate) {
+    public void moveTo(Coordinate coordinate) {
         System.out.println("shit");
         if (currentCard == null)
-            return false;
+            return;
         if (!currentCard.isAbleToMove())
-            return false;
+            return;
         if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
                 || coordinate.getY() < 0 || coordinate.getX() < 0)
-            return false;
+            return;
         if (currentCard.getCoordinate() == coordinate) {
             currentCard.setAbleToMove(false);
-            return true;
+            return;
         }
         if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
-            return false;
+            return;
         }
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
         currentCard.setCoordinate(coordinate);
@@ -363,19 +303,15 @@ public class Battle {
             holdMainFlag();
         }
         currentCard.setAbleToMove(false);
-        return true;
 
     }
 
-    public boolean isAttackable(Card currentCard, Card targetCard) {
+    private boolean isAttackable(Card currentCard, Card targetCard) {
         if (targetCard.getBuffs().get(0).getType().equals(BuffType.NEGATIVE_DISPEL)) {
             return false;
         }
-        if (targetCard.getBuffs().get(0).getType().equals(BuffType.ASHBUS) &&
-                targetCard.getAssaultPower() > currentCard.getAssaultPower()) {
-            return false;
-        }
-        return true;
+        return !targetCard.getBuffs().get(0).getType().equals(BuffType.ASHBUS) ||
+                targetCard.getAssaultPower() <= currentCard.getAssaultPower();
     }
 
     public Message attack(int opponentCardId, Card currentCard) {
@@ -451,7 +387,7 @@ public class Battle {
         return turn;
     }
 
-    public Cell[][] getField() {
+    private Cell[][] getField() {
         return field;
     }
 
@@ -463,7 +399,7 @@ public class Battle {
         return gameType;
     }
 
-    public void setManaPoints() {
+    private void setManaPoints() {
         if (turn <= 14) {
             accounts[0].setMana((turn / 2) + Constants.INITIAL_MANA);
             accounts[1].setMana((turn / 2) + Constants.INITIAL_MANA + 1);
@@ -473,7 +409,7 @@ public class Battle {
         }
     }
 
-    public boolean spendMana(int mana) {
+    private boolean spendMana(int mana) {
         if (accounts[turn % 2].getMana() < mana) {
             return false;
         }
@@ -481,14 +417,14 @@ public class Battle {
         return true;
     }
 
-    public boolean spellIsReady(Buff buff) {
+    private boolean spellIsReady(Buff buff) {
         if (buff.getTurnCount() > 0) {
             return false;
         }
         return true;
     }
 
-    public void holdMainFlag() {
+    private void holdMainFlag() {
         if (currentCard.getCoordinate().equals(mainFlag.getCoordinate())) {
             mainFlag.setFlagHolder(currentCard);
             mainFlag.setHeld(true);
@@ -573,7 +509,7 @@ public class Battle {
         return null;
     }
 
-    public boolean isInRange(Card targetCard, Card currentCard) {
+    private boolean isInRange(Card targetCard, Card currentCard) {
         if (targetCard == null || currentCard == null) {
             return false;
         }
@@ -623,8 +559,7 @@ public class Battle {
             return Message.INVALID_TARGET;
         }
     }
-
-    public boolean useSpecialPowerForCombo(Card... cards) {
+    private boolean useSpecialPowerForCombo(Card... cards) {
         for (Card card : cards) {
             if (card.getBuffs().size() == 1 && !card.getBuffs().get(0).getType().equals(BuffType.COMBO)) {
                 return false;
@@ -792,16 +727,16 @@ public class Battle {
         useSpecialPower(card, card.getBuffs().get(1));
     }
 
-    public Message insertCard(Coordinate coordinate, String cardName) {
+    public void insertCard(Coordinate coordinate, String cardName) {
         boolean validTarget = false;
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
                 if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
                         || coordinate.getX() < 0 || coordinate.getY() < 0)
-                    return Message.INVALID_TARGET;
+                    return;
                 if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
-                    return Message.FULL_CELL;
+                    return;
                 }
                 for (Card card : fieldCards[turn % 2]) {
                     try {
@@ -813,32 +748,31 @@ public class Battle {
                     }
                 }
                 if (!validTarget) {
-                    return Message.INVALID_TARGET;
+                    return;
                 }
                 if (insert != null && !spendMana(insert.getManaPoint())) {
-                    return Message.INSUFFICIENT_MANA;
+                    return;
                 }
                 assert insert != null;
                 if (insert.isClass("Minion")) {
                     if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0)
-                        return Message.FULL_CELL;
+                        return;
                     field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
                     insert.setCoordinate(coordinate);
                     playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
                     fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
-                    return Message.SUCCESSFUL_INSERT;
+                    return;
                 } else if (insert.isClass("Spell")) {
                     if (useSpell(insert, coordinate)) {
                         playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
-                        return Message.SUCCESSFUL_INSERT;
+                        return;
                     }
-                    return Message.INVALID_TARGET;
+                    return;
                 }
             }
 
         }
 
-        return Message.NOT_IN_HAND;
     }
 
     public void endTurn() {
@@ -877,7 +811,7 @@ public class Battle {
                     fieldCards[i][j].setAbleToMove(true);
 
 
-                } catch (NullPointerException e) {
+                } catch (NullPointerException ignored) {
 
                 }
                 try {
@@ -886,7 +820,7 @@ public class Battle {
                             return;
                     }
                     fieldCards[i][j].setAbleToAttack(true);
-                } catch (NullPointerException e) {
+                } catch (NullPointerException ignored) {
 
                 }
             }
@@ -910,7 +844,7 @@ public class Battle {
         }
     }
 
-    public void buffTurnEnd() {
+    private void buffTurnEnd() {
         for (int i = 0; i < 2; i++) {
             for (Card card : fieldCards[i]) {
                 try {
@@ -936,7 +870,7 @@ public class Battle {
                             buffIterator.remove();
                         }
                     }
-                } catch (NullPointerException e) {
+                } catch (NullPointerException ignored) {
                 }
             }
         }
@@ -1063,8 +997,8 @@ public class Battle {
         }
     }
 
-    public void deholifyCell() {
-        for (int i = 0; i < Constants.WIDTH; i++) { //deholify cells
+    private void deholifyCell() {
+        for (int i = 0; i < Constants.WIDTH; i++) {
             for (int j = 0; j < Constants.LENGTH; j++) {
                 try {
                     if (field[i][j].isHoly()) {
@@ -1074,14 +1008,14 @@ public class Battle {
                         }
                     }
 
-                } catch (NullPointerException e) {
+                } catch (NullPointerException ignored) {
                 }
             }
 
         }
     }
 
-    public void collectFlags() {
+    private void collectFlags() {
         for (int i = 0; i < flagsOnTheGround.size(); i++) {
             if (Coordinate.getManhattanDistance(flagsOnTheGround.get(i).getCoordinate(), currentCard.getCoordinate()) == 0) {
                 accounts[turn % 2].setFlagsCollected(accounts[turn % 2].getFlagsCollected() + 1);
@@ -1093,7 +1027,7 @@ public class Battle {
     }
 
 
-    public void flagAppearance() {
+    private void flagAppearance() {
         boolean ableToAddFlag = true;
         while (ableToAddFlag) {
             int randomX = rand.nextInt(Constants.WIDTH);
@@ -1110,10 +1044,6 @@ public class Battle {
 
     public Flag getMainFlag() {
         return mainFlag;
-    }
-
-    public void setMainFlag(Flag mainFlag) {
-        this.mainFlag = mainFlag;
     }
 
     public ArrayList<Item> chooseCollectibleItems(ArrayList<Item> items) {
@@ -1136,106 +1066,100 @@ public class Battle {
 
     }
 
-    public void enterGraveyard() {
-        menu.setStat(MenuStat.GRAVEYARD);
-    }
-
-    public boolean useHeroSP(Card hero, Coordinate target) {
+    private void useHeroSP(Card hero, Coordinate target) {
         if (!spendMana(hero.getPrice())) {
-            return false;
+            return;
         }
         for (Buff buff :
                 hero.getBuffs()) {
             if (!spellIsReady(buff)) {
-                return false;
+                return;
             }
             switch (buff.getSide()) {
                 case COMRADE:
                     if (buff.getTargetType().equals("Hero")) {
                         applyBuff(buff, hero);
-                        return true;
+                        return;
                     }
                     break;
                 case ENEMY:
-                    switch (buff.getActivationType()) {
-                        case ON_ATTACK:
-                            applyBuff(buff, targetCard);
-                            return true;
-                        default:
-                            switch (buff.getEffectArea().get(0).getX()) {
-                                case -1:
-                                    if (buff.getTargetType().equals("Minion")) {
-                                        for (Card card :
-                                                fieldCards[(turn + 1) % 2]) {
-                                            if (card.getType().equals("Minion")) {
-                                                card.addToBuffs(buff);
-                                                applyBuff(buff, card);
-                                                return true;
-                                            }
+                    if (buff.getActivationType() == ActivationType.ON_ATTACK) {
+                        applyBuff(buff, targetCard);
+                        return;
+                    } else {
+                        switch (buff.getEffectArea().get(0).getX()) {
+                            case -1:
+                                if (buff.getTargetType().equals("Minion")) {
+                                    for (Card card :
+                                            fieldCards[(turn + 1) % 2]) {
+                                        if (card.getType().equals("Minion")) {
+                                            card.addToBuffs(buff);
+                                            applyBuff(buff, card);
+                                            return;
                                         }
                                     }
-                                    break;
-                                case 0:
-                                    if (buff.getTargetType().equals("Minion")) {
-                                        for (Card card :
-                                                fieldCards[(turn + 1) % 2]) {
-                                            if (card.getType().equals("Minion") &&
-                                                    card.getCoordinate().sum(buff.getEffectArea().get(0)).equals(target)) {
-                                                card.addToBuffs(buff);
-                                                applyBuff(buff, card);
-                                                return true;
-                                            }
+                                }
+                                break;
+                            case 0:
+                                if (buff.getTargetType().equals("Minion")) {
+                                    for (Card card :
+                                            fieldCards[(turn + 1) % 2]) {
+                                        if (card.getType().equals("Minion") &&
+                                                card.getCoordinate().sum(buff.getEffectArea().get(0)).equals(target)) {
+                                            card.addToBuffs(buff);
+                                            applyBuff(buff, card);
+                                            return;
                                         }
-
                                     }
-                                    if (buff.getTargetType().equals("Cell")) {
-                                        for (int i = 0; i < Constants.LENGTH; i++) {
-                                            for (int j = 0; j < Constants.WIDTH; j++) {
-                                                if (i == target.getX() && j == target.getY()) {
-                                                    field[i][j].setHoly(true);
-                                                    field[i][j].setHolyTurn(3);
-                                                    return true;
-                                                }
-                                            }
 
-                                        }
-
-                                    }
-                                    break;
-                                case Constants.ROW:
-                                    if (buff.getTargetType().equals("Card")) {
-                                        for (Card card :
-                                                fieldCards[(turn + 1) % 2]) {
-                                            if (card.getCoordinate().getX() == hero.getCoordinate().getX()) {
-                                                card.addToBuffs(buff);
-                                                applyBuff(buff, card);
-                                                return true;
+                                }
+                                if (buff.getTargetType().equals("Cell")) {
+                                    for (int i = 0; i < Constants.LENGTH; i++) {
+                                        for (int j = 0; j < Constants.WIDTH; j++) {
+                                            if (i == target.getX() && j == target.getY()) {
+                                                field[i][j].setHoly(true);
+                                                field[i][j].setHolyTurn(3);
+                                                return;
                                             }
                                         }
 
                                     }
-                                    if (buff.getTargetType().equals("Minion")) {
-                                        for (Card card :
-                                                fieldCards[(turn + 1) % 2]) {
-                                            if (card.getType().equals("Minion") &&
-                                                    card.getCoordinate().getX() == hero.getCoordinate().getX()) {
-                                                card.addToBuffs(buff);
-                                                applyBuff(buff, card);
-                                                return true;
-                                            }
-                                        }
 
+                                }
+                                break;
+                            case Constants.ROW:
+                                if (buff.getTargetType().equals("Card")) {
+                                    for (Card card :
+                                            fieldCards[(turn + 1) % 2]) {
+                                        if (card.getCoordinate().getX() == hero.getCoordinate().getX()) {
+                                            card.addToBuffs(buff);
+                                            applyBuff(buff, card);
+                                            return;
+                                        }
                                     }
-                                    break;
-                            }
+
+                                }
+                                if (buff.getTargetType().equals("Minion")) {
+                                    for (Card card :
+                                            fieldCards[(turn + 1) % 2]) {
+                                        if (card.getType().equals("Minion") &&
+                                                card.getCoordinate().getX() == hero.getCoordinate().getX()) {
+                                            card.addToBuffs(buff);
+                                            applyBuff(buff, card);
+                                            return;
+                                        }
+                                    }
+
+                                }
+                                break;
+                        }
                     }
 
             }
         }
-        return false;
     }
 
-    public boolean useSpell(Card spell, Coordinate target) {
+    private boolean useSpell(Card spell, Coordinate target) {
         for (Buff buff : spell.getBuffs()) {
             switch (buff.getEffectArea().get(0).getX()) {
                 case 0:
@@ -1248,7 +1172,7 @@ public class Battle {
                                             applyBuff(buff, card);
                                             return true;
                                         }
-                                    } catch (NullPointerException e) {
+                                    } catch (NullPointerException ignored) {
                                     }
                                 }
                                 break;
@@ -1259,7 +1183,7 @@ public class Battle {
                                             applyBuff(buff, card);
                                             return true;
                                         }
-                                    } catch (NullPointerException e) {
+                                    } catch (NullPointerException ignored) {
                                     }
                                 }
                                 break;
@@ -1271,7 +1195,7 @@ public class Battle {
                                                 applyBuff(buff, card);
                                                 return true;
                                             }
-                                        } catch (NullPointerException e) {
+                                        } catch (NullPointerException ignored) {
 
                                         }
                                     }
@@ -1288,7 +1212,7 @@ public class Battle {
                                         applyBuff(buff, card);
                                         return true;
                                     }
-                                } catch (NullPointerException e) {
+                                } catch (NullPointerException ignored) {
 
                                 }
                             }
@@ -1300,7 +1224,7 @@ public class Battle {
                                         applyBuff(buff, card);
                                         return true;
                                     }
-                                } catch (NullPointerException e) {
+                                } catch (NullPointerException ignored) {
 
                                 }
                             }
@@ -1313,7 +1237,7 @@ public class Battle {
                                             applyBuff(buff, card);
                                             return true;
                                         }
-                                    } catch (NullPointerException e) {
+                                    } catch (NullPointerException ignored) {
 
                                     }
                                 }
@@ -1330,7 +1254,7 @@ public class Battle {
                                         applyBuff(buff, card);
                                         return true;
                                     }
-                                } catch (NullPointerException e) {
+                                } catch (NullPointerException ignored) {
                                 }
                             }
                             break;
@@ -1341,7 +1265,7 @@ public class Battle {
                                         applyBuff(buff, card);
                                         return true;
                                     }
-                                } catch (NullPointerException e) {
+                                } catch (NullPointerException ignored) {
                                 }
                             }
                             break;
@@ -1353,7 +1277,7 @@ public class Battle {
                                             applyBuff(buff, card);
                                             return true;
                                         }
-                                    } catch (NullPointerException e) {
+                                    } catch (NullPointerException ignored) {
 
                                     }
                                 }
@@ -1369,7 +1293,7 @@ public class Battle {
                                         applyBuff(buff, card);
                                         return true;
                                     }
-                                } catch (NullPointerException e) {
+                                } catch (NullPointerException ignored) {
 
                                 }
                             }
@@ -1381,10 +1305,12 @@ public class Battle {
                                         applyBuff(buff, card);
                                         return true;
                                     }
-                                } catch (NullPointerException e) {
+                                } catch (NullPointerException ignored) {
 
                                 }
                             }
+                            break;
+                        case ALL:
                             break;
                         default:
                             for (Card[] cards : fieldCards) {
@@ -1394,7 +1320,7 @@ public class Battle {
                                             applyBuff(buff, card);
                                             return true;
                                         }
-                                    } catch (NullPointerException e) {
+                                    } catch (NullPointerException ignored) {
 
                                     }
                                 }
@@ -1406,7 +1332,7 @@ public class Battle {
         return false;
     }
 
-    public void applyBuff(Buff buff, Card card) {
+    private void applyBuff(Buff buff, Card card) {
         buff.setTurnCount(buff.getTurnCount() - 1);
         card.getCastedBuffs().add(buff);
         switch (buff.getType()) {
@@ -1436,36 +1362,27 @@ public class Battle {
 
     private boolean checkForValidSpellTargetSpecific(Card card, Buff buff, Coordinate target, Coordinate coordinate) {
         if (checkForValidSpellTarget(card, buff)) {
-            if (card.getCoordinate().equals(target.sum(coordinate))) {
-                return true;
-            }
+            return card.getCoordinate().equals(target.sum(coordinate));
         }
         return false;
     }
 
     private boolean checkForValidSpellTargetY(Card card, Buff buff, Coordinate target) {
         if (checkForValidSpellTarget(card, buff)) {
-            if (card.getCoordinate().getY() == target.getY()) {
-                return true;
-            }
+            return card.getCoordinate().getY() == target.getY();
         }
         return false;
     }
 
     private boolean checkForValidSpellTargetX(Card card, Buff buff, Coordinate target) {
         if (checkForValidSpellTarget(card, buff)) {
-            if (card.getCoordinate().getX() == target.getX()) {
-                return true;
-            }
+            return card.getCoordinate().getX() == target.getX();
         }
         return false;
     }
 
     private boolean checkForValidSpellTarget(Card card, Buff buff) {
-        if (card.isClass(buff.getTargetType()) || buff.getTargetType().equals("Card")) {
-            return true;
-        }
-        return false;
+        return card.isClass(buff.getTargetType()) || buff.getTargetType().equals("Card");
     }
 
     //******************************************************************************************************************
@@ -2056,20 +1973,6 @@ public class Battle {
             resign();
         }
     }
-
-   /* private void randomizeDeck(int current) {
-        ArrayList<Card> random = new ArrayList<>();
-        Deck deck = accounts[current].getCollection().getMainDeck();
-        int r;
-        for (int i = Constants.MAXIMUM_DECK_SIZE; i > 0; i--) {
-            r = rand.nextInt(i);
-            random.add(deck.getCards().get(r));
-            deck.getCards().remove(r);
-        }
-        accounts[current].getCollection().getMainDeck().setCards(random);
-
-
-    }*/
 
     private void addToHand(int current) {
         Deck deck = accounts[current].getCollection().getMainDeck();
