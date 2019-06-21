@@ -153,7 +153,19 @@ public class View {
         endTurnButton(view, labels);
         mana(accounts[0], mana);
         handCardRings(handcards);
-
+        for (int i = 0; i <5 ; i++) {
+            System.out.println(battleCards[i].getCard().getName());
+            battleCards[i].getImageView()[0].relocate(250 + 120 * i, 490);
+            battleCards[i].getImageView()[0].setFitHeight(160);
+            battleCards[i].getImageView()[0].setFitWidth(160);
+            if(battleCards[i].getCard().getType().equals("Spell")){
+                battleCards[i].getImageView()[0].relocate(290 + 120 * i, 545);
+                battleCards[i].getImageView()[0].setFitHeight(80);
+                battleCards[i].getImageView()[0].setFitWidth(80);
+            }
+            lightning( battleCards[i].getImageView()[0]);
+            root.getChildren().add(battleCards[i].getImageView()[0]);
+        }
 
     }
 
