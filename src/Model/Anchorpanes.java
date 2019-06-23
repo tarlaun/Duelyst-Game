@@ -4,5 +4,7 @@ public enum Anchorpanes {
     BACK,
     NEXT,
     PREV,
-    CREATE
+    CREATE,
+    SELL,
+    BUY
 }
