@@ -993,6 +993,24 @@ public class View {
         }
     }
 
+    public void verticalList(Alignment alignment, double x, double y, AnchorPane... anchorPanes) {
+        for (int i = 0; i < anchorPanes.length; i++) {
+            if (alignment == Alignment.CENTRE)
+                anchorPanes[i].setLayoutX(x);
+            if (alignment == Alignment.RIGHT || alignment == Alignment.LEFT) {
+                anchorPanes[i].setLayoutX(x + anchorPanes[i].getPrefWidth() / 2);
+            }
+        }
+        anchorPanes[anchorPanes.length / 2].setLayoutY(y + anchorPanes[anchorPanes.length / 2].getPrefHeight() / 2 +
+                ((anchorPanes.length + 1) % 2) * (anchorPanes[anchorPanes.length / 2]).getPrefHeight() / 2);
+        for (int i = anchorPanes.length / 2 - 1; i >= 0; i--) {
+            anchorPanes[i].setLayoutY(anchorPanes[i + 1].getLayoutY() - 2 * anchorPanes[i].getPrefHeight());
+        }
+        for (int i = anchorPanes.length / 2 + 1; i < anchorPanes.length; i++) {
+            anchorPanes[i].setLayoutY(anchorPanes[i - 1].getLayoutY() + 2 * anchorPanes[i].getPrefHeight());
+        }
+    }
+
     private void setPaneSize(double width, double height, AnchorPane... panes) {
         for (AnchorPane pane : panes) {
             pane.setPrefWidth(width);
@@ -1096,12 +1114,39 @@ public class View {
 
     }
 
-    public void shopMenu(ArrayList<Card> cards, ArrayList<Item> items,
-                         AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
+    public void shopMenu(ArrayList<Card> cards, ArrayList<Item> items, AnchorPane back, AnchorPane next,
+                         AnchorPane prev, AnchorPane sell, AnchorPane buy, int page) {
         root.getChildren().clear();
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        ImageView buyView = new ImageView(new Image("ui/button_confirm_glow@2x.png"));
+        ImageView sellView = new ImageView(new Image("ui/button_cancel_glow@2x.png"));
+        Label sellText = new Label("Sell");
+        Label buyText = new Label("Buy");
+        sellText.translateXProperty().bind(sellText.widthProperty().divide(2).negate());
+        sellText.translateYProperty().bind(sellText.heightProperty().divide(2).negate());
+        buyText.translateXProperty().bind(buyText.widthProperty().divide(2).negate());
+        buyText.translateYProperty().bind(buyText.heightProperty().divide(2).negate());
+        sellText.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.SELL_TEXT_SIZE));
+        sellText.setTextFill(Color.NAVY);
+        buyText.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.SELL_TEXT_SIZE));
+        buyText.setTextFill(Color.NAVY);
+        sellView.setFitWidth(Constants.SELL_WIDTH);
+        sellView.setFitHeight(Constants.SELL_HEIGHT);
+        buyView.setFitWidth(Constants.SELL_WIDTH);
+        buyView.setFitHeight(Constants.SELL_HEIGHT);
+        buyText.relocate(buyView.getFitWidth() / 2, buyView.getFitHeight() / 2);
+        sellText.relocate(sellView.getFitWidth() / 2, sellView.getFitHeight() / 2);
+        sell.getChildren().addAll(sellView, sellText);
+        buy.getChildren().addAll(buyView, buyText);
+        sell.setPrefWidth(sellView.getFitWidth());
+        sell.setPrefHeight(sellView.getFitHeight());
+        buy.setPrefWidth(buyView.getFitWidth());
+        buy.setPrefHeight(buyView.getFitHeight());
+        verticalList(Alignment.LEFT, Constants.SELL_PANE_X, Constants.CENTRE_Y, buy, sell);
         scrollPane(backView, next, prev, back);
-        root.getChildren().addAll(backView, next, prev, back);
+        lightning(buy);
+        lightning(sell);
+        root.getChildren().addAll(backView, sell, buy, next, prev, back);
         showCards(cards, items, page);
     }
 
@@ -1187,6 +1232,26 @@ public class View {
         }
     }
 
+    private void stableLighning(Node... nodes) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.6);
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+        for (int i = 0; i < nodes.length; i++) {
+            int finalI = i;
+//            nodes[i].addEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[finalI].setEffect(colorAdjust));
+            nodes[i].addEventFilter(MouseEvent.MOUSE_CLICKED, e -> nodes[finalI].setEffect(colorAdjust));
+            nodes[i].addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                for (int j = 0; j < nodes.length; j++) {
+                    if (finalI != j) {
+                        int finalJ = j;
+                        nodes[finalJ].addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, e -> nodes[finalJ].setEffect(null));
+                    }
+                }
+            });
+        }
+    }
+
     private void lightning(Node... nodes) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
@@ -1194,7 +1259,7 @@ public class View {
         glow.setLevel(0.9);
         for (Node singlePview : nodes) {
             singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
-            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> nodes[0].setEffect(null));
+            singlePview.removeEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
         }
     }
 
