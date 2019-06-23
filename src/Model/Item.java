@@ -1,14 +1,19 @@
 package Model;
 
+import View.CardView;
+
 import java.util.ArrayList;
 
 public class Item {
     private int id;
     private String name;
     private int price;
+    private String idleSrc;
+    private String attackSrc;
     private ArrayList<ItemBuff> buffs = new ArrayList<>();
+    private transient CardView cardView = new CardView(this);
 
-    public Item(){
+    public Item() {
 
     }
 
@@ -26,9 +31,13 @@ public class Item {
     }
 
     public Item(Item item) {
+        this.idleSrc = item.idleSrc;
+        this.attackSrc = item.attackSrc;
+        this.id = item.id;
         this.name = item.name;
         this.price = item.price;
         this.buffs = item.buffs;
+        cardView = new CardView(item);
     }
 
     public int getId() {
@@ -84,5 +93,25 @@ public class Item {
                 return item;
         }
         return null;
+    }
+
+    public CardView getCardView() {
+        return this.cardView;
+    }
+
+    public String getIdleSrc() {
+        return idleSrc;
+    }
+
+    public void setIdleSrc(String idleSrc) {
+        this.idleSrc = idleSrc;
+    }
+
+    public String getAttackSrc() {
+        return attackSrc;
+    }
+
+    public void setAttackSrc(String attackSrc) {
+        this.attackSrc = attackSrc;
     }
 }
