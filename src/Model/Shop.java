@@ -41,6 +41,21 @@ public class Shop {
         return -1;
     }
 
+    public Object searchByName(String objectName) {
+        for (Card card : cards) {
+            if (card.getName().equals(objectName)) {
+                return card;
+            }
+        }
+        for (Item item : items) {
+            if (item.getName().equals(objectName)) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
     public ArrayList<Integer> searchCollection(String objectName, Collection collection) {
         ArrayList<Integer> list = new ArrayList<>();
         for (Card card : collection.getCards()) {
