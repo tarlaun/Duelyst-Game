@@ -213,6 +213,7 @@ public class Game {
                         Hero hero = new Gson().fromJson(reader, Hero.class);
                         hero.setType("Hero");
                         hero.setId(++lastHeroId);
+                        hero = new Hero(hero);
                         shop.getCards().add(hero);
                     }
                 }
@@ -230,6 +231,7 @@ public class Game {
                         Minion minion = new Gson().fromJson(reader, Minion.class);
                         minion.setType("Minion");
                         minion.setId(++lastMinionId);
+                        minion = new Minion(minion);
                         shop.getCards().add(minion);
                     }
                 }
@@ -247,6 +249,7 @@ public class Game {
                         Spell spell = new Gson().fromJson(reader, Spell.class);
                         spell.setType("Spell");
                         spell.setId(++lastSpellId);
+                        spell = new Spell(spell);
                         shop.getCards().add(spell);
                     }
                 }
@@ -263,6 +266,7 @@ public class Game {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Item item = new Gson().fromJson(reader, Item.class);
                         item.setId(++lastItemId);
+                        item = new Item(item);
                         shop.getItems().add(item);
                     }
                 }
