@@ -2,6 +2,7 @@ package View;
 
 import Model.Card;
 import Model.Constants;
+import Model.Item;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -69,6 +70,29 @@ public class CardView {
                 character.setLayoutY(Constants.GIF_HEIGHT / 4);
                 pane.getChildren().addAll(template, character, type);
             }
+            pane.setOnMouseClicked(event -> System.out.println(character.getId()));
+        } catch (Exception e) {
+
+        }
+    }
+
+    public CardView(Item item) {
+        try {
+            character = new ImageView(new Image(item.getIdleSrc()));
+            template = new ImageView(new Image("card_backgrounds/craftable_artifact@2x.png"));
+            character.setId(Integer.toString(item.getId()));
+            template.setFitHeight(Constants.CARD_HEIGHT);
+            template.setFitWidth(Constants.CARD_WIDTH);
+            character.setFitHeight(Constants.GIF_HEIGHT / 2);
+            character.setFitWidth(Constants.GIF_WIDTH / 2);
+            character.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 4);
+            character.setLayoutY(Constants.GIF_HEIGHT / 4);
+            type = new Label("Item");
+            type.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
+            type.setTextFill(Color.LIGHTCYAN);
+            type.translateXProperty().bind(type.widthProperty().divide(2).negate());
+            type.relocate(Constants.CARD_TYPE_X, Constants.CARD_TYPE_Y);
+            pane.getChildren().addAll(template, character, type);
             pane.setOnMouseClicked(event -> System.out.println(character.getId()));
         } catch (Exception e) {
 
