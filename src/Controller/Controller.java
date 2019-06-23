@@ -34,7 +34,7 @@ public class Controller {
     private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
     private Media media = new Media(file.toURI().toString());
     private MediaPlayer player = new MediaPlayer(media);
-    private int collectionPage = 0;
+    private int collectionPage = 0, shopPage = 0;
 
     private Controller() {
         initializeGame();
@@ -282,8 +282,8 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(heroes, minions, spells, items, anchorPanes[Anchorpanes.BACK.ordinal()],
-                        anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()]);
+                view.shopMenu(shop, anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
+                        anchorPanes[Anchorpanes.PREV.ordinal()], shopPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -347,14 +347,23 @@ public class Controller {
         });
         anchorPanes[Anchorpanes.BACK.ordinal()].setOnMouseClicked(event -> exit());
         anchorPanes[Anchorpanes.PREV.ordinal()].setOnMouseClicked(event -> {
-            if (collectionPage > 0) {
-                collectionPage -= 1;
+            if (menu.getStat() == MenuStat.COLLECTION && collectionPage > 0) {
+                collectionPage--;
+                main();
+            }
+            if (menu.getStat() == MenuStat.SHOP && shopPage > 0) {
+                shopPage--;
                 main();
             }
         });
         anchorPanes[Anchorpanes.NEXT.ordinal()].setOnMouseClicked(event -> {
-            if (collectionPage < account.getCollection().getCards().size() / Constants.CARD_PER_PAGE) {
-                collectionPage += 1;
+            if (menu.getStat() == MenuStat.COLLECTION &&
+                    collectionPage < account.getCollection().getCards().size() / Constants.CARD_PER_PAGE) {
+                collectionPage++;
+                main();
+            }
+            if (menu.getStat() == MenuStat.SHOP && shopPage < shop.getCards().size() / Constants.CARD_PER_PAGE) {
+                shopPage++;
                 main();
             }
         });
