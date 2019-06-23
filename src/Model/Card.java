@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Card {
+    private String idleSrc;
+    private String deathSrc;
+    private String runSrc;
+    private String attackSrc;
     private int id;
     private String name;
     private String type;
@@ -112,6 +116,14 @@ public class Card {
         }
     }
 
+    public int getRecievedHit() {
+        return recievedHit;
+    }
+
+    public void setRecievedHit(int recievedHit) {
+        this.recievedHit = recievedHit;
+    }
+
     public boolean isAbleToCounter() {
         return ableToCounter;
     }
@@ -121,6 +133,10 @@ public class Card {
     }
 
     public Card(Card card) {
+        this.idleSrc = card.idleSrc;
+        this.attackSrc = card.attackSrc;
+        this.runSrc = card.runSrc;
+        this.deathSrc = card.deathSrc;
         this.id = card.id;
         this.name = card.name;
         this.price = card.price;
@@ -338,5 +354,37 @@ public class Card {
 
     public void setAttackCount(int i, int j, int k) {
         this.attackCount[i][j] = k;
+    }
+
+    public String getIdleSrc() {
+        return idleSrc;
+    }
+
+    public void setIdleSrc(String idleSrc) {
+        this.idleSrc = idleSrc;
+    }
+
+    public String getDeathSrc() {
+        return deathSrc;
+    }
+
+    public void setDeathSrc(String deathSrc) {
+        this.deathSrc = deathSrc;
+    }
+
+    public String getRunSrc() {
+        return runSrc;
+    }
+
+    public void setRunSrc(String runSrc) {
+        this.runSrc = runSrc;
+    }
+
+    public String getAttackSrc() {
+        return attackSrc;
+    }
+
+    public void setAttackSrc(String attackSrc) {
+        this.attackSrc = attackSrc;
     }
 }
