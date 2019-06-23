@@ -63,6 +63,8 @@ public class Constants {
     public static final double CARD_POWER_X = 3.0 / 16.0 * CARD_WIDTH;
     public static final double CARD_HEALTH_X = CARD_POWER_X * 3.7;
     public static final double CARD_INFO_Y = 6.0 / 11.0 * CARD_HEIGHT;
+    public static final double CARD_TYPE_Y = 10.0;
+    public static final double CARD_TYPE_X = CARD_POWER_X * 2.6;
     public static final int CARD_PER_ROW = 3;
     public static final int CARD_PER_COLUMN = 2;
     public static final int CARD_PER_PAGE = CARD_PER_ROW * CARD_PER_COLUMN;
