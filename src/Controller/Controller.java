@@ -35,6 +35,8 @@ public class Controller {
     private Media media = new Media(file.toURI().toString());
     private MediaPlayer player = new MediaPlayer(media);
     private int collectionPage = 0, shopPage = 0;
+    private ArrayList<Card> cardsInShop = shop.getCards();
+    private ArrayList<Item> itemsInShop = shop.getItems();
 
     private Controller() {
         initializeGame();
@@ -282,8 +284,8 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(shop, anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
-                        anchorPanes[Anchorpanes.PREV.ordinal()], shopPage);
+                view.shopMenu(cardsInShop, itemsInShop, anchorPanes[Anchorpanes.BACK.ordinal()],
+                        anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()], shopPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -358,11 +360,13 @@ public class Controller {
         });
         anchorPanes[Anchorpanes.NEXT.ordinal()].setOnMouseClicked(event -> {
             if (menu.getStat() == MenuStat.COLLECTION &&
-                    collectionPage < account.getCollection().getCards().size() / Constants.CARD_PER_PAGE) {
+                    collectionPage < (account.getCollection().getCards().size() + account.getCollection().getItems().size())
+                            / Constants.CARD_PER_PAGE) {
                 collectionPage++;
                 main();
             }
-            if (menu.getStat() == MenuStat.SHOP && shopPage < shop.getCards().size() / Constants.CARD_PER_PAGE) {
+            if (menu.getStat() == MenuStat.SHOP && shopPage < (cardsInShop.size() + itemsInShop.size())
+                    / Constants.CARD_PER_PAGE) {
                 shopPage++;
                 main();
             }
