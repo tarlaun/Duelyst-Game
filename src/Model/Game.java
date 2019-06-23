@@ -119,7 +119,6 @@ public class Game {
 
     public void save(Account account) throws OutOfMemoryError {
         String json = new Gson().toJson(account);
-        System.out.println("Hey Buggy!");
         try {
             FileWriter writer = new FileWriter(account.getName() + ".json");
             writer.write(json);
@@ -174,6 +173,23 @@ public class Game {
         try {
             lastItemId = account.getCollection().getItems().get(account.getCollection().getItems().size() - 1).getId();
         } catch (Exception e) {
+        }
+    }
+
+    public void setSrcs() {
+        for (int i = 0; i < accounts.size(); i++) {
+            for (int j = 0; j < accounts.get(i).getCollection().getCards().size(); j++) {
+                try {
+                    Card card = new Card((Card) shop.searchByName(accounts.get(i).getCollection().getCards().get(j).getName()));
+                    card.setId(accounts.get(i).getCollection().getCards().get(j).getId());
+                    accounts.get(i).getCollection().getCards().set(j, card);
+                } catch (Exception e) {
+                    Card card = accounts.get(i).getCollection().getCards().get(j);
+                    System.out.println(card.getName());
+                    System.out.println(card.getId());
+                    System.out.println(card.getIdleSrc());
+                }
+            }
         }
     }
 
