@@ -2,6 +2,8 @@
   "id": 0,
   "name": "SAGACITY_CROWN",
   "price": 300,
+  "idleSrc": "gifs/Items/Sunstone Bracers_actionbar.gif",
+  "attackSrc": "gifs/Items/Sunstone Bracers_active.gif",
   "buffs": [
     {
       "type": "MANA",
