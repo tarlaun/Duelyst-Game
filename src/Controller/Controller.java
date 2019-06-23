@@ -4,13 +4,10 @@ import Model.*;
 import Model.Menu;
 import View.*;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.Polygon;
-import javafx.scene.text.Text;
-import sun.security.util.Password;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,25 +22,19 @@ public class Controller {
     private Account account;
     private Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
-   // private transient PasswordField passwordField = new PasswordField();
+    private transient PasswordField passwordField = new PasswordField();
     private transient Label[] labels = new Label[Labels.values().length];
-    private transient ImageView[] imageViews = new ImageView[ImageViews.values().length];
+    private transient AnchorPane[] anchorPanes = new AnchorPane[Anchorpanes.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
-    private transient ImageView[][] heroes = new ImageView[Constants.HEROES_COUNT][3];
-    private ImageView[] currentImageView = new ImageView[3];
-    private transient ImageView[] mana = new ImageView[9];
+    private transient ImageView[] heroes = new ImageView[Constants.HEROES_COUNT];
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
-    private transient ImageView[] handCards = new ImageView[5];
-    private int[][] heroId = new int[2][2];
-    private int[] lastSelectedCardId = {0,0};
-    private int[] currentCardId = {0,0};
-    private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
+    private transient ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
-    File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
-    Media media = new Media(file.toURI().toString());
-    MediaPlayer player = new MediaPlayer(media);
-    Polygon[] polygon = new Polygon[45];
+    private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
+    private Media media = new Media(file.toURI().toString());
+    private MediaPlayer player = new MediaPlayer(media);
+    private int collectionPage = 0;
 
     private Controller() {
         initializeGame();
@@ -56,24 +47,8 @@ public class Controller {
         for (int i = 0; i < fields.length; i++) {
             fields[i] = new TextField();
         }
-        for (int i = 0; i < 5; i++) {
-            handCards[i] = new ImageView();
-        }
-        for (int i = 0; i < imageViews.length; i++) {
-            imageViews[i] = new ImageView();
-        }
-        for (int i = 0; i < 9; i++) {
-            mana[i] = new ImageView();
-        }
-        for (int i = 0; i < polygon.length; i++) {
-            polygon[i] = new Polygon();
-        }
-
-        for (int i = 0; i < heroes.length; i++) {
-            heroes[i][0] = new ImageView();
-            heroes[i][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            heroes[i][1] = new ImageView();
-            heroes[i][1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+        for (int i = 0; i < anchorPanes.length; i++) {
+            anchorPanes[i] = new AnchorPane();
         }
         menu.setStat(MenuStat.MAIN);
     }
@@ -108,6 +83,7 @@ public class Controller {
         } catch (IOException f) {
             System.out.println("Item initializing error!");
         }
+        game.setSrcs();
     }
 
     /*public void handleCommands() {
@@ -292,8 +268,8 @@ public class Controller {
         switch (menu.getStat()) {
             case MAIN:
                 view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
-                        buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], fields[Texts.PASSWORD.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_vetruv.m4a");
+                        buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], passwordField);
+                file = new File("resources/music/music_battlemap_vetruv.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -301,50 +277,47 @@ public class Controller {
                 view.accountMenu(buttons[Buttons.PLAY.ordinal()], buttons[Buttons.COLLECTION.ordinal()],
                         buttons[Buttons.SHOP.ordinal()], buttons[Buttons.LEADER_BOARD.ordinal()],
                         buttons[Buttons.LOGOUT.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_playmode.m4a");
+                file = new File("resources/music/music_playmode.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(heroes[0], minions, spells, items, imageViews[ImageViews.BACK.ordinal()],
-                        imageViews[ImageViews.NEXT.ordinal()], imageViews[ImageViews.PREV.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
+                view.shopMenu(heroes, minions, spells, items, anchorPanes[Anchorpanes.BACK.ordinal()],
+                        anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()]);
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case COLLECTION:
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");///Users/Nefario/ProjeCHEEEEZ/resources/
-                media = new Media(file.toURI().toString());
-                view.collectionMenu(account, imageViews[ImageViews.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
-                        imageViews[ImageViews.BACK.ordinal()], imageViews[ImageViews.NEXT.ordinal()],
-                        imageViews[ImageViews.PREV.ordinal()]);
+                view.collectionMenu(account, anchorPanes[Anchorpanes.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
+                        anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
+                        anchorPanes[Anchorpanes.PREV.ordinal()], collectionPage);
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_firesofvictory.m4a");
+                file = new File("resources/music/music_battlemap_firesofvictory.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case BATTLE_MODE:
                 view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()], buttons[Buttons.FLAG_COLLECTING.ordinal()],
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_songhai.m4a");
+                file = new File("resources/music/music_battlemap_songhai.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
-                view.battleMenu(battle.getAccounts(), getImageViewGif(battle.getAccounts()[0], 0),
-                        getImageViewGif(battle.getAccounts()[1], 1), polygon, imageViews[ImageViews.END_TURN.ordinal()],
-                        labels[Labels.END_TURN.ordinal()],mana,handCards);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
+                view.battleMenu(battle.getAccounts());
+                file = new File("resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
+                file = new File("resources/music/music_battlemap_abyssian.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -353,46 +326,8 @@ public class Controller {
                 break;
         }
         player.setAutoPlay(true);
-        handlePolygon();
         handleButtons();
         handleTextFields();
-        handleHeroGifs();
-    }
-
-    public void handleHeroGifs() {
-        for (int i = 0; i < 2; i++) {
-            int a = i;
-            heroes[heroId[i][0]][0].setOnMouseClicked(event -> {
-                if(lastSelectedCardId[0]!=0){
-                    battle.attack(heroId[a][1],Card.getCardByID(lastSelectedCardId[0],battle.getFieldCards()[(a+1)%2]));
-                    currentImageView[0] = heroes[heroId[(a+1)%2][0]][0];
-                    currentImageView[1] = heroes[heroId[(a+1)%2][0]][1];
-                    currentImageView[2] = heroes[heroId[(a+1)%2][0]][2];
-                    view.attack(currentImageView);
-                    System.out.println("hamle");
-                    lastSelectedCardId[0]=0;
-                }else {
-                    battle.selectCard(heroId[a][1]);
-                    currentImageView[0] = heroes[heroId[a][0]][0];
-                    currentImageView[1] = heroes[heroId[a][0]][1];
-                    currentCardId[0] = heroId[a][1];
-                    currentCardId[1] = heroId[a][0];
-                    lastSelectedCardId[0] = currentCardId[0];
-                    lastSelectedCardId[1] = currentCardId[1];
-                }
-            });
-        }
-    }
-
-    public void handlePolygon() {
-        for (int i = 0; i < polygon.length; i++) {
-            int a = i;
-            polygon[i].setOnMouseClicked(event -> {
-                view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
-                battle.moveTo(new Coordinate(a-(a/9),a/9));
-                lastSelectedCardId[0]=0;
-            });
-        }
     }
 
     public void handleButtons() {
@@ -410,20 +345,17 @@ public class Controller {
             menu.setStat(MenuStat.COLLECTION);
             main();
         });
-        imageViews[ImageViews.BACK.ordinal()].setOnMouseClicked(event -> exit());
-        imageViews[ImageViews.END_TURN.ordinal()].setOnMouseClicked(event -> {
-            battle.endTurn();
-            AiFunctions();
+        anchorPanes[Anchorpanes.BACK.ordinal()].setOnMouseClicked(event -> exit());
+        anchorPanes[Anchorpanes.PREV.ordinal()].setOnMouseClicked(event -> {
+            if (collectionPage > 0) {
+                collectionPage -= 1;
+                main();
+            }
         });
-        labels[Labels.END_TURN.ordinal()].setOnMouseClicked(event -> {
-            battle.endTurn();
-            AiFunctions();
-            for (int i = 0; i < 9; i++) {
-                if (i <battle.getAccounts()[0].getMana()) {
-                    mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
-                } else {
-                    mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
-                }
+        anchorPanes[Anchorpanes.NEXT.ordinal()].setOnMouseClicked(event -> {
+            if (collectionPage < account.getCollection().getCards().size() / Constants.CARD_PER_PAGE) {
+                collectionPage += 1;
+                main();
             }
         });
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
@@ -432,64 +364,7 @@ public class Controller {
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
-        imageViews[ImageViews.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
-    }
-
-    private ImageView getImageViewGif(Account account, int a) {
-        heroId[a][1] = account.getCollection().getMainDeck().getHero().getId();
-        switch (account.getCollection().getMainDeck().getHero().getName()) {
-            case "WHITE_DIV":
-                heroId[a][0] = 0;
-                heroes[0][1] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                heroes[0][2]= new ImageView(new Image("gifs/Abomination_attack.gif"));
-                return heroes[0][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            case "ZAHAK":
-                heroId[a][0] = 1;
-                heroes[1][2]= new ImageView(new Image("gifs/Abomination_attack.gif"));
-                heroes[1][1] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                return heroes[1][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            case "ARASH":
-                heroId[a][0] = 2;
-                heroes[2][2]= new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                heroes[2][1] = new ImageView(new Image("gifs/f5_altgeneraltier2_run.gif"));
-                return heroes[2][0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-            case "SIMORGH":
-                heroId[a][0] = 3;
-                heroes[3][2]= new ImageView(new Image("gifs/f4_altgeneraltier2_attack.gif"));
-                heroes[3][1] = new ImageView(new Image("gifs/f4_altgeneraltier2_run.gif"));
-                return heroes[3][0] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
-            case "SEVEN_HEADED_DRAGON":
-                heroId[a][0] = 4;
-                heroes[4][2]= new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                heroes[4][1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                return heroes[4][0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-            case "RAKHSH":
-                heroId[a][0] = 5;
-                heroes[5][2]= new ImageView(new Image("gifs/f6_altgeneraltier2_attack.gif"));
-                heroes[5][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
-                return heroes[5][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
-            case "KAVEH":
-                heroId[a][0] = 6;
-                heroes[6][2]= new ImageView(new Image("gifs/boss_cindera_attack.gif"));
-                heroes[6][1] = new ImageView(new Image("gifs/boss_cindera_run.gif"));
-                return heroes[6][0] = new ImageView(new Image("gifs/boss_cindera_idle.gif"));
-            case "AFSANEH":
-                heroId[a][0] = 7;
-                heroes[7][2]= new ImageView(new Image("gifs/f6_altgeneraltier2_attack.gif"));
-                heroes[7][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
-                return heroes[7][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
-            case "ESFANDIAR":
-                heroId[a][0] = 8;
-                heroes[8][2]= new ImageView(new Image("gifs/Brome Warcrest_attack.gif"));
-                heroes[8][1] = new ImageView(new Image("gifs/Brome Warcrest_run.gif"));
-                return heroes[8][0] = new ImageView(new Image("gifs/Brome Warcrest_idle.gif"));
-            case "ROSTAM":
-                heroId[a][0] = 9;
-                heroes[9][2]= new ImageView(new Image("gifs/f1_tier2general_attack.gif"));
-                heroes[9][1] = new ImageView(new Image("gifs/f1_tier2general_attack.gif"));
-                return heroes[9][0] = new ImageView(new Image("gifs/f1_tier2general_idle.gif"));
-        }
-        return null;
+        anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
     }
 
     public void handleTextFields() {
@@ -541,12 +416,8 @@ public class Controller {
                     view.Success();
                 }
             }
-            // insertAI();
-            System.out.println(battle.getFieldCards()[0][0].getHealthPoint());
-            //attackAI();
-            if (battle.getAccounts()[0].getCollection().getMainDeck().getHero().getHealthPoint() < 0) {
-                System.exit(2);
-            }
+            insertAI();
+            attackAI();
             endTurn();
             showMap();
         }
@@ -608,15 +479,25 @@ public class Controller {
         }
     }
 
+    private void setGameType(Request request) {
+        if (request.isGameType() && menu.getStat() == MenuStat.GAME_TYPE) {
+            battle.setGameType(request.getGameType(request.getCommand()));
+            if (battle.getGameType() == GameType.SINGLEPLAYER) {
+                menu.setStat(MenuStat.PROCESS);
+                view.chooseProcess();
+            } else {
+                menu.setStat(MenuStat.BATTLE_MODE);
+                view.chooseBattleMode();
+            }
+        }
+    }
+
     private void moveAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                 if (battle.getFieldCards()[1][i] != null) {
                     battle.setCurrentCard(battle.getFieldCards()[1][i]);
                     battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
-                    int x = battle.setDestinationCoordinate(battle.getFieldCards()[1][i]).getX();
-                    int y = battle.setDestinationCoordinate(battle.getFieldCards()[1][i]).getY();
-                    view.move(polygon[x * 9 + y].getPoints().get(0), polygon[x * 9 + y].getPoints().get(1), heroes[heroId[1][0]][0], heroes[heroId[1][0]][1]);
                 }
             }
         }
@@ -659,9 +540,13 @@ public class Controller {
         return new ArrayList<>(Arrays.asList(cards));
     }
 
+    private void invalidCommand() {
+        view.printInvalidCommand();
+    }
+
     private void createAccount() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
-        String password = fields[Texts.PASSWORD.ordinal()].getText();
+        String password = passwordField.getText();
         this.account = new Account(username, password);
         menu.setStat(MenuStat.ACCOUNT);
         main();
@@ -688,8 +573,8 @@ public class Controller {
 
     private void login() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
-       // String password = passwordField.getText();
-        if (Account.login(username, fields[Texts.PASSWORD.ordinal()].getText()) == Message.SUCCESSFUL_LOGIN) {
+        String password = passwordField.getText();
+        if (Account.login(username, password) == Message.SUCCESSFUL_LOGIN) {
             this.account = game.getAccounts().get(Account.accountIndex(username));
             menu.setStat(MenuStat.ACCOUNT);
             main();
