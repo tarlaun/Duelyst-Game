@@ -375,11 +375,13 @@ public class Controller {
         anchorPanes[Anchorpanes.BUY.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = shop.getCards();
             itemsInShop = shop.getItems();
+            shopPage = 0;
             main();
         });
         anchorPanes[Anchorpanes.SELL.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = account.getCollection().getCards();
             itemsInShop = account.getCollection().getItems();
+            shopPage = 0;
             main();
         });
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
