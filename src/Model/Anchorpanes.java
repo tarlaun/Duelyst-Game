@@ -1,9 +1,8 @@
 package Model;
 
-public enum ImageViews {
+public enum Anchorpanes {
     BACK,
     NEXT,
     PREV,
-    END_TURN,
     CREATE
 }
