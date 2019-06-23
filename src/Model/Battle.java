@@ -323,6 +323,7 @@ public class Battle {
     }
 
     public boolean selectCard(int cardId) {
+        System.out.println("shit");
         Card card = Card.getCardByID(cardId, fieldCards[turn % 2]);
         if (card == null) {
             return false;
@@ -333,7 +334,6 @@ public class Battle {
     }
 
     public boolean moveTo(Coordinate coordinate) {
-        System.out.println("shit");
         if (currentCard == null)
             return false;
         if (!currentCard.isAbleToMove())
@@ -381,9 +381,6 @@ public class Battle {
     public Message attack(int opponentCardId, Card currentCard) {
         targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
         if (targetCard == null) {
-            return Message.INVALID_TARGET;
-        }
-        if(currentCard==null){
             return Message.INVALID_TARGET;
         }
         if (currentCard.getName().equals("WOLF")) {
@@ -842,7 +839,6 @@ public class Battle {
     }
 
     public void endTurn() {
-        System.out.println("shits in your face");
         setAbleToAttackForHeros();
         buffTurnEnd();
         deholifyCell();

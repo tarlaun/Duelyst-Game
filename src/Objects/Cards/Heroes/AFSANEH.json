@@ -1,7 +1,12 @@
 {
   "cooldown": 0,
+  "idleSrc": "gifs/Heroes/Cryptographer_idle.gif",
+  "deathSrc": "gifs/Heroes/Cryptographer_death.gif",
+  "runSrc": "gifs/Heroes/Cryptographer_run.gif",
+  "attackSrc": "gifs/Heroes/Cryptographer_attack.gif",
   "id": 0,
   "name": "AFSANEH",
+  "type": "Hero",
   "maxPossibleMoving": 2,
   "price": 11000,
   "healthPoint": 40,
@@ -35,5 +40,6 @@
   "ableToResist": false,
   "ableToCounter": false,
   "cardHolder": 0,
-  "isHoly": 0
+  "isHoly": 0,
+  "recievedHit": 0
 }

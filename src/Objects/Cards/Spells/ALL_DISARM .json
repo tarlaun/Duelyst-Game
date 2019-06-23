@@ -1,12 +1,16 @@
 {
+  "idleSrc": "gifs/Spells/Aphotic Drain_actionbar.gif",
+  "attackSrc": "gifs/Spells/Aphotic Drain_active.gif",
   "id": 0,
   "name": "ALL_DISARM ",
+  "type": "Spell",
   "maxPossibleMoving": -1,
   "price": 2000,
   "healthPoint": -1,
   "minRange": -1,
   "maxRange": -1,
   "assaultPower": -1,
+  "originalAssaultPower": 0,
   "assaultType": "NULL",
   "buffs": [
     {
@@ -25,5 +29,12 @@
       ]
     }
   ],
-  "manaPoint": 9
+  "manaPoint": 9,
+  "ableToAttack": false,
+  "ableToMove": false,
+  "ableToResist": false,
+  "ableToCounter": false,
+  "cardHolder": 0,
+  "isHoly": 0,
+  "recievedHit": 0
 }
