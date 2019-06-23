@@ -3,11 +3,12 @@ package View;
 import Model.*;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import Model.Menu;
-import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
@@ -15,18 +16,21 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.Bloom;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 
 public class View {
     private transient AnchorPane root = new AnchorPane();
@@ -36,7 +40,8 @@ public class View {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
-    private Image cursor = new Image("resources/ui/mouse_attack@2x.png");
+    private Image cursor = new Image("ui/mouse_auto.png");
+    private Image battleCursor = new Image("ui/mouse_attack.png");
 
 
     private View() {
@@ -44,9 +49,9 @@ public class View {
     }
 
     public Scene getScene() {
-        Image icon = new Image("resources/booster_pack_opening/booster_orb.png");
-       // ImageCursor imageCursor = new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH);
-        //scene.setCursor(imageCursor);
+        Image icon = new Image("booster_pack_opening/booster_orb.png");
+
+        scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
         return scene;
     }
 
@@ -671,7 +676,7 @@ public class View {
 
     public void selectUserMenu(ArrayList<Account> accounts, Label label, TextField textField) {
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/shimzar/bg@2x.jpg");
+        Image background = new Image("scenes/shimzar/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
@@ -703,84 +708,76 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view, Label labels, ImageView[] mana , ImageView[] handcards) {
+    public void battleMenu(Account[] accounts) {
         root.getChildren().clear();
-        maps();
-        battleFieldView(polygon);
-        heroGifs(accounts, imageView1, imageView2, polygon);
-        endTurnButton(view, labels);
-        mana(accounts[0], mana);
-        for (int i = 0; i <5 ; i++) {
-            handcards[i].setImage(new Image("resources/ui/replace_outer_ring_smoke@2x.png"));
-            handcards[i].relocate(270+120*i,525);
-            handcards[i].setFitHeight(120);
-            handcards[i].setFitWidth(120);
-            lightning(handcards[i]);
-            root.getChildren().add(handcards[i]);
-        }
-
-
-    }
-
-    private void battleFieldView(Polygon[] polygon) {
-        battleField(polygon);
-        for (int i = 0; i < 45; i++) {
-            root.getChildren().add(polygon[i]);
-        }
-    }
-
-    private void maps() {
-        Image background = new Image("resources/maps/abyssian/background@2x.jpg");
+        Image background = new Image("maps/abyssian/background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/maps/abyssian/midground@2x.png");
+        Image foreground = new Image("maps/abyssian/midground@2x.png");
         ImageView foregroundView = getImageView(background, foreground);
+        Polygon[] polygon = new Polygon[45];
+        battleField(polygon);
         root.getChildren().addAll(backgroundView, foregroundView);
-    }
-
-    private void heroGifs(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon) {
-        Image firstHero, secondHero;
+        for (int i = 0; i < 45; i++) {
+            root.getChildren().add(polygon[i]);
+        }
+        Image firstHero, secondHero, firstHeroGif, secondHeroGif;
         firstHero = getImage(accounts[0]);
         secondHero = getImage(accounts[1]);
         ImageView firstHeroView = new ImageView(firstHero);
         ImageView secondHeroView = new ImageView(secondHero);
         bossImageSettings(firstHeroView, secondHeroView);
+        firstHeroGif = getImageGif(accounts[0]);
+        secondHeroGif = getImageGif(accounts[1]);
+        ImageView imageView2 = new ImageView(secondHeroGif);
+        ImageView imageView1 = new ImageView(firstHeroGif);
         imageView2.relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
         imageView2.setScaleX(-1);
         imageView1.relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
         lightning(imageView1, imageView2);
-        root.getChildren().addAll(firstHeroView, secondHeroView, imageView1, imageView2);
-    }
-
-    private void mana(Account account, ImageView[] mana) {
-        for (int i = 0; i < 9; i++) {
-            if (i < account.getMana()) {
-                mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
-            } else {
-                mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
-            }
-            mana[i].relocate(320 + i * 29, 150 - i * 3);
-            mana[i].setFitWidth(35);
-            mana[i].setFitHeight(35);
-            lightning(mana[i]);
+        for (int i = 0; i < polygon[26].getPoints().size(); i++) {
+            System.out.println(polygon[26].getPoints().get(i));
         }
-        root.getChildren().addAll(mana);
+        root.getChildren().addAll(firstHeroView, secondHeroView, imageView1, imageView2);
+
     }
 
-    private void endTurnButton(ImageView view, Label labels) {
-        view.setImage(new Image("resources/ui/button_end_turn_mine@2x.png"));
-        view.relocate(900, 550);
-        view.setFitWidth(200);
-        view.setFitHeight(80);
-        labels.relocate(945, 575);
-        labels.setText("END TURN");
-        Bloom bloom = new Bloom();
-        bloom.setThreshold(0.5);
-        view.setOnMouseEntered(event -> view.setEffect(bloom));
-        view.setOnMouseExited(event -> view.setEffect(null));
-        labels.setStyle("-fx-control-inner-background: #000000;-fx-font-size:20;");
-        root.getChildren().addAll(view, labels);
+    private Image getImageGif(Account account) {
+        Image firstHero = null;
+        switch (account.getCollection().getMainDeck().getHero().getName()) {
+            case "WHITE_DIV":
+                firstHero = new Image("gifs/Abomination_idle.gif");
+                break;
+            case "ZAHAK":
+                firstHero = new Image("gifs/Abomination_idle.gif");
+                break;
+            case "ARASH":
+                firstHero = new Image("resources/gifs/f6_altgeneraltier2_idle.gif");
+                break;
+            case "SIMORGH":
+                firstHero = new Image("gifs/f4_altgeneraltier2_idle.gif");
+                break;
+            case "SEVEN_HEADED_DRAGON":
+                firstHero = new Image("gifs/f5_altgeneraltier2_idle.gif");
+                break;
+            case "RAKHSH":
+                firstHero = new Image("gifs/f6_altgeneraltier2_idle.gif");
+                break;
+            case "KAVEH":
+                firstHero = new Image("gifs/boss_cindera_idle.gif");
+                break;
+            case "AFSANEH":
+                firstHero = new Image("gifs/f6_altgeneraltier2_idle.gif");
+                break;
+            case "ESFANDIAR":
+                firstHero = new Image("gifs/Brome Warcrest_idle.gif");
+                break;
+            case "ROSTAM":
+                firstHero = new Image("gifs/f1_tier2general_idle.gif");
+                break;
+        }
+        return firstHero;
     }
 
     private void bossImageSettings(ImageView firstHeroView, ImageView secondHeroView) {
@@ -794,61 +791,38 @@ public class View {
         lightning(secondHeroView);
     }
 
-    public void move(double x, double y, ImageView imageView, ImageView imageView2) {
-        Image image = imageView.getImage();
-        imageView.setImage(imageView2.getImage());
-        TranslateTransition transition = new TranslateTransition(Duration.millis(2000), imageView);
-        transition.setToX(x - imageView.getLayoutX() - 45);
-        transition.setToY(y - imageView.getLayoutY() - 90);
-        transition.playFromStart();
-        transition.setOnFinished(event -> imageView.setImage(image));
-    }
-
-    public void attack(ImageView[] imageViews) {
-        File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/sfx/sfx_f1_general_attack_swing.m4a");
-        Media media = new Media(file.toURI().toString());
-        MediaPlayer player = new MediaPlayer(media);
-        player.play();
-        System.out.println("view attack");
-        Image image = imageViews[0].getImage();
-        imageViews[0].setImage(imageViews[2].getImage());
-        TranslateTransition transition = new TranslateTransition(Duration.millis(1500), imageViews[0]);
-        transition.playFromStart();
-        transition.setOnFinished(event -> imageViews[0].setImage(image));
-    }
-
     private Image getImage(Account account) {
         Image firstHero = null;
         switch (account.getCollection().getMainDeck().getHero().getName()) {
             case "WHITE_DIV":
-                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
             case "ZAHAK":
-                firstHero = new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_calibero_portrait_image_hex@2x.png");
                 break;
             case "ARASH":
-                firstHero = new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
                 break;
             case "SIMORGH":
-                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
             case "SEVEN_HEADED_DRAGON":
-                firstHero = new Image("resources/boss_battles/boss_crystal_portrait_hex.png");
+                firstHero = new Image("boss_battles/boss_crystal_portrait_hex.png");
                 break;
             case "RAKHSH":
-                firstHero = new Image("resources/boss_battles/boss_wraith_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_wraith_portrait_hex@2x.png");
                 break;
             case "KAVEH":
-                firstHero = new Image("resources/boss_battles/boss_vampire_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_vampire_portrait_hex@2x.png");
                 break;
             case "AFSANEH":
-                firstHero = new Image("resources/boss_battles/boss_spelleater_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_spelleater_portrait_hex@2x.png");
                 break;
             case "ESFANDIAR":
-                firstHero = new Image("resources/boss_battles/boss_skurge_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_skurge_portrait_hex@2x.png");
                 break;
             case "ROSTAM":
-                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
         }
         return firstHero;
@@ -870,23 +844,16 @@ public class View {
     }
 
     private void glowPolygon(ColorAdjust colorAdjust, Polygon polygon1) {
-        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-            polygon1.setEffect(colorAdjust);
-            ;
-
-        });
-        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            polygon1.setEffect(null);
-        });
+        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> polygon1.setEffect(colorAdjust));
+        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> polygon1.setEffect(null));
     }
 
-    public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
-        Image background = new Image("resources/scenes/obsidian_woods/obsidian_woods_background.jpg");
+    public void mainMenu(Button login, Button create, Button exit, TextField username, PasswordField password) {
+        Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/obsidian_woods/obsidian_woods_cliff.png");
+        Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
         ImageView foregroundView = getImageView(background, foreground);
         login.setText("Login");
         create.setText("Create Account");
@@ -901,33 +868,6 @@ public class View {
         username.setLayoutX(password.getLayoutX());
         username.setLayoutY(password.getLayoutY() - 2 * Constants.FIELD_HEIGHT);
         root.getChildren().addAll(backgroundView, foregroundView, login, create, exit, username, password);
-    }
-
-    public void shopMenu(ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
-                         ImageView back, ImageView next, ImageView prev) {
-        root.getChildren().clear();
-        Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button.png");
-        Image arrow = new Image("resources/ui/sliding_panel/sliding_panel_paging_button_text.png");
-        Image backArrow = new Image("resources/ui/button_back_corner.png");
-        Image background = new Image("resources/scenes/load/scene_load_background@2x.jpg");
-        ImageView backView = new ImageView(background);
-        ImageView leftArrow = new ImageView(arrow);
-        ImageView rightArrow = new ImageView(arrow);
-        rightArrow.setRotate(180);
-        backView.setFitHeight(Constants.WINDOW_HEIGHT);
-        backView.setFitWidth(Constants.WINDOW_WIDTH);
-        backView.setOpacity(0.5);
-        next.setImage(slide);
-        prev.setImage(slide);
-        back.setImage(backArrow);
-        horizontalList(Alignment.UP, 0, 0, back);
-        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, prev, next);
-        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, leftArrow, rightArrow);
-        setImageSize(Constants.ARROW, leftArrow, rightArrow);
-        root.getChildren().addAll(backView, next, prev, back, leftArrow, rightArrow);
-        lightning(back);
-        lightning(prev, leftArrow);
-        lightning(next, rightArrow);
     }
 
     public void verticalList(Alignment alignment, double x, double y, Node... nodes) {
@@ -1035,13 +975,38 @@ public class View {
         }
     }
 
+    public void horizantalList(Alignment alignment, double x, double y, AnchorPane... anchorPanes) {
+        for (int i = 0; i < anchorPanes.length; i++) {
+            if (alignment == Alignment.CENTRE)
+                anchorPanes[i].setLayoutY(y);
+            if (alignment == Alignment.UP || alignment == Alignment.DOWN) {
+                anchorPanes[i].setLayoutY(y + anchorPanes[i].getPrefHeight() / 2);
+            }
+        }
+        anchorPanes[anchorPanes.length / 2].setLayoutX(x + anchorPanes[anchorPanes.length / 2].getPrefWidth() / 2 +
+                ((anchorPanes.length + 1) % 2) * (anchorPanes[anchorPanes.length / 2]).getPrefWidth() / 2);
+        for (int i = anchorPanes.length / 2 - 1; i >= 0; i--) {
+            anchorPanes[i].setLayoutX(anchorPanes[i + 1].getLayoutX() - 2 * anchorPanes[i].getPrefWidth());
+        }
+        for (int i = anchorPanes.length / 2 + 1; i < anchorPanes.length; i++) {
+            anchorPanes[i].setLayoutX(anchorPanes[i - 1].getLayoutX() + 2 * anchorPanes[i].getPrefWidth());
+        }
+    }
+
+    private void setPaneSize(double width, double height, AnchorPane... panes) {
+        for (AnchorPane pane : panes) {
+            pane.setPrefWidth(width);
+            pane.setPrefHeight(height);
+        }
+    }
+
     public void accountMenu(Button play, Button collection, Button shop, Button leaderboard, Button logout) {
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/frostfire/background.jpg");
+        Image background = new Image("scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/frostfire/foreground.png");
+        Image foreground = new Image("scenes/frostfire/foreground.png");
         ImageView foregroundView = getImageView(background, foreground);
         play.setText("Play");
         collection.setText("Collection");
@@ -1062,22 +1027,22 @@ public class View {
 
     public void battleMode(Button first, Button second, Button third) {
         root.getChildren().clear();
-        // Image background = new Image("resources/scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg");
-        Image background = new Image("resources/scenes/load/scene_load_background@2x.jpg");
+        // Image background = new Image("scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg");
+        Image background = new Image("scenes/load/scene_load_background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image firstImage = new Image("resources/play/play_mode_arenagauntlet@2x.jpg");
+        Image firstImage = new Image("challenges/gate_013@2x.jpg");
         ImageView firstImageView = new ImageView(firstImage);
         firstImageView.setFitWidth(425);
         firstImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         firstImageView.setLayoutX(0);
-        Image secondImage = new Image("resources/codex/chapter17_preview@2x.jpg");
+        Image secondImage = new Image("challenges/gate_005@2x.jpg");
         ImageView secondImageView = new ImageView(secondImage);
         secondImageView.setFitWidth(425);
         secondImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         secondImageView.setLayoutX(425);
-        Image thirdImage = new Image("resources/codex/generic_preview@2x.jpg");
+        Image thirdImage = new Image("challenges/gate_004@2x.jpg");
         ImageView thirdImageView = new ImageView(thirdImage);
         thirdImageView.setFitWidth(425);
         thirdImageView.setFitHeight(Constants.WINDOW_HEIGHT);
@@ -1101,17 +1066,17 @@ public class View {
 
     public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
-        Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
+        Image background = new Image("scenes/vetruvian/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image singleP = new Image("resources/resources/crests/crest_f1@2x.png");
+        Image singleP = new Image("crests/crest_f1@2x.png");
         ImageView singlePview = new ImageView(singleP);
         singlePview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setLayoutY(200);
         singlePview.setLayoutX(Constants.SINGLE_PLAYER_HEIGHT);
-        Image singleM = new Image("resources/resources/crests/crest_f2@2x.png");
+        Image singleM = new Image("crests/crest_f2@2x.png");
         ImageView singleMview = new ImageView(singleM);
         singleMview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singleMview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
@@ -1131,8 +1096,17 @@ public class View {
 
     }
 
+    public void shopMenu(ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
+                         AnchorPane back, AnchorPane next, AnchorPane prev) {
+        root.getChildren().clear();
+        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        scrollPane(backView, next, prev, back);
+        root.getChildren().addAll(backView, next, prev, back);
+    }
 
-    public void collectionMenu(Account account, ImageView createDeck, TextField name, ImageView back, ImageView next, ImageView prev) {
+
+    public void collectionMenu(Account account, AnchorPane createDeck, TextField name,
+                               AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
         root.getChildren().clear();
 
         Label create = new Label(); //= new Label("Create Deck");
@@ -1150,35 +1124,40 @@ public class View {
         name.setPrefWidth(Constants.FIELD_WIDTH);
         name.setPrefHeight(Constants.FIELD_HEIGHT);
 */
-        ImageView backView = new ImageView(new Image("resources/scenes/load/scene_load_background.jpg"));
-        ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
-        scrollPane(backView, rightArrow, leftArrow, next, prev, back);
+        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        scrollPane(backView, next, prev, back);
 //        lightning(createDeck, create);
-        root.getChildren().addAll(backView, next, prev, back, rightArrow, leftArrow);
-        showCards(account.getCollection().getCards(), 4);
+        root.getChildren().addAll(backView, next, prev, back);
+        showCards(account.getCollection().getCards(), page);
     }
 
-    private void scrollPane(ImageView backView, ImageView rightArrow, ImageView leftArrow,
-                            ImageView next, ImageView prev, ImageView back) {
-        Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button.png");
-        Image arrow = new Image("resources/ui/sliding_panel/sliding_panel_paging_button_text.png");
-        Image backArrow = new Image("resources/ui/button_back_corner.png");
+    private void scrollPane(ImageView backView, AnchorPane next, AnchorPane prev, AnchorPane back) {
+        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button.png");
+        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text.png");
+        ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
+        Image backArrow = new Image("ui/button_back_corner.png");
         leftArrow.setImage(arrow);
         rightArrow.setImage(arrow);
         rightArrow.setRotate(180);
         backView.setFitHeight(Constants.WINDOW_HEIGHT);
         backView.setFitWidth(Constants.WINDOW_WIDTH);
         backView.setOpacity(0.5);
-        next.setImage(slide);
-        prev.setImage(slide);
-        back.setImage(backArrow);
-        horizontalList(Alignment.UP, 0, 0, back);
-        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, prev, next);
-        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, leftArrow, rightArrow);
+        ImageView rightSlider = new ImageView(slide);
+        ImageView leftSlider = new ImageView(slide);
+        ImageView cornerImage = new ImageView(backArrow);
+        setImageSize(Constants.SLIDE, cornerImage);
+        setImageSize(Constants.SLIDE, rightSlider, leftSlider);
         setImageSize(Constants.ARROW, leftArrow, rightArrow);
+        next.getChildren().addAll(rightSlider, rightArrow);
+        prev.getChildren().addAll(leftSlider, leftArrow);
+        back.getChildren().addAll(cornerImage);
+        setPaneSize(rightSlider.getFitWidth(), rightSlider.getFitHeight(), next, prev);
+        setPaneSize(cornerImage.getFitWidth(), cornerImage.getFitHeight(), back);
+        horizantalList(Alignment.UP, 0, 0, back);
+        horizantalList(Alignment.DOWN, Constants.SCROLLER_X, Constants.SCROLLER_Y, prev, next);
         lightning(back);
-        lightning(prev, leftArrow);
-        lightning(next, rightArrow);
+        lightning(prev);
+        lightning(next);
     }
 
     private void showCards(ArrayList<Card> cards, int page) {
@@ -1190,7 +1169,7 @@ public class View {
                         AnchorPane anchorPane = cards.get(index).getCardView().getPane();
                         anchorPane.setLayoutX(Constants.CARD_X + j * (Constants.CARD_WIDTH + Constants.CARD_X_GAP));
                         anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
-                        //lightning(anchorPane);
+                        lightning(anchorPane);
                         root.getChildren().add(anchorPane);
                     } catch (Exception e) {
 
@@ -1200,54 +1179,58 @@ public class View {
         }
     }
 
-    private void lightning(ImageView... imageViews) {
+    private void lightning(Node... nodes) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
         Glow glow = new Glow();
         glow.setLevel(0.9);
-        for (ImageView singlePview :
-                imageViews) {
-            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-                singlePview.setEffect(colorAdjust);
-            });
-            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-                singlePview.setEffect(null);
-            });
+        for (Node singlePview : nodes) {
+            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
+            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> nodes[0].setEffect(null));
         }
     }
 
+    private void lightning(AnchorPane anchorPane) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.5);
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+        anchorPane.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> anchorPane.setEffect(colorAdjust));
+        anchorPane.addEventFilter(MouseEvent.MOUSE_EXITED, e -> anchorPane.setEffect(null));
+    }
+
     public void setCardImage(String name) {
-        Image image = new Image("resources/generals/general_f4.jpg");
+        Image image = new Image("generals/general_f4.jpg");
         switch (name) {
             case "WHITE_DIV":
-                image = new Image("resources/generals/general_f6third.jpg");
+                image = new Image("generals/general_f6third.jpg");
                 break;
             case "SIMORGH":
-                image = new Image("resources/generals/general_f5alt.jpg");
+                image = new Image("generals/general_f5alt.jpg");
                 break;
             case "SEVEN_HEADED_DRAGON":
-                image = new Image("resources/generals/general_f5third.jpg");
+                image = new Image("generals/general_f5third.jpg");
                 break;
             case "RAKHSH":
-                image = new Image("resources/generals/general_f3third.jpg");
+                image = new Image("generals/general_f3third.jpg");
                 break;
             case "ZAHAK":
-                image = new Image("resources/generals/general_f2.jpg");
+                image = new Image("generals/general_f2.jpg");
                 break;
             case "KAVEH":
-                image = new Image("resources/generals/general_f3.jpg");
+                image = new Image("generals/general_f3.jpg");
                 break;
             case "ARASH":
-                image = new Image("resources/generals/general_f3alt.jpg");
+                image = new Image("generals/general_f3alt.jpg");
                 break;
             case "AFSANEH":
-                image = new Image("resources/generals/general_f4.jpg");
+                image = new Image("generals/general_f4.jpg");
                 break;
             case "ESFANDIAR":
-                image = new Image("resources/generals/general_f6.jpg");
+                image = new Image("generals/general_f6.jpg");
                 break;
             case "ROSTAM":
-                image = new Image("resources/generals/general_f1.jpg");
+                image = new Image("generals/general_f1.jpg");
                 break;
         }
         ImageView imageView = new ImageView(image);
