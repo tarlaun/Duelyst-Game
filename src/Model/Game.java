@@ -190,6 +190,18 @@ public class Game {
                     System.out.println(card.getIdleSrc());
                 }
             }
+            for (int j = 0; j < accounts.get(i).getCollection().getItems().size(); j++) {
+                try {
+                    Item item = new Item((Item) shop.searchByName(accounts.get(i).getCollection().getItems().get(j).getName()));
+                    item.setId(accounts.get(i).getCollection().getCards().get(j).getId());
+                    accounts.get(i).getCollection().getItems().set(j, item);
+                } catch (Exception e) {
+                    Item item = accounts.get(i).getCollection().getItems().get(j);
+                    System.out.println(item.getName());
+                    System.out.println(item.getId());
+                    System.out.println(item.getIdleSrc());
+                }
+            }
         }
     }
 
