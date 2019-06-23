@@ -1096,12 +1096,13 @@ public class View {
 
     }
 
-    public void shopMenu(Shop shop, AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
+    public void shopMenu(ArrayList<Card> cards, ArrayList<Item> items,
+                         AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
         root.getChildren().clear();
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         scrollPane(backView, next, prev, back);
         root.getChildren().addAll(backView, next, prev, back);
-        showCards(shop.getCards(), page);
+        showCards(cards, items, page);
     }
 
 
@@ -1128,7 +1129,7 @@ public class View {
         scrollPane(backView, next, prev, back);
 //        lightning(createDeck, create);
         root.getChildren().addAll(backView, next, prev, back);
-        showCards(account.getCollection().getCards(), page);
+        showCards(account.getCollection().getCards(), account.getCollection().getItems(), page);
     }
 
     private void scrollPane(ImageView backView, AnchorPane next, AnchorPane prev, AnchorPane back) {
@@ -1160,13 +1161,20 @@ public class View {
         lightning(next);
     }
 
-    private void showCards(ArrayList<Card> cards, int page) {
-        if (page <= (cards.size() - 1) / Constants.CARD_PER_PAGE) {
+    private void showCards(ArrayList<Card> cards, ArrayList<Item> items, int page) {
+        if (page <= (cards.size() + items.size() - 1) / Constants.CARD_PER_PAGE) {
             for (int i = 0; i < Constants.CARD_PER_COLUMN; i++) {
                 for (int j = 0; j < Constants.CARD_PER_ROW; j++) {
                     try {
                         int index = page * Constants.CARD_PER_PAGE + i * Constants.CARD_PER_ROW + j;
-                        AnchorPane anchorPane = cards.get(index).getCardView().getPane();
+                        AnchorPane anchorPane;
+                        System.out.println(index);
+                        if (index < cards.size())
+                            anchorPane = cards.get(index).getCardView().getPane();
+                        else {
+                            anchorPane = items.get(index - cards.size()).getCardView().getPane();
+                            System.out.println(anchorPane.getChildren().size());
+                        }
                         anchorPane.setLayoutX(Constants.CARD_X + j * (Constants.CARD_WIDTH + Constants.CARD_X_GAP));
                         anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
                         lightning(anchorPane);
