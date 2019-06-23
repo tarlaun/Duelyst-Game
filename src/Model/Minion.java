@@ -6,7 +6,9 @@ public class Minion extends Card {
         super(info.split(Constants.CARD_INFO_SPLITTER));
     }
 
-
+    public Minion(Minion minion) {
+        super(minion);
+    }
 }
 
 
