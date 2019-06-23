@@ -7,4 +7,7 @@ public class Hero extends Card {
         super(info.split(Constants.CARD_INFO_SPLITTER));
     }
 
+    public Hero(Hero hero) {
+        super(hero);
+    }
 }
