@@ -1096,12 +1096,12 @@ public class View {
 
     }
 
-    public void shopMenu(ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
-                         AnchorPane back, AnchorPane next, AnchorPane prev) {
+    public void shopMenu(Shop shop, AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
         root.getChildren().clear();
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         scrollPane(backView, next, prev, back);
         root.getChildren().addAll(backView, next, prev, back);
+        showCards(shop.getCards(), page);
     }
 
 
