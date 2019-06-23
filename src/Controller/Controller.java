@@ -285,7 +285,8 @@ public class Controller {
                 break;
             case SHOP:
                 view.shopMenu(cardsInShop, itemsInShop, anchorPanes[Anchorpanes.BACK.ordinal()],
-                        anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()], shopPage);
+                        anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()],
+                        anchorPanes[Anchorpanes.SELL.ordinal()], anchorPanes[Anchorpanes.BUY.ordinal()], shopPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -370,6 +371,16 @@ public class Controller {
                 shopPage++;
                 main();
             }
+        });
+        anchorPanes[Anchorpanes.BUY.ordinal()].setOnMouseClicked(event -> {
+            cardsInShop = shop.getCards();
+            itemsInShop = shop.getItems();
+            main();
+        });
+        anchorPanes[Anchorpanes.SELL.ordinal()].setOnMouseClicked(event -> {
+            cardsInShop = account.getCollection().getCards();
+            itemsInShop = account.getCollection().getItems();
+            main();
         });
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
