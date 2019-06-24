@@ -37,6 +37,7 @@ public class Controller {
     private int collectionPage = 0, shopPage = 0;
     private ArrayList<Card> cardsInShop = shop.getCards();
     private ArrayList<Item> itemsInShop = shop.getItems();
+    private boolean buyMode = true;
 
     private Controller() {
         initializeGame();
@@ -284,7 +285,7 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(cardsInShop, itemsInShop, anchorPanes[Anchorpanes.BACK.ordinal()],
+                view.shopMenu(fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop, anchorPanes[Anchorpanes.BACK.ordinal()],
                         anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()],
                         anchorPanes[Anchorpanes.SELL.ordinal()], anchorPanes[Anchorpanes.BUY.ordinal()], shopPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
@@ -376,12 +377,14 @@ public class Controller {
             cardsInShop = shop.getCards();
             itemsInShop = shop.getItems();
             shopPage = 0;
+            buyMode = true;
             main();
         });
         anchorPanes[Anchorpanes.SELL.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = account.getCollection().getCards();
             itemsInShop = account.getCollection().getItems();
             shopPage = 0;
+            buyMode = false;
             main();
         });
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
@@ -395,6 +398,18 @@ public class Controller {
 
     public void handleTextFields() {
         fields[Texts.USER_NAME.ordinal()].setOnAction(event -> selectUser(fields[Texts.USER_NAME.ordinal()].getText()));
+        fields[Texts.OBJECT.ordinal()].setOnKeyTyped(event -> {
+            if (buyMode) {
+                cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getCards());
+                itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getItems());
+            } else {
+                cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                        account.getCollection().getCards());
+                itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                        account.getCollection().getItems());
+            }
+            main();
+        });
     }
 
     public void setBattleMode(int a) {
@@ -754,7 +769,7 @@ public class Controller {
     private void buy() {
         if (shop.getGame() == null)
             shop.setGame(this.game);
-        shop.buy(fields[Texts.CARD.ordinal()].getText(), this.account);
+        shop.buy(fields[Texts.OBJECT.ordinal()].getText(), this.account);
     }
 
     private void sell(Request request) {
