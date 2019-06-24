@@ -1154,8 +1154,8 @@ public class View {
     }
 
 
-    public void collectionMenu(Account account, AnchorPane createDeck, TextField name,
-                               AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
+    public void collectionMenu(TextField object, ArrayList<Card> cards, ArrayList<Item> items
+            , AnchorPane createDeck, TextField name, AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
         root.getChildren().clear();
 
         Label create = new Label(); //= new Label("Create Deck");
@@ -1176,8 +1176,11 @@ public class View {
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         scrollPane(backView, next, prev, back);
 //        lightning(createDeck, create);
-        root.getChildren().addAll(backView, next, prev, back);
-        showCards(account.getCollection().getCards(), account.getCollection().getItems(), page);
+        object.setPrefWidth(Constants.FIELD_WIDTH);
+        object.setPrefHeight(Constants.FIELD_HEIGHT);
+        object.relocate(Constants.SELL_X + Constants.SELL_WIDTH / 2, 200);
+        root.getChildren().addAll(backView, next, prev, back, object);
+        showCards(cards, items, page);
     }
 
     private void scrollPane(ImageView backView, AnchorPane next, AnchorPane prev, AnchorPane back) {
