@@ -3,19 +3,24 @@ package View;
 import Model.*;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import Model.Menu;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +30,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 
 public class View {
     private transient AnchorPane root = new AnchorPane();
@@ -328,11 +337,18 @@ public class View {
     }
 
     private void glowPolygon(ColorAdjust colorAdjust, Polygon polygon1) {
-        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> polygon1.setEffect(colorAdjust));
-        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> polygon1.setEffect(null));
+        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
+
+            polygon1.setEffect(colorAdjust);
+            ;
+
+        });
+        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
+            polygon1.setEffect(null);
+        });
     }
 
-    public void mainMenu(Button login, Button create, Button exit, TextField username, TextField password) {
+    public void mainMenu(Button login, Button create, Button exit, TextField username, PasswordField password) {
         Image background = new Image("resources/scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
@@ -354,41 +370,21 @@ public class View {
         root.getChildren().addAll(backgroundView, foregroundView, login, create, exit, username, password);
     }
 
-    public void shopMenu(ImageView[] heroes, ImageView[] mininos, ImageView[] spells, ImageView[] items,
-                         ImageView back, ImageView next, ImageView prev) {
-        root.getChildren().clear();
-        Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button.png");
-        Image arrow = new Image("resources/ui/sliding_panel/sliding_panel_paging_button_text.png");
-        Image backArrow = new Image("resources/ui/button_back_corner.png");
-        Image background = new Image("resources/scenes/load/scene_load_background@2x.jpg");
-        ImageView backView = new ImageView(background);
-        ImageView leftArrow = new ImageView(arrow);
-        ImageView rightArrow = new ImageView(arrow);
-        scrollPaneMethod(backView, rightArrow, next, prev, back, slide, backArrow);
-        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, prev, next);
-        horizontalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.WINDOW_HEIGHT - 100, leftArrow, rightArrow);
-        setImageSize(leftArrow, rightArrow);
-        root.getChildren().addAll(backView, next, prev, back, leftArrow, rightArrow);
-        lightning(back);
-        lightning(prev, leftArrow);
-        lightning(next, rightArrow);
-    }
-
-    private void verticalList(Alignment alignment, double x, double y, Node... nodes) {
-        for (Node node : nodes) {
-            if (node instanceof Button) {
-                Button button = (Button) node;
+    public void verticalList(Alignment alignment, double x, double y, Node... nodes) {
+        for (int i = 0; i < nodes.length; i++) {
+            if (nodes[i] instanceof Button) {
+                Button button = (Button) nodes[i];
                 setButtonSize(button);
                 if (alignment == Alignment.CENTRE)
                     button.setLayoutX(x - button.getPrefWidth() / 2);
             }
-            if (node instanceof ImageView) {
-                ImageView imageView = (ImageView) node;
+            if (nodes[i] instanceof ImageView) {
+                ImageView imageView = (ImageView) nodes[i];
                 if (alignment == Alignment.CENTRE)
                     imageView.setLayoutX(x - imageView.getFitWidth() / 2);
             }
             if (alignment == Alignment.LEFT)
-                node.setLayoutX(x);
+                nodes[i].setLayoutX(x);
         }
         if (nodes[0] instanceof Button) {
             nodes[nodes.length / 2].setLayoutY(y +
@@ -415,7 +411,7 @@ public class View {
 
     }
 
-    private void setButtonSize(Button... buttons) {
+    public void setButtonSize(Button... buttons) {
         for (Button button : buttons) {
             button.setPrefHeight(Constants.BUTTON_HEIGHT);
             if (button.getText().length() >= 8)
@@ -425,35 +421,35 @@ public class View {
         }
     }
 
-    private void setImageSize(ImageView... imageViews) {
+    public void setImageSize(double size, ImageView... imageViews) {
         double currentSize;
         for (ImageView imageView : imageViews) {
             currentSize = imageView.getFitHeight();
-            imageView.setFitHeight(Constants.ARROW);
-            imageView.setFitWidth(Constants.ARROW);
-            imageView.setLayoutX(imageView.getLayoutX() + (currentSize - Constants.ARROW) / 2);
-            imageView.setLayoutY(imageView.getLayoutY() + (currentSize - Constants.ARROW) / 2);
+            imageView.setFitHeight(size);
+            imageView.setFitWidth(size);
+            imageView.setLayoutX(imageView.getLayoutX() + (currentSize - size) / 2);
+            imageView.setLayoutY(imageView.getLayoutY() + (currentSize - size) / 2);
         }
 
     }
 
-    private void horizontalList(Alignment alignment, double x, double y, Node... nodes) {
-        for (Node node : nodes) {
-            if (node instanceof Button) {
-                Button button = (Button) node;
+    public void horizontalList(Alignment alignment, double x, double y, Node... nodes) {
+        for (int i = 0; i < nodes.length; i++) {
+            if (nodes[i] instanceof Button) {
+                Button button = (Button) nodes[i];
                 setButtonSize(button);
                 if (alignment == Alignment.CENTRE)
                     button.setLayoutY(y - button.getPrefHeight() / 2);
             }
-            if (node instanceof ImageView) {
-                ImageView imageView = (ImageView) node;
+            if (nodes[i] instanceof ImageView) {
+                ImageView imageView = (ImageView) nodes[i];
                 imageView.setFitWidth(Constants.SLIDE);
                 imageView.setFitHeight(Constants.SLIDE);
                 if (alignment == Alignment.CENTRE)
                     imageView.setLayoutY(y - imageView.getFitHeight() / 2);
             }
             if (alignment == Alignment.UP || alignment == Alignment.DOWN)
-                node.setLayoutY(y);
+                nodes[i].setLayoutY(y);
         }
         if (nodes[0] instanceof Button) {
             nodes[nodes.length / 2].setLayoutX(x +
@@ -476,6 +472,49 @@ public class View {
                 nodes[i].setLayoutX(nodes[i - 1].getLayoutX() +
                         ((ImageView) nodes[i]).getFitWidth() + ((ImageView) nodes[i - 1]).getFitWidth());
             }
+        }
+    }
+
+    public void horizantalList(Alignment alignment, double x, double y, AnchorPane... anchorPanes) {
+        for (int i = 0; i < anchorPanes.length; i++) {
+            if (alignment == Alignment.CENTRE)
+                anchorPanes[i].setLayoutY(y);
+            if (alignment == Alignment.UP || alignment == Alignment.DOWN) {
+                anchorPanes[i].setLayoutY(y + anchorPanes[i].getPrefHeight() / 2);
+            }
+        }
+        anchorPanes[anchorPanes.length / 2].setLayoutX(x + anchorPanes[anchorPanes.length / 2].getPrefWidth() / 2 +
+                ((anchorPanes.length + 1) % 2) * (anchorPanes[anchorPanes.length / 2]).getPrefWidth() / 2);
+        for (int i = anchorPanes.length / 2 - 1; i >= 0; i--) {
+            anchorPanes[i].setLayoutX(anchorPanes[i + 1].getLayoutX() - 2 * anchorPanes[i].getPrefWidth());
+        }
+        for (int i = anchorPanes.length / 2 + 1; i < anchorPanes.length; i++) {
+            anchorPanes[i].setLayoutX(anchorPanes[i - 1].getLayoutX() + 2 * anchorPanes[i].getPrefWidth());
+        }
+    }
+
+    public void verticalList(Alignment alignment, double x, double y, AnchorPane... anchorPanes) {
+        for (int i = 0; i < anchorPanes.length; i++) {
+            if (alignment == Alignment.CENTRE)
+                anchorPanes[i].setLayoutX(x);
+            if (alignment == Alignment.RIGHT || alignment == Alignment.LEFT) {
+                anchorPanes[i].setLayoutX(x + anchorPanes[i].getPrefWidth() / 2);
+            }
+        }
+        anchorPanes[anchorPanes.length / 2].setLayoutY(y + anchorPanes[anchorPanes.length / 2].getPrefHeight() / 2 +
+                ((anchorPanes.length + 1) % 2) * (anchorPanes[anchorPanes.length / 2]).getPrefHeight() / 2);
+        for (int i = anchorPanes.length / 2 - 1; i >= 0; i--) {
+            anchorPanes[i].setLayoutY(anchorPanes[i + 1].getLayoutY() - 2 * anchorPanes[i].getPrefHeight());
+        }
+        for (int i = anchorPanes.length / 2 + 1; i < anchorPanes.length; i++) {
+            anchorPanes[i].setLayoutY(anchorPanes[i - 1].getLayoutY() + 2 * anchorPanes[i].getPrefHeight());
+        }
+    }
+
+    private void setPaneSize(double width, double height, AnchorPane... panes) {
+        for (AnchorPane pane : panes) {
+            pane.setPrefWidth(width);
+            pane.setPrefHeight(height);
         }
     }
 
@@ -575,8 +614,57 @@ public class View {
 
     }
 
+    public void shopMenu(boolean mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items, AnchorPane back, AnchorPane next,
+                         AnchorPane prev, AnchorPane sell, AnchorPane buy, int page) {
+        root.getChildren().clear();
+        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        ImageView buyView = new ImageView(new Image("ui/button_confirm_glow@2x.png"));
+        ImageView sellView = new ImageView(new Image("ui/button_cancel_glow@2x.png"));
+        Label sellText = new Label("Sell");
+        Label buyText = new Label("Buy");
+        Label modeLabel;
+        if (mode)
+            modeLabel = new Label("Shop Objects");
+        else
+            modeLabel = new Label("Collection Objects");
+        modeLabel.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
+        modeLabel.setTextFill(Color.NAVY);
+        modeLabel.translateXProperty().bind(modeLabel.widthProperty().divide(2).negate());
+        modeLabel.relocate(Constants.SCROLLER_X, Constants.PAGE_TITLE_Y);
+        sellText.translateXProperty().bind(sellText.widthProperty().divide(2).negate());
+        sellText.translateYProperty().bind(sellText.heightProperty().divide(2).negate());
+        buyText.translateXProperty().bind(buyText.widthProperty().divide(2).negate());
+        buyText.translateYProperty().bind(buyText.heightProperty().divide(2).negate());
+        sellText.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.SELL_TEXT_SIZE));
+        sellText.setTextFill(Color.NAVY);
+        buyText.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.SELL_TEXT_SIZE));
+        buyText.setTextFill(Color.NAVY);
+        sellView.setFitWidth(Constants.SELL_WIDTH);
+        sellView.setFitHeight(Constants.SELL_HEIGHT);
+        buyView.setFitWidth(Constants.SELL_WIDTH);
+        buyView.setFitHeight(Constants.SELL_HEIGHT);
+        buyText.relocate(buyView.getFitWidth() / 2, buyView.getFitHeight() / 2);
+        sellText.relocate(sellView.getFitWidth() / 2, sellView.getFitHeight() / 2);
+        sell.getChildren().addAll(sellView, sellText);
+        buy.getChildren().addAll(buyView, buyText);
+        sell.setPrefWidth(sellView.getFitWidth());
+        sell.setPrefHeight(sellView.getFitHeight());
+        buy.setPrefWidth(buyView.getFitWidth());
+        buy.setPrefHeight(buyView.getFitHeight());
+        verticalList(Alignment.LEFT, Constants.SELL_PANE_X, Constants.CENTRE_Y, buy, sell);
+        scrollPane(backView, next, prev, back);
+        lightning(buy);
+        lightning(sell);
+        object.setPrefWidth(Constants.FIELD_WIDTH);
+        object.setPrefHeight(Constants.FIELD_HEIGHT);
+        object.relocate(Constants.SELL_X + Constants.SELL_WIDTH / 2, 200);
+        root.getChildren().addAll(backView, sell, buy, next, prev, back, object, modeLabel);
+        showCards(cards, items, page);
+    }
 
-    public void collectionMenu(Account account, ImageView createDeck, TextField name, ImageView back, ImageView next, ImageView prev) {
+
+    public void collectionMenu(TextField object, ArrayList<Card> cards, ArrayList<Item> items
+            , AnchorPane createDeck, TextField name, AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
         root.getChildren().clear();
 
         Label create = new Label(); //= new Label("Create Deck");
@@ -594,57 +682,97 @@ public class View {
         name.setPrefWidth(Constants.FIELD_WIDTH);
         name.setPrefHeight(Constants.FIELD_HEIGHT);
 */
-        ImageView backView = new ImageView(new Image("resources/scenes/load/scene_load_background.jpg"));
-        ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
-        scrollPane(backView, rightArrow, leftArrow, next, prev, back);
+        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        scrollPane(backView, next, prev, back);
 //        lightning(createDeck, create);
-        root.getChildren().addAll(backView, next, prev, back, rightArrow, leftArrow);
-        showCards(account.getCollection().getCards(), 4);
+        object.setPrefWidth(Constants.FIELD_WIDTH);
+        object.setPrefHeight(Constants.FIELD_HEIGHT);
+        object.relocate(Constants.SELL_X + Constants.SELL_WIDTH / 2, 200);
+        root.getChildren().addAll(backView, next, prev, back, object);
+        showCards(cards, items, page);
     }
 
-    private void scrollPane(ImageView backView, ImageView rightArrow, ImageView leftArrow,
-                            ImageView next, ImageView prev, ImageView back) {
-        Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button.png");
-        Image arrow = new Image("resources/ui/sliding_panel/sliding_panel_paging_button_text.png");
-        Image backArrow = new Image("resources/ui/button_back_corner.png");
+    private void scrollPane(ImageView backView, AnchorPane next, AnchorPane prev, AnchorPane back) {
+        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button.png");
+        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text.png");
+        ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
+        Image backArrow = new Image("ui/button_back_corner.png");
         leftArrow.setImage(arrow);
         rightArrow.setImage(arrow);
-        scrollPaneMethod(backView, rightArrow, next, prev, back, slide, backArrow);
-        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, prev, next);
-        horizontalList(Alignment.CENTRE, Constants.SCROLLER_X, Constants.SCROLLER_Y, leftArrow, rightArrow);
-        setImageSize(leftArrow, rightArrow);
-        lightning(back);
-        lightning(prev, leftArrow);
-        lightning(next, rightArrow);
-    }
-
-    private void scrollPaneMethod(ImageView backView, ImageView rightArrow, ImageView next, ImageView prev, ImageView back, Image slide, Image backArrow) {
         rightArrow.setRotate(180);
         backView.setFitHeight(Constants.WINDOW_HEIGHT);
         backView.setFitWidth(Constants.WINDOW_WIDTH);
         backView.setOpacity(0.5);
-        next.setImage(slide);
-        prev.setImage(slide);
-        back.setImage(backArrow);
-        horizontalList(Alignment.UP, 0, 0, back);
+        ImageView rightSlider = new ImageView(slide);
+        ImageView leftSlider = new ImageView(slide);
+        ImageView cornerImage = new ImageView(backArrow);
+        setImageSize(Constants.SLIDE, cornerImage);
+        setImageSize(Constants.SLIDE, rightSlider, leftSlider);
+        setImageSize(Constants.ARROW, leftArrow, rightArrow);
+        next.getChildren().addAll(rightSlider, rightArrow);
+        prev.getChildren().addAll(leftSlider, leftArrow);
+        back.getChildren().addAll(cornerImage);
+        setPaneSize(rightSlider.getFitWidth(), rightSlider.getFitHeight(), next, prev);
+        setPaneSize(cornerImage.getFitWidth(), cornerImage.getFitHeight(), back);
+        horizantalList(Alignment.UP, 0, 0, back);
+        horizantalList(Alignment.DOWN, Constants.SCROLLER_X, Constants.SCROLLER_Y, prev, next);
+        lightning(back);
+        lightning(prev);
+        lightning(next);
     }
 
-    private void showCards(ArrayList<Card> cards, int page) {
-        if (page <= (cards.size() - 1) / Constants.CARD_PER_PAGE) {
+    private void showCards(ArrayList<Card> cards, ArrayList<Item> items, int page) {
+        if (page <= (cards.size() + items.size() - 1) / Constants.CARD_PER_PAGE) {
             for (int i = 0; i < Constants.CARD_PER_COLUMN; i++) {
                 for (int j = 0; j < Constants.CARD_PER_ROW; j++) {
                     try {
                         int index = page * Constants.CARD_PER_PAGE + i * Constants.CARD_PER_ROW + j;
-                        AnchorPane anchorPane = cards.get(index).getCardView().getPane();
+                        AnchorPane anchorPane;
+                        if (index < cards.size())
+                            anchorPane = cards.get(index).getCardView().getPane();
+                        else {
+                            anchorPane = items.get(index - cards.size()).getCardView().getPane();
+                        }
                         anchorPane.setLayoutX(Constants.CARD_X + j * (Constants.CARD_WIDTH + Constants.CARD_X_GAP));
                         anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
-                        //lightning(anchorPane);
+                        lightning(anchorPane);
                         root.getChildren().add(anchorPane);
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
 
                     }
                 }
             }
+        }
+    }
+
+    private void stableLighning(Node... nodes) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.6);
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+        for (int i = 0; i < nodes.length; i++) {
+            int finalI = i;
+//            nodes[i].addEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[finalI].setEffect(colorAdjust));
+            nodes[i].addEventFilter(MouseEvent.MOUSE_CLICKED, e -> nodes[finalI].setEffect(colorAdjust));
+            nodes[i].addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                for (int j = 0; j < nodes.length; j++) {
+                    if (finalI != j) {
+                        int finalJ = j;
+                        nodes[finalJ].addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, e -> nodes[finalJ].setEffect(null));
+                    }
+                }
+            });
+        }
+    }
+
+    private void lightning(Node... nodes) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.5);
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+        for (Node singlePview : nodes) {
+            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
+            singlePview.removeEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
         }
     }
 

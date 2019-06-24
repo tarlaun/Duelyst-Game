@@ -119,7 +119,6 @@ public class Game {
 
     public void save(Account account) throws OutOfMemoryError {
         String json = new Gson().toJson(account);
-        System.out.println("Hey Buggy!");
         try {
             FileWriter writer = new FileWriter(account.getName() + ".json");
             writer.write(json);
@@ -177,6 +176,35 @@ public class Game {
         }
     }
 
+    public void setSrcs() {
+        for (int i = 0; i < accounts.size(); i++) {
+            for (int j = 0; j < accounts.get(i).getCollection().getCards().size(); j++) {
+                try {
+                    Card card = new Card((Card) shop.searchByName(accounts.get(i).getCollection().getCards().get(j).getName()));
+                    card.setId(accounts.get(i).getCollection().getCards().get(j).getId());
+                    accounts.get(i).getCollection().getCards().set(j, card);
+                } catch (Exception e) {
+                    Card card = accounts.get(i).getCollection().getCards().get(j);
+                    System.out.println(card.getName());
+                    System.out.println(card.getId());
+                    System.out.println(card.getIdleSrc());
+                }
+            }
+            for (int j = 0; j < accounts.get(i).getCollection().getItems().size(); j++) {
+                try {
+                    Item item = new Item((Item) shop.searchByName(accounts.get(i).getCollection().getItems().get(j).getName()));
+                    item.setId(accounts.get(i).getCollection().getCards().get(j).getId());
+                    accounts.get(i).getCollection().getItems().set(j, item);
+                } catch (Exception e) {
+                    Item item = accounts.get(i).getCollection().getItems().get(j);
+                    System.out.println(item.getName());
+                    System.out.println(item.getId());
+                    System.out.println(item.getIdleSrc());
+                }
+            }
+        }
+    }
+
     private void sortCards(ArrayList<Card> cards) {
         Comparator<Card> compareById = Comparator.comparingInt(Card::getId);
         cards.sort(compareById);
@@ -197,6 +225,7 @@ public class Game {
                         Hero hero = new Gson().fromJson(reader, Hero.class);
                         hero.setType("Hero");
                         hero.setId(++lastHeroId);
+                        hero = new Hero(hero);
                         shop.getCards().add(hero);
                     }
                 }
@@ -214,6 +243,7 @@ public class Game {
                         Minion minion = new Gson().fromJson(reader, Minion.class);
                         minion.setType("Minion");
                         minion.setId(++lastMinionId);
+                        minion = new Minion(minion);
                         shop.getCards().add(minion);
                     }
                 }
@@ -231,6 +261,7 @@ public class Game {
                         Spell spell = new Gson().fromJson(reader, Spell.class);
                         spell.setType("Spell");
                         spell.setId(++lastSpellId);
+                        spell = new Spell(spell);
                         shop.getCards().add(spell);
                     }
                 }
@@ -247,6 +278,7 @@ public class Game {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         Item item = new Gson().fromJson(reader, Item.class);
                         item.setId(++lastItemId);
+                        item = new Item(item);
                         shop.getItems().add(item);
                     }
                 }

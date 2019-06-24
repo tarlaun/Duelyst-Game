@@ -1,0 +1,1 @@
+{"id":0,"name":"BAPTISM","price":20000,"idleSrc":"gifs/Items/The Dredger_actionbar.gif","attackSrc":"gifs/Items/The Dredger_active.gif","buffs":[{"type":"HOLY","power":1,"turnsCount":2,"targetCard":"Minion","side":"ALL","activationType":"ON_SPAWN","casterActivationType":"UNDEFINED","casterCard":"Account","rangeType":"ALL","casterRangeType":"ALL"}]}
