@@ -67,11 +67,14 @@ public class Constants {
     public static final double CARD_TYPE_X = CARD_POWER_X * 2.2;
     public static final double CARD_NAME_Y = CARD_HEIGHT - 4 * CARD_TYPE_Y;
     public static final double CARD_NAME_X = CARD_TYPE_X;
+    public static final int FONT_SIZE = 20;
+    public static final String PAGE_TITLE_FONT = "Chilanka";
+    public static final double PAGE_TITLE_SIZE = 2 * FONT_SIZE;
+    public static final double PAGE_TITLE_Y = 10;
     public static final int CARD_PER_ROW = 3;
     public static final int CARD_PER_COLUMN = 2;
     public static final int CARD_PER_PAGE = CARD_PER_ROW * CARD_PER_COLUMN;
     public static final double CURSOR_LENGTH = 16;
-    public static final int FONT_SIZE = 20;
     public static final double IMAGE_BUTTON_REL_X = 23;
     public static final double IMAGE_BUTTON_REL_Y = 3;
     public static final double SCROLLER_X = CARD_X + 1.5 * CARD_WIDTH + CARD_X_GAP;
