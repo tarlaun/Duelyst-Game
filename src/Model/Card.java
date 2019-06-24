@@ -387,4 +387,13 @@ public class Card {
     public void setAttackSrc(String attackSrc) {
         this.attackSrc = attackSrc;
     }
+
+    public static ArrayList<Card> matchSearch(String name, ArrayList<Card> cards) {
+        ArrayList<Card> output = new ArrayList<>();
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getName().matches(name.toUpperCase() + "\\w*"))
+                output.add(cards.get(i));
+        }
+        return output;
+    }
 }
