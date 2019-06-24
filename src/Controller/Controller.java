@@ -35,8 +35,8 @@ public class Controller {
     private Media media = new Media(file.toURI().toString());
     private MediaPlayer player = new MediaPlayer(media);
     private int collectionPage = 0, shopPage = 0;
-    private ArrayList<Card> cardsInShop = shop.getCards();
-    private ArrayList<Item> itemsInShop = shop.getItems();
+    private ArrayList<Card> cardsInShop, cardsInCollection;
+    private ArrayList<Item> itemsInShop, itemsInCollection;
     private boolean buyMode = true;
 
     private Controller() {
@@ -293,7 +293,8 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case COLLECTION:
-                view.collectionMenu(account, anchorPanes[Anchorpanes.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
+                view.collectionMenu(fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
+                        anchorPanes[Anchorpanes.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
                         anchorPanes[Anchorpanes.PREV.ordinal()], collectionPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
@@ -342,10 +343,14 @@ public class Controller {
         buttons[Buttons.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         buttons[Buttons.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
         buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> {
+            cardsInShop = shop.getCards();
+            itemsInShop = shop.getItems();
             menu.setStat(MenuStat.SHOP);
             main();
         });
         buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event -> {
+            cardsInCollection = account.getCollection().getCards();
+            itemsInCollection = account.getCollection().getItems();
             menu.setStat(MenuStat.COLLECTION);
             main();
         });
@@ -399,13 +404,21 @@ public class Controller {
     public void handleTextFields() {
         fields[Texts.USER_NAME.ordinal()].setOnAction(event -> selectUser(fields[Texts.USER_NAME.ordinal()].getText()));
         fields[Texts.OBJECT.ordinal()].setOnKeyTyped(event -> {
-            if (buyMode) {
-                cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getCards());
-                itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getItems());
-            } else {
-                cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+            if (menu.getStat() == MenuStat.SHOP) {
+                if (buyMode) {
+                    cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getCards());
+                    itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getItems());
+                } else {
+                    cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                            account.getCollection().getCards());
+                    itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                            account.getCollection().getItems());
+                }
+            }
+            if (menu.getStat() == MenuStat.COLLECTION) {
+                cardsInCollection = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
                         account.getCollection().getCards());
-                itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                itemsInCollection = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
                         account.getCollection().getItems());
             }
             main();
