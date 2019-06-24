@@ -285,9 +285,10 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop, anchorPanes[Anchorpanes.BACK.ordinal()],
-                        anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()],
-                        anchorPanes[Anchorpanes.SELL.ordinal()], anchorPanes[Anchorpanes.BUY.ordinal()], shopPage);
+                view.shopMenu(buyMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
+                        anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
+                        anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.SELL.ordinal()],
+                        anchorPanes[Anchorpanes.BUY.ordinal()], shopPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
