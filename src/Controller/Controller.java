@@ -403,7 +403,7 @@ public class Controller {
 
     public void handleTextFields() {
         fields[Texts.USER_NAME.ordinal()].setOnAction(event -> selectUser(fields[Texts.USER_NAME.ordinal()].getText()));
-        fields[Texts.OBJECT.ordinal()].setOnKeyTyped(event -> {
+        fields[Texts.OBJECT.ordinal()].setOnKeyReleased(event -> {
             if (menu.getStat() == MenuStat.SHOP) {
                 if (buyMode) {
                     cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getCards());
