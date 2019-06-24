@@ -1114,7 +1114,7 @@ public class View {
 
     }
 
-    public void shopMenu(ArrayList<Card> cards, ArrayList<Item> items, AnchorPane back, AnchorPane next,
+    public void shopMenu(TextField object, ArrayList<Card> cards, ArrayList<Item> items, AnchorPane back, AnchorPane next,
                          AnchorPane prev, AnchorPane sell, AnchorPane buy, int page) {
         root.getChildren().clear();
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
@@ -1146,7 +1146,10 @@ public class View {
         scrollPane(backView, next, prev, back);
         lightning(buy);
         lightning(sell);
-        root.getChildren().addAll(backView, sell, buy, next, prev, back);
+        object.setPrefWidth(Constants.FIELD_WIDTH);
+        object.setPrefHeight(Constants.FIELD_HEIGHT);
+        object.relocate(Constants.SELL_X + Constants.SELL_WIDTH / 2, 200);
+        root.getChildren().addAll(backView, sell, buy, next, prev, back, object);
         showCards(cards, items, page);
     }
 
@@ -1213,12 +1216,10 @@ public class View {
                     try {
                         int index = page * Constants.CARD_PER_PAGE + i * Constants.CARD_PER_ROW + j;
                         AnchorPane anchorPane;
-                        System.out.println(index);
                         if (index < cards.size())
                             anchorPane = cards.get(index).getCardView().getPane();
                         else {
                             anchorPane = items.get(index - cards.size()).getCardView().getPane();
-                            System.out.println(anchorPane.getChildren().size());
                         }
                         anchorPane.setLayoutX(Constants.CARD_X + j * (Constants.CARD_WIDTH + Constants.CARD_X_GAP));
                         anchorPane.setLayoutY(Constants.CARD_Y + i * (Constants.CARD_HEIGHT + Constants.CARD_Y_GAP));
