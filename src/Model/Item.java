@@ -114,4 +114,14 @@ public class Item {
     public void setAttackSrc(String attackSrc) {
         this.attackSrc = attackSrc;
     }
+
+    public static ArrayList<Item> matchSearch(String name, ArrayList<Item> items) {
+        ArrayList<Item> output = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getName().matches(name.toUpperCase() + "\\w*"))
+                output.add(items.get(i));
+        }
+        return output;
+    }
+
 }
