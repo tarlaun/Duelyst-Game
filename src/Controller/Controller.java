@@ -327,7 +327,7 @@ public class Controller {
             case "EMPOWER":
             case "FIREBALL":
             case "GOD_STRENGTH":
-                imageViews[0]= new ImageView(new Image("vspell/Unleash the Evil_active.gif"));
+                imageViews[0]= new ImageView(new Image("spell/Unleash the Evil_active.gif"));
                 imageViews[1]= new ImageView(new Image("spell/Unleash the Evil_active.gif"));
                 imageViews[2]= new ImageView(new Image("spell/Unleash the Evil_active.gif"));
                 break;
