@@ -178,6 +178,18 @@ public class View {
 
     }
 
+    public void handView (Coordinate[] coordinate , BattleCards battleCard){
+        battleCard.getImageView()[0].relocate(coordinate[0].getX(), coordinate[0].getY());
+        battleCard.getImageView()[0].setFitHeight(160);
+        battleCard.getImageView()[0].setFitWidth(160);
+        if(battleCard.getCard().getType().equals("Spell")){
+            battleCard.getImageView()[0].relocate(coordinate[1].getX(), coordinate[1].getY());
+            battleCard.getImageView()[0].setFitHeight(80);
+            battleCard.getImageView()[0].setFitWidth(80);
+        }
+        root.getChildren().addAll(battleCard.getImageView());
+    }
+
     private void handCardRings(ImageView[] handcards) {
         for (int i = 0; i < 5; i++) {
             handcards[i].setImage(new Image("resources/ui/replace_outer_ring_smoke@2x.png"));
@@ -262,6 +274,7 @@ public class View {
     }
 
     public void move(double x, double y, ImageView imageView, ImageView imageView2) {
+        System.out.println("move");
         Image image = imageView.getImage();
         imageView.setImage(imageView2.getImage());
         TranslateTransition transition = new TranslateTransition(Duration.millis(2000), imageView);

@@ -728,6 +728,7 @@ public class Battle {
     }
 
     public void insertCard(Coordinate coordinate, String cardName) {
+        System.out.println("katf fartd zamin");
         boolean validTarget = false;
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
