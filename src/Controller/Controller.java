@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class Controller {
@@ -304,6 +305,7 @@ public class Controller {
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
+                handleCollection(cardsInCollection, itemsInCollection);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
@@ -428,7 +430,45 @@ public class Controller {
         });
     }
 
-    public void handleInstances(ArrayList<Card> cards, ArrayList<Item> items) {
+    public void handleCollection(ArrayList<Card> cards, ArrayList<Item> items) {
+        for (int i = 0; i < cards.size(); i++) {
+            int finalI = i;
+            cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
+                handleAddingToDeck(cards.get(finalI).getId());
+                main();
+            });
+        }
+        for (int i = 0; i < items.size(); i++) {
+            int finalI = i;
+            items.get(i).getCardView().getPane().setOnMouseClicked(event -> {
+                handleAddingToDeck(items.get(finalI).getId());
+                main();
+            });
+        }
+    }
+
+    private void handleAddingToDeck(int id) {
+        List<String> deckNames = new ArrayList<>();
+        for (Deck deck : account.getCollection().getDecks()) {
+            deckNames.add(deck.getName());
+        }
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(account.getCollection().getMainDeck().getName(), deckNames);
+        dialog.setHeaderText("Adding to deck");
+        dialog.setContentText("To deck: ");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(name -> {
+            Message message = addToDeck(name, id);
+            if (message == Message.OBJECT_ADDED) {
+                AlertMessage alert = new AlertMessage("Card added!", Alert.AlertType.INFORMATION, "OK");
+                alert.getResult();
+            } else {
+                AlertMessage alert = new AlertMessage(message.toString(), Alert.AlertType.ERROR, "OK");
+                alert.getResult();
+            }
+        });
+    }
+
+    private void handleInstances(ArrayList<Card> cards, ArrayList<Item> items) {
         for (int i = 0; i < cards.size(); i++) {
             int finalI = i;
             cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
@@ -439,6 +479,9 @@ public class Controller {
                 }
                 main();
             });
+        }
+        for (int i = 0; i < items.size(); i++) {
+            int finalI = i;
             items.get(i).getCardView().getPane().setOnMouseClicked(event -> {
                 if (buyMode) {
                     if (items.get(finalI).getPrice() == 0) {
@@ -456,7 +499,7 @@ public class Controller {
         }
     }
 
-    public void handleBuy(int budget, String name, int price) {
+    private void handleBuy(int budget, String name, int price) {
         AlertMessage alert;
         if (budget < price) {
             alert = new AlertMessage("Insufficient budget!", Alert.AlertType.ERROR, "OK");
@@ -475,7 +518,7 @@ public class Controller {
         }
     }
 
-    public void handleSell(int id) {
+    private void handleSell(int id) {
         AlertMessage alert;
         alert = new AlertMessage("Are you sure to sell it?", Alert.AlertType.CONFIRMATION,
                 "Yes", "No");
@@ -786,10 +829,8 @@ public class Controller {
         }
     }
 
-    private void addToDeck(Request request) {
-        if (request.checkToDeckAdditionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.addToCollection(this.account.getCollection().add(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
-        }
+    private Message addToDeck(String deckName, int id) {
+        return this.account.getCollection().add(deckName, id);
     }
 
     private void removeFromDeck(Request request) {
