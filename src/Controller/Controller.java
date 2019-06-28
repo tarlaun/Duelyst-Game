@@ -222,10 +222,7 @@ public class Controller {
         for (int i = 0; i < handCardGifs.length; i++) {
             int finalI = i;
             handCardGifs[i].getImageView()[0].setOnMouseClicked(event -> {
-                if (finalI < 5) {
-                    currentCoordinate[0] = new Coordinate(250 + 120 * finalI, 490);
-                    currentCoordinate[1] = new Coordinate(290 + 120 * finalI, 545);
-                }
+                currentCoordinate[0] = new Coordinate((int) handCardGifs[finalI].getImageView()[0].getLayoutX(), (int) handCardGifs[finalI].getImageView()[0].getLayoutY());
                 insideBattle = false;
                 currentImageView[0] = handCardGifs[finalI].getImageView()[0];
                 currentImageView[1] = handCardGifs[finalI].getImageView()[1];

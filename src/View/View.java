@@ -179,11 +179,21 @@ public class View {
     }
 
     public void handView (Coordinate[] coordinate , BattleCards battleCard){
-        battleCard.getImageView()[0].relocate(coordinate[0].getX(), coordinate[0].getY());
-        battleCard.getImageView()[0].setFitHeight(160);
-        battleCard.getImageView()[0].setFitWidth(160);
+        if(!battleCard.getCard().getType().equals("Spell")) {
+            if(coordinate[0].getY()<500) {
+                battleCard.getImageView()[0].relocate(coordinate[0].getX(), coordinate[0].getY());
+            }else {
+                battleCard.getImageView()[0].relocate(coordinate[0].getX()-40, coordinate[0].getY()-55);
+            }
+            battleCard.getImageView()[0].setFitHeight(160);
+            battleCard.getImageView()[0].setFitWidth(160);
+        }
         if(battleCard.getCard().getType().equals("Spell")){
-            battleCard.getImageView()[0].relocate(coordinate[1].getX(), coordinate[1].getY());
+            if(coordinate[0].getY()<500) {
+                battleCard.getImageView()[0].relocate(coordinate[0].getX()+40, coordinate[0].getY()+55);
+            }else {
+                battleCard.getImageView()[0].relocate(coordinate[0].getX(), coordinate[0].getY());
+            }
             battleCard.getImageView()[0].setFitHeight(80);
             battleCard.getImageView()[0].setFitWidth(80);
         }
