@@ -1120,8 +1120,6 @@ public class View {
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         ImageView buyView = new ImageView(new Image("ui/button_confirm_glow@2x.png"));
         ImageView sellView = new ImageView(new Image("ui/button_cancel_glow@2x.png"));
-        Label sellText = new Label("Sell");
-        Label buyText = new Label("Buy");
         Label modeLabel, budget;
         if (mode)
             modeLabel = new Label("Shop Objects");
@@ -1135,63 +1133,34 @@ public class View {
         budget.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
         budget.setTextFill(Color.DARKGREEN);
         budget.relocate(Constants.SELL_X, 2 * Constants.SELL_HEIGHT);
-        sellText.translateXProperty().bind(sellText.widthProperty().divide(2).negate());
-        sellText.translateYProperty().bind(sellText.heightProperty().divide(2).negate());
-        buyText.translateXProperty().bind(buyText.widthProperty().divide(2).negate());
-        buyText.translateYProperty().bind(buyText.heightProperty().divide(2).negate());
-        sellText.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.SELL_TEXT_SIZE));
-        sellText.setTextFill(Color.NAVY);
-        buyText.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.SELL_TEXT_SIZE));
-        buyText.setTextFill(Color.NAVY);
-        sellView.setFitWidth(Constants.SELL_WIDTH);
-        sellView.setFitHeight(Constants.SELL_HEIGHT);
-        buyView.setFitWidth(Constants.SELL_WIDTH);
-        buyView.setFitHeight(Constants.SELL_HEIGHT);
-        buyText.relocate(buyView.getFitWidth() / 2, buyView.getFitHeight() / 2);
-        sellText.relocate(sellView.getFitWidth() / 2, sellView.getFitHeight() / 2);
-        sell.getChildren().addAll(sellView, sellText);
-        buy.getChildren().addAll(buyView, buyText);
-        sell.setPrefWidth(sellView.getFitWidth());
-        sell.setPrefHeight(sellView.getFitHeight());
-        buy.setPrefWidth(buyView.getFitWidth());
-        buy.setPrefHeight(buyView.getFitHeight());
+        object.setPrefWidth(Constants.FIELD_WIDTH);
+        object.setPrefHeight(Constants.FIELD_HEIGHT);
+        object.relocate(Constants.SELL_X + 0.1 * Constants.SELL_WIDTH + Constants.SELL_WIDTH / 2, 200);
+        buy = new ImageButton(buyView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "BUY",
+                Constants.SELL_TEXT_SIZE, Color.NAVY).getPane();
+        sell = new ImageButton(sellView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "SELL",
+                Constants.SELL_TEXT_SIZE, Color.NAVY).getPane();
         verticalList(Alignment.LEFT, Constants.SELL_PANE_X, Constants.CENTRE_Y, buy, sell);
         scrollPane(backView, next, prev, back);
         lightning(buy);
         lightning(sell);
-        object.setPrefWidth(Constants.FIELD_WIDTH);
-        object.setPrefHeight(Constants.FIELD_HEIGHT);
-        object.relocate(Constants.SELL_X + 0.1 * Constants.SELL_WIDTH + Constants.SELL_WIDTH / 2, 200);
         root.getChildren().addAll(backView, sell, buy, next, prev, back, object, modeLabel, budget);
         showCards(cards, items, page);
     }
 
 
     public void collectionMenu(TextField object, ArrayList<Card> cards, ArrayList<Item> items
-            , AnchorPane createDeck, TextField name, AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
+            , AnchorPane createDeck, TextField name, AnchorPane back, AnchorPane next, AnchorPane prev
+            , AnchorPane maindDeck, AnchorPane setMainDeck, int page) {
         root.getChildren().clear();
-
-        Label create = new Label(); //= new Label("Create Deck");
-/*        create.setFont(Font.font(Constants.TEXT_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
-        create.setTextFill(Color.LIGHTCYAN);
-        Image createImage = new Image("ui/button_primary.png");
-        createDeck.setImage(createImage);
-        createDeck.setFitWidth(2 * Constants.BUTTON_WIDTH);
-        createDeck.setFitHeight(2 * Constants.BUTTON_HEIGHT);
-        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, createDeck);
-        create.setLayoutX(createDeck.getLayoutX() + Constants.IMAGE_BUTTON_REL_X);
-        create.setLayoutY(createDeck.getLayoutY() + Constants.IMAGE_BUTTON_REL_Y);
-        name.setLayoutX(create.getLayoutX());
-        name.setLayoutY(createDeck.getLayoutY() - Constants.FIELD_HEIGHT - createDeck.getFitHeight());
-        name.setPrefWidth(Constants.FIELD_WIDTH);
-        name.setPrefHeight(Constants.FIELD_HEIGHT);
-*/
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         scrollPane(backView, next, prev, back);
-//        lightning(createDeck, create);
         object.setPrefWidth(Constants.FIELD_WIDTH);
         object.setPrefHeight(Constants.FIELD_HEIGHT);
         object.relocate(Constants.SELL_X + Constants.SELL_WIDTH / 2, 200);
+        ImageView createPane = new ImageView(new Image("card_backgrounds/deck_builder_prismatic_card_bg@2x.png"));
+        createPane.setFitHeight(Constants.SELL_HEIGHT);
+        createPane.setFitWidth(Constants.SELL_WIDTH);
         root.getChildren().addAll(backView, next, prev, back, object);
         showCards(cards, items, page);
     }
