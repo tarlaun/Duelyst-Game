@@ -10,8 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Polygon;
-import javafx.scene.text.Text;
-import sun.security.util.Password;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,29 +31,27 @@ public class Controller {
     private transient ImageView[][] heroes = new ImageView[Constants.HEROES_COUNT][3];
     private ImageView[] currentImageView = new ImageView[3];
     private transient ImageView[] mana = new ImageView[9];
-    private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private transient ImageView[] handCards = new ImageView[20];
     private int[][] heroId = new int[2][2];
     private int[] lastSelectedCardId = {0, 0};
     private int[] currentCardId = {0, 0};
     private ImageView[] imageViews = new ImageView[40];
-    private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private BattleCards[] battleCards = new BattleCards[40];
     private BattleCards[] handCardGifs = new BattleCards[20];
     private BattleCards battleCard = new BattleCards();
     public Coordinate[] currentCoordinate = new Coordinate[2];
     private static final Controller controller = new Controller();
     private File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
-   private Media media = new Media(file.toURI().toString());
+    private Media media = new Media(file.toURI().toString());
     private MediaPlayer player = new MediaPlayer(media);
-   private Polygon[] polygon = new Polygon[45];
+    private Polygon[] polygon = new Polygon[45];
     private int collectionPage = 0, shopPage = 0;
     private ArrayList<Card> cardsInShop, cardsInCollection;
     private ArrayList<Item> itemsInShop, itemsInCollection;
     private boolean buyMode = true;
     private boolean insideBattle = false;
-    private int currentHandCardPointer=0;
+    private int currentHandCardPointer = 0;
 
     private Controller() {
         initializeGame();
@@ -191,6 +187,7 @@ public class Controller {
             case BATTLE:
                 handleMinions();
                 for (int i = 0; i < 15; i++) {
+                    System.out.println(battle.getAccounts()[0].getCollection().getMainDeck().getCards().size());
                     handCardGifs[i].setCard(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i));
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
                 }
@@ -218,7 +215,6 @@ public class Controller {
         handleTextFields();
         handleHeroGifs();
         handleMinions();
-        //handleBattleCards();
 
     }
 
@@ -226,7 +222,7 @@ public class Controller {
         for (int i = 0; i < handCardGifs.length; i++) {
             int finalI = i;
             handCardGifs[i].getImageView()[0].setOnMouseClicked(event -> {
-                if(finalI<5){
+                if (finalI < 5) {
                     currentCoordinate[0] = new Coordinate(250 + 120 * finalI, 490);
                     currentCoordinate[1] = new Coordinate(290 + 120 * finalI, 545);
                 }
@@ -404,14 +400,6 @@ public class Controller {
         return imageViews;
     }
 
-    private void handleBattleCards() {
-        for (int i = 0; i < 40; i++) {
-            if (battleCards[i].getCard() != null) {
-                int finalI = i;
-                battleCards[i].getImageView()[0].setOnMouseClicked(event -> battleCard = battleCards[finalI]);
-            }
-        }
-    }
 
     private void handleHeroGifs() {
         for (int i = 0; i < 2; i++) {
@@ -452,27 +440,9 @@ public class Controller {
                 }
                 if (!insideBattle) {
                     currentHandCardPointer++;
-                    view.handView(currentCoordinate, handCardGifs[currentHandCardPointer+4]);
-                  /*  System.out.println("inside battle");
-                        if (battleCard.getCard()!=null) {
-                            System.out.println("inside battle not null");
-                            battleCards[0].setCard(battleCard.getCard());
-                            battleCards[0].setImageView(battleCard.getImageView());
-                            currentImageView[0] = battleCard.getImageView()[0];
-                            currentImageView[1] = battleCard.getImageView()[1];
-                            view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
-                            battle.moveTo(new Coordinate(a - (a / 9), a / 9));
-                            lastSelectedCardId[0] = 0;
-                            for (int k = 0; k < handCardGifs.length; k++) {
-                                if(handCardGifs[k].getCard().getName().equals(battleCard.getCard().getName())){
-                                    System.out.println("yekian");
-                                    battle.insertCard(new Coordinate(a - (a / 9), a / 9),battleCard.getCard().getName());
-                                    handCardGifs[k].setCard(battle.getPlayerHands()[0][4]);
-                                    handCardGifs[k].setImageView(setGifForCards(battle.getPlayerHands()[0][4]));
-                                    view.handView(handCardGifs[k]);
-                                }
-                            }
-                    }*/
+                    if (currentHandCardPointer + 4 < 15) {
+                        view.handView(currentCoordinate, handCardGifs[currentHandCardPointer + 4]);
+                    }
 
                 }
             });
