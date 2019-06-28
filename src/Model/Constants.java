@@ -67,7 +67,10 @@ public class Constants {
     public static final double CARD_TYPE_X = CARD_POWER_X * 2.2;
     public static final double CARD_NAME_Y = CARD_HEIGHT - 4 * CARD_TYPE_Y;
     public static final double CARD_NAME_X = CARD_TYPE_X;
+    public static final double CARD_PRICE_X = CARD_NAME_X;
+    public static final double CARD_PRICE_Y = CARD_NAME_Y * 0.9;
     public static final int FONT_SIZE = 20;
+    public static final double CARD_INFO_FONT = FONT_SIZE * 0.55;
     public static final String PAGE_TITLE_FONT = "Chilanka";
     public static final double PAGE_TITLE_SIZE = 2 * FONT_SIZE;
     public static final double PAGE_TITLE_Y = 10;

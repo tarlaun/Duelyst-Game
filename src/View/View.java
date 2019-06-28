@@ -1114,15 +1114,15 @@ public class View {
 
     }
 
-    public void shopMenu(boolean mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items, AnchorPane back, AnchorPane next,
-                         AnchorPane prev, AnchorPane sell, AnchorPane buy, int page) {
+    public void shopMenu(Account account, boolean mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items,
+                         AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane sell, AnchorPane buy, int page) {
         root.getChildren().clear();
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         ImageView buyView = new ImageView(new Image("ui/button_confirm_glow@2x.png"));
         ImageView sellView = new ImageView(new Image("ui/button_cancel_glow@2x.png"));
         Label sellText = new Label("Sell");
         Label buyText = new Label("Buy");
-        Label modeLabel;
+        Label modeLabel, budget;
         if (mode)
             modeLabel = new Label("Shop Objects");
         else
@@ -1131,6 +1131,10 @@ public class View {
         modeLabel.setTextFill(Color.NAVY);
         modeLabel.translateXProperty().bind(modeLabel.widthProperty().divide(2).negate());
         modeLabel.relocate(Constants.SCROLLER_X, Constants.PAGE_TITLE_Y);
+        budget = new Label("Budget: " + account.getBudget());
+        budget.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
+        budget.setTextFill(Color.DARKGREEN);
+        budget.relocate(Constants.SELL_X, 2 * Constants.SELL_HEIGHT);
         sellText.translateXProperty().bind(sellText.widthProperty().divide(2).negate());
         sellText.translateYProperty().bind(sellText.heightProperty().divide(2).negate());
         buyText.translateXProperty().bind(buyText.widthProperty().divide(2).negate());
@@ -1157,8 +1161,8 @@ public class View {
         lightning(sell);
         object.setPrefWidth(Constants.FIELD_WIDTH);
         object.setPrefHeight(Constants.FIELD_HEIGHT);
-        object.relocate(Constants.SELL_X + Constants.SELL_WIDTH / 2, 200);
-        root.getChildren().addAll(backView, sell, buy, next, prev, back, object, modeLabel);
+        object.relocate(Constants.SELL_X + 0.1 * Constants.SELL_WIDTH + Constants.SELL_WIDTH / 2, 200);
+        root.getChildren().addAll(backView, sell, buy, next, prev, back, object, modeLabel, budget);
         showCards(cards, items, page);
     }
 
