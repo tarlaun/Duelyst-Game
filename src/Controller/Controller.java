@@ -37,8 +37,8 @@ public class Controller {
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private transient ImageView[] handCards = new ImageView[5];
     private int[][] heroId = new int[2][2];
-    private int[] lastSelectedCardId = {0,0};
-    private int[] currentCardId = {0,0};
+    private int[] lastSelectedCardId = {0, 0};
+    private int[] currentCardId = {0, 0};
     private ImageView[] imageViews = new ImageView[40];
     private transient javafx.scene.image.ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private BattleCards[] battleCards = new BattleCards[40];
@@ -57,7 +57,7 @@ public class Controller {
 
     private Controller() {
         initializeGame();
-        for (int i = 0; i <40 ; i++) {
+        for (int i = 0; i < 40; i++) {
             //battleCards[i].setImageView(new ImageView[3]);
         }
         for (int i = 0; i < buttons.length; i++) {
@@ -81,6 +81,7 @@ public class Controller {
             imageView[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
             handCardGifs[i].setImageView(imageView);
         }
+
         for (int i = 0; i < 5; i++) {
             handCards[i] = new ImageView();
         }
@@ -364,14 +365,14 @@ public class Controller {
                 break;
             case BATTLE:
                 handleMinions();
-                for (int i = 0; i < battle.getPlayerHands()[0].length ; i++) {
+                for (int i = 0; i < battle.getPlayerHands()[0].length; i++) {
                     handCardGifs[i].setCard(battle.getPlayerHands()[0][i]);
                     handCardGifs[i].setImageView(setGifForCards(battle.getPlayerHands()[0][i]));
                 }
 
                 view.battleMenu(battle.getAccounts(), getImageViewGif(battle.getAccounts()[0], 0),
                         getImageViewGif(battle.getAccounts()[1], 1), polygon, imageViews[ImageViews.END_TURN.ordinal()],
-                        labels[Labels.END_TURN.ordinal()],mana,handCards ,handCardGifs);
+                        labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -396,190 +397,192 @@ public class Controller {
 
     }
 
-    public void handleMinions(){
-        for (int i = 0; i <handCardGifs.length ; i++) {
+    public void handleMinions() {
+        for (int i = 0; i < handCardGifs.length; i++) {
             int finalI = i;
+            int finalI1 = i;
             handCardGifs[i].getImageView()[0].setOnMouseClicked(event -> {
                 insideBattle = false;
                 currentImageView[0] = handCardGifs[finalI].getImageView()[0];
-            currentImageView[1] = handCardGifs[finalI].getImageView()[1];
+                currentImageView[1] = handCardGifs[finalI].getImageView()[1];
+                battleCard = handCardGifs[finalI1];
             });
         }
     }
 
-    public ImageView[] setGifForCards ( Card card){
+    public ImageView[] setGifForCards(Card card) {
         ImageView[] imageViews = new ImageView[3];
-        switch (card.getName()){
+        switch (card.getName()) {
             case "PERSIAN_CHAMPION":
             case "PERSIAN_COMMANDER":
-                imageViews[0]= new ImageView(new Image("minionGifs/Alabaster Titan_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Alabaster Titan_idle.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Alabaster Titan_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Alabaster Titan_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Alabaster Titan_idle.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Alabaster Titan_attack.gif"));
                 break;
             case "PERSIAN_LANCER":
             case "PERSIAN_HORSEMAN":
-                imageViews[0]= new ImageView(new Image("minionGifs/Spriggin_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Spriggin_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Spriggin_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Spriggin_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Spriggin_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Spriggin_attack.gif"));
                 break;
 
             case "PERSIAN_ARCHER":
             case "PERSIAN_SWORDS_WOMAN":
-                imageViews[0]= new ImageView(new Image("minionGifs/Sunrise Cleric_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Sunrise Cleric_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Sunrise Cleric_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Sunrise Cleric_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Sunrise Cleric_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Sunrise Cleric_attack.gif"));
                 break;
             case "TURANIAN_ARCHER":
             case "TURANIAN_SPY":
-                imageViews[0]= new ImageView(new Image("minionGifs/Worldcore Golem_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Worldcore Golem_attack.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Worldcore Golem_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Worldcore Golem_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Worldcore Golem_attack.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Worldcore Golem_attack.gif"));
                 break;
             case "TURANIAN_CATAPULT":
             case "TURANIAN_LANCER":
-                imageViews[0]= new ImageView(new Image("minionGifs/Blood Taura_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Blood Taura_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Blood Taura_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Blood Taura_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Blood Taura_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Blood Taura_attack.gif"));
                 break;
             case "TURANIAN_MACER":
             case "TURANIAN_PRINCE":
-                imageViews[0]= new ImageView(new Image("minionGifs/Riftwalker_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Riftwalker_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Riftwalker_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Riftwalker_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Riftwalker_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Riftwalker_attack.gif"));
                 break;
             case "BLACK_GIANT":
             case "CATAPULT_GIANT":
             case "HOG_RIDER_GIANT":
-                imageViews[0]= new ImageView(new Image("minionGifs/Chaos Elemental_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Chaos Elemental_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Chaos Elemental_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Chaos Elemental_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Chaos Elemental_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Chaos Elemental_attack.gif"));
                 break;
             case "TWO_HEADED_GIANT":
             case "GONDE_BACK_GIANT":
-                imageViews[0]= new ImageView(new Image("minionGifs/Furiosa_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Furiosa_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Furiosa_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Furiosa_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Furiosa_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Furiosa_attack.gif"));
                 break;
             case "EAGLE":
             case "CYCLOPS":
             case "VENOM_SNAKE":
-                imageViews[0]= new ImageView(new Image("minionGifs/Elkowl_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Elkowl_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Elkowl_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Elkowl_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Elkowl_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Elkowl_attack.gif"));
                 break;
             case "DRAGON":
             case "LION":
             case "GIANT_SNAKE":
-                imageViews[0]= new ImageView(new Image("minionGifs/Chaos Elemental_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Chaos Elemental_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Chaos Elemental_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Chaos Elemental_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Chaos Elemental_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Chaos Elemental_attack.gif"));
                 break;
             case "WHITE_WOLF":
             case "PALANG":
-                imageViews[0]= new ImageView(new Image("minionGifs/Katastrophosaurus_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Katastrophosaurus_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Katastrophosaurus_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Katastrophosaurus_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Katastrophosaurus_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Katastrophosaurus_attack.gif"));
                 break;
             case "WOLF":
             case "WILD_HOG":
-                imageViews[0]= new ImageView(new Image("minionGifs/Azurite Lion_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Azurite Lion_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Azurite Lion_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Azurite Lion_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Azurite Lion_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Azurite Lion_attack.gif"));
                 break;
             case "WITCH":
             case "NANE_WITCH":
-                imageViews[0]= new ImageView(new Image("minionGifs/Pandora_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Pandora_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Pandora_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Pandora_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Pandora_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Pandora_attack.gif"));
                 break;
             case "JEN":
             case "PIRAN":
-                imageViews[0]= new ImageView(new Image("minionGifs/Cryptographer_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Cryptographer_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Cryptographer_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Cryptographer_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Cryptographer_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Cryptographer_attack.gif"));
                 break;
             case "GIV":
             case "BAHMAN":
-                imageViews[0]= new ImageView(new Image("minionGifs/Silverbeak_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Silverbeak_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Silverbeak_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Silverbeak_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Silverbeak_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Silverbeak_attack.gif"));
                 break;
             case "ASHKBOOS":
             case "IRAJ":
-                imageViews[0]= new ImageView(new Image("minionGifs/Fog_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Fog_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Fog_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Fog_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Fog_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Fog_attack.gif"));
                 break;
             case "NANE_SARMA":
             case "FOOLADZEREH":
             case "SIAVASH":
-                imageViews[0]= new ImageView(new Image("minionGifs/Healing Mystic_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Healing Mystic_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Healing Mystic_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Healing Mystic_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Healing Mystic_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Healing Mystic_attack.gif"));
                 break;
             case "SHAGHUL":
             case "ARZHANG":
-                imageViews[0]= new ImageView(new Image("minionGifs/Kin_idle.gif"));
-                imageViews[1]= new ImageView(new Image("minionGifs/Kin_run.gif"));
-                imageViews[2]= new ImageView(new Image("minionGifs/Kin_attack.gif"));
+                imageViews[0] = new ImageView(new Image("minionGifs/Kin_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Kin_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Kin_attack.gif"));
                 break;
             case "TOTAL_DISARM":
             case "SACRIFICE":
-                    imageViews[0]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                    imageViews[1]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
-                    imageViews[2]= new ImageView(new Image("spell/Flash Freeze_active.gif"));
+                imageViews[0] = new ImageView(new Image("spell/Flash Freeze_active.gif"));
+                imageViews[1] = new ImageView(new Image("spell/Flash Freeze_active.gif"));
+                imageViews[2] = new ImageView(new Image("spell/Flash Freeze_active.gif"));
                 break;
             case "EMPOWER":
             case "FIREBALL":
             case "GOD_STRENGTH":
-                imageViews[0]= new ImageView(new Image("spell/Unleash the Evil_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Unleash the Evil_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Unleash the Evil_active.gif"));
+                imageViews[0] = new ImageView(new Image("spell/Unleash the Evil_active.gif"));
+                imageViews[1] = new ImageView(new Image("spell/Unleash the Evil_active.gif"));
+                imageViews[2] = new ImageView(new Image("spell/Unleash the Evil_active.gif"));
                 break;
             case "HELL_FIRE":
             case "LIGHTNING_BOLT":
             case "POISON_LAKE":
-                imageViews[0]= new ImageView(new Image("spell/Lasting Judgement_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Lasting Judgement_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Lasting Judgement_active.gif"));
+                imageViews[0] = new ImageView(new Image("spell/Lasting Judgement_active.gif"));
+                imageViews[1] = new ImageView(new Image("spell/Lasting Judgement_active.gif"));
+                imageViews[2] = new ImageView(new Image("spell/Lasting Judgement_active.gif"));
                 break;
             case "MADNESS":
             case "ALL_DISARM":
             case "ALL_POISON":
-                imageViews[0]= new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Icebreak Ambush_active.giff"));
-                imageViews[2]= new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
+                imageViews[0] = new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
+                imageViews[1] = new ImageView(new Image("spell/Icebreak Ambush_active.giff"));
+                imageViews[2] = new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
                 break;
             case "DISPEL":
             case "ALL_ATTACK":
             case "POWER_UP":
-                imageViews[0]= new ImageView(new Image("spell/Horrific Visage_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Horrific Visage_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Horrific Visage_active.gif"));
+                imageViews[0] = new ImageView(new Image("spell/Horrific Visage_active.gif"));
+                imageViews[1] = new ImageView(new Image("spell/Horrific Visage_active.gif"));
+                imageViews[2] = new ImageView(new Image("spell/Horrific Visage_active.gif"));
                 break;
             case "ALL_POWER":
             case "HEALTH_WITH_PROFIT":
             case "WEAKENING":
-                imageViews[0]= new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
+                imageViews[0] = new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
+                imageViews[1] = new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
+                imageViews[2] = new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
                 break;
             case "KINGS_GUARD":
             case "SHOCK":
             case "AREA_DISPEL":
-                imageViews[0]= new ImageView(new Image("spell/Aspect of Shim'Zar_active.gif"));
-                imageViews[1]= new ImageView(new Image("spell/Aspect of Shim'Zar_active.gif"));
-                imageViews[2]= new ImageView(new Image("spell/Aspect of Shim'Zar_active.gif"));
+                imageViews[0] = new ImageView(new Image("spell/Aspect of Shim'Zar_active.gif"));
+                imageViews[1] = new ImageView(new Image("spell/Aspect of Shim'Zar_active.gif"));
+                imageViews[2] = new ImageView(new Image("spell/Aspect of Shim'Zar_active.gif"));
                 break;
         }
         return imageViews;
     }
 
-    private void handleBattleCards(){
-        for (int i = 0; i < 40 ; i++) {
-            if(battleCards[i].getCard()!=null){
+    private void handleBattleCards() {
+        for (int i = 0; i < 40; i++) {
+            if (battleCards[i].getCard() != null) {
                 int finalI = i;
-                battleCards[i].getImageView()[0].setOnMouseClicked(event -> battleCard=battleCards[finalI]);
+                battleCards[i].getImageView()[0].setOnMouseClicked(event -> battleCard = battleCards[finalI]);
             }
         }
     }
@@ -589,15 +592,15 @@ public class Controller {
             int a = i;
             heroes[heroId[i][0]][0].setOnMouseClicked(event -> {
                 insideBattle = true;
-                if(lastSelectedCardId[0]!=0){
-                    battle.attack(heroId[a][1],Card.getCardByID(lastSelectedCardId[0],battle.getFieldCards()[(a+1)%2]));
-                    currentImageView[0] = heroes[heroId[(a+1)%2][0]][0];
-                    currentImageView[1] = heroes[heroId[(a+1)%2][0]][1];
-                    currentImageView[2] = heroes[heroId[(a+1)%2][0]][2];
+                if (lastSelectedCardId[0] != 0) {
+                    battle.attack(heroId[a][1], Card.getCardByID(lastSelectedCardId[0], battle.getFieldCards()[(a + 1) % 2]));
+                    currentImageView[0] = heroes[heroId[(a + 1) % 2][0]][0];
+                    currentImageView[1] = heroes[heroId[(a + 1) % 2][0]][1];
+                    currentImageView[2] = heroes[heroId[(a + 1) % 2][0]][2];
                     view.attack(currentImageView);
                     System.out.println("hamle");
-                    lastSelectedCardId[0]=0;
-                }else {
+                    lastSelectedCardId[0] = 0;
+                } else {
                     battle.selectCard(heroId[a][1]);
                     currentImageView[0] = heroes[heroId[a][0]][0];
                     currentImageView[1] = heroes[heroId[a][0]][1];
@@ -613,12 +616,25 @@ public class Controller {
     private void handlePolygon() {
         for (int i = 0; i < polygon.length; i++) {
             int a = i;
+            int finalI = i;
             polygon[i].setOnMouseClicked(event -> {
-                view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
-                battle.moveTo(new Coordinate(a-(a/9),a/9));
-                lastSelectedCardId[0]=0;
-                if(!insideBattle){
-                    System.out.println("shitttrfg");
+                if (insideBattle) {
+                    view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
+                    battle.moveTo(new Coordinate(a - (a / 9), a / 9));
+                    lastSelectedCardId[0] = 0;
+                }
+                if (!insideBattle) {
+                    for (int j = 0; j < battleCards.length; j++) {
+                        if (battleCards[j] != null) {
+                            battleCards[j] = battleCard;
+                            view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
+                            battle.moveTo(new Coordinate(a - (a / 9), a / 9));
+                            lastSelectedCardId[0] = 0;
+                            for (int k = 0; k <; k++) {
+
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -651,7 +667,7 @@ public class Controller {
             battle.endTurn();
             AiFunctions();
             for (int i = 0; i < 9; i++) {
-                if (i <battle.getAccounts()[0].getMana()) {
+                if (i < battle.getAccounts()[0].getMana()) {
                     mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
                 } else {
                     mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
@@ -844,51 +860,51 @@ public class Controller {
             case "WHITE_DIV":
                 heroId[a][0] = 0;
                 heroes[0][1] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                heroes[0][2]= new ImageView(new Image("gifs/Abomination_attack.gif"));
+                heroes[0][2] = new ImageView(new Image("gifs/Abomination_attack.gif"));
                 return heroes[0][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
             case "ZAHAK":
                 heroId[a][0] = 1;
-                heroes[1][2]= new ImageView(new Image("gifs/Abomination_attack.gif"));
+                heroes[1][2] = new ImageView(new Image("gifs/Abomination_attack.gif"));
                 heroes[1][1] = new ImageView(new Image("gifs/Abomination_run.gif"));
                 return heroes[1][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
             case "ARASH":
                 heroId[a][0] = 2;
-                heroes[2][2]= new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
+                heroes[2][2] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
                 heroes[2][1] = new ImageView(new Image("gifs/f5_altgeneraltier2_run.gif"));
                 return heroes[2][0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
             case "SIMORGH":
                 heroId[a][0] = 3;
-                heroes[3][2]= new ImageView(new Image("gifs/f4_altgeneraltier2_attack.gif"));
+                heroes[3][2] = new ImageView(new Image("gifs/f4_altgeneraltier2_attack.gif"));
                 heroes[3][1] = new ImageView(new Image("gifs/f4_altgeneraltier2_run.gif"));
                 return heroes[3][0] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
             case "SEVEN_HEADED_DRAGON":
                 heroId[a][0] = 4;
-                heroes[4][2]= new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
+                heroes[4][2] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
                 heroes[4][1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
                 return heroes[4][0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
             case "RAKHSH":
                 heroId[a][0] = 5;
-                heroes[5][2]= new ImageView(new Image("gifs/f6_altgeneraltier2_attack.gif"));
+                heroes[5][2] = new ImageView(new Image("gifs/f6_altgeneraltier2_attack.gif"));
                 heroes[5][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
                 return heroes[5][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
             case "KAVEH":
                 heroId[a][0] = 6;
-                heroes[6][2]= new ImageView(new Image("gifs/boss_cindera_attack.gif"));
+                heroes[6][2] = new ImageView(new Image("gifs/boss_cindera_attack.gif"));
                 heroes[6][1] = new ImageView(new Image("gifs/boss_cindera_run.gif"));
                 return heroes[6][0] = new ImageView(new Image("gifs/boss_cindera_idle.gif"));
             case "AFSANEH":
                 heroId[a][0] = 7;
-                heroes[7][2]= new ImageView(new Image("gifs/f6_altgeneraltier2_attack.gif"));
+                heroes[7][2] = new ImageView(new Image("gifs/f6_altgeneraltier2_attack.gif"));
                 heroes[7][1] = new ImageView(new Image("gifs/f6_altgeneraltier2_run.gif"));
                 return heroes[7][0] = new ImageView(new Image("gifs/f6_altgeneraltier2_idle.gif"));
             case "ESFANDIAR":
                 heroId[a][0] = 8;
-                heroes[8][2]= new ImageView(new Image("gifs/Brome Warcrest_attack.gif"));
+                heroes[8][2] = new ImageView(new Image("gifs/Brome Warcrest_attack.gif"));
                 heroes[8][1] = new ImageView(new Image("gifs/Brome Warcrest_run.gif"));
                 return heroes[8][0] = new ImageView(new Image("gifs/Brome Warcrest_idle.gif"));
             case "ROSTAM":
                 heroId[a][0] = 9;
-                heroes[9][2]= new ImageView(new Image("gifs/f1_tier2general_attack.gif"));
+                heroes[9][2] = new ImageView(new Image("gifs/f1_tier2general_attack.gif"));
                 heroes[9][1] = new ImageView(new Image("gifs/f1_tier2general_attack.gif"));
                 return heroes[9][0] = new ImageView(new Image("gifs/f1_tier2general_idle.gif"));
         }
