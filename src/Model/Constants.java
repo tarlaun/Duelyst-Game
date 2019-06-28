@@ -93,5 +93,5 @@ public class Constants {
     public static final double SELL_Y = 10;
     public static final double DECK_PANE_WIDTH = SELL_WIDTH * 1.2;
     public static final double DECK_PANE_HEIGHT = SELL_HEIGHT * 0.7;
-    public static final double DECK_PANE_X = SELL_PANE_X;
+    public static final double DECK_PANE_X = SELL_PANE_X / 2;
 }
