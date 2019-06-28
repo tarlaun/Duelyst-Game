@@ -19,14 +19,14 @@ public class ImageButton {
         label = new Label(text);
         imageView.setFitWidth(width);
         imageView.setFitHeight(height);
+        pane.setPrefWidth(width);
+        pane.setPrefHeight(height);
         label.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, size));
         label.setTextFill(color);
-        label.translateXProperty().bind(label.widthProperty().divide(2));
-        label.translateYProperty().bind(label.heightProperty().divide(2));
         label.relocate(width / 2, height / 2);
+        label.translateXProperty().bind(label.widthProperty().divide(2).negate());
+        label.translateYProperty().bind(label.heightProperty().divide(2).negate());
         pane.getChildren().addAll(imageView, label);
-        pane.setPrefWidth(imageView.getFitWidth());
-        pane.setPrefHeight(imageView.getFitHeight());
     }
 
     public AnchorPane getPane() {

@@ -21,6 +21,9 @@ public class AlertMessage {
             case ERROR:
                 alert.setHeaderText("ERROR!");
                 break;
+            case INFORMATION:
+                alert.setHeaderText("SUCCESSFUL!");
+                break;
         }
         buttons = new ButtonType[options.length];
         for (int i = 0; i < options.length; i++) {

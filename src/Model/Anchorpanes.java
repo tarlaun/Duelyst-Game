@@ -6,5 +6,8 @@ public enum Anchorpanes {
     PREV,
     CREATE,
     SELL,
-    BUY
+    BUY,
+    MAIN_DECK,
+    SET_MAIN_DECK,
+    SHOW_DECk
 }

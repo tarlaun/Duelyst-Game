@@ -85,10 +85,13 @@ public class Constants {
     public static final String INFO_FONT = "Ubuntu";
     public static final double SELL_WIDTH = 150;
     public static final double SELL_HEIGHT = 50;
-    public static final double SELL_TEXT_SIZE = 30;
+    public static final int SELL_TEXT_SIZE = 30;
     public static final double SELECTION_WIDTH = 70;
     public static final double SELECTION_HEIGHT = 20;
     public static final double SELL_PANE_X = 50;
     public static final double SELL_X = 50;
     public static final double SELL_Y = 10;
+    public static final double DECK_PANE_WIDTH = SELL_WIDTH * 1.2;
+    public static final double DECK_PANE_HEIGHT = SELL_HEIGHT * 0.7;
+    public static final double DECK_PANE_X = SELL_PANE_X;
 }
