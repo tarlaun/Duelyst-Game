@@ -237,113 +237,134 @@ public class Controller {
         ImageView[] imageViews = new ImageView[3];
         switch (card.getName()) {
             case "PERSIAN_CHAMPION":
-            case "PERSIAN_COMMANDER":
+            case "PERSIAN_SWORDS_WOMAN":
+                //khoob
                 imageViews[0] = new ImageView(new Image("minionGifs/Alabaster Titan_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Alabaster Titan_idle.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Alabaster Titan_attack.gif"));
                 break;
-            case "PERSIAN_LANCER":
+            case "PERSIAN_COMMANDER":
             case "PERSIAN_HORSEMAN":
+                //bad
                 imageViews[0] = new ImageView(new Image("minionGifs/Spriggin_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Spriggin_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Spriggin_attack.gif"));
                 break;
             case "TURANIAN_ARCHER":
-            case "PERSIAN_SWORDS_WOMAN":
+            case "CATAPULT_GIANT":
+                //motevaset
                 imageViews[0] = new ImageView(new Image("minionGifs/Sunrise Cleric_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Sunrise Cleric_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Sunrise Cleric_attack.gif"));
                 break;
-            case "PERSIAN_ARCHER":
+            case "VENOM_SNAKE":
             case "TURANIAN_SPY":
+                //motevaset
                 imageViews[0] = new ImageView(new Image("minionGifs/Worldcore Golem_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Worldcore Golem_attack.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Worldcore Golem_attack.gif"));
                 break;
             case "TURANIAN_CATAPULT":
             case "TURANIAN_LANCER":
+                //tek
                 imageViews[0] = new ImageView(new Image("minionGifs/Blood Taura_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Blood Taura_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Blood Taura_attack.gif"));
                 break;
-            case "TURANIAN_MACER":
+            case "PERSIAN_LANCER":
             case "TURANIAN_PRINCE":
+                //motevaset
                 imageViews[0] = new ImageView(new Image("minionGifs/Riftwalker_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Riftwalker_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Riftwalker_attack.gif"));
                 break;
-            case "CATAPULT_GIANT":
+
             case "HOG_RIDER_GIANT":
-            case "DRAGON":
+            case "CYCLOPS":
+                //khoob
                 imageViews[0] = new ImageView(new Image("minionGifs/Blood Taura_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Blood Taura_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Blood Taura_attack.gif"));
                 break;
             case "TWO_HEADED_GIANT":
             case "GONDE_BACK_GIANT":
+                //bad
                 imageViews[0] = new ImageView(new Image("minionGifs/Furiosa_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Furiosa_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Furiosa_attack.gif"));
                 break;
             case "EAGLE":
-            case "CYCLOPS":
-            case "VENOM_SNAKE":
+            case "FOOLADZEREH":
+            case "WOLF":
+                //bad
                 imageViews[0] = new ImageView(new Image("minionGifs/Elkowl_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Elkowl_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Elkowl_attack.gif"));
                 break;
-            case "FOOLADZEREH":
             case "WHITE_WOLF":
+            case "DRAGON":
+                ///khoob
                 imageViews[0] = new ImageView(new Image("minionGifs/Katastrophosaurus_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Katastrophosaurus_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Katastrophosaurus_attack.gif"));
                 break;
-            case "PALANG":
-            case "GIANT_SNAKE":
-                imageViews[0] = new ImageView(new Image("minionGifs/Katastrophosaurus_idle.gif"));
-                imageViews[1] = new ImageView(new Image("minionGifs/Katastrophosaurus_run.gif"));
-                imageViews[2] = new ImageView(new Image("minionGifs/Katastrophosaurus_attack.gif"));
-                break;
-            case "WOLF":
             case "NANE_WITCH":
+            case "GIANT_SNAKE":
+                //tek
+                imageViews[0] = new ImageView(new Image("minionGifs/Katastrophosaurus_idle.gif"));
+                imageViews[1] = new ImageView(new Image("minionGifs/Katastrophosaurus_run.gif"));
+                imageViews[2] = new ImageView(new Image("minionGifs/Katastrophosaurus_attack.gif"));
+                break;
+            case "LION":
+            case "PALANG":
+                //khoob
                 imageViews[0] = new ImageView(new Image("minionGifs/Azurite Lion_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Azurite Lion_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Azurite Lion_attack.gif"));
                 break;
             case "WITCH":
             case "WILD_HOG":
+                //motevaset
+            case "TURANIAN_MACER":
                 imageViews[0] = new ImageView(new Image("minionGifs/Pandora_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Pandora_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Pandora_attack.gif"));
                 break;
             case "JEN":
             case "PIRAN":
+            case "GIV":
+                //khoob
                 imageViews[0] = new ImageView(new Image("minionGifs/Cryptographer_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Cryptographer_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Cryptographer_attack.gif"));
                 break;
-            case "GIV":
+
             case "BAHMAN":
+            case "PERSIAN_ARCHER":
+                //khoob
                 imageViews[0] = new ImageView(new Image("minionGifs/Silverbeak_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Silverbeak_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Silverbeak_attack.gif"));
                 break;
             case "ASHKBOOS":
             case "IRAJ":
+                //khoob
                 imageViews[0] = new ImageView(new Image("minionGifs/Fog_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Fog_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Fog_attack.gif"));
                 break;
             case "NANE_SARMA":
-            case "LION":
             case "SIAVASH":
+            case "SHAGHUL":
+                //khoob
                 imageViews[0] = new ImageView(new Image("minionGifs/Healing Mystic_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Healing Mystic_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Healing Mystic_attack.gif"));
                 break;
-            case "SHAGHUL":
+
             case "ARZHANG":
             case "BLACK_GIANT":
+                //bad
                 imageViews[0] = new ImageView(new Image("minionGifs/Kin_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Kin_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Kin_attack.gif"));

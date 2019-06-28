@@ -187,7 +187,7 @@ public class View {
             battleCard.getImageView()[0].setFitHeight(80);
             battleCard.getImageView()[0].setFitWidth(80);
         }
-        root.getChildren().addAll(battleCard.getImageView());
+        root.getChildren().addAll(battleCard.getImageView()[0]);
     }
 
     private void handCardRings(ImageView[] handcards) {
