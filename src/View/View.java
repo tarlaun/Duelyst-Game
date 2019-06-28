@@ -993,8 +993,11 @@ public class View {
         }
     }
 
-    public void verticalList(Alignment alignment, double x, double y, AnchorPane... anchorPanes) {
+    public void verticalList(Alignment alignment, double x, double y, double width, double height,
+                             AnchorPane... anchorPanes) {
         for (int i = 0; i < anchorPanes.length; i++) {
+            anchorPanes[i].setPrefWidth(width);
+            anchorPanes[i].setPrefHeight(height);
             if (alignment == Alignment.CENTRE)
                 anchorPanes[i].setLayoutX(x);
             if (alignment == Alignment.RIGHT || alignment == Alignment.LEFT) {
@@ -1136,11 +1139,12 @@ public class View {
         object.setPrefWidth(Constants.FIELD_WIDTH);
         object.setPrefHeight(Constants.FIELD_HEIGHT);
         object.relocate(Constants.SELL_X + 0.1 * Constants.SELL_WIDTH + Constants.SELL_WIDTH / 2, 200);
-        buy = new ImageButton(buyView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "BUY",
-                Constants.SELL_TEXT_SIZE, Color.NAVY).getPane();
-        sell = new ImageButton(sellView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "SELL",
-                Constants.SELL_TEXT_SIZE, Color.NAVY).getPane();
-        verticalList(Alignment.LEFT, Constants.SELL_PANE_X, Constants.CENTRE_Y, buy, sell);
+        buy.getChildren().addAll(new ImageButton(buyView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "BUY",
+                Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
+        sell.getChildren().addAll(new ImageButton(sellView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "SELL",
+                Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
+        verticalList(Alignment.LEFT, Constants.SELL_PANE_X, Constants.CENTRE_Y,
+                buyView.getFitWidth(), buyView.getFitHeight(), buy, sell);
         scrollPane(backView, next, prev, back);
         lightning(buy);
         lightning(sell);
@@ -1150,18 +1154,32 @@ public class View {
 
 
     public void collectionMenu(TextField object, ArrayList<Card> cards, ArrayList<Item> items
-            , AnchorPane createDeck, TextField name, AnchorPane back, AnchorPane next, AnchorPane prev
-            , AnchorPane maindDeck, AnchorPane setMainDeck, int page) {
+            , AnchorPane createDeck, AnchorPane showDeck, AnchorPane back, AnchorPane next, AnchorPane prev
+            , AnchorPane mainDeck, AnchorPane setMainDeck, ChoiceBox list, int page) {
         root.getChildren().clear();
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         scrollPane(backView, next, prev, back);
         object.setPrefWidth(Constants.FIELD_WIDTH);
         object.setPrefHeight(Constants.FIELD_HEIGHT);
-        object.relocate(Constants.SELL_X + Constants.SELL_WIDTH / 2, 200);
-        ImageView createPane = new ImageView(new Image("card_backgrounds/deck_builder_prismatic_card_bg@2x.png"));
-        createPane.setFitHeight(Constants.SELL_HEIGHT);
-        createPane.setFitWidth(Constants.SELL_WIDTH);
-        root.getChildren().addAll(backView, next, prev, back, object);
+        object.relocate(Constants.DECK_PANE_X * 2 + Constants.DECK_PANE_WIDTH / 2, 100);
+        ImageView deckPane = new ImageView(new Image("card_backgrounds/deck_builder_prismatic_card_bg@2x.png"));
+        createDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
+                Constants.DECK_PANE_HEIGHT, "Create Deck", Constants.FONT_SIZE, Color.LIGHTBLUE)
+                .getPane().getChildren());
+        mainDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
+                Constants.DECK_PANE_HEIGHT, "Main Deck", Constants.FONT_SIZE, Color.LIGHTBLUE)
+                .getPane().getChildren());
+        setMainDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
+                Constants.DECK_PANE_HEIGHT, "Set as MAIN", Constants.FONT_SIZE, Color.LIGHTBLUE)
+                .getPane().getChildren());
+        showDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
+                Constants.DECK_PANE_HEIGHT, "Show Deck", Constants.FONT_SIZE, Color.LIGHTBLUE)
+                .getPane().getChildren());
+        list.relocate(object.getLayoutX(), 350);
+        verticalList(Alignment.LEFT, Constants.DECK_PANE_X, Constants.CENTRE_Y + Constants.DECK_PANE_HEIGHT
+                , Constants.DECK_PANE_WIDTH, Constants.DECK_PANE_HEIGHT, showDeck, setMainDeck, mainDeck, createDeck);
+        lightning(createDeck, mainDeck, setMainDeck, showDeck);
+        root.getChildren().addAll(backView, next, prev, back, object, showDeck, setMainDeck, mainDeck, createDeck);
         showCards(cards, items, page);
     }
 
@@ -1249,13 +1267,15 @@ public class View {
         }
     }
 
-    private void lightning(AnchorPane anchorPane) {
+    private void lightning(AnchorPane... anchorPanes) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
         Glow glow = new Glow();
         glow.setLevel(0.9);
-        anchorPane.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> anchorPane.setEffect(colorAdjust));
-        anchorPane.addEventFilter(MouseEvent.MOUSE_EXITED, e -> anchorPane.setEffect(null));
+        for (AnchorPane anchorPane : anchorPanes) {
+            anchorPane.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> anchorPane.setEffect(colorAdjust));
+            anchorPane.addEventFilter(MouseEvent.MOUSE_EXITED, e -> anchorPane.setEffect(null));
+        }
     }
 
     public void setCardImage(String name) {
