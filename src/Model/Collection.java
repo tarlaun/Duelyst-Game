@@ -153,4 +153,13 @@ public class Collection {
             }
         }
     }
+
+    public Deck findDeck(String name) {
+        for (int i = 0; i < decks.size(); i++) {
+            if (decks.get(i).getName().equals(name))
+                return decks.get(i);
+        }
+        return null;
+    }
+
 }
