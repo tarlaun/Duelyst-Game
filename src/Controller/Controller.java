@@ -3,8 +3,8 @@ package Controller;
 import Model.*;
 import Model.Menu;
 import View.*;
+import javafx.collections.FXCollections;
 import javafx.scene.control.*;
-import javafx.scene.control.ButtonBar.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -33,6 +33,7 @@ public class Controller {
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private transient ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
+    private transient ChoiceBox decksList = new ChoiceBox();
     private static final Controller controller = new Controller();
     private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
     private Media media = new Media(file.toURI().toString());
@@ -41,6 +42,7 @@ public class Controller {
     private ArrayList<Card> cardsInShop, cardsInCollection;
     private ArrayList<Item> itemsInShop, itemsInCollection;
     private boolean buyMode = true;
+    private String deckName = "Collection";
 
     private Controller() {
         initializeGame();
@@ -299,9 +301,10 @@ public class Controller {
                 break;
             case COLLECTION:
                 view.collectionMenu(fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
-                        anchorPanes[Anchorpanes.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
+                        anchorPanes[Anchorpanes.CREATE.ordinal()], anchorPanes[Anchorpanes.SHOW_DECk.ordinal()],
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
-                        anchorPanes[Anchorpanes.PREV.ordinal()], collectionPage);
+                        anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.MAIN_DECK.ordinal()],
+                        anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()], decksList, collectionPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -398,6 +401,10 @@ public class Controller {
             buyMode = false;
             main();
         });
+        anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()].setOnMouseClicked(event -> {
+            deckLing(-1);
+            main();
+        });
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
@@ -421,33 +428,51 @@ public class Controller {
                 }
             }
             if (menu.getStat() == MenuStat.COLLECTION) {
-                cardsInCollection = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
-                        account.getCollection().getCards());
-                itemsInCollection = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
-                        account.getCollection().getItems());
+                if (deckName.equals("Collection")) {
+                    cardsInCollection = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                            account.getCollection().getCards());
+                    itemsInCollection = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                            account.getCollection().getItems());
+                } else {
+                    cardsInCollection = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                            account.getCollection().findDeck(deckName).getCards());
+                    if (fields[Texts.OBJECT.ordinal()].getText().matches(account.getCollection().
+                            findDeck(deckName).getItem().getName())) {
+                        ArrayList<Item> itemList = new ArrayList<>();
+                        itemList.add(account.getCollection().findDeck(deckName).getItem());
+                        itemsInCollection = itemList;
+                    } else {
+                        itemsInCollection = new ArrayList<>();
+                    }
+                }
             }
             main();
         });
     }
 
     public void handleCollection(ArrayList<Card> cards, ArrayList<Item> items) {
+        List<String> list = new ArrayList<>();
+        for (Deck deck : account.getCollection().getDecks()) {
+            list.add(deck.getName());
+        }
+        decksList = new ChoiceBox(FXCollections.observableArrayList(list));
         for (int i = 0; i < cards.size(); i++) {
             int finalI = i;
             cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                handleAddingToDeck(cards.get(finalI).getId());
+                deckLing(cards.get(finalI).getId());
                 main();
             });
         }
         for (int i = 0; i < items.size(); i++) {
             int finalI = i;
             items.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                handleAddingToDeck(items.get(finalI).getId());
+                deckLing(items.get(finalI).getId());
                 main();
             });
         }
     }
 
-    private void handleAddingToDeck(int id) {
+    private void deckLing(int id) {
         List<String> deckNames = new ArrayList<>();
         for (Deck deck : account.getCollection().getDecks()) {
             deckNames.add(deck.getName());
@@ -457,6 +482,17 @@ public class Controller {
         dialog.setContentText("To deck: ");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(name -> {
+            if (id == -1) {
+                if (account.getCollection().selectDeck(name)) {
+                    AlertMessage alert = new AlertMessage("Main Deck is " + name,
+                            Alert.AlertType.INFORMATION, "OK");
+                    alert.getResult();
+                } else {
+                    AlertMessage alert = new AlertMessage("The " + name + " is already the Main Deck",
+                            Alert.AlertType.ERROR, "OK");
+                    alert.getResult();
+                }
+            }
             Message message = addToDeck(name, id);
             if (message == Message.OBJECT_ADDED) {
                 AlertMessage alert = new AlertMessage("Card added!", Alert.AlertType.INFORMATION, "OK");
