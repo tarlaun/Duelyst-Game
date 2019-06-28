@@ -53,6 +53,7 @@ public class Controller {
     private ArrayList<Card> cardsInShop, cardsInCollection;
     private ArrayList<Item> itemsInShop, itemsInCollection;
     private boolean buyMode = true;
+    private boolean insideBattle = false;
 
     private Controller() {
         initializeGame();
@@ -398,7 +399,9 @@ public class Controller {
     public void handleMinions(){
         for (int i = 0; i <handCardGifs.length ; i++) {
             int finalI = i;
-            handCardGifs[i].getImageView()[0].setOnMouseClicked(event -> {currentImageView[0] = handCardGifs[finalI].getImageView()[0];
+            handCardGifs[i].getImageView()[0].setOnMouseClicked(event -> {
+                insideBattle = false;
+                currentImageView[0] = handCardGifs[finalI].getImageView()[0];
             currentImageView[1] = handCardGifs[finalI].getImageView()[1];
             });
         }
@@ -548,14 +551,14 @@ public class Controller {
                 imageViews[2]= new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
                 break;
             case "DISPEL":
-            case "HEALTH_WITH_PROFIT":
+            case "ALL_ATTACK":
             case "POWER_UP":
                 imageViews[0]= new ImageView(new Image("spell/Horrific Visage_active.gif"));
                 imageViews[1]= new ImageView(new Image("spell/Horrific Visage_active.gif"));
                 imageViews[2]= new ImageView(new Image("spell/Horrific Visage_active.gif"));
                 break;
             case "ALL_POWER":
-            case "ALL_ATTACK":
+            case "HEALTH_WITH_PROFIT":
             case "WEAKENING":
                 imageViews[0]= new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
                 imageViews[1]= new ImageView(new Image("spell/Homeostatic Rebuke_active.gif"));
@@ -585,6 +588,7 @@ public class Controller {
         for (int i = 0; i < 2; i++) {
             int a = i;
             heroes[heroId[i][0]][0].setOnMouseClicked(event -> {
+                insideBattle = true;
                 if(lastSelectedCardId[0]!=0){
                     battle.attack(heroId[a][1],Card.getCardByID(lastSelectedCardId[0],battle.getFieldCards()[(a+1)%2]));
                     currentImageView[0] = heroes[heroId[(a+1)%2][0]][0];
@@ -613,6 +617,9 @@ public class Controller {
                 view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                 battle.moveTo(new Coordinate(a-(a/9),a/9));
                 lastSelectedCardId[0]=0;
+                if(!insideBattle){
+                    System.out.println("shitttrfg");
+                }
             });
         }
     }
@@ -807,20 +814,6 @@ public class Controller {
         main();
     }
 
-    private void setBattleMode(Request request) {
-        if (request.isBattleMode() && menu.getStat() == MenuStat.BATTLE_MODE) {
-            battle.setMode(request.getBattleMode(request.getCommand()));
-            if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
-                setMainDeckForAI();
-            }
-            if (battle.getGameType() == GameType.MULTIPLAYER) {
-                menu.setStat(MenuStat.SELECT_USER);
-            } else {
-                menu.setStat(MenuStat.BATTLE);
-                battle.startBattle();
-            }
-        }
-    }
 
     private void setMainDeckForAI() {
         if (battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
