@@ -432,37 +432,60 @@ public class Controller {
         for (int i = 0; i < cards.size(); i++) {
             int finalI = i;
             cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                AlertMessage alert;
                 if (buyMode) {
-                    if (account.getBudget() < cards.get(finalI).getPrice()) {
-                        alert = new AlertMessage("Insufficient budget!", Alert.AlertType.ERROR, "OK");
-                        alert.getResult();
-                    } else {
-                        alert = new AlertMessage("It will cost " + cards.get(finalI).getPrice() + " Drigs",
-                                Alert.AlertType.CONFIRMATION, "OK", "Cancel");
-                        Optional<ButtonType> result = alert.getResult();
-                        if (result.isPresent()) {
-                            switch (result.get().getText()) {
-                                case "OK":
-                                    buy(cards.get(finalI).getName());
-                                    break;
-                            }
-                        }
-                    }
+                    handleBuy(account.getBudget(), cards.get(finalI).getName(), cards.get(finalI).getPrice());
                 } else {
-                    alert = new AlertMessage("Are you sure to sell it?", Alert.AlertType.CONFIRMATION,
-                            "Yes", "No");
-                    Optional<ButtonType> result = alert.getResult();
-                    if (result.isPresent()) {
-                        switch (result.get().getText()) {
-                            case "Yes":
-                                sell(cards.get(finalI).getId());
-                                break;
-                        }
-                    }
+                    handleSell(cards.get(finalI).getId());
                 }
                 main();
             });
+            items.get(i).getCardView().getPane().setOnMouseClicked(event -> {
+                if (buyMode) {
+                    if (items.get(finalI).getPrice() == 0) {
+                        AlertMessage alert;
+                        alert = new AlertMessage("You cannot buy collectible item!", Alert.AlertType.ERROR, "OK");
+                        alert.getResult();
+                    } else {
+                        handleBuy(account.getBudget(), items.get(finalI).getName(), items.get(finalI).getPrice());
+                    }
+                } else {
+                    handleSell(items.get(finalI).getId());
+                }
+                main();
+            });
+        }
+    }
+
+    public void handleBuy(int budget, String name, int price) {
+        AlertMessage alert;
+        if (budget < price) {
+            alert = new AlertMessage("Insufficient budget!", Alert.AlertType.ERROR, "OK");
+            alert.getResult();
+        } else {
+            alert = new AlertMessage("It will cost " + price + " Drigs",
+                    Alert.AlertType.CONFIRMATION, "OK", "Cancel");
+            Optional<ButtonType> result = alert.getResult();
+            if (result.isPresent()) {
+                switch (result.get().getText()) {
+                    case "OK":
+                        buy(name);
+                        break;
+                }
+            }
+        }
+    }
+
+    public void handleSell(int id) {
+        AlertMessage alert;
+        alert = new AlertMessage("Are you sure to sell it?", Alert.AlertType.CONFIRMATION,
+                "Yes", "No");
+        Optional<ButtonType> result = alert.getResult();
+        if (result.isPresent()) {
+            switch (result.get().getText()) {
+                case "Yes":
+                    sell(id);
+                    break;
+            }
         }
     }
 
