@@ -4,6 +4,7 @@ import Model.*;
 import Model.Menu;
 import View.*;
 import javafx.scene.control.*;
+import javafx.scene.control.ButtonBar.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class Controller {
     private View view = View.getInstance();
@@ -285,13 +287,14 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(buyMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
+                view.shopMenu(account, buyMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.SELL.ordinal()],
                         anchorPanes[Anchorpanes.BUY.ordinal()], shopPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
+                handleInstances(cardsInShop, itemsInShop);
                 break;
             case COLLECTION:
                 view.collectionMenu(fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
@@ -393,7 +396,6 @@ public class Controller {
             buyMode = false;
             main();
         });
-        buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
@@ -424,6 +426,44 @@ public class Controller {
             }
             main();
         });
+    }
+
+    public void handleInstances(ArrayList<Card> cards, ArrayList<Item> items) {
+        for (int i = 0; i < cards.size(); i++) {
+            int finalI = i;
+            cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
+                AlertMessage alert;
+                if (buyMode) {
+                    if (account.getBudget() < cards.get(finalI).getPrice()) {
+                        alert = new AlertMessage("Insufficient budget!", Alert.AlertType.ERROR, "OK");
+                        alert.getResult();
+                    } else {
+                        alert = new AlertMessage("It will cost " + cards.get(finalI).getPrice() + " Drigs",
+                                Alert.AlertType.CONFIRMATION, "OK", "Cancel");
+                        Optional<ButtonType> result = alert.getResult();
+                        if (result.isPresent()) {
+                            switch (result.get().getText()) {
+                                case "OK":
+                                    buy(cards.get(finalI).getName());
+                                    break;
+                            }
+                        }
+                    }
+                } else {
+                    alert = new AlertMessage("Are you sure to sell it?", Alert.AlertType.CONFIRMATION,
+                            "Yes", "No");
+                    Optional<ButtonType> result = alert.getResult();
+                    if (result.isPresent()) {
+                        switch (result.get().getText()) {
+                            case "Yes":
+                                sell(cards.get(finalI).getId());
+                                break;
+                        }
+                    }
+                }
+                main();
+            });
+        }
     }
 
     public void setBattleMode(int a) {
@@ -780,16 +820,14 @@ public class Controller {
         }
     }
 
-    private void buy() {
+    private void buy(String name) {
         if (shop.getGame() == null)
             shop.setGame(this.game);
-        shop.buy(fields[Texts.OBJECT.ordinal()].getText(), this.account);
+        shop.buy(name, this.account);
     }
 
-    private void sell(Request request) {
-        if (request.checkSellSyntax() && menu.getStat() == MenuStat.SHOP) {
-            view.printSellMessages(shop.sell(request.getObjectID(request.getCommand()), this.account));
-        }
+    private void sell(int id) {
+        shop.sell(id, account);
     }
 
     private void showShop() {
