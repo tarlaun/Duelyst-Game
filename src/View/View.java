@@ -617,9 +617,9 @@ public class View {
     public void shopMenu(boolean mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items, AnchorPane back, AnchorPane next,
                          AnchorPane prev, AnchorPane sell, AnchorPane buy, int page) {
         root.getChildren().clear();
-        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
-        ImageView buyView = new ImageView(new Image("ui/button_confirm_glow@2x.png"));
-        ImageView sellView = new ImageView(new Image("ui/button_cancel_glow@2x.png"));
+        ImageView backView = new ImageView(new Image("resources/scenes/load/scene_load_background.jpg"));
+        ImageView buyView = new ImageView(new Image("resources/ui/button_confirm_glow@2x.png"));
+        ImageView sellView = new ImageView(new Image("resources/ui/button_cancel_glow@2x.png"));
         Label sellText = new Label("Sell");
         Label buyText = new Label("Buy");
         Label modeLabel;
@@ -682,7 +682,7 @@ public class View {
         name.setPrefWidth(Constants.FIELD_WIDTH);
         name.setPrefHeight(Constants.FIELD_HEIGHT);
 */
-        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        ImageView backView = new ImageView(new Image("resources/scenes/load/scene_load_background.jpg"));
         scrollPane(backView, next, prev, back);
 //        lightning(createDeck, create);
         object.setPrefWidth(Constants.FIELD_WIDTH);
@@ -693,10 +693,10 @@ public class View {
     }
 
     private void scrollPane(ImageView backView, AnchorPane next, AnchorPane prev, AnchorPane back) {
-        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button.png");
-        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text.png");
+        Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button@2x.png");
+        Image arrow = new Image("resources/ui/sliding_panel/sliding_panel_paging_button_text@2x.png");
         ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
-        Image backArrow = new Image("ui/button_back_corner.png");
+        Image backArrow = new Image("resources/ui/button_back_corner@2x.png");
         leftArrow.setImage(arrow);
         rightArrow.setImage(arrow);
         rightArrow.setRotate(180);

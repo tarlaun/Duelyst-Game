@@ -12,7 +12,7 @@ import javafx.stage.StageStyle;
 public class Main extends Application {
     private Controller controller = Controller.getInstance();
     private View view = View.getInstance();
-    private Image icon = new Image("crests/crest_f3.png");
+    private Image icon = new Image("resources/crests/crest_f3.png");
 
     public static void main(String[] args) {
         launch(args);
