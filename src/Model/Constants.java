@@ -46,6 +46,7 @@ public class Constants {
     public static final double FIELD_HEIGHT = 30;
     public static final double SINGLE_PLAYER_WIDTH = 300;
     public static final double SINGLE_PLAYER_HEIGHT = 300;
+    public static final double DECK_PANE_Y = CENTRE_Y * 0.8;
     public static int HEROES_COUNT = 10;
     public static int MINIONS_COUNT = 40;
     public static int SPELLS_COUNT = 20;
@@ -67,7 +68,10 @@ public class Constants {
     public static final double CARD_TYPE_X = CARD_POWER_X * 2.2;
     public static final double CARD_NAME_Y = CARD_HEIGHT - 4 * CARD_TYPE_Y;
     public static final double CARD_NAME_X = CARD_TYPE_X;
+    public static final double CARD_PRICE_X = CARD_NAME_X;
+    public static final double CARD_PRICE_Y = CARD_NAME_Y * 0.9;
     public static final int FONT_SIZE = 20;
+    public static final double CARD_INFO_FONT = FONT_SIZE * 0.55;
     public static final String PAGE_TITLE_FONT = "Chilanka";
     public static final double PAGE_TITLE_SIZE = 2 * FONT_SIZE;
     public static final double PAGE_TITLE_Y = 10;
@@ -82,10 +86,15 @@ public class Constants {
     public static final String INFO_FONT = "Ubuntu";
     public static final double SELL_WIDTH = 150;
     public static final double SELL_HEIGHT = 50;
-    public static final double SELL_TEXT_SIZE = 30;
+    public static final int SELL_TEXT_SIZE = 30;
     public static final double SELECTION_WIDTH = 70;
     public static final double SELECTION_HEIGHT = 20;
     public static final double SELL_PANE_X = 50;
     public static final double SELL_X = 50;
     public static final double SELL_Y = 10;
+    public static final double DECK_PANE_WIDTH = SELL_WIDTH * 1.2;
+    public static final double DECK_PANE_HEIGHT = SELL_HEIGHT * 0.7;
+    public static final double DECK_PANE_X = SELL_PANE_X / 2;
+    public static final int SELECT_MAIN_CONST = -1;
+    public static final int SHOW_DECK_CONST = -2;
 }
