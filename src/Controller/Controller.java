@@ -182,9 +182,12 @@ public class Controller {
                 view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()],imageViews[ImageViews.VANAR.ordinal()],
                         imageViews[ImageViews.SHIMZAR.ordinal()],imageViews[ImageViews.ABYSSIAN.ordinal()],
                         imageViews[ImageViews.PURPLE.ordinal()],imageViews[ImageViews.OCTA.ordinal()]
-                ,imageViews[ImageViews.METAL.ordinal()],imageViews[ImageViews.LION.ordinal()],
+                ,imageViews[ImageViews.METAL.ordinal()],imageViews[ImageViews.CHINA.ordinal()],
                         imageViews[ImageViews.ICE.ordinal()],imageViews[ImageViews.CANDLE.ordinal()],
                         imageViews[ImageViews.LION.ordinal()]);
+                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);

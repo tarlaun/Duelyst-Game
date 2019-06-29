@@ -158,17 +158,17 @@ public class View {
         ImageView imageView = new ImageView(new Image("resources/codex/chapter1_background@2x.jpg"));
         imageView.setFitHeight(Constants.WINDOW_HEIGHT);
         imageView.setFitWidth(Constants.WINDOW_WIDTH);
-        redrock.relocate(200, 200);
-        abyssian.relocate(950, 200);
-        shimzar.relocate(700, 200);
-        vanar.relocate(450, 200);
-        china.relocate(200, 350);
-        metal.relocate(500, 350);
-        lion.relocate(800, 350);
-        candle.relocate(450, 500);
-        ice.relocate(200, 500);
-        octa.relocate(700, 500);
-        purple.relocate(950, 500);
+        redrock.relocate(75, 100);
+        abyssian.relocate(375, 100);
+        shimzar.relocate(675, 100);
+        vanar.relocate(975, 100);
+        china.relocate(150, 300);
+        metal.relocate(500, 300);
+        lion.relocate(850, 300);
+        candle.relocate(75, 500);
+        ice.relocate(375, 500);
+        octa.relocate(675, 500);
+        purple.relocate(975, 500);
         setScaleForPic(redrock, shimzar, abyssian, vanar, lion, octa, candle, ice, purple, china, metal);
 
         lightning(redrock, shimzar, abyssian, vanar, lion, octa, candle, ice, purple, china, metal);
@@ -180,8 +180,8 @@ public class View {
 
     public void setScaleForPic(ImageView... imageViews) {
         for (ImageView imageView : imageViews) {
-            imageView.setFitHeight(130);
-            imageView.setFitWidth(275);
+            imageView.setFitHeight(150);
+            imageView.setFitWidth(290);
         }
     }
 
