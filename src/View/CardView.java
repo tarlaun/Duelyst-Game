@@ -13,7 +13,10 @@ import javafx.scene.text.FontWeight;
 
 public class CardView {
     private ImageView template;
-    private ImageView character;
+    private ImageView idle;
+    private ImageView run;
+    private ImageView action;
+    private ImageView death;
     private Label power;
     private Label health;
     private Label type;
@@ -24,7 +27,10 @@ public class CardView {
         try {
             switch (card.getType()) {
                 case "Hero":
-                    character = new ImageView(new Image(card.getIdleSrc()));
+                    idle = new ImageView(new Image(card.getIdleSrc()));
+                    run = new ImageView(new Image(card.getRunSrc()));
+                    action = new ImageView(new Image(card.getAttackSrc()));
+                    death = new ImageView(new Image(card.getDeathSrc()));
                     template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
                     power = new Label(Integer.toString(card.getAssaultPower()));
                     health = new Label(Integer.toString(card.getHealthPoint()));
@@ -32,7 +38,10 @@ public class CardView {
                     health.translateXProperty().bind(health.widthProperty().divide(2).negate());
                     break;
                 case "Minion":
-                    character = new ImageView(new Image(card.getIdleSrc()));
+                    idle = new ImageView(new Image(card.getIdleSrc()));
+                    run = new ImageView(new Image(card.getRunSrc()));
+                    action = new ImageView(new Image(card.getAttackSrc()));
+                    death = new ImageView(new Image(card.getDeathSrc()));
                     template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
                     power = new Label(Integer.toString(card.getAssaultPower()));
                     health = new Label(Integer.toString(card.getHealthPoint()));
@@ -40,14 +49,14 @@ public class CardView {
                     health.translateXProperty().bind(health.widthProperty().divide(2).negate());
                     break;
                 case "Spell":
-                    character = new ImageView(new Image(card.getIdleSrc()));
+                    idle = new ImageView(new Image(card.getIdleSrc()));
                     template = new ImageView(new Image("card_backgrounds/craftable_spell@2x.png"));
                     break;
             }
             type = new Label(card.getType());
             name = new Label(card.getName());
-            assert character != null;
-            character.setId(Integer.toString(card.getId()));
+            assert idle != null;
+            idle.setId(Integer.toString(card.getId()));
             template.setFitHeight(Constants.CARD_HEIGHT);
             template.setFitWidth(Constants.CARD_WIDTH);
             type.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
@@ -66,19 +75,19 @@ public class CardView {
                 health.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
                 power.relocate(Constants.CARD_POWER_X, Constants.CARD_INFO_Y);
                 health.relocate(Constants.CARD_HEALTH_X, Constants.CARD_INFO_Y);
-                character.setFitHeight(Constants.GIF_HEIGHT);
-                character.setFitWidth(Constants.GIF_WIDTH);
-                character.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 2);
-                pane.getChildren().addAll(template, character, type, name, power, health);
+                idle.setFitHeight(Constants.GIF_HEIGHT);
+                idle.setFitWidth(Constants.GIF_WIDTH);
+                idle.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 2);
+                pane.getChildren().addAll(template, idle, type, name, power, health);
 
             } else {
-                character.setFitHeight(Constants.GIF_HEIGHT / 2);
-                character.setFitWidth(Constants.GIF_WIDTH / 2);
-                character.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 4);
-                character.setLayoutY(Constants.GIF_HEIGHT / 4);
-                pane.getChildren().addAll(template, character, type, name);
+                idle.setFitHeight(Constants.GIF_HEIGHT / 2);
+                idle.setFitWidth(Constants.GIF_WIDTH / 2);
+                idle.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 4);
+                idle.setLayoutY(Constants.GIF_HEIGHT / 4);
+                pane.getChildren().addAll(template, idle, type, name);
             }
-            pane.setOnMouseClicked(event -> System.out.println(character.getId()));
+            pane.setOnMouseClicked(event -> System.out.println(idle.getId()));
         } catch (Exception e) {
 
         }
@@ -86,15 +95,15 @@ public class CardView {
 
     public CardView(Item item) {
         try {
-            character = new ImageView(new Image(item.getIdleSrc()));
+            idle = new ImageView(new Image(item.getIdleSrc()));
             template = new ImageView(new Image("card_backgrounds/craftable_artifact@2x.png"));
-            character.setId(Integer.toString(item.getId()));
+            idle.setId(Integer.toString(item.getId()));
             template.setFitHeight(Constants.CARD_HEIGHT);
             template.setFitWidth(Constants.CARD_WIDTH);
-            character.setFitHeight(Constants.GIF_HEIGHT / 2);
-            character.setFitWidth(Constants.GIF_WIDTH / 2);
-            character.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 4);
-            character.setLayoutY(Constants.GIF_HEIGHT / 4);
+            idle.setFitHeight(Constants.GIF_HEIGHT / 2);
+            idle.setFitWidth(Constants.GIF_WIDTH / 2);
+            idle.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 4);
+            idle.setLayoutY(Constants.GIF_HEIGHT / 4);
             type = new Label("Item");
             type.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
             type.setTextFill(Color.LIGHTCYAN);
@@ -105,8 +114,8 @@ public class CardView {
             name.setTextFill(Color.LIGHTCYAN);
             name.translateXProperty().bind(name.widthProperty().divide(2).negate());
             name.relocate(Constants.CARD_NAME_X, Constants.CARD_NAME_Y);
-            pane.getChildren().addAll(template, character, type, name);
-            pane.setOnMouseClicked(event -> System.out.println(character.getId()));
+            pane.getChildren().addAll(template, idle, type, name);
+            pane.setOnMouseClicked(event -> System.out.println(idle.getId()));
         } catch (Exception e) {
 
         }
@@ -114,5 +123,21 @@ public class CardView {
 
     public AnchorPane getPane() {
         return pane;
+    }
+
+    public ImageView getIdle() {
+        return idle;
+    }
+
+    public ImageView getRun() {
+        return run;
+    }
+
+    public ImageView getAction() {
+        return action;
+    }
+
+    public ImageView getDeath() {
+        return death;
     }
 }
