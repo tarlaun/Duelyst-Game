@@ -855,7 +855,6 @@ public class View {
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
         ImageView foregroundView = getImageView(background, foreground);
-        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, login, create, exit);
         password.setPrefWidth(Constants.FIELD_WIDTH);
         password.setPrefHeight(Constants.FIELD_HEIGHT);
         password.setLayoutX(Constants.CENTRE_X - password.getPrefWidth() / 2);
