@@ -42,7 +42,7 @@ public class View {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
-    private Image cursor = new Image("resources/ui/mouse_attack@2x.png");
+    private Image cursor = new Image("ui/mouse_attack@2x.png");
 
 
     private View() {
@@ -121,7 +121,7 @@ public class View {
 
     public void selectUserMenu(ArrayList<Account> accounts, Label label, TextField textField) {
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/shimzar/bg@2x.jpg");
+        Image background = new Image("scenes/shimzar/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
@@ -155,7 +155,7 @@ public class View {
 
     public void backGroundMenu(ImageView redrock, ImageView vanar, ImageView shimzar, ImageView abyssian, ImageView china
             , ImageView lion, ImageView candle, ImageView octa, ImageView metal, ImageView ice, ImageView purple) {
-        ImageView imageView = new ImageView(new Image("resources/codex/chapter1_background@2x.jpg"));
+        ImageView imageView = new ImageView(new Image("codex/chapter1_background@2x.jpg"));
         imageView.setFitHeight(Constants.WINDOW_HEIGHT);
         imageView.setFitWidth(Constants.WINDOW_WIDTH);
         redrock.relocate(75, 100);
@@ -196,7 +196,7 @@ public class View {
         mana(accounts[0], mana);
         handCardRings(handcards);
         handGifs(battleCards);
-        back.setImage(new Image("resources/ui/button_back_corner@2x.png"));
+        back.setImage(new Image("ui/button_back_corner@2x.png"));
         root.getChildren().add(back);
 
     }
@@ -256,7 +256,7 @@ public class View {
 
     private void handCardRings(ImageView[] handcards) {
         for (int i = 0; i < 5; i++) {
-            handcards[i].setImage(new Image("resources/ui/replace_outer_ring_smoke@2x.png"));
+            handcards[i].setImage(new Image("ui/replace_outer_ring_smoke@2x.png"));
             handcards[i].relocate(270 + 120 * i, 525);
             handcards[i].setFitHeight(120);
             handcards[i].setFitWidth(120);
@@ -284,9 +284,9 @@ public class View {
     private void mana(Account account, ImageView[] mana) {
         for (int i = 0; i < 9; i++) {
             if (i < account.getMana()) {
-                mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
+                mana[i].setImage(new Image("ui/icon_mana@2x.png"));
             } else {
-                mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
+                mana[i].setImage(new Image("ui/icon_mana_inactive@2x.png"));
             }
             mana[i].relocate(320 + i * 29, 150 - i * 3);
             mana[i].setFitWidth(35);
@@ -297,7 +297,7 @@ public class View {
     }
 
     private void endTurnButton(ImageView view, Label labels) {
-        view.setImage(new Image("resources/ui/button_end_turn_mine@2x.png"));
+        view.setImage(new Image("ui/button_end_turn_mine@2x.png"));
         view.relocate(900, 550);
         view.setFitWidth(200);
         view.setFitHeight(80);
@@ -334,7 +334,7 @@ public class View {
     }
 
     public void attack(ImageView[] imageViews) {
-        File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/sfx/sfx_f1_general_attack_swing.m4a");
+        File file = new File("sfx/sfx_f1_general_attack_swing.m4a");
         Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
         player.play();
@@ -350,34 +350,34 @@ public class View {
         Image firstHero = null;
         switch (account.getCollection().getMainDeck().getHero().getName()) {
             case "WHITE_DIV":
-                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
             case "ZAHAK":
-                firstHero = new Image("resources/boss_battles/boss_calibero_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_calibero_portrait_image_hex@2x.png");
                 break;
             case "ARASH":
-                firstHero = new Image("resources/boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_boreal_juggernaut_portrait_image_hex@2x.png");
                 break;
             case "SIMORGH":
-                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
             case "SEVEN_HEADED_DRAGON":
-                firstHero = new Image("resources/boss_battles/boss_crystal_portrait_hex.png");
+                firstHero = new Image("boss_battles/boss_crystal_portrait_hex.png");
                 break;
             case "RAKHSH":
-                firstHero = new Image("resources/boss_battles/boss_wraith_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_wraith_portrait_hex@2x.png");
                 break;
             case "KAVEH":
-                firstHero = new Image("resources/boss_battles/boss_vampire_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_vampire_portrait_hex@2x.png");
                 break;
             case "AFSANEH":
-                firstHero = new Image("resources/boss_battles/boss_spelleater_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_spelleater_portrait_hex@2x.png");
                 break;
             case "ESFANDIAR":
-                firstHero = new Image("resources/boss_battles/boss_skurge_portrait_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_skurge_portrait_hex@2x.png");
                 break;
             case "ROSTAM":
-                firstHero = new Image("resources/boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
+                firstHero = new Image("boss_battles/boss_shinkage_zendo_portrait_image_hex@2x.png");
                 break;
         }
         return firstHero;
@@ -411,11 +411,11 @@ public class View {
     }
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, PasswordField password) {
-        Image background = new Image("resources/scenes/obsidian_woods/obsidian_woods_background.jpg");
+        Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/obsidian_woods/obsidian_woods_cliff.png");
+        Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
         ImageView foregroundView = getImageView(background, foreground);
         login.setText("Login");
         create.setText("Create Account");
@@ -582,11 +582,11 @@ public class View {
 
     public void accountMenu(Button play, Button collection, Button shop, Button leaderboard, Button logout) {
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/frostfire/background.jpg");
+        Image background = new Image("scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/scenes/frostfire/foreground.png");
+        Image foreground = new Image("scenes/frostfire/foreground.png");
         ImageView foregroundView = getImageView(background, foreground);
         play.setText("Play");
         collection.setText("Collection");
@@ -607,22 +607,22 @@ public class View {
 
     public void battleMode(Button first, Button second, Button third) {
         root.getChildren().clear();
-        // Image background = new Image("resources/scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg");
-        Image background = new Image("resources/scenes/load/scene_load_background@2x.jpg");
+        // Image background = new Image("scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg");
+        Image background = new Image("scenes/load/scene_load_background@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image firstImage = new Image("resources/play/play_mode_arenagauntlet@2x.jpg");
+        Image firstImage = new Image("play/play_mode_arenagauntlet@2x.jpg");
         ImageView firstImageView = new ImageView(firstImage);
         firstImageView.setFitWidth(425);
         firstImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         firstImageView.setLayoutX(0);
-        Image secondImage = new Image("resources/codex/chapter17_preview@2x.jpg");
+        Image secondImage = new Image("codex/chapter17_preview@2x.jpg");
         ImageView secondImageView = new ImageView(secondImage);
         secondImageView.setFitWidth(425);
         secondImageView.setFitHeight(Constants.WINDOW_HEIGHT);
         secondImageView.setLayoutX(425);
-        Image thirdImage = new Image("resources/codex/generic_preview@2x.jpg");
+        Image thirdImage = new Image("codex/generic_preview@2x.jpg");
         ImageView thirdImageView = new ImageView(thirdImage);
         thirdImageView.setFitWidth(425);
         thirdImageView.setFitHeight(Constants.WINDOW_HEIGHT);
@@ -646,17 +646,17 @@ public class View {
 
     public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
-        Image background = new Image("resources/resources/scenes/vetruvian/bg@2x.jpg");
+        Image background = new Image("scenes/vetruvian/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image singleP = new Image("resources/resources/crests/crest_f1@2x.png");
+        Image singleP = new Image("crests/crest_f1@2x.png");
         ImageView singlePview = new ImageView(singleP);
         singlePview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setLayoutY(200);
         singlePview.setLayoutX(Constants.SINGLE_PLAYER_HEIGHT);
-        Image singleM = new Image("resources/resources/crests/crest_f2@2x.png");
+        Image singleM = new Image("crests/crest_f2@2x.png");
         ImageView singleMview = new ImageView(singleM);
         singleMview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singleMview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
@@ -679,9 +679,9 @@ public class View {
     public void shopMenu(boolean mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items, AnchorPane back, AnchorPane next,
                          AnchorPane prev, AnchorPane sell, AnchorPane buy, int page) {
         root.getChildren().clear();
-        ImageView backView = new ImageView(new Image("resources/scenes/load/scene_load_background.jpg"));
-        ImageView buyView = new ImageView(new Image("resources/ui/button_confirm_glow@2x.png"));
-        ImageView sellView = new ImageView(new Image("resources/ui/button_cancel_glow@2x.png"));
+        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        ImageView buyView = new ImageView(new Image("ui/button_confirm_glow@2x.png"));
+        ImageView sellView = new ImageView(new Image("ui/button_cancel_glow@2x.png"));
         Label sellText = new Label("Sell");
         Label buyText = new Label("Buy");
         Label modeLabel;
@@ -744,7 +744,7 @@ public class View {
         name.setPrefWidth(Constants.FIELD_WIDTH);
         name.setPrefHeight(Constants.FIELD_HEIGHT);
 */
-        ImageView backView = new ImageView(new Image("resources/scenes/load/scene_load_background.jpg"));
+        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         scrollPane(backView, next, prev, back);
 //        lightning(createDeck, create);
         object.setPrefWidth(Constants.FIELD_WIDTH);
@@ -755,10 +755,10 @@ public class View {
     }
 
     private void scrollPane(ImageView backView, AnchorPane next, AnchorPane prev, AnchorPane back) {
-        Image slide = new Image("resources/ui/sliding_panel/sliding_panel_paging_button@2x.png");
-        Image arrow = new Image("resources/ui/sliding_panel/sliding_panel_paging_button_text@2x.png");
+        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button@2x.png");
+        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text@2x.png");
         ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
-        Image backArrow = new Image("resources/ui/button_back_corner@2x.png");
+        Image backArrow = new Image("ui/button_back_corner@2x.png");
         leftArrow.setImage(arrow);
         rightArrow.setImage(arrow);
         rightArrow.setRotate(180);

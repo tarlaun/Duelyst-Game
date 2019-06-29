@@ -37,7 +37,7 @@ public class Controller {
     private BattleCards battleCard = null;
     private Coordinate[] currentCoordinate = new Coordinate[2];
     private static final Controller controller = new Controller();
-    private File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
+    private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
     private Media media = new Media(file.toURI().toString());
     private MediaPlayer player = new MediaPlayer(media);
     private Polygon[] polygon = new Polygon[45];
@@ -66,16 +66,16 @@ public class Controller {
             handCards[i] = new ImageView();
             handCardGifs[i] = new BattleCards();
             ImageView[] imageView = new ImageView[3];
-            imageView[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            imageView[0] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+            imageView[1] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+            imageView[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
             handCardGifs[i].setImageView(imageView);
         }
         for (int i = 0; i < 5; i++) {
             handCards[i] = new ImageView();
         }
         for (int i = 0; i < imageViews.length; i++) {
-            imageViews[i] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            imageViews[i] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
         }
         for (int i = 0; i < 9; i++) {
             mana[i] = new ImageView();
@@ -87,9 +87,9 @@ public class Controller {
         for (int i = 0; i < heroes.length; i++) {
             heroes[i] = new BattleCards();
             ImageView[] imageView = new ImageView[3];
-            imageView[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            imageView[0] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+            imageView[1] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+            imageView[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
             heroes[i].setImageView(imageView);
         }
         menu.setStat(MenuStat.MAIN);
@@ -135,7 +135,7 @@ public class Controller {
             case MAIN:
                 view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
                         buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], passwordField);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_vetruv.m4a");
+                file = new File("resources/music/music_battlemap_vetruv.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -143,7 +143,7 @@ public class Controller {
                 view.accountMenu(buttons[Buttons.PLAY.ordinal()], buttons[Buttons.COLLECTION.ordinal()],
                         buttons[Buttons.SHOP.ordinal()], buttons[Buttons.LEADER_BOARD.ordinal()],
                         buttons[Buttons.LOGOUT.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_playmode.m4a");
+                file = new File("resources/music/music_playmode.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -152,7 +152,7 @@ public class Controller {
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.SELL.ordinal()],
                         anchorPanes[Anchorpanes.BUY.ordinal()], shopPage);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -161,37 +161,37 @@ public class Controller {
                         anchorPanes[Anchorpanes.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
                         anchorPanes[Anchorpanes.PREV.ordinal()], collectionPage);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
+                file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
 
             case BACK_GROUND:
-                imageViews[ImageViews.REDROCK.ordinal()].setImage(new Image("resources/maps/redrock/midground@2x.png"));
-                imageViews[ImageViews.VANAR.ordinal()].setImage(new Image("resources/maps/vanar/midground@2x.png"));
-                imageViews[ImageViews.SHIMZAR.ordinal()].setImage(new Image("resources/maps/shimzar/midground@2x.png"));
-                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
-                imageViews[ImageViews.PURPLE.ordinal()].setImage(new Image("resources/maps/battlemap4_middleground@2x.png"));
-                imageViews[ImageViews.ICE.ordinal()].setImage(new Image("resources/maps/battlemap3_middleground@2x.png"));
-                imageViews[ImageViews.METAL.ordinal()].setImage(new Image("resources/maps/battlemap7_middleground@2x.png"));
-                imageViews[ImageViews.CANDLE.ordinal()].setImage(new Image("resources/maps/battlemap6_middleground@2x.png"));
-                imageViews[ImageViews.CHINA.ordinal()].setImage(new Image("resources/maps/battlemap1_middleground@2x.png"));
-                imageViews[ImageViews.OCTA.ordinal()].setImage(new Image("resources/maps/battlemap2_middleground@2x.png"));
-                imageViews[ImageViews.LION.ordinal()].setImage(new Image("resources/maps/battlemap0_middleground@2x.png"));
-                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
+                imageViews[ImageViews.REDROCK.ordinal()].setImage(new Image("maps/redrock/midground@2x.png"));
+                imageViews[ImageViews.VANAR.ordinal()].setImage(new Image("maps/vanar/midground@2x.png"));
+                imageViews[ImageViews.SHIMZAR.ordinal()].setImage(new Image("maps/shimzar/midground@2x.png"));
+                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("maps/abyssian/midground@2x.png"));
+                imageViews[ImageViews.PURPLE.ordinal()].setImage(new Image("maps/battlemap4_middleground@2x.png"));
+                imageViews[ImageViews.ICE.ordinal()].setImage(new Image("maps/battlemap3_middleground@2x.png"));
+                imageViews[ImageViews.METAL.ordinal()].setImage(new Image("maps/battlemap7_middleground@2x.png"));
+                imageViews[ImageViews.CANDLE.ordinal()].setImage(new Image("maps/battlemap6_middleground@2x.png"));
+                imageViews[ImageViews.CHINA.ordinal()].setImage(new Image("maps/battlemap1_middleground@2x.png"));
+                imageViews[ImageViews.OCTA.ordinal()].setImage(new Image("maps/battlemap2_middleground@2x.png"));
+                imageViews[ImageViews.LION.ordinal()].setImage(new Image("maps/battlemap0_middleground@2x.png"));
+                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("maps/abyssian/midground@2x.png"));
                 view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()],imageViews[ImageViews.VANAR.ordinal()],
                         imageViews[ImageViews.SHIMZAR.ordinal()],imageViews[ImageViews.ABYSSIAN.ordinal()],
                         imageViews[ImageViews.PURPLE.ordinal()],imageViews[ImageViews.OCTA.ordinal()]
                 ,imageViews[ImageViews.METAL.ordinal()],imageViews[ImageViews.CHINA.ordinal()],
                         imageViews[ImageViews.ICE.ordinal()],imageViews[ImageViews.CANDLE.ordinal()],
                         imageViews[ImageViews.LION.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
+                file = new File("resources/music/music_battlemap_abyssian.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_firesofvictory.m4a");
+                file = new File("resources/music/music_battlemap_firesofvictory.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -200,7 +200,7 @@ public class Controller {
             case BATTLE_MODE:
                 view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()], buttons[Buttons.FLAG_COLLECTING.ordinal()],
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_songhai.m4a");
+                file = new File("resources/music/music_battlemap_songhai.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -220,13 +220,13 @@ public class Controller {
                 view.battleMenu(battle.getAccounts(),heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs ,imageViews[ImageViews.BACKGROUND.ordinal()],
                         imageViews[ImageViews.FOREGROUND.ordinal()] , imageViews[ImageViews.back.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
+                file = new File("resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
+                file = new File("resources/music/music_battlemap_abyssian.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -507,68 +507,68 @@ public class Controller {
         buttons[Buttons.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         buttons[Buttons.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
         imageViews[ImageViews.REDROCK.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/redrock/background@2x.jpg"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/redrock/midground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/redrock/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/redrock/midground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.ABYSSIAN.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/abyssian/background@2x.jpg"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/abyssian/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/abyssian/midground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.SHIMZAR.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/shimzar/background@2x.jpg"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/shimzar/midground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/shimzar/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/shimzar/midground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.VANAR.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/vanar/background@2x.jpg"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/vanar/midground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/vanar/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/vanar/midground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.LION.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap0_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap0_middleground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap0_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap0_middleground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.CHINA.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap1_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap1_middleground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap1_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap1_middleground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.OCTA.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap2_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap2_middleground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap2_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap2_middleground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.ICE.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap3_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap3_middleground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap3_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap3_middleground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.PURPLE.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap4_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap4_middleground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap4_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap4_middleground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.CANDLE.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap6_middleground@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap6_middleground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap6_middleground@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap6_middleground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
         imageViews[ImageViews.METAL.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap7_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap7_middleground@2x.png"));
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap7_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap7_middleground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
@@ -598,9 +598,9 @@ public class Controller {
             AiFunctions();
             for (int i = 0; i < 9; i++) {
                 if (i < battle.getAccounts()[0].getMana()) {
-                    mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
+                    mana[i].setImage(new Image("ui/icon_mana@2x.png"));
                 } else {
-                    mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
+                    mana[i].setImage(new Image("ui/icon_mana_inactive@2x.png"));
                 }
             }
         });
@@ -789,53 +789,53 @@ public class Controller {
         ImageView[] imageViews = new ImageView[3];
         switch (card.getName()) {
             case "WHITE_DIV":
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
                 break;
             case "ZAHAK":
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
                 break;
             case "ARASH":
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_run.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "SIMORGH":
-                imageViews[0] = new ImageView(new Image("gifs/f4_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f4_altgeneraltier2_run.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f4_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f4_altgeneraltier2_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f4_altgeneraltier2_idle.gif"));
                 break;
             case "SEVEN_HEADED_DRAGON":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "RAKHSH":
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
                 break;
             case "KAVEH":
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
             case "AFSANEH":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "ESFANDIAR":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "ROSTAM":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
         }
         return imageViews;
