@@ -3,14 +3,23 @@ package Controller;
 import Model.*;
 import Model.Menu;
 import View.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -261,6 +270,10 @@ public class Controller {
             deckLing(Constants.EXPORT_DECK);
             main();
         });
+        anchorPanes[Anchorpanes.IMPORT_DECK.ordinal()].setOnMouseClicked(event -> {
+            importDeck();
+            main();
+        });
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
@@ -358,12 +371,7 @@ public class Controller {
                     alert.getResult();
                 }
             } else if (id == Constants.SHOW_DECK_CONST) {
-                cardsInCollection = account.getCollection().findDeck(name).getCards();
-                ArrayList<Item> itemList = new ArrayList<>();
-                itemList.add(account.getCollection().findDeck(name).getItem());
-                itemsInCollection = itemList;
-                collectionPage = 0;
-                deckName = name;
+                setObjectsOfDeck(name);
             } else if (id == Constants.EXPORT_DECK) {
                 account.getCollection().exportDeck(name);
                 AlertMessage alert = new AlertMessage("Deck exported!", Alert.AlertType.INFORMATION, "OK");
@@ -380,6 +388,33 @@ public class Controller {
         });
     }
 
+    private void setObjectsOfDeck(String name) {
+        cardsInCollection = account.getCollection().findDeck(name).getCards();
+        ArrayList<Item> itemList = new ArrayList<>();
+        itemList.add(account.getCollection().findDeck(name).getItem());
+        itemsInCollection = itemList;
+        collectionPage = 0;
+        deckName = name;
+    }
+
+    private void importDeck() {
+        Stage stage = new Stage();
+        stage.setTitle("Import Deck..");
+        FileChooser chooser = new FileChooser();
+        try {
+            File file = chooser.showOpenDialog(stage);
+            JsonParser jsonParser = new JsonParser();
+            FileReader reader = new FileReader(file);
+            JsonElement element = jsonParser.parse(reader);
+            Deck deck = new Gson().fromJson(element, Deck.class);
+            account.getCollection().getDecks().add(deck);
+            setObjectsOfDeck(deck.getName());
+            collectionPage = 0;
+        } catch (Exception ignored) {
+
+        }
+    }
+
     private void createDeck() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText("Create Deck");
@@ -392,11 +427,11 @@ public class Controller {
                 cardsInCollection = new ArrayList<>();
                 itemsInCollection = new ArrayList<>();
                 collectionPage = 0;
+                deckName = name;
             } else {
                 AlertMessage alert = new AlertMessage(Message.EXISTING_DECK.toString(), Alert.AlertType.ERROR, "OK");
                 alert.getResult();
             }
-            deckName = name;
         });
     }
 
