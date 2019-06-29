@@ -182,18 +182,34 @@ public class View {
     public void cardBackGround(BattleCards battleCards){
         Label power = new Label();
         Label health = new Label();
+        Label label = new Label();
         ImageView imageView = new ImageView(new Image("resources/card_backgrounds/craftable_unit@2x.png"));
         imageView.relocate(1000,200);
         imageView.setFitHeight(230);
         imageView.setFitWidth(170);
         ImageView imageView1 = new ImageView(battleCards.getImageView()[0].getImage());
-        imageView1.relocate(1050,220);
+        imageView1.setFitWidth(170);
+        imageView1.setFitHeight(170);
+        imageView1.relocate(1000,170);
+        if(battleCards.getCard().getType().equals("Spell")){
+            imageView1.setFitWidth(90);
+            imageView1.setFitHeight(90);
+            imageView1.relocate(1030,220);
+        }
         imageView1.setScaleX(-1);
         power.setTextFill(Color.rgb(255,253,253));
-        power.setText(String.valueOf(battleCards.getCard().getHealthPoint()));
-        power.relocate(1030,350);
-        root.getChildren().addAll(imageView,imageView1, health ,power);
-        //root.getChildren().addAll(power);
+        health.setText(String.valueOf(battleCards.getCard().getHealthPoint()));
+        health.setFont(Font.font(20));
+        power.setFont(Font.font(20));
+        power.relocate(1035,325);
+        health.setTextFill(Color.rgb(255,253,253));
+        power.setText(String.valueOf(battleCards.getCard().getAssaultPower()));
+        health.relocate(1125,325);
+        label.setText(battleCards.getCard().getName());
+        label.setTextFill(Color.rgb(255,255,255));
+        label.relocate(1030,380);
+        label.setFont(Font.font(15));
+        root.getChildren().addAll(imageView,imageView1, health ,power,label);
     }
 
     public void setScaleForPic(ImageView... imageViews) {
