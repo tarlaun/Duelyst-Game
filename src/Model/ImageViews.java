@@ -8,5 +8,12 @@ public enum ImageViews {
     REDROCK,
     SHIMZAR,
     VANAR,
-    back
+    back,
+    LION,
+    CHINA,
+    OCTA,
+    PURPLE,
+    ICE,
+    METAL,
+    CANDLE
 }

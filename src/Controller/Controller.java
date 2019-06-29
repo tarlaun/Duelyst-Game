@@ -171,6 +171,14 @@ public class Controller {
                 imageViews[ImageViews.VANAR.ordinal()].setImage(new Image("resources/maps/vanar/midground@2x.png"));
                 imageViews[ImageViews.SHIMZAR.ordinal()].setImage(new Image("resources/maps/shimzar/midground@2x.png"));
                 imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
+                imageViews[ImageViews.PURPLE.ordinal()].setImage(new Image("resources/maps/battlemap4_middleground@2x.png"));
+                imageViews[ImageViews.ICE.ordinal()].setImage(new Image("resources/maps/battlemap3_middleground@2x.png"));
+                imageViews[ImageViews.METAL.ordinal()].setImage(new Image("resources/maps/battlemap7_middleground@2x.png"));
+                imageViews[ImageViews.CANDLE.ordinal()].setImage(new Image("resources/maps/battlemap6_middleground@2x.png"));
+                imageViews[ImageViews.CHINA.ordinal()].setImage(new Image("resources/maps/battlemap1_middleground@2x.png"));
+                imageViews[ImageViews.OCTA.ordinal()].setImage(new Image("resources/maps/battlemap2_middleground@2x.png"));
+                imageViews[ImageViews.LION.ordinal()].setImage(new Image("resources/maps/battlemap0_middleground@2x.png"));
+                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
                 view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()],imageViews[ImageViews.VANAR.ordinal()],
                         imageViews[ImageViews.SHIMZAR.ordinal()],imageViews[ImageViews.ABYSSIAN.ordinal()]);
                 break;
@@ -512,6 +520,48 @@ public class Controller {
         imageViews[ImageViews.VANAR.ordinal()].setOnMouseClicked(event -> {
             imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/vanar/background@2x.jpg"));
             imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/vanar/midground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.LION.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap0_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap0_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.CHINA.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap1_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap1_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.OCTA.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap2_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap2_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.ICE.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap3_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap3_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.PURPLE.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap4_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap4_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.CANDLE.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap6_middleground@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap6_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.METAL.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap7_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap7_middleground@2x.png"));
             menu.setStat(MenuStat.BATTLE);
             main();
         });
