@@ -19,4 +19,6 @@ public enum Anchorpanes {
     COLLECTION,
     SHOP,
     LEADER_BOARD,
+    EXPORT_DECK,
+    IMPORT_DECK
 }

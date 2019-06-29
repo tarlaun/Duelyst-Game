@@ -1,7 +1,10 @@
 package Model;
 
 import View.*;
+import com.google.gson.Gson;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -163,4 +166,15 @@ public class Collection {
         return null;
     }
 
+    public void exportDeck(String name) {
+        Deck deck = findDeck(name);
+        String json = new Gson().toJson(deck);
+        try {
+            FileWriter writer = new FileWriter(deck.getName() + ".deck.json");
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

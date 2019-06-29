@@ -128,6 +128,7 @@ public class Controller {
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.WHOLE_COLLECTION.ordinal()],
                         anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()],
                         anchorPanes[Anchorpanes.MAIN_DECK.ordinal()], anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()],
+                        anchorPanes[Anchorpanes.EXPORT_DECK.ordinal()], anchorPanes[Anchorpanes.IMPORT_DECK.ordinal()],
                         collectionPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
@@ -256,6 +257,10 @@ public class Controller {
             createDeck();
             main();
         });
+        anchorPanes[Anchorpanes.EXPORT_DECK.ordinal()].setOnMouseClicked(event -> {
+            deckLing(Constants.EXPORT_DECK);
+            main();
+        });
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
@@ -333,6 +338,9 @@ public class Controller {
         } else if (id == Constants.SHOW_DECK_CONST) {
             dialog.setHeaderText("Show objects of");
             dialog.setContentText("Deck... ");
+        } else if (id == Constants.EXPORT_DECK) {
+            dialog.setHeaderText("Export");
+            dialog.setContentText("Deck... ");
         } else {
             dialog.setHeaderText("Adding to deck");
             dialog.setContentText("To deck: ");
@@ -356,6 +364,9 @@ public class Controller {
                 itemsInCollection = itemList;
                 collectionPage = 0;
                 deckName = name;
+            } else if (id == Constants.EXPORT_DECK) {
+                account.getCollection().exportDeck(name);
+                AlertMessage alert = new AlertMessage("Deck exported!", Alert.AlertType.INFORMATION, "OK");
             } else {
                 Message message = addToDeck(name, id);
                 if (message == Message.OBJECT_ADDED) {
@@ -388,7 +399,6 @@ public class Controller {
             deckName = name;
         });
     }
-
 
     private void handleInstances(ArrayList<Card> cards, ArrayList<Item> items) {
         for (int i = 0; i < cards.size(); i++) {
