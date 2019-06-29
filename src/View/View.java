@@ -206,6 +206,7 @@ public class View {
             root.getChildren().add(flag);
         }
 
+
     }
 
     private void backButton(ImageView back) {
@@ -235,6 +236,10 @@ public class View {
         secondHero = getImage(accounts[1]);
         ImageView firstHeroView = new ImageView(firstHero);
         ImageView secondHeroView = new ImageView(secondHero);
+        firstHeroView.setFitHeight(160);
+        firstHeroView.setFitWidth(160);
+        secondHeroView.setFitWidth(160);
+        secondHeroView.setFitHeight(160);
         bossImageSettings(firstHeroView, secondHeroView);
         battleHeros[1].getImageView()[0].relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
         battleHeros[1].getImageView()[0].setScaleX(-1);
@@ -411,15 +416,8 @@ public class View {
     }
 
     private void glowPolygon(ColorAdjust colorAdjust, Polygon polygon1) {
-        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-            polygon1.setEffect(colorAdjust);
-            ;
-
-        });
-        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            polygon1.setEffect(null);
-        });
+        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> polygon1.setEffect(colorAdjust));
+        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> polygon1.setEffect(null));
     }
 
     public void mainMenu(Button login, Button create, Button exit, TextField username, PasswordField password) {

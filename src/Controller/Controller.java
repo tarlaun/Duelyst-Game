@@ -179,11 +179,11 @@ public class Controller {
                 imageViews[ImageViews.OCTA.ordinal()].setImage(new Image("resources/maps/battlemap2_middleground@2x.png"));
                 imageViews[ImageViews.LION.ordinal()].setImage(new Image("resources/maps/battlemap0_middleground@2x.png"));
                 imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
-                view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()],imageViews[ImageViews.VANAR.ordinal()],
-                        imageViews[ImageViews.SHIMZAR.ordinal()],imageViews[ImageViews.ABYSSIAN.ordinal()],
-                        imageViews[ImageViews.PURPLE.ordinal()],imageViews[ImageViews.OCTA.ordinal()]
-                ,imageViews[ImageViews.METAL.ordinal()],imageViews[ImageViews.CHINA.ordinal()],
-                        imageViews[ImageViews.ICE.ordinal()],imageViews[ImageViews.CANDLE.ordinal()],
+                view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()], imageViews[ImageViews.VANAR.ordinal()],
+                        imageViews[ImageViews.SHIMZAR.ordinal()], imageViews[ImageViews.ABYSSIAN.ordinal()],
+                        imageViews[ImageViews.PURPLE.ordinal()], imageViews[ImageViews.OCTA.ordinal()]
+                        , imageViews[ImageViews.METAL.ordinal()], imageViews[ImageViews.CHINA.ordinal()],
+                        imageViews[ImageViews.ICE.ordinal()], imageViews[ImageViews.CANDLE.ordinal()],
                         imageViews[ImageViews.LION.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
                 media = new Media(file.toURI().toString());
@@ -206,7 +206,7 @@ public class Controller {
                 break;
             case BATTLE:
                 handleMinions();
-                for (int i = 0; i <2 ; i++) {
+                for (int i = 0; i < 2; i++) {
                     heroes[i].setCard(battle.getAccounts()[i].getCollection().getMainDeck().getHero());
                     heroes[i].setInside(true);
                     heroes[i].setImageView(getImageViewGif(battle.getAccounts()[i].getCollection().getMainDeck().getHero()));
@@ -217,9 +217,9 @@ public class Controller {
                     handCardGifs[i].setCard(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i));
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
                 }
-                view.battleMenu(battle.getAccounts(),heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
-                        labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs ,imageViews[ImageViews.BACKGROUND.ordinal()],
-                        imageViews[ImageViews.FOREGROUND.ordinal()] , imageViews[ImageViews.back.ordinal()], imageViews[ImageViews.FLAG.ordinal()] , battle.getMode());
+                view.battleMenu(battle.getAccounts(), heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
+                        labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs, imageViews[ImageViews.BACKGROUND.ordinal()],
+                        imageViews[ImageViews.FOREGROUND.ordinal()], imageViews[ImageViews.back.ordinal()], imageViews[ImageViews.FLAG.ordinal()], battle.getMode());
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -456,7 +456,7 @@ public class Controller {
         for (int i = 0; i < 2; i++) {
             int finalI = i;
             heroes[i].getImageView()[0].setOnMouseClicked(event -> {
-                if (battleCard != null &&  battleCard.getCard().getId() != heroes[finalI].getCard().getId()) {
+                if (battleCard != null && battleCard.getCard().getId() != heroes[finalI].getCard().getId()) {
                     readyForAttack(finalI, heroes);
                 } else {
                     battle.selectCard(heroes[finalI].getCard().getId());
@@ -488,7 +488,7 @@ public class Controller {
                 view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                 battleCard = null;
                 battle.moveTo(new Coordinate(a - (a / 9), a / 9));
-                if (currentCoordinate[0]!=null) {
+                if (currentCoordinate[0] != null) {
                     handCardGifs[currentI].setInside(true);
                     currentHandCardPointer++;
                     if (currentHandCardPointer + 4 < 15) {
@@ -601,6 +601,11 @@ public class Controller {
                     mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
                 } else {
                     mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
+                }
+            }
+            if (Constants.MAXIMUM_FLAGS > battle.getTurn() / 2) {
+                for (int i = 0; i < battle.getTurn() / 2; i++) {
+
                 }
             }
         });
