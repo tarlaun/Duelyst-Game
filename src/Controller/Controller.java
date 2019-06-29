@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Controller {
     private View view = View.getInstance();
@@ -31,6 +32,7 @@ public class Controller {
     private transient BattleCards[] heroes = new BattleCards[2];
     private ImageView[] currentImageView = new ImageView[3];
     private transient ImageView[] mana = new ImageView[9];
+    private transient ImageView[] flags = new ImageView[6];
     private transient ImageView[] handCards = new ImageView[20];
     private ImageView[] imageViews = new ImageView[40];
     private BattleCards[] handCardGifs = new BattleCards[20];
@@ -47,6 +49,7 @@ public class Controller {
     private boolean buyMode = true;
     private int currentHandCardPointer = 0;
     private int currentI;
+    private int[] randomCoordinates= new int[6];
 
     private Controller() {
         initializeGame();
@@ -62,6 +65,9 @@ public class Controller {
         for (int i = 0; i < anchorPanes.length; i++) {
             anchorPanes[i] = new AnchorPane();
         }
+        for (int i = 0; i < flags.length; i++) {
+            flags[i]= new ImageView();
+        }
         for (int i = 0; i < 20; i++) {
             handCards[i] = new ImageView();
             handCardGifs[i] = new BattleCards();
@@ -73,6 +79,10 @@ public class Controller {
         }
         for (int i = 0; i < 5; i++) {
             handCards[i] = new ImageView();
+        }
+        Random random = new Random();
+        for (int i = 0; i < 6 ; i++) {
+            randomCoordinates[i] = random.nextInt(45);
         }
         for (int i = 0; i < imageViews.length; i++) {
             imageViews[i] = new ImageView(new Image("gifs/Abomination_idle.gif"));
@@ -219,10 +229,11 @@ public class Controller {
                 }
                 view.battleMenu(battle.getAccounts(), heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs, imageViews[ImageViews.BACKGROUND.ordinal()],
-                        imageViews[ImageViews.FOREGROUND.ordinal()], imageViews[ImageViews.back.ordinal()], imageViews[ImageViews.FLAG.ordinal()], battle.getMode());
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
+                        imageViews[ImageViews.FOREGROUND.ordinal()], imageViews[ImageViews.back.ordinal()],
+                        imageViews[ImageViews.FLAG.ordinal()], battle.getMode() , flags);
+                /*file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                player = new MediaPlayer(media);*/
                 break;
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
@@ -592,6 +603,7 @@ public class Controller {
         imageViews[ImageViews.END_TURN.ordinal()].setOnMouseClicked(event -> {
             battle.endTurn();
             AiFunctions();
+            collectFlags();
         });
         labels[Labels.END_TURN.ordinal()].setOnMouseClicked(event -> {
             battle.endTurn();
@@ -603,11 +615,7 @@ public class Controller {
                     mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
                 }
             }
-            if (Constants.MAXIMUM_FLAGS > battle.getTurn() / 2) {
-                for (int i = 0; i < battle.getTurn() / 2; i++) {
-
-                }
-            }
+            collectFlags();
         });
         anchorPanes[Anchorpanes.BACK.ordinal()].setOnMouseClicked(event -> exit());
         anchorPanes[Anchorpanes.PREV.ordinal()].setOnMouseClicked(event -> {
@@ -655,6 +663,18 @@ public class Controller {
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
         anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
+    }
+
+    private void collectFlags() {
+        if (battle.getMode().equals(BattleMode.COLLECTING)&& Constants.MAXIMUM_FLAGS > battle.getTurn() / 2) {
+            for (int i = 0; i < battle.getTurn() / 2; i++) {
+                flags[i] = new ImageView(new Image("Crystal Wisp_run.gif"));
+            }
+            for (int i = battle.getTurn() / 2; i <6 ; i++) {
+                flags[i] = null;
+            }
+            view.collectFlags(flags,polygon , randomCoordinates);
+        }
     }
 
     private void handleTextFields() {

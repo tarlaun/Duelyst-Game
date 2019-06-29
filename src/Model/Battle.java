@@ -783,14 +783,14 @@ public class Battle {
         setAbleToAttackForHeros();
         buffTurnEnd();
         deholifyCell();
-        if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
+        /*if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();
-        }
-        if (mode.equals(BattleMode.FLAG)) {
+        }*/
+        /*if (mode.equals(BattleMode.FLAG)) {
             if (mainFlag.isHeld()) {
                 mainFlag.setTurnCounter(mainFlag.getTurnCounter() + 1);
             }
-        }
+        }*/
         if (opponentCardID != 0) {
             if (turn == saveTurn + 1) {
                 targetCard = Card.getCardByID(opponentCardID, fieldCards[(turn + 1) % 2]);
@@ -803,7 +803,7 @@ public class Battle {
         currentPlayer = this.accounts[turn % 2];
         currentCard = null;
         targetCard = null;
-        useItem(currentPlayer.getCollection().getMainDeck().getItem());
+        //useItem(currentPlayer.getCollection().getMainDeck().getItem());
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < fieldCards[i].length; j++) {
                 try {

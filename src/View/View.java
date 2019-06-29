@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Random;
 
 import Model.Menu;
 import javafx.animation.*;
@@ -187,7 +188,7 @@ public class View {
 
     public void battleMenu(Account[] accounts, BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
                            Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards,
-                           ImageView backGround, ImageView foreGround, ImageView back ,ImageView flag , BattleMode battleMode) {
+                           ImageView backGround, ImageView foreGround, ImageView back, ImageView flag, BattleMode battleMode, ImageView[] flags) {
         root.getChildren().clear();
         maps(backGround, foreGround);
         battleFieldView(polygon);
@@ -197,7 +198,7 @@ public class View {
         handCardRings(handcards);
         handGifs(battleCards);
         backButton(back);
-        if(battleMode.equals(BattleMode.FLAG)){
+        if (battleMode.equals(BattleMode.FLAG)) {
             flag = new ImageView(new Image("Crystal Wisp_run.gif"));
             flag.relocate((polygon[22].getPoints().get(0) + polygon[22].getPoints().get(2)) / 2 - 50,
                     (polygon[22].getPoints().get(1) + polygon[22].getPoints().get(5)) / 2 - 85);
@@ -205,8 +206,36 @@ public class View {
             flag.setFitHeight(100);
             root.getChildren().add(flag);
         }
+     /*   if(battleMode.equals(BattleMode.COLLECTING)){
+            System.out.println("marg");
+            Random random = new Random();
+            for (int i = 0; i <6 ; i++) {
+                if(flags[i]!=null){
+                    System.out.println("kharsdsfj");
+                    int x  = random.nextInt(45);
+                    flags[i].relocate((polygon[x].getPoints().get(0) + polygon[x].getPoints().get(2)) / 2 - 50,
+                            (polygon[x].getPoints().get(1) + polygon[x].getPoints().get(5)) / 2 - 85);
+                    flags[i].setFitWidth(100);
+                    flags[i].setFitHeight(100);
+                    root.getChildren().add(flags[i]);
+                }
+            }
+        }
+*/
 
+    }
 
+    public void collectFlags( ImageView[] flags, Polygon[] polygon , int[] randomC) {
+        for (int i = 0; i < 6; i++) {
+            if (flags[i] != null) {
+                int x = randomC[i];
+                flags[i].relocate((polygon[x].getPoints().get(0) + polygon[x].getPoints().get(2)) / 2 - 50,
+                        (polygon[x].getPoints().get(1) + polygon[x].getPoints().get(5)) / 2 - 85);
+                flags[i].setFitWidth(100);
+                flags[i].setFitHeight(100);
+                root.getChildren().add(flags[i]);
+            }
+        }
     }
 
     private void backButton(ImageView back) {
