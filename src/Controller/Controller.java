@@ -105,9 +105,9 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case ACCOUNT:
-                view.accountMenu(buttons[Buttons.PLAY.ordinal()], buttons[Buttons.COLLECTION.ordinal()],
-                        buttons[Buttons.SHOP.ordinal()], buttons[Buttons.LEADER_BOARD.ordinal()],
-                        buttons[Buttons.LOGOUT.ordinal()]);
+                view.accountMenu(anchorPanes[Anchorpanes.PLAY.ordinal()], anchorPanes[Anchorpanes.COLLECTION.ordinal()],
+                        anchorPanes[Anchorpanes.SHOP.ordinal()], anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
+                        anchorPanes[Anchorpanes.LOGOUT.ordinal()]);
                 file = new File("resources/music/music_playmode.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -173,19 +173,19 @@ public class Controller {
     }
 
     public void handleButtons() {
-        buttons[Buttons.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
-        buttons[Buttons.LOGIN.ordinal()].setOnMouseClicked(event -> login());
-        buttons[Buttons.EXIT.ordinal()].setOnMouseClicked(event -> exit());
-        buttons[Buttons.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType());
-        buttons[Buttons.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
-        buttons[Buttons.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
-        buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> {
+        anchorPanes[Anchorpanes.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
+        anchorPanes[Anchorpanes.LOGIN.ordinal()].setOnMouseClicked(event -> login());
+        anchorPanes[Anchorpanes.EXIT.ordinal()].setOnMouseClicked(event -> exit());
+        anchorPanes[Anchorpanes.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType());
+        anchorPanes[Anchorpanes.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
+        anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
+        anchorPanes[Anchorpanes.SHOP.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = shop.getCards();
             itemsInShop = shop.getItems();
             menu.setStat(MenuStat.SHOP);
             main();
         });
-        buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event -> {
+        anchorPanes[Anchorpanes.COLLECTION.ordinal()].setOnMouseClicked(event -> {
             cardsInCollection = account.getCollection().getCards();
             itemsInCollection = account.getCollection().getItems();
             menu.setStat(MenuStat.COLLECTION);

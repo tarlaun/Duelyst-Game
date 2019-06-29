@@ -14,4 +14,9 @@ public enum Anchorpanes {
     LOGIN,
     CREATE_ACCOUNT,
     EXIT,
+    PLAY,
+    LOGOUT,
+    COLLECTION,
+    SHOP,
+    LEADER_BOARD,
 }

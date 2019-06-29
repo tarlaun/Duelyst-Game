@@ -855,6 +855,17 @@ public class View {
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
         ImageView foregroundView = getImageView(background, foreground);
+        ImageView buttonImage = new ImageView(new Image("ui/button_primary_middle_glow@2x.png"));
+        buttonImage.setFitWidth(Constants.PRIMITIVE_WIDTH);
+        buttonImage.setFitHeight(Constants.PRIMITIVE_HEIGHT);
+        login.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Login", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        create.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Create", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        exit.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Exit", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        verticalList(Alignment.CENTRE, Constants.MAIN_MENU_X, Constants.CENTRE_Y, buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), login, create, exit);
         password.setPrefWidth(Constants.FIELD_WIDTH);
         password.setPrefHeight(Constants.FIELD_HEIGHT);
         password.setLayoutX(Constants.CENTRE_X - password.getPrefWidth() / 2);
@@ -863,6 +874,7 @@ public class View {
         username.setPrefHeight(Constants.FIELD_HEIGHT);
         username.setLayoutX(password.getLayoutX());
         username.setLayoutY(password.getLayoutY() - 2 * Constants.FIELD_HEIGHT);
+        lightning(login, create, exit);
         root.getChildren().addAll(backgroundView, foregroundView, login, create, exit, username, password);
     }
 
@@ -1017,7 +1029,8 @@ public class View {
         }
     }
 
-    public void accountMenu(Button play, Button collection, Button shop, Button leaderboard, Button logout) {
+    public void accountMenu(AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane leaderboard,
+                            AnchorPane logout) {
         root.getChildren().clear();
         Image background = new Image("scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -1025,12 +1038,23 @@ public class View {
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("scenes/frostfire/foreground.png");
         ImageView foregroundView = getImageView(background, foreground);
-        play.setText("Play");
-        collection.setText("Collection");
-        shop.setText("Shop");
-        leaderboard.setText("Leaderboard");
-        logout.setText("Logout");
+        ImageView buttonImage = new ImageView(new Image("ui/button_primary_middle_glow@2x.png"));
+        buttonImage.setFitWidth(Constants.PRIMITIVE_WIDTH);
+        buttonImage.setFitHeight(Constants.PRIMITIVE_HEIGHT);
+        play.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Play", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        collection.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Collection", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        shop.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Shop", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        leaderboard.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "LeaderBoard", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        logout.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Logout", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y, buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), play, collection, shop, leaderboard, logout);
         verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y, play, collection, shop, leaderboard, logout);
+        lightning(play, collection, shop, leaderboard, logout);
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, leaderboard, logout);
     }
 

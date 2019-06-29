@@ -47,6 +47,7 @@ public class Constants {
     public static final double SINGLE_PLAYER_WIDTH = 300;
     public static final double SINGLE_PLAYER_HEIGHT = 300;
     public static final double DECK_PANE_Y = CENTRE_Y * 0.8;
+    public static final double ACCOUNT_MENU_X = CENTRE_X * 0.15;
     public static int HEROES_COUNT = 10;
     public static int MINIONS_COUNT = 40;
     public static int SPELLS_COUNT = 20;
@@ -97,4 +98,7 @@ public class Constants {
     public static final double DECK_PANE_X = SELL_PANE_X / 2;
     public static final int SELECT_MAIN_CONST = -1;
     public static final int SHOW_DECK_CONST = -2;
+    public static final double MAIN_MENU_X = CENTRE_X * 0.895;
+    public static final double PRIMITIVE_WIDTH = 140;
+    public static final double PRIMITIVE_HEIGHT = 40;
 }
