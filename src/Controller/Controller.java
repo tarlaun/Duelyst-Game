@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class Controller {
-    private View view = View.getInstance();
-    private Game game = Game.getInstance();
-    private Menu menu = Menu.getInstance();
-    private Shop shop = Shop.getInstance();
+    private transient View view = View.getInstance();
+    private transient Game game = Game.getInstance();
+    private transient Menu menu = Menu.getInstance();
+    private transient Shop shop = Shop.getInstance();
     private Account account;
-    private Battle battle = Battle.getInstance();
+    private transient Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
     private transient PasswordField passwordField = new PasswordField();
     private transient Label[] labels = new Label[Labels.values().length];
@@ -34,9 +34,9 @@ public class Controller {
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private transient ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private static final Controller controller = new Controller();
-    private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
-    private Media media = new Media(file.toURI().toString());
-    private MediaPlayer player = new MediaPlayer(media);
+    private transient File file = new File("resources/music/music_mainmenu_lyonar.m4a");
+    private transient Media media = new Media(file.toURI().toString());
+    private transient MediaPlayer player = new MediaPlayer(media);
     private int collectionPage = 0, shopPage = 0;
     private ArrayList<Card> cardsInShop, cardsInCollection;
     private ArrayList<Item> itemsInShop, itemsInCollection;

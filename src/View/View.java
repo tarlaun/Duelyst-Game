@@ -35,13 +35,13 @@ import javafx.stage.Stage;
 public class View {
     private transient AnchorPane root = new AnchorPane();
     private transient Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
-    private Menu menu = Menu.getInstance();
+    private transient Menu menu = Menu.getInstance();
     private static final View view = new View();
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
-    private Image cursor = new Image("ui/mouse_auto.png");
-    private Image battleCursor = new Image("ui/mouse_attack.png");
+    private transient Image cursor = new Image("ui/mouse_auto.png");
+    private transient Image battleCursor = new Image("ui/mouse_attack.png");
 
 
     private View() {

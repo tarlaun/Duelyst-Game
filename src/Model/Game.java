@@ -13,11 +13,10 @@ import java.util.Comparator;
 public class Game {
     private ArrayList<Account> accounts = new ArrayList<>();
     private ArrayList<Account> loggedInAccounts = new ArrayList<>();
-    private static final Game game = new Game();
+    private transient static final Game game = new Game();
     private GameType gameType;
     private BattleMode mode;
-    private Menu menu = Menu.getInstance();
-    private Shop shop = Shop.getInstance();
+    private transient Shop shop = Shop.getInstance();
     private int lastSpellId = Constants.spellId;
     private int lastMinionId = Constants.minionId;
     private int lastHeroId = Constants.heroId;
@@ -110,11 +109,9 @@ public class Game {
         return game;
     }
 
-    public boolean logout(Account account) {
+    public void logout(Account account) {
         account.setLoggedIn(false);
         save(account);
-        menu.setStat(MenuStat.MAIN);
-        return true;
     }
 
     public void save(Account account) throws OutOfMemoryError {
@@ -194,10 +191,12 @@ public class Game {
                     }
                 } catch (Exception e) {
                     Card card = accounts.get(i).getCollection().getCards().get(j);
+/*
                     e.printStackTrace();
                     System.out.println(card.getName());
                     System.out.println(card.getId());
                     System.out.println(card.getIdleSrc());
+*/
                 }
             }
             for (int j = 0; j < accounts.get(i).getCollection().getItems().size(); j++) {
@@ -211,9 +210,11 @@ public class Game {
                     }
                 } catch (Exception e) {
                     Item item = accounts.get(i).getCollection().getItems().get(j);
+/*
                     System.out.println(item.getName());
                     System.out.println(item.getId());
                     System.out.println(item.getIdleSrc());
+*/
                 }
             }
             try {
