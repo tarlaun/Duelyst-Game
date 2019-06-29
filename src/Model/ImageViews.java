@@ -7,5 +7,6 @@ public enum ImageViews {
     ABYSSIAN,
     REDROCK,
     SHIMZAR,
-    VANAR
+    VANAR,
+    back
 }

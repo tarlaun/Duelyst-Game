@@ -168,7 +168,11 @@ public class Controller {
 
             case BACK_GROUND:
                 imageViews[ImageViews.REDROCK.ordinal()].setImage(new Image("resources/maps/redrock/midground@2x.png"));
-                view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()],imageViews[ImageViews.FOREGROUND.ordinal()]);
+                imageViews[ImageViews.VANAR.ordinal()].setImage(new Image("resources/maps/vanar/midground@2x.png"));
+                imageViews[ImageViews.SHIMZAR.ordinal()].setImage(new Image("resources/maps/shimzar/midground@2x.png"));
+                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
+                view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()],imageViews[ImageViews.VANAR.ordinal()],
+                        imageViews[ImageViews.SHIMZAR.ordinal()],imageViews[ImageViews.ABYSSIAN.ordinal()]);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
@@ -199,7 +203,8 @@ public class Controller {
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
                 }
                 view.battleMenu(battle.getAccounts(),heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
-                        labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs ,imageViews[ImageViews.BACKGROUND.ordinal()],imageViews[ImageViews.FOREGROUND.ordinal()]);
+                        labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs ,imageViews[ImageViews.BACKGROUND.ordinal()],
+                        imageViews[ImageViews.FOREGROUND.ordinal()] , imageViews[ImageViews.back.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -515,6 +520,11 @@ public class Controller {
             itemsInShop = shop.getItems();
             menu.setStat(MenuStat.SHOP);
             main();
+        });
+        imageViews[ImageViews.back.ordinal()].setOnMouseClicked(event -> {
+            menu.setStat(MenuStat.BACK_GROUND);
+            main();
+
         });
         buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event -> {
             cardsInCollection = account.getCollection().getCards();

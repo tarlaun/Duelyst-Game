@@ -153,21 +153,33 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void backGroundMenu(ImageView redrock, ImageView foreGround){
+    public void backGroundMenu(ImageView redrock, ImageView vanar , ImageView shimzar , ImageView abyssian){
         ImageView imageView = new ImageView(new Image("resources/codex/chapter1_background@2x.jpg"));
         imageView.setFitHeight(Constants.WINDOW_HEIGHT);
         imageView.setFitWidth(Constants.WINDOW_WIDTH);
         redrock.relocate(200,200);
         redrock.setFitWidth(200);
         redrock.setFitHeight(100);
-        lightning(redrock);
-        root.getChildren().addAll(imageView,redrock);
+        abyssian.relocate(950,200);
+        abyssian.setFitWidth(200);
+        abyssian.setFitHeight(100);
+        shimzar.relocate(700,200);
+        shimzar.setFitWidth(200);
+        shimzar.setFitHeight(100);
+        vanar.relocate(450,200);
+        vanar.setFitWidth(200);
+        vanar.setFitHeight(100);
+        lightning(redrock,shimzar,abyssian,vanar);
+
+
+        root.getChildren().addAll(imageView,redrock , vanar , shimzar , abyssian);
 
 
     }
 
     public void battleMenu(Account[] accounts,BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
-                           Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards , ImageView backGround ,ImageView foreGround) {
+                           Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards ,
+                           ImageView backGround ,ImageView foreGround , ImageView back) {
         root.getChildren().clear();
         maps(backGround, foreGround);
         battleFieldView(polygon);
@@ -176,6 +188,8 @@ public class View {
         mana(accounts[0], mana);
         handCardRings(handcards);
         handGifs(battleCards);
+        back.setImage(new Image("resources/ui/button_back_corner@2x.png"));
+        root.getChildren().add(back);
 
     }
 
