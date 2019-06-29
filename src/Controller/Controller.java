@@ -724,53 +724,53 @@ public class Controller {
         ImageView[] imageViews = new ImageView[3];
         switch (card.getName()) {
             case "WHITE_DIV":
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/Abomination_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/Abomination_attack.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
                 break;
             case "ZAHAK":
                 imageViews[0] = new ImageView(new Image("gifs/Abomination_attack.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
                 break;
             case "ARASH":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_run.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "SIMORGH":
                 imageViews[0] = new ImageView(new Image("gifs/f4_altgeneraltier2_attack.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/f4_altgeneraltier2_run.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
                 break;
             case "SEVEN_HEADED_DRAGON":
                 imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "RAKHSH":
                 imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
                 break;
             case "KAVEH":
                 imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
             case "AFSANEH":
                 imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "ESFANDIAR":
                 imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "ROSTAM":
                 imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
                 break;
         }
         return imageViews;
