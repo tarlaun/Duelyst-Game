@@ -1207,7 +1207,7 @@ public class View {
                 , createDeck, collection, importDeck, exportDeck);
         lightning(createDeck, mainDeck, setMainDeck, showDeck, collection, importDeck, exportDeck);
         root.getChildren().addAll(backView, modeLabel, next, prev, back, object, showDeck, setMainDeck, mainDeck,
-                createDeck, collection);
+                createDeck, collection, exportDeck, importDeck);
         showCards(cards, items, modeLabel, page);
     }
 
