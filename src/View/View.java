@@ -187,7 +187,7 @@ public class View {
 
     public void battleMenu(Account[] accounts, BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
                            Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards,
-                           ImageView backGround, ImageView foreGround, ImageView back) {
+                           ImageView backGround, ImageView foreGround, ImageView back ,ImageView flag , BattleMode battleMode) {
         root.getChildren().clear();
         maps(backGround, foreGround);
         battleFieldView(polygon);
@@ -196,9 +196,21 @@ public class View {
         mana(accounts[0], mana);
         handCardRings(handcards);
         handGifs(battleCards);
+        backButton(back);
+        if(battleMode.equals(BattleMode.FLAG)){
+            flag = new ImageView(new Image("Crystal Wisp_run.gif"));
+            flag.relocate((polygon[22].getPoints().get(0) + polygon[22].getPoints().get(2)) / 2 - 50,
+                    (polygon[22].getPoints().get(1) + polygon[22].getPoints().get(5)) / 2 - 85);
+            flag.setFitWidth(100);
+            flag.setFitHeight(100);
+            root.getChildren().add(flag);
+        }
+
+    }
+
+    private void backButton(ImageView back) {
         back.setImage(new Image("resources/ui/button_back_corner@2x.png"));
         root.getChildren().add(back);
-
     }
 
     private void handGifs(BattleCards[] battleCards) {

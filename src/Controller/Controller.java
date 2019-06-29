@@ -219,7 +219,7 @@ public class Controller {
                 }
                 view.battleMenu(battle.getAccounts(),heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs ,imageViews[ImageViews.BACKGROUND.ordinal()],
-                        imageViews[ImageViews.FOREGROUND.ordinal()] , imageViews[ImageViews.back.ordinal()]);
+                        imageViews[ImageViews.FOREGROUND.ordinal()] , imageViews[ImageViews.back.ordinal()], imageViews[ImageViews.FLAG.ordinal()] , battle.getMode());
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -787,13 +787,14 @@ public class Controller {
 
     private ImageView[] getImageViewGif(Card card) {
         ImageView[] imageViews = new ImageView[3];
+        System.out.println(card.getName());
         switch (card.getName()) {
             case "WHITE_DIV":
                 imageViews[1] = new ImageView(new Image("gifs/Abomination_run.gif"));
                 imageViews[2] = new ImageView(new Image("gifs/Abomination_attack.gif"));
                 imageViews[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
                 break;
-            case "ZAHAK":
+            case "KAVEH":
                 imageViews[0] = new ImageView(new Image("gifs/Abomination_attack.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/Abomination_run.gif"));
                 imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
@@ -809,19 +810,20 @@ public class Controller {
                 imageViews[2] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
                 break;
             case "SEVEN_HEADED_DRAGON":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
                 break;
             case "RAKHSH":
                 imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
                 imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
                 break;
-            case "KAVEH":
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            case "ZAHAK":
+                imageViews[0] = new ImageView(new Image("gifs/Brome Warcrest_idle.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/Brome Warcrest_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/Brome Warcrest_attack.gif"));
+                break;
             case "AFSANEH":
                 imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
                 imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));

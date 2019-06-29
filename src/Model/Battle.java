@@ -68,6 +68,8 @@ public class Battle {
         this.mode = mode;
     }
 
+
+
     public void setCurrentCard(Card currentCard) {
         this.currentCard = currentCard;
     }
