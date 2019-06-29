@@ -39,8 +39,8 @@ public class Controller {
     private ImageView[] imageViews = new ImageView[40];
     private BattleCards[] battleCards = new BattleCards[40];
     private BattleCards[] handCardGifs = new BattleCards[20];
-    private BattleCards battleCard = new BattleCards();
-    public Coordinate[] currentCoordinate = new Coordinate[2];
+    private BattleCards battleCard =null;
+    private Coordinate[] currentCoordinate = new Coordinate[2];
     private static final Controller controller = new Controller();
     private File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
     private Media media = new Media(file.toURI().toString());
@@ -51,6 +51,7 @@ public class Controller {
     private ArrayList<Item> itemsInShop, itemsInCollection;
     private boolean buyMode = true;
     private boolean insideBattle = false;
+    private Card laseSelectedCard =null;
     private int currentHandCardPointer = 0;
 
     private Controller() {
@@ -222,10 +223,23 @@ public class Controller {
         for (int i = 0; i < handCardGifs.length; i++) {
             int finalI = i;
             handCardGifs[i].getImageView()[0].setOnMouseClicked(event -> {
+                if (battleCard!=null) {
+                    battle.attack(laseSelectedCard.getId(),handCardGifs[finalI].getCard());
+                    currentImageView[0] = battleCard.getImageView()[0];
+                    currentImageView[1] = battleCard.getImageView()[1];
+                    currentImageView[2] = battleCard.getImageView()[2];
+                    view.attack(currentImageView);
+                    System.out.println("hamle");
+                    battleCard = null;
+                } else {
+                    battle.selectCard(handCardGifs[finalI].getCard().getId());
+                    currentImageView[0] = handCardGifs[finalI].getImageView()[0];
+                    currentImageView[1] = handCardGifs[finalI].getImageView()[1];
+                    battleCard = handCardGifs[finalI];
+                }
+
                 currentCoordinate[0] = new Coordinate((int) handCardGifs[finalI].getImageView()[0].getLayoutX(), (int) handCardGifs[finalI].getImageView()[0].getLayoutY());
                 insideBattle = false;
-                currentImageView[0] = handCardGifs[finalI].getImageView()[0];
-                currentImageView[1] = handCardGifs[finalI].getImageView()[1];
             });
         }
     }
