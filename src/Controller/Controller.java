@@ -46,7 +46,7 @@ public class Controller {
     private transient File file = new File("resources/music/music_mainmenu_lyonar.m4a");
     private transient Media media = new Media(file.toURI().toString());
     private transient MediaPlayer player = new MediaPlayer(media);
-    private int collectionPage = 0, shopPage = 0;
+    private int collectionPage = 0, shopPage = 0, graveyardPage = 0;
     private ArrayList<Card> cardsInShop, cardsInCollection;
     private ArrayList<Item> itemsInShop, itemsInCollection;
     private boolean buyMode = true;
@@ -174,7 +174,8 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case GRAVEYARD:
-                view.graveYardMenu();
+                view.graveYardMenu(battle.getGraveyard(), anchorPanes[Anchorpanes.NEXT.ordinal()], battle.getTurn(),
+                        anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.BACK.ordinal()], graveyardPage);
                 break;
         }
         player.setAutoPlay(true);
@@ -272,6 +273,10 @@ public class Controller {
         });
         anchorPanes[Anchorpanes.IMPORT_DECK.ordinal()].setOnMouseClicked(event -> {
             importDeck();
+            main();
+        });
+        anchorPanes[Anchorpanes.GRAVEYARD.ordinal()].setOnMouseClicked(event -> {
+            menu.setStat(MenuStat.GRAVEYARD);
             main();
         });
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
@@ -403,10 +408,15 @@ public class Controller {
         FileChooser chooser = new FileChooser();
         try {
             File file = chooser.showOpenDialog(stage);
-            JsonParser jsonParser = new JsonParser();
             FileReader reader = new FileReader(file);
-            JsonElement element = jsonParser.parse(reader);
-            Deck deck = new Gson().fromJson(element, Deck.class);
+            Deck deck = new Gson().fromJson(reader, Deck.class);
+            reader.close();
+            try {
+                System.out.println(deck.getCards().size());
+                System.out.println(deck.getItem().getName());
+            } catch (NullPointerException e) {
+
+            }
             account.getCollection().getDecks().add(deck);
             setObjectsOfDeck(deck.getName());
             collectionPage = 0;
