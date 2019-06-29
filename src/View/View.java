@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import Model.Menu;
 import javafx.collections.FXCollections;
@@ -669,8 +670,12 @@ public class View {
     }
     //Graphic
 
-    public void graveYardMenu() {
-
+    public void graveYardMenu(Card[][] cards, AnchorPane next, int turn, AnchorPane prev, AnchorPane back, int page) {
+        root.getChildren().clear();
+        ImageView backView = new ImageView(new Image("scenes/shimzar/bg@2x.jpg"));
+        scrollPane(backView, next, prev, back);
+        root.getChildren().addAll(backView, next, prev, back);
+        showCards((ArrayList<Card>) Arrays.asList(cards[turn % 2]), new ArrayList<>(), new Label(), page);
     }
 
 
