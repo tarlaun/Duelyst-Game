@@ -134,7 +134,7 @@ public class Collection {
 
     public boolean selectDeck(String deckName) {
         try {
-            mainDeck = decks.get(deckExistance(deckName));
+            mainDeck = findDeck(deckName);
             return true;
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
