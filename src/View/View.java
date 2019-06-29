@@ -162,6 +162,13 @@ public class View {
         abyssian.relocate(950, 200);
         shimzar.relocate(700, 200);
         vanar.relocate(450, 200);
+        china.relocate(200, 350);
+        metal.relocate(500, 350);
+        lion.relocate(800, 350);
+        candle.relocate(450, 500);
+        ice.relocate(200, 500);
+        octa.relocate(700, 500);
+        purple.relocate(950, 500);
         setScaleForPic(redrock, shimzar, abyssian, vanar, lion, octa, candle, ice, purple, china, metal);
 
         lightning(redrock, shimzar, abyssian, vanar, lion, octa, candle, ice, purple, china, metal);
