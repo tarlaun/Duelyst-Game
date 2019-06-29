@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 public class BattleCards {
     private ImageView[] imageView = new ImageView[3];
     private Card card;
-    private boolean inside ;
+    private boolean inside =false;
 
     public boolean isInside() {
         return inside;
