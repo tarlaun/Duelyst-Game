@@ -75,7 +75,7 @@ public class Controller {
             handCards[i] = new ImageView();
         }
         for (int i = 0; i < imageViews.length; i++) {
-            imageViews[i] = new ImageView();
+            imageViews[i] = new ImageView(new Image("gifs/Abomination_idle.gif"));
         }
         for (int i = 0; i < 9; i++) {
             mana[i] = new ImageView();
@@ -167,16 +167,16 @@ public class Controller {
                 break;
 
             case BACK_GROUND:
-                ImageView[] imageViews = new ImageView[2];
-                imageViews = view.backGroundMenu(imageViews[ImageViews.BACKGROUND.ordinal()],imageViews[ImageViews.FOREGROUND.ordinal()]);
-                imageViews[ImageViews.BACKGROUND.ordinal()]=imageViews[0];
-                imageViews[ImageViews.FOREGROUND.ordinal()]= imageViews[1];
+                imageViews[ImageViews.REDROCK.ordinal()].setImage(new Image("resources/maps/redrock/midground@2x.png"));
+                view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()],imageViews[ImageViews.FOREGROUND.ordinal()]);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_firesofvictory.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
+                break;
+            case PROCESS:
                 break;
             case BATTLE_MODE:
                 view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()], buttons[Buttons.FLAG_COLLECTING.ordinal()],
@@ -212,6 +212,8 @@ public class Controller {
                 break;
             case GRAVEYARD:
                 view.graveYardMenu();
+                break;
+            case ITEM_SELECTION:
                 break;
         }
         player.setAutoPlay(true);
@@ -484,6 +486,30 @@ public class Controller {
         buttons[Buttons.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType());
         buttons[Buttons.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         buttons[Buttons.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
+        imageViews[ImageViews.REDROCK.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/redrock/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/redrock/midground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.ABYSSIAN.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/abyssian/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.SHIMZAR.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/shimzar/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/shimzar/midground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.VANAR.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/vanar/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/vanar/midground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
         buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = shop.getCards();
             itemsInShop = shop.getItems();
@@ -549,6 +575,7 @@ public class Controller {
             buyMode = false;
             main();
         });
+
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());

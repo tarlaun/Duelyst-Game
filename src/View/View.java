@@ -153,14 +153,17 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public ImageView[] backGroundMenu(ImageView background , ImageView foreGround){
+    public void backGroundMenu(ImageView redrock, ImageView foreGround){
+        ImageView imageView = new ImageView(new Image("resources/codex/chapter1_background@2x.jpg"));
+        imageView.setFitHeight(Constants.WINDOW_HEIGHT);
+        imageView.setFitWidth(Constants.WINDOW_WIDTH);
+        redrock.relocate(200,200);
+        redrock.setFitWidth(200);
+        redrock.setFitHeight(100);
+        lightning(redrock);
+        root.getChildren().addAll(imageView,redrock);
 
 
-
-        ImageView[] imageViews = new ImageView[2];
-        imageViews[0]=background;
-        imageViews[1]=foreGround;
-        return imageViews;
     }
 
     public void battleMenu(Account[] accounts,BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
