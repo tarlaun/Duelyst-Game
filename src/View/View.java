@@ -160,27 +160,17 @@ public class View {
     public void battleMenu(Account[] accounts,BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
                            Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards , ImageView backGround ,ImageView foreGround) {
         root.getChildren().clear();
-        maps();
+        maps(backGround, foreGround);
         battleFieldView(polygon);
-
-
-        Image firstHero, secondHero;
-        firstHero = getImage(accounts[0]);
-        secondHero = getImage(accounts[1]);
-        ImageView firstHeroView = new ImageView(firstHero);
-        ImageView secondHeroView = new ImageView(secondHero);
-        bossImageSettings(firstHeroView, secondHeroView);
-        battleHeros[1].getImageView()[0].relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
-        battleHeros[1].getImageView()[0].setScaleX(-1);
-        battleHeros[0].getImageView()[0].relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
-        lightning(battleHeros[0].getImageView()[0],battleHeros[1].getImageView()[0]);
-        root.getChildren().addAll(firstHeroView, secondHeroView,battleHeros[0].getImageView()[0],battleHeros[1].getImageView()[0]);
-
-
-
+        heroGifs(accounts, battleHeros, polygon);
         endTurnButton(view, labels);
         mana(accounts[0], mana);
         handCardRings(handcards);
+        handGifs(battleCards);
+
+    }
+
+    private void handGifs(BattleCards[] battleCards) {
         for (int i = 0; i <5 ; i++) {
             System.out.println(battleCards[i].getCard().getName());
             battleCards[i].getImageView()[0].relocate(250 + 120 * i, 490);
@@ -194,7 +184,20 @@ public class View {
             lightning( battleCards[i].getImageView()[0]);
             root.getChildren().add(battleCards[i].getImageView()[0]);
         }
+    }
 
+    private void heroGifs(Account[] accounts, BattleCards[] battleHeros, Polygon[] polygon) {
+        Image firstHero, secondHero;
+        firstHero = getImage(accounts[0]);
+        secondHero = getImage(accounts[1]);
+        ImageView firstHeroView = new ImageView(firstHero);
+        ImageView secondHeroView = new ImageView(secondHero);
+        bossImageSettings(firstHeroView, secondHeroView);
+        battleHeros[1].getImageView()[0].relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
+        battleHeros[1].getImageView()[0].setScaleX(-1);
+        battleHeros[0].getImageView()[0].relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
+        lightning(battleHeros[0].getImageView()[0],battleHeros[1].getImageView()[0]);
+        root.getChildren().addAll(firstHeroView, secondHeroView,battleHeros[0].getImageView()[0],battleHeros[1].getImageView()[0]);
     }
 
     public void handView (Coordinate[] coordinate , BattleCards battleCard){
@@ -241,6 +244,8 @@ public class View {
     private void maps(ImageView background , ImageView foreground) {
         background.setFitWidth(Constants.WINDOW_WIDTH);
         background.setFitHeight(Constants.WINDOW_HEIGHT);
+        foreground.setFitWidth(Constants.WINDOW_WIDTH);
+        foreground.setFitHeight(Constants.WINDOW_HEIGHT);
         root.getChildren().addAll(background, foreground);
     }
 
