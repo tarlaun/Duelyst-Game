@@ -3,7 +3,6 @@ package Controller;
 import Model.*;
 import Model.Menu;
 import View.*;
-import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -14,8 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 public class Controller {
     private transient View view = View.getInstance();
@@ -41,7 +38,6 @@ public class Controller {
     private ArrayList<Card> cardsInShop, cardsInCollection;
     private ArrayList<Item> itemsInShop, itemsInCollection;
     private boolean buyMode = true;
-    private String deckName = "Collection";
 
     private Controller() {
         initializeGame();
@@ -93,13 +89,189 @@ public class Controller {
         game.setSrcs();
     }
 
+    /*public void handleCommands() {
+        Request request = new Request();
+
+//        while (true) {
+        request.getNewCommand();
+        switch (request.getType()) {
+            case NULL:
+                invalidCommand();
+                break;
+            case SHOW_MATCH_HISTORY:
+                showMatchHistory(request);
+            case CREATE_ACCOUNT:
+                createAccount(request);
+                break;
+            case LOGIN:
+                login(request);
+                break;
+            case LEADERBOARD:
+                showLeaderBoard(request);
+                break;
+            case SAVE:
+                try {
+                    save();
+                } catch (OutOfMemoryError h) {
+                    System.out.println("Saving error!");
+                }
+                break;
+            case LOGOUT:
+                logout();
+                break;
+            case HELP:
+                help();
+                break;
+            case EXIT:
+                exit();
+                break;
+            case ENTRANCE:
+                enter(request);
+                break;
+            case SHOW_COLLECTION:
+                showTheCollection();
+                break;
+            case SEARCH_COLLECTION:
+                searchInCollection(request);
+                break;
+            case SAVE_IN_COLLECTION:
+                saveCollection();
+                break;
+            case CREATE_DECK:
+                createDeck(request);
+                break;
+            case DELETE_DECK:
+                deleteDeck(request);
+                break;
+            case ADD:
+                addToDeck(request);
+                break;
+            case REMOVE:
+                removeFromDeck(request);
+                break;
+            case VALIDATION:
+                validateDeck(request);
+                break;
+            case SELECT_DECK:
+                selectDeck(request);
+                break;
+            case SHOW_ALL_DECK:
+                showAllDecks(request);
+                break;
+            case SHOW_DECK:
+                showDeck(request);
+                break;
+            case SEARCH:
+                search(request);
+                break;
+            case BUY:
+                buy(request);
+                break;
+            case SELL:
+                sell(request);
+                break;
+            case SHOW:
+                showShop();
+                break;
+            case SINGLE_PLAYER:
+                setGameType(request);
+                break;
+            case MULTI_PLAYER:
+                setGameType(request);
+                break;
+            case STORY:
+                setProcess(request);
+                break;
+            case CUSTOM:
+                setProcess(request);
+                break;
+            case KILL_ENEMY_HERO:
+                setBattleMode(request);
+                break;
+            case COLLECTING:
+                setBattleMode(request);
+                break;
+            case FLAG:
+                setBattleMode(request);
+                break;
+            case SELECT_USER:
+                selectUser(request);
+                break;
+            case GAME_INFO:
+                gameInfo();
+                break;
+            case SHOW_MAP:
+                showMap();
+                break;
+            case SHOW_MY_MININOS:
+                showMyMinions();
+                break;
+            case SHOW_OPP_MINIONS:
+                showOppMinions();
+                break;
+            case SHOW_CARD_INFO:
+                showCardInfo(request);
+                break;
+            case SELECTION:
+                select(request);
+                break;
+            case MOVE:
+                moveToInBattle(request);
+                break;
+            case ATTACK:
+                battleAttack(request);
+                break;
+            case COMBO:
+                battleComboAttack(request);
+                break;
+            case USE_SP:
+                specialPowerValidation();
+                if (battle.validSpecialPower() == Message.NULL) {
+                    useSpecialPower(request);
+                }
+                break;
+            case SHOW_HAND:
+                showHand();
+                break;
+            case INSERTION:
+                insertCard(request);
+                break;
+            case END_TURN:
+                endTurn();
+                AiFunctions();
+                break;
+            case SHOW_COLLECTABLES:
+                showCollectables();
+                break;
+            case SHOW_COLLECTABLE_INFO:
+                showCollectableInfo();
+                break;
+            case USE_ITEM:
+                useItem(request);
+                break;
+            case NEXT_CARD:
+                showNextCard();
+                break;
+            case SHOW_CARDS:
+                showCards();
+                break;
+            case END_GAME:
+                endGame();
+                break;
+            case SHOW_MENU:
+                showMenu();
+                break;
+        }
+//        }
+    }*/
+
     public void main() {
 
         player.stop();
         switch (menu.getStat()) {
             case MAIN:
-                view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
-                        buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], passwordField);
+                view.mainMenu(anchorPanes[Anchorpanes.LOGIN.ordinal()], anchorPanes[Anchorpanes.CREATE_ACCOUNT.ordinal()],
+                        anchorPanes[Anchorpanes.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], passwordField);
                 file = new File("resources/music/music_battlemap_vetruv.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -113,30 +285,22 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(account, buyMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
+                view.shopMenu(buyMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.SELL.ordinal()],
                         anchorPanes[Anchorpanes.BUY.ordinal()], shopPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
-                handleInstances(cardsInShop, itemsInShop);
                 break;
             case COLLECTION:
-                view.collectionMenu(deckName, fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
-                        anchorPanes[Anchorpanes.CREATE.ordinal()], anchorPanes[Anchorpanes.SHOW_DECk.ordinal()],
-                        anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.WHOLE_COLLECTION.ordinal()],
-                        anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()],
-                        anchorPanes[Anchorpanes.MAIN_DECK.ordinal()], anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()],
-                        collectionPage);
+                view.collectionMenu(fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
+                        anchorPanes[Anchorpanes.CREATE.ordinal()], fields[Texts.DECKNAME.ordinal()],
+                        anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
+                        anchorPanes[Anchorpanes.PREV.ordinal()], collectionPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
-                try {
-                    handleCollection(cardsInCollection, itemsInCollection);
-                } catch (Exception e) {
-
-                }
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
@@ -185,12 +349,15 @@ public class Controller {
             menu.setStat(MenuStat.SHOP);
             main();
         });
+
         buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event -> {
             cardsInCollection = account.getCollection().getCards();
             itemsInCollection = account.getCollection().getItems();
             menu.setStat(MenuStat.COLLECTION);
             main();
         });
+        anchorPanes[Anchorpanes.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
+        anchorPanes[Anchorpanes.EXIT.ordinal()].setOnMouseClicked(event -> exit());
         anchorPanes[Anchorpanes.BACK.ordinal()].setOnMouseClicked(event -> exit());
         anchorPanes[Anchorpanes.PREV.ordinal()].setOnMouseClicked(event -> {
             if (menu.getStat() == MenuStat.COLLECTION && collectionPage > 0) {
@@ -204,7 +371,7 @@ public class Controller {
         });
         anchorPanes[Anchorpanes.NEXT.ordinal()].setOnMouseClicked(event -> {
             if (menu.getStat() == MenuStat.COLLECTION &&
-                    collectionPage < (cardsInCollection.size() + itemsInCollection.size())
+                    collectionPage < (account.getCollection().getCards().size() + account.getCollection().getItems().size())
                             / Constants.CARD_PER_PAGE) {
                 collectionPage++;
                 main();
@@ -229,38 +396,17 @@ public class Controller {
             buyMode = false;
             main();
         });
-        anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()].setOnMouseClicked(event -> {
-            deckLing(Constants.SELECT_MAIN_CONST);
+        anchorPanes[Anchorpanes.LOGIN.ordinal()].setOnMouseClicked(event -> {
+         login();
             main();
         });
-        anchorPanes[Anchorpanes.MAIN_DECK.ordinal()].setOnMouseClicked(event -> {
-            deckName = account.getCollection().getMainDeck().getName();
-            cardsInCollection = account.getCollection().getMainDeck().getCards();
-            ArrayList<Item> itemList = new ArrayList<>();
-            itemList.add(account.getCollection().findDeck(deckName).getItem());
-            itemsInCollection = itemList;
-            collectionPage = 0;
-            main();
-        });
-        anchorPanes[Anchorpanes.WHOLE_COLLECTION.ordinal()].setOnMouseClicked(event -> {
-            deckName = "Collection";
-            cardsInCollection = account.getCollection().getCards();
-            itemsInCollection = account.getCollection().getItems();
-            main();
-        });
-        anchorPanes[Anchorpanes.SHOW_DECk.ordinal()].setOnMouseClicked(event -> {
-            deckLing(Constants.SHOW_DECK_CONST);
-            main();
-        });
-        anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> {
-            createDeck();
-            main();
-        });
+        buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
+        anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
     }
 
     public void handleTextFields() {
@@ -278,180 +424,13 @@ public class Controller {
                 }
             }
             if (menu.getStat() == MenuStat.COLLECTION) {
-                try {
-                    if (deckName.equals("Collection")) {
-                        cardsInCollection = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
-                                account.getCollection().getCards());
-                        itemsInCollection = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
-                                account.getCollection().getItems());
-                    } else {
-                        cardsInCollection = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
-                                account.getCollection().findDeck(deckName).getCards());
-                        if (fields[Texts.OBJECT.ordinal()].getText().matches(account.getCollection().
-                                findDeck(deckName).getItem().getName())) {
-                            ArrayList<Item> itemList = new ArrayList<>();
-                            itemList.add(account.getCollection().findDeck(deckName).getItem());
-                            itemsInCollection = itemList;
-                        } else {
-                            itemsInCollection = new ArrayList<>();
-                        }
-                    }
-                } catch (NullPointerException ignored) {
-
-                }
+                cardsInCollection = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                        account.getCollection().getCards());
+                itemsInCollection = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                        account.getCollection().getItems());
             }
             main();
         });
-    }
-
-    public void handleCollection(ArrayList<Card> cards, ArrayList<Item> items) {
-        for (int i = 0; i < cards.size(); i++) {
-            int finalI = i;
-            cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                deckLing(cards.get(finalI).getId());
-                main();
-            });
-        }
-        for (int i = 0; i < items.size(); i++) {
-            int finalI = i;
-            items.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                deckLing(items.get(finalI).getId());
-                main();
-            });
-        }
-    }
-
-    private void deckLing(int id) {
-        List<String> deckNames = new ArrayList<>();
-        for (Deck deck : account.getCollection().getDecks()) {
-            deckNames.add(deck.getName());
-        }
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(account.getCollection().getMainDeck().getName(), deckNames);
-        if (id == Constants.SELECT_MAIN_CONST) {
-            dialog.setHeaderText("Set the Main");
-            dialog.setContentText("Deck... ");
-        } else if (id == Constants.SHOW_DECK_CONST) {
-            dialog.setHeaderText("Show objects of");
-            dialog.setContentText("Deck... ");
-        } else {
-            dialog.setHeaderText("Adding to deck");
-            dialog.setContentText("To deck: ");
-        }
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(name -> {
-            if (id == Constants.SELECT_MAIN_CONST) {
-                if (account.getCollection().selectDeck(name)) {
-                    AlertMessage alert = new AlertMessage("Main Deck is " + name,
-                            Alert.AlertType.INFORMATION, "OK");
-                    alert.getResult();
-                } else {
-                    AlertMessage alert = new AlertMessage("The " + name + " is already the Main Deck",
-                            Alert.AlertType.ERROR, "OK");
-                    alert.getResult();
-                }
-            } else if (id == Constants.SHOW_DECK_CONST) {
-                cardsInCollection = account.getCollection().findDeck(name).getCards();
-                ArrayList<Item> itemList = new ArrayList<>();
-                itemList.add(account.getCollection().findDeck(name).getItem());
-                itemsInCollection = itemList;
-                collectionPage = 0;
-                deckName = name;
-            } else {
-                Message message = addToDeck(name, id);
-                if (message == Message.OBJECT_ADDED) {
-                    AlertMessage alert = new AlertMessage("Card added!", Alert.AlertType.INFORMATION, "OK");
-                    alert.getResult();
-                } else {
-                    AlertMessage alert = new AlertMessage(message.toString(), Alert.AlertType.ERROR, "OK");
-                    alert.getResult();
-                }
-            }
-        });
-    }
-
-    private void createDeck() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setHeaderText("Create Deck");
-        dialog.setContentText("Name... ");
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(name -> {
-            if (account.getCollection().createDeck(name)) {
-                AlertMessage alert = new AlertMessage("Deck created!", Alert.AlertType.INFORMATION, "OK");
-                alert.getResult();
-                cardsInCollection = new ArrayList<>();
-                itemsInCollection = new ArrayList<>();
-                collectionPage = 0;
-            } else {
-                AlertMessage alert = new AlertMessage(Message.EXISTING_DECK.toString(), Alert.AlertType.ERROR, "OK");
-                alert.getResult();
-            }
-            deckName = name;
-        });
-    }
-
-
-    private void handleInstances(ArrayList<Card> cards, ArrayList<Item> items) {
-        for (int i = 0; i < cards.size(); i++) {
-            int finalI = i;
-            cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                if (buyMode) {
-                    handleBuy(account.getBudget(), cards.get(finalI).getName(), cards.get(finalI).getPrice());
-                } else {
-                    handleSell(cards.get(finalI).getId());
-                }
-                main();
-            });
-        }
-        for (int i = 0; i < items.size(); i++) {
-            int finalI = i;
-            items.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                if (buyMode) {
-                    if (items.get(finalI).getPrice() == 0) {
-                        AlertMessage alert;
-                        alert = new AlertMessage("You cannot buy collectible item!", Alert.AlertType.ERROR, "OK");
-                        alert.getResult();
-                    } else {
-                        handleBuy(account.getBudget(), items.get(finalI).getName(), items.get(finalI).getPrice());
-                    }
-                } else {
-                    handleSell(items.get(finalI).getId());
-                }
-                main();
-            });
-        }
-    }
-
-    private void handleBuy(int budget, String name, int price) {
-        AlertMessage alert;
-        if (budget < price) {
-            alert = new AlertMessage("Insufficient budget!", Alert.AlertType.ERROR, "OK");
-            alert.getResult();
-        } else {
-            alert = new AlertMessage("It will cost " + price + " Drigs",
-                    Alert.AlertType.CONFIRMATION, "OK", "Cancel");
-            Optional<ButtonType> result = alert.getResult();
-            if (result.isPresent()) {
-                switch (result.get().getText()) {
-                    case "OK":
-                        buy(name);
-                        break;
-                }
-            }
-        }
-    }
-
-    private void handleSell(int id) {
-        AlertMessage alert;
-        alert = new AlertMessage("Are you sure to sell it?", Alert.AlertType.CONFIRMATION,
-                "Yes", "No");
-        Optional<ButtonType> result = alert.getResult();
-        if (result.isPresent()) {
-            switch (result.get().getText()) {
-                case "Yes":
-                    sell(id);
-                    break;
-            }
-        }
     }
 
     public void setBattleMode(int a) {
@@ -738,14 +717,23 @@ public class Controller {
 
     }
 
+    private void createDeck(String deckName) {
+        /*if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
+            view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
+        }*/
+        this.account.getCollection().createDeck(deckName);
+    }
+
     private void deleteDeck(Request request) {
         if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
             view.deleteDeck(this.account.getCollection().deleteDeck(request.getDeckName(request.getCommand())));
         }
     }
 
-    private Message addToDeck(String deckName, int id) {
-        return this.account.getCollection().add(deckName, id);
+    private void addToDeck(Request request) {
+        if (request.checkToDeckAdditionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
+            view.addToCollection(this.account.getCollection().add(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
+        }
     }
 
     private void removeFromDeck(Request request) {
@@ -799,14 +787,16 @@ public class Controller {
         }
     }
 
-    private void buy(String name) {
+    private void buy() {
         if (shop.getGame() == null)
             shop.setGame(this.game);
-        shop.buy(name, this.account);
+        shop.buy(fields[Texts.OBJECT.ordinal()].getText(), this.account);
     }
 
-    private void sell(int id) {
-        shop.sell(id, account);
+    private void sell(Request request) {
+        if (request.checkSellSyntax() && menu.getStat() == MenuStat.SHOP) {
+            view.printSellMessages(shop.sell(request.getObjectID(request.getCommand()), this.account));
+        }
     }
 
     private void showShop() {

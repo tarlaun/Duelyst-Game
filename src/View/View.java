@@ -848,16 +848,13 @@ public class View {
         polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> polygon1.setEffect(null));
     }
 
-    public void mainMenu(Button login, Button create, Button exit, TextField username, PasswordField password) {
+    public void mainMenu(AnchorPane login, AnchorPane create, AnchorPane exit, TextField username, PasswordField password) {
         Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
         Image foreground = new Image("scenes/obsidian_woods/obsidian_woods_cliff.png");
         ImageView foregroundView = getImageView(background, foreground);
-        login.setText("Login");
-        create.setText("Create Account");
-        exit.setText("Exit");
         verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y, login, create, exit);
         password.setPrefWidth(Constants.FIELD_WIDTH);
         password.setPrefHeight(Constants.FIELD_HEIGHT);
