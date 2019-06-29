@@ -153,33 +153,34 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void backGroundMenu(ImageView redrock, ImageView vanar , ImageView shimzar , ImageView abyssian){
+    public void backGroundMenu(ImageView redrock, ImageView vanar, ImageView shimzar, ImageView abyssian, ImageView china
+            , ImageView lion, ImageView candle, ImageView octa, ImageView metal, ImageView ice, ImageView purple) {
         ImageView imageView = new ImageView(new Image("resources/codex/chapter1_background@2x.jpg"));
         imageView.setFitHeight(Constants.WINDOW_HEIGHT);
         imageView.setFitWidth(Constants.WINDOW_WIDTH);
-        redrock.relocate(200,200);
-        redrock.setFitWidth(200);
-        redrock.setFitHeight(100);
-        abyssian.relocate(950,200);
-        abyssian.setFitWidth(200);
-        abyssian.setFitHeight(100);
-        shimzar.relocate(700,200);
-        shimzar.setFitWidth(200);
-        shimzar.setFitHeight(100);
-        vanar.relocate(450,200);
-        vanar.setFitWidth(200);
-        vanar.setFitHeight(100);
-        lightning(redrock,shimzar,abyssian,vanar);
+        redrock.relocate(200, 200);
+        abyssian.relocate(950, 200);
+        shimzar.relocate(700, 200);
+        vanar.relocate(450, 200);
+        setScaleForPic(redrock, shimzar, abyssian, vanar, lion, octa, candle, ice, purple, china, metal);
 
+        lightning(redrock, shimzar, abyssian, vanar, lion, octa, candle, ice, purple, china, metal);
 
-        root.getChildren().addAll(imageView,redrock , vanar , shimzar , abyssian);
+        root.getChildren().addAll(imageView, redrock, vanar, shimzar, abyssian, lion, octa, candle, ice, purple, china, metal);
 
 
     }
 
-    public void battleMenu(Account[] accounts,BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
-                           Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards ,
-                           ImageView backGround ,ImageView foreGround , ImageView back) {
+    public void setScaleForPic(ImageView... imageViews) {
+        for (ImageView imageView : imageViews) {
+            imageView.setFitHeight(130);
+            imageView.setFitWidth(275);
+        }
+    }
+
+    public void battleMenu(Account[] accounts, BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
+                           Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards,
+                           ImageView backGround, ImageView foreGround, ImageView back) {
         root.getChildren().clear();
         maps(backGround, foreGround);
         battleFieldView(polygon);
@@ -194,17 +195,17 @@ public class View {
     }
 
     private void handGifs(BattleCards[] battleCards) {
-        for (int i = 0; i <5 ; i++) {
+        for (int i = 0; i < 5; i++) {
             System.out.println(battleCards[i].getCard().getName());
             battleCards[i].getImageView()[0].relocate(250 + 120 * i, 490);
             battleCards[i].getImageView()[0].setFitHeight(160);
             battleCards[i].getImageView()[0].setFitWidth(160);
-            if(battleCards[i].getCard().getType().equals("Spell")){
+            if (battleCards[i].getCard().getType().equals("Spell")) {
                 battleCards[i].getImageView()[0].relocate(290 + 120 * i, 545);
                 battleCards[i].getImageView()[0].setFitHeight(80);
                 battleCards[i].getImageView()[0].setFitWidth(80);
             }
-            lightning( battleCards[i].getImageView()[0]);
+            lightning(battleCards[i].getImageView()[0]);
             root.getChildren().add(battleCards[i].getImageView()[0]);
         }
     }
@@ -219,24 +220,24 @@ public class View {
         battleHeros[1].getImageView()[0].relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
         battleHeros[1].getImageView()[0].setScaleX(-1);
         battleHeros[0].getImageView()[0].relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
-        lightning(battleHeros[0].getImageView()[0],battleHeros[1].getImageView()[0]);
-        root.getChildren().addAll(firstHeroView, secondHeroView,battleHeros[0].getImageView()[0],battleHeros[1].getImageView()[0]);
+        lightning(battleHeros[0].getImageView()[0], battleHeros[1].getImageView()[0]);
+        root.getChildren().addAll(firstHeroView, secondHeroView, battleHeros[0].getImageView()[0], battleHeros[1].getImageView()[0]);
     }
 
-    public void handView (Coordinate[] coordinate , BattleCards battleCard){
-        if(!battleCard.getCard().getType().equals("Spell")) {
-            if(coordinate[0].getY()<500) {
+    public void handView(Coordinate[] coordinate, BattleCards battleCard) {
+        if (!battleCard.getCard().getType().equals("Spell")) {
+            if (coordinate[0].getY() < 500) {
                 battleCard.getImageView()[0].relocate(coordinate[0].getX(), coordinate[0].getY());
-            }else {
-                battleCard.getImageView()[0].relocate(coordinate[0].getX()-40, coordinate[0].getY()-55);
+            } else {
+                battleCard.getImageView()[0].relocate(coordinate[0].getX() - 40, coordinate[0].getY() - 55);
             }
             battleCard.getImageView()[0].setFitHeight(160);
             battleCard.getImageView()[0].setFitWidth(160);
         }
-        if(battleCard.getCard().getType().equals("Spell")){
-            if(coordinate[0].getY()<500) {
-                battleCard.getImageView()[0].relocate(coordinate[0].getX()+40, coordinate[0].getY()+55);
-            }else {
+        if (battleCard.getCard().getType().equals("Spell")) {
+            if (coordinate[0].getY() < 500) {
+                battleCard.getImageView()[0].relocate(coordinate[0].getX() + 40, coordinate[0].getY() + 55);
+            } else {
                 battleCard.getImageView()[0].relocate(coordinate[0].getX(), coordinate[0].getY());
             }
             battleCard.getImageView()[0].setFitHeight(80);
@@ -264,7 +265,7 @@ public class View {
         }
     }
 
-    private void maps(ImageView background , ImageView foreground) {
+    private void maps(ImageView background, ImageView foreground) {
         background.setFitWidth(Constants.WINDOW_WIDTH);
         background.setFitHeight(Constants.WINDOW_HEIGHT);
         foreground.setFitWidth(Constants.WINDOW_WIDTH);

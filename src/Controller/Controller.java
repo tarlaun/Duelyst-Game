@@ -180,7 +180,11 @@ public class Controller {
                 imageViews[ImageViews.LION.ordinal()].setImage(new Image("resources/maps/battlemap0_middleground@2x.png"));
                 imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
                 view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()],imageViews[ImageViews.VANAR.ordinal()],
-                        imageViews[ImageViews.SHIMZAR.ordinal()],imageViews[ImageViews.ABYSSIAN.ordinal()]);
+                        imageViews[ImageViews.SHIMZAR.ordinal()],imageViews[ImageViews.ABYSSIAN.ordinal()],
+                        imageViews[ImageViews.PURPLE.ordinal()],imageViews[ImageViews.OCTA.ordinal()]
+                ,imageViews[ImageViews.METAL.ordinal()],imageViews[ImageViews.LION.ordinal()],
+                        imageViews[ImageViews.ICE.ordinal()],imageViews[ImageViews.CANDLE.ordinal()],
+                        imageViews[ImageViews.LION.ordinal()]);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
