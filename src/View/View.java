@@ -1171,7 +1171,8 @@ public class View {
 
     public void collectionMenu(String mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items
             , AnchorPane createDeck, AnchorPane showDeck, AnchorPane back, AnchorPane collection, AnchorPane next
-            , AnchorPane prev, AnchorPane mainDeck, AnchorPane setMainDeck, int page) {
+            , AnchorPane prev, AnchorPane mainDeck, AnchorPane setMainDeck, AnchorPane exportDeck
+            , AnchorPane importDeck, int page) {
         root.getChildren().clear();
         Label modeLabel = new Label(mode + " Objects");
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
@@ -1195,9 +1196,16 @@ public class View {
         collection.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
                 Constants.DECK_PANE_HEIGHT, "Collection", Constants.FONT_SIZE, Color.LIGHTBLUE)
                 .getPane().getChildren());
+        exportDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
+                Constants.DECK_PANE_HEIGHT, "Export...", Constants.FONT_SIZE, Color.LIGHTBLUE)
+                .getPane().getChildren());
+        importDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
+                Constants.DECK_PANE_HEIGHT, "Import...", Constants.FONT_SIZE, Color.LIGHTBLUE)
+                .getPane().getChildren());
         verticalList(Alignment.LEFT, Constants.DECK_PANE_X, Constants.DECK_PANE_Y + Constants.DECK_PANE_HEIGHT
-                , Constants.DECK_PANE_WIDTH, Constants.DECK_PANE_HEIGHT, showDeck, setMainDeck, mainDeck, createDeck, collection);
-        lightning(createDeck, mainDeck, setMainDeck, showDeck, collection);
+                , Constants.DECK_PANE_WIDTH, Constants.DECK_PANE_HEIGHT, showDeck, setMainDeck, mainDeck
+                , createDeck, collection, importDeck, exportDeck);
+        lightning(createDeck, mainDeck, setMainDeck, showDeck, collection, importDeck, exportDeck);
         root.getChildren().addAll(backView, modeLabel, next, prev, back, object, showDeck, setMainDeck, mainDeck,
                 createDeck, collection);
         showCards(cards, items, modeLabel, page);
