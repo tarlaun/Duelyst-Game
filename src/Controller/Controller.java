@@ -167,8 +167,10 @@ public class Controller {
                 break;
 
             case BACK_GROUND:
-                view.backGroundMenu(imageViews[ImageViews.BACKGROUND.ordinal()],imageViews[ImageViews.FOREGROUND.ordinal()]);
-
+                ImageView[] imageViews = new ImageView[2];
+                imageViews = view.backGroundMenu(imageViews[ImageViews.BACKGROUND.ordinal()],imageViews[ImageViews.FOREGROUND.ordinal()]);
+                imageViews[ImageViews.BACKGROUND.ordinal()]=imageViews[0];
+                imageViews[ImageViews.FOREGROUND.ordinal()]= imageViews[1];
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);

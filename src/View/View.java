@@ -153,8 +153,14 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void backGroundMenu(ImageView background , ImageView foreGround){
+    public ImageView[] backGroundMenu(ImageView background , ImageView foreGround){
 
+
+
+        ImageView[] imageViews = new ImageView[2];
+        imageViews[0]=background;
+        imageViews[1]=foreGround;
+        return imageViews;
     }
 
     public void battleMenu(Account[] accounts,BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
