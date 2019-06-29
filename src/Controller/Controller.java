@@ -190,12 +190,16 @@ public class Controller {
                 break;
             case BATTLE:
                 handleMinions();
+                for (int i = 0; i <2 ; i++) {
+                    heroes[i].setCard(battle.getAccounts()[i].getCollection().getMainDeck().getHero());
+                    heroes[i].setInside(true);
+                    heroes[i].setImageView(getImageViewGif(battle.getAccounts()[i].getCollection().getMainDeck().getHero()));
+                }
                 for (int i = 0; i < 15; i++) {
                     System.out.println(battle.getAccounts()[0].getCollection().getMainDeck().getCards().size());
                     handCardGifs[i].setCard(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i));
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
                 }
-
                 view.battleMenu(battle.getAccounts(),heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
