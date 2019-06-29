@@ -196,8 +196,7 @@ public class Controller {
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
                 }
 
-                view.battleMenu(battle.getAccounts(), getImageViewGif(battle.getAccounts()[0], 0),
-                        getImageViewGif(battle.getAccounts()[1], 1), polygon, imageViews[ImageViews.END_TURN.ordinal()],
+                view.battleMenu(battle.getAccounts(),heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());

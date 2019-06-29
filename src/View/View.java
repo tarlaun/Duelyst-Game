@@ -153,12 +153,27 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
-    public void battleMenu(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon, ImageView view,
+    public void battleMenu(Account[] accounts,BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
                            Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards) {
         root.getChildren().clear();
         maps();
         battleFieldView(polygon);
-        heroGifs(accounts, imageView1, imageView2, polygon);
+
+
+        Image firstHero, secondHero;
+        firstHero = getImage(accounts[0]);
+        secondHero = getImage(accounts[1]);
+        ImageView firstHeroView = new ImageView(firstHero);
+        ImageView secondHeroView = new ImageView(secondHero);
+        bossImageSettings(firstHeroView, secondHeroView);
+        battleHeros[1].getImageView()[0].relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
+        battleHeros[1].getImageView()[0].setScaleX(-1);
+        battleHeros[0].getImageView()[0].relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
+        lightning(battleHeros[0].getImageView()[0],battleHeros[1].getImageView()[0]);
+        root.getChildren().addAll(firstHeroView, secondHeroView,battleHeros[0].getImageView()[0],battleHeros[1].getImageView()[0]);
+
+
+
         endTurnButton(view, labels);
         mana(accounts[0], mana);
         handCardRings(handcards);
@@ -228,19 +243,6 @@ public class View {
         root.getChildren().addAll(backgroundView, foregroundView);
     }
 
-    private void heroGifs(Account[] accounts, ImageView imageView1, ImageView imageView2, Polygon[] polygon) {
-        Image firstHero, secondHero;
-        firstHero = getImage(accounts[0]);
-        secondHero = getImage(accounts[1]);
-        ImageView firstHeroView = new ImageView(firstHero);
-        ImageView secondHeroView = new ImageView(secondHero);
-        bossImageSettings(firstHeroView, secondHeroView);
-        imageView2.relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
-        imageView2.setScaleX(-1);
-        imageView1.relocate((polygon[18].getPoints().get(0) + polygon[18].getPoints().get(2)) / 2 - 60, (polygon[18].getPoints().get(1) + polygon[18].getPoints().get(5)) / 2 - 105);
-        lightning(imageView1, imageView2);
-        root.getChildren().addAll(firstHeroView, secondHeroView, imageView1, imageView2);
-    }
 
     private void mana(Account account, ImageView[] mana) {
         for (int i = 0; i < 9; i++) {
