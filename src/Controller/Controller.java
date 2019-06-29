@@ -45,7 +45,6 @@ public class Controller {
     private ArrayList<Card> cardsInShop, cardsInCollection;
     private ArrayList<Item> itemsInShop, itemsInCollection;
     private boolean buyMode = true;
-    private boolean insideBattle = false;
     private int currentHandCardPointer = 0;
     private int currentI;
 
@@ -188,6 +187,7 @@ public class Controller {
                 }
                 for (int i = 0; i < 15; i++) {
                     System.out.println(battle.getAccounts()[0].getCollection().getMainDeck().getCards().size());
+                    handCardGifs[i].setInside(false);
                     handCardGifs[i].setCard(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i));
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
                 }
@@ -221,13 +221,7 @@ public class Controller {
             int finalI = i;
             handCardGifs[i].getImageView()[0].setOnMouseClicked(event -> {
                 if (battleCard != null && handCardGifs[finalI].isInside() && battleCard.getCard().getId() != handCardGifs[finalI].getCard().getId()) {
-                    battle.attack(handCardGifs[finalI].getCard().getId(), battleCard.getCard());
-                    currentImageView[0] = battleCard.getImageView()[0];
-                    currentImageView[1] = battleCard.getImageView()[1];
-                    currentImageView[2] = battleCard.getImageView()[2];
-                    view.attack(currentImageView);
-                    System.out.println("hamle");
-                    battleCard = null;
+                    readyForAttack(finalI, handCardGifs);
                 } else {
                     battle.selectCard(handCardGifs[finalI].getCard().getId());
                     currentImageView[0] = handCardGifs[finalI].getImageView()[0];
@@ -237,7 +231,6 @@ public class Controller {
                 }
 
                 currentCoordinate[0] = new Coordinate((int) handCardGifs[finalI].getImageView()[0].getLayoutX(), (int) handCardGifs[finalI].getImageView()[0].getLayoutY());
-                insideBattle = false;
             });
         }
     }
@@ -430,91 +423,48 @@ public class Controller {
         return imageViews;
     }
 
-
     private void handleHeroGifs() {
         for (int i = 0; i < 2; i++) {
             int finalI = i;
             heroes[i].getImageView()[0].setOnMouseClicked(event -> {
                 if (battleCard != null &&  battleCard.getCard().getId() != heroes[finalI].getCard().getId()) {
-                    battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard());
-                    currentImageView[0] = battleCard.getImageView()[0];
-                    currentImageView[1] = battleCard.getImageView()[1];
-                    currentImageView[2] = battleCard.getImageView()[2];
-                    view.attack(currentImageView);
-                    System.out.println("hamle");
-                    battleCard = null;
+                    readyForAttack(finalI, heroes);
                 } else {
                     battle.selectCard(heroes[finalI].getCard().getId());
-                    currentImageView[0] = handCardGifs[finalI].getImageView()[0];
-                    currentImageView[1] = handCardGifs[finalI].getImageView()[1];
+                    currentImageView[0] = heroes[finalI].getImageView()[0];
+                    currentImageView[1] = heroes[finalI].getImageView()[1];
+                    System.out.println("hero entekhab shod");
                     battleCard = heroes[finalI];
                     currentI = finalI;
                 }
-                currentCoordinate[0] = new Coordinate((int) heroes[finalI].getImageView()[0].getLayoutX(), (int) heroes[finalI].getImageView()[0].getLayoutY());
+                currentCoordinate[0] = null;
             });
         }
+    }
 
-
-       /* for (int i = 0; i < 2; i++) {
-            int a = i;
-            heroes[heroId[i][0]][0].setOnMouseClicked(event -> {
-                insideBattle = true;
-                if (lastSelectedCardId[0] != 0) {
-                    battle.attack(heroId[a][1], Card.getCardByID(lastSelectedCardId[0], battle.getFieldCards()[(a + 1) % 2]));
-                    currentImageView[0] = heroes[heroId[(a + 1) % 2][0]][0];
-                    currentImageView[1] = heroes[heroId[(a + 1) % 2][0]][1];
-                    currentImageView[2] = heroes[heroId[(a + 1) % 2][0]][2];
-                    view.attack(currentImageView);
-                    System.out.println("hamle");
-                    lastSelectedCardId[0] = 0;
-                } if(battleCard!=null){
-                    battle.attack(heroId[a][1],battleCard.getCard());
-                    currentImageView[0] = battleCard.getImageView()[0];
-                    currentImageView[1] = battleCard.getImageView()[1];
-                    currentImageView[2] =battleCard.getImageView()[2];;
-                    view.attack(currentImageView);
-                    lastSelectedCardId[0] = 0;
-                    battleCard=null;
-                }
-                else {
-                    battle.selectCard(heroId[a][1]);
-                    currentImageView[0] = heroes[heroId[a][0]][0];
-                    currentImageView[1] = heroes[heroId[a][0]][1];
-                    currentImageView[2] = heroes[heroId[a][0]][2];
-                    currentCardId[0] = heroId[a][1];
-                    currentCardId[1] = heroId[a][0];
-                    lastSelectedCardId[0] = currentCardId[0];
-                    lastSelectedCardId[1] = currentCardId[1];
-                    BattleCards battleCards1 = new BattleCards();
-                    battleCards1.setInside(true);
-                    battleCards1.setImageView(currentImageView);
-                    battleCards1.setCard(Card.getCardByID(lastSelectedCardId[0], battle.getFieldCards()[(a + 1) % 2]));
-                    battleCard = battleCards1;
-                }
-            });
-        }*/
+    private void readyForAttack(int finalI, BattleCards[] heroes) {
+        battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard());
+        currentImageView[0] = battleCard.getImageView()[0];
+        currentImageView[1] = battleCard.getImageView()[1];
+        currentImageView[2] = battleCard.getImageView()[2];
+        view.attack(currentImageView);
+        System.out.println("hamle");
+        battleCard = null;
     }
 
     private void handlePolygon() {
         for (int i = 0; i < polygon.length; i++) {
             int a = i;
-            int finalI = i;
             polygon[i].setOnMouseClicked(event -> {
                 view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                 battleCard = null;
                 battle.moveTo(new Coordinate(a - (a / 9), a / 9));
-                lastSelectedCardId[0] = 0;
-                laseSelectedCard = null;
-                if (insideBattle) {
-
-                }
-                if (!insideBattle) {
+                if (currentCoordinate[0]!=null) {
                     handCardGifs[currentI].setInside(true);
                     currentHandCardPointer++;
                     if (currentHandCardPointer + 4 < 15) {
                         view.handView(currentCoordinate, handCardGifs[currentHandCardPointer + 4]);
                     }
-
                 }
             });
         }

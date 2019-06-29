@@ -326,9 +326,9 @@ public class Battle {
             saveTurn = turn;
             opponentCardID = opponentCardId;
         }
-        if (!isInRange(targetCard, currentCard)) {//&& !accounts[1].getName().equals("powerfulAI")
+        /*if (!isInRange(targetCard, currentCard)) {//&& !accounts[1].getName().equals("powerfulAI")
             return Message.UNAVAILABLE;
-        }
+        }*/
         if (!currentCard.isAbleToAttack()) {
             if (targetCard.isAbleToAttack()) {
                 return Message.NOT_ABLE_TO_ATTACK;
