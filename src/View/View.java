@@ -1128,10 +1128,6 @@ public class View {
             modeLabel = new Label("Shop Objects");
         else
             modeLabel = new Label("Collection Objects");
-        modeLabel.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
-        modeLabel.setTextFill(Color.NAVY);
-        modeLabel.translateXProperty().bind(modeLabel.widthProperty().divide(2).negate());
-        modeLabel.relocate(Constants.SCROLLER_X, Constants.PAGE_TITLE_Y);
         budget = new Label("Budget: " + account.getBudget());
         budget.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
         budget.setTextFill(Color.DARKGREEN);
@@ -1149,14 +1145,15 @@ public class View {
         lightning(buy);
         lightning(sell);
         root.getChildren().addAll(backView, sell, buy, next, prev, back, object, modeLabel, budget);
-        showCards(cards, items, page);
+        showCards(cards, items, modeLabel, page);
     }
 
 
-    public void collectionMenu(TextField object, ArrayList<Card> cards, ArrayList<Item> items
-            , AnchorPane createDeck, AnchorPane showDeck, AnchorPane back, AnchorPane next, AnchorPane prev
-            , AnchorPane mainDeck, AnchorPane setMainDeck, ChoiceBox list, int page) {
+    public void collectionMenu(String mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items
+            , AnchorPane createDeck, AnchorPane showDeck, AnchorPane back, AnchorPane collection, AnchorPane next
+            , AnchorPane prev, AnchorPane mainDeck, AnchorPane setMainDeck, int page) {
         root.getChildren().clear();
+        Label modeLabel = new Label(mode + " Objects");
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         scrollPane(backView, next, prev, back);
         object.setPrefWidth(Constants.FIELD_WIDTH);
@@ -1175,12 +1172,15 @@ public class View {
         showDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
                 Constants.DECK_PANE_HEIGHT, "Show Deck", Constants.FONT_SIZE, Color.LIGHTBLUE)
                 .getPane().getChildren());
-        list.relocate(object.getLayoutX(), 350);
-        verticalList(Alignment.LEFT, Constants.DECK_PANE_X, Constants.CENTRE_Y + Constants.DECK_PANE_HEIGHT
-                , Constants.DECK_PANE_WIDTH, Constants.DECK_PANE_HEIGHT, showDeck, setMainDeck, mainDeck, createDeck);
-        lightning(createDeck, mainDeck, setMainDeck, showDeck);
-        root.getChildren().addAll(backView, next, prev, back, object, showDeck, setMainDeck, mainDeck, createDeck);
-        showCards(cards, items, page);
+        collection.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
+                Constants.DECK_PANE_HEIGHT, "Collection", Constants.FONT_SIZE, Color.LIGHTBLUE)
+                .getPane().getChildren());
+        verticalList(Alignment.LEFT, Constants.DECK_PANE_X, Constants.DECK_PANE_Y + Constants.DECK_PANE_HEIGHT
+                , Constants.DECK_PANE_WIDTH, Constants.DECK_PANE_HEIGHT, showDeck, setMainDeck, mainDeck, createDeck, collection);
+        lightning(createDeck, mainDeck, setMainDeck, showDeck, collection);
+        root.getChildren().addAll(backView, modeLabel, next, prev, back, object, showDeck, setMainDeck, mainDeck,
+                createDeck, collection);
+        showCards(cards, items, modeLabel, page);
     }
 
     private void scrollPane(ImageView backView, AnchorPane next, AnchorPane prev, AnchorPane back) {
@@ -1212,7 +1212,7 @@ public class View {
         lightning(next);
     }
 
-    private void showCards(ArrayList<Card> cards, ArrayList<Item> items, int page) {
+    private void showCards(ArrayList<Card> cards, ArrayList<Item> items, Label modeLabel, int page) {
         if (page <= (cards.size() + items.size() - 1) / Constants.CARD_PER_PAGE) {
             for (int i = 0; i < Constants.CARD_PER_COLUMN; i++) {
                 for (int j = 0; j < Constants.CARD_PER_ROW; j++) {
@@ -1234,6 +1234,10 @@ public class View {
                 }
             }
         }
+        modeLabel.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
+        modeLabel.setTextFill(Color.NAVY);
+        modeLabel.translateXProperty().bind(modeLabel.widthProperty().divide(2).negate());
+        modeLabel.relocate(Constants.SCROLLER_X, Constants.PAGE_TITLE_Y);
     }
 
     private void stableLighning(Node... nodes) {
