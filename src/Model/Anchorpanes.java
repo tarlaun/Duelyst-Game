@@ -9,5 +9,6 @@ public enum Anchorpanes {
     BUY,
     MAIN_DECK,
     SET_MAIN_DECK,
-    SHOW_DECk
+    SHOW_DECk,
+    WHOLE_COLLECTION,
 }

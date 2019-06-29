@@ -1739,10 +1739,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "second",
-        "cards": []
       }
     ],
     "mainDeck": {
