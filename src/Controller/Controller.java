@@ -204,7 +204,7 @@ public class Controller {
         });
         anchorPanes[Anchorpanes.NEXT.ordinal()].setOnMouseClicked(event -> {
             if (menu.getStat() == MenuStat.COLLECTION &&
-                    collectionPage < (account.getCollection().getCards().size() + account.getCollection().getItems().size())
+                    collectionPage < (cardsInCollection.size() + itemsInCollection.size())
                             / Constants.CARD_PER_PAGE) {
                 collectionPage++;
                 main();
@@ -239,6 +239,7 @@ public class Controller {
             ArrayList<Item> itemList = new ArrayList<>();
             itemList.add(account.getCollection().findDeck(deckName).getItem());
             itemsInCollection = itemList;
+            collectionPage = 0;
             main();
         });
         anchorPanes[Anchorpanes.WHOLE_COLLECTION.ordinal()].setOnMouseClicked(event -> {
@@ -303,11 +304,7 @@ public class Controller {
         });
     }
 
-    public void handleCollection(ArrayList<Card> cards, ArrayList<Item> items) throws Exception {
-        List<String> list = new ArrayList<>();
-        for (Deck deck : account.getCollection().getDecks()) {
-            list.add(deck.getName());
-        }
+    public void handleCollection(ArrayList<Card> cards, ArrayList<Item> items) {
         for (int i = 0; i < cards.size(); i++) {
             int finalI = i;
             cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
@@ -357,6 +354,7 @@ public class Controller {
                 ArrayList<Item> itemList = new ArrayList<>();
                 itemList.add(account.getCollection().findDeck(name).getItem());
                 itemsInCollection = itemList;
+                collectionPage = 0;
                 deckName = name;
             } else {
                 Message message = addToDeck(name, id);
@@ -380,12 +378,13 @@ public class Controller {
             if (account.getCollection().createDeck(name)) {
                 AlertMessage alert = new AlertMessage("Deck created!", Alert.AlertType.INFORMATION, "OK");
                 alert.getResult();
+                cardsInCollection = new ArrayList<>();
+                itemsInCollection = new ArrayList<>();
+                collectionPage = 0;
             } else {
                 AlertMessage alert = new AlertMessage(Message.EXISTING_DECK.toString(), Alert.AlertType.ERROR, "OK");
                 alert.getResult();
             }
-            cardsInCollection = new ArrayList<>();
-            itemsInCollection = new ArrayList<>();
             deckName = name;
         });
     }

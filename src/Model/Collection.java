@@ -64,14 +64,15 @@ public class Collection {
             if (card != null) {
                 if (deck.getCards().indexOf(card) == -1) {
                     if (card.getType().equals("Hero") && deck.getHero() == null) {
-                        deck.setHero(Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
+                        deck.setHero(card);
+                        deck.getCards().add(card);
                         return Message.OBJECT_ADDED;
                     } else if (card.getType().equals("Hero") && deck.getHero() != null) {
                         return Message.MAXIMUM_HERO_COUNT;
                     }
                     if ((card.getType().equals("Minion") || card.getType().equals("Spell"))
                             && deck.getCards().size() < 20) {
-                        deck.getCards().add(Card.getCardByID(objectID, this.getCards().toArray(new Card[this.getCards().size()])));
+                        deck.getCards().add(card);
                         return Message.OBJECT_ADDED;
                     } else if (deck.getCards().size() == 20) {
                         return Message.FULL_DECK;
