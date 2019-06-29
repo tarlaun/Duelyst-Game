@@ -165,6 +165,11 @@ public class Controller {
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
+
+            case BACK_GROUND:
+                view.backGroundMenu(imageViews[ImageViews.BACKGROUND.ordinal()],imageViews[ImageViews.FOREGROUND.ordinal()]);
+
+                break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_firesofvictory.m4a");
@@ -192,7 +197,7 @@ public class Controller {
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
                 }
                 view.battleMenu(battle.getAccounts(),heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
-                        labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs);
+                        labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs ,imageViews[ImageViews.BACKGROUND.ordinal()],imageViews[ImageViews.FOREGROUND.ordinal()]);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -588,7 +593,7 @@ public class Controller {
                 break;
         }
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
-            menu.setStat(MenuStat.BATTLE);
+            menu.setStat(MenuStat.BACK_GROUND);
             Account[] accounts = new Account[2];
             accounts[0] = account;
             for (int i = 0; i < game.getAccounts().size(); i++) {
@@ -641,7 +646,7 @@ public class Controller {
         Account accountt = Account.getAccountByName(name, game.getAccounts());
         if (accountt != null) {
             battle.setAccounts(account, accountt);
-            menu.setStat(MenuStat.BATTLE);
+            menu.setStat(MenuStat.BACK_GROUND);
             battle.startBattle();
         }
         main();

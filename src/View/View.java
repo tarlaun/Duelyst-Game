@@ -153,8 +153,12 @@ public class View {
         root.getChildren().addAll(backgroundView, list, label, textField);
     }
 
+    public void backGroundMenu(ImageView background , ImageView foreGround){
+
+    }
+
     public void battleMenu(Account[] accounts,BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
-                           Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards) {
+                           Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards , ImageView backGround ,ImageView foreGround) {
         root.getChildren().clear();
         maps();
         battleFieldView(polygon);
@@ -234,14 +238,10 @@ public class View {
         }
     }
 
-    private void maps() {
-        Image background = new Image("resources/maps/abyssian/background@2x.jpg");
-        ImageView backgroundView = new ImageView(background);
-        backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
-        backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image foreground = new Image("resources/maps/abyssian/midground@2x.png");
-        ImageView foregroundView = getImageView(background, foreground);
-        root.getChildren().addAll(backgroundView, foregroundView);
+    private void maps(ImageView background , ImageView foreground) {
+        background.setFitWidth(Constants.WINDOW_WIDTH);
+        background.setFitHeight(Constants.WINDOW_HEIGHT);
+        root.getChildren().addAll(background, foreground);
     }
 
 

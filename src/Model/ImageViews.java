@@ -1,5 +1,7 @@
 package Model;
 
 public enum ImageViews {
-    END_TURN
+    END_TURN,
+    BACKGROUND,
+    FOREGROUND
 }
