@@ -6,5 +6,9 @@ public enum Anchorpanes {
     PREV,
     CREATE,
     SELL,
-    BUY
+    BUY,
+    LOGIN,
+    CREATE_ACCOUNT,
+    EXIT,
+
 }

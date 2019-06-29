@@ -270,8 +270,8 @@ public class Controller {
         player.stop();
         switch (menu.getStat()) {
             case MAIN:
-                view.mainMenu(buttons[Buttons.LOGIN.ordinal()], buttons[Buttons.CREATE_ACCOUNT.ordinal()],
-                        buttons[Buttons.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], passwordField);
+                view.mainMenu(anchorPanes[Anchorpanes.LOGIN.ordinal()], anchorPanes[Anchorpanes.CREATE_ACCOUNT.ordinal()],
+                        anchorPanes[Anchorpanes.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], passwordField);
                 file = new File("resources/music/music_battlemap_vetruv.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -349,12 +349,15 @@ public class Controller {
             menu.setStat(MenuStat.SHOP);
             main();
         });
+
         buttons[Buttons.COLLECTION.ordinal()].setOnMouseClicked(event -> {
             cardsInCollection = account.getCollection().getCards();
             itemsInCollection = account.getCollection().getItems();
             menu.setStat(MenuStat.COLLECTION);
             main();
         });
+        anchorPanes[Anchorpanes.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
+        anchorPanes[Anchorpanes.EXIT.ordinal()].setOnMouseClicked(event -> exit());
         anchorPanes[Anchorpanes.BACK.ordinal()].setOnMouseClicked(event -> exit());
         anchorPanes[Anchorpanes.PREV.ordinal()].setOnMouseClicked(event -> {
             if (menu.getStat() == MenuStat.COLLECTION && collectionPage > 0) {
@@ -391,6 +394,10 @@ public class Controller {
             itemsInShop = account.getCollection().getItems();
             shopPage = 0;
             buyMode = false;
+            main();
+        });
+        anchorPanes[Anchorpanes.LOGIN.ordinal()].setOnMouseClicked(event -> {
+         login();
             main();
         });
         buttons[Buttons.BUY.ordinal()].setOnMouseClicked(event -> buy());
