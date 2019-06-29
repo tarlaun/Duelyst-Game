@@ -28,7 +28,7 @@ public class Controller {
     private transient Label[] labels = new Label[Labels.values().length];
     private transient AnchorPane[] anchorPanes = new AnchorPane[Anchorpanes.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
-    private transient ImageView[][] heroes = new ImageView[Constants.HEROES_COUNT][3];
+    private transient BattleCards[] heroes = new BattleCards[2];
     private ImageView[] currentImageView = new ImageView[3];
     private transient ImageView[] mana = new ImageView[9];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
@@ -95,10 +95,12 @@ public class Controller {
         }
 
         for (int i = 0; i < heroes.length; i++) {
-            heroes[i][0] = new ImageView();
-            heroes[i][0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            heroes[i][1] = new ImageView();
-            heroes[i][1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            heroes[i] = new BattleCards();
+            ImageView[] imageView = new ImageView[3];
+            imageView[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            imageView[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            imageView[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            heroes[i].setImageView(imageView);
         }
         menu.setStat(MenuStat.MAIN);
     }
@@ -436,7 +438,7 @@ public class Controller {
 
 
     private void handleHeroGifs() {
-        for (int i = 0; i < 2; i++) {
+       /* for (int i = 0; i < 2; i++) {
             int a = i;
             heroes[heroId[i][0]][0].setOnMouseClicked(event -> {
                 insideBattle = true;
@@ -461,14 +463,19 @@ public class Controller {
                     battle.selectCard(heroId[a][1]);
                     currentImageView[0] = heroes[heroId[a][0]][0];
                     currentImageView[1] = heroes[heroId[a][0]][1];
+                    currentImageView[2] = heroes[heroId[a][0]][2];
                     currentCardId[0] = heroId[a][1];
                     currentCardId[1] = heroId[a][0];
                     lastSelectedCardId[0] = currentCardId[0];
                     lastSelectedCardId[1] = currentCardId[1];
                     BattleCards battleCards1 = new BattleCards();
+                    battleCards1.setInside(true);
+                    battleCards1.setImageView(currentImageView);
+                    battleCards1.setCard(Card.getCardByID(lastSelectedCardId[0], battle.getFieldCards()[(a + 1) % 2]));
+                    battleCard = battleCards1;
                 }
             });
-        }
+        }*/
     }
 
     private void handlePolygon() {
