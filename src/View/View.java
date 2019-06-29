@@ -179,6 +179,23 @@ public class View {
 
     }
 
+    public void cardBackGround(BattleCards battleCards){
+        Label power = new Label();
+        Label health = new Label();
+        ImageView imageView = new ImageView(new Image("resources/card_backgrounds/craftable_unit@2x.png"));
+        imageView.relocate(1000,200);
+        imageView.setFitHeight(230);
+        imageView.setFitWidth(170);
+        ImageView imageView1 = new ImageView(battleCards.getImageView()[0].getImage());
+        imageView1.relocate(1050,220);
+        imageView1.setScaleX(-1);
+        power.setTextFill(Color.rgb(255,253,253));
+        power.setText(String.valueOf(battleCards.getCard().getHealthPoint()));
+        power.relocate(1030,350);
+        root.getChildren().addAll(imageView,imageView1, health ,power);
+        //root.getChildren().addAll(power);
+    }
+
     public void setScaleForPic(ImageView... imageViews) {
         for (ImageView imageView : imageViews) {
             imageView.setFitHeight(150);

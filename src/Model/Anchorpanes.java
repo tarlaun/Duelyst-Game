@@ -6,5 +6,6 @@ public enum Anchorpanes {
     PREV,
     CREATE,
     SELL,
-    BUY
+    BUY,
+    POWER
 }

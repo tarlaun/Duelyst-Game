@@ -2,5 +2,7 @@ package Model;
 
 public enum Labels {
     STATUS,
-    END_TURN
+    END_TURN,
+    HEALTH,
+    POWER
 }
