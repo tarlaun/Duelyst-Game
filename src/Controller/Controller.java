@@ -111,7 +111,7 @@ public class Controller {
                 view.accountMenu(anchorPanes[Anchorpanes.PLAY.ordinal()], anchorPanes[Anchorpanes.COLLECTION.ordinal()],
                         anchorPanes[Anchorpanes.SHOP.ordinal()], anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
                         anchorPanes[Anchorpanes.LOGOUT.ordinal()], anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()],
-                        anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()]);
+                        anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()]);
                 file = new File("resources/music/music_playmode.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -210,6 +210,10 @@ public class Controller {
         });
         anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()].setOnMouseClicked(event -> {
             menu.setStat(MenuStat.CUSTOM_BUFF);
+            main();
+        });
+        anchorPanes[Anchorpanes.SAVE.ordinal()].setOnMouseClicked(event -> {
+            save();
             main();
         });
     }
@@ -786,16 +790,25 @@ public class Controller {
     }
 
     private void save() {
-        if (menu.getStat() == MenuStat.ACCOUNT) {
-            game.save(account);
-        }
+        game.save(account);
+        AlertMessage alert = new AlertMessage("Saved successfully!", Alert.AlertType.INFORMATION, "OK");
+        alert.getResult();
     }
 
     private void logout() {
-        game.logout(account);
-        this.account = null;
-        menu.setStat(MenuStat.MAIN);
-        main();
+        AlertMessage alert = new AlertMessage("Do you want to save your info?", Alert.AlertType.CONFIRMATION,
+                "Yes", "No");
+        Optional<ButtonType> result = alert.getResult();
+        if (result.isPresent()) {
+            switch (result.get().getText()) {
+                case "Yes":
+                    game.logout(account);
+                    this.account = null;
+                    menu.setStat(MenuStat.MAIN);
+                    main();
+                    break;
+            }
+        }
     }
 
     private void help() {

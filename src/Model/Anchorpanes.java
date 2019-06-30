@@ -24,5 +24,6 @@ public enum Anchorpanes {
     IMPORT_DECK,
     GRAVEYARD,
     CUSTOM_CARD,
-    CUSTOM_BUFF
+    CUSTOM_BUFF,
+    SAVE
 }
