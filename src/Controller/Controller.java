@@ -4,6 +4,8 @@ import Model.*;
 import Model.Menu;
 import View.*;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -15,7 +17,12 @@ import javafx.stage.Stage;
 import javax.xml.soap.Text;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -281,6 +288,7 @@ public class Controller {
                         createCard();
                         break;
                     case CUSTOM_BUFF:
+                        createBuff();
                         break;
                 }
                 AlertMessage alert = new AlertMessage("Successful creation", Alert.AlertType.INFORMATION,
@@ -1140,8 +1148,24 @@ public class Controller {
 
     }
 
-    private void createBuff() {
-
+    private void createBuff() throws Exception {
+        Path path = Paths.get("./src/Buffs/" + fields[Texts.BUFF_NAME.ordinal()].getText() + ".json");
+        try {
+            Files.createFile(path);
+        } catch (FileAlreadyExistsException e) {
+        }
+        File file = new File("./src/Buffs/" + fields[Texts.BUFF_NAME.ordinal()].getText() + ".json");
+        Buff buff = new Buff(boxes[Boxes.BUFF_TYPE.ordinal()].getValue(), fields[Texts.BUFF_POWER.ordinal()].getText(),
+                boxes[Boxes.SIDE.ordinal()].getValue(), boxes[Boxes.ATTRIBUTE.ordinal()].getValue(),
+                fields[Texts.TURN.ordinal()].getText());
+        String json = new Gson().toJson(buff);
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
