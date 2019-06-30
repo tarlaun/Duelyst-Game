@@ -78,6 +78,7 @@ public class View {
         int hour = time.getHour();
         int minutes = time.getMinute();
 
+
         for (int i = 0; i < matches.size(); i++) {
             if (matches.get(i).getTime().getHour() == hour) {
                 int mins = minutes - matches.get(i).getTime().getMinute();
@@ -87,6 +88,49 @@ public class View {
                 System.out.println(i + " . LEVEL:" + level + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + hours);
             }
         }
+
+    }
+    //  MENUUUUUU
+    public void showMatchHistory(ArrayList<Match> matches) {
+
+        LocalDateTime time = LocalDateTime.now();
+        int hour = time.getHour();
+        int minutes = time.getMinute();
+        TextField textField = new TextField();
+        textField.setLayoutX(scene.getWidth() / 3);
+        textField.setLayoutY(scene.getHeight() / 6);
+        textField.setMaxSize(scene.getWidth() * 2 / 3, scene.getHeight() * 2 / 3);
+        textField.setMinSize(scene.getWidth() * 2 / 3, scene.getHeight() * 2 / 3);
+        textField.setEditable(false);
+        for (int i = 0; i < matches.size(); i++) {
+            String opp = matches.get(i).getRival();
+            String state = "";
+            switch (matches.get(i).getResult()) {
+                case WON:
+                    state = "WON";
+                    break;
+                case LOST:
+                    state = "LOST";
+                    break;
+                case TIE:
+                    state = "TIE";
+                    break;
+            }
+            if (matches.get(i).getTime().getHour() == hour) {
+                int mins = minutes - matches.get(i).getTime().getMinute();
+
+                textField.appendText(i + 1 + "_ " + opp + state + matches.get(i).getResult() + "TIME: " + mins);
+            } else {
+                int hours = hour - matches.get(i).getTime().getHour();
+                System.out.println(i + 1 + "_ " + opp + state + matches.get(i).getResult() + "TIME: " + hours);
+            }
+
+        }
+        Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
+        ImageView backgroundView = new ImageView(background);
+        root.getChildren().addAll(backgroundView, textField);
+
+
     }
 
     public void showMatchHistory(ArrayList<Match> matches, String name) {
@@ -1071,7 +1115,7 @@ public class View {
                 customBuff, history, leaderboard, save, logout);
         lightning(play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, customCard, customBuff,
-                 history, leaderboard, save, logout);
+                history, leaderboard, save, logout);
     }
 
     public void customCardMenu(AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane detail,

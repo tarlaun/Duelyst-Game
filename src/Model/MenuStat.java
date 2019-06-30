@@ -13,6 +13,7 @@ public enum MenuStat {
     ITEM_SELECTION,
     CUSTOM_CARD,
     CUSTOM_BUFF,
+    MATCH_HISTORY,
     GRAVEYARD;
 
     public MenuStat prevMenu() {

@@ -177,6 +177,10 @@ public class Controller {
                 view.graveYardMenu(battle.getGraveyard(), anchorPanes[Anchorpanes.NEXT.ordinal()], battle.getTurn(),
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.BACK.ordinal()], graveyardPage);
                 break;
+            case MATCH_HISTORY:
+                view.showMatchHistory(account.getMatchHistory());
+                break;
+
         }
         player.setAutoPlay(true);
         handleButtons();
@@ -211,6 +215,10 @@ public class Controller {
         });
         anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()].setOnMouseClicked(event -> {
             menu.setStat(MenuStat.CUSTOM_BUFF);
+            main();
+        });
+        anchorPanes[Anchorpanes.MATCH_HISTORY.ordinal()].setOnMouseClicked(event -> {
+            menu.setStat(MenuStat.MATCH_HISTORY);
             main();
         });
         anchorPanes[Anchorpanes.SAVE.ordinal()].setOnMouseClicked(event -> {
