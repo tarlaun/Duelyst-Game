@@ -89,7 +89,12 @@ public class Controller {
             randomCoordinates[1][i] = random.nextInt(45);
         }
         for (int i = 0; i < 3; i++) {
-            cellEffect[i]  = random.nextInt(45);
+            cellEffect[i] = random.nextInt(45);
+            for (int j = 0; j < i; j++) {
+                if (cellEffect[j] == cellEffect[i]) {
+                    cellEffect[i] = random.nextInt(45);
+                }
+            }
         }
         for (int i = 0; i < imageViews.length; i++) {
             imageViews[i] = new ImageView(new Image("gifs/Abomination_idle.gif"));
@@ -237,7 +242,7 @@ public class Controller {
                 view.battleMenu(battle.getAccounts(), heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs, imageViews[ImageViews.BACKGROUND.ordinal()],
                         imageViews[ImageViews.FOREGROUND.ordinal()], imageViews[ImageViews.back.ordinal()],
-                        imageViews[ImageViews.FLAG.ordinal()], battle.getMode(), flags , cellEffect);
+                        imageViews[ImageViews.FLAG.ordinal()], battle.getMode(), flags, cellEffect);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -516,6 +521,23 @@ public class Controller {
                     }
                 }
             });
+            Label label = new Label();
+            polygon[i].setOnMouseEntered(event -> {
+                for (int j = 0; j < 3; j++) {
+                    if (cellEffect[j] == a) {
+                        if (j == 0)
+                            view.cellEffect("POISON",a , polygon ,0,label);
+                        if (j == 1)
+                            view.cellEffect("FIRE",a , polygon,0,label);
+                        if (j == 2)
+                            view.cellEffect("HOLY",a , polygon,0,label);
+                    }
+
+                }
+            });
+            polygon[i].setOnMouseExited(event -> {
+                view.cellEffect("",a , polygon,1,label);
+            });
         }
     }
 
@@ -689,9 +711,9 @@ public class Controller {
                     collectibleItems[i] = new ImageView(new Image("Wraithcrown_active.gif"));
             }
             for (int i = battle.getTurn() / 2; i < 6; i++) {
-                collectibleItems[i]=null;
+                collectibleItems[i] = null;
             }
-            view.collectFlags(collectibleItems, polygon, randomCoordinates[0] , 1);
+            view.collectFlags(collectibleItems, polygon, randomCoordinates[0], 1);
         }
         if (battle.getMode().equals(BattleMode.COLLECTING) && Constants.MAXIMUM_FLAGS > battle.getTurn() / 2 && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getTurn() / 2; i++) {
@@ -700,7 +722,7 @@ public class Controller {
             for (int i = battle.getTurn() / 2; i < 6; i++) {
                 flags[i] = null;
             }
-            view.collectFlags(flags, polygon, randomCoordinates[1] ,2);
+            view.collectFlags(flags, polygon, randomCoordinates[1], 2);
         }
     }
 

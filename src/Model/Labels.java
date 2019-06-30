@@ -4,5 +4,6 @@ public enum Labels {
     STATUS,
     END_TURN,
     HEALTH,
-    POWER
+    POWER,
+    EFFECT
 }

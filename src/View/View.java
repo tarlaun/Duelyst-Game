@@ -353,6 +353,17 @@ public class View {
         }
     }
 
+    public void cellEffect(String s ,int a , Polygon[] polygons , int i ,Label label){
+        label.setText(s);
+        if(i==0) {
+            label.relocate(polygons[a].getPoints().get(0) + 5, polygons[a].getPoints().get(1) + 20);
+            label.setTextFill(Color.rgb(255, 255, 255));
+            root.getChildren().addAll(label);
+        }else {
+            root.getChildren().remove(label);
+        }
+    }
+
     private void battleFieldView(Polygon[] polygon, int[] cell) {
         battleField(polygon, cell);
         for (int i = 0; i < 45; i++) {
@@ -479,17 +490,20 @@ public class View {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
                 polygon[j + 9 * i] = new Polygon();
-                polygon[j + 9 * i].getPoints().addAll(-i * 8 + 380.0 + (60 + i * 2) * j + 2, 205.0 + i * 50 + 2, -i * 8 + 380.0 + (60 + i * 2) * (j + 1) - 2, 205.0 + i * 50 + 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * (j + 1) - 2, 205.0 + ((i + 1) * 50) - 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * j + 2, 205.0 + ((i + 1) * 50) - 2);
+                polygon[j + 9 * i].getPoints().addAll(-i * 8 + 380.0 + (60 + i * 2) * j + 2,
+                        205.0 + i * 50 + 2, -i * 8 + 380.0 + (60 + i * 2) * (j + 1) - 2,
+                        205.0 + i * 50 + 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * (j + 1) - 2,
+                        205.0 + ((i + 1) * 50) - 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * j + 2, 205.0 + ((i + 1) * 50) - 2);
                 polygon[j + 9 * i].setFill(Color.rgb(119, 104, 180, 0.6));
                 glowPolygon(colorAdjust, polygon[j + 9 * i]);
                 for (int k = 0; k < 3; k++) {
-                    if (cell[i] == j + 9 * i) {
-                        if (i == 0)
+                    if (cell[k] == j + 9 * i) {
+                        if (k == 0)
                             polygon[j + 9 * i].setFill(Color.rgb(7, 69, 62, 0.6));
-                        if (i == 1)
-                            polygon[j + 9 * i].setFill(Color.rgb(191, 55, 46, 0.6));
-                        if (i == 2)
-                            polygon[j + 9 * i].setFill(Color.rgb(119, 104, 180, 0.6));
+                        if (k == 1)
+                            polygon[j + 9 * i].setFill(Color.rgb(191, 120, 69, 0.6));
+                        if (k == 2)
+                            polygon[j + 9 * i].setFill(Color.rgb(175, 180, 88, 0.6));
                     }
                 }
             }
