@@ -13,6 +13,7 @@ import Model.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -96,12 +97,19 @@ public class View {
         LocalDateTime time = LocalDateTime.now();
         int hour = time.getHour();
         int minutes = time.getMinute();
+        Label label = new Label("MATCH HISTORY");
+        label.setLayoutX(scene.getWidth()/3);
+        label.setLayoutY(scene.getHeight()/6-50);
+        label.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 46));
         TextField textField = new TextField();
         textField.setLayoutX(scene.getWidth() / 3);
         textField.setLayoutY(scene.getHeight() / 6);
         textField.setMaxSize(scene.getWidth() * 2 / 3, scene.getHeight() * 2 / 3);
         textField.setMinSize(scene.getWidth() * 2 / 3, scene.getHeight() * 2 / 3);
+        textField.setAlignment(Pos.TOP_LEFT);
         textField.setEditable(false);
+        if(matches.size()==0)
+            textField.appendText("NO MATCHES TO SHOW");
         for (int i = 0; i < matches.size(); i++) {
             String opp = matches.get(i).getRival();
             String state = "";
@@ -128,7 +136,7 @@ public class View {
         }
         Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
-        root.getChildren().addAll(backgroundView, textField);
+        root.getChildren().addAll(backgroundView, textField, label);
 
 
     }
