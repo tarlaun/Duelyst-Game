@@ -183,10 +183,13 @@ public class Controller {
         handleTextFields();
     }
 
-    public void handleButtons() {
+    private void mainButtons() {
         anchorPanes[Anchorpanes.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
         anchorPanes[Anchorpanes.LOGIN.ordinal()].setOnMouseClicked(event -> login());
         anchorPanes[Anchorpanes.EXIT.ordinal()].setOnMouseClicked(event -> exit());
+    }
+
+    private void accountButtons() {
         anchorPanes[Anchorpanes.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType());
         anchorPanes[Anchorpanes.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
@@ -202,6 +205,9 @@ public class Controller {
             menu.setStat(MenuStat.COLLECTION);
             main();
         });
+    }
+
+    private void scrollerButtons() {
         anchorPanes[Anchorpanes.BACK.ordinal()].setOnMouseClicked(event -> exit());
         anchorPanes[Anchorpanes.PREV.ordinal()].setOnMouseClicked(event -> {
             if (menu.getStat() == MenuStat.COLLECTION && collectionPage > 0) {
@@ -226,6 +232,9 @@ public class Controller {
                 main();
             }
         });
+    }
+
+    private void shopButtons() {
         anchorPanes[Anchorpanes.BUY.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = shop.getCards();
             itemsInShop = shop.getItems();
@@ -240,6 +249,9 @@ public class Controller {
             buyMode = false;
             main();
         });
+    }
+
+    private void collectionButtons() {
         anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()].setOnMouseClicked(event -> {
             deckLing(Constants.SELECT_MAIN_CONST);
             main();
@@ -275,6 +287,14 @@ public class Controller {
             importDeck();
             main();
         });
+    }
+
+    private void handleButtons() {
+        mainButtons();
+        accountButtons();
+        scrollerButtons();
+        shopButtons();
+        collectionButtons();
         anchorPanes[Anchorpanes.GRAVEYARD.ordinal()].setOnMouseClicked(event -> {
             menu.setStat(MenuStat.GRAVEYARD);
             main();
@@ -286,10 +306,11 @@ public class Controller {
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
     }
 
-    public void handleTextFields() {
+    private void handleTextFields() {
         fields[Texts.USER_NAME.ordinal()].setOnAction(event -> selectUser(fields[Texts.USER_NAME.ordinal()].getText()));
         fields[Texts.OBJECT.ordinal()].setOnKeyReleased(event -> {
             if (menu.getStat() == MenuStat.SHOP) {
+                shopPage = 0;
                 if (buyMode) {
                     cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getCards());
                     itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getItems());
@@ -302,6 +323,7 @@ public class Controller {
             }
             if (menu.getStat() == MenuStat.COLLECTION) {
                 try {
+                    collectionPage = 0;
                     if (deckName.equals("Collection")) {
                         cardsInCollection = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
                                 account.getCollection().getCards());
