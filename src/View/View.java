@@ -179,37 +179,37 @@ public class View {
 
     }
 
-    public void cardBackGround(BattleCards battleCards){
+    public void cardBackGround(BattleCards battleCards) {
         Label power = new Label();
         Label health = new Label();
         Label label = new Label();
         ImageView imageView = new ImageView(new Image("resources/card_backgrounds/craftable_unit@2x.png"));
-        imageView.relocate(1000,200);
+        imageView.relocate(1000, 200);
         imageView.setFitHeight(230);
         imageView.setFitWidth(170);
         ImageView imageView1 = new ImageView(battleCards.getImageView()[0].getImage());
         imageView1.setFitWidth(170);
         imageView1.setFitHeight(170);
-        imageView1.relocate(1000,170);
-        if(battleCards.getCard().getType().equals("Spell")){
+        imageView1.relocate(1000, 170);
+        if (battleCards.getCard().getType().equals("Spell")) {
             imageView1.setFitWidth(90);
             imageView1.setFitHeight(90);
-            imageView1.relocate(1030,220);
+            imageView1.relocate(1030, 220);
         }
         imageView1.setScaleX(-1);
-        power.setTextFill(Color.rgb(255,253,253));
+        power.setTextFill(Color.rgb(255, 253, 253));
         health.setText(String.valueOf(battleCards.getCard().getHealthPoint()));
         health.setFont(Font.font(20));
         power.setFont(Font.font(20));
-        power.relocate(1035,325);
-        health.setTextFill(Color.rgb(255,253,253));
+        power.relocate(1035, 325);
+        health.setTextFill(Color.rgb(255, 253, 253));
         power.setText(String.valueOf(battleCards.getCard().getAssaultPower()));
-        health.relocate(1125,325);
+        health.relocate(1125, 325);
         label.setText(battleCards.getCard().getName());
-        label.setTextFill(Color.rgb(255,255,255));
-        label.relocate(1030,380);
+        label.setTextFill(Color.rgb(255, 255, 255));
+        label.relocate(1030, 380);
         label.setFont(Font.font(15));
-        root.getChildren().addAll(imageView,imageView1, health ,power,label);
+        root.getChildren().addAll(imageView, imageView1, health, power, label);
     }
 
     public void setScaleForPic(ImageView... imageViews) {
@@ -221,10 +221,10 @@ public class View {
 
     public void battleMenu(Account[] accounts, BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
                            Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards,
-                           ImageView backGround, ImageView foreGround, ImageView back, ImageView flag, BattleMode battleMode, ImageView[] flags) {
+                           ImageView backGround, ImageView foreGround, ImageView back, ImageView flag, BattleMode battleMode, ImageView[] flags, int[] cellEffect) {
         root.getChildren().clear();
         maps(backGround, foreGround);
-        battleFieldView(polygon);
+        battleFieldView(polygon, cellEffect);
         heroGifs(accounts, battleHeros, polygon);
         endTurnButton(view, labels);
         mana(accounts[0], mana);
@@ -258,14 +258,23 @@ public class View {
 
     }
 
-    public void collectFlags( ImageView[] flags, Polygon[] polygon , int[] randomC) {
+
+    public void collectFlags(ImageView[] flags, Polygon[] polygon, int[] randomC, int a) {
         for (int i = 0; i < 6; i++) {
             if (flags[i] != null) {
                 int x = randomC[i];
                 flags[i].relocate((polygon[x].getPoints().get(0) + polygon[x].getPoints().get(2)) / 2 - 50,
                         (polygon[x].getPoints().get(1) + polygon[x].getPoints().get(5)) / 2 - 85);
-                flags[i].setFitWidth(100);
-                flags[i].setFitHeight(100);
+                if (a == 1) {
+                    flags[i].relocate((polygon[x].getPoints().get(0) + polygon[x].getPoints().get(2)) / 2 - 35,
+                            (polygon[x].getPoints().get(1) + polygon[x].getPoints().get(5)) / 2 - 45);
+                    System.out.println(x);
+                    flags[i].setFitWidth(60);
+                    flags[i].setFitHeight(60);
+                } else {
+                    flags[i].setFitWidth(100);
+                    flags[i].setFitHeight(100);
+                }
                 root.getChildren().add(flags[i]);
             }
         }
@@ -344,8 +353,8 @@ public class View {
         }
     }
 
-    private void battleFieldView(Polygon[] polygon) {
-        battleField(polygon);
+    private void battleFieldView(Polygon[] polygon, int[] cell) {
+        battleField(polygon, cell);
         for (int i = 0; i < 45; i++) {
             root.getChildren().add(polygon[i]);
         }
@@ -462,7 +471,7 @@ public class View {
         return firstHero;
     }
 
-    private void battleField(Polygon[] polygon) {
+    private void battleField(Polygon[] polygon, int[] cell) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.7);
         Glow glow = new Glow();
@@ -473,6 +482,16 @@ public class View {
                 polygon[j + 9 * i].getPoints().addAll(-i * 8 + 380.0 + (60 + i * 2) * j + 2, 205.0 + i * 50 + 2, -i * 8 + 380.0 + (60 + i * 2) * (j + 1) - 2, 205.0 + i * 50 + 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * (j + 1) - 2, 205.0 + ((i + 1) * 50) - 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * j + 2, 205.0 + ((i + 1) * 50) - 2);
                 polygon[j + 9 * i].setFill(Color.rgb(119, 104, 180, 0.6));
                 glowPolygon(colorAdjust, polygon[j + 9 * i]);
+                for (int k = 0; k < 3; k++) {
+                    if (cell[i] == j + 9 * i) {
+                        if (i == 0)
+                            polygon[j + 9 * i].setFill(Color.rgb(7, 69, 62, 0.6));
+                        if (i == 1)
+                            polygon[j + 9 * i].setFill(Color.rgb(191, 55, 46, 0.6));
+                        if (i == 2)
+                            polygon[j + 9 * i].setFill(Color.rgb(119, 104, 180, 0.6));
+                    }
+                }
             }
         }
     }

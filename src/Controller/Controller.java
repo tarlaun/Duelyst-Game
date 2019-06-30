@@ -33,6 +33,7 @@ public class Controller {
     private ImageView[] currentImageView = new ImageView[3];
     private transient ImageView[] mana = new ImageView[9];
     private transient ImageView[] flags = new ImageView[6];
+    private transient ImageView[] collectibleItems = new ImageView[6];
     private transient ImageView[] handCards = new ImageView[20];
     private ImageView[] imageViews = new ImageView[40];
     private BattleCards[] handCardGifs = new BattleCards[20];
@@ -49,7 +50,8 @@ public class Controller {
     private boolean buyMode = true;
     private int currentHandCardPointer = 0;
     private int currentI;
-    private int[] randomCoordinates = new int[6];
+    private int[][] randomCoordinates = new int[2][6];
+    private int[] cellEffect = new int[3];
 
     private Controller() {
         initializeGame();
@@ -67,6 +69,7 @@ public class Controller {
         }*/
         for (int i = 0; i < flags.length; i++) {
             flags[i] = new ImageView();
+            collectibleItems[i] = new ImageView();
         }
         for (int i = 0; i < 20; i++) {
             handCards[i] = new ImageView();
@@ -82,7 +85,11 @@ public class Controller {
         }
         Random random = new Random();
         for (int i = 0; i < 6; i++) {
-            randomCoordinates[i] = random.nextInt(45);
+            randomCoordinates[0][i] = random.nextInt(45);
+            randomCoordinates[1][i] = random.nextInt(45);
+        }
+        for (int i = 0; i < 3; i++) {
+            cellEffect[i]  = random.nextInt(45);
         }
         for (int i = 0; i < imageViews.length; i++) {
             imageViews[i] = new ImageView(new Image("gifs/Abomination_idle.gif"));
@@ -230,7 +237,7 @@ public class Controller {
                 view.battleMenu(battle.getAccounts(), heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs, imageViews[ImageViews.BACKGROUND.ordinal()],
                         imageViews[ImageViews.FOREGROUND.ordinal()], imageViews[ImageViews.back.ordinal()],
-                        imageViews[ImageViews.FLAG.ordinal()], battle.getMode(), flags);
+                        imageViews[ImageViews.FLAG.ordinal()], battle.getMode(), flags , cellEffect);
                 file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -664,10 +671,28 @@ public class Controller {
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
-       // anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
+        // anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
     }
 
     private void collectFlags() {
+        if (Constants.MAXIMUM_FLAGS > battle.getTurn() / 2 && battle.getTurn() % 2 == 1) {
+            for (int i = 0; i < battle.getTurn() / 2; i++) {
+                if (i == 0)
+                    collectibleItems[i] = new ImageView(new Image("Animus Plate_active.gif"));
+                if (i == 1)
+                    collectibleItems[i] = new ImageView(new Image("Dawn's Eye_active.gif"));
+                if (i == 2 || i == 5)
+                    collectibleItems[i] = new ImageView(new Image("Obdurator_active.gif"));
+                if (i == 3)
+                    collectibleItems[i] = new ImageView(new Image("Animus Plate_active.gif"));
+                if (i == 4)
+                    collectibleItems[i] = new ImageView(new Image("Wraithcrown_active.gif"));
+            }
+            for (int i = battle.getTurn() / 2; i < 6; i++) {
+                collectibleItems[i]=null;
+            }
+            view.collectFlags(collectibleItems, polygon, randomCoordinates[0] , 1);
+        }
         if (battle.getMode().equals(BattleMode.COLLECTING) && Constants.MAXIMUM_FLAGS > battle.getTurn() / 2 && battle.getTurn() % 2 == 1) {
             for (int i = 0; i < battle.getTurn() / 2; i++) {
                 flags[i] = new ImageView(new Image("Crystal Wisp_run.gif"));
@@ -675,7 +700,7 @@ public class Controller {
             for (int i = battle.getTurn() / 2; i < 6; i++) {
                 flags[i] = null;
             }
-            view.collectFlags(flags, polygon, randomCoordinates);
+            view.collectFlags(flags, polygon, randomCoordinates[1] ,2);
         }
     }
 
