@@ -94,7 +94,7 @@ public class View {
     }
 
     //  MENUUUUUU
-    public void showMatchHistory(ArrayList<Match> matches) {
+    public void matchHistoryMenu(ArrayList<Match> matches, AnchorPane back) {
 
         LocalDateTime time = LocalDateTime.now();
         int hour = time.getHour();
@@ -138,7 +138,11 @@ public class View {
         }
         Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
         ImageView backgroundView = new ImageView(background);
-        root.getChildren().addAll(backgroundView, textField, label);
+        Image backArrow = new Image("ui/button_back_corner.png");
+        ImageView arrow = new ImageView(backArrow);
+        back.getChildren().add(arrow);
+        lightning(back);
+        root.getChildren().addAll(backgroundView, textField, label, back);
 
 
     }

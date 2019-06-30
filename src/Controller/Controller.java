@@ -189,7 +189,7 @@ public class Controller {
                 match2.setTime(LocalDateTime.now());
                 account.getMatchHistory().add(match);
                 account.getMatchHistory().add(match2);
-                view.showMatchHistory(account.getMatchHistory());
+                view.matchHistoryMenu(account.getMatchHistory(), anchorPanes[Anchorpanes.BACK.ordinal()]);
                 break;
 
         }
