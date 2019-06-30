@@ -803,10 +803,10 @@ public class Controller {
             switch (result.get().getText()) {
                 case "Yes":
                     game.logout(account);
+                default:
                     this.account = null;
                     menu.setStat(MenuStat.MAIN);
                     main();
-                    break;
             }
         }
     }
