@@ -1121,9 +1121,41 @@ public class View {
         root.getChildren().remove(root.getChildren().size() - 1);
     }
 
-    public void customBuffMenu(AnchorPane create, TextField name, ComboBox<String> type, TextField power, TextField turn,
-                               ComboBox<String> side, ComboBox<String> attribute) {
-
+    public void customBuffMenu(AnchorPane back, AnchorPane create, TextField name, ComboBox<String> type,
+                               TextField power, TextField turn, ComboBox<String> side, ComboBox<String> attribute) {
+        root.getChildren().clear();
+        ImageView backView = new ImageView(new Image("scenes/vetruvian/bg@2x.jpg"));
+        ImageView createView = new ImageView(new Image("ui/button_icon_middle_glow@2x.png"));
+        create.getChildren().addAll(new ImageButton(createView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "CREATE",
+                Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
+        type.getItems().clear();
+        type.getItems().addAll("Holy", "Poison", "Power", "Weakness", "Stun", "Disarm");
+        type.setEditable(false);
+        Label nameLabel = new Label("Name");
+        Label typeLabel = new Label("Type");
+        Label powerLabel = new Label("Power");
+        Label turnLabel = new Label("Turn");
+        Label sideLabel = new Label("Side");
+        Label attributeLabel = new Label("Attribute");
+        type.relocate(Constants.CUSTOM_CARD_X * 1.1, Constants.CUSTOM_CARD_Y);
+        horizontalList(Alignment.UP, 3 * Constants.CUSTOM_CARD_X, Constants.CUSTOM_CARD_Y, name, type, power, turn);
+        horizontalList(Alignment.UP, 3 * Constants.CUSTOM_CARD_X, Constants.CUSTOM_CARD_Y, nameLabel, typeLabel,
+                powerLabel, turnLabel);
+        side.getItems().clear();
+        side.getItems().addAll("Comrade", "Enemy");
+        side.setEditable(false);
+        attribute.getItems().clear();
+        attribute.getItems().addAll("Health", "Hit", "Attack", "Counter");
+        attribute.setEditable(false);
+        side.relocate(Constants.CUSTOM_CARD_X * 2, Constants.CUSTOM_CARD_Y * 3);
+        attribute.relocate(Constants.CUSTOM_CARD_X * 2 + 2 * Constants.LABEL_WIDTH, Constants.CUSTOM_CARD_Y * 3);
+        horizontalList(Alignment.UP, 2.9 * Constants.CUSTOM_CARD_X, Constants.CUSTOM_CARD_Y * 3, sideLabel, attributeLabel);
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y,
+                createView.getFitWidth(), createView.getFitHeight(), create);
+        lightning(create);
+        scrollPane(backView, new AnchorPane(), new AnchorPane(), back);
+        root.getChildren().addAll(backView, back, type, name, power, turn, nameLabel, typeLabel, powerLabel, turnLabel,
+                side, attribute, sideLabel, attributeLabel, create);
     }
 
     public void customSpellMenu(ComboBox<String> target) {

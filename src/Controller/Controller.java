@@ -156,9 +156,10 @@ public class Controller {
                 customCardButtons();
                 break;
             case CUSTOM_BUFF:
-                view.customBuffMenu(anchorPanes[Anchorpanes.CREAT.ordinal()], fields[Texts.BUFF_NAME.ordinal()],
-                        boxes[Boxes.BUFF_TYPE.ordinal()], fields[Texts.BUFF_POWER.ordinal()], fields[Texts.TURN.ordinal()],
-                        boxes[Boxes.SIDE.ordinal()], (ComboBox<String>) boxes[Boxes.ATTRIBUTE.ordinal()]);
+                view.customBuffMenu(anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.CREAT.ordinal()],
+                        fields[Texts.BUFF_NAME.ordinal()], boxes[Boxes.BUFF_TYPE.ordinal()],
+                        fields[Texts.BUFF_POWER.ordinal()], fields[Texts.TURN.ordinal()], boxes[Boxes.SIDE.ordinal()],
+                        boxes[Boxes.ATTRIBUTE.ordinal()]);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
