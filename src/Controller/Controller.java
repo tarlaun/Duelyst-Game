@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -178,6 +179,11 @@ public class Controller {
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.BACK.ordinal()], graveyardPage);
                 break;
             case MATCH_HISTORY:
+                Match match = new Match();
+                match.setRival("FAKEMATCH");
+                match.setResult(MatchResult.WON);
+                match.setTime(LocalDateTime.now());
+                account.getMatchHistory().add(match);
                 view.showMatchHistory(account.getMatchHistory());
                 break;
 

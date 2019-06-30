@@ -127,10 +127,10 @@ public class View {
             if (matches.get(i).getTime().getHour() == hour) {
                 int mins = minutes - matches.get(i).getTime().getMinute();
 
-                textField.appendText(i + 1 + "_ " + opp + state + matches.get(i).getResult() + "TIME: " + mins);
+                textField.appendText(i + 1 + "_ " + opp +"  "+ state  +"  "+ " TIME: " + mins +" mins ago");
             } else {
                 int hours = hour - matches.get(i).getTime().getHour();
-                System.out.println(i + 1 + "_ " + opp + state + matches.get(i).getResult() + "TIME: " + hours);
+                System.out.println(i + 1 + "_ " + opp +"  "+ state +"  "  + " TIME: " + hours+" hours ago");
             }
 
         }
