@@ -49,6 +49,8 @@ public class Constants {
     public static final double ACCOUNT_MENU_X = CENTRE_X * 0.15;
     public static final int EXPORT_DECK = -3;
     public static final int REMOVE_DECK = -4;
+    public static final double LABEL_WIDTH = FIELD_WIDTH;
+    public static final double LABEL_HEIGHT = FIELD_HEIGHT;
     public static int HEROES_COUNT = 10;
     public static int MINIONS_COUNT = 40;
     public static int SPELLS_COUNT = 20;
@@ -105,4 +107,8 @@ public class Constants {
     public static final double PRIMITIVE_HEIGHT = 40;
     public static final double COLLECTION_SEARCH_X = Constants.DECK_PANE_X * 2 + Constants.DECK_PANE_WIDTH / 1.8;
     public static final double COLLECTION_SEARCH_Y = CENTRE_Y / 7;
+    public static final double CUSTOM_CARD_X = WINDOW_WIDTH * 0.2;
+    public static final double CUSTOM_CARD_Y = COLLECTION_SEARCH_Y;
+    public static final double COMBO_WIDTH = FIELD_WIDTH;
+    public static final double COMBO_HEIGHT = FIELD_HEIGHT;
 }

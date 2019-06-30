@@ -948,42 +948,61 @@ public class View {
 
     public void horizontalList(Alignment alignment, double x, double y, Node... nodes) {
         for (int i = 0; i < nodes.length; i++) {
-            if (nodes[i] instanceof Button) {
-                Button button = (Button) nodes[i];
-                setButtonSize(button);
+            if (nodes[i] instanceof TextField) {
+                TextField field = (TextField) nodes[i];
+                field.setPrefWidth(Constants.FIELD_WIDTH);
+                field.setPrefHeight(Constants.FIELD_HEIGHT);
                 if (alignment == Alignment.CENTRE)
-                    button.setLayoutY(y - button.getPrefHeight() / 2);
+                    field.setLayoutY(y - field.getPrefHeight() / 2);
             }
-            if (nodes[i] instanceof ImageView) {
-                ImageView imageView = (ImageView) nodes[i];
-                imageView.setFitWidth(Constants.SLIDE);
-                imageView.setFitHeight(Constants.SLIDE);
+            if (nodes[i] instanceof ComboBox) {
+                ComboBox box = (ComboBox) nodes[i];
+                box.setPrefWidth(Constants.SLIDE);
+                box.setPrefWidth(Constants.SLIDE);
                 if (alignment == Alignment.CENTRE)
-                    imageView.setLayoutY(y - imageView.getFitHeight() / 2);
+                    box.setLayoutY(y - box.getPrefWidth() / 2);
             }
-            if (alignment == Alignment.UP || alignment == Alignment.DOWN)
+            if (nodes[i] instanceof Label) {
+                Label label = (Label) nodes[i];
+                label.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
+                label.setTextFill(Color.NAVY);
+                if (alignment == Alignment.CENTRE)
+                    label.setLayoutY(y - 2 * Constants.LABEL_HEIGHT);
+            }
+            if (alignment == Alignment.UP || alignment == Alignment.DOWN) {
                 nodes[i].setLayoutY(y);
-        }
-        if (nodes[0] instanceof Button) {
-            nodes[nodes.length / 2].setLayoutX(x +
-                    ((nodes.length + 1) % 2) * ((Button) nodes[nodes.length / 2]).getPrefWidth() / 2);
-            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
-                nodes[i].setLayoutX(nodes[i + 1].getLayoutX() - 2 * Constants.BUTTON_WIDTH);
-            }
-            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
-                nodes[i].setLayoutX(nodes[i - 1].getLayoutX() + 2 * Constants.BUTTON_WIDTH);
+                if (nodes[i] instanceof Label) {
+                    nodes[i].setLayoutY(y - Constants.LABEL_HEIGHT);
+                }
             }
         }
-        if (nodes[0] instanceof ImageView) {
+        if (nodes[0] instanceof TextField) {
             nodes[nodes.length / 2].setLayoutX(x +
-                    ((nodes.length + 1) % 2) * ((ImageView) nodes[nodes.length / 2]).getFitWidth() / 2);
+                    ((nodes.length + 1) % 2) * ((TextField) nodes[nodes.length / 2]).getPrefWidth() / 2);
             for (int i = nodes.length / 2 - 1; i >= 0; i--) {
-                nodes[i].setLayoutX(nodes[i + 1].getLayoutX()
-                        - ((ImageView) nodes[i]).getFitWidth() - ((ImageView) nodes[i + 1]).getFitWidth());
+                nodes[i].setLayoutX(nodes[i + 1].getLayoutX() - 2 * Constants.FIELD_WIDTH);
             }
             for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
-                nodes[i].setLayoutX(nodes[i - 1].getLayoutX() +
-                        ((ImageView) nodes[i]).getFitWidth() + ((ImageView) nodes[i - 1]).getFitWidth());
+                nodes[i].setLayoutX(nodes[i - 1].getLayoutX() + 2 * Constants.FIELD_WIDTH);
+            }
+        }
+        if (nodes[0] instanceof ComboBox) {
+            nodes[nodes.length / 2].setLayoutX(x +
+                    ((nodes.length + 1) % 2) * ((ComboBox) nodes[nodes.length / 2]).getPrefWidth() / 2);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutX(nodes[i + 1].getLayoutX() - 2 * Constants.COMBO_WIDTH);
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutX(nodes[i + 1].getLayoutX() - 2 * Constants.COMBO_WIDTH);
+            }
+        }
+        if (nodes[0] instanceof Label) {
+            nodes[nodes.length / 2].setLayoutX(x);
+            for (int i = nodes.length / 2 - 1; i >= 0; i--) {
+                nodes[i].setLayoutX(nodes[i + 1].getLayoutX() - 2 * Constants.LABEL_WIDTH);
+            }
+            for (int i = nodes.length / 2 + 1; i < nodes.length; i++) {
+                nodes[i].setLayoutX(nodes[i - 1].getLayoutX() + 2 * Constants.LABEL_WIDTH);
             }
         }
     }
@@ -1074,15 +1093,27 @@ public class View {
     public void customCardMenu(AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane detail,
                                ComboBox<String> type, TextField name, TextField price, TextField mana) {
         root.getChildren().clear();
-        ImageView backView = new ImageView(new Image("scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg"));
-        ImageView createView = new ImageView(new Image("ui/button_icon_middle_glow@2x.png"));
-        detail.getChildren().addAll(new ImageButton(createView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "DETAIL",
+        ImageView backView = new ImageView(new Image("scenes/vetruvian/bg@2x.jpg"));
+        ImageView detailView = new ImageView(new Image("ui/button_icon_middle_glow@2x.png"));
+        detail.getChildren().addAll(new ImageButton(detailView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "DETAIL",
                 Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
-        verticalList(Alignment.LEFT, Constants.CENTRE_X, Constants.CENTRE_Y,
-                createView.getFitWidth(), createView.getFitHeight(), detail);
+        type.getItems().clear();
+        type.getItems().addAll("Hero", "Minion", "Spell");
+        type.setEditable(false);
+        Label nameLabel = new Label("Name");
+        Label typeLabel = new Label("Type");
+        Label priceLabel = new Label("Price");
+        Label manaLabel = new Label("Mana");
+        type.relocate(Constants.CUSTOM_CARD_X * 1.1, Constants.CUSTOM_CARD_Y);
+        horizontalList(Alignment.UP, 3 * Constants.CUSTOM_CARD_X, Constants.CUSTOM_CARD_Y, name, price, mana);
+        horizontalList(Alignment.UP, 3 * Constants.CUSTOM_CARD_X, Constants.CUSTOM_CARD_Y, nameLabel, typeLabel,
+                priceLabel, manaLabel);
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y * 0.4,
+                detailView.getFitWidth(), detailView.getFitHeight(), detail);
         scrollPane(backView, next, prev, back);
         lightning(detail);
-        root.getChildren().addAll(backView, next, prev, back, detail);
+        root.getChildren().addAll(backView, next, prev, back, type, name, price, mana, nameLabel, typeLabel,
+                priceLabel, manaLabel, detail);
     }
 
     public void customUnitMenu(String type, ComboBox<String> attackType, TextField ap, TextField hp, TextField range,
@@ -1090,8 +1121,8 @@ public class View {
         root.getChildren().remove(root.getChildren().size() - 1);
     }
 
-    public void customBuff(TextField name, ComboBox<String> type, TextField power, String turn, ComboBox<String> side,
-                           ComboBox<String> attribute) {
+    public void customBuffMenu(AnchorPane create, TextField name, ComboBox<String> type, TextField power, TextField turn,
+                               ComboBox<String> side, ComboBox<String> attribute) {
 
     }
 

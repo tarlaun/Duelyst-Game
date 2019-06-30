@@ -12,6 +12,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.xml.soap.Text;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class Controller {
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
     private transient ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
+    private transient ComboBox<String>[] boxes = new ComboBox[Boxes.values().length];
     private static final Controller controller = new Controller();
     private transient File file = new File("resources/music/music_mainmenu_lyonar.m4a");
     private transient Media media = new Media(file.toURI().toString());
@@ -59,6 +61,9 @@ public class Controller {
         }
         for (int i = 0; i < anchorPanes.length; i++) {
             anchorPanes[i] = new AnchorPane();
+        }
+        for (int i = 0; i < boxes.length; i++) {
+            boxes[i] = new ComboBox<>();
         }
         menu.setStat(MenuStat.MAIN);
     }
@@ -128,7 +133,7 @@ public class Controller {
                 break;
             case COLLECTION:
                 view.collectionMenu(deckName, fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
-                        anchorPanes[Anchorpanes.CREATE.ordinal()], anchorPanes[Anchorpanes.REMOVE_DECK.ordinal()],
+                        anchorPanes[Anchorpanes.CREATE_DECK.ordinal()], anchorPanes[Anchorpanes.REMOVE_DECK.ordinal()],
                         anchorPanes[Anchorpanes.SHOW_DECk.ordinal()], anchorPanes[Anchorpanes.BACK.ordinal()],
                         anchorPanes[Anchorpanes.WHOLE_COLLECTION.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.MAIN_DECK.ordinal()],
@@ -139,13 +144,21 @@ public class Controller {
                 player = new MediaPlayer(media);
                 try {
                     handleCollection(cardsInCollection, itemsInCollection);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
 
                 }
                 break;
             case CUSTOM_CARD:
+                view.customCardMenu(anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
+                        anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.DETAIL.ordinal()],
+                        boxes[Boxes.CARD_TYPE.ordinal()], fields[Texts.CARD_NAME.ordinal()],
+                        fields[Texts.CARD_PRICE.ordinal()], fields[Texts.MANA.ordinal()]);
+                customCardButtons();
                 break;
             case CUSTOM_BUFF:
+                view.customBuffMenu(anchorPanes[Anchorpanes.CREAT.ordinal()], fields[Texts.BUFF_NAME.ordinal()],
+                        boxes[Boxes.BUFF_TYPE.ordinal()], fields[Texts.BUFF_POWER.ordinal()], fields[Texts.TURN.ordinal()],
+                        boxes[Boxes.SIDE.ordinal()], (ComboBox<String>) boxes[Boxes.ATTRIBUTE.ordinal()]);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
@@ -178,6 +191,7 @@ public class Controller {
                 break;
         }
         player.setAutoPlay(true);
+        customButtons();
         handleButtons();
         handleTextFields();
     }
@@ -245,6 +259,39 @@ public class Controller {
         });
     }
 
+    private void customCardButtons() {
+        anchorPanes[Anchorpanes.DETAIL.ordinal()].setOnMouseClicked(event -> {
+            try {
+                view.customUnitMenu(boxes[Boxes.CARD_TYPE.ordinal()].getValue(), boxes[Boxes.ATTACK_TYPE.ordinal()],
+                        fields[Texts.AP.ordinal()], fields[Texts.HP.ordinal()], fields[Texts.RANGE.ordinal()],
+                        boxes[Boxes.TARGET.ordinal()]);
+            } catch (Exception e) {
+                AlertMessage alert = new AlertMessage("Invalid arguments", Alert.AlertType.ERROR, "OK");
+                alert.getResult();
+            }
+        });
+    }
+
+    private void customButtons() {
+        anchorPanes[Anchorpanes.CREAT.ordinal()].setOnMouseClicked(event -> {
+            try {
+                switch (menu.getStat()) {
+                    case CUSTOM_CARD:
+                        createCard();
+                        break;
+                    case CUSTOM_BUFF:
+                        break;
+                }
+                AlertMessage alert = new AlertMessage("Successful creation", Alert.AlertType.INFORMATION,
+                        "OK");
+                alert.getResult();
+            } catch (Exception e) {
+                AlertMessage alert = new AlertMessage("Invalid arguments", Alert.AlertType.ERROR, "OK");
+                alert.getResult();
+            }
+        });
+    }
+
     private void shopButtons() {
         anchorPanes[Anchorpanes.BUY.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = shop.getCards();
@@ -286,7 +333,7 @@ public class Controller {
             deckLing(Constants.SHOW_DECK_CONST);
             main();
         });
-        anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> {
+        anchorPanes[Anchorpanes.CREATE_DECK.ordinal()].setOnMouseClicked(event -> {
             createDeck();
             main();
         });
@@ -1086,6 +1133,14 @@ public class Controller {
 
     private void showMenu() {
         view.printOptions();
+    }
+
+    private void createCard() {
+
+    }
+
+    private void createBuff() {
+
     }
 
 }

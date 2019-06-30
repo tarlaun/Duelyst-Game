@@ -4,7 +4,7 @@ public enum Anchorpanes {
     BACK,
     NEXT,
     PREV,
-    CREATE,
+    CREATE_DECK,
     SELL,
     BUY,
     MAIN_DECK,
@@ -16,6 +16,7 @@ public enum Anchorpanes {
     CREATE_ACCOUNT,
     EXIT,
     PLAY,
+    SAVE,
     LOGOUT,
     COLLECTION,
     SHOP,
@@ -25,5 +26,6 @@ public enum Anchorpanes {
     GRAVEYARD,
     CUSTOM_CARD,
     CUSTOM_BUFF,
-    SAVE
+    DETAIL,
+    CREAT
 }
