@@ -338,8 +338,8 @@ public class Battle {
                 return Message.NOT_ABLE_TO_ATTACK;
             }
         }
-        checkAttackHistory(opponentCardId, currentCard);
-        checkOnAttackSpecials(currentCard);
+        //checkAttackHistory(opponentCardId, currentCard);
+        //checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);
         if (isAttackable(currentCard, targetCard)) {
             targetCard.modifyHealth(-currentCard.getAssaultPower());
@@ -349,7 +349,7 @@ public class Battle {
 //            menu.setStat(MenuStat.GAME);
             return Message.BATTLE_FINISHED;
         }
-        checkOnAttackSpecials(currentCard);
+        //checkOnAttackSpecials(currentCard);
         attack(currentCard.getId(), targetCard);
         return null;
     }

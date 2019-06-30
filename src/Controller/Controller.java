@@ -824,8 +824,11 @@ public class Controller {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             moveAI();
             insertAI();
-            attackAI();
             endTurn();
+        }
+        if(battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getTurn() % 2 == 0) {
+            System.out.println("matfsgfjdh");
+            attackAI();
         }
     }
 
@@ -941,8 +944,8 @@ public class Controller {
 
 
     private void attackAI() {
-        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
-            for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) ) {
+           /* for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                 for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
                     if (battle.getFieldCards()[0][j] != null && battle.getFieldCards()[1][i] != null) {
                         battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
@@ -951,16 +954,9 @@ public class Controller {
                         }
                     }
                 }
-            }
-            int counter = 0;
-            for (int i = 0; i < battle.getFieldCards()[0].length; i++) {
-                if (battle.getFieldCards()[0][i] != null) {
-                    counter++;
-                }
-            }
-            if (counter == 0) {
-                //view.showAttack(Message.BATTLE_FINISHED);
-            }
+            }*/
+            battle.attack(heroes[0].getCard().getId(), heroes[1].getCard());
+            view.attack(heroes[1].getImageView());
         }
     }
 
@@ -969,7 +965,7 @@ public class Controller {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
             aiCards[aiCardsInGround].setInside(true);
             //battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
-            if (aiCards[aiCardsInGround].getCard()!=null)
+            if (aiCards[aiCardsInGround].getCard() != null)
                 view.aiHandGifs(aiCards, polygon, aiCardsInGround);
             aiCardsInGround++;
         }
