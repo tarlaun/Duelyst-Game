@@ -1034,7 +1034,8 @@ public class View {
         }
     }
 
-    public void accountMenu(AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane leaderboard,
+    public void accountMenu(AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane history,
+                            AnchorPane leaderboard,
                             AnchorPane logout, AnchorPane customCard, AnchorPane customBuff, AnchorPane save) {
         root.getChildren().clear();
         Image background = new Image("scenes/frostfire/background.jpg");
@@ -1052,6 +1053,8 @@ public class View {
                 buttonImage.getFitHeight(), "Collection", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         shop.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "Shop", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        history.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Match History", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         leaderboard.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "LeaderBoard", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         save.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
@@ -1063,12 +1066,12 @@ public class View {
         customBuff.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "Custom Buff", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y, buttonImage.getFitWidth(),
-                buttonImage.getFitHeight(), play, collection, shop, customCard, customBuff, leaderboard, save, logout);
+                buttonImage.getFitHeight(), play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
         verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y, play, collection, shop, customCard,
-                customBuff, leaderboard, save, logout);
-        lightning(play, collection, shop, customCard, customBuff, leaderboard, save, logout);
+                customBuff, history, leaderboard, save, logout);
+        lightning(play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, customCard, customBuff,
-                leaderboard, save, logout);
+                 history, leaderboard, save, logout);
     }
 
     public void customCardMenu(AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane detail,

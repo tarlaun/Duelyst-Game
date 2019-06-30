@@ -34,7 +34,7 @@ public class CardView {
                     break;
                 case "Minion":
                     character = new ImageView(new Image(card.getIdleSrc()));
-                    template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
+                    template = new ImageView(new Image("\"C:\\Users\\Tarlan\\IdeaProjects\\ProjeCHEEEEZ\\resources\\card_backgrounds\\craftable_unit@2x.png\""));
                     power = new Label(Integer.toString(card.getAssaultPower()));
                     health = new Label(Integer.toString(card.getHealthPoint()));
                     power.translateXProperty().bind(power.widthProperty().divide(2).negate());

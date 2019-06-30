@@ -25,5 +25,7 @@ public enum Anchorpanes {
     GRAVEYARD,
     CUSTOM_CARD,
     CUSTOM_BUFF,
-    SAVE
+    SAVE,
+    MATCH_HISTORY,
+
 }

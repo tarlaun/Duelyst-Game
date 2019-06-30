@@ -109,7 +109,8 @@ public class Controller {
                 break;
             case ACCOUNT:
                 view.accountMenu(anchorPanes[Anchorpanes.PLAY.ordinal()], anchorPanes[Anchorpanes.COLLECTION.ordinal()],
-                        anchorPanes[Anchorpanes.SHOP.ordinal()], anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
+                        anchorPanes[Anchorpanes.SHOP.ordinal()],anchorPanes[Anchorpanes.MATCH_HISTORY.ordinal()],
+                        anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
                         anchorPanes[Anchorpanes.LOGOUT.ordinal()], anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()],
                         anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()]);
                 file = new File("resources/music/music_playmode.m4a");
