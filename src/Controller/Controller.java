@@ -110,7 +110,8 @@ public class Controller {
             case ACCOUNT:
                 view.accountMenu(anchorPanes[Anchorpanes.PLAY.ordinal()], anchorPanes[Anchorpanes.COLLECTION.ordinal()],
                         anchorPanes[Anchorpanes.SHOP.ordinal()], anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
-                        anchorPanes[Anchorpanes.LOGOUT.ordinal()]);
+                        anchorPanes[Anchorpanes.LOGOUT.ordinal()], anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()],
+                        anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()]);
                 file = new File("resources/music/music_playmode.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -143,6 +144,8 @@ public class Controller {
                 }
                 break;
             case CUSTOM_CARD:
+                break;
+            case CUSTOM_BUFF:
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
@@ -199,6 +202,14 @@ public class Controller {
             cardsInCollection = account.getCollection().getCards();
             itemsInCollection = account.getCollection().getItems();
             menu.setStat(MenuStat.COLLECTION);
+            main();
+        });
+        anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()].setOnMouseClicked(event -> {
+            menu.setStat(MenuStat.CUSTOM_CARD);
+            main();
+        });
+        anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()].setOnMouseClicked(event -> {
+            menu.setStat(MenuStat.CUSTOM_BUFF);
             main();
         });
     }

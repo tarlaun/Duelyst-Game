@@ -1035,7 +1035,7 @@ public class View {
     }
 
     public void accountMenu(AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane leaderboard,
-                            AnchorPane logout) {
+                            AnchorPane logout, AnchorPane customCard, AnchorPane customBuff) {
         root.getChildren().clear();
         Image background = new Image("scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
@@ -1056,11 +1056,17 @@ public class View {
                 buttonImage.getFitHeight(), "LeaderBoard", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         logout.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "Logout", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        customCard.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Custom Card", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        customBuff.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Custom Buff", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y, buttonImage.getFitWidth(),
-                buttonImage.getFitHeight(), play, collection, shop, leaderboard, logout);
-        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y, play, collection, shop, leaderboard, logout);
-        lightning(play, collection, shop, leaderboard, logout);
-        root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, leaderboard, logout);
+                buttonImage.getFitHeight(), play, collection, shop, customCard, customBuff, leaderboard, logout);
+        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y, play, collection, shop, customCard,
+                customBuff, leaderboard, logout);
+        lightning(play, collection, shop, customCard, customBuff, leaderboard, logout);
+        root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, customCard, customBuff,
+                leaderboard, logout);
     }
 
     public void customCardMenu(AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane detail,
