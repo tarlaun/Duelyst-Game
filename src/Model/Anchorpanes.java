@@ -16,7 +16,6 @@ public enum Anchorpanes {
     CREATE_ACCOUNT,
     EXIT,
     PLAY,
-    SAVE,
     LOGOUT,
     COLLECTION,
     SHOP,
@@ -26,6 +25,9 @@ public enum Anchorpanes {
     GRAVEYARD,
     CUSTOM_CARD,
     CUSTOM_BUFF,
+    SAVE,
+    MATCH_HISTORY,
+
     DETAIL,
     CREAT
 }

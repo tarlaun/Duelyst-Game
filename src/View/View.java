@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import Model.Menu;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -78,6 +80,7 @@ public class View {
         int hour = time.getHour();
         int minutes = time.getMinute();
 
+
         for (int i = 0; i < matches.size(); i++) {
             if (matches.get(i).getTime().getHour() == hour) {
                 int mins = minutes - matches.get(i).getTime().getMinute();
@@ -87,6 +90,61 @@ public class View {
                 System.out.println(i + " . LEVEL:" + level + "WIN OR LOST" + matches.get(i).getResult() + "TIME: " + hours);
             }
         }
+
+    }
+
+    //  MENUUUUUU
+    public void matchHistoryMenu(ArrayList<Match> matches, AnchorPane back) {
+
+        LocalDateTime time = LocalDateTime.now();
+        int hour = time.getHour();
+        int minutes = time.getMinute();
+        Label label = new Label("MATCH HISTORY");
+        label.setLayoutX(scene.getWidth() / 3);
+        label.setLayoutY(scene.getHeight() / 6 - 50);
+        label.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 46));
+        TextArea textField = new TextArea();
+        textField.setLayoutX(scene.getWidth() / 3);
+        textField.setLayoutY(scene.getHeight() / 6);
+        textField.setMaxSize(Constants.MATCH_HISTORY_FIELD_WIDTH, Constants.MATCH_HISTORY_FIELD_HEIGHT);
+        textField.setMinSize(Constants.MATCH_HISTORY_FIELD_WIDTH, Constants.MATCH_HISTORY_FIELD_HEIGHT);
+        textField.setEditable(false);
+        if (matches.size() == 0)
+            textField.appendText("NO MATCHES TO SHOW");
+        for (int i = 0; i < matches.size(); i++) {
+            String opp = matches.get(i).getRival();
+            String state = "";
+            switch (matches.get(i).getResult()) {
+                case WON:
+                    state = "WON";
+                    break;
+                case LOST:
+                    state = "LOST";
+                    break;
+                case TIE:
+                    state = "TIE";
+                    break;
+            }
+            if (matches.get(i).getTime().getHour() == hour) {
+                int mins = minutes - matches.get(i).getTime().getMinute();
+
+                textField.appendText(i + 1 + "_ " + opp + "  " + state + "  " + " TIME: " + mins + " mins ago" + "\r\n");
+
+            } else {
+                int hours = hour - matches.get(i).getTime().getHour();
+                textField.appendText(i + 1 + "_ " + opp + "  " + state + "  " + " TIME: " + hours + " hours ago" + "\r\n");
+            }
+
+        }
+        Image background = new Image("scenes/obsidian_woods/obsidian_woods_background.jpg");
+        ImageView backgroundView = new ImageView(background);
+        Image backArrow = new Image("ui/button_back_corner.png");
+        ImageView arrow = new ImageView(backArrow);
+        back.getChildren().add(arrow);
+        lightning(back);
+        root.getChildren().addAll(backgroundView, textField, label, back);
+
+
     }
 
     public void showMatchHistory(ArrayList<Match> matches, String name) {
@@ -104,18 +162,8 @@ public class View {
         }
     }
 
-    public void login(Message message) {
-        switch (message) {
-            case INVALID_ACCOUNT:
-                System.out.println("Account doesn't exist!");
-                break;
-            case INVALID_PASSWORD:
-                System.out.println("Incorrect password");
-                break;
-            case SUCCESSFUL_LOGIN:
-                System.out.println("Welcome");
-                break;
-        }
+    public void login(AlertMessage message) {
+        message.getResult();
     }
 
     public void logout() {
@@ -1053,7 +1101,8 @@ public class View {
         }
     }
 
-    public void accountMenu(AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane leaderboard,
+    public void accountMenu(AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane history,
+                            AnchorPane leaderboard,
                             AnchorPane logout, AnchorPane customCard, AnchorPane customBuff, AnchorPane save) {
         root.getChildren().clear();
         Image background = new Image("scenes/frostfire/background.jpg");
@@ -1071,6 +1120,8 @@ public class View {
                 buttonImage.getFitHeight(), "Collection", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         shop.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "Shop", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        history.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Match History", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         leaderboard.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "LeaderBoard", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         save.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
@@ -1081,13 +1132,13 @@ public class View {
                 buttonImage.getFitHeight(), "Custom Card", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         customBuff.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "Custom Buff", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
-        verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y, buttonImage.getFitWidth(),
-                buttonImage.getFitHeight(), play, collection, shop, customCard, customBuff, leaderboard, save, logout);
-        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y, play, collection, shop, customCard,
-                customBuff, leaderboard, save, logout);
-        lightning(play, collection, shop, customCard, customBuff, leaderboard, save, logout);
+        verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y * 0.9, buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
+        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y * 0.9, play, collection, shop, customCard,
+                customBuff, history, leaderboard, save, logout);
+        lightning(play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, customCard, customBuff,
-                leaderboard, save, logout);
+                history, leaderboard, save, logout);
     }
 
     public void customCardMenu(AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane detail,
