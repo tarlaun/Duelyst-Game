@@ -385,8 +385,13 @@ public class Controller {
             dialog.setHeaderText("Delete");
             dialog.setContentText("Deck... ");
         } else {
-            dialog.setHeaderText("Adding to deck");
-            dialog.setContentText("To deck: ");
+            if (deckName.equals("Collection")) {
+                dialog.setHeaderText("Adding to");
+                dialog.setContentText("Deck... ");
+            } else {
+                dialog.setHeaderText("Removeing from");
+                dialog.setContentText("Deck... ");
+            }
         }
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(name -> {
@@ -411,13 +416,24 @@ public class Controller {
                 AlertMessage alert = new AlertMessage("Deck deleted!", Alert.AlertType.INFORMATION, "OK");
                 alert.getResult();
             } else {
-                Message message = addToDeck(name, id);
-                if (message == Message.OBJECT_ADDED) {
-                    AlertMessage alert = new AlertMessage("Card added!", Alert.AlertType.INFORMATION, "OK");
-                    alert.getResult();
+                if (deckName.equals("Collection")) {
+                    Message message = addToDeck(name, id);
+                    if (message == Message.OBJECT_ADDED) {
+                        AlertMessage alert = new AlertMessage("Card added!", Alert.AlertType.INFORMATION, "OK");
+                        alert.getResult();
+                    } else {
+                        AlertMessage alert = new AlertMessage(message.toString(), Alert.AlertType.ERROR, "OK");
+                        alert.getResult();
+                    }
                 } else {
-                    AlertMessage alert = new AlertMessage(message.toString(), Alert.AlertType.ERROR, "OK");
-                    alert.getResult();
+                    Message message = removeFromDeck(name, id);
+                    if (message == Message.SUCCESSFUL_REMOVE) {
+                        AlertMessage alert = new AlertMessage("Card removed!", Alert.AlertType.INFORMATION, "OK");
+                        alert.getResult();
+                    } else {
+                        AlertMessage alert = new AlertMessage(message.toString(), Alert.AlertType.ERROR, "OK");
+                        alert.getResult();
+                    }
                 }
             }
         });
@@ -835,10 +851,8 @@ public class Controller {
         return this.account.getCollection().add(deckName, id);
     }
 
-    private void removeFromDeck(Request request) {
-        if (request.checkFromDeckDeletionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.removeFromDeck(this.account.getCollection().remove(request.getDeckName(request.getCommand()), request.getObjectID(request.getCommand())));
-        }
+    private Message removeFromDeck(String name, int id) {
+        return this.account.getCollection().remove(name, id);
     }
 
     private void validateDeck(Request request) {

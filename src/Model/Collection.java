@@ -114,7 +114,6 @@ public class Collection {
             if (card != null) {
                 if (card.getType().equals("Hero")) {
                     deck.setHero(null);
-                    return Message.UNAVAILABLE;
                 }
                 deck.getCards().remove(card);
                 return Message.SUCCESSFUL_REMOVE;
