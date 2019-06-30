@@ -394,10 +394,14 @@ public class Controller {
     }
 
     private void setObjectsOfDeck(String name) {
-        cardsInCollection = account.getCollection().findDeck(name).getCards();
-        ArrayList<Item> itemList = new ArrayList<>();
-        itemList.add(account.getCollection().findDeck(name).getItem());
-        itemsInCollection = itemList;
+        Deck deck = account.getCollection().findDeck(name);
+        if (deck.getCards() != null)
+            cardsInCollection = account.getCollection().findDeck(name).getCards();
+        if (deck.getItem() != null) {
+            ArrayList<Item> itemList = new ArrayList<>();
+            itemList.add(account.getCollection().findDeck(name).getItem());
+            itemsInCollection = itemList;
+        }
         collectionPage = 0;
         deckName = name;
     }
@@ -411,11 +415,11 @@ public class Controller {
             FileReader reader = new FileReader(file);
             Deck deck = new Gson().fromJson(reader, Deck.class);
             reader.close();
-            try {
-                System.out.println(deck.getCards().size());
-                System.out.println(deck.getItem().getName());
-            } catch (NullPointerException e) {
-
+            for (Card card : deck.getCards()) {
+                card.setCardView();
+            }
+            if (deck.getItem() != null) {
+                deck.getItem().setCardView();
             }
             account.getCollection().getDecks().add(deck);
             setObjectsOfDeck(deck.getName());

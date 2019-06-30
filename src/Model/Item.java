@@ -115,6 +115,10 @@ public class Item {
         this.attackSrc = attackSrc;
     }
 
+    public void setCardView() {
+        cardView = new CardView(this);
+    }
+
     public static ArrayList<Item> matchSearch(String name, ArrayList<Item> items) {
         ArrayList<Item> output = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {

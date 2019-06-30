@@ -388,6 +388,10 @@ public class Card {
         this.attackSrc = attackSrc;
     }
 
+    public void setCardView() {
+        cardView = new CardView(this);
+    }
+
     public static ArrayList<Card> matchSearch(String name, ArrayList<Card> cards) {
         ArrayList<Card> output = new ArrayList<>();
         for (int i = 0; i < cards.size(); i++) {
