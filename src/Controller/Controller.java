@@ -110,7 +110,7 @@ public class Controller {
                 break;
             case ACCOUNT:
                 view.accountMenu(anchorPanes[Anchorpanes.PLAY.ordinal()], anchorPanes[Anchorpanes.COLLECTION.ordinal()],
-                        anchorPanes[Anchorpanes.SHOP.ordinal()],anchorPanes[Anchorpanes.MATCH_HISTORY.ordinal()],
+                        anchorPanes[Anchorpanes.SHOP.ordinal()], anchorPanes[Anchorpanes.MATCH_HISTORY.ordinal()],
                         anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
                         anchorPanes[Anchorpanes.LOGOUT.ordinal()], anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()],
                         anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()]);
@@ -183,7 +183,12 @@ public class Controller {
                 match.setRival("FAKEMATCH");
                 match.setResult(MatchResult.WON);
                 match.setTime(LocalDateTime.now());
+                Match match2 = new Match();
+                match2.setRival("NO ONE");
+                match2.setResult(MatchResult.TIE);
+                match2.setTime(LocalDateTime.now());
                 account.getMatchHistory().add(match);
+                account.getMatchHistory().add(match2);
                 view.showMatchHistory(account.getMatchHistory());
                 break;
 
@@ -765,9 +770,25 @@ public class Controller {
     private void createAccount() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
         String password = passwordField.getText();
-        this.account = new Account(username, password);
-        menu.setStat(MenuStat.ACCOUNT);
-        main();
+        if (Account.getAccountByName(username, game.getAccounts()) != null ) {
+            AlertMessage message = new AlertMessage("An account with this name already exists!", Alert.AlertType.ERROR, "OK");
+            message.getResult();
+
+
+        } else if(username.equals("") || password.equals("")) {
+            AlertMessage message = new AlertMessage("You should choose a valid username and passowrd!", Alert.AlertType.ERROR, "OK");
+            message.getResult();
+        }else{
+
+            this.account = new Account(username, password);
+            menu.setStat(MenuStat.ACCOUNT);
+            AlertMessage message = new AlertMessage("Account successfully created!", Alert.AlertType.CONFIRMATION, "YAY!");
+            message.getResult();
+            main();
+        }
+
+
+
     }
 
     private void showMatchHistory(Request request) {
@@ -792,11 +813,28 @@ public class Controller {
     private void login() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
         String password = passwordField.getText();
+        Message message = Account.login(username, password);
+        switch (message) {
+            case INVALID_PASSWORD:
+                AlertMessage alertMessage = new AlertMessage("Incorrect Password", Alert.AlertType.ERROR, "OK");
+                alertMessage.getResult();
+                break;
+
+            case INVALID_ACCOUNT:
+                alertMessage = new AlertMessage("An account with this username doesn't exist !", Alert.AlertType.ERROR, "OK");
+                alertMessage.getResult();
+                break;
+            case SUCCESSFUL_LOGIN:
+                break;
+
+        }
         if (Account.login(username, password) == Message.SUCCESSFUL_LOGIN) {
             this.account = game.getAccounts().get(Account.accountIndex(username));
             menu.setStat(MenuStat.ACCOUNT);
             main();
         }
+
+
     }
 
     private void showLeaderBoard() {

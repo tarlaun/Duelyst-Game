@@ -105,4 +105,8 @@ public class Constants {
     public static final double PRIMITIVE_HEIGHT = 40;
     public static final double COLLECTION_SEARCH_X = Constants.DECK_PANE_X * 2 + Constants.DECK_PANE_WIDTH / 1.8;
     public static final double COLLECTION_SEARCH_Y = CENTRE_Y / 7;
+    public static final double MATCH_HISTORY_FIELD_X = WINDOW_WIDTH/3;
+    public static final double MATCH_HISTORY_FIELD_Y = WINDOW_HEIGHT/3;
+    public static final double MATCH_HISTORY_FIELD_HEIGHT = WINDOW_HEIGHT*2/3;
+    public static final double MATCH_HISTORY_FIELD_WIDTH = WINDOW_WIDTH * 1/3;
 }

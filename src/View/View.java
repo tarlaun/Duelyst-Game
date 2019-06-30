@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import Model.Menu;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
@@ -91,6 +92,7 @@ public class View {
         }
 
     }
+
     //  MENUUUUUU
     public void showMatchHistory(ArrayList<Match> matches) {
 
@@ -98,17 +100,16 @@ public class View {
         int hour = time.getHour();
         int minutes = time.getMinute();
         Label label = new Label("MATCH HISTORY");
-        label.setLayoutX(scene.getWidth()/3);
-        label.setLayoutY(scene.getHeight()/6-50);
+        label.setLayoutX(scene.getWidth() / 3);
+        label.setLayoutY(scene.getHeight() / 6 - 50);
         label.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 46));
-        TextField textField = new TextField();
+        TextArea textField = new TextArea();
         textField.setLayoutX(scene.getWidth() / 3);
         textField.setLayoutY(scene.getHeight() / 6);
-        textField.setMaxSize(scene.getWidth() * 2 / 3, scene.getHeight() * 2 / 3);
-        textField.setMinSize(scene.getWidth() * 2 / 3, scene.getHeight() * 2 / 3);
-        textField.setAlignment(Pos.TOP_LEFT);
+        textField.setMaxSize(Constants.MATCH_HISTORY_FIELD_WIDTH, Constants.MATCH_HISTORY_FIELD_HEIGHT);
+        textField.setMinSize(Constants.MATCH_HISTORY_FIELD_WIDTH, Constants.MATCH_HISTORY_FIELD_HEIGHT);
         textField.setEditable(false);
-        if(matches.size()==0)
+        if (matches.size() == 0)
             textField.appendText("NO MATCHES TO SHOW");
         for (int i = 0; i < matches.size(); i++) {
             String opp = matches.get(i).getRival();
@@ -127,10 +128,11 @@ public class View {
             if (matches.get(i).getTime().getHour() == hour) {
                 int mins = minutes - matches.get(i).getTime().getMinute();
 
-                textField.appendText(i + 1 + "_ " + opp +"  "+ state  +"  "+ " TIME: " + mins +" mins ago");
+                textField.appendText(i + 1 + "_ " + opp + "  " + state + "  " + " TIME: " + mins + " mins ago" + "\r\n");
+
             } else {
                 int hours = hour - matches.get(i).getTime().getHour();
-                System.out.println(i + 1 + "_ " + opp +"  "+ state +"  "  + " TIME: " + hours+" hours ago");
+                textField.appendText(i + 1 + "_ " + opp + "  " + state + "  " + " TIME: " + hours + " hours ago" + "\r\n");
             }
 
         }
@@ -156,18 +158,8 @@ public class View {
         }
     }
 
-    public void login(Message message) {
-        switch (message) {
-            case INVALID_ACCOUNT:
-                System.out.println("Account doesn't exist!");
-                break;
-            case INVALID_PASSWORD:
-                System.out.println("Incorrect password");
-                break;
-            case SUCCESSFUL_LOGIN:
-                System.out.println("Welcome");
-                break;
-        }
+    public void login(AlertMessage message) {
+        message.getResult();
     }
 
     public void logout() {
@@ -1117,9 +1109,9 @@ public class View {
                 buttonImage.getFitHeight(), "Custom Card", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         customBuff.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "Custom Buff", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
-        verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y, buttonImage.getFitWidth(),
+        verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y * 0.9, buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
-        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y, play, collection, shop, customCard,
+        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y * 0.9, play, collection, shop, customCard,
                 customBuff, history, leaderboard, save, logout);
         lightning(play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, customCard, customBuff,
