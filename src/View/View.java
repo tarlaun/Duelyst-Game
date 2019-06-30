@@ -1063,6 +1063,34 @@ public class View {
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, leaderboard, logout);
     }
 
+    public void customCardMenu(AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane detail,
+                               ComboBox<String> type, TextField name, TextField price, TextField mana) {
+        root.getChildren().clear();
+        ImageView backView = new ImageView(new Image("scenes/magaari_ember_highlands/magaari_ember_highlands_background@2x.jpg"));
+        ImageView createView = new ImageView(new Image("ui/button_icon_middle_glow@2x.png"));
+        detail.getChildren().addAll(new ImageButton(createView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "DETAIL",
+                Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
+        verticalList(Alignment.LEFT, Constants.CENTRE_X, Constants.CENTRE_Y,
+                createView.getFitWidth(), createView.getFitHeight(), detail);
+        scrollPane(backView, next, prev, back);
+        lightning(detail);
+        root.getChildren().addAll(backView, next, prev, back, detail);
+    }
+
+    public void customUnitMenu(String type, ComboBox<String> attackType, TextField ap, TextField hp, TextField range,
+                               ComboBox<String> target) {
+        root.getChildren().remove(root.getChildren().size() - 1);
+    }
+
+    public void customBuff(TextField name, ComboBox<String> type, TextField power, String turn, ComboBox<String> side,
+                           ComboBox<String> attribute) {
+
+    }
+
+    public void customSpellMenu(ComboBox<String> target) {
+
+    }
+
     private ImageView getImageView(Image background, Image foreground) {
         ImageView foregroundView = new ImageView(foreground);
         foregroundView.setFitWidth(foreground.getWidth() / background.getWidth() * Constants.WINDOW_WIDTH);
@@ -1175,8 +1203,8 @@ public class View {
 
 
     public void collectionMenu(String mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items
-            , AnchorPane createDeck, AnchorPane showDeck, AnchorPane back, AnchorPane collection, AnchorPane next
-            , AnchorPane prev, AnchorPane mainDeck, AnchorPane setMainDeck, AnchorPane exportDeck
+            , AnchorPane createDeck, AnchorPane removeDeck, AnchorPane showDeck, AnchorPane back, AnchorPane collection
+            , AnchorPane next, AnchorPane prev, AnchorPane mainDeck, AnchorPane setMainDeck, AnchorPane exportDeck
             , AnchorPane importDeck, int page) {
         root.getChildren().clear();
         Label modeLabel = new Label(mode + " Objects");
@@ -1184,10 +1212,13 @@ public class View {
         scrollPane(backView, next, prev, back);
         object.setPrefWidth(Constants.FIELD_WIDTH);
         object.setPrefHeight(Constants.FIELD_HEIGHT);
-        object.relocate(Constants.DECK_PANE_X * 2 + Constants.DECK_PANE_WIDTH / 2, 100);
+        object.relocate(Constants.COLLECTION_SEARCH_X, Constants.COLLECTION_SEARCH_Y);
         ImageView deckPane = new ImageView(new Image("card_backgrounds/deck_builder_prismatic_card_bg@2x.png"));
         createDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
                 Constants.DECK_PANE_HEIGHT, "Create Deck", Constants.FONT_SIZE, Color.LIGHTBLUE)
+                .getPane().getChildren());
+        removeDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
+                Constants.DECK_PANE_HEIGHT, "Remove Deck", Constants.FONT_SIZE, Color.LIGHTBLUE)
                 .getPane().getChildren());
         mainDeck.getChildren().addAll(new ImageButton(new ImageView(deckPane.getImage()), Constants.DECK_PANE_WIDTH,
                 Constants.DECK_PANE_HEIGHT, "Main Deck", Constants.FONT_SIZE, Color.LIGHTBLUE)
@@ -1209,10 +1240,10 @@ public class View {
                 .getPane().getChildren());
         verticalList(Alignment.LEFT, Constants.DECK_PANE_X, Constants.DECK_PANE_Y + Constants.DECK_PANE_HEIGHT
                 , Constants.DECK_PANE_WIDTH, Constants.DECK_PANE_HEIGHT, showDeck, setMainDeck, mainDeck
-                , createDeck, collection, importDeck, exportDeck);
-        lightning(createDeck, mainDeck, setMainDeck, showDeck, collection, importDeck, exportDeck);
+                , createDeck, removeDeck, collection, importDeck, exportDeck);
+        lightning(createDeck, removeDeck, mainDeck, setMainDeck, showDeck, collection, importDeck, exportDeck);
         root.getChildren().addAll(backView, modeLabel, next, prev, back, object, showDeck, setMainDeck, mainDeck,
-                createDeck, collection, exportDeck, importDeck);
+                createDeck, removeDeck, collection, exportDeck, importDeck);
         showCards(cards, items, modeLabel, page);
     }
 

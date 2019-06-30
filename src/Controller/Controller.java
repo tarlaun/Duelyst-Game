@@ -4,15 +4,9 @@ import Model.*;
 import Model.Menu;
 import View.*;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -133,12 +127,12 @@ public class Controller {
                 break;
             case COLLECTION:
                 view.collectionMenu(deckName, fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
-                        anchorPanes[Anchorpanes.CREATE.ordinal()], anchorPanes[Anchorpanes.SHOW_DECk.ordinal()],
-                        anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.WHOLE_COLLECTION.ordinal()],
-                        anchorPanes[Anchorpanes.NEXT.ordinal()], anchorPanes[Anchorpanes.PREV.ordinal()],
-                        anchorPanes[Anchorpanes.MAIN_DECK.ordinal()], anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()],
-                        anchorPanes[Anchorpanes.EXPORT_DECK.ordinal()], anchorPanes[Anchorpanes.IMPORT_DECK.ordinal()],
-                        collectionPage);
+                        anchorPanes[Anchorpanes.CREATE.ordinal()], anchorPanes[Anchorpanes.REMOVE_DECK.ordinal()],
+                        anchorPanes[Anchorpanes.SHOW_DECk.ordinal()], anchorPanes[Anchorpanes.BACK.ordinal()],
+                        anchorPanes[Anchorpanes.WHOLE_COLLECTION.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
+                        anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.MAIN_DECK.ordinal()],
+                        anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()], anchorPanes[Anchorpanes.EXPORT_DECK.ordinal()],
+                        anchorPanes[Anchorpanes.IMPORT_DECK.ordinal()], collectionPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -147,6 +141,8 @@ public class Controller {
                 } catch (Exception e) {
 
                 }
+                break;
+            case CUSTOM_CARD:
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
@@ -287,6 +283,10 @@ public class Controller {
             importDeck();
             main();
         });
+        anchorPanes[Anchorpanes.REMOVE_DECK.ordinal()].setOnMouseClicked(event -> {
+            deckLing(Constants.REMOVE_DECK);
+            main();
+        });
     }
 
     private void handleButtons() {
@@ -381,6 +381,9 @@ public class Controller {
         } else if (id == Constants.EXPORT_DECK) {
             dialog.setHeaderText("Export");
             dialog.setContentText("Deck... ");
+        } else if (id == Constants.REMOVE_DECK) {
+            dialog.setHeaderText("Delete");
+            dialog.setContentText("Deck... ");
         } else {
             dialog.setHeaderText("Adding to deck");
             dialog.setContentText("To deck: ");
@@ -402,6 +405,11 @@ public class Controller {
             } else if (id == Constants.EXPORT_DECK) {
                 account.getCollection().exportDeck(name);
                 AlertMessage alert = new AlertMessage("Deck exported!", Alert.AlertType.INFORMATION, "OK");
+                alert.getResult();
+            } else if (id == Constants.REMOVE_DECK) {
+                deleteDeck(name);
+                AlertMessage alert = new AlertMessage("Deck deleted!", Alert.AlertType.INFORMATION, "OK");
+                alert.getResult();
             } else {
                 Message message = addToDeck(name, id);
                 if (message == Message.OBJECT_ADDED) {
@@ -819,10 +827,8 @@ public class Controller {
 
     }
 
-    private void deleteDeck(Request request) {
-        if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.deleteDeck(this.account.getCollection().deleteDeck(request.getDeckName(request.getCommand())));
-        }
+    private void deleteDeck(String name) {
+        this.account.getCollection().deleteDeck(name);
     }
 
     private Message addToDeck(String deckName, int id) {
