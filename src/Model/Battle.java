@@ -735,12 +735,12 @@ public class Battle {
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
+              /*  if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
                         || coordinate.getX() < 0 || coordinate.getY() < 0)
+                    return;*/
+                /*if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
                     return;
-                if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
-                    return;
-                }
+                }*/
                 for (Card card : fieldCards[turn % 2]) {
                     try {
                         if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) <= 1) {
@@ -781,7 +781,7 @@ public class Battle {
     public void endTurn() {
         System.out.println("shits in your face");
         setAbleToAttackForHeros();
-        buffTurnEnd();
+        //buffTurnEnd();
         deholifyCell();
         /*if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();

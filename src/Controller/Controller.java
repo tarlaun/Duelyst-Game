@@ -37,6 +37,7 @@ public class Controller {
     private transient ImageView[] handCards = new ImageView[20];
     private ImageView[] imageViews = new ImageView[40];
     private BattleCards[] handCardGifs = new BattleCards[20];
+    private BattleCards[] aiCards = new BattleCards[20];
     private BattleCards battleCard = null;
     private Coordinate[] currentCoordinate = new Coordinate[2];
     private static final Controller controller = new Controller();
@@ -52,6 +53,8 @@ public class Controller {
     private int currentI;
     private int[][] randomCoordinates = new int[2][6];
     private int[] cellEffect = new int[3];
+    private int currentAIHeroCell = 26;
+    private int aiCardsInGround = 0;
 
     private Controller() {
         initializeGame();
@@ -74,11 +77,14 @@ public class Controller {
         for (int i = 0; i < 20; i++) {
             handCards[i] = new ImageView();
             handCardGifs[i] = new BattleCards();
+            aiCards[i] = new BattleCards();
             ImageView[] imageView = new ImageView[3];
-            imageView[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            imageView[0] = new ImageView(new Image("minionGifs/Horror_idle.gif"));
+            imageView[1] = new ImageView(new Image("minionGifs/Horror_idle.gif"));
+            imageView[2] = new ImageView(new Image("minionGifs/Horror_idle.gif"));
             handCardGifs[i].setImageView(imageView);
+            aiCards[i].setImageView(imageView);
+            aiCards[i].setInside(false);
         }
         for (int i = 0; i < 5; i++) {
             handCards[i] = new ImageView();
@@ -228,6 +234,7 @@ public class Controller {
                 break;
             case BATTLE:
                 handleMinions();
+                handAiMinions();
                 for (int i = 0; i < 2; i++) {
                     heroes[i].setCard(battle.getAccounts()[i].getCollection().getMainDeck().getHero());
                     heroes[i].setInside(true);
@@ -238,6 +245,12 @@ public class Controller {
                     handCardGifs[i].setInside(false);
                     handCardGifs[i].setCard(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i));
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
+                }
+                for (int i = 0; i < 10; i++) {
+                    if (!battle.getAccounts()[1].getCollection().getMainDeck().getCards().get(i).getType().equals("Spell")) {
+                        aiCards[i].setCard(battle.getAccounts()[1].getCollection().getMainDeck().getCards().get(i));
+                        aiCards[i].setImageView(setGifForCards(battle.getAccounts()[1].getCollection().getMainDeck().getCards().get(i)));
+                    }
                 }
                 view.battleMenu(battle.getAccounts(), heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs, imageViews[ImageViews.BACKGROUND.ordinal()],
@@ -265,6 +278,28 @@ public class Controller {
         handleTextFields();
         handleHeroGifs();
         handleMinions();
+        handAiMinions();
+
+    }
+
+    public void handAiMinions() {
+        for (int i = 0; i < aiCards.length; i++) {
+            int finalI = i;
+            aiCards[i].getImageView()[0].setOnMouseClicked(event -> {
+                view.cardBackGround(aiCards[finalI]);
+                if (battleCard != null && aiCards[finalI].isInside() && battleCard.getCard().getId() != aiCards[finalI].getCard().getId()) {
+                    readyForAttack(finalI, aiCards);
+                } else {
+                    battle.selectCard(aiCards[finalI].getCard().getId());
+                    currentImageView[0] = aiCards[finalI].getImageView()[0];
+                    currentImageView[1] = aiCards[finalI].getImageView()[1];
+                    battleCard = aiCards[finalI];
+                    currentI = finalI;
+                }
+
+                currentCoordinate[0] = new Coordinate((int) aiCards[finalI].getImageView()[0].getLayoutX(), (int) aiCards[finalI].getImageView()[0].getLayoutY());
+            });
+        }
 
     }
 
@@ -448,7 +483,7 @@ public class Controller {
             case "ALL_DISARM":
             case "ALL_POISON":
                 imageViews[0] = new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
-                imageViews[1] = new ImageView(new Image("spell/Icebreak Ambush_active.giff"));
+                imageViews[1] = new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
                 imageViews[2] = new ImageView(new Image("spell/Icebreak Ambush_active.gif"));
                 break;
             case "DISPEL":
@@ -526,17 +561,17 @@ public class Controller {
                 for (int j = 0; j < 3; j++) {
                     if (cellEffect[j] == a) {
                         if (j == 0)
-                            view.cellEffect("POISON",a , polygon ,0,label);
+                            view.cellEffect("POISON", a, polygon, 0, label);
                         if (j == 1)
-                            view.cellEffect("FIRE",a , polygon,0,label);
+                            view.cellEffect("FIRE", a, polygon, 0, label);
                         if (j == 2)
-                            view.cellEffect("HOLY",a , polygon,0,label);
+                            view.cellEffect("HOLY", a, polygon, 0, label);
                     }
 
                 }
             });
             polygon[i].setOnMouseExited(event -> {
-                view.cellEffect("",a , polygon,1,label);
+                view.cellEffect("", a, polygon, 1, label);
             });
         }
     }
@@ -787,30 +822,13 @@ public class Controller {
 
     private void AiFunctions() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
-            System.out.println(battle.getAccounts()[1].getBudget());
             moveAI();
-            if (battle.getMode().equals(BattleMode.COLLECTING)) {
-                if (battle.checkForWin()) {
-//                    menu.setStat(MenuStat.GAME);
-                    //view.Success();
-                }
-            }
-            // insertAI();
-            System.out.println(battle.getFieldCards()[0][0].getHealthPoint());
-            //attackAI();
-            if (battle.getAccounts()[0].getCollection().getMainDeck().getHero().getHealthPoint() < 0) {
-                System.exit(2);
-            }
+            insertAI();
+            attackAI();
             endTurn();
-            showMap();
         }
     }
 
-    private void showMap() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.drawMap(battle);
-        }
-    }
 
     private void selectUser(String name) {
         Account accountt = Account.getAccountByName(name, game.getAccounts());
@@ -849,11 +867,15 @@ public class Controller {
     }
 
     private void moveAI() {
-        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
             for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                 if (battle.getFieldCards()[1][i] != null) {
                     battle.setCurrentCard(battle.getFieldCards()[1][i]);
-                    battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
+                    //battle.moveTo(battle.setDestinationCoordinate(battle.getFieldCards()[1][i]));
+                    if (currentAIHeroCell > 19) {
+                        currentAIHeroCell--;
+                        view.move(polygon[currentAIHeroCell].getPoints().get(0), polygon[currentAIHeroCell].getPoints().get(1), heroes[1].getImageView()[0], heroes[1].getImageView()[1]);
+                    }
                 }
             }
         }
@@ -945,8 +967,11 @@ public class Controller {
     private void insertAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
-            //estefade az se tabe baraye piadesazi insertion ai
-            battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
+            aiCards[aiCardsInGround].setInside(true);
+            //battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
+            if (aiCards[aiCardsInGround].getCard()!=null)
+                view.aiHandGifs(aiCards, polygon, aiCardsInGround);
+            aiCardsInGround++;
         }
     }
 

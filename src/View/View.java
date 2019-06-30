@@ -43,6 +43,8 @@ public class View {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
+    private static int[] cells = {16, 34, 7, 43, 41, 5};
+    private static int cCell =0;
     private Image cursor = new Image("resources/ui/mouse_attack@2x.png");
 
 
@@ -65,51 +67,6 @@ public class View {
         for (int i = 0; i < accounts.size(); i++) {
             System.out.println(i + 1 + " - UserName : " + accounts.get(i).getName() +
                     " - Wins : " + accounts.get(i).getWins());
-        }
-
-    }
-
-
-    public void drawMap(Battle battle) {
-        int id;
-        boolean isPrinted = false;
-        for (int i = 0; i < Constants.WIDTH; i++) {
-            for (int j = 0; j < Constants.LENGTH; j++) {
-                id = battle.getField(i, j).getCardID();
-                for (Flag flag :
-                        battle.getFlagsOnTheGround()) {
-                    if (flag.getCoordinate().getX() == i && flag.getCoordinate().getY() == j) {
-                        System.out.print("*");
-                        isPrinted = true;
-                    }
-                }
-                if (battle.getMode().equals(BattleMode.FLAG) &&
-                        battle.getMainFlag().getCoordinate().getX() == i && battle.getMainFlag().getCoordinate().getY() == j) {
-                    System.out.print("#");
-                    isPrinted = true;
-                }
-                if (id == 0 && !isPrinted) {
-                    if (battle.getField(i, j).isHoly())
-                        System.out.print("H");
-                    else if (battle.getField(i, j).isFire())
-                        System.out.print("F");
-                    else if (battle.getField(i, j).isPoison())
-                        System.out.print("P");
-
-                } else {
-                    Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
-                    if (card != null) {
-                        System.out.print(ANSI_GREEN + card.getType().charAt(0) + ANSI_RESET);
-                    } else {
-                        card = Card.getCardByID(id, battle.getFieldCards()[1]);
-                        System.out.print(ANSI_RED + card.getType().charAt(0) + ANSI_RESET);
-                    }
-                }
-
-                System.out.print(" ");
-                isPrinted = false;
-            }
-            System.out.println();
         }
 
     }
@@ -239,22 +196,6 @@ public class View {
             flag.setFitHeight(100);
             root.getChildren().add(flag);
         }
-     /*   if(battleMode.equals(BattleMode.COLLECTING)){
-            System.out.println("marg");
-            Random random = new Random();
-            for (int i = 0; i <6 ; i++) {
-                if(flags[i]!=null){
-                    System.out.println("kharsdsfj");
-                    int x  = random.nextInt(45);
-                    flags[i].relocate((polygon[x].getPoints().get(0) + polygon[x].getPoints().get(2)) / 2 - 50,
-                            (polygon[x].getPoints().get(1) + polygon[x].getPoints().get(5)) / 2 - 85);
-                    flags[i].setFitWidth(100);
-                    flags[i].setFitHeight(100);
-                    root.getChildren().add(flags[i]);
-                }
-            }
-        }
-*/
 
     }
 
@@ -353,13 +294,13 @@ public class View {
         }
     }
 
-    public void cellEffect(String s ,int a , Polygon[] polygons , int i ,Label label){
+    public void cellEffect(String s, int a, Polygon[] polygons, int i, Label label) {
         label.setText(s);
-        if(i==0) {
+        if (i == 0) {
             label.relocate(polygons[a].getPoints().get(0) + 5, polygons[a].getPoints().get(1) + 20);
             label.setTextFill(Color.rgb(255, 255, 255));
             root.getChildren().addAll(label);
-        }else {
+        } else {
             root.getChildren().remove(label);
         }
     }
@@ -419,6 +360,18 @@ public class View {
         secondHeroView.setFitWidth(250);
         lightning(firstHeroView);
         lightning(secondHeroView);
+    }
+
+    public void aiHandGifs(BattleCards[] aiCards, Polygon[] polygons, int i) {
+
+        if (aiCards[i].isInside() && cCell<4) {
+            aiCards[i].getImageView()[0].relocate(polygons[cells[cCell]].getPoints().get(0)-40, polygons[cells[cCell]].getPoints().get(1)-95);
+            aiCards[i].getImageView()[0].setScaleX(-1);
+            aiCards[i].getImageView()[0].setFitHeight(160);
+            aiCards[i].getImageView()[0].setFitWidth(160);
+            root.getChildren().addAll(aiCards[i].getImageView()[0]);
+            cCell++;
+        }
     }
 
     public void move(double x, double y, ImageView imageView, ImageView imageView2) {
@@ -828,7 +781,6 @@ public class View {
         root.getChildren().addAll(backView, sell, buy, next, prev, back, object, modeLabel);
         showCards(cards, items, page);
     }
-
 
     public void collectionMenu(TextField object, ArrayList<Card> cards, ArrayList<Item> items
             , AnchorPane createDeck, TextField name, AnchorPane back, AnchorPane next, AnchorPane prev, int page) {
