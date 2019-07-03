@@ -8,4 +8,5 @@ public class Spell extends Card {
     public Spell(Spell spell) {
         super(spell);
     }
+
 }

@@ -235,7 +235,7 @@ public class Game {
     }
 
     public void initializeHero() throws IOException {
-        File dir = new File("./src/Objects/Cards/Heroes");
+        File dir = new File("./src/Objects/Cards/Heros");
         if (dir.exists()) {
             if (dir.isDirectory()) {
                 for (File file : dir.listFiles()) {

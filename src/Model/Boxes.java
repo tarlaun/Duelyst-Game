@@ -6,5 +6,6 @@ public enum Boxes {
     TARGET,
     SIDE,
     BUFF_TYPE,
-    ATTRIBUTE
+    ATTRIBUTE,
+    ACTIVATION
 }

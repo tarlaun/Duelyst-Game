@@ -290,9 +290,13 @@ public class Controller {
     private void customCardButtons() {
         anchorPanes[Anchorpanes.DETAIL.ordinal()].setOnMouseClicked(event -> {
             try {
-                view.customUnitMenu(boxes[Boxes.CARD_TYPE.ordinal()].getValue(), boxes[Boxes.ATTACK_TYPE.ordinal()],
-                        fields[Texts.AP.ordinal()], fields[Texts.HP.ordinal()], fields[Texts.RANGE.ordinal()],
-                        boxes[Boxes.TARGET.ordinal()]);
+                if (boxes[Boxes.CARD_TYPE.ordinal()].getValue().equals("Spell")) {
+                    view.customSpellMenu(boxes[Boxes.TARGET.ordinal()]);
+                } else {
+                    view.customUnitMenu(boxes[Boxes.CARD_TYPE.ordinal()].getValue(), boxes[Boxes.ATTACK_TYPE.ordinal()],
+                            fields[Texts.AP.ordinal()], fields[Texts.HP.ordinal()], fields[Texts.RANGE.ordinal()],
+                            boxes[Boxes.TARGET.ordinal()], anchorPanes[Anchorpanes.CREAT.ordinal()]);
+                }
             } catch (Exception e) {
                 AlertMessage alert = new AlertMessage("Invalid arguments", Alert.AlertType.ERROR, "OK");
                 alert.getResult();
@@ -826,15 +830,15 @@ public class Controller {
     private void createAccount() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
         String password = passwordField.getText();
-        if (Account.getAccountByName(username, game.getAccounts()) != null ) {
+        if (Account.getAccountByName(username, game.getAccounts()) != null) {
             AlertMessage message = new AlertMessage("An account with this name already exists!", Alert.AlertType.ERROR, "OK");
             message.getResult();
 
 
-        } else if(username.equals("") || password.equals("")) {
+        } else if (username.equals("") || password.equals("")) {
             AlertMessage message = new AlertMessage("You should choose a valid username and passowrd!", Alert.AlertType.ERROR, "OK");
             message.getResult();
-        }else{
+        } else {
 
             this.account = new Account(username, password);
             menu.setStat(MenuStat.ACCOUNT);
@@ -842,7 +846,6 @@ public class Controller {
             message.getResult();
             main();
         }
-
 
 
     }
@@ -1197,8 +1200,68 @@ public class Controller {
         view.printOptions();
     }
 
-    private void createCard() {
+    private void createCard() throws Exception {
+        Path path = Paths.get("./src/Objects/Cards/" + boxes[Boxes.CARD_TYPE.ordinal()].getValue() + "s/" +
+                fields[Texts.CARD_NAME.ordinal()].getText() + ".json");
+        try {
+            Files.createFile(path);
+        } catch (FileAlreadyExistsException e) {
+        }
+        Card card = new Card(fields[Texts.CARD_NAME.ordinal()].getText(),
+                boxes[Boxes.CARD_TYPE.ordinal()].getValue(), fields[Texts.CARD_PRICE.ordinal()].getText(),
+                fields[Texts.HP.ordinal()].getText(), fields[Texts.AP.ordinal()].getText(),
+                boxes[Boxes.ACTIVATION.ordinal()].getValue(), boxes[Boxes.ATTACK_TYPE.ordinal()].getValue(),
+                fields[Texts.RANGE.ordinal()].getText()
+        );
+        int id = 0;
+        String idle, run, attack, death;
 
+        switch (boxes[Boxes.CARD_TYPE.ordinal()].getValue()) {
+            case "Hero":
+                id = game.getLastHeroId();
+                idle = "gifs/Heroes/boss_cindera_idle.gif";
+                run = "gifs/Heroes/boss_cindera_run.gif";
+                attack = "gifs/Heroes/boss_cindera_attack.gif";
+                death = "gifs/Heroes/boss_cindera_death.gif";
+                card.setIdleSrc(idle);
+                card.setRunSrc(run);
+                card.setAttackSrc(attack);
+                card.setDeathSrc(death);
+                game.incrementHeroId();
+                break;
+            case "Minion":
+                id = game.getLastHeroId();
+                idle = "gifs/Minions/Alabaster Titan_idle.gif";
+                run = "gifs/Minions/Alabaster Titan_run.gif";
+                attack = "gifs/Minions/Alabaster Titan_attack.gif";
+                death = "gifs/Minions/Alabaster Titan_death.gif";
+                card.setIdleSrc(idle);
+                card.setRunSrc(run);
+                card.setAttackSrc(attack);
+                card.setDeathSrc(death);
+                System.out.println("Hey");
+                game.incrementHeroId();
+                break;
+            case "Spell":
+                id = game.getLastHeroId();
+                idle = "gifs/Spells/Abyssal Scar_actionbar.gif";
+                attack = "gifs/Spells/Abyssal Scar_active.gif";
+                card.setIdleSrc(idle);
+                card.setAttackSrc(attack);
+                game.incrementHeroId();
+                break;
+        }
+        card.setId(id);
+        card.setCardView();
+        shop.getCards().add(card);
+        String json = new Gson().toJson(card);
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createBuff() throws Exception {

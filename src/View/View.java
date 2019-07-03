@@ -191,7 +191,7 @@ public class View {
     }
 
     public void printCollection(Collection collection, boolean isInShop) {
-        System.out.println("Heroes :");
+        System.out.println("Heros :");
         int index = 1;
         for (int i = 0; i < collection.getCards().size(); i++) {
             if (collection.getCards().get(i).getType().equals("Hero")) {
@@ -426,7 +426,7 @@ public class View {
             return;
         }
         System.out.println("Name: " + deck.getName());
-        System.out.println("Heroes :");
+        System.out.println("Heros :");
         try {
             printNonSpellCard(deck.getHero());
         } catch (NullPointerException e) {
@@ -1157,7 +1157,7 @@ public class View {
         Label manaLabel = new Label("Mana");
         type.relocate(Constants.CUSTOM_CARD_X * 1.1, Constants.CUSTOM_CARD_Y);
         horizontalList(Alignment.UP, 3 * Constants.CUSTOM_CARD_X, Constants.CUSTOM_CARD_Y, name, price, mana);
-        horizontalList(Alignment.UP, 3 * Constants.CUSTOM_CARD_X, Constants.CUSTOM_CARD_Y, nameLabel, typeLabel,
+        horizontalList(Alignment.UP, 3 * Constants.CUSTOM_CARD_X, Constants.CUSTOM_CARD_Y, typeLabel, nameLabel,
                 priceLabel, manaLabel);
         verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y * 0.4,
                 detailView.getFitWidth(), detailView.getFitHeight(), detail);
@@ -1168,8 +1168,34 @@ public class View {
     }
 
     public void customUnitMenu(String type, ComboBox<String> attackType, TextField ap, TextField hp, TextField range,
-                               ComboBox<String> target) {
+                               ComboBox<String> target, AnchorPane create) {
         root.getChildren().remove(root.getChildren().size() - 1);
+        ImageView createView = new ImageView(new Image("ui/button_icon_middle_glow@2x.png"));
+        create.getChildren().addAll(new ImageButton(createView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "CREATE",
+                Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
+        attackType.getItems().clear();
+        attackType.getItems().addAll("Melee", "Ranged", "Hybrid");
+        attackType.setEditable(false);
+        attackType.relocate(Constants.CUSTOM_CARD_X * 2, 6 * Constants.CUSTOM_CARD_Y);
+        target.getItems().clear();
+        target.getItems().addAll("Hero", "Minion", "Spell");
+        target.setEditable(false);
+        target.relocate(Constants.CUSTOM_CARD_X * 2 + 2 * Constants.LABEL_WIDTH, 6 * Constants.CUSTOM_CARD_Y);
+        Label attackTypeLabel = new Label("AttackType");
+        Label apLabel = new Label("AP");
+        Label hpLabel = new Label("HP");
+        Label rangeLabel = new Label("range");
+        Label targetLabel = new Label("Target");
+        horizontalList(Alignment.UP, 3 * Constants.CUSTOM_CARD_X, 3 * Constants.CUSTOM_CARD_Y, ap, hp, range);
+        horizontalList(Alignment.UP, 3 * Constants.CUSTOM_CARD_X, 3 * Constants.CUSTOM_CARD_Y, apLabel, hpLabel,
+                rangeLabel);
+        verticalList(Alignment.CENTRE, Constants.CENTRE_X, Constants.CENTRE_Y,
+                createView.getFitWidth(), createView.getFitHeight(), create);
+        horizontalList(Alignment.UP, 2.9 * Constants.CUSTOM_CARD_X, Constants.CUSTOM_CARD_Y * 6, attackTypeLabel
+                , targetLabel);
+        lightning(create);
+        root.getChildren().addAll(attackType, ap, hp, range, target,
+                attackTypeLabel, apLabel, hpLabel, rangeLabel, targetLabel, create);
     }
 
     public void customBuffMenu(AnchorPane back, AnchorPane create, TextField name, ComboBox<String> type,
