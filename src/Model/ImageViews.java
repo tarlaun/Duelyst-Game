@@ -15,5 +15,6 @@ public enum ImageViews {
     PURPLE,
     ICE,
     METAL,
-    CANDLE
+    CANDLE,
+    FLAG
 }

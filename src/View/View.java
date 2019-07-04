@@ -8,6 +8,8 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
+import java.util.Arrays;
 
 import Model.Menu;
 import javafx.animation.*;
@@ -46,6 +48,8 @@ public class View {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
+    private static int[] cells = {16, 34, 7, 43, 41, 5};
+    private static int cCell =0;
     private transient Image cursor = new Image("ui/mouse_auto@2x.png");
     private transient Image battleCursor = new Image("ui/mouse_attack@2x.png");
 
@@ -57,7 +61,7 @@ public class View {
     public Scene getScene() {
         //Image icon = new Image("booster_pack_opening/booster_orb.png");
 
-        scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
+        //scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
         return scene;
     }
 
@@ -180,51 +184,6 @@ public class View {
         }
 
     }
-
-
-    public void drawMap(Battle battle) {
-        int id;
-        boolean isPrinted = false;
-        for (int i = 0; i < Constants.WIDTH; i++) {
-            for (int j = 0; j < Constants.LENGTH; j++) {
-                id = battle.getField(i, j).getCardID();
-                for (Flag flag :
-                        battle.getFlagsOnTheGround()) {
-                    if (flag.getCoordinate().getX() == i && flag.getCoordinate().getY() == j) {
-                        System.out.print("*");
-                        isPrinted = true;
-                    }
-                }
-                if (battle.getMode().equals(BattleMode.FLAG) &&
-                        battle.getMainFlag().getCoordinate().getX() == i && battle.getMainFlag().getCoordinate().getY() == j) {
-                    System.out.print("#");
-                    isPrinted = true;
-                }
-                if (id == 0 && !isPrinted) {
-                    if (battle.getField(i, j).isHoly())
-                        System.out.print("H");
-                    else if (battle.getField(i, j).isFire())
-                        System.out.print("F");
-                    else if (battle.getField(i, j).isPoison())
-                        System.out.print("P");
-
-                } else {
-                    Card card = Card.getCardByID(id, battle.getFieldCards()[0]);
-                    if (card != null) {
-                        System.out.print(ANSI_GREEN + card.getType().charAt(0) + ANSI_RESET);
-                    } else {
-                        card = Card.getCardByID(id, battle.getFieldCards()[1]);
-                        System.out.print(ANSI_RED + card.getType().charAt(0) + ANSI_RESET);
-                    }
-                }
-
-                System.out.print(" ");
-                isPrinted = false;
-            }
-            System.out.println();
-        }
-
-    }
     //Graphic
 
     public void graveYardMenu(Card[][] cards, AnchorPane next, int turn, AnchorPane prev, AnchorPane back, int page) {
@@ -295,6 +254,39 @@ public class View {
 
     }
 
+    public void cardBackGround(BattleCards battleCards) {
+        Label power = new Label();
+        Label health = new Label();
+        Label label = new Label();
+        ImageView imageView = new ImageView(new Image("resources/card_backgrounds/craftable_unit@2x.png"));
+        imageView.relocate(1000, 200);
+        imageView.setFitHeight(230);
+        imageView.setFitWidth(170);
+        ImageView imageView1 = new ImageView(battleCards.getImageView()[0].getImage());
+        imageView1.setFitWidth(170);
+        imageView1.setFitHeight(170);
+        imageView1.relocate(1000, 170);
+        if (battleCards.getCard().getType().equals("Spell")) {
+            imageView1.setFitWidth(90);
+            imageView1.setFitHeight(90);
+            imageView1.relocate(1030, 220);
+        }
+        imageView1.setScaleX(-1);
+        power.setTextFill(Color.rgb(255, 253, 253));
+        health.setText(String.valueOf(battleCards.getCard().getHealthPoint()));
+        health.setFont(Font.font(20));
+        power.setFont(Font.font(20));
+        power.relocate(1035, 325);
+        health.setTextFill(Color.rgb(255, 253, 253));
+        power.setText(String.valueOf(battleCards.getCard().getAssaultPower()));
+        health.relocate(1125, 325);
+        label.setText(battleCards.getCard().getName());
+        label.setTextFill(Color.rgb(255, 255, 255));
+        label.relocate(1030, 380);
+        label.setFont(Font.font(15));
+        root.getChildren().addAll(imageView, imageView1, health, power, label);
+    }
+
     public void setScaleForPic(ImageView... imageViews) {
         for (ImageView imageView : imageViews) {
             imageView.setFitHeight(150);
@@ -304,18 +296,52 @@ public class View {
 
     public void battleMenu(Account[] accounts, BattleCards[] battleHeros, Polygon[] polygon, ImageView view,
                            Label labels, ImageView[] mana, ImageView[] handcards, BattleCards[] battleCards,
-                           ImageView backGround, ImageView foreGround, ImageView back) {
+                           ImageView backGround, ImageView foreGround, ImageView back, ImageView flag, BattleMode battleMode, ImageView[] flags, int[] cellEffect) {
         root.getChildren().clear();
         maps(backGround, foreGround);
-        battleFieldView(polygon);
+        battleFieldView(polygon, cellEffect);
         heroGifs(accounts, battleHeros, polygon);
         endTurnButton(view, labels);
         mana(accounts[0], mana);
         handCardRings(handcards);
         handGifs(battleCards);
-        back.setImage(new Image("ui/button_back_corner@2x.png"));
-        root.getChildren().add(back);
+        backButton(back);
+        if (battleMode.equals(BattleMode.FLAG)) {
+            flag = new ImageView(new Image("Crystal Wisp_run.gif"));
+            flag.relocate((polygon[22].getPoints().get(0) + polygon[22].getPoints().get(2)) / 2 - 50,
+                    (polygon[22].getPoints().get(1) + polygon[22].getPoints().get(5)) / 2 - 85);
+            flag.setFitWidth(100);
+            flag.setFitHeight(100);
+            root.getChildren().add(flag);
+        }
 
+    }
+
+
+    public void collectFlags(ImageView[] flags, Polygon[] polygon, int[] randomC, int a) {
+        for (int i = 0; i < 6; i++) {
+            if (flags[i] != null) {
+                int x = randomC[i];
+                flags[i].relocate((polygon[x].getPoints().get(0) + polygon[x].getPoints().get(2)) / 2 - 50,
+                        (polygon[x].getPoints().get(1) + polygon[x].getPoints().get(5)) / 2 - 85);
+                if (a == 1) {
+                    flags[i].relocate((polygon[x].getPoints().get(0) + polygon[x].getPoints().get(2)) / 2 - 35,
+                            (polygon[x].getPoints().get(1) + polygon[x].getPoints().get(5)) / 2 - 45);
+                    System.out.println(x);
+                    flags[i].setFitWidth(60);
+                    flags[i].setFitHeight(60);
+                } else {
+                    flags[i].setFitWidth(100);
+                    flags[i].setFitHeight(100);
+                }
+                root.getChildren().add(flags[i]);
+            }
+        }
+    }
+
+    private void backButton(ImageView back) {
+        back.setImage(new Image("resources/ui/button_back_corner@2x.png"));
+        root.getChildren().add(back);
     }
 
     private void handGifs(BattleCards[] battleCards) {
@@ -340,6 +366,10 @@ public class View {
         secondHero = getImage(accounts[1]);
         ImageView firstHeroView = new ImageView(firstHero);
         ImageView secondHeroView = new ImageView(secondHero);
+        firstHeroView.setFitHeight(160);
+        firstHeroView.setFitWidth(160);
+        secondHeroView.setFitWidth(160);
+        secondHeroView.setFitHeight(160);
         bossImageSettings(firstHeroView, secondHeroView);
         battleHeros[1].getImageView()[0].relocate((polygon[26].getPoints().get(0) + polygon[26].getPoints().get(2)) / 2 - 55, (polygon[26].getPoints().get(1) + polygon[26].getPoints().get(5)) / 2 - 105);
         battleHeros[1].getImageView()[0].setScaleX(-1);
@@ -382,8 +412,19 @@ public class View {
         }
     }
 
-    private void battleFieldView(Polygon[] polygon) {
-        battleField(polygon);
+    public void cellEffect(String s, int a, Polygon[] polygons, int i, Label label) {
+        label.setText(s);
+        if (i == 0) {
+            label.relocate(polygons[a].getPoints().get(0) + 5, polygons[a].getPoints().get(1) + 20);
+            label.setTextFill(Color.rgb(255, 255, 255));
+            root.getChildren().addAll(label);
+        } else {
+            root.getChildren().remove(label);
+        }
+    }
+
+    private void battleFieldView(Polygon[] polygon, int[] cell) {
+        battleField(polygon, cell);
         for (int i = 0; i < 45; i++) {
             root.getChildren().add(polygon[i]);
         }
@@ -437,6 +478,18 @@ public class View {
         secondHeroView.setFitWidth(250);
         lightning(firstHeroView);
         lightning(secondHeroView);
+    }
+
+    public void aiHandGifs(BattleCards[] aiCards, Polygon[] polygons, int i) {
+
+        if (aiCards[i].isInside() && cCell<4) {
+            aiCards[i].getImageView()[0].relocate(polygons[cells[cCell]].getPoints().get(0)-40, polygons[cells[cCell]].getPoints().get(1)-95);
+            aiCards[i].getImageView()[0].setScaleX(-1);
+            aiCards[i].getImageView()[0].setFitHeight(160);
+            aiCards[i].getImageView()[0].setFitWidth(160);
+            root.getChildren().addAll(aiCards[i].getImageView()[0]);
+            cCell++;
+        }
     }
 
     public void move(double x, double y, ImageView imageView, ImageView imageView2) {
@@ -500,7 +553,7 @@ public class View {
         return firstHero;
     }
 
-    private void battleField(Polygon[] polygon) {
+    private void battleField(Polygon[] polygon, int[] cell) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.7);
         Glow glow = new Glow();
@@ -508,23 +561,29 @@ public class View {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
                 polygon[j + 9 * i] = new Polygon();
-                polygon[j + 9 * i].getPoints().addAll(-i * 8 + 380.0 + (60 + i * 2) * j + 2, 205.0 + i * 50 + 2, -i * 8 + 380.0 + (60 + i * 2) * (j + 1) - 2, 205.0 + i * 50 + 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * (j + 1) - 2, 205.0 + ((i + 1) * 50) - 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * j + 2, 205.0 + ((i + 1) * 50) - 2);
+                polygon[j + 9 * i].getPoints().addAll(-i * 8 + 380.0 + (60 + i * 2) * j + 2,
+                        205.0 + i * 50 + 2, -i * 8 + 380.0 + (60 + i * 2) * (j + 1) - 2,
+                        205.0 + i * 50 + 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * (j + 1) - 2,
+                        205.0 + ((i + 1) * 50) - 2, -(i + 1) * 8 + 380.0 + (60 + (i + 1) * 2) * j + 2, 205.0 + ((i + 1) * 50) - 2);
                 polygon[j + 9 * i].setFill(Color.rgb(119, 104, 180, 0.6));
                 glowPolygon(colorAdjust, polygon[j + 9 * i]);
+                for (int k = 0; k < 3; k++) {
+                    if (cell[k] == j + 9 * i) {
+                        if (k == 0)
+                            polygon[j + 9 * i].setFill(Color.rgb(7, 69, 62, 0.6));
+                        if (k == 1)
+                            polygon[j + 9 * i].setFill(Color.rgb(191, 120, 69, 0.6));
+                        if (k == 2)
+                            polygon[j + 9 * i].setFill(Color.rgb(175, 180, 88, 0.6));
+                    }
+                }
             }
         }
     }
 
     private void glowPolygon(ColorAdjust colorAdjust, Polygon polygon1) {
-        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
-
-            polygon1.setEffect(colorAdjust);
-            ;
-
-        });
-        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            polygon1.setEffect(null);
-        });
+        polygon1.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> polygon1.setEffect(colorAdjust));
+        polygon1.addEventFilter(MouseEvent.MOUSE_EXITED, e -> polygon1.setEffect(null));
     }
 
     public void mainMenu(AnchorPane login, AnchorPane create, AnchorPane exit, TextField username, PasswordField password) {
@@ -1109,14 +1168,15 @@ public class View {
         }
     }
 
-    private void lightning(AnchorPane... anchorPanes) {
+    private void lightning(ImageView... imageViews) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5);
         Glow glow = new Glow();
         glow.setLevel(0.9);
-        for (AnchorPane anchorPane : anchorPanes) {
-            anchorPane.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> anchorPane.setEffect(colorAdjust));
-            anchorPane.addEventFilter(MouseEvent.MOUSE_EXITED, e -> anchorPane.setEffect(null));
+        for (ImageView singlePview :
+                imageViews) {
+            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> singlePview.setEffect(colorAdjust));
+            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> singlePview.setEffect(null));
         }
     }
 

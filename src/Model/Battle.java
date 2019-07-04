@@ -69,6 +69,8 @@ public class Battle {
         this.mode = mode;
     }
 
+
+
     public void setCurrentCard(Card currentCard) {
         this.currentCard = currentCard;
     }
@@ -337,8 +339,8 @@ public class Battle {
                 return Message.NOT_ABLE_TO_ATTACK;
             }
         }
-        checkAttackHistory(opponentCardId, currentCard);
-        checkOnAttackSpecials(currentCard);
+        //checkAttackHistory(opponentCardId, currentCard);
+        //checkOnAttackSpecials(currentCard);
         currentCard.setAbleToAttack(false);
         if (isAttackable(currentCard, targetCard)) {
             targetCard.modifyHealth(-currentCard.getAssaultPower());
@@ -348,7 +350,7 @@ public class Battle {
 //            menu.setStat(MenuStat.GAME);
             return Message.BATTLE_FINISHED;
         }
-        checkOnAttackSpecials(currentCard);
+        //checkOnAttackSpecials(currentCard);
         attack(currentCard.getId(), targetCard);
         return null;
     }
@@ -735,12 +737,12 @@ public class Battle {
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-                if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
+              /*  if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
                         || coordinate.getX() < 0 || coordinate.getY() < 0)
+                    return;*/
+                /*if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
                     return;
-                if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
-                    return;
-                }
+                }*/
                 for (Card card : fieldCards[turn % 2]) {
                     try {
                         if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) <= 1) {
@@ -781,16 +783,16 @@ public class Battle {
     public void endTurn() {
         System.out.println("shits in your face");
         setAbleToAttackForHeros();
-        buffTurnEnd();
+        //buffTurnEnd();
         deholifyCell();
-        if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
+        /*if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
             flagAppearance();
-        }
-        if (mode.equals(BattleMode.FLAG)) {
+        }*/
+        /*if (mode.equals(BattleMode.FLAG)) {
             if (mainFlag.isHeld()) {
                 mainFlag.setTurnCounter(mainFlag.getTurnCounter() + 1);
             }
-        }
+        }*/
         if (opponentCardID != 0) {
             if (turn == saveTurn + 1) {
                 targetCard = Card.getCardByID(opponentCardID, fieldCards[(turn + 1) % 2]);
@@ -803,7 +805,7 @@ public class Battle {
         currentPlayer = this.accounts[turn % 2];
         currentCard = null;
         targetCard = null;
-        useItem(currentPlayer.getCollection().getMainDeck().getItem());
+        //useItem(currentPlayer.getCollection().getMainDeck().getItem());
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < fieldCards[i].length; j++) {
                 try {
