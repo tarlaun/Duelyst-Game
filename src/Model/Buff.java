@@ -117,4 +117,12 @@ public class Buff {
         this.side = buff.side;
         this.effectArea = buff.effectArea;
     }
+
+    public Buff(String type, String power, String side, String attribute, String turn) {
+        this.type = BuffType.valueOf(type.toUpperCase());
+        this.power = Integer.parseInt(power);
+        this.side = Side.valueOf(side.toUpperCase());
+        this.attribute = ModifiedAttribute.valueOf(attribute.toUpperCase());
+        this.turnCount = Integer.parseInt(turn);
+    }
 }

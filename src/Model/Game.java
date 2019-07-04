@@ -13,11 +13,10 @@ import java.util.Comparator;
 public class Game {
     private ArrayList<Account> accounts = new ArrayList<>();
     private ArrayList<Account> loggedInAccounts = new ArrayList<>();
-    private static final Game game = new Game();
+    private transient static final Game game = new Game();
     private GameType gameType;
     private BattleMode mode;
-    private Menu menu = Menu.getInstance();
-    private Shop shop = Shop.getInstance();
+    private transient Shop shop = Shop.getInstance();
     private int lastSpellId = Constants.spellId;
     private int lastMinionId = Constants.minionId;
     private int lastHeroId = Constants.heroId;
@@ -110,11 +109,9 @@ public class Game {
         return game;
     }
 
-    public boolean logout(Account account) {
+    public void logout(Account account) {
         account.setLoggedIn(false);
         save(account);
-        menu.setStat(MenuStat.MAIN);
-        return true;
     }
 
     public void save(Account account) throws OutOfMemoryError {
@@ -178,16 +175,28 @@ public class Game {
 
     public void setSrcs() {
         for (int i = 0; i < accounts.size(); i++) {
+            ArrayList<Deck> decks = accounts.get(i).getCollection().getDecks();
             for (int j = 0; j < accounts.get(i).getCollection().getCards().size(); j++) {
                 try {
                     Card card = new Card((Card) shop.searchByName(accounts.get(i).getCollection().getCards().get(j).getName()));
                     card.setId(accounts.get(i).getCollection().getCards().get(j).getId());
                     accounts.get(i).getCollection().getCards().set(j, card);
+                    for (Deck deck : decks) {
+                        Card deckCard = Card.getCardByID(card.getId(), deck.getCards().toArray(
+                                new Card[deck.getCards().size()]));
+                        int index = deck.getCards().indexOf(deckCard);
+                        if (index != -1) {
+                            deck.getCards().set(index, card);
+                        }
+                    }
                 } catch (Exception e) {
                     Card card = accounts.get(i).getCollection().getCards().get(j);
+/*
+                    e.printStackTrace();
                     System.out.println(card.getName());
                     System.out.println(card.getId());
                     System.out.println(card.getIdleSrc());
+*/
                 }
             }
             for (int j = 0; j < accounts.get(i).getCollection().getItems().size(); j++) {
@@ -195,12 +204,22 @@ public class Game {
                     Item item = new Item((Item) shop.searchByName(accounts.get(i).getCollection().getItems().get(j).getName()));
                     item.setId(accounts.get(i).getCollection().getCards().get(j).getId());
                     accounts.get(i).getCollection().getItems().set(j, item);
+                    for (Deck deck : decks) {
+                        if (item.getId() == deck.getItem().getId())
+                            deck.setItem(item);
+                    }
                 } catch (Exception e) {
                     Item item = accounts.get(i).getCollection().getItems().get(j);
+/*
                     System.out.println(item.getName());
                     System.out.println(item.getId());
                     System.out.println(item.getIdleSrc());
+*/
                 }
+            }
+            try {
+                accounts.get(i).getCollection().selectDeck(accounts.get(i).getCollection().getMainDeck().getName());
+            } catch (Exception e) {
             }
         }
     }
@@ -216,7 +235,7 @@ public class Game {
     }
 
     public void initializeHero() throws IOException {
-        File dir = new File("./src/Objects/Cards/Heroes");
+        File dir = new File("./src/Objects/Cards/Heros");
         if (dir.exists()) {
             if (dir.isDirectory()) {
                 for (File file : dir.listFiles()) {

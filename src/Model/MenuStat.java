@@ -12,6 +12,9 @@ public enum MenuStat {
     BATTLE,
     ITEM_SELECTION,
     BACK_GROUND,
+    CUSTOM_CARD,
+    CUSTOM_BUFF,
+    MATCH_HISTORY,
     GRAVEYARD;
 
     public MenuStat prevMenu() {

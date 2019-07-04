@@ -43,4 +43,18 @@ public class Deck {
     public void setItem(Item item) {
         this.item = item;
     }
+
+    public Card findCardInDeck(int id) {
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getId() == id)
+                return cards.get(i);
+        }
+        return null;
+    }
+
+    public Item findItemInDeck(int id) {
+        if (item.getId() == id)
+            return item;
+        return null;
+    }
 }

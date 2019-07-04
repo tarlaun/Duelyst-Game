@@ -10,7 +10,7 @@ import java.io.*;
 
 public class SetSrcs {
     public static void main(String[] args) throws Exception {
-        setSrc("Cards/Heroes");
+        setSrc("Cards/Heros");
         setSrc("Cards/Spells");
         setSrc("Cards/Minions");
         setSrc("Items");
@@ -34,7 +34,7 @@ public class SetSrcs {
                         String json = null;
                         String name = null;
                         switch (type) {
-                            case "Cards/Heroes":
+                            case "Cards/Heros":
                                 Hero hero = new Gson().fromJson(reader, Hero.class);
                                 hero.setType("Hero");
                                 hero.setAttackSrc(gifDir + "/" + list.readLine());
