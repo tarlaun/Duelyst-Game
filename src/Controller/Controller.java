@@ -43,10 +43,7 @@ public class Controller {
     private transient Label[] labels = new Label[Labels.values().length];
     private transient AnchorPane[] anchorPanes = new AnchorPane[Anchorpanes.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
-    private transient ImageView[] heroes = new ImageView[Constants.HEROES_COUNT];
     private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
-    private transient ImageView[] spells = new ImageView[Constants.SPELLS_COUNT];
-    private transient ImageView[] items = new ImageView[Constants.ITEMS_COUNT];
     private transient ComboBox<String>[] boxes = new ComboBox[Boxes.values().length];
     private transient BattleCards[] heroes = new BattleCards[2];
     private ImageView[] currentImageView = new ImageView[3];
@@ -57,14 +54,10 @@ public class Controller {
     private BattleCards battleCard = null;
     private Coordinate[] currentCoordinate = new Coordinate[2];
     private static final Controller controller = new Controller();
-    private File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
+    private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
     private Media media = new Media(file.toURI().toString());
     private MediaPlayer player = new MediaPlayer(media);
     private Polygon[] polygon = new Polygon[45];
-    private int collectionPage = 0, shopPage = 0;
-    private transient File file = new File("resources/music/music_mainmenu_lyonar.m4a");
-    private transient Media media = new Media(file.toURI().toString());
-    private transient MediaPlayer player = new MediaPlayer(media);
     private int collectionPage = 0, shopPage = 0, graveyardPage = 0;
     private ArrayList<Card> cardsInShop, cardsInCollection;
     private ArrayList<Item> itemsInShop, itemsInCollection;
@@ -91,16 +84,16 @@ public class Controller {
             handCards[i] = new ImageView();
             handCardGifs[i] = new BattleCards();
             ImageView[] imageView = new ImageView[3];
-            imageView[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            imageView[0] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+            imageView[1] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+            imageView[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
             handCardGifs[i].setImageView(imageView);
         }
         for (int i = 0; i < 5; i++) {
             handCards[i] = new ImageView();
         }
         for (int i = 0; i < imageViews.length; i++) {
-            imageViews[i] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            imageViews[i] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
         }
         for (int i = 0; i < 9; i++) {
             mana[i] = new ImageView();
@@ -112,9 +105,9 @@ public class Controller {
         for (int i = 0; i < heroes.length; i++) {
             heroes[i] = new BattleCards();
             ImageView[] imageView = new ImageView[3];
-            imageView[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[1] = new ImageView(new Image("gifs/Abomination_idle.gif"));
-            imageView[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+            imageView[0] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+            imageView[1] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+            imageView[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
             heroes[i].setImageView(imageView);
         }
         for (int i = 0; i < boxes.length; i++) {
@@ -212,38 +205,38 @@ public class Controller {
                 customCardButtons();
                 break;
             case CUSTOM_BUFF:
-                view.customBuffMenu(anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.CREAT.ordinal()],
+                view.customBuffMenu(anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.CREATE.ordinal()],
                         fields[Texts.BUFF_NAME.ordinal()], boxes[Boxes.BUFF_TYPE.ordinal()],
                         fields[Texts.BUFF_POWER.ordinal()], fields[Texts.TURN.ordinal()], boxes[Boxes.SIDE.ordinal()],
                         boxes[Boxes.ATTRIBUTE.ordinal()]);
                 break;
 
             case BACK_GROUND:
-                imageViews[ImageViews.REDROCK.ordinal()].setImage(new Image("resources/maps/redrock/midground@2x.png"));
-                imageViews[ImageViews.VANAR.ordinal()].setImage(new Image("resources/maps/vanar/midground@2x.png"));
-                imageViews[ImageViews.SHIMZAR.ordinal()].setImage(new Image("resources/maps/shimzar/midground@2x.png"));
-                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
-                imageViews[ImageViews.PURPLE.ordinal()].setImage(new Image("resources/maps/battlemap4_middleground@2x.png"));
-                imageViews[ImageViews.ICE.ordinal()].setImage(new Image("resources/maps/battlemap3_middleground@2x.png"));
-                imageViews[ImageViews.METAL.ordinal()].setImage(new Image("resources/maps/battlemap7_middleground@2x.png"));
-                imageViews[ImageViews.CANDLE.ordinal()].setImage(new Image("resources/maps/battlemap6_middleground@2x.png"));
-                imageViews[ImageViews.CHINA.ordinal()].setImage(new Image("resources/maps/battlemap1_middleground@2x.png"));
-                imageViews[ImageViews.OCTA.ordinal()].setImage(new Image("resources/maps/battlemap2_middleground@2x.png"));
-                imageViews[ImageViews.LION.ordinal()].setImage(new Image("resources/maps/battlemap0_middleground@2x.png"));
-                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
-                view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()],imageViews[ImageViews.VANAR.ordinal()],
-                        imageViews[ImageViews.SHIMZAR.ordinal()],imageViews[ImageViews.ABYSSIAN.ordinal()],
-                        imageViews[ImageViews.PURPLE.ordinal()],imageViews[ImageViews.OCTA.ordinal()]
-                ,imageViews[ImageViews.METAL.ordinal()],imageViews[ImageViews.CHINA.ordinal()],
-                        imageViews[ImageViews.ICE.ordinal()],imageViews[ImageViews.CANDLE.ordinal()],
+                imageViews[ImageViews.REDROCK.ordinal()].setImage(new Image("maps/redrock/midground@2x.png"));
+                imageViews[ImageViews.VANAR.ordinal()].setImage(new Image("maps/vanar/midground@2x.png"));
+                imageViews[ImageViews.SHIMZAR.ordinal()].setImage(new Image("maps/shimzar/midground@2x.png"));
+                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("maps/abyssian/midground@2x.png"));
+                imageViews[ImageViews.PURPLE.ordinal()].setImage(new Image("maps/battlemap4_middleground@2x.png"));
+                imageViews[ImageViews.ICE.ordinal()].setImage(new Image("maps/battlemap3_middleground@2x.png"));
+                imageViews[ImageViews.METAL.ordinal()].setImage(new Image("maps/battlemap7_middleground@2x.png"));
+                imageViews[ImageViews.CANDLE.ordinal()].setImage(new Image("maps/battlemap6_middleground@2x.png"));
+                imageViews[ImageViews.CHINA.ordinal()].setImage(new Image("maps/battlemap1_middleground@2x.png"));
+                imageViews[ImageViews.OCTA.ordinal()].setImage(new Image("maps/battlemap2_middleground@2x.png"));
+                imageViews[ImageViews.LION.ordinal()].setImage(new Image("maps/battlemap0_middleground@2x.png"));
+                imageViews[ImageViews.ABYSSIAN.ordinal()].setImage(new Image("maps/abyssian/midground@2x.png"));
+                view.backGroundMenu(imageViews[ImageViews.REDROCK.ordinal()], imageViews[ImageViews.VANAR.ordinal()],
+                        imageViews[ImageViews.SHIMZAR.ordinal()], imageViews[ImageViews.ABYSSIAN.ordinal()],
+                        imageViews[ImageViews.PURPLE.ordinal()], imageViews[ImageViews.OCTA.ordinal()]
+                        , imageViews[ImageViews.METAL.ordinal()], imageViews[ImageViews.CHINA.ordinal()],
+                        imageViews[ImageViews.ICE.ordinal()], imageViews[ImageViews.CANDLE.ordinal()],
                         imageViews[ImageViews.LION.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_abyssian.m4a");
+                file = new File("resources/music/music_battlemap_abyssian.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_firesofvictory.m4a");
+                file = new File("resources/music/music_battlemap_firesofvictory.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -252,13 +245,13 @@ public class Controller {
             case BATTLE_MODE:
                 view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()], buttons[Buttons.FLAG_COLLECTING.ordinal()],
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_songhai.m4a");
+                file = new File("resources/music/music_battlemap_songhai.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
                 handleMinions();
-                for (int i = 0; i <2 ; i++) {
+                for (int i = 0; i < 2; i++) {
                     heroes[i].setCard(battle.getAccounts()[i].getCollection().getMainDeck().getHero());
                     heroes[i].setInside(true);
                     heroes[i].setImageView(getImageViewGif(battle.getAccounts()[i].getCollection().getMainDeck().getHero()));
@@ -269,10 +262,10 @@ public class Controller {
                     handCardGifs[i].setCard(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i));
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
                 }
-                view.battleMenu(battle.getAccounts(),heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
-                        labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs ,imageViews[ImageViews.BACKGROUND.ordinal()],
-                        imageViews[ImageViews.FOREGROUND.ordinal()] , imageViews[ImageViews.back.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
+                view.battleMenu(battle.getAccounts(), heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
+                        labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs, imageViews[ImageViews.BACKGROUND.ordinal()],
+                        imageViews[ImageViews.FOREGROUND.ordinal()], imageViews[ImageViews.back.ordinal()]);
+                file = new File("resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -529,136 +522,10 @@ public class Controller {
         anchorPanes[Anchorpanes.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
         anchorPanes[Anchorpanes.SHOP.ordinal()].setOnMouseClicked(event -> {
-    private void handleHeroGifs() {
-        for (int i = 0; i < 2; i++) {
-            int finalI = i;
-            heroes[i].getImageView()[0].setOnMouseClicked(event -> {
-                if (battleCard != null &&  battleCard.getCard().getId() != heroes[finalI].getCard().getId()) {
-                    readyForAttack(finalI, heroes);
-                } else {
-                    battle.selectCard(heroes[finalI].getCard().getId());
-                    currentImageView[0] = heroes[finalI].getImageView()[0];
-                    currentImageView[1] = heroes[finalI].getImageView()[1];
-                    System.out.println("hero entekhab shod");
-                    battleCard = heroes[finalI];
-                    currentI = finalI;
-                }
-                currentCoordinate[0] = null;
-            });
-        }
-    }
-
-    private void readyForAttack(int finalI, BattleCards[] heroes) {
-        battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard());
-        currentImageView[0] = battleCard.getImageView()[0];
-        currentImageView[1] = battleCard.getImageView()[1];
-        currentImageView[2] = battleCard.getImageView()[2];
-        view.attack(currentImageView);
-        System.out.println("hamle");
-        battleCard = null;
-    }
-
-    private void handlePolygon() {
-        for (int i = 0; i < polygon.length; i++) {
-            int a = i;
-            polygon[i].setOnMouseClicked(event -> {
-                view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
-                battleCard = null;
-                battle.moveTo(new Coordinate(a - (a / 9), a / 9));
-                if (currentCoordinate[0]!=null) {
-                    handCardGifs[currentI].setInside(true);
-                    currentHandCardPointer++;
-                    if (currentHandCardPointer + 4 < 15) {
-                        view.handView(currentCoordinate, handCardGifs[currentHandCardPointer + 4]);
-                    }
-                }
-            });
-        }
-    }
-
-    private void handleButtons() {
-        buttons[Buttons.CREATE_ACCOUNT.ordinal()].setOnMouseClicked(event -> createAccount());
-        buttons[Buttons.LOGIN.ordinal()].setOnMouseClicked(event -> login());
-        buttons[Buttons.EXIT.ordinal()].setOnMouseClicked(event -> exit());
-        buttons[Buttons.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType());
-        buttons[Buttons.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
-        buttons[Buttons.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
-        imageViews[ImageViews.REDROCK.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/redrock/background@2x.jpg"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/redrock/midground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.ABYSSIAN.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/abyssian/background@2x.jpg"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/abyssian/midground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.SHIMZAR.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/shimzar/background@2x.jpg"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/shimzar/midground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.VANAR.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/vanar/background@2x.jpg"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/vanar/midground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.LION.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap0_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap0_middleground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.CHINA.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap1_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap1_middleground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.OCTA.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap2_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap2_middleground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.ICE.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap3_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap3_middleground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.PURPLE.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap4_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap4_middleground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.CANDLE.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap6_middleground@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap6_middleground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        imageViews[ImageViews.METAL.ordinal()].setOnMouseClicked(event -> {
-            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("resources/maps/battlemap7_background@2x.png"));
-            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("resources/maps/battlemap7_middleground@2x.png"));
-            menu.setStat(MenuStat.BATTLE);
-            main();
-        });
-        buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = shop.getCards();
             itemsInShop = shop.getItems();
             menu.setStat(MenuStat.SHOP);
             main();
-        });
-        imageViews[ImageViews.back.ordinal()].setOnMouseClicked(event -> {
-            menu.setStat(MenuStat.BACK_GROUND);
-            main();
-
         });
         anchorPanes[Anchorpanes.COLLECTION.ordinal()].setOnMouseClicked(event -> {
             cardsInCollection = account.getCollection().getCards();
@@ -684,6 +551,149 @@ public class Controller {
         });
     }
 
+    private void handleHeroGifs() {
+        for (int i = 0; i < 2; i++) {
+            int finalI = i;
+            heroes[i].getImageView()[0].setOnMouseClicked(event -> {
+                if (battleCard != null && battleCard.getCard().getId() != heroes[finalI].getCard().getId()) {
+                    readyForAttack(finalI, heroes);
+                } else {
+                    battle.selectCard(heroes[finalI].getCard().getId());
+                    currentImageView[0] = heroes[finalI].getImageView()[0];
+                    currentImageView[1] = heroes[finalI].getImageView()[1];
+                    System.out.println("hero entekhab shod");
+                    battleCard = heroes[finalI];
+                    currentI = finalI;
+                }
+                currentCoordinate[0] = null;
+            });
+        }
+    }
+
+
+    private void readyForAttack(int finalI, BattleCards[] heroes) {
+        battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard());
+        currentImageView[0] = battleCard.getImageView()[0];
+        currentImageView[1] = battleCard.getImageView()[1];
+        currentImageView[2] = battleCard.getImageView()[2];
+        view.attack(currentImageView);
+        System.out.println("hamle");
+        battleCard = null;
+    }
+
+    private void handlePolygon() {
+        for (int i = 0; i < polygon.length; i++) {
+            int a = i;
+            polygon[i].setOnMouseClicked(event -> {
+                view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
+                battleCard = null;
+                battle.moveTo(new Coordinate(a - (a / 9), a / 9));
+                if (currentCoordinate[0] != null) {
+                    handCardGifs[currentI].setInside(true);
+                    currentHandCardPointer++;
+                    if (currentHandCardPointer + 4 < 15) {
+                        view.handView(currentCoordinate, handCardGifs[currentHandCardPointer + 4]);
+                    }
+                }
+            });
+        }
+    }
+
+    private void handleButtons() {
+        mainButtons();
+        accountButtons();
+        scrollerButtons();
+        shopButtons();
+        collectionButtons();
+        anchorPanes[Anchorpanes.GRAVEYARD.ordinal()].setOnMouseClicked(event -> {
+            menu.setStat(MenuStat.GRAVEYARD);
+            main();
+        });
+
+        imageViews[ImageViews.REDROCK.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/redrock/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/redrock/midground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.ABYSSIAN.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/abyssian/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/abyssian/midground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.SHIMZAR.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/shimzar/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/shimzar/midground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.VANAR.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/vanar/background@2x.jpg"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/vanar/midground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.LION.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap0_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap0_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.CHINA.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap1_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap1_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.OCTA.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap2_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap2_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.ICE.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap3_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap3_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.PURPLE.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap4_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap4_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.CANDLE.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap6_middleground@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap6_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        imageViews[ImageViews.METAL.ordinal()].setOnMouseClicked(event -> {
+            imageViews[ImageViews.BACKGROUND.ordinal()].setImage(new Image("maps/battlemap7_background@2x.png"));
+            imageViews[ImageViews.FOREGROUND.ordinal()].setImage(new Image("maps/battlemap7_middleground@2x.png"));
+            menu.setStat(MenuStat.BATTLE);
+            main();
+        });
+        buttons[Buttons.SHOP.ordinal()].setOnMouseClicked(event -> {
+            cardsInShop = shop.getCards();
+            itemsInShop = shop.getItems();
+            menu.setStat(MenuStat.SHOP);
+            main();
+        });
+        imageViews[ImageViews.back.ordinal()].setOnMouseClicked(event -> {
+            menu.setStat(MenuStat.BACK_GROUND);
+            main();
+
+        });
+        buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
+        buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
+        buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
+        buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
+        buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
+    }
+
     private void scrollerButtons() {
         imageViews[ImageViews.END_TURN.ordinal()].setOnMouseClicked(event -> {
             battle.endTurn();
@@ -694,9 +704,9 @@ public class Controller {
             AiFunctions();
             for (int i = 0; i < 9; i++) {
                 if (i < battle.getAccounts()[0].getMana()) {
-                    mana[i].setImage(new Image("resources/ui/icon_mana@2x.png"));
+                    mana[i].setImage(new Image("ui/icon_mana@2x.png"));
                 } else {
-                    mana[i].setImage(new Image("resources/ui/icon_mana_inactive@2x.png"));
+                    mana[i].setImage(new Image("ui/icon_mana_inactive@2x.png"));
                 }
             }
         });
@@ -734,7 +744,7 @@ public class Controller {
                 } else {
                     view.customUnitMenu(boxes[Boxes.CARD_TYPE.ordinal()].getValue(), boxes[Boxes.ATTACK_TYPE.ordinal()],
                             fields[Texts.AP.ordinal()], fields[Texts.HP.ordinal()], fields[Texts.RANGE.ordinal()],
-                            boxes[Boxes.TARGET.ordinal()], anchorPanes[Anchorpanes.CREAT.ordinal()]);
+                            boxes[Boxes.TARGET.ordinal()], anchorPanes[Anchorpanes.CREATE.ordinal()]);
                 }
             } catch (Exception e) {
                 AlertMessage alert = new AlertMessage("Invalid arguments", Alert.AlertType.ERROR, "OK");
@@ -744,7 +754,7 @@ public class Controller {
     }
 
     private void customButtons() {
-        anchorPanes[Anchorpanes.CREAT.ordinal()].setOnMouseClicked(event -> {
+        anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> {
             try {
                 switch (menu.getStat()) {
                     case CUSTOM_CARD:
@@ -821,24 +831,6 @@ public class Controller {
             deckLing(Constants.REMOVE_DECK);
             main();
         });
-    }
-
-    private void handleButtons() {
-        mainButtons();
-        accountButtons();
-        scrollerButtons();
-        shopButtons();
-        collectionButtons();
-        anchorPanes[Anchorpanes.GRAVEYARD.ordinal()].setOnMouseClicked(event -> {
-            menu.setStat(MenuStat.GRAVEYARD);
-            main();
-        });
-        buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
-        buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
-        buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
-        buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
-        buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
-        anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> createDeck(fields[Texts.DECKNAME.ordinal()].toString()));
     }
 
     private void handleTextFields() {
@@ -972,6 +964,10 @@ public class Controller {
                 }
             }
         });
+    }
+
+    private void deleteDeck(String name) {
+        this.account.getCollection().deleteDeck(name);
     }
 
     private void setObjectsOfDeck(String name) {
@@ -1207,53 +1203,53 @@ public class Controller {
         ImageView[] imageViews = new ImageView[3];
         switch (card.getName()) {
             case "WHITE_DIV":
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
                 break;
             case "ZAHAK":
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
                 break;
             case "ARASH":
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_run.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "SIMORGH":
-                imageViews[0] = new ImageView(new Image("gifs/f4_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f4_altgeneraltier2_run.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f4_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f4_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f4_altgeneraltier2_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f4_altgeneraltier2_idle.gif"));
                 break;
             case "SEVEN_HEADED_DRAGON":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "RAKHSH":
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
                 break;
             case "KAVEH":
-                imageViews[0] = new ImageView(new Image("gifs/Abomination_run.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/Abomination_attack.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/Abomination_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
             case "AFSANEH":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "ESFANDIAR":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
             case "ROSTAM":
-                imageViews[0] = new ImageView(new Image("gifs/f5_altgeneraltier2_attack.gif"));
-                imageViews[1] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_attack.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/gifs/f5_altgeneraltier2_idle.gif"));
                 break;
         }
         return imageViews;
@@ -1416,50 +1412,8 @@ public class Controller {
     }
 
     private void validateDeck(Request request) {
-        if (request.checkValidationSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.checkValidation(this.account.getCollection().validate(request.getDeckName(request.getCommand())));
-        }
     }
-
-    private void selectDeck(Request request) {
-        if (request.checkDeckSelectionSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.printDeckSelection(this.account.getCollection().selectDeck(request.getDeckName(request.getCommand())));
-        }
-    }
-
-    private void showAllDecks(Request request) {
-        if (request.checkShowAllDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.showAllDeck(this.account.getCollection().getDecks());
-        }
-    }
-
-    private void showDeck(Request request) {
-        if (request.checkShowDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            Collection collection = this.account.getCollection();
-            try {
-                view.printDeck(collection.getDecks().get(collection.deckExistance(request.getDeckName(request.getCommand()))));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                view.printDeck(null);
-            }
-        }
-    }
-
-    private void search(Request request) {
-        if (request.checkSearchSyntax()) {
-            if (menu.getStat() == MenuStat.COLLECTION) {
-                searchInCollection(request);
-            } else if (menu.getStat() == MenuStat.SHOP) {
-                String name = request.getObjectName(request.getCommand());
-                Card card = Card.getCardByName(name, shop.getCards().toArray(new Card[shop.getCards().size()]));
-                Item item = Item.getItemByName(name, shop.getItems().toArray(new Item[shop.getItems().size()]));
-                if (card != null)
-                    view.printId(card);
-                if (item != null)
-                    view.printId(item);
-            }
-        }
-    }
-
+    
     private void buy(String name) {
         if (shop.getGame() == null)
             shop.setGame(this.game);
@@ -1470,81 +1424,22 @@ public class Controller {
         shop.sell(id, account);
     }
 
-    private void showShop() {
-        if (menu.getStat() == MenuStat.SHOP) {
-            view.printCollection(new Collection(shop.getCards(), shop.getItems()), true);
-        }
-        if (menu.getStat() == MenuStat.COLLECTION) {
-            view.printCollection(account.getCollection(), true);
-        }
-    }
-
     private void gameInfo() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printGameInfo(battle);
-        }
-    }
-
-    private void showMyMinions() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printMinionsInfo(battle.getFieldCards()[battle.getTurnByAccount(this.account)]);
-        }
-    }
-
-    private void showOppMinions() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printMinionsInfo(battle.getFieldCards()[(battle.getTurnByAccount(this.account) + 1) % 2]);
-        }
     }
 
     private void showCardInfo(Request request) {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
-                    battle.getPlayerHands()[battle.getTurnByAccount(account)]);
-            if (card != null) {
-                view.printCardInfo(card);
-                return;
-            }
-            card = Card.getCardByID(request.getObjectID(request.getCommand()),
-                    battle.getFieldCards()[battle.getTurnByAccount(account)]);
-            view.printCardInfo(card);
-        }
     }
 
     private void select(Request request) {
-        if (request.checkCardSelectionSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            int card = request.getObjectID(request.getCommand());
-            int item = request.getObjectID(request.getCommand());
-            view.printSelectionResult(battle.selectCard(card), battle.selectCollectibleId(item));
-        }
     }
 
     private void moveToInBattle(Request request) {
-        if (request.checkMoveSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            Coordinate coordinate = request.getCoordinate(request.getCommand());
-            view.showMovement(battle.moveTo(coordinate), battle);
-        }
     }
 
     private void battleAttack(Request request) {
-        if (request.checkAssaultSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            Card card = Card.getCardByID(request.getObjectID(request.getCommand()),
-                    battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
-            view.showAttack(battle.attack(card.getId(), battle.getCurrentCard()));
-        }
     }
 
     private void battleComboAttack(Request request) {
-        if (request.checkComboSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            int oppId = request.getOppIdInCombo(request.getCommand());
-            int[] ids = request.getComboComradesId(request.getCommand());
-            Card[] cards = new Card[ids.length];
-            for (int i = 0; i < ids.length; i++) {
-                cards[i] = Card.getCardByID(ids[i], battle.getFieldCards()[(battle.getTurnByAccount(account) + 1) % 2]);
-            }
-            view.comboErrors(battle.attackCombo(oppId, cards));
-            view.showCombo(oppId, cards);
-        }
     }
 
     private void useSpecialPower(Request request) {
@@ -1554,17 +1449,7 @@ public class Controller {
         }
     }
 
-    private void showHand() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            view.printCards(battle.getPlayerHands()[battle.getTurnByAccount(account)]);
-        }
-    }
-
     private void insertCard(Request request) {
-        if (request.checkCardInsertSyntax() && menu.getStat() == MenuStat.BATTLE) {
-            view.printInsertionMessage(battle.insertCard(request.getCoordinate(request.getCommand()),
-                    request.getInsertedName(request.getCommand())), battle);
-        }
     }
 
     private void endTurn() {
@@ -1601,10 +1486,10 @@ public class Controller {
         switch (boxes[Boxes.CARD_TYPE.ordinal()].getValue()) {
             case "Hero":
                 id = game.getLastHeroId();
-                idle = "gifs/Heroes/boss_cindera_idle.gif";
-                run = "gifs/Heroes/boss_cindera_run.gif";
-                attack = "gifs/Heroes/boss_cindera_attack.gif";
-                death = "gifs/Heroes/boss_cindera_death.gif";
+                idle = "gifs/gifs/Heroes/boss_cindera_idle.gif";
+                run = "gifs/gifs/Heroes/boss_cindera_run.gif";
+                attack = "gifs/gifs/Heroes/boss_cindera_attack.gif";
+                death = "gifs/gifs/Heroes/boss_cindera_death.gif";
                 card.setIdleSrc(idle);
                 card.setRunSrc(run);
                 card.setAttackSrc(attack);
@@ -1613,10 +1498,10 @@ public class Controller {
                 break;
             case "Minion":
                 id = game.getLastHeroId();
-                idle = "gifs/Minions/Alabaster Titan_idle.gif";
-                run = "gifs/Minions/Alabaster Titan_run.gif";
-                attack = "gifs/Minions/Alabaster Titan_attack.gif";
-                death = "gifs/Minions/Alabaster Titan_death.gif";
+                idle = "gifs/gifs/Minions/Alabaster Titan_idle.gif";
+                run = "gifs/gifs/Minions/Alabaster Titan_run.gif";
+                attack = "gifs/gifs/Minions/Alabaster Titan_attack.gif";
+                death = "gifs/gifs/Minions/Alabaster Titan_death.gif";
                 card.setIdleSrc(idle);
                 card.setRunSrc(run);
                 card.setAttackSrc(attack);
@@ -1626,8 +1511,8 @@ public class Controller {
                 break;
             case "Spell":
                 id = game.getLastHeroId();
-                idle = "gifs/Spells/Abyssal Scar_actionbar.gif";
-                attack = "gifs/Spells/Abyssal Scar_active.gif";
+                idle = "gifs/gifs/Spells/Abyssal Scar_actionbar.gif";
+                attack = "gifs/gifs/Spells/Abyssal Scar_active.gif";
                 card.setIdleSrc(idle);
                 card.setAttackSrc(attack);
                 game.incrementHeroId();

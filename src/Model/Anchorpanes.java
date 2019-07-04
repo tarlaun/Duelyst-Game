@@ -27,7 +27,6 @@ public enum Anchorpanes {
     CUSTOM_BUFF,
     SAVE,
     MATCH_HISTORY,
-
     DETAIL,
-    CREAT
+    CREATE;
 }

@@ -50,6 +50,7 @@ public class Battle {
 
     private Battle() {
     }
+
     public int getLevel() {
         return level;
     }
@@ -319,7 +320,7 @@ public class Battle {
         if (targetCard == null) {
             return Message.INVALID_TARGET;
         }
-        if(currentCard==null){
+        if (currentCard == null) {
             return Message.INVALID_TARGET;
         }
         if (currentCard.getName().equals("WOLF")) {
@@ -559,6 +560,7 @@ public class Battle {
             return Message.INVALID_TARGET;
         }
     }
+
     private boolean useSpecialPowerForCombo(Card... cards) {
         for (Card card : cards) {
             if (card.getBuffs().size() == 1 && !card.getBuffs().get(0).getType().equals(BuffType.COMBO)) {
@@ -2032,5 +2034,9 @@ public class Battle {
         accounts[current].getCollection().getMainDeck().setCards(random);
 
 
+    }
+
+    public Card[][] getGraveyard() {
+        return graveyard;
     }
 }
