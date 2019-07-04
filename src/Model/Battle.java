@@ -96,8 +96,8 @@ public class Battle {
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
             return;
         }
-        randomizeDeck(0);
-        randomizeDeck(1);
+        //randomizeDeck(0);
+        //randomizeDeck(1);
         for (int i = 0; i < 5; i++) {
             addToHand(0);
             addToHand(1);

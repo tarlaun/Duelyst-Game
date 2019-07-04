@@ -258,7 +258,7 @@ public class View {
         Label power = new Label();
         Label health = new Label();
         Label label = new Label();
-        ImageView imageView = new ImageView(new Image("resources/card_backgrounds/craftable_unit@2x.png"));
+        ImageView imageView = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
         imageView.relocate(1000, 200);
         imageView.setFitHeight(230);
         imageView.setFitWidth(170);
@@ -340,7 +340,7 @@ public class View {
     }
 
     private void backButton(ImageView back) {
-        back.setImage(new Image("resources/ui/button_back_corner@2x.png"));
+        back.setImage(new Image("ui/button_back_corner@2x.png"));
         root.getChildren().add(back);
     }
 

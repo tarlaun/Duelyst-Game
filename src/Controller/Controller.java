@@ -58,7 +58,7 @@ public class Controller {
     private BattleCards battleCard = null;
     private Coordinate[] currentCoordinate = new Coordinate[2];
     private static final Controller controller = new Controller();
-    private File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_mainmenu_lyonar.m4a");
+    private File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/music/music_mainmenu_lyonar.m4a");
     private Media media = new Media(file.toURI().toString());
     private MediaPlayer player = new MediaPlayer(media);
     private Polygon[] polygon = new Polygon[45];
@@ -184,7 +184,7 @@ public class Controller {
             case MAIN:
                 view.mainMenu(anchorPanes[Anchorpanes.LOGIN.ordinal()], anchorPanes[Anchorpanes.CREATE_ACCOUNT.ordinal()],
                         anchorPanes[Anchorpanes.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], passwordField);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_vetruv.m4a");
+                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/music/music_battlemap_vetruv.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -194,7 +194,7 @@ public class Controller {
                         anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
                         anchorPanes[Anchorpanes.LOGOUT.ordinal()], anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()],
                         anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()]);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_playmode.m4a");
+                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/music/music_playmode.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
@@ -203,7 +203,7 @@ public class Controller {
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.SELL.ordinal()],
                         anchorPanes[Anchorpanes.BUY.ordinal()], shopPage);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap_morinkhur.m4a");
+                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 handleInstances(cardsInShop, itemsInShop);
@@ -301,7 +301,7 @@ public class Controller {
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs, imageViews[ImageViews.BACKGROUND.ordinal()],
                         imageViews[ImageViews.FOREGROUND.ordinal()], imageViews[ImageViews.back.ordinal()],
                         imageViews[ImageViews.FLAG.ordinal()], battle.getMode(), flags, cellEffect);
-                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/music/music_battlemap01.m4a");
+                file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
