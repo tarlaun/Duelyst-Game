@@ -49,7 +49,7 @@ public class View {
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
     private static int[] cells = {16, 34, 7, 43, 41, 5};
-    private static int cCell =0;
+    private static int cCell = 0;
     private transient Image cursor = new Image("ui/mouse_auto@2x.png");
     private transient Image battleCursor = new Image("ui/mouse_attack@2x.png");
 
@@ -482,8 +482,8 @@ public class View {
 
     public void aiHandGifs(BattleCards[] aiCards, Polygon[] polygons, int i) {
 
-        if (aiCards[i].isInside() && cCell<4) {
-            aiCards[i].getImageView()[0].relocate(polygons[cells[cCell]].getPoints().get(0)-40, polygons[cells[cCell]].getPoints().get(1)-95);
+        if (aiCards[i].isInside() && cCell < 4) {
+            aiCards[i].getImageView()[0].relocate(polygons[cells[cCell]].getPoints().get(0) - 40, polygons[cells[cCell]].getPoints().get(1) - 95);
             aiCards[i].getImageView()[0].setScaleX(-1);
             aiCards[i].getImageView()[0].setFitHeight(160);
             aiCards[i].getImageView()[0].setFitWidth(160);

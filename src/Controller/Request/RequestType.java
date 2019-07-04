@@ -1,4 +1,4 @@
-package View;
+package Controller.Request;
 
 public enum RequestType {
     CREATE_ACCOUNT,
