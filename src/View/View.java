@@ -46,8 +46,8 @@ public class View {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
-    private transient Image cursor = new Image("ui/mouse_auto.png");
-    private transient Image battleCursor = new Image("ui/mouse_attack.png");
+    private transient Image cursor = new Image("ui/mouse_auto@2x.png");
+    private transient Image battleCursor = new Image("ui/mouse_attack@2x.png");
 
 
     private View() {
@@ -55,7 +55,7 @@ public class View {
     }
 
     public Scene getScene() {
-        Image icon = new Image("booster_pack_opening/booster_orb.png");
+        //Image icon = new Image("booster_pack_opening/booster_orb.png");
 
         scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
         return scene;
@@ -451,7 +451,7 @@ public class View {
     }
 
     public void attack(ImageView[] imageViews) {
-        File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/resources/sfx/sfx_f1_general_attack_swing.m4a");
+        File file = new File("/Users/Nefario/ProjeCHEEEEZ/resources/sfx/sfx_f1_general_attack_swing.m4a");
         Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
         player.play();
@@ -914,17 +914,17 @@ public class View {
 
     public void gameTypeMenu(Button single, Button multi) {
         root.getChildren().clear();
-        Image background = new Image("resources/scenes/vetruvian/bg@2x.jpg");
+        Image background = new Image("scenes/vetruvian/bg@2x.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
         backgroundView.setFitHeight(Constants.WINDOW_HEIGHT);
-        Image singleP = new Image("resources/crests/crest_f1@2x.png");
+        Image singleP = new Image("crests/crest_f1@2x.png");
         ImageView singlePview = new ImageView(singleP);
         singlePview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
         singlePview.setLayoutY(200);
         singlePview.setLayoutX(Constants.SINGLE_PLAYER_HEIGHT);
-        Image singleM = new Image("resources/crests/crest_f2@2x.png");
+        Image singleM = new Image("crests/crest_f2@2x.png");
         ImageView singleMview = new ImageView(singleM);
         singleMview.setFitWidth(Constants.SINGLE_PLAYER_HEIGHT);
         singleMview.setFitHeight(Constants.SINGLE_PLAYER_HEIGHT);
@@ -1022,10 +1022,10 @@ public class View {
     }
 
     private void scrollPane(ImageView backView, AnchorPane next, AnchorPane prev, AnchorPane back) {
-        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button.png");
-        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text.png");
+        Image slide = new Image("ui/sliding_panel/sliding_panel_paging_button@2x.png");
+        Image arrow = new Image("ui/sliding_panel/sliding_panel_paging_button_text@2x.png");
         ImageView leftArrow = new ImageView(), rightArrow = new ImageView();
-        Image backArrow = new Image("ui/button_back_corner.png");
+        Image backArrow = new Image("ui/button_back_corner@2x.png");
         leftArrow.setImage(arrow);
         rightArrow.setImage(arrow);
         rightArrow.setRotate(180);
