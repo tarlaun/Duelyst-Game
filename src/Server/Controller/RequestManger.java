@@ -36,6 +36,7 @@ public class RequestManger {
         LoginRequest loginRequest = (LoginRequest) request.getDirectRequest();
         Message message = Account.login(loginRequest.getUserName(), loginRequest.getPassword());
         if (message == Message.SUCCESSFUL_LOGIN) {
+            Account.getAccountByName(loginRequest.getUserName(), game.getAccounts()).setLoggedIn(true);
             return Account.getAccountByName(loginRequest.getUserName(), game.getAccounts()).toJson();
         } else {
             return message.toJson();

@@ -158,6 +158,7 @@ public class Controller {
                 handleInstances(cardsInShop, itemsInShop);
                 break;
             case COLLECTION:
+                System.out.println(cardsInCollection.size());
                 view.collectionMenu(deckName, fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
                         anchorPanes[Anchorpanes.CREATE_DECK.ordinal()], anchorPanes[Anchorpanes.REMOVE_DECK.ordinal()],
                         anchorPanes[Anchorpanes.SHOW_DECk.ordinal()], anchorPanes[Anchorpanes.BACK.ordinal()],

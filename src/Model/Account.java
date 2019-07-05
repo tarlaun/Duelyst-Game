@@ -91,6 +91,8 @@ public class Account {
         else if (!game.getAccounts().get(accountIndex(username)).password.equals(password)) {
             return Message.INVALID_PASSWORD;
         } else if (game.getAccounts().get(accountIndex(username)).isLoggedIn) {
+            System.out.println("account: " + game.getAccounts().get(accountIndex(username)).getName() + " " +
+                    game.getAccounts().get(accountIndex(username)).isLoggedIn());
             return Message.ALREADY_LOGGED_IN;
         }
         return Message.SUCCESSFUL_LOGIN;

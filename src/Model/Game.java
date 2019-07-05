@@ -144,6 +144,7 @@ public class Game {
                         Account account = new Gson().fromJson(element, Account.class);
                         accounts.add(account);
                         accountObjectInitializer(account);
+                        account.setLoggedIn(false);
                     }
                 }
             }
