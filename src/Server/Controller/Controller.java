@@ -64,6 +64,108 @@ public class Controller {
                         break;
                     case CREATE_ACCOUNT:
                         break;
+                    case SELECT_USER:
+                        break;
+                    case SINGLE_PLAYER:
+                        break;
+                    case BUY:
+                        break;
+                    case LOGOUT:
+                        break;
+                    case LEADERBOARD:
+                        break;
+                    case ADD:
+                        break;
+                    case EXIT:
+                        break;
+                    case FLAG:
+                        break;
+                    case HELP:
+                        break;
+                    case MOVE:
+                        break;
+                    case SAVE:
+                        break;
+                    case SELL:
+                        break;
+                    case SHOW:
+                        break;
+                    case COMBO:
+                        break;
+                    case STORY:
+                        break;
+                    case ATTACK:
+                        break;
+                    case CUSTOM:
+                        break;
+                    case REMOVE:
+                        break;
+                    case SEARCH:
+                        break;
+                    case USE_SP:
+                        break;
+                    case END_GAME:
+                        break;
+                    case ENTRANCE:
+                        break;
+                    case END_TURN:
+                        break;
+                    case SHOW_MAP:
+                        break;
+                    case USE_ITEM:
+                        break;
+                    case GAME_INFO:
+                        break;
+                    case NEXT_CARD:
+                        break;
+                    case INSERTION:
+                        break;
+                    case SELECTION:
+                        break;
+                    case SHOW_DECK:
+                        break;
+                    case SHOW_HAND:
+                        break;
+                    case SHOW_MENU:
+                        break;
+                    case COLLECTING:
+                        break;
+                    case SHOW_CARDS:
+                        break;
+                    case VALIDATION:
+                        break;
+                    case CREATE_DECK:
+                        break;
+                    case DELETE_DECK:
+                        break;
+                    case SELECT_DECK:
+                        break;
+                    case MULTI_PLAYER:
+                        break;
+                    case SHOW_ALL_DECK:
+                        break;
+                    case SHOW_CARD_INFO:
+                        break;
+                    case KILL_ENEMY_HERO:
+                        break;
+                    case SHOW_COLLECTION:
+                        break;
+                    case SHOW_MY_MININOS:
+                        break;
+                    case SHOW_OPP_MINIONS:
+                        break;
+                    case SEARCH_COLLECTION:
+                        break;
+                    case SHOW_COLLECTABLES:
+                        break;
+                    case SAVE_IN_COLLECTION:
+                        break;
+                    case SHOW_MATCH_HISTORY:
+                        break;
+                    case SHOW_COLLECTABLE_INFO:
+                        break;
+                    case NULL:
+                        break;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
