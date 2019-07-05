@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Request.RequestType;
 import Model.Menu;
 import Model.*;
 import View.AlertMessage;
@@ -17,21 +18,20 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Controller {
+    private transient Socket socket;
+    private transient Formatter formatter;
+    private transient BufferedReader reader;
+    private transient int port;
     private transient View view = View.getInstance();
     private transient Game game = Game.getInstance();
     private transient Menu menu = Menu.getInstance();
@@ -67,7 +67,6 @@ public class Controller {
     private String deckName = "Collection";
 
     private Controller() {
-        initializeGame();
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new Button();
         }
@@ -114,39 +113,17 @@ public class Controller {
             boxes[i] = new ComboBox<>();
         }
         menu.setStat(MenuStat.MAIN);
+        try {
+            socket = new Socket(Constants.IP, Constants.SOCKET_PORT);
+            this.formatter = new Formatter(socket.getOutputStream());
+            this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Controller getInstance() {
         return controller;
-    }
-
-    public void initializeGame() {
-        try {
-            game.initializeAccounts();
-        } catch (IOException f) {
-            System.out.println("Account initializing error!");
-        }
-        try {
-            game.initializeHero();
-        } catch (IOException f) {
-            System.out.println("Hero initializing error!");
-        }
-        try {
-            game.initializeMinion();
-        } catch (IOException f) {
-            System.out.println("Minion initializing error!");
-        }
-        try {
-            game.initializeSpell();
-        } catch (IOException f) {
-            System.out.println("Spell initializing error!");
-        }
-        try {
-            game.initializeItem();
-        } catch (IOException f) {
-            System.out.println("Item initializing error!");
-        }
-        game.setSrcs();
     }
 
     public void main() {
@@ -210,7 +187,6 @@ public class Controller {
                         fields[Texts.BUFF_POWER.ordinal()], fields[Texts.TURN.ordinal()], boxes[Boxes.SIDE.ordinal()],
                         boxes[Boxes.ATTRIBUTE.ordinal()]);
                 break;
-
             case BACK_GROUND:
                 imageViews[ImageViews.REDROCK.ordinal()].setImage(new Image("maps/redrock/midground@2x.png"));
                 imageViews[ImageViews.VANAR.ordinal()].setImage(new Image("maps/vanar/midground@2x.png"));
@@ -262,9 +238,11 @@ public class Controller {
                     handCardGifs[i].setCard(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i));
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
                 }
+/*
                 view.battleMenu(battle.getAccounts(), heroes, polygon, imageViews[ImageViews.END_TURN.ordinal()],
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs, imageViews[ImageViews.BACKGROUND.ordinal()],
                         imageViews[ImageViews.FOREGROUND.ordinal()], imageViews[ImageViews.back.ordinal()]);
+*/
                 file = new File("resources/music/music_battlemap01.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -296,11 +274,15 @@ public class Controller {
                 break;
         }
         player.setAutoPlay(true);
-        handlePolygon();
-        handleButtons();
-        handleTextFields();
-        handleHeroGifs();
-        handleMinions();
+        try {
+            handlePolygon();
+            handleButtons();
+            handleTextFields();
+            handleHeroGifs();
+            handleMinions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -522,6 +504,10 @@ public class Controller {
         anchorPanes[Anchorpanes.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
         anchorPanes[Anchorpanes.SHOP.ordinal()].setOnMouseClicked(event -> {
+            cardsInShop = shop.getCards();
+            itemsInShop = shop.getItems();
+            menu.setStat(MenuStat.SHOP);
+            main();
         });
         anchorPanes[Anchorpanes.COLLECTION.ordinal()].setOnMouseClicked(event -> {
             cardsInCollection = account.getCollection().getCards();
@@ -543,6 +529,130 @@ public class Controller {
         });
         anchorPanes[Anchorpanes.SAVE.ordinal()].setOnMouseClicked(event -> {
             save();
+            main();
+        });
+    }
+
+    private void scrollerButtons() {
+        anchorPanes[Anchorpanes.BACK.ordinal()].setOnMouseClicked(event -> exit());
+        anchorPanes[Anchorpanes.PREV.ordinal()].setOnMouseClicked(event -> {
+            if (menu.getStat() == MenuStat.COLLECTION && collectionPage > 0) {
+                collectionPage--;
+                main();
+            }
+            if (menu.getStat() == MenuStat.SHOP && shopPage > 0) {
+                shopPage--;
+                main();
+            }
+        });
+        anchorPanes[Anchorpanes.NEXT.ordinal()].setOnMouseClicked(event -> {
+            if (menu.getStat() == MenuStat.COLLECTION &&
+                    collectionPage < (cardsInCollection.size() + itemsInCollection.size())
+                            / Constants.CARD_PER_PAGE) {
+                collectionPage++;
+                main();
+            }
+            if (menu.getStat() == MenuStat.SHOP && shopPage < (cardsInShop.size() + itemsInShop.size())
+                    / Constants.CARD_PER_PAGE) {
+                shopPage++;
+                main();
+            }
+        });
+    }
+
+    private void customCardButtons() {
+        anchorPanes[Anchorpanes.DETAIL.ordinal()].setOnMouseClicked(event -> {
+            try {
+                if (boxes[Boxes.CARD_TYPE.ordinal()].getValue().equals("Spell")) {
+                    view.customSpellMenu(boxes[Boxes.TARGET.ordinal()]);
+                } else {
+                    view.customUnitMenu(boxes[Boxes.CARD_TYPE.ordinal()].getValue(), boxes[Boxes.ATTACK_TYPE.ordinal()],
+                            fields[Texts.AP.ordinal()], fields[Texts.HP.ordinal()], fields[Texts.RANGE.ordinal()],
+                            boxes[Boxes.TARGET.ordinal()], anchorPanes[Anchorpanes.CREATE.ordinal()]);
+                }
+            } catch (Exception e) {
+                AlertMessage alert = new AlertMessage("Invalid arguments", Alert.AlertType.ERROR, "OK");
+                alert.getResult();
+            }
+        });
+    }
+
+    private void customButtons() {
+        anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> {
+            try {
+                switch (menu.getStat()) {
+                    case CUSTOM_CARD:
+                        createCard();
+                        break;
+                    case CUSTOM_BUFF:
+                        createBuff();
+                        break;
+                }
+                AlertMessage alert = new AlertMessage("Successful creation", Alert.AlertType.INFORMATION,
+                        "OK");
+                alert.getResult();
+            } catch (Exception e) {
+                AlertMessage alert = new AlertMessage("Invalid arguments", Alert.AlertType.ERROR, "OK");
+                alert.getResult();
+            }
+        });
+    }
+
+    private void shopButtons() {
+        anchorPanes[Anchorpanes.BUY.ordinal()].setOnMouseClicked(event -> {
+            cardsInShop = shop.getCards();
+            itemsInShop = shop.getItems();
+            shopPage = 0;
+            buyMode = true;
+            main();
+        });
+        anchorPanes[Anchorpanes.SELL.ordinal()].setOnMouseClicked(event -> {
+            cardsInShop = account.getCollection().getCards();
+            itemsInShop = account.getCollection().getItems();
+            shopPage = 0;
+            buyMode = false;
+            main();
+        });
+    }
+
+    private void collectionButtons() {
+        anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()].setOnMouseClicked(event -> {
+            deckLing(Constants.SELECT_MAIN_CONST);
+            main();
+        });
+        anchorPanes[Anchorpanes.MAIN_DECK.ordinal()].setOnMouseClicked(event -> {
+            deckName = account.getCollection().getMainDeck().getName();
+            cardsInCollection = account.getCollection().getMainDeck().getCards();
+            ArrayList<Item> itemList = new ArrayList<>();
+            itemList.add(account.getCollection().findDeck(deckName).getItem());
+            itemsInCollection = itemList;
+            collectionPage = 0;
+            main();
+        });
+        anchorPanes[Anchorpanes.WHOLE_COLLECTION.ordinal()].setOnMouseClicked(event -> {
+            deckName = "Collection";
+            cardsInCollection = account.getCollection().getCards();
+            itemsInCollection = account.getCollection().getItems();
+            main();
+        });
+        anchorPanes[Anchorpanes.SHOW_DECk.ordinal()].setOnMouseClicked(event -> {
+            deckLing(Constants.SHOW_DECK_CONST);
+            main();
+        });
+        anchorPanes[Anchorpanes.CREATE_DECK.ordinal()].setOnMouseClicked(event -> {
+            createDeck();
+            main();
+        });
+        anchorPanes[Anchorpanes.EXPORT_DECK.ordinal()].setOnMouseClicked(event -> {
+            deckLing(Constants.EXPORT_DECK);
+            main();
+        });
+        anchorPanes[Anchorpanes.IMPORT_DECK.ordinal()].setOnMouseClicked(event -> {
+            importDeck();
+            main();
+        });
+        anchorPanes[Anchorpanes.REMOVE_DECK.ordinal()].setOnMouseClicked(event -> {
+            deckLing(Constants.REMOVE_DECK);
             main();
         });
     }
@@ -688,145 +798,6 @@ public class Controller {
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
-    }
-
-    private void scrollerButtons() {
-        imageViews[ImageViews.END_TURN.ordinal()].setOnMouseClicked(event -> {
-            battle.endTurn();
-            AiFunctions();
-        });
-        labels[Labels.END_TURN.ordinal()].setOnMouseClicked(event -> {
-            battle.endTurn();
-            AiFunctions();
-            for (int i = 0; i < 9; i++) {
-                if (i < battle.getAccounts()[0].getMana()) {
-                    mana[i].setImage(new Image("ui/icon_mana@2x.png"));
-                } else {
-                    mana[i].setImage(new Image("ui/icon_mana_inactive@2x.png"));
-                }
-            }
-        });
-        anchorPanes[Anchorpanes.BACK.ordinal()].setOnMouseClicked(event -> exit());
-        anchorPanes[Anchorpanes.PREV.ordinal()].setOnMouseClicked(event -> {
-            if (menu.getStat() == MenuStat.COLLECTION && collectionPage > 0) {
-                collectionPage--;
-                main();
-            }
-            if (menu.getStat() == MenuStat.SHOP && shopPage > 0) {
-                shopPage--;
-                main();
-            }
-        });
-        anchorPanes[Anchorpanes.NEXT.ordinal()].setOnMouseClicked(event -> {
-            if (menu.getStat() == MenuStat.COLLECTION &&
-                    collectionPage < (cardsInCollection.size() + itemsInCollection.size())
-                            / Constants.CARD_PER_PAGE) {
-                collectionPage++;
-                main();
-            }
-            if (menu.getStat() == MenuStat.SHOP && shopPage < (cardsInShop.size() + itemsInShop.size())
-                    / Constants.CARD_PER_PAGE) {
-                shopPage++;
-                main();
-            }
-        });
-    }
-
-    private void customCardButtons() {
-        anchorPanes[Anchorpanes.DETAIL.ordinal()].setOnMouseClicked(event -> {
-            try {
-                if (boxes[Boxes.CARD_TYPE.ordinal()].getValue().equals("Spell")) {
-                    view.customSpellMenu(boxes[Boxes.TARGET.ordinal()]);
-                } else {
-                    view.customUnitMenu(boxes[Boxes.CARD_TYPE.ordinal()].getValue(), boxes[Boxes.ATTACK_TYPE.ordinal()],
-                            fields[Texts.AP.ordinal()], fields[Texts.HP.ordinal()], fields[Texts.RANGE.ordinal()],
-                            boxes[Boxes.TARGET.ordinal()], anchorPanes[Anchorpanes.CREATE.ordinal()]);
-                }
-            } catch (Exception e) {
-                AlertMessage alert = new AlertMessage("Invalid arguments", Alert.AlertType.ERROR, "OK");
-                alert.getResult();
-            }
-        });
-    }
-
-    private void customButtons() {
-        anchorPanes[Anchorpanes.CREATE.ordinal()].setOnMouseClicked(event -> {
-            try {
-                switch (menu.getStat()) {
-                    case CUSTOM_CARD:
-                        createCard();
-                        break;
-                    case CUSTOM_BUFF:
-                        createBuff();
-                        break;
-                }
-                AlertMessage alert = new AlertMessage("Successful creation", Alert.AlertType.INFORMATION,
-                        "OK");
-                alert.getResult();
-            } catch (Exception e) {
-                AlertMessage alert = new AlertMessage("Invalid arguments", Alert.AlertType.ERROR, "OK");
-                alert.getResult();
-            }
-        });
-    }
-
-    private void shopButtons() {
-        anchorPanes[Anchorpanes.BUY.ordinal()].setOnMouseClicked(event -> {
-            cardsInShop = shop.getCards();
-            itemsInShop = shop.getItems();
-            shopPage = 0;
-            buyMode = true;
-            main();
-        });
-        anchorPanes[Anchorpanes.SELL.ordinal()].setOnMouseClicked(event -> {
-            cardsInShop = account.getCollection().getCards();
-            itemsInShop = account.getCollection().getItems();
-            shopPage = 0;
-            buyMode = false;
-            main();
-        });
-    }
-
-    private void collectionButtons() {
-        anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()].setOnMouseClicked(event -> {
-            deckLing(Constants.SELECT_MAIN_CONST);
-            main();
-        });
-        anchorPanes[Anchorpanes.MAIN_DECK.ordinal()].setOnMouseClicked(event -> {
-            deckName = account.getCollection().getMainDeck().getName();
-            cardsInCollection = account.getCollection().getMainDeck().getCards();
-            ArrayList<Item> itemList = new ArrayList<>();
-            itemList.add(account.getCollection().findDeck(deckName).getItem());
-            itemsInCollection = itemList;
-            collectionPage = 0;
-            main();
-        });
-        anchorPanes[Anchorpanes.WHOLE_COLLECTION.ordinal()].setOnMouseClicked(event -> {
-            deckName = "Collection";
-            cardsInCollection = account.getCollection().getCards();
-            itemsInCollection = account.getCollection().getItems();
-            main();
-        });
-        anchorPanes[Anchorpanes.SHOW_DECk.ordinal()].setOnMouseClicked(event -> {
-            deckLing(Constants.SHOW_DECK_CONST);
-            main();
-        });
-        anchorPanes[Anchorpanes.CREATE_DECK.ordinal()].setOnMouseClicked(event -> {
-            createDeck();
-            main();
-        });
-        anchorPanes[Anchorpanes.EXPORT_DECK.ordinal()].setOnMouseClicked(event -> {
-            deckLing(Constants.EXPORT_DECK);
-            main();
-        });
-        anchorPanes[Anchorpanes.IMPORT_DECK.ordinal()].setOnMouseClicked(event -> {
-            importDeck();
-            main();
-        });
-        anchorPanes[Anchorpanes.REMOVE_DECK.ordinal()].setOnMouseClicked(event -> {
-            deckLing(Constants.REMOVE_DECK);
-            main();
-        });
     }
 
     private void handleTextFields() {
@@ -1281,28 +1252,39 @@ public class Controller {
         return new ArrayList<>(Arrays.asList(cards));
     }
 
+    private void send(Request request) {
+        formatter.format(request.toJson() + "\n");
+        formatter.flush();
+    }
+
 
     private void createAccount() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
         String password = passwordField.getText();
-        if (Account.getAccountByName(username, game.getAccounts()) != null) {
-            AlertMessage message = new AlertMessage("An account with this name already exists!", Alert.AlertType.ERROR, "OK");
-            message.getResult();
-
-
-        } else if (username.equals("") || password.equals("")) {
-            AlertMessage message = new AlertMessage("You should choose a valid username and passowrd!", Alert.AlertType.ERROR, "OK");
-            message.getResult();
-        } else {
-
-            this.account = new Account(username, password);
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.CREATE_ACCOUNT, username, password);
+        send(request);
+        Message message = null;
+        String line = null;
+        try {
+            line = reader.readLine();
+            message = Message.fromJson(line);
+            switch (message) {
+                case EXISTING_ACCOUNT:
+                    AlertMessage alert1 = new AlertMessage("An account with this name already exists!", Alert.AlertType.ERROR, "OK");
+                    alert1.getResult();
+                    break;
+                case INAPPROPRIATE_PASSWORD:
+                    AlertMessage alert2 = new AlertMessage("You should choose a valid username and passowrd!", Alert.AlertType.ERROR, "OK");
+                    alert2.getResult();
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            this.account = Account.fromJson(line);
             menu.setStat(MenuStat.ACCOUNT);
-            AlertMessage message = new AlertMessage("Account successfully created!", Alert.AlertType.CONFIRMATION, "YAY!");
-            message.getResult();
             main();
         }
-
-
     }
 
     private String getOpponentName(Account account) {
@@ -1317,28 +1299,34 @@ public class Controller {
     private void login() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
         String password = passwordField.getText();
-        Message message = Account.login(username, password);
-        switch (message) {
-            case INVALID_PASSWORD:
-                AlertMessage alertMessage = new AlertMessage("Incorrect Password", Alert.AlertType.ERROR, "OK");
-                alertMessage.getResult();
-                break;
-
-            case INVALID_ACCOUNT:
-                alertMessage = new AlertMessage("An account with this username doesn't exist !", Alert.AlertType.ERROR, "OK");
-                alertMessage.getResult();
-                break;
-            case SUCCESSFUL_LOGIN:
-                break;
-
-        }
-        if (Account.login(username, password) == Message.SUCCESSFUL_LOGIN) {
-            this.account = game.getAccounts().get(Account.accountIndex(username));
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.LOGIN, username, password);
+        send(request);
+        Message message = null;
+        String line = null;
+        try {
+            line = reader.readLine();
+            message = Message.fromJson(line);
+            switch (message) {
+                case INVALID_PASSWORD:
+                    AlertMessage alertMessage = new AlertMessage("Incorrect Password", Alert.AlertType.ERROR, "OK");
+                    alertMessage.getResult();
+                    break;
+                case INVALID_ACCOUNT:
+                    alertMessage = new AlertMessage("An account with this username doesn't exist !", Alert.AlertType.ERROR, "OK");
+                    alertMessage.getResult();
+                    break;
+                case ALREADY_LOGGED_IN:
+                    alertMessage = new AlertMessage("This account is already logged-in !", Alert.AlertType.ERROR, "OK");
+                    alertMessage.getResult();
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            this.account = Account.fromJson(line);
             menu.setStat(MenuStat.ACCOUNT);
             main();
         }
-
-
     }
 
     private void showLeaderBoard() {
@@ -1347,9 +1335,19 @@ public class Controller {
     }
 
     private void save() {
-        game.save(account);
-        AlertMessage alert = new AlertMessage("Saved successfully!", Alert.AlertType.INFORMATION, "OK");
-        alert.getResult();
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.SAVE, account.getName());
+        send(request);
+        try {
+            if (Message.fromJson(reader.readLine()) == Message.SUCCESSFUL_SAVE) {
+                AlertMessage alert = new AlertMessage("Saved successfully!", Alert.AlertType.INFORMATION, "OK");
+                alert.getResult();
+            } else {
+                AlertMessage damn = new AlertMessage("Saving failed", Alert.AlertType.INFORMATION, "OK");
+                damn.getResult();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void logout() {
@@ -1359,11 +1357,22 @@ public class Controller {
         if (result.isPresent()) {
             switch (result.get().getText()) {
                 case "Yes":
-                    game.logout(account);
+                    save();
                 default:
-                    this.account = null;
-                    menu.setStat(MenuStat.MAIN);
-                    main();
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.LOGOUT, account.getName());
+                    send(request);
+                    try {
+                        if (Message.fromJson(reader.readLine()) == Message.SUCCESSFUL_LOGOUT) {
+                            account = null;
+                            menu.setStat(MenuStat.MAIN);
+                            main();
+                        } else {
+                            AlertMessage damn = new AlertMessage("Logout failed", Alert.AlertType.INFORMATION, "OK");
+                            damn.getResult();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
             }
         }
     }

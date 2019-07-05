@@ -1,4 +1,4 @@
 package Controller.Request;
 
-public class ShopRequest {
+public class ShopRequest extends DirectRequest {
 }

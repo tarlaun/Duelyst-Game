@@ -7,6 +7,7 @@ import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;*/
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -111,7 +112,6 @@ public class Game {
 
     public void logout(Account account) {
         account.setLoggedIn(false);
-        save(account);
     }
 
     public void save(Account account) throws OutOfMemoryError {

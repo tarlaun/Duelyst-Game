@@ -4,6 +4,7 @@ import Model.BattleMode;
 import Model.Coordinate;
 import Model.GameType;
 import Model.Process;
+import Server.Controller.SocketPair;
 import View.Message;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -13,16 +14,13 @@ import java.util.Scanner;
 public class Request {
     private int port;
     private RequestType type;
-    private String requestId;
+    private transient DirectRequest directRequest;
+    private String[] args;
 
-    private Request(int port, RequestType type, String id) {
+    public Request(int port, RequestType type, String... args) {
         this.port = port;
         this.type = type;
-        this.requestId = id;
-    }
-
-    public static Request newLoginRequest(int port, String username) {
-        return null;
+        this.args = args;
     }
 
     public static Request fromJson(String json) throws JsonSyntaxException {
@@ -37,7 +35,32 @@ public class Request {
         return type;
     }
 
-    public String getRequestId() {
-        return requestId;
+    public DirectRequest getDirectRequest() {
+        switch (type) {
+            case LOGIN:
+                directRequest = new LoginRequest(args);
+                break;
+            case CREATE_ACCOUNT:
+                directRequest = new CreateAccountRequest(args);
+                break;
+            case LOGOUT:
+                directRequest = new LogoutRequest(args);
+                break;
+            case SAVE:
+                directRequest = new SaveRequest(args);
+                break;
+        }
+        return directRequest;
+    }
+
+    public String toJson() {
+        return new Gson().toJson(this);
+    }
+
+    public void sendTo(SocketPair socketPair) {
+        synchronized (socketPair) {
+            socketPair.getFormatter().format(this.toJson() + "\n");
+            socketPair.getFormatter().flush();
+        }
     }
 }

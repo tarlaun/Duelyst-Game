@@ -1,6 +1,7 @@
 package Model;
 
 import View.Message;
+import com.google.gson.Gson;
 //import com.fasterxml.jackson.databind.deser.Deserializers;
 
 import java.io.Serializable;
@@ -87,10 +88,11 @@ public class Account {
     public static Message login(String username, String password) {
         if (accountIndex(username) == -1)
             return Message.INVALID_ACCOUNT;
-        if (!game.getAccounts().get(accountIndex(username)).password.equals(password)) {
+        else if (!game.getAccounts().get(accountIndex(username)).password.equals(password)) {
             return Message.INVALID_PASSWORD;
+        } else if (game.getAccounts().get(accountIndex(username)).isLoggedIn) {
+            return Message.ALREADY_LOGGED_IN;
         }
-        Menu.getInstance().setStat(MenuStat.ACCOUNT);
         return Message.SUCCESSFUL_LOGIN;
     }
 
@@ -157,5 +159,13 @@ public class Account {
                 ", collection=" + collection +
                 ", wins=" + wins +
                 '}';
+    }
+
+    public String toJson() {
+        return new Gson().toJson(this);
+    }
+
+    public static Account fromJson(String json) {
+        return new Gson().fromJson(json, Account.class);
     }
 }

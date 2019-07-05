@@ -14,7 +14,6 @@ public class Collection {
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck;
-    private View view = View.getInstance();
     private ArrayList<Deck> levelDecks = new ArrayList<>();
 
     public Collection() {

@@ -1,9 +1,9 @@
 package Controller.Request;
 
-public class LogoutRequest extends DirectRequest {
+public class SaveRequest extends DirectRequest{
     private String userName;
 
-    public LogoutRequest(String... args){
+    public SaveRequest(String... args) {
         userName = args[0];
     }
 
