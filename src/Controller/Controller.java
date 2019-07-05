@@ -138,9 +138,9 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case ACCOUNT:
-                view.accountMenu(anchorPanes[Anchorpanes.PLAY.ordinal()], anchorPanes[Anchorpanes.COLLECTION.ordinal()],
-                        anchorPanes[Anchorpanes.SHOP.ordinal()], anchorPanes[Anchorpanes.MATCH_HISTORY.ordinal()],
-                        anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
+                view.accountMenu(account.getName(), anchorPanes[Anchorpanes.PLAY.ordinal()],
+                        anchorPanes[Anchorpanes.COLLECTION.ordinal()], anchorPanes[Anchorpanes.SHOP.ordinal()],
+                        anchorPanes[Anchorpanes.MATCH_HISTORY.ordinal()], anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
                         anchorPanes[Anchorpanes.LOGOUT.ordinal()], anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()],
                         anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()]);
                 file = new File("resources/music/music_playmode.m4a");
@@ -158,7 +158,6 @@ public class Controller {
                 handleInstances(cardsInShop, itemsInShop);
                 break;
             case COLLECTION:
-                System.out.println(cardsInCollection.size());
                 view.collectionMenu(deckName, fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
                         anchorPanes[Anchorpanes.CREATE_DECK.ordinal()], anchorPanes[Anchorpanes.REMOVE_DECK.ordinal()],
                         anchorPanes[Anchorpanes.SHOW_DECk.ordinal()], anchorPanes[Anchorpanes.BACK.ordinal()],
@@ -1325,8 +1324,32 @@ public class Controller {
             e.printStackTrace();
         } catch (Exception e) {
             this.account = Account.fromJson(line);
+            setCardViews(account);
             menu.setStat(MenuStat.ACCOUNT);
             main();
+        }
+    }
+
+    private void setCardViews(Account account) {
+        for (Card card : account.getCollection().getCards()) {
+            card.setCardView();
+            for (Deck deck : account.getCollection().getDecks()) {
+                try {
+                    deck.findCardInDeck(card.getId()).setCardView();
+                } catch (NullPointerException ignored) {
+
+                }
+            }
+        }
+        for (Item item : account.getCollection().getItems()) {
+            item.setCardView();
+            for (Deck deck : account.getCollection().getDecks()) {
+                try {
+                    deck.findItemInDeck(item.getId()).setCardView();
+                } catch (NullPointerException ignored) {
+
+                }
+            }
         }
     }
 
@@ -1336,7 +1359,7 @@ public class Controller {
     }
 
     private void save() {
-        Request request = new Request(Constants.SOCKET_PORT, RequestType.SAVE, account.getName());
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.SAVE, account.toJson());
         send(request);
         try {
             if (Message.fromJson(reader.readLine()) == Message.SUCCESSFUL_SAVE) {
@@ -1384,13 +1407,6 @@ public class Controller {
         main();
     }
 
-
-    private void createDeck(String deckName) {
-        /*if (request.checkDeckSyntax() && menu.getStat() == MenuStat.COLLECTION) {
-            view.createDeck(this.account.getCollection().createDeck(request.getDeckName(request.getCommand())));
-        }*/
-        this.account.getCollection().createDeck(deckName);
-    }
 
     private Message addToDeck(String deckName, int id) {
         return this.account.getCollection().add(deckName, id);
@@ -1491,7 +1507,6 @@ public class Controller {
                 card.setRunSrc(run);
                 card.setAttackSrc(attack);
                 card.setDeathSrc(death);
-                System.out.println("Hey");
                 game.incrementHeroId();
                 break;
             case "Spell":

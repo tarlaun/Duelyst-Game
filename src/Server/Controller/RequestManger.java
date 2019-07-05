@@ -2,6 +2,7 @@ package Server.Controller;
 
 import Controller.Request.*;
 import Model.Account;
+import Model.Card;
 import Model.Game;
 import Model.MenuStat;
 import View.AlertMessage;
@@ -66,7 +67,7 @@ public class RequestManger {
 
     public String save(Request request) {
         SaveRequest saveRequest = (SaveRequest) request.getDirectRequest();
-        game.save(Account.getAccountByName(saveRequest.getUserName(), game.getAccounts()));
+        game.save(saveRequest.getAccount());
         return Message.SUCCESSFUL_SAVE.toJson();
     }
 

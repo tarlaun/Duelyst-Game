@@ -115,6 +115,8 @@ public class Game {
     }
 
     public void save(Account account) throws OutOfMemoryError {
+        int index = Account.accountIndex(account.getName());
+        game.getAccounts().set(index, account);
         String json = new Gson().toJson(account);
         try {
             FileWriter writer = new FileWriter(account.getName() + ".json");
@@ -188,6 +190,7 @@ public class Game {
                         int index = deck.getCards().indexOf(deckCard);
                         if (index != -1) {
                             deck.getCards().set(index, card);
+
                         }
                     }
                 } catch (Exception e) {
