@@ -357,6 +357,10 @@ public class Battle {
         return null;
     }
 
+    public Message useSp(Coordinate coordinate){
+        return Message.SUCCESSFUL_SP;
+    }
+
     private void checkOnAttackSpecials(Card currentCard) {
         if (currentCard.getBuffs().size() >= 1 &&
                 currentCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_ATTACK)) {

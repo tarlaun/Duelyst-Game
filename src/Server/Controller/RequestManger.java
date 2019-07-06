@@ -98,4 +98,5 @@ public class RequestManger {
                 Account.getAccountByName(selectUserRequest.getSecondAccountName(),game.getAccounts()));
         return Message.SUCCESSFUL_SELECT_USER.toJson();
     }
+
 }

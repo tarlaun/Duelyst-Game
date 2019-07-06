@@ -28,13 +28,13 @@ public enum RequestType {
     SHOW_MY_MININOS,
     SHOW_OPP_MINIONS,
     SHOW_CARD_INFO,
-    SELECTION,
-    MOVE,
-    ATTACK,
+    SELECTION,//
+    MOVE,//
+    ATTACK,//
     COMBO,
     USE_SP,
     SHOW_HAND,
-    INSERTION,
+    INSERTION,//
     END_TURN,
     SHOW_COLLECTABLES,
     SHOW_COLLECTABLE_INFO,
@@ -51,7 +51,7 @@ public enum RequestType {
     FLAG,
     STORY,
     CUSTOM,
-    SELECT_USER,
+    SELECT_USER,//
     SHOW_MAP,
     NULL
 }

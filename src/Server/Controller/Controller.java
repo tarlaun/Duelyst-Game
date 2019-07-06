@@ -65,7 +65,7 @@ public class Controller {
                     case CREATE_ACCOUNT:
                         break;
                     case SELECT_USER:
-                        out  = manager.selectUser(request);
+                        out = manager.selectUser(request);
                         break;
                     case SINGLE_PLAYER:
                         break;
@@ -172,7 +172,7 @@ public class Controller {
                     case NULL:
                         break;
                 }
-                socketPair.getFormatter().format(out+"\n");
+                socketPair.getFormatter().format(out + "\n");
                 socketPair.getFormatter().flush();
             } catch (Exception e) {
                 e.printStackTrace();
