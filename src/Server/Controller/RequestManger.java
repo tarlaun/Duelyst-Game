@@ -98,7 +98,7 @@ public class RequestManger {
 
     public String attack(Request request){
         AttackRequest attackRequest = (AttackRequest) request.getDirectRequest();
-        Message message = battle.attack();
+        Message message = battle.attack(attackRequest.getOpponentCardId(),Card.getCardByID(attackRequest.getCardId(),battle.getFieldCards()[attackRequest.getTurn()%2]));
         return message.toJson();
     }
 }
