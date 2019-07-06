@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Request.Request;
 import Controller.Request.RequestType;
 import Model.Menu;
 import Model.*;
@@ -263,7 +264,7 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
-                handleMinions();
+//                handleMinions();
                 for (int i = 0; i < 2; i++) {
                     heroes[i].setCard(battle.getAccounts()[i].getCollection().getMainDeck().getHero());
                     heroes[i].setInside(true);
@@ -321,7 +322,7 @@ public class Controller {
             handleButtons();
             handleTextFields();
             handleHeroGifs();
-            handleMinions();
+//            handleMinions();
         } catch (Exception e) {
             e.printStackTrace();
         }
