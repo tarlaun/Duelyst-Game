@@ -364,8 +364,11 @@ public class Controller {
                     readyForAttack(finalI, aiCards);
                 } else {
                     battle.selectCard(aiCards[finalI].getCard().getId());
+                    int cardId = aiCards[finalI].getCard().getId();;
+                    Request request = new Request(Constants.SOCKET_PORT,RequestType.SELECTION,String.valueOf(cardId));;
+                    send(request);;
                     currentImageView[0] = aiCards[finalI].getImageView()[0];
-                    currentImageView[1] = aiCards[finalI].getImageView()[1];
+                    currentImageView[1] = aiCards[finalI].getImageView()[1];;
                     battleCard = aiCards[finalI];
                     currentI = finalI;
                 }
@@ -735,8 +738,11 @@ public class Controller {
                 if (battleCard != null && battleCard.getCard().getId() != heroes[finalI].getCard().getId()) {
                     readyForAttack(finalI, heroes);
                 } else {
-                    battle.selectCard(heroes[finalI].getCard().getId());
-                    currentImageView[0] = heroes[finalI].getImageView()[0];
+                    battle.selectCard(heroes[finalI].getCard().getId());;
+                    int cardId = heroes[finalI].getCard().getId();;
+                    Request request = new Request(Constants.SOCKET_PORT,RequestType.SELECTION,String.valueOf(cardId));;;
+                    send(request);;;
+                    currentImageView[0] = heroes[finalI].getImageView()[0];;;
                     currentImageView[1] = heroes[finalI].getImageView()[1];
                     System.out.println("hero entekhab shod");
                     battleCard = heroes[finalI];
