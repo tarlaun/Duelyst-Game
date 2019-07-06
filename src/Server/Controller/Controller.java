@@ -120,6 +120,7 @@ public class Controller {
                     case NEXT_CARD:
                         break;
                     case INSERTION:
+
                         break;
                     case SELECTION:
                         out = manager.select(request);

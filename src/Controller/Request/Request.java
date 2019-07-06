@@ -52,6 +52,11 @@ public class Request {
             case MOVE:
                 directRequest = new MoveRequest(args);
                 break;
+            case SELECTION:
+                directRequest = new SelectRequest(args);
+                break;
+            case INSERTION:
+                directRequest = new InsertionRequest(args);
         }
         return directRequest;
     }

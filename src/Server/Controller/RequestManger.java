@@ -4,7 +4,6 @@ import Controller.Request.*;
 import Model.*;
 import View.AlertMessage;
 import View.Message;
-import javafx.scene.control.Alert;
 import Controller.Request.Request;
 
 import java.net.Socket;
