@@ -1,5 +1,7 @@
 package View;
 
+import com.google.gson.Gson;
+
 public enum Message {
     INVALID_ACCOUNT,
     INCORRECT_PASSWORD,
@@ -39,5 +41,14 @@ public enum Message {
     NULL,
     BATTLE_FINISHED,
     UNSUCCESSFUL_MOVE,
-    SUCCESSFUL_MOVE
+    SUCCESSFUL_MOVE;
+
+    public String toJson() {
+        return new Gson().toJson(this.toString());
+    }
+
+    public static Message fromJson(String json) throws Exception{
+        return new Gson().fromJson(json, Message.class);
+    }
 }
+

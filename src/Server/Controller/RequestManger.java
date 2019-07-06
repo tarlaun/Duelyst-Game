@@ -81,6 +81,7 @@ public class RequestManger {
 
     public String move(Request request){
         MoveRequest moveRequest = (MoveRequest) request.getDirectRequest();
-        Message message = battle.moveTo();
+        Message message = battle.moveTo(moveRequest.);
+        if(message==message)
     }
 }
