@@ -339,6 +339,12 @@ public class Controller {
                 view.cardBackGround(handCardGifs[finalI]);
                 if (battleCard != null && handCardGifs[finalI].isInside() && battleCard.getCard().getId() != handCardGifs[finalI].getCard().getId()) {
                     readyForAttack(finalI, handCardGifs);
+                    String opponentCardId=String.valueOf(handCardGifs[finalI].getCard().getId());
+                    String cardId = String.valueOf(battleCard.getCard().getId()) ;
+                    String turn=String.valueOf(battle.getTurn());
+                    Request request = new Request(Constants.SOCKET_PORT,RequestType.ATTACK,opponentCardId,cardId,turn);
+                    send(request);
+                    battle.attack(heroes[0].getCard().getId(), heroes[1].getCard());
                 } else {
                     battle.selectCard(handCardGifs[finalI].getCard().getId());
                     int cardId = handCardGifs[finalI].getCard().getId();
@@ -744,7 +750,6 @@ public class Controller {
                     send(request);;;
                     currentImageView[0] = heroes[finalI].getImageView()[0];;;
                     currentImageView[1] = heroes[finalI].getImageView()[1];
-                    System.out.println("hero entekhab shod");
                     battleCard = heroes[finalI];
                     currentI = finalI;
                 }
@@ -1362,17 +1367,7 @@ public class Controller {
 
     private void attackAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
-           /* for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
-                    if (battle.getFieldCards()[0][j] != null && battle.getFieldCards()[1][i] != null) {
-                        battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
-                        if (battle.getFieldCards()[1][i].getType().equals("Hero")) {
-                            if (battle.AIAssaultTypeBasedInsertion(i, j)) break;
-                        }
-                    }
-                }
-            }*/
-            battle.attack(heroes[0].getCard().getId(), heroes[1].getCard());
+
             view.attack(heroes[1].getImageView());
         }
     }
