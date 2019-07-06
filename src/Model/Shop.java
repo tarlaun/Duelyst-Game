@@ -96,6 +96,7 @@ public class Shop {
             if (card.getCountInShop() == 0)
                 return Message.NOT_AVAILABLE;
             Card instance = new Card(card);
+            instance.setCountInShop(1);
             if (card.getType().equals("Hero")) {
                 game.incrementHeroId();
                 instance.setId(game.getLastHeroId());
@@ -118,6 +119,7 @@ public class Shop {
             if (item.getCountInShop() == 0)
                 return Message.NOT_AVAILABLE;
             Item instance = new Item(item);
+            instance.setCountInShop(1);
             if (account.getCollection().getItems().size() == 3) {
                 return Message.MAXIMUM_ITEM_COUNT;
             }

@@ -183,14 +183,14 @@ public class Game {
                 try {
                     Card card = new Card((Card) shop.searchByName(accounts.get(i).getCollection().getCards().get(j).getName()));
                     card.setId(accounts.get(i).getCollection().getCards().get(j).getId());
+                    card.setCountInShop(1);
                     accounts.get(i).getCollection().getCards().set(j, card);
                     for (Deck deck : decks) {
-                        Card deckCard = Card.getCardByID(card.getId(), deck.getCards().toArray(
-                                new Card[deck.getCards().size()]));
+                        Card deckCard = Card.getCardByID(card.getId(), deck.getCards().toArray(new Card[0]));
+                        deckCard.setCountInShop(1);
                         int index = deck.getCards().indexOf(deckCard);
                         if (index != -1) {
                             deck.getCards().set(index, card);
-
                         }
                     }
                 } catch (Exception e) {
@@ -207,6 +207,7 @@ public class Game {
                 try {
                     Item item = new Item((Item) shop.searchByName(accounts.get(i).getCollection().getItems().get(j).getName()));
                     item.setId(accounts.get(i).getCollection().getCards().get(j).getId());
+                    item.setCountInShop(1);
                     accounts.get(i).getCollection().getItems().set(j, item);
                     for (Deck deck : decks) {
                         if (item.getId() == deck.getItem().getId())

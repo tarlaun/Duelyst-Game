@@ -74,6 +74,7 @@ public class Constants {
     public static final double CARD_NAME_X = CARD_TYPE_X;
     public static final double CARD_PRICE_X = CARD_NAME_X;
     public static final double CARD_PRICE_Y = CARD_NAME_Y * 0.9;
+    public static final double CARD_COUNT_Y = 0.8 * CARD_NAME_Y;
     public static final int FONT_SIZE = 20;
     public static final double CARD_INFO_FONT = FONT_SIZE * 0.55;
     public static final String PAGE_TITLE_FONT = "Chilanka";
@@ -117,5 +118,5 @@ public class Constants {
     public static final double COMBO_HEIGHT = FIELD_HEIGHT;
     public static final int SOCKET_PORT = 8080;
     public static final String IP = "localhost";
-    public static final int SHOP_INITIAL_COUNT = 5;
+    public static final int SHOP_INITIAL_COUNT = 3;
 }
