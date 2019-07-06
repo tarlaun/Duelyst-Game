@@ -38,4 +38,6 @@ public enum Message {
     BATTLE_STARTED,
     NULL,
     BATTLE_FINISHED,
+    UNSUCCESSFUL_MOVE,
+    SUCCESSFUL_MOVE
 }

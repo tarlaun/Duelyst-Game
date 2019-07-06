@@ -275,10 +275,10 @@ public class Battle {
         currentCoordinate = currentCard.getCoordinate();
     }
 
-    public void moveTo(Coordinate coordinate) {
+    public Message moveTo(Coordinate coordinate) {
         System.out.println("shit");
         if (currentCard == null)
-            return;
+            return Message.;
         if (!currentCard.isAbleToMove())
             return;
         if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
