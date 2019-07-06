@@ -1541,10 +1541,10 @@ public class Controller {
         switch (boxes[Boxes.CARD_TYPE.ordinal()].getValue()) {
             case "Hero":
                 id = game.getLastHeroId();
-                idle = "gifs/gifs/Heroes/boss_cindera_idle.gif";
-                run = "gifs/gifs/Heroes/boss_cindera_run.gif";
-                attack = "gifs/gifs/Heroes/boss_cindera_attack.gif";
-                death = "gifs/gifs/Heroes/boss_cindera_death.gif";
+                idle = "gifs/gifs/Heros/boss_cindera_idle.gif";
+                run = "gifs/gifs/Heros/boss_cindera_run.gif";
+                attack = "gifs/gifs/Heros/boss_cindera_attack.gif";
+                death = "gifs/gifs/Heros/boss_cindera_death.gif";
                 card.setIdleSrc(idle);
                 card.setRunSrc(run);
                 card.setAttackSrc(attack);

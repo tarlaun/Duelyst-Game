@@ -39,6 +39,7 @@ public class Card {
     private RangeType rangeType;
     private transient CardView cardView;
     private int[][] attackCount = new int[40][2];
+    private int countInShop;
 
     public ArrayList<ItemBuff> getCastedItems() {
         return castedItems;
@@ -115,6 +116,7 @@ public class Card {
                 this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
             }
         }
+        this.countInShop = Constants.SHOP_INITIAL_COUNT;
     }
 
     public int getRecievedHit() {
@@ -151,6 +153,7 @@ public class Card {
         this.assaultType = card.assaultType;
         this.buffs = card.buffs;
         cardView = new CardView(this);
+        this.countInShop = card.getCountInShop();
     }
 
     public String getName() {
@@ -402,6 +405,23 @@ public class Card {
         this.assaultPower = Integer.parseInt(assaultPower);
         this.rangeType = RangeType.valueOf(rangeType.toUpperCase());
         this.maxRange = Integer.parseInt(range);
+        this.countInShop = Constants.SHOP_INITIAL_COUNT;
+    }
+
+    public int getCountInShop() {
+        return countInShop;
+    }
+
+    public void setCountInShop(int countInShop) {
+        this.countInShop = countInShop;
+    }
+
+    public void incrementCount() {
+        this.countInShop++;
+    }
+
+    public void decrementCount() {
+        this.countInShop--;
     }
 
     public static ArrayList<Card> matchSearch(String name, ArrayList<Card> cards) {

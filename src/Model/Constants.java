@@ -117,4 +117,5 @@ public class Constants {
     public static final double COMBO_HEIGHT = FIELD_HEIGHT;
     public static final int SOCKET_PORT = 8080;
     public static final String IP = "localhost";
+    public static final int SHOP_INITIAL_COUNT = 5;
 }

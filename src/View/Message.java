@@ -44,7 +44,8 @@ public enum Message {
     SUCCESSFUL_LOGOUT,
     SUCCESSFUL_SAVE,
     BATTLE_FINISHED,
-    ALREADY_LOGGED_IN;
+    ALREADY_LOGGED_IN,
+    NOT_AVAILABLE;
 
     public String toJson() {
         return new Gson().toJson(this.toString());

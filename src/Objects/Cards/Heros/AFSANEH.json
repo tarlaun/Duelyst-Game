@@ -41,5 +41,6 @@
   "ableToCounter": false,
   "cardHolder": 0,
   "isHoly": 0,
-  "recievedHit": 0
+  "recievedHit": 0,
+  "countInShop": 5
 }

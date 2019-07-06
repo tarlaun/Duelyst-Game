@@ -19,6 +19,7 @@ public class CardView {
     private Label type;
     private Label name;
     private Label price;
+    private Label count;
     private AnchorPane pane = new AnchorPane();
 
     public CardView(Card card) {
@@ -26,7 +27,11 @@ public class CardView {
             switch (card.getType()) {
                 case "Hero":
                     character = new ImageView(new Image(card.getIdleSrc()));
-                    template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
+                    if (card.getCountInShop() == 0) {
+                        template = new ImageView(new Image("card_backgrounds/unusable_prismatic_unit@2x.png"));
+                    } else {
+                        template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
+                    }
                     power = new Label(Integer.toString(card.getAssaultPower()));
                     health = new Label(Integer.toString(card.getHealthPoint()));
                     power.translateXProperty().bind(power.widthProperty().divide(2).negate());
@@ -34,7 +39,11 @@ public class CardView {
                     break;
                 case "Minion":
                     character = new ImageView(new Image(card.getIdleSrc()));
-                    template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
+                    if (card.getCountInShop() == 0) {
+                        template = new ImageView(new Image("card_backgrounds/unusable_prismatic_unit@2x.png"));
+                    } else {
+                        template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
+                    }
                     power = new Label(Integer.toString(card.getAssaultPower()));
                     health = new Label(Integer.toString(card.getHealthPoint()));
                     power.translateXProperty().bind(power.widthProperty().divide(2).negate());
@@ -42,11 +51,16 @@ public class CardView {
                     break;
                 case "Spell":
                     character = new ImageView(new Image(card.getIdleSrc()));
-                    template = new ImageView(new Image("card_backgrounds/craftable_spell@2x.png"));
+                    if (card.getCountInShop() == 0) {
+                        template = new ImageView(new Image("card_backgrounds/unusable_spell@2x.png"));
+                    } else {
+                        template = new ImageView(new Image("card_backgrounds/craftable_spell@2x.png"));
+                    }
                     break;
             }
             type = new Label(card.getType());
             name = new Label(card.getName());
+            count = new Label(Integer.toString(card.getCountInShop()));
             price = new Label(Integer.toString(card.getPrice()));
             assert character != null;
             character.setId(Integer.toString(card.getId()));
@@ -64,6 +78,10 @@ public class CardView {
             name.setTextFill(Color.LIGHTCYAN);
             name.translateXProperty().bind(name.widthProperty().divide(2).negate());
             name.relocate(Constants.CARD_NAME_X, Constants.CARD_NAME_Y);
+            count.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
+            count.setTextFill(Color.LIGHTCYAN);
+            count.translateXProperty().bind(name.widthProperty().divide(2).negate());
+            count.relocate(Constants.CARD_NAME_X, Constants.CARD_NAME_Y);
             if (!card.getType().equals("Spell")) {
                 assert power != null;
                 power.setTextFill(Color.YELLOW);
@@ -108,7 +126,7 @@ public class CardView {
             name.setTextFill(Color.LIGHTCYAN);
             name.translateXProperty().bind(name.widthProperty().divide(2).negate());
             name.relocate(Constants.CARD_NAME_X, Constants.CARD_NAME_Y);
-            if (item.getPrice() != 0){
+            if (item.getPrice() != 0 || item.getCountInShop() == 0) {
                 price = new Label(Integer.toString(item.getPrice()));
                 template = new ImageView(new Image("card_backgrounds/craftable_artifact@2x.png"));
             } else {
