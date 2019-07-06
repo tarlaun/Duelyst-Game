@@ -60,6 +60,9 @@ public class Request {
             case ATTACK:
                 directRequest = new AttackRequest(args);
                 break;
+            case SELECT_USER:
+                directRequest = new SelectUserRequest(args);
+                break;
         }
         return directRequest;
     }

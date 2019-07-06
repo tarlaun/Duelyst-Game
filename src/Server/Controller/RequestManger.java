@@ -61,22 +61,8 @@ public class RequestManger {
         LogoutRequest logoutRequest = (LogoutRequest) request.getDirectRequest();
         game.logout(Account.getAccountByName(logoutRequest.getUserName(), game.getAccounts()));
         return Message.SUCCESSFUL_LOGOUT.toJson();
-    }
-
-    public String save(Request request) {
-        SaveRequest saveRequest = (SaveRequest) request.getDirectRequest();
-        game.save(saveRequest.getAccount());
-        return Message.SUCCESSFUL_SAVE.toJson();
     }*/
 
-/*    public String  collection(Request request) {
-
-    }
-
-    public String  shop(Request request) {
-
-    }
-*/
 
     public String move(Request request) {
         MoveRequest moveRequest = (MoveRequest) request.getDirectRequest();
