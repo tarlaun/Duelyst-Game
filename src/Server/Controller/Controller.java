@@ -96,6 +96,7 @@ public class Controller {
                     case STORY:
                         break;
                     case ATTACK:
+                        out = manager.attack(request);
                         break;
                     case CUSTOM:
                         break;
@@ -120,7 +121,7 @@ public class Controller {
                     case NEXT_CARD:
                         break;
                     case INSERTION:
-
+                        out = manager.insert(request);
                         break;
                     case SELECTION:
                         out = manager.select(request);

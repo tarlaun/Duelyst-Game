@@ -733,8 +733,7 @@ public class Battle {
         useSpecialPower(card, card.getBuffs().get(1));
     }
 
-    public void insertCard(Coordinate coordinate, String cardName) {
-        System.out.println("katf fartd zamin");
+    public Message insertCard(Coordinate coordinate, String cardName) {
         boolean validTarget = false;
         for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
             if (playerHands[turn % 2][i].getName().equals(cardName)) {
@@ -755,31 +754,31 @@ public class Battle {
                     }
                 }
                 if (!validTarget) {
-                    return;
+                    return Message.UNSUCCESSFUL_INSERTION;
                 }
                 if (insert != null && !spendMana(insert.getManaPoint())) {
-                    return;
+                    return Message.UNSUCCESSFUL_INSERTION;
                 }
                 assert insert != null;
                 if (insert.isClass("Minion")) {
                     if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0)
-                        return;
+                        return Message.UNSUCCESSFUL_INSERTION;
                     field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
                     insert.setCoordinate(coordinate);
                     playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
                     fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
-                    return;
+                    return Message.SUCCESSFUL_INSERTION;
                 } else if (insert.isClass("Spell")) {
                     if (useSpell(insert, coordinate)) {
                         playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
-                        return;
+                        return Message.SUCCESSFUL_INSERTION;
                     }
-                    return;
+                    return Message.UNSUCCESSFUL_INSERTION;
                 }
             }
 
         }
-
+        return Message.UNSUCCESSFUL_INSERTION;
     }
 
     public void endTurn() {

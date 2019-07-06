@@ -92,6 +92,7 @@ public class RequestManger {
 
     public String insert(Request request){
         InsertionRequest insertionRequest = (InsertionRequest) request.getDirectRequest();
-        Message message = battle.insertCard(insertionRequest.getCoordinate(),insertionRequest);
+        Message message = battle.insertCard(insertionRequest.getCoordinate(),insertionRequest.getCardName());
+        return message.toJson();
     }
 }
