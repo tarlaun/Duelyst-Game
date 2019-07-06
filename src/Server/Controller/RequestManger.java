@@ -79,19 +79,15 @@ public class RequestManger {
     }
 */
 
-    public String move(Request request){
+    public String move(Request request) {
         MoveRequest moveRequest = (MoveRequest) request.getDirectRequest();
         Message message = battle.moveTo(moveRequest.getCoordinate());
-        if(message==Message.UNSUCCESSFUL_MOVE){
-            return message.toJson();
-        }else {
-            battle.moveTo(moveRequest.getCoordinate());
-            return message.toJson();
-        }
+        return message.toJson();
     }
 
-    public String select(Request request){
+    public String select(Request request) {
         SelectRequest selectRequest = (SelectRequest) request.getDirectRequest();
         Message message = battle.selectCard(selectRequest.getCardId());
+        return message.toJson();
     }
 }

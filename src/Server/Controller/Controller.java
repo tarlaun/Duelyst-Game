@@ -122,6 +122,7 @@ public class Controller {
                     case INSERTION:
                         break;
                     case SELECTION:
+                        out = manager.select(request);
                         break;
                     case SHOW_DECK:
                         break;

@@ -270,10 +270,11 @@ public class Battle {
     public Message selectCard(int cardId) {
         Card card = Card.getCardByID(cardId, fieldCards[turn % 2]);
         if (card == null) {
-            return;
+            return Message.OBJECT_NOT_FOUND;
         }
         currentCard = card;
         currentCoordinate = currentCard.getCoordinate();
+        return Message.SUCCESSFUL_SELECT;
     }
 
     public Message moveTo(Coordinate coordinate) {

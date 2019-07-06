@@ -41,7 +41,8 @@ public enum Message {
     NULL,
     BATTLE_FINISHED,
     UNSUCCESSFUL_MOVE,
-    SUCCESSFUL_MOVE;
+    SUCCESSFUL_MOVE,
+    SUCCESSFUL_SELECT;
 
     public String toJson() {
         return new Gson().toJson(this.toString());
