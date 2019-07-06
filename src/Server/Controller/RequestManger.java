@@ -69,6 +69,12 @@ public class RequestManger {
         return Message.SUCCESSFUL_LOGOUT.toJson();
     }
 
+    public String save(Request request) {
+        SaveRequest saveRequest = (SaveRequest) request.getDirectRequest();
+        game.save(saveRequest.getAccount());
+        return Message.SUCCESSFUL_SAVE.toJson();
+    }
+
 
     public String move(Request request) {
         MoveRequest moveRequest = (MoveRequest) request.getDirectRequest();
