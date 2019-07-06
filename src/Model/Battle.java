@@ -1,6 +1,7 @@
 package Model;
 
 import View.*;
+import com.sun.xml.internal.ws.api.model.MEP;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -278,18 +279,18 @@ public class Battle {
     public Message moveTo(Coordinate coordinate) {
         System.out.println("shit");
         if (currentCard == null)
-            return Message.;
+            return Message.UNSUCCESSFUL_MOVE;
         if (!currentCard.isAbleToMove())
-            return;
+            return Message.UNSUCCESSFUL_MOVE;
         if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
                 || coordinate.getY() < 0 || coordinate.getX() < 0)
-            return;
+            return Message.UNSUCCESSFUL_MOVE;
         if (currentCard.getCoordinate() == coordinate) {
             currentCard.setAbleToMove(false);
-            return;
+            return Message.UNSUCCESSFUL_MOVE;
         }
         if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
-            return;
+            return Message.UNSUCCESSFUL_MOVE;
         }
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
         currentCard.setCoordinate(coordinate);
@@ -306,7 +307,7 @@ public class Battle {
             holdMainFlag();
         }
         currentCard.setAbleToMove(false);
-
+        return Message.SUCCESSFUL_MOVE;
     }
 
     private boolean isAttackable(Card currentCard, Card targetCard) {
