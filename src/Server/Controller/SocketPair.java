@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Formatter;
 
-
 public class SocketPair {
     private Pair<Socket, Formatter> pair;
 
