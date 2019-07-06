@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class RequestManger {
     private static final RequestManger REQUEST_MANGER = new RequestManger();
     private Game game = Game.getInstance();
+    private Shop shop = Shop.getInstance();
     private final HashMap<Integer, SocketPair> sockets = new HashMap<>();
 
     private RequestManger() {
@@ -70,6 +71,11 @@ public class RequestManger {
 
     public String shop(Request request) {
         ShopRequest shopRequest = (ShopRequest) request.getDirectRequest();
-        return Shop.getInstance().toJson();
+        return shop.toJson();
+    }
+
+    public String buy(Request request) {
+        BuyRequest buyRequest = (BuyRequest) request.getDirectRequest();
+        return shop.buy(buyRequest.getName(), buyRequest.getAccount()).toJson();
     }
 }

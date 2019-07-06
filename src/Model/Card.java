@@ -1,6 +1,7 @@
 package Model;
 
 import View.CardView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -410,5 +411,13 @@ public class Card {
                 output.add(cards.get(i));
         }
         return output;
+    }
+
+    public String toJson() {
+        return new Gson().toJson(this);
+    }
+
+    public static Card fromJson(String json) {
+        return new Gson().fromJson(json, Card.class);
     }
 }
