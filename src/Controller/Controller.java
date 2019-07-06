@@ -264,7 +264,7 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
-               // handleMinions();
+                // handleMinions();
                 for (int i = 0; i < 2; i++) {
                     heroes[i].setCard(battle.getAccounts()[i].getCollection().getMainDeck().getHero());
                     heroes[i].setInside(true);
@@ -1183,6 +1183,7 @@ public class Controller {
                 battle.setMode(BattleMode.FLAG);
                 break;
         }
+
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
             menu.setStat(MenuStat.BACK_GROUND);
             Account[] accounts = new Account[2];
@@ -1228,7 +1229,14 @@ public class Controller {
 
 
     private void selectUser(String name) {
-        Account accountt = Account.getAccountByName(name, game.getAccounts());
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECT_USER, account.getName(),name);
+        send(request);
+        Account accountt = null;
+        try {
+            accountt = Account.fromJson(reader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (accountt != null) {
             battle.setAccounts(account, accountt);
             menu.setStat(MenuStat.BACK_GROUND);
