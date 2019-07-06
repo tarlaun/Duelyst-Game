@@ -57,7 +57,7 @@ public class Controller {
             } catch (SocketException e) {
                 break;
             }
-
+            String out = null;
             try {
                 switch (request.getType()) {
                     case LOGIN:
@@ -83,6 +83,7 @@ public class Controller {
                     case HELP:
                         break;
                     case MOVE:
+                        out = manager.move(request);
                         break;
                     case SAVE:
                         break;
@@ -167,6 +168,8 @@ public class Controller {
                     case NULL:
                         break;
                 }
+                socketPair.getFormatter().format(out+"\n");
+                socketPair.getFormatter().flush();
             } catch (Exception e) {
                 e.printStackTrace();
             }

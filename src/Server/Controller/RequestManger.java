@@ -81,7 +81,12 @@ public class RequestManger {
 
     public String move(Request request){
         MoveRequest moveRequest = (MoveRequest) request.getDirectRequest();
-        Message message = battle.moveTo(moveRequest.);
-        if(message==message)
+        Message message = battle.moveTo(moveRequest.getCoordinate());
+        if(message==Message.UNSUCCESSFUL_MOVE){
+            return message.toJson();
+        }else {
+            battle.moveTo(moveRequest.getCoordinate());
+            return message.toJson();
+        }
     }
 }
