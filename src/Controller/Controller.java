@@ -8,6 +8,7 @@ import Model.Menu;
 import View.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -761,6 +762,10 @@ public class Controller {
                 view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                 battleCard = null;
                 battle.moveTo(new Coordinate(a - (a / 9), a / 9));
+                String polygonNumberX = String.valueOf(a - (a / 9));
+                String polygonNumberY = String.valueOf(a / 9);
+                Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY);
+                send(request);
                 if (currentCoordinate[0] != null) {
                     handCardGifs[currentI].setInside(true);
                     currentHandCardPointer++;
@@ -1229,7 +1234,7 @@ public class Controller {
 
 
     private void selectUser(String name) {
-        Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECT_USER, account.getName(),name);
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECT_USER, account.getName(), name);
         send(request);
         Account accountt = null;
         try {
