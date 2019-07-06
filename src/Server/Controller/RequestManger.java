@@ -88,9 +88,10 @@ public class RequestManger {
     public String sell(Request request) {
         SellRequest sellRequest = (SellRequest) request.getDirectRequest();
         try {
-            shop.sell(sellRequest.getCard().getId(), sellRequest.getAccount());
+            System.out.println(shop.sell(sellRequest.getId(), sellRequest.getAccount()));
         } catch (Exception isItem) {
-            shop.sell(sellRequest.getItem().getId(), sellRequest.getAccount());
+            System.out.println(shop.sell(sellRequest.getId(), sellRequest.getAccount()));
         }
+        return sellRequest.getAccount().toJson();
     }
 }

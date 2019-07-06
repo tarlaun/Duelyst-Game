@@ -14,16 +14,12 @@ public class SellRequest extends DirectRequest {
         try {
             this.id = Card.fromJson(args[0]).getId();
         } catch (Exception isItem) {
+            this.id = Item.fromJson(args[0]).getId();
         }
-        this.item = Item.fromjson(args[0]);
     }
 
-    public Card getCard() {
-        return card;
-    }
-
-    public Item getItem() {
-        return item;
+    public int getId() {
+        return id;
     }
 
     public Account getAccount() {

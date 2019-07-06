@@ -126,16 +126,14 @@ public class Shop {
     }
 
     public boolean sell(int objectId, Account account) {
-        Card card = Card.getCardByID(objectId, account.getCollection().getCards()
-                .toArray(new Card[account.getCollection().getCards().size()]));
+        Card card = Card.getCardByID(objectId, account.getCollection().getCards().toArray(new Card[0]));
         if (card != null) {
             account.modifyAccountBudget(card.getPrice());
             account.getCollection().getCards().remove(card);
             account.getCollection().deleteFromAllDecks(card.getId());
             return true;
         }
-        Item item = Item.getItemByID(objectId, account.getCollection().getItems().toArray(new Item[
-                account.getCollection().getItems().size()]));
+        Item item = Item.getItemByID(objectId, account.getCollection().getItems().toArray(new Item[0]));
         if (item != null) {
             account.modifyAccountBudget(item.getPrice());
             account.getCollection().getItems().remove(item);

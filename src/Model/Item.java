@@ -133,7 +133,7 @@ public class Item {
         return new Gson().toJson(this);
     }
 
-    public static Item fromjson(String json) {
+    public static Item fromJson(String json) {
         return new Gson().fromJson(json, Item.class);
     }
 
