@@ -63,6 +63,9 @@ public class Request {
             case SELECT_USER:
                 directRequest = new SelectUserRequest(args);
                 break;
+            case USE_SP:
+                directRequest = new UseSpRequest(args);
+                break;
         }
         return directRequest;
     }

@@ -101,7 +101,7 @@ public class RequestManger {
 
     public String useSp(Request request) {
         UseSpRequest useSpRequest = (UseSpRequest) request.getDirectRequest();
-        Message message = battle.useSp(useSpRequest);
+        Message message = battle.useSp(useSpRequest.getCoordinate());
         return message.toJson();
     }
 

@@ -106,6 +106,7 @@ public class Controller {
                     case SEARCH:
                         break;
                     case USE_SP:
+                        out = manager.useSp(request);
                         break;
                     case END_GAME:
                         break;
