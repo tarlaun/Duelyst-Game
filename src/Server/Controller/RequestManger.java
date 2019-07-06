@@ -95,4 +95,10 @@ public class RequestManger {
         Message message = battle.insertCard(insertionRequest.getCoordinate(),insertionRequest.getCardName());
         return message.toJson();
     }
+
+    public String attack(Request request){
+        AttackRequest attackRequest = (AttackRequest) request.getDirectRequest();
+        Message message = battle.attack();
+        return message.toJson();
+    }
 }
