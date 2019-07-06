@@ -53,5 +53,5 @@ public enum RequestType {
     CUSTOM,
     SELECT_USER,
     SHOW_MAP,
-    NULL
+    SHOP, NULL
 }

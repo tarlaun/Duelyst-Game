@@ -49,6 +49,9 @@ public class Request {
             case SAVE:
                 directRequest = new SaveRequest(args);
                 break;
+            case SHOP:
+                directRequest = new ShopRequest();
+                break;
         }
         return directRequest;
     }

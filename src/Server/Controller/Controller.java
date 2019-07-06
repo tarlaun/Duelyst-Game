@@ -116,6 +116,10 @@ public class Controller {
                         break;
                     case SAVE:
                         out = manager.save(request);
+                        break;
+                    case SHOP:
+                        out = manager.shop(request);
+                        break;
                 }
                 socketPair.getFormatter().format(out + "\n");
                 socketPair.getFormatter().flush();

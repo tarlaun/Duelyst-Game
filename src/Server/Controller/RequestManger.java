@@ -1,10 +1,7 @@
 package Server.Controller;
 
 import Controller.Request.*;
-import Model.Account;
-import Model.Card;
-import Model.Game;
-import Model.MenuStat;
+import Model.*;
 import View.AlertMessage;
 import View.Message;
 import javafx.scene.control.Alert;
@@ -71,12 +68,8 @@ public class RequestManger {
         return Message.SUCCESSFUL_SAVE.toJson();
     }
 
-/*    public String  collection(Request request) {
-
+    public String shop(Request request) {
+        ShopRequest shopRequest = (ShopRequest) request.getDirectRequest();
+        return Shop.getInstance().toJson();
     }
-
-    public String  shop(Request request) {
-
-    }
-*/
 }

@@ -1,6 +1,7 @@
 package Model;
 
 import View.Message;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -155,5 +156,13 @@ public class Shop {
 
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    public String toJson() {
+        return new Gson().toJson(this);
+    }
+
+    public static Shop fromJson(String json) {
+        return new Gson().fromJson(json, Shop.class);
     }
 }

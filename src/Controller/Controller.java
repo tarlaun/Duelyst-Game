@@ -35,7 +35,7 @@ public class Controller {
     private transient View view = View.getInstance();
     private transient Game game = Game.getInstance();
     private transient Menu menu = Menu.getInstance();
-    private transient Shop shop = Shop.getInstance();
+    private transient Shop shop;
     private Account account;
     private transient Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
@@ -504,8 +504,12 @@ public class Controller {
         anchorPanes[Anchorpanes.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
         anchorPanes[Anchorpanes.SHOP.ordinal()].setOnMouseClicked(event -> {
+            Request request = new Request(Constants.SOCKET_PORT, RequestType.SHOP);
+            send(request);
+            shop = Shop.fromJson(receive());
             cardsInShop = shop.getCards();
             itemsInShop = shop.getItems();
+            setCardViews(shop);
             menu.setStat(MenuStat.SHOP);
             main();
         });
@@ -1257,6 +1261,15 @@ public class Controller {
         formatter.flush();
     }
 
+    private String receive() {
+        try {
+            return reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     private void createAccount() {
         String username = fields[Texts.USERNAME.ordinal()].getText();
@@ -1266,8 +1279,7 @@ public class Controller {
         Message message = null;
         String line = null;
         try {
-            line = reader.readLine();
-            message = Message.fromJson(line);
+            message = Message.fromJson(receive());
             switch (message) {
                 case EXISTING_ACCOUNT:
                     AlertMessage alert1 = new AlertMessage("An account with this name already exists!", Alert.AlertType.ERROR, "OK");
@@ -1281,7 +1293,7 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            this.account = Account.fromJson(line);
+            this.account = Account.fromJson(receive());
             menu.setStat(MenuStat.ACCOUNT);
             main();
         }
@@ -1304,8 +1316,7 @@ public class Controller {
         Message message = null;
         String line = null;
         try {
-            line = reader.readLine();
-            message = Message.fromJson(line);
+            message = Message.fromJson(receive());
             switch (message) {
                 case INVALID_PASSWORD:
                     AlertMessage alertMessage = new AlertMessage("Incorrect Password", Alert.AlertType.ERROR, "OK");
@@ -1323,10 +1334,19 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            this.account = Account.fromJson(line);
+            this.account = Account.fromJson(receive());
             setCardViews(account);
             menu.setStat(MenuStat.ACCOUNT);
             main();
+        }
+    }
+
+    private void setCardViews(Shop shop) {
+        for (Card card : shop.getCards()) {
+            card.setCardView();
+        }
+        for (Item item : shop.getItems()) {
+            item.setCardView();
         }
     }
 
@@ -1362,7 +1382,7 @@ public class Controller {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.SAVE, account.toJson());
         send(request);
         try {
-            if (Message.fromJson(reader.readLine()) == Message.SUCCESSFUL_SAVE) {
+            if (Message.fromJson(receive()) == Message.SUCCESSFUL_SAVE) {
                 AlertMessage alert = new AlertMessage("Saved successfully!", Alert.AlertType.INFORMATION, "OK");
                 alert.getResult();
             } else {
@@ -1386,7 +1406,7 @@ public class Controller {
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.LOGOUT, account.getName());
                     send(request);
                     try {
-                        if (Message.fromJson(reader.readLine()) == Message.SUCCESSFUL_LOGOUT) {
+                        if (Message.fromJson(receive()) == Message.SUCCESSFUL_LOGOUT) {
                             account = null;
                             menu.setStat(MenuStat.MAIN);
                             main();
