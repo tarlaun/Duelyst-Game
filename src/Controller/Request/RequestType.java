@@ -32,7 +32,7 @@ public enum RequestType {
     MOVE,//
     ATTACK,//
     COMBO,
-    USE_SP,
+    USE_SP,//
     SHOW_HAND,
     INSERTION,//
     END_TURN,

@@ -76,27 +76,33 @@ public class RequestManger {
         return message.toJson();
     }
 
-    public String insert(Request request){
+    public String insert(Request request) {
         InsertionRequest insertionRequest = (InsertionRequest) request.getDirectRequest();
-        Message message = battle.insertCard(insertionRequest.getCoordinate(),insertionRequest.getCardName());
+        Message message = battle.insertCard(insertionRequest.getCoordinate(), insertionRequest.getCardName());
         return message.toJson();
     }
 
-    public String attack(Request request){
+    public String attack(Request request) {
         AttackRequest attackRequest = (AttackRequest) request.getDirectRequest();
-        Message message = battle.attack(attackRequest.getOpponentCardId(),Card.getCardByID(attackRequest.getCardId(),battle.getFieldCards()[attackRequest.getTurn()%2]));
+        Message message = battle.attack(attackRequest.getOpponentCardId(), Card.getCardByID(attackRequest.getCardId(), battle.getFieldCards()[attackRequest.getTurn() % 2]));
         return message.toJson();
     }
 
-    public String selectUser(Request request){
+    public String selectUser(Request request) {
         SelectUserRequest selectUserRequest = (SelectUserRequest) request.getDirectRequest();
         if (Account.getAccountByName(selectUserRequest.getFirstAccountName(), game.getAccounts()) == null ||
-                Account.getAccountByName(selectUserRequest.getSecondAccountName(), game.getAccounts()) == null ) {
+                Account.getAccountByName(selectUserRequest.getSecondAccountName(), game.getAccounts()) == null) {
             return Message.UNSUCCESSFUL_SELECT_USER.toJson();
         }
-        battle.setAccounts(Account.getAccountByName(selectUserRequest.getFirstAccountName(),game.getAccounts()),
-                Account.getAccountByName(selectUserRequest.getSecondAccountName(),game.getAccounts()));
+        battle.setAccounts(Account.getAccountByName(selectUserRequest.getFirstAccountName(), game.getAccounts()),
+                Account.getAccountByName(selectUserRequest.getSecondAccountName(), game.getAccounts()));
         return Message.SUCCESSFUL_SELECT_USER.toJson();
+    }
+
+    public String useSp(Request request) {
+        UseSpRequest useSpRequest = (UseSpRequest) request.getDirectRequest();
+        Message message = battle.useSp();
+        return message.toJson();
     }
 
 }
