@@ -860,11 +860,58 @@ public class Controller {
             main();
 
         });
+        imageViews[ImageViews.END_TURN.ordinal()].setOnMouseClicked(event -> {
+            AiFunctions();
+            battle.endTurn();
+            collectFlags();
+        });
+        labels[Labels.END_TURN.ordinal()].setOnMouseClicked(event -> {
+            AiFunctions();
+            battle.endTurn();
+            for (int i = 0; i < 9; i++) {
+                if (i < battle.getAccounts()[0].getMana()) {
+                    mana[i].setImage(new Image("ui/icon_mana@2x.png"));
+                } else {
+                    mana[i].setImage(new Image("ui/icon_mana_inactive@2x.png"));
+                }
+            }
+            collectFlags();
+        });
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
+    }
+
+    private void collectFlags() {
+        if (Constants.MAXIMUM_FLAGS > battle.getTurn() / 2 && battle.getTurn() % 2 == 1) {
+            for (int i = 0; i < battle.getTurn() / 2; i++) {
+                if (i == 0)
+                    collectibleItems[i] = new ImageView(new Image("Animus Plate_active.gif"));
+                if (i == 1)
+                    collectibleItems[i] = new ImageView(new Image("Dawn's Eye_active.gif"));
+                if (i == 2 || i == 5)
+                    collectibleItems[i] = new ImageView(new Image("Obdurator_active.gif"));
+                if (i == 3)
+                    collectibleItems[i] = new ImageView(new Image("Animus Plate_active.gif"));
+                if (i == 4)
+                    collectibleItems[i] = new ImageView(new Image("Wraithcrown_active.gif"));
+            }
+            for (int i = battle.getTurn() / 2; i < 6; i++) {
+                collectibleItems[i] = null;
+            }
+            view.collectFlags(collectibleItems, polygon, randomCoordinates[0], 1);
+        }
+        if (battle.getMode().equals(BattleMode.COLLECTING) && Constants.MAXIMUM_FLAGS > battle.getTurn() / 2 && battle.getTurn() % 2 == 1) {
+            for (int i = 0; i < battle.getTurn() / 2; i++) {
+                flags[i] = new ImageView(new Image("Crystal Wisp_run.gif"));
+            }
+            for (int i = battle.getTurn() / 2; i < 6; i++) {
+                flags[i] = null;
+            }
+            view.collectFlags(flags, polygon, randomCoordinates[1], 2);
+        }
     }
 
     private void handleTextFields() {
