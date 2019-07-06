@@ -2,19 +2,21 @@ package Controller.Request;
 
 import Model.Coordinate;
 
-public class InsertionRequest {
+public class InsertionRequest extends DirectRequest {
 
-    private int cardId;
+    private String cardName;
     private Coordinate coordinate;
     public InsertionRequest(String ...args) {
+        cardName = args[0];
+        coordinate = new Coordinate(Integer.parseInt(args[1]),Integer.parseInt(args[2]));
     }
 
-    public int getCardId() {
-        return cardId;
+    public String getCardName() {
+        return cardName;
     }
 
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 
     public Coordinate getCoordinate() {

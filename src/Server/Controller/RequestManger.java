@@ -89,4 +89,9 @@ public class RequestManger {
         Message message = battle.selectCard(selectRequest.getCardId());
         return message.toJson();
     }
+
+    public String insert(Request request){
+        InsertionRequest insertionRequest = (InsertionRequest) request.getDirectRequest();
+        Message message = battle.insertCard(insertionRequest.getCoordinate(),insertionRequest);
+    }
 }
