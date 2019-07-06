@@ -89,4 +89,9 @@ public class RequestManger {
             return message.toJson();
         }
     }
+
+    public String select(Request request){
+        SelectRequest selectRequest = (SelectRequest) request.getDirectRequest();
+        Message message = battle.selectCard(selectRequest.getCardId());
+    }
 }

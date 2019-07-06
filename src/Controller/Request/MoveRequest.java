@@ -7,6 +7,7 @@ public class MoveRequest extends DirectRequest {
     private Coordinate coordinate;
 
     public MoveRequest(String ... args){
+        coordinate = new Coordinate(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
 
     }
 

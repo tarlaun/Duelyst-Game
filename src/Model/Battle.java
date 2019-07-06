@@ -267,7 +267,7 @@ public class Battle {
     }
 
 
-    public void selectCard(int cardId) {
+    public Message selectCard(int cardId) {
         Card card = Card.getCardByID(cardId, fieldCards[turn % 2]);
         if (card == null) {
             return;
