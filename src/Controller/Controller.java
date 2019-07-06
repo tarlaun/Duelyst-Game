@@ -341,6 +341,9 @@ public class Controller {
                     readyForAttack(finalI, handCardGifs);
                 } else {
                     battle.selectCard(handCardGifs[finalI].getCard().getId());
+                    int cardId = handCardGifs[finalI].getCard().getId();
+                    Request request = new Request(Constants.SOCKET_PORT,RequestType.SELECTION,String.valueOf(cardId));
+                    send(request);
                     currentImageView[0] = handCardGifs[finalI].getImageView()[0];
                     currentImageView[1] = handCardGifs[finalI].getImageView()[1];
                     battleCard = handCardGifs[finalI];
