@@ -264,7 +264,7 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case BATTLE:
-//                handleMinions();
+               // handleMinions();
                 for (int i = 0; i < 2; i++) {
                     heroes[i].setCard(battle.getAccounts()[i].getCollection().getMainDeck().getHero());
                     heroes[i].setInside(true);
@@ -322,11 +322,33 @@ public class Controller {
             handleButtons();
             handleTextFields();
             handleHeroGifs();
-//            handleMinions();
+            handleMinions();
+            handAiMinions();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+
+    public void handleMinions() {
+        for (int i = 0; i < handCardGifs.length; i++) {
+            int finalI = i;
+            handCardGifs[i].getImageView()[0].setOnMouseClicked(event -> {
+                view.cardBackGround(handCardGifs[finalI]);
+                if (battleCard != null && handCardGifs[finalI].isInside() && battleCard.getCard().getId() != handCardGifs[finalI].getCard().getId()) {
+                    readyForAttack(finalI, handCardGifs);
+                } else {
+                    battle.selectCard(handCardGifs[finalI].getCard().getId());
+                    currentImageView[0] = handCardGifs[finalI].getImageView()[0];
+                    currentImageView[1] = handCardGifs[finalI].getImageView()[1];
+                    battleCard = handCardGifs[finalI];
+                    currentI = finalI;
+                }
+
+                currentCoordinate[0] = new Coordinate((int) handCardGifs[finalI].getImageView()[0].getLayoutX(), (int) handCardGifs[finalI].getImageView()[0].getLayoutY());
+            });
+        }
     }
 
     public void handAiMinions() {
@@ -349,6 +371,7 @@ public class Controller {
         }
 
     }
+
     public ImageView[] setGifForCards(Card card) {
         ImageView[] imageViews = new ImageView[3];
         switch (card.getName()) {
@@ -738,7 +761,7 @@ public class Controller {
                 view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                 battleCard = null;
                 battle.moveTo(new Coordinate(a - (a / 9), a / 9));
-                if (currentCoordinate[0]!=null) {
+                if (currentCoordinate[0] != null) {
                     handCardGifs[currentI].setInside(true);
                     currentHandCardPointer++;
                     if (currentHandCardPointer + 4 < 15) {
@@ -1117,10 +1140,18 @@ public class Controller {
             menu.setStat(MenuStat.BACK_GROUND);
             Account[] accounts = new Account[2];
             accounts[0] = account;
-            for (int i = 0; i < game.getAccounts().size(); i++) {
-                if (game.getAccounts().get(i).getName().equals("powerfulAI")) {
-                    accounts[1] = game.getAccounts().get(i);
-                }
+            Request request = new Request(Constants.SOCKET_PORT, RequestType.RIVAL, "powerfulAI");
+            send(request);
+            Account accountu = null;
+            try {
+                accountu = Account.fromJson(reader.readLine());
+                System.out.println(accountu.getName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (accountu.getName().equals("powerfulAI")) {
+                System.out.println("sjbchjbhdj");
+                accounts[1] = accountu;
             }
             battle.setAccounts(accounts);
             setMainDeckForAI();
@@ -1142,7 +1173,7 @@ public class Controller {
             insertAI();
             endTurn();
         }
-        if(battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getTurn() % 2 == 0) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 0) {
             System.out.println("matfsgfjdh");
             attackAI();
         }
@@ -1174,6 +1205,7 @@ public class Controller {
 
 
     private void setMainDeckForAI() {
+        System.out.println(battle == null);
         if (battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
             battle.getAccounts()[1].getCollection().selectDeck("level1");
         }
@@ -1260,7 +1292,7 @@ public class Controller {
 
 
     private void attackAI() {
-        if (battle.getGameType().equals(GameType.SINGLEPLAYER) ) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
            /* for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
                 for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
                     if (battle.getFieldCards()[0][j] != null && battle.getFieldCards()[1][i] != null) {

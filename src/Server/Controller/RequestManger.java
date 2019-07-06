@@ -2,13 +2,6 @@ package Server.Controller;
 
 import Controller.Request.*;
 import Model.*;
-import View.AlertMessage;
-import View.Message;
-import javafx.scene.control.Alert;
-
-import Controller.Request.*;
-import Model.*;
-import View.AlertMessage;
 import View.Message;
 import Controller.Request.Request;
 
@@ -117,4 +110,8 @@ public class RequestManger {
         return message.toJson();
     }
 
+    public String getRival(Request request) {
+        RivalRequest rivalRequest = (RivalRequest) request.getDirectRequest();
+        return Account.getAccountByName(rivalRequest.getName(), game.getAccounts()).toJson();
+    }
 }

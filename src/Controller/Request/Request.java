@@ -66,6 +66,9 @@ public class Request {
             case USE_SP:
                 directRequest = new UseSpRequest(args);
                 break;
+            case RIVAL:
+                directRequest = new RivalRequest(args);
+                break;
         }
         return directRequest;
     }

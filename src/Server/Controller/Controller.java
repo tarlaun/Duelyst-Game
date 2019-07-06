@@ -219,6 +219,8 @@ public class Controller {
                         break;
                     case SHOW_COLLECTABLE_INFO:
                         break;
+                    case RIVAL:
+                        out = manager.getRival(request);
                     case NULL:
                         break;
                 }
