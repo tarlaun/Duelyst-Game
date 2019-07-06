@@ -1,4 +1,4 @@
 package Controller.Request;
 
-public class LeaderboardRequest {
+public class LeaderboardRequest extends DirectRequest {
 }

@@ -7,6 +7,7 @@ import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;*/
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -111,10 +112,11 @@ public class Game {
 
     public void logout(Account account) {
         account.setLoggedIn(false);
-        save(account);
     }
 
     public void save(Account account) throws OutOfMemoryError {
+        int index = Account.accountIndex(account.getName());
+        game.getAccounts().set(index, account);
         String json = new Gson().toJson(account);
         try {
             FileWriter writer = new FileWriter(account.getName() + ".json");
@@ -144,6 +146,7 @@ public class Game {
                         Account account = new Gson().fromJson(element, Account.class);
                         accounts.add(account);
                         accountObjectInitializer(account);
+                        account.setLoggedIn(false);
                     }
                 }
             }
@@ -187,6 +190,7 @@ public class Game {
                         int index = deck.getCards().indexOf(deckCard);
                         if (index != -1) {
                             deck.getCards().set(index, card);
+
                         }
                     }
                 } catch (Exception e) {

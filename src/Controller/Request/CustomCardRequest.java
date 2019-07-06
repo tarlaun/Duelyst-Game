@@ -1,4 +1,4 @@
 package Controller.Request;
 
-public class CustomCardRequest {
+public class CustomCardRequest extends DirectRequest {
 }

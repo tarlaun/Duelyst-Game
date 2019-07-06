@@ -4,6 +4,12 @@ import Controller.Request.*;
 import Model.*;
 import View.AlertMessage;
 import View.Message;
+import javafx.scene.control.Alert;
+
+import Controller.Request.*;
+import Model.*;
+import View.AlertMessage;
+import View.Message;
 import Controller.Request.Request;
 
 import java.net.Socket;
@@ -31,7 +37,7 @@ public class RequestManger {
         sockets.remove(socket.getPort());
     }
 
-   /* public String login(Request request) {
+    public String login(Request request) {
         LoginRequest loginRequest = (LoginRequest) request.getDirectRequest();
         Message message = Account.login(loginRequest.getUserName(), loginRequest.getPassword());
         if (message == Message.SUCCESSFUL_LOGIN) {
@@ -55,13 +61,13 @@ public class RequestManger {
             game.save(account);
             return account.toJson();
         }
-    }*/
+    }
 
-   /* public String logout(Request request) {
+    public String logout(Request request) {
         LogoutRequest logoutRequest = (LogoutRequest) request.getDirectRequest();
         game.logout(Account.getAccountByName(logoutRequest.getUserName(), game.getAccounts()));
         return Message.SUCCESSFUL_LOGOUT.toJson();
-    }*/
+    }
 
 
     public String move(Request request) {

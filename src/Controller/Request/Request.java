@@ -38,16 +38,16 @@ public class Request {
     public DirectRequest getDirectRequest() {
         switch (type) {
             case LOGIN:
-                //directRequest = new LoginRequest(args);
+                directRequest = new LoginRequest(args);
                 break;
             case CREATE_ACCOUNT:
-               // directRequest = new CreateAccountRequest(args);
+                directRequest = new CreateAccountRequest(args);
                 break;
             case LOGOUT:
-               // directRequest = new LogoutRequest(args);
+                directRequest = new LogoutRequest(args);
                 break;
             case SAVE:
-                //directRequest = new SaveRequest(args);
+                directRequest = new SaveRequest(args);
                 break;
             case MOVE:
                 directRequest = new MoveRequest(args);

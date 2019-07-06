@@ -786,10 +786,11 @@ public class View {
         }
     }
 
-    public void accountMenu(AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane history,
+    public void accountMenu(String player, AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane history,
                             AnchorPane leaderboard,
                             AnchorPane logout, AnchorPane customCard, AnchorPane customBuff, AnchorPane save) {
         root.getChildren().clear();
+        Label playerName = new Label("Welcome " + player + "!");
         Image background = new Image("scenes/frostfire/background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(Constants.WINDOW_WIDTH);
@@ -822,8 +823,12 @@ public class View {
         verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y * 0.9, play, collection, shop, customCard,
                 customBuff, history, leaderboard, save, logout);
         lightning(play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
+        playerName.translateXProperty().bind(playerName.widthProperty().divide(2).negate());
+        playerName.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
+        playerName.relocate(Constants.CENTRE_X, Constants.PAGE_TITLE_Y);
+        playerName.setTextFill(Color.LIGHTPINK);
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, customCard, customBuff,
-                history, leaderboard, save, logout);
+                history, leaderboard, save, logout, playerName);
     }
 
     public void customCardMenu(AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane detail,
@@ -1163,8 +1168,8 @@ public class View {
         Glow glow = new Glow();
         glow.setLevel(0.9);
         for (Node singlePview : nodes) {
-            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
-            singlePview.removeEventFilter(MouseEvent.MOUSE_ENTERED, e -> nodes[0].setEffect(colorAdjust));
+            singlePview.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> singlePview.setEffect(colorAdjust));
+            singlePview.addEventFilter(MouseEvent.MOUSE_EXITED, e -> singlePview.setEffect(null));
         }
     }
 

@@ -1,6 +1,8 @@
 package Server.Controller;
 
 import Controller.Request.Request;
+import Model.Game;
+import View.Message;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.BufferedReader;
@@ -11,18 +13,61 @@ import java.net.Socket;
 import java.net.SocketException;
 
 public class Controller {
-    private ServerSocket serverSocket;
-    private RequestManger manager = RequestManger.getInstance();
+    private transient ServerSocket serverSocket;
+    private transient RequestManger manager = RequestManger.getInstance();
     private static final int PORT = 8080;
+    private transient Game game = Game.getInstance();
+    private static final Controller CONTROLLER = new Controller();
+
+    private Controller() {
+
+    }
+
+    public static Controller getInstance() {
+        return CONTROLLER;
+    }
 
     public void main() {
+        initializeGame();
         try {
             serverSocket = new ServerSocket(PORT);
             handleClients();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
+
+
+    public void initializeGame() {
+        try {
+            game.initializeAccounts();
+        } catch (IOException f) {
+            System.out.println("Account initializing error!");
+        }
+        try {
+            game.initializeHero();
+        } catch (IOException f) {
+            System.out.println("Hero initializing error!");
+        }
+        try {
+            game.initializeMinion();
+        } catch (IOException f) {
+            System.out.println("Minion initializing error!");
+        }
+        try {
+            game.initializeSpell();
+        } catch (IOException f) {
+            System.out.println("Spell initializing error!");
+        }
+        try {
+            game.initializeItem();
+        } catch (IOException f) {
+            System.out.println("Item initializing error!");
+        }
+        game.setSrcs();
+    }
+
 
     private void handleClients() throws IOException {
         while (true) {
@@ -61,8 +106,16 @@ public class Controller {
             try {
                 switch (request.getType()) {
                     case LOGIN:
+                        out = manager.login(request);
                         break;
                     case CREATE_ACCOUNT:
+                        out = manager.createAccount(request);
+                        break;
+                    case LOGOUT:
+                        out = manager.logout(request);
+                        break;
+                    case SAVE:
+                        out = manager.save(request);
                         break;
                     case SELECT_USER:
                         out = manager.selectUser(request);
@@ -70,8 +123,6 @@ public class Controller {
                     case SINGLE_PLAYER:
                         break;
                     case BUY:
-                        break;
-                    case LOGOUT:
                         break;
                     case LEADERBOARD:
                         break;
@@ -85,8 +136,6 @@ public class Controller {
                         break;
                     case MOVE:
                         out = manager.move(request);
-                        break;
-                    case SAVE:
                         break;
                     case SELL:
                         break;
@@ -173,8 +222,10 @@ public class Controller {
                     case NULL:
                         break;
                 }
-                socketPair.getFormatter().format(out + "\n");
-                socketPair.getFormatter().flush();
+                synchronized (socketPair) {
+                    socketPair.getFormatter().format(out + "\n");
+                    socketPair.getFormatter().flush();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
