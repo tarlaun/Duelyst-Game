@@ -504,16 +504,7 @@ public class Controller {
         anchorPanes[Anchorpanes.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
         anchorPanes[Anchorpanes.SHOP.ordinal()].setOnMouseClicked(event -> {
-            Request request = new Request(Constants.SOCKET_PORT, RequestType.SHOP);
-            send(request);
-            try {
-                shop = Shop.fromJson(reader.readLine());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            setCardViews(shop);
-            cardsInShop = shop.getCards();
-            itemsInShop = shop.getItems();
+            fetchShop();
             menu.setStat(MenuStat.SHOP);
             main();
         });
@@ -1436,10 +1427,39 @@ public class Controller {
     private void validateDeck(Request request) {
     }
 
+    private void fetchShop() {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.SHOP);
+        send(request);
+        try {
+            shop = Shop.fromJson(reader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setCardViews(shop);
+        cardsInShop = shop.getCards();
+        itemsInShop = shop.getItems();
+    }
+
     private void buy(String name) {
-        if (shop.getGame() == null)
-            shop.setGame(this.game);
-        shop.buy(name, this.account);
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.BUY, name, account.toJson());
+        send(request);
+        Message message;
+        String line = null;
+        try {
+            line = reader.readLine();
+            message = Message.fromJson(line);
+            AlertMessage alert = new AlertMessage(message.toString(), Alert.AlertType.ERROR, "OK");
+            alert.getResult();
+        } catch (IOException ignored) {
+
+        } catch (Exception isCard) {
+            account = Account.fromJson(line);
+            setCardViews(account);
+            AlertMessage alert = new AlertMessage(Message.SUCCESSFUL_PURCHASE.toString(), Alert.AlertType.INFORMATION
+                    , "OK");
+            alert.getResult();
+            fetchShop();
+        }
     }
 
     private void sell(int id) {

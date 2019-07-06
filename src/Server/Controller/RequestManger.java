@@ -71,11 +71,24 @@ public class RequestManger {
 
     public String shop(Request request) {
         ShopRequest shopRequest = (ShopRequest) request.getDirectRequest();
+        shop.setGame(game);
         return shop.toJson();
     }
 
     public String buy(Request request) {
         BuyRequest buyRequest = (BuyRequest) request.getDirectRequest();
-        return shop.buy(buyRequest.getName(), buyRequest.getAccount()).toJson();
+        Message message = shop.buy(buyRequest.getName(), buyRequest.getAccount());
+        if (message == Message.SUCCESSFUL_PURCHASE) {
+            return buyRequest.getAccount().toJson();
+        } else {
+            return message.toJson();
+        }
     }
+
+/*
+    public String sell(Request request) {
+        SellRequest sellRequest = (SellRequest) request.getDirectRequest();
+
+    }
+*/
 }

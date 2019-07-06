@@ -52,6 +52,12 @@ public class Request {
             case SHOP:
                 directRequest = new ShopRequest();
                 break;
+            case BUY:
+                directRequest = new BuyRequest(args);
+                break;
+            case SELL:
+                directRequest = new SellRequest(args);
+                break;
         }
         return directRequest;
     }
