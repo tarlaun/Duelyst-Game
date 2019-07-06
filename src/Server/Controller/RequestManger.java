@@ -90,6 +90,12 @@ public class RequestManger {
 
     public String selectUser(Request request){
         SelectUserRequest selectUserRequest = (SelectUserRequest) request.getDirectRequest();
-        Message message = battle.
+        if (Account.getAccountByName(selectUserRequest.getFirstAccountName(), game.getAccounts()) == null ||
+                Account.getAccountByName(selectUserRequest.getSecondAccountName(), game.getAccounts()) == null ) {
+            return Message.UNSUCCESSFUL_SELECT_USER.toJson();
+        }
+        battle.setAccounts(Account.getAccountByName(selectUserRequest.getFirstAccountName(),game.getAccounts()),
+                Account.getAccountByName(selectUserRequest.getSecondAccountName(),game.getAccounts()));
+        return Message.SUCCESSFUL_SELECT_USER.toJson();
     }
 }

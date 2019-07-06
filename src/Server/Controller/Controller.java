@@ -65,6 +65,7 @@ public class Controller {
                     case CREATE_ACCOUNT:
                         break;
                     case SELECT_USER:
+                        out  = manager.selectUser(request);
                         break;
                     case SINGLE_PLAYER:
                         break;

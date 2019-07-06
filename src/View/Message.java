@@ -44,7 +44,9 @@ public enum Message {
     SUCCESSFUL_MOVE,
     SUCCESSFUL_SELECT,
     SUCCESSFUL_INSERTION,
-    UNSUCCESSFUL_INSERTION;
+    UNSUCCESSFUL_INSERTION,
+    UNSUCCESSFUL_SELECT_USER,
+    SUCCESSFUL_SELECT_USER;
 
     public String toJson() {
         return new Gson().toJson(this.toString());
