@@ -117,8 +117,10 @@ public class Controller {
                     case SAVE:
                         out = manager.save(request);
                 }
-                socketPair.getFormatter().format(out + "\n");
-                socketPair.getFormatter().flush();
+                synchronized (socketPair) {
+                    socketPair.getFormatter().format(out + "\n");
+                    socketPair.getFormatter().flush();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
