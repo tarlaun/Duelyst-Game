@@ -121,8 +121,11 @@ public class Controller {
                         out = manager.shop(request);
                         break;
                 }
-                socketPair.getFormatter().format(out + "\n");
-                socketPair.getFormatter().flush();
+                synchronized (socketPair) {
+                    socketPair.getFormatter().format(out + "\n");
+                    socketPair.getFormatter().flush();
+                    notifyAll();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
