@@ -123,11 +123,9 @@ public class Controller {
                     case BUY:
                         out = manager.buy(request);
                         break;
-/*
                     case SELL:
                         out = manager.sell(request);
                         break;
-*/
                 }
                 synchronized (socketPair) {
                     socketPair.getFormatter().format(out + "\n");

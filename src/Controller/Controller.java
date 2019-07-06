@@ -1463,7 +1463,23 @@ public class Controller {
     }
 
     private void sell(int id) {
-        shop.sell(id, account);
+        Request request;
+        try {
+            Card card = Card.getCardByID(id, account.getCollection().getCards().toArray(new Card[0]));
+            request = new Request(Constants.SOCKET_PORT, RequestType.BUY, card.toJson(), account.toJson());
+        } catch (Exception e) {
+            Item item = Item.getItemByID(id, account.getCollection().getItems().toArray(new Item[0]));
+            request = new Request(Constants.SOCKET_PORT, RequestType.BUY, item.toJson(), account.toJson());
+        }
+        send(request);
+        try {
+            account = Account.fromJson(reader.readLine());
+            AlertMessage alert = new AlertMessage(Message.SUCCESSFUL_SELL.toString(), Alert.AlertType.INFORMATION
+                    , "OK");
+            alert.getResult();
+            fetchShop();
+        } catch (Exception ignored) {
+        }
     }
 
     private void gameInfo() {
