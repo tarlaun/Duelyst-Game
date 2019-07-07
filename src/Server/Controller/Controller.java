@@ -133,12 +133,8 @@ public class Controller {
                         break;
                     case COMBO:
                         break;
-                    case STORY:
-                        break;
                     case ATTACK:
                         out = manager.attack(request);
-                        break;
-                    case CUSTOM:
                         break;
                     case USE_SP:
                         out = manager.useSp(request);

@@ -43,7 +43,6 @@ public class Controller {
     private transient Socket socket;
     private transient Formatter formatter;
     private transient BufferedReader reader;
-    private transient int port;
     private transient View view = View.getInstance();
     private transient Game game = Game.getInstance();
     private transient Menu menu = Menu.getInstance();
@@ -55,7 +54,6 @@ public class Controller {
     private transient Label[] labels = new Label[Labels.values().length];
     private transient AnchorPane[] anchorPanes = new AnchorPane[Anchorpanes.values().length];
     private transient TextField[] fields = new TextField[Texts.values().length];
-    private transient javafx.scene.image.ImageView[] minions = new ImageView[Constants.MINIONS_COUNT];
     private transient ComboBox<String>[] boxes = new ComboBox[Boxes.values().length];
     private transient BattleCards[] heroes = new BattleCards[2];
     private ImageView[] currentImageView = new ImageView[3];
@@ -272,7 +270,6 @@ public class Controller {
                     heroes[i].setImageView(getImageViewGif(battle.getAccounts()[i].getCollection().getMainDeck().getHero()));
                 }
                 for (int i = 0; i < 15; i++) {
-                    System.out.println(battle.getAccounts()[0].getCollection().getMainDeck().getCards().size());
                     handCardGifs[i].setInside(false);
                     handCardGifs[i].setCard(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i));
                     handCardGifs[i].setImageView(setGifForCards(battle.getAccounts()[0].getCollection().getMainDeck().getCards().get(i)));
@@ -332,7 +329,7 @@ public class Controller {
     }
 
 
-    public void handleMinions() {
+    private void handleMinions() {
         for (int i = 0; i < handCardGifs.length; i++) {
             int finalI = i;
             handCardGifs[i].getImageView()[0].setOnMouseClicked(event -> {
@@ -355,7 +352,7 @@ public class Controller {
         }
     }
 
-    public void handAiMinions() {
+    private void handAiMinions() {
         for (int i = 0; i < aiCards.length; i++) {
             int finalI = i;
             aiCards[i].getImageView()[0].setOnMouseClicked(event -> {
@@ -379,7 +376,7 @@ public class Controller {
 
     }
 
-    public ImageView[] setGifForCards(Card card) {
+    private ImageView[] setGifForCards(Card card) {
         ImageView[] imageViews = new ImageView[3];
         switch (card.getName()) {
             case "PERSIAN_CHAMPION":
@@ -744,7 +741,6 @@ public class Controller {
                     send(request);;;
                     currentImageView[0] = heroes[finalI].getImageView()[0];;;
                     currentImageView[1] = heroes[finalI].getImageView()[1];
-                    System.out.println("hero entekhab shod");
                     battleCard = heroes[finalI];
                     currentI = finalI;
                 }
@@ -760,7 +756,6 @@ public class Controller {
         currentImageView[1] = battleCard.getImageView()[1];
         currentImageView[2] = battleCard.getImageView()[2];
         view.attack(currentImageView);
-        System.out.println("hamle");
         battleCard = null;
     }
 
@@ -975,7 +970,7 @@ public class Controller {
         for (int i = 0; i < cards.size(); i++) {
             int finalI = i;
             cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                deckLing(cards.get(finalI).getId());
+                deckLing(cards.get(finalI).getId());;
                 main();
             });
         }
@@ -1162,10 +1157,8 @@ public class Controller {
                     Alert.AlertType.CONFIRMATION, "OK", "Cancel");
             Optional<ButtonType> result = alert.getResult();
             if (result.isPresent()) {
-                switch (result.get().getText()) {
-                    case "OK":
-                        buy(name);
-                        break;
+                if ("OK".equals(result.get().getText())) {
+                    buy(name);
                 }
             }
         }
@@ -1177,10 +1170,8 @@ public class Controller {
                 "Yes", "No");
         Optional<ButtonType> result = alert.getResult();
         if (result.isPresent()) {
-            switch (result.get().getText()) {
-                case "Yes":
-                    sell(id);
-                    break;
+            if ("Yes".equals(result.get().getText())) {
+                sell(id);
             }
         }
     }
@@ -1201,24 +1192,16 @@ public class Controller {
                 battleModes = BattleMode.FLAG.toString();
                 break;
         }
-        Request request = new Request(Constants.SOCKET_PORT,RequestType.BATTLE_MODE,battleModes);
-        send(request);
+        Request requestt = new Request(Constants.SOCKET_PORT,RequestType.BATTLE_MODE,battleModes);
+        send(requestt);
 
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
             menu.setStat(MenuStat.BACK_GROUND);
             Account[] accounts = new Account[2];
             accounts[0] = account;
             Request request = new Request(Constants.SOCKET_PORT, RequestType.RIVAL, "powerfulAI");
-            send(request);
-            Account accountu = null;
-            try {
-                accountu = Account.fromJson(reader.readLine());
-                System.out.println(accountu.getName());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Account accountu = sendRequest(request);
             if (accountu.getName().equals("powerfulAI")) {
-                System.out.println("sjbchjbhdj");
                 accounts[1] = accountu;
             }
             battle.setAccounts(accounts);
@@ -1242,7 +1225,6 @@ public class Controller {
             endTurn();
         }
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 0) {
-            System.out.println("matfsgfjdh");
             attackAI();
         }
     }
@@ -1250,6 +1232,16 @@ public class Controller {
 
     private void selectUser(String name) {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECT_USER, account.getName(), name);
+        Account accountt = sendRequest(request);
+        if (accountt != null) {
+            battle.setAccounts(account, accountt);
+            menu.setStat(MenuStat.BACK_GROUND);
+            battle.startBattle();
+        }
+        main();
+    }
+
+    private Account sendRequest(Request request) {
         send(request);
         Account accountt = null;
         try {
@@ -1257,12 +1249,7 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (accountt != null) {
-            battle.setAccounts(account, accountt);
-            menu.setStat(MenuStat.BACK_GROUND);
-            battle.startBattle();
-        }
-        main();
+        return accountt;
     }
 
 
@@ -1284,7 +1271,6 @@ public class Controller {
 
 
     private void setMainDeckForAI() {
-        System.out.println(battle == null);
         if (battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
             battle.getAccounts()[1].getCollection().selectDeck("level1");
         }
@@ -1313,7 +1299,6 @@ public class Controller {
 
     private ImageView[] getImageViewGif(Card card) {
         ImageView[] imageViews = new ImageView[3];
-        System.out.println(card.getName());
         switch (card.getName()) {
             case "WHITE_DIV":
                 imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
@@ -1389,7 +1374,6 @@ public class Controller {
 
     private void insertAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
-            ArrayList<Card> cards = convertArrayToList(battle.getPlayerHands()[1]);
             aiCards[aiCardsInGround].setInside(true);
             //battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
             if (aiCards[aiCardsInGround].getCard() != null)
@@ -1530,24 +1514,22 @@ public class Controller {
                 "Yes", "No");
         Optional<ButtonType> result = alert.getResult();
         if (result.isPresent()) {
-            switch (result.get().getText()) {
-                case "Yes":
-                    save();
-                default:
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.LOGOUT, account.getName());
-                    send(request);
-                    try {
-                        if (Message.fromJson(reader.readLine()) == Message.SUCCESSFUL_LOGOUT) {
-                            account = null;
-                            menu.setStat(MenuStat.MAIN);
-                            main();
-                        } else {
-                            AlertMessage damn = new AlertMessage("Logout failed", Alert.AlertType.INFORMATION, "OK");
-                            damn.getResult();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            if ("Yes".equals(result.get().getText())) {
+                save();
+            }
+            Request request = new Request(Constants.SOCKET_PORT, RequestType.LOGOUT, account.getName());
+            send(request);
+            try {
+                if (Message.fromJson(reader.readLine()) == Message.SUCCESSFUL_LOGOUT) {
+                    account = null;
+                    menu.setStat(MenuStat.MAIN);
+                    main();
+                } else {
+                    AlertMessage damn = new AlertMessage("Logout failed", Alert.AlertType.INFORMATION, "OK");
+                    damn.getResult();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -1567,9 +1549,6 @@ public class Controller {
         return this.account.getCollection().remove(name, id);
     }
 
-    private void validateDeck(Request request) {
-    }
-
     private void buy(String name) {
         if (shop.getGame() == null)
             shop.setGame(this.game);
@@ -1580,29 +1559,6 @@ public class Controller {
         shop.sell(id, account);
     }
 
-    private void gameInfo() {
-    }
-
-    private void showCardInfo(Request request) {
-    }
-
-    private void select(Request request) {
-    }
-
-    private void moveToInBattle(Request request) {
-    }
-
-    private void battleAttack(Request request) {
-    }
-
-    private void battleComboAttack(Request request) {
-    }
-
-    private void useSpecialPower(Request request) {
-    }
-
-    private void insertCard(Request request) {
-    }
 
     private void endTurn() {
         if (menu.getStat() == MenuStat.BATTLE) {
@@ -1624,7 +1580,7 @@ public class Controller {
                 fields[Texts.CARD_NAME.ordinal()].getText() + ".json");
         try {
             Files.createFile(path);
-        } catch (FileAlreadyExistsException e) {
+        } catch (FileAlreadyExistsException ignored) {
         }
         Card card = new Card(fields[Texts.CARD_NAME.ordinal()].getText(),
                 boxes[Boxes.CARD_TYPE.ordinal()].getValue(), fields[Texts.CARD_PRICE.ordinal()].getText(),
@@ -1673,13 +1629,7 @@ public class Controller {
         card.setCardView();
         shop.getCards().add(card);
         String json = new Gson().toJson(card);
-        try {
-            FileWriter writer = new FileWriter(file);
-            writer.write(json);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        changeToJason(file, json);
     }
 
     private void createBuff() throws Exception {
@@ -1693,6 +1643,10 @@ public class Controller {
                 boxes[Boxes.SIDE.ordinal()].getValue(), boxes[Boxes.ATTRIBUTE.ordinal()].getValue(),
                 fields[Texts.TURN.ordinal()].getText());
         String json = new Gson().toJson(buff);
+        changeToJason(file, json);
+    }
+
+    private void changeToJason(File file, String json) {
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(json);
