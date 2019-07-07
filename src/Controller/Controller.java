@@ -766,8 +766,8 @@ public class Controller {
                     send(request);
                 }
                 if (currentCoordinate[0] != null) {
-                    battle.insertCard(new Coordinate(a - (a / 9), a / 9),handCardGifs[currentI].getCard().getName());
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION,handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY);
+                    battle.insertCard(new Coordinate(a - (a / 9), a / 9), handCardGifs[currentI].getCard().getName());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION, handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY);
                     send(request);
                     handCardGifs[currentI].setInside(true);
                     currentHandCardPointer++;
@@ -1199,7 +1199,13 @@ public class Controller {
             Account[] accounts = new Account[2];
             accounts[0] = account;
             Request request = new Request(Constants.SOCKET_PORT, RequestType.RIVAL, "powerfulAI");
-            Account accountu = sendRequest(request);
+            send(request);
+            Account accountu = null;
+            try {
+                accountu = Account.fromJson(reader.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if (accountu.getName().equals("powerfulAI")) {
                 accounts[1] = accountu;
             }
@@ -1231,26 +1237,18 @@ public class Controller {
 
     private void selectUser(String name) {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECT_USER, account.getName(), name);
-        Account accountt = sendRequest(request);
+        send(request);
+        //Should be written
+
+/*
         if (accountt != null) {
             battle.setAccounts(account, accountt);
             menu.setStat(MenuStat.BACK_GROUND);
             battle.startBattle();
         }
+*/
         main();
     }
-
-    private Account sendRequest(Request request) {
-        send(request);
-        Account accountt = null;
-        try {
-            accountt = Account.fromJson(reader.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return accountt;
-    }
-
 
     private void setBattleModeSingle() {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.GAME_TYPE, GameType.SINGLEPLAYER.toString());
