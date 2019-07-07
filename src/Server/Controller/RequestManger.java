@@ -114,4 +114,10 @@ public class RequestManger {
         RivalRequest rivalRequest = (RivalRequest) request.getDirectRequest();
         return Account.getAccountByName(rivalRequest.getName(), game.getAccounts()).toJson();
     }
+
+    public String chooseBattleType(Request request){
+        GameTypeRequest gameTypeRequest = (GameTypeRequest) request.getDirectRequest();
+
+
+    }
 }
