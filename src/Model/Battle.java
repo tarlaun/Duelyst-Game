@@ -1,6 +1,7 @@
 package Model;
 
 import View.*;
+import com.google.gson.Gson;
 import com.sun.xml.internal.ws.api.model.MEP;
 
 import java.time.LocalDateTime;
@@ -97,8 +98,8 @@ public class Battle {
         if (battle.accounts[0] == null || battle.accounts[1] == null) {
             return;
         }
-        //randomizeDeck(0);
-        //randomizeDeck(1);
+        randomizeDeck(0);
+        randomizeDeck(1);
         for (int i = 0; i < 5; i++) {
             addToHand(0);
             addToHand(1);
@@ -738,46 +739,16 @@ public class Battle {
     }
 
     public Message insertCard(Coordinate coordinate, String cardName) {
-        boolean validTarget = false;
-        for (int i = 0; i < Constants.MAXIMUM_HAND_SIZE; i++) {
-            if (playerHands[turn % 2][i].getName().equals(cardName)) {
-                Card insert = Card.getCardByName(cardName, playerHands[turn % 2]);
-              /*  if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
-                        || coordinate.getX() < 0 || coordinate.getY() < 0)
-                    return;*/
-                /*if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0) {
-                    return;
-                }*/
-                for (Card card : fieldCards[turn % 2]) {
-                    try {
-                        if (Coordinate.getManhattanDistance(card.getCoordinate(), coordinate) <= 1) {
-                            validTarget = true;
-                            break;
-                        }
-                    } catch (NullPointerException e) {
-                    }
-                }
-                if (!validTarget) {
-                    return Message.UNSUCCESSFUL_INSERTION;
-                }
-                if (insert != null && !spendMana(insert.getManaPoint())) {
-                    return Message.UNSUCCESSFUL_INSERTION;
-                }
+        Account account = null;
+        for (int i = 0; i < account.getCollection().getMainDeck().getCards().size(); i++) {
+            if (account.getCollection().getMainDeck().getCards().get(i).getName().equals(cardName)) {
+                Card insert = Card.getCardByName(cardName,account.getCollection().getCards());
                 assert insert != null;
                 if (insert.isClass("Minion")) {
-                    if (field[coordinate.getX()][coordinate.getY()].getCardID() != 0)
-                        return Message.UNSUCCESSFUL_INSERTION;
                     field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
                     insert.setCoordinate(coordinate);
-                    playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
                     fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
                     return Message.SUCCESSFUL_INSERTION;
-                } else if (insert.isClass("Spell")) {
-                    if (useSpell(insert, coordinate)) {
-                        playerHands[turn % 2] = Card.removeFromArray(playerHands[turn % 2], insert);
-                        return Message.SUCCESSFUL_INSERTION;
-                    }
-                    return Message.UNSUCCESSFUL_INSERTION;
                 }
             }
 
@@ -790,14 +761,6 @@ public class Battle {
         setAbleToAttackForHeros();
         //buffTurnEnd();
         deholifyCell();
-        /*if (mode.equals(BattleMode.COLLECTING) && (turn % Constants.ITEM_APPEARANCE) == 1) {
-            flagAppearance();
-        }*/
-        /*if (mode.equals(BattleMode.FLAG)) {
-            if (mainFlag.isHeld()) {
-                mainFlag.setTurnCounter(mainFlag.getTurnCounter() + 1);
-            }
-        }*/
         if (opponentCardID != 0) {
             if (turn == saveTurn + 1) {
                 targetCard = Card.getCardByID(opponentCardID, fieldCards[(turn + 1) % 2]);
@@ -852,6 +815,10 @@ public class Battle {
                 }
             }
         }
+    }
+
+    public String toJson() {
+        return new Gson().toJson(this);
     }
 
     private void buffTurnEnd() {

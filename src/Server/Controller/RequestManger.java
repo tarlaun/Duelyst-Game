@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class RequestManger {
     private static final RequestManger REQUEST_MANGER = new RequestManger();
     private Game game = Game.getInstance();
-    private Battle battle = Battle.getInstance();
+    private Battle battle;
     private final HashMap<Integer, SocketPair> sockets = new HashMap<>();
 
     private RequestManger() {
@@ -118,7 +118,11 @@ public class RequestManger {
     public String chooseBattleType(Request request){
         GameTypeRequest gameTypeRequest = (GameTypeRequest) request.getDirectRequest();
         if(gameTypeRequest.getBattleType().equals(GameType.SINGLEPLAYER.toString())){
-            return Message.SINGLEPLAYER_CHOSEN.toJson();
+            Account[] accounts =new Account[2];
+            accounts[0] = Account.getAccountByName();
+            accounts[1] = Account.getAccountByName("powerfulAI",game.getAccounts());
+            battle = new Battle();
+            return battle.toJson();
 
         }else {
             return Message.MULTIPLAYER_CHOSEN.toJson();

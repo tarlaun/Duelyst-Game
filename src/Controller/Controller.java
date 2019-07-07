@@ -740,9 +740,11 @@ public class Controller {
                     ;
                     send(request);
                     try {
-                        reader.readLine();;
+                        reader.readLine();
+                        ;
                     } catch (IOException e) {
-                        e.printStackTrace();;
+                        e.printStackTrace();
+                        ;
                     }
                     ;
                     ;
@@ -777,7 +779,7 @@ public class Controller {
                 if (currentCoordinate[0] == null) {
                     view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                     battleCard = null;
-                    battle.moveTo(new Coordinate(a - (a / 9), a / 9));
+                    battle.moveTo(new Coordinate((a / 9),a- (a / 9)*9));
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY);
                     send(request);
                     try {
@@ -787,8 +789,8 @@ public class Controller {
                     }
                 }
                 if (currentCoordinate[0] != null) {
-                    battle.insertCard(new Coordinate(a - (a / 9), a / 9),handCardGifs[currentI].getCard().getName());
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION,handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY);
+                    battle.insertCard(new Coordinate((a / 9), a - (a / 9)*9), handCardGifs[currentI].getCard().getName());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION, handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY);
                     send(request);
                     try {
                         reader.readLine();
@@ -1217,7 +1219,7 @@ public class Controller {
                 battleModes = BattleMode.FLAG.toString();
                 break;
         }
-        Request requestt = new Request(Constants.SOCKET_PORT,RequestType.BATTLE_MODE,battleModes);
+        Request requestt = new Request(Constants.SOCKET_PORT, RequestType.BATTLE_MODE, battleModes);
         send(requestt);
         try {
             reader.readLine();
