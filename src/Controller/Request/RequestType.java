@@ -23,5 +23,5 @@ public enum RequestType {
     GAME_TYPE,
     SELECT_USER,
     NULL,
-    RIVAL
+    RIVAL,
 }
