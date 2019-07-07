@@ -53,6 +53,16 @@ public class Battle {
     private Battle() {
     }
 
+    private Battle findBattleByName(String name, Battle[] battles) {
+        for (Battle battle : battles) {
+            for (int i = 0; i < 2; i++) {
+                if (battle.accounts[i].getName().equals(name))
+                    return battle;
+            }
+        }
+        return null;
+    }
+
     public int getLevel() {
         return level;
     }
@@ -360,7 +370,7 @@ public class Battle {
         return null;
     }
 
-    public Message useSp(Coordinate coordinate){
+    public Message useSp(Coordinate coordinate) {
         return Message.SUCCESSFUL_SP;
     }
 
@@ -744,7 +754,7 @@ public class Battle {
         Account account = null;
         for (int i = 0; i < account.getCollection().getMainDeck().getCards().size(); i++) {
             if (account.getCollection().getMainDeck().getCards().get(i).getName().equals(cardName)) {
-                Card insert = Card.getCardByName(cardName,account.getCollection().getCards());
+                Card insert = Card.getCardByName(cardName, account.getCollection().getCards());
                 assert insert != null;
                 if (insert.isClass("Minion")) {
                     field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
