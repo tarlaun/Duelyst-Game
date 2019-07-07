@@ -139,6 +139,10 @@ public class RequestManger {
 
     public String battle(Request request) {
         BattleRequest battleRequest = (BattleRequest) request.getDirectRequest();
-
+        Account[] accounts = new Account[2];
+        accounts[0] = Account.getAccountByName(battleRequest.getAccount1().getName(),game.getAccounts());
+        accounts[1] = Account.getAccountByName(battleRequest.getAccount2().getName(),game.getAccounts());
+        battle = new Battle(accounts,battleRequest.getGameType(),battleRequest.getBattleMode());
+        return battle.toJson();
     }
 }
