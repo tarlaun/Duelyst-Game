@@ -13,6 +13,7 @@ import java.util.Comparator;
 
 public class Game {
     private ArrayList<Account> accounts = new ArrayList<>();
+    private ArrayList<Battle> battles = new ArrayList<>();
     private ArrayList<Account> loggedInAccounts = new ArrayList<>();
     private transient static final Game game = new Game();
     private GameType gameType;
@@ -26,6 +27,14 @@ public class Game {
 
     private Game() {
 
+    }
+
+    public ArrayList<Battle> getBattles() {
+        return battles;
+    }
+
+    public void setBattles(ArrayList<Battle> battles) {
+        this.battles = battles;
     }
 
     public int getLastSpellId() {
