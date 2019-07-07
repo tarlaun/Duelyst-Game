@@ -53,7 +53,7 @@ public class Battle {
     private Battle() {
     }
 
-    private Battle findBattleByName(String name, Battle[] battles) {
+    public static Battle findBattleByName(String name, ArrayList<Battle> battles) {
         for (Battle battle : battles) {
             for (int i = 0; i < 2; i++) {
                 if (battle.accounts[i].getName().equals(name))

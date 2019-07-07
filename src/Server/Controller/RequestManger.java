@@ -71,12 +71,14 @@ public class RequestManger {
 
     public String move(Request request) {
         MoveRequest moveRequest = (MoveRequest) request.getDirectRequest();
+        battle = Battle.findBattleByName(moveRequest.getAccName(),game.getBattles());
         Message message = battle.moveTo(moveRequest.getCoordinate());
         return message.toJson();
     }
 
     public String select(Request request) {
         SelectRequest selectRequest = (SelectRequest) request.getDirectRequest();
+        battle = Battle.findBattleByName(selectRequest.getAccName(),game.getBattles());
         Message message = battle.selectCard(selectRequest.getCardId());
         return message.toJson();
     }
