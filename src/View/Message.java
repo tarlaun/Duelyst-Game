@@ -55,7 +55,10 @@ public enum Message {
     ALREADY_LOGGED_IN,
     UNSUCCESSFUL_SP,
     SINGLEPLAYER_CHOSEN,
-    MULTIPLAYER_CHOSEN;
+    MULTIPLAYER_CHOSEN,
+    KILL_CHOSEN,
+    COLLECT_CHOSEN,
+    FLAG_CHOSEN;
 
     public String toJson() {
         return new Gson().toJson(this.toString());

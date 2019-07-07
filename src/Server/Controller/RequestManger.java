@@ -117,7 +117,7 @@ public class RequestManger {
 
     public String chooseBattleType(Request request){
         GameTypeRequest gameTypeRequest = (GameTypeRequest) request.getDirectRequest();
-        if(gameTypeRequest.getBattleType().equals(GameType.SINGLEPLAYER)){
+        if(gameTypeRequest.getBattleType().equals(GameType.SINGLEPLAYER.toString())){
             return Message.SINGLEPLAYER_CHOSEN.toJson();
 
         }else {
@@ -127,13 +127,13 @@ public class RequestManger {
 
     public String chooseBattleMode(Request request){
         BattleModeRequest battleModeRequest = (BattleModeRequest) request.getDirectRequest();
-        if(battleModeRequest.getBattleType().equals(GameType.SINGLEPLAYER)){
-            return Message.SINGLEPLAYER_CHOSEN.toJson();
+        if(battleModeRequest.getBattleMode().equals(BattleMode.KILLENEMYHERO.toString())){
+            return Message.KILL_CHOSEN.toJson();
 
-        }else if(){
-
+        }else if(battleModeRequest.getBattleMode().equals(BattleMode.COLLECTING.toString())){
+            return Message.COLLECT_CHOSEN.toJson();
         }else {
-
+            return Message.FLAG_CHOSEN.toJson();
         }
     }
 }

@@ -46,9 +46,6 @@ public enum RequestType {
     SHOW_MATCH_HISTORY,
     BATTLE_MODE,
     GAME_TYPE,
-    KILL_ENEMY_HERO,//^^^^^^^^^^^^^^^
-    COLLECTING,//^^^^^^^^^^^^^^^^
-    FLAG,//^^^^^^^^^^^^^^^^^
     STORY,//*******************
     CUSTOM,//*******************
     SELECT_USER,
