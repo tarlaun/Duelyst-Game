@@ -28,30 +28,30 @@ public enum RequestType {
     SHOW_MY_MININOS,
     SHOW_OPP_MINIONS,
     SHOW_CARD_INFO,
-    SELECTION,//
-    MOVE,//
-    ATTACK,//
+    SELECTION,
+    MOVE,
+    ATTACK,
     COMBO,
-    USE_SP,//
+    USE_SP,
     SHOW_HAND,
-    INSERTION,//
-    END_TURN,
+    INSERTION,
+    END_TURN,//#################
     SHOW_COLLECTABLES,
     SHOW_COLLECTABLE_INFO,
-    USE_ITEM,
+    USE_ITEM,//%%%%%%%%%%%%%%%%%%
     NEXT_CARD,
     SHOW_CARDS,
     END_GAME,
     SHOW_MENU,
     SHOW_MATCH_HISTORY,
-    SINGLE_PLAYER,
-    MULTI_PLAYER,
-    KILL_ENEMY_HERO,
-    COLLECTING,
-    FLAG,
-    STORY,
-    CUSTOM,
-    SELECT_USER,//
+    BATTLE_MODE,
+    GAME_TYPE,
+    KILL_ENEMY_HERO,//^^^^^^^^^^^^^^^
+    COLLECTING,//^^^^^^^^^^^^^^^^
+    FLAG,//^^^^^^^^^^^^^^^^^
+    STORY,//*******************
+    CUSTOM,//*******************
+    SELECT_USER,
     SHOW_MAP,
     NULL,
     RIVAL

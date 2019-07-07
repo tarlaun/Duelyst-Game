@@ -120,9 +120,10 @@ public class Controller {
                     case SELECT_USER:
                         out = manager.selectUser(request);
                         break;
-                    case SINGLE_PLAYER:
+                    case BATTLE_MODE:
                         break;
-                    case BUY:
+                    case GAME_TYPE:
+
                         break;
                     case LEADERBOARD:
                         break;
@@ -194,8 +195,6 @@ public class Controller {
                     case DELETE_DECK:
                         break;
                     case SELECT_DECK:
-                        break;
-                    case MULTI_PLAYER:
                         break;
                     case SHOW_ALL_DECK:
                         break;

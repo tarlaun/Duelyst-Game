@@ -1261,6 +1261,9 @@ public class Controller {
 
 
     private void setBattleModeSingle() {
+        System.out.println(GameType.SINGLEPLAYER.toString());
+        Request request = new Request(Constants.SOCKET_PORT,RequestType.GAME_TYPE,GameType.SINGLEPLAYER.toString());
+        send(request);
         battle.setGameType(GameType.SINGLEPLAYER);
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
