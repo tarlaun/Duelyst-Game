@@ -339,7 +339,7 @@ public class Controller {
                 } else {
                     battle.selectCard(handCardGifs[finalI].getCard().getId());
                     int cardId = handCardGifs[finalI].getCard().getId();
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId));
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId),account.getName());
                     send(request);
                     try {
                         reader.readLine();
@@ -368,7 +368,7 @@ public class Controller {
                     battle.selectCard(aiCards[finalI].getCard().getId());
                     int cardId = aiCards[finalI].getCard().getId();
                     ;
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId));
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId),account.getName());
                     ;
                     send(request);
                     try {
@@ -735,7 +735,7 @@ public class Controller {
                     ;
                     int cardId = heroes[finalI].getCard().getId();
                     ;
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId));
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId),account.getName());
                     ;
                     ;
                     send(request);
@@ -780,7 +780,7 @@ public class Controller {
                     view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                     battleCard = null;
                     battle.moveTo(new Coordinate((a / 9),a- (a / 9)*9));
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY);
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY,account.getName());
                     send(request);
                     try {
                         reader.readLine();
@@ -790,7 +790,7 @@ public class Controller {
                 }
                 if (currentCoordinate[0] != null) {
                     battle.insertCard(new Coordinate((a / 9), a - (a / 9)*9), handCardGifs[currentI].getCard().getName());
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION, handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY);
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION, handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY,account.getName());
                     send(request);
                     try {
                         reader.readLine();
