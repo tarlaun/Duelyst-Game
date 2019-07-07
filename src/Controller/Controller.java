@@ -1407,7 +1407,7 @@ public class Controller {
         String password = passwordField.getText();
         Request request = new Request(Constants.SOCKET_PORT, RequestType.CREATE_ACCOUNT, username, password);
         send(request);
-        Message message = null;
+        Message message;
         String line = null;
         try {
             line = reader.readLine();

@@ -124,4 +124,16 @@ public class RequestManger {
             return Message.MULTIPLAYER_CHOSEN.toJson();
         }
     }
+
+    public String chooseBattleMode(Request request){
+        BattleModeRequest battleModeRequest = (BattleModeRequest) request.getDirectRequest();
+        if(battleModeRequest.getBattleType().equals(GameType.SINGLEPLAYER)){
+            return Message.SINGLEPLAYER_CHOSEN.toJson();
+
+        }else if(){
+
+        }else {
+
+        }
+    }
 }
