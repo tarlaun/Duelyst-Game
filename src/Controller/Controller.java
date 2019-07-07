@@ -336,10 +336,10 @@ public class Controller {
                 view.cardBackGround(handCardGifs[finalI]);
                 if (battleCard != null && handCardGifs[finalI].isInside() && battleCard.getCard().getId() != handCardGifs[finalI].getCard().getId()) {
                     readyForAttack(finalI, handCardGifs);
-                    String opponentCardId=String.valueOf(handCardGifs[finalI].getCard().getId());
-                    String cardId = String.valueOf(battleCard.getCard().getId()) ;
-                    String turn=String.valueOf(battle.getTurn());
-                    Request request = new Request(Constants.SOCKET_PORT,RequestType.ATTACK,opponentCardId,cardId,turn);
+                    String opponentCardId = String.valueOf(handCardGifs[finalI].getCard().getId());
+                    String cardId = String.valueOf(battleCard.getCard().getId());
+                    String turn = String.valueOf(battle.getTurn());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn);
                     send(request);
                     //battle.attack(heroes[0].getCard().getId(), heroes[1].getCard());
                 } else {
@@ -370,10 +370,10 @@ public class Controller {
                 view.cardBackGround(aiCards[finalI]);
                 if (battleCard != null && aiCards[finalI].isInside() && battleCard.getCard().getId() != aiCards[finalI].getCard().getId()) {
                     readyForAttack(finalI, aiCards);
-                    String opponentCardId=String.valueOf(aiCards[finalI].getCard().getId());
-                    String cardId = String.valueOf(battleCard.getCard().getId()) ;
-                    String turn=String.valueOf(battle.getTurn());
-                    Request request = new Request(Constants.SOCKET_PORT,RequestType.ATTACK,opponentCardId,cardId,turn);
+                    String opponentCardId = String.valueOf(aiCards[finalI].getCard().getId());
+                    String cardId = String.valueOf(battleCard.getCard().getId());
+                    String turn = String.valueOf(battle.getTurn());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn);
                     send(request);
                 } else {
                     battle.selectCard(aiCards[finalI].getCard().getId());
@@ -741,10 +741,10 @@ public class Controller {
             heroes[i].getImageView()[0].setOnMouseClicked(event -> {
                 if (battleCard != null && battleCard.getCard().getId() != heroes[finalI].getCard().getId()) {
                     readyForAttack(finalI, heroes);
-                    String opponentCardId=String.valueOf(heroes[finalI].getCard().getId());
-                    String cardId = String.valueOf(battleCard.getCard().getId()) ;
-                    String turn=String.valueOf(battle.getTurn());
-                    Request request = new Request(Constants.SOCKET_PORT,RequestType.ATTACK,opponentCardId,cardId,turn);
+                    String opponentCardId = String.valueOf(heroes[finalI].getCard().getId());
+                    String cardId = String.valueOf(battleCard.getCard().getId());
+                    String turn = String.valueOf(battle.getTurn());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn);
                     send(request);
                 } else {
                     battle.selectCard(heroes[finalI].getCard().getId());
@@ -795,7 +795,7 @@ public class Controller {
                 if (currentCoordinate[0] == null) {
                     view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                     battleCard = null;
-                    battle.moveTo(new Coordinate((a / 9),a- (a / 9)*9));
+                    battle.moveTo(new Coordinate((a / 9), a - (a / 9) * 9));
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY);
                     send(request);
                     try {
@@ -805,7 +805,7 @@ public class Controller {
                     }
                 }
                 if (currentCoordinate[0] != null) {
-                    battle.insertCard(new Coordinate((a / 9), a - (a / 9)*9), handCardGifs[currentI].getCard().getName());
+                    battle.insertCard(new Coordinate((a / 9), a - (a / 9) * 9), handCardGifs[currentI].getCard().getName());
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION, handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY);
                     send(request);
                     try {
@@ -1259,8 +1259,8 @@ public class Controller {
             }
             battle.setAccounts(accounts);
             setMainDeckForAI();
-            Request request1 = new Request(Constants.SOCKET_PORT,RequestType.BATTLE,accounts[0].toJson(),
-                    accounts[1].toJson(),battle.getGameType().toString(),battle.getMode().toString());
+            Request request1 = new Request(Constants.SOCKET_PORT, RequestType.BATTLE, accounts[0].toJson(),
+                    accounts[1].toJson(), battle.getGameType().toString(), battle.getMode().toString());
             send(request1);
             try {
                 reader.readLine();
@@ -1622,8 +1622,17 @@ public class Controller {
     private void endTurn() {
         if (menu.getStat() == MenuStat.BATTLE) {
             // battle.endTurn();
+
             this.account = battle.getCurrentPlayer();
             //view.endTurn(account);
+        }
+    }
+
+    class Task extends TimerTask {
+        //Timer timer = new Timer();
+        //            timer.schedule(Task, 60000);
+        public void run() {
+            endTurn();
         }
     }
 
