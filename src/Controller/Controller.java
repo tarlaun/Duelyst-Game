@@ -341,6 +341,11 @@ public class Controller {
                     int cardId = handCardGifs[finalI].getCard().getId();
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId));
                     send(request);
+                    try {
+                        reader.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     currentImageView[0] = handCardGifs[finalI].getImageView()[0];
                     currentImageView[1] = handCardGifs[finalI].getImageView()[1];
                     battleCard = handCardGifs[finalI];
@@ -366,6 +371,11 @@ public class Controller {
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId));
                     ;
                     send(request);
+                    try {
+                        reader.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     ;
                     currentImageView[0] = aiCards[finalI].getImageView()[0];
                     currentImageView[1] = aiCards[finalI].getImageView()[1];
@@ -729,6 +739,11 @@ public class Controller {
                     ;
                     ;
                     send(request);
+                    try {
+                        reader.readLine();;
+                    } catch (IOException e) {
+                        e.printStackTrace();;
+                    }
                     ;
                     ;
                     currentImageView[0] = heroes[finalI].getImageView()[0];
@@ -765,11 +780,21 @@ public class Controller {
                     battle.moveTo(new Coordinate(a - (a / 9), a / 9));
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY);
                     send(request);
+                    try {
+                        reader.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 if (currentCoordinate[0] != null) {
                     battle.insertCard(new Coordinate(a - (a / 9), a / 9),handCardGifs[currentI].getCard().getName());
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION,handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY);
                     send(request);
+                    try {
+                        reader.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     handCardGifs[currentI].setInside(true);
                     currentHandCardPointer++;
                     if (currentHandCardPointer + 4 < 15) {
@@ -1192,9 +1217,13 @@ public class Controller {
                 battleModes = BattleMode.FLAG.toString();
                 break;
         }
-        //Request requestt = new Request(Constants.SOCKET_PORT,RequestType.BATTLE_MODE,battleModes);
-        //send(requestt);
-
+        Request requestt = new Request(Constants.SOCKET_PORT,RequestType.BATTLE_MODE,battleModes);
+        send(requestt);
+        try {
+            reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
             menu.setStat(MenuStat.BACK_GROUND);
             Account[] accounts = new Account[2];
