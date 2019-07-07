@@ -147,15 +147,6 @@ public class RequestManger {
         System.out.println(request.getDirectRequest());
         BattleRequest battleRequest = (BattleRequest) request.getDirectRequest();
         Account[] accounts = new Account[2];
-       /* System.out.println(battleRequest.getAccount1()==null);
-        System.out.println(battleRequest.getAccount2()==null);
-        System.out.println(Account.getAccountByName(battleRequest.getAccount1().getName(),game.getAccounts())==null);
-        System.out.println(Account.getAccountByName(battleRequest.getAccount2().getName(),game.getAccounts())==null);*/
-        System.out.println(battleRequest.getAccount1Name());
-        System.out.println(battleRequest.getAccount2Name());
-        System.out.println(game.getAccounts());
-        System.out.println(Account.getAccountByName(battleRequest.getAccount1Name(),game.getAccounts()).getName());
-        System.out.println(Account.getAccountByName(battleRequest.getAccount2Name(),game.getAccounts()).getName());
         accounts[0] = Account.getAccountByName(battleRequest.getAccount1Name(),game.getAccounts());
         accounts[1] = Account.getAccountByName(battleRequest.getAccount2Name(),game.getAccounts());
         battle = new Battle(accounts,GameType.findGameType(battleRequest.getGameType()),BattleMode.findBattleMode(battleRequest.getBattleMode()));

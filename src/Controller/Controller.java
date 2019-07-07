@@ -1204,6 +1204,7 @@ public class Controller {
     }
 
     private void setBattleMode(int a) {
+        System.out.println(battle.getGameType()+"kvmkdmckmkmv");
         String battleModes = null;
         switch (a) {
             case 1:
@@ -1242,16 +1243,17 @@ public class Controller {
                 accounts[1] = accountu;
             }
             battle.setAccounts(accounts);
-            setMainDeckForAI();
+            System.out.println("before");
+            System.out.println(battle.getGameType()+"qweqewfe");
             Request request1 = new Request(Constants.SOCKET_PORT, RequestType.BATTLE, accounts[0].getName(),
                     accounts[1].getName(), battle.getGameType().toString(), battle.getMode().toString());
             send(request1);
-            System.out.println(213456789);
             try {
                 battle = Battle.fromJson(reader.readLine());
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            setMainDeckForAI();
             battle.startBattle();
         } else {
             menu.setStat(MenuStat.SELECT_USER);
@@ -1298,6 +1300,7 @@ public class Controller {
     }
 
     private void setBattleModeSingle() {
+        System.out.println("single");
         Request request = new Request(Constants.SOCKET_PORT, RequestType.GAME_TYPE, GameType.SINGLEPLAYER.toString());
         send(request);
         try {
@@ -1306,11 +1309,13 @@ public class Controller {
             e.printStackTrace();
         }
         battle.setGameType(GameType.SINGLEPLAYER);
+        System.out.println(battle.getGameType()+"ekmvk");
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
     }
 
     private void setBattleModeMulti() {
+        System.out.println("multi");
         Request request = new Request(Constants.SOCKET_PORT, RequestType.GAME_TYPE, GameType.MULTIPLAYER.toString());
         send(request);
         try {
@@ -1319,19 +1324,26 @@ public class Controller {
             e.printStackTrace();
         }
         battle.setGameType(GameType.MULTIPLAYER);
+        System.out.println(battle.getGameType()+"kmdcdc");
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
     }
 
 
     private void setMainDeckForAI() {
-        if (battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
+        System.out.println("sgkdkkl");
+        System.out.println(battle.getGameType());
+        System.out.println(battle.getMode());
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
             battle.getAccounts()[1].getCollection().selectDeck("level1");
+            System.out.println("one");
         }
-        if (battle.getMode().equals(BattleMode.FLAG)) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getMode().equals(BattleMode.FLAG)) {
+            System.out.println("tw");
             battle.getAccounts()[1].getCollection().selectDeck("level2");
         }
-        if (battle.getMode().equals(BattleMode.COLLECTING)) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getMode().equals(BattleMode.COLLECTING)) {
+            System.out.println("th");
             battle.getAccounts()[1].getCollection().selectDeck("level3");
         }
     }

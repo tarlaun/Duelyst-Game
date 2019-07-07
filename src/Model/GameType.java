@@ -15,7 +15,8 @@ public enum GameType {
     }
 
     public static GameType findGameType(String s){
-        if(s.equals(GameType.SINGLEPLAYER))
+        System.out.println(s+"dvldkvkd");
+        if(s.equals(GameType.SINGLEPLAYER.toString()))
             return GameType.SINGLEPLAYER;
         else
             return GameType.MULTIPLAYER;
