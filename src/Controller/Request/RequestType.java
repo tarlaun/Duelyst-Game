@@ -3,56 +3,26 @@ package Controller.Request;
 public enum RequestType {
     CREATE_ACCOUNT,
     LOGIN,
-    LEADERBOARD,
     SAVE,
     LOGOUT,
-    HELP,
     ENTRANCE,
-    EXIT,
     SHOW,
-    SEARCH,
-    CREATE_DECK,
-    DELETE_DECK,
-    ADD,
-    REMOVE,
-    VALIDATION,
-    SELECT_DECK,
-    SHOW_DECK,
-    SHOW_ALL_DECK,
-    SHOW_COLLECTION,
-    SEARCH_COLLECTION,
-    SAVE_IN_COLLECTION,
-    BUY,
-    SELL,
     GAME_INFO,
-    SHOW_MY_MININOS,
-    SHOW_OPP_MINIONS,
-    SHOW_CARD_INFO,
-    SELECTION,//
-    MOVE,//
-    ATTACK,//
+    SELECTION,
+    MOVE,
+    ATTACK,
     COMBO,
-    USE_SP,//
+    USE_SP,
     SHOW_HAND,
-    INSERTION,//
-    END_TURN,
-    SHOW_COLLECTABLES,
-    SHOW_COLLECTABLE_INFO,
-    USE_ITEM,
+    INSERTION,
+    END_TURN,//#################
+    USE_ITEM,//%%%%%%%%%%%%%%%%%%
     NEXT_CARD,
-    SHOW_CARDS,
     END_GAME,
-    SHOW_MENU,
-    SHOW_MATCH_HISTORY,
-    SINGLE_PLAYER,
-    MULTI_PLAYER,
-    KILL_ENEMY_HERO,
-    COLLECTING,
-    FLAG,
-    STORY,
-    CUSTOM,
-    SELECT_USER,//
-    SHOW_MAP,
+    BATTLE_MODE,
+    GAME_TYPE,
+    SELECT_USER,
     NULL,
-    RIVAL
+    RIVAL,
+    BATTLE
 }

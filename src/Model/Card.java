@@ -218,6 +218,14 @@ public class Card {
         return null;
     }
 
+    public static Card getCardByName(String name,ArrayList<Card> cards) {
+        for (Card card : cards) {
+            if (card.getName().equals(name))
+                return card;
+        }
+        return null;
+    }
+
     public ActivationType getActivationType() {
         return activationType;
     }

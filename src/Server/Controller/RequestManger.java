@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class RequestManger {
     private static final RequestManger REQUEST_MANGER = new RequestManger();
     private Game game = Game.getInstance();
-    private Battle battle = Battle.getInstance();
+    private Battle battle;
     private final HashMap<Integer, SocketPair> sockets = new HashMap<>();
 
     private RequestManger() {
@@ -113,5 +113,37 @@ public class RequestManger {
     public String getRival(Request request) {
         RivalRequest rivalRequest = (RivalRequest) request.getDirectRequest();
         return Account.getAccountByName(rivalRequest.getName(), game.getAccounts()).toJson();
+    }
+
+    public String chooseBattleType(Request request){
+        GameTypeRequest gameTypeRequest = (GameTypeRequest) request.getDirectRequest();
+        if(gameTypeRequest.getBattleType().equals(GameType.SINGLEPLAYER.toString())){
+         return Message.SINGLEPLAYER_CHOSEN.toJson();
+
+        }else {
+            return Message.MULTIPLAYER_CHOSEN.toJson();
+        }
+    }
+
+    public String chooseBattleMode(Request request){
+        BattleModeRequest battleModeRequest = (BattleModeRequest) request.getDirectRequest();
+        if(battleModeRequest.getBattleMode().equals(BattleMode.KILLENEMYHERO.toString())){
+            return Message.KILL_CHOSEN.toJson();
+
+        }else if(battleModeRequest.getBattleMode().equals(BattleMode.COLLECTING.toString())){
+            return Message.COLLECT_CHOSEN.toJson();
+        }else {
+            return Message.FLAG_CHOSEN.toJson();
+        }
+    }
+
+    public String battle(Request request) {
+        BattleRequest battleRequest = (BattleRequest) request.getDirectRequest();
+        Account[] accounts = new Account[2];
+        accounts[0] = Account.getAccountByName(battleRequest.getAccount1().getName(),game.getAccounts());
+        accounts[1] = Account.getAccountByName(battleRequest.getAccount2().getName(),game.getAccounts());
+        battle = new Battle(accounts,battleRequest.getGameType(),battleRequest.getBattleMode());
+        game.getBattles().add(battle);
+        return battle.toJson();
     }
 }

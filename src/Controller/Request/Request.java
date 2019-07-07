@@ -57,6 +57,7 @@ public class Request {
                 break;
             case INSERTION:
                 directRequest = new InsertionRequest(args);
+                break;
             case ATTACK:
                 directRequest = new AttackRequest(args);
                 break;
@@ -68,6 +69,12 @@ public class Request {
                 break;
             case RIVAL:
                 directRequest = new RivalRequest(args);
+                break;
+            case GAME_TYPE:
+                directRequest = new GameTypeRequest(args);
+                break;
+            case BATTLE_MODE:
+                directRequest = new BattleModeRequest(args);
                 break;
         }
         return directRequest;
