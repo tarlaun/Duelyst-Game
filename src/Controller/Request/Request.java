@@ -57,6 +57,7 @@ public class Request {
                 break;
             case INSERTION:
                 directRequest = new InsertionRequest(args);
+                break;
             case ATTACK:
                 directRequest = new AttackRequest(args);
                 break;

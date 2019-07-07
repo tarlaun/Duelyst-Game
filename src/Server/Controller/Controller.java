@@ -161,6 +161,7 @@ public class Controller {
                         break;
                     case RIVAL:
                         out = manager.getRival(request);
+                        break;
                     case NULL:
                         break;
                 }

@@ -493,6 +493,7 @@ public class Controller {
                 break;
             case "ARZHANG":
             case "BLACK_GIANT":
+                //bad
                 imageViews[0] = new ImageView(new Image("minionGifs/Kin_idle.gif"));
                 imageViews[1] = new ImageView(new Image("minionGifs/Kin_run.gif"));
                 imageViews[2] = new ImageView(new Image("minionGifs/Kin_attack.gif"));
@@ -766,8 +767,8 @@ public class Controller {
                     send(request);
                 }
                 if (currentCoordinate[0] != null) {
-                    battle.insertCard(new Coordinate(a - (a / 9), a / 9), handCardGifs[currentI].getCard().getName());
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION, handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY);
+                    battle.insertCard(new Coordinate(a - (a / 9), a / 9),handCardGifs[currentI].getCard().getName());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION,handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY);
                     send(request);
                     handCardGifs[currentI].setInside(true);
                     currentHandCardPointer++;
@@ -1191,8 +1192,8 @@ public class Controller {
                 battleModes = BattleMode.FLAG.toString();
                 break;
         }
-        Request requestt = new Request(Constants.SOCKET_PORT, RequestType.BATTLE_MODE, battleModes);
-        send(requestt);
+        //Request requestt = new Request(Constants.SOCKET_PORT,RequestType.BATTLE_MODE,battleModes);
+        //send(requestt);
 
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
             menu.setStat(MenuStat.BACK_GROUND);
@@ -1238,6 +1239,11 @@ public class Controller {
     private void selectUser(String name) {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECT_USER, account.getName(), name);
         send(request);
+        try {
+            reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //Should be written
 
 /*
@@ -1253,6 +1259,11 @@ public class Controller {
     private void setBattleModeSingle() {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.GAME_TYPE, GameType.SINGLEPLAYER.toString());
         send(request);
+        try {
+            reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         battle.setGameType(GameType.SINGLEPLAYER);
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
@@ -1261,6 +1272,11 @@ public class Controller {
     private void setBattleModeMulti() {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.GAME_TYPE, GameType.MULTIPLAYER.toString());
         send(request);
+        try {
+            reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         battle.setGameType(GameType.MULTIPLAYER);
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
