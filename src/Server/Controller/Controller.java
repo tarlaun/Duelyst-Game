@@ -123,7 +123,7 @@ public class Controller {
                     case BATTLE_MODE:
                         break;
                     case GAME_TYPE:
-
+                        out = manager.chooseBattleType(request);
                         break;
                     case LEADERBOARD:
                         break;

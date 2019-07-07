@@ -1261,7 +1261,6 @@ public class Controller {
 
 
     private void setBattleModeSingle() {
-        System.out.println(GameType.SINGLEPLAYER.toString());
         Request request = new Request(Constants.SOCKET_PORT,RequestType.GAME_TYPE,GameType.SINGLEPLAYER.toString());
         send(request);
         battle.setGameType(GameType.SINGLEPLAYER);
@@ -1270,6 +1269,8 @@ public class Controller {
     }
 
     private void setBattleModeMulti() {
+        Request request = new Request(Constants.SOCKET_PORT,RequestType.GAME_TYPE,GameType.MULTIPLAYER.toString());
+        send(request);
         battle.setGameType(GameType.MULTIPLAYER);
         menu.setStat(MenuStat.BATTLE_MODE);
         main();

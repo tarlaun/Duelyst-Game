@@ -69,6 +69,9 @@ public class Request {
             case RIVAL:
                 directRequest = new RivalRequest(args);
                 break;
+            case GAME_TYPE:
+                directRequest = new GameTypeRequest(args);
+                break;
         }
         return directRequest;
     }

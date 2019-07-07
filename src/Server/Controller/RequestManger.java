@@ -117,7 +117,11 @@ public class RequestManger {
 
     public String chooseBattleType(Request request){
         GameTypeRequest gameTypeRequest = (GameTypeRequest) request.getDirectRequest();
+        if(gameTypeRequest.getBattleType().equals(GameType.SINGLEPLAYER)){
+            return Message.SINGLEPLAYER_CHOSEN.toJson();
 
-
+        }else {
+            return Message.MULTIPLAYER_CHOSEN.toJson();
+        }
     }
 }
