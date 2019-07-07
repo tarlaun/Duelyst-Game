@@ -1186,17 +1186,23 @@ public class Controller {
     }
 
     private void setBattleMode(int a) {
+        String battleModes =null;
         switch (a) {
             case 1:
                 battle.setMode(BattleMode.KILLENEMYHERO);
+                battleModes = BattleMode.KILLENEMYHERO.toString();
                 break;
             case 2:
                 battle.setMode(BattleMode.COLLECTING);
+                battleModes = BattleMode.COLLECTING.toString();
                 break;
             case 3:
                 battle.setMode(BattleMode.FLAG);
+                battleModes = BattleMode.FLAG.toString();
                 break;
         }
+        Request request = new Request(Constants.SOCKET_PORT,RequestType.BATTLE_MODE,battleModes);
+        send(request);
 
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
             menu.setStat(MenuStat.BACK_GROUND);

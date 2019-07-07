@@ -46,8 +46,6 @@ public enum RequestType {
     SHOW_MATCH_HISTORY,
     BATTLE_MODE,
     GAME_TYPE,
-    STORY,//*******************
-    CUSTOM,//*******************
     SELECT_USER,
     SHOW_MAP,
     NULL,
