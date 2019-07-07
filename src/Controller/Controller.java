@@ -1243,10 +1243,19 @@ public class Controller {
             }
             battle.setAccounts(accounts);
             setMainDeckForAI();
+            Request request1 = new Request(Constants.SOCKET_PORT,RequestType.BATTLE,accounts[0].toJson(),
+                    accounts[1].toJson(),battle.getGameType().toString(),battle.getMode().toString());
+            send(request1);
+            try {
+                reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             battle.startBattle();
         } else {
             menu.setStat(MenuStat.SELECT_USER);
         }
+
         main();
     }
 

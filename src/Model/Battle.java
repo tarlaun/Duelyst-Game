@@ -71,7 +71,9 @@ public class Battle {
         this.mode = mode;
     }
 
-
+    public static Battle fromJson(String json) {
+        return new Gson().fromJson(json, Battle.class);
+    }
 
     public void setCurrentCard(Card currentCard) {
         this.currentCard = currentCard;

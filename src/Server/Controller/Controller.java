@@ -139,6 +139,9 @@ public class Controller {
                     case USE_SP:
                         out = manager.useSp(request);
                         break;
+                    case BATTLE:
+                        out = manager.battle(request);
+                        break;
                     case END_GAME:
                         break;
                     case ENTRANCE:

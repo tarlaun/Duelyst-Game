@@ -1,4 +1,7 @@
 package Controller.Request;
 
-public class BattleRequest {
+public class BattleRequest extends DirectRequest{
+
+
+
 }
