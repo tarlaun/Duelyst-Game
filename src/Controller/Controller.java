@@ -1243,11 +1243,11 @@ public class Controller {
             }
             battle.setAccounts(accounts);
             setMainDeckForAI();
-            Request request1 = new Request(Constants.SOCKET_PORT,RequestType.BATTLE,accounts[0].toJson(),
-                    accounts[1].toJson(),battle.getGameType().toString(),battle.getMode().toString());
+            Request request1 = new Request(Constants.SOCKET_PORT,RequestType.BATTLE,accounts[0].getName(),
+                    accounts[1].getName(),battle.getGameType().toString(),battle.getMode().toString());
             send(request1);
             try {
-                reader.readLine();
+                battle = Battle.fromJson(reader.readLine());
             } catch (IOException e) {
                 e.printStackTrace();
             }

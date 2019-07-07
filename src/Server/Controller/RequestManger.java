@@ -144,8 +144,12 @@ public class RequestManger {
     public String battle(Request request) {
         BattleRequest battleRequest = (BattleRequest) request.getDirectRequest();
         Account[] accounts = new Account[2];
-        accounts[0] = Account.getAccountByName(battleRequest.getAccount1().getName(),game.getAccounts());
-        accounts[1] = Account.getAccountByName(battleRequest.getAccount2().getName(),game.getAccounts());
+       /* System.out.println(battleRequest.getAccount1()==null);
+        System.out.println(battleRequest.getAccount2()==null);
+        System.out.println(Account.getAccountByName(battleRequest.getAccount1().getName(),game.getAccounts())==null);
+        System.out.println(Account.getAccountByName(battleRequest.getAccount2().getName(),game.getAccounts())==null);*/
+        accounts[0] = Account.getAccountByName(battleRequest.getAccount1Name(),game.getAccounts());
+        accounts[1] = Account.getAccountByName(battleRequest.getAccount2Name(),game.getAccounts());
         battle = new Battle(accounts,battleRequest.getGameType(),battleRequest.getBattleMode());
         game.getBattles().add(battle);
         return battle.toJson();
