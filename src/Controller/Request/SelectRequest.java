@@ -6,6 +6,7 @@ public class SelectRequest extends DirectRequest {
 
     public SelectRequest(String ... args) {
         cardId = Integer.parseInt(args[0]);
+        accName = args[1];
     }
 
     public int getCardId() {

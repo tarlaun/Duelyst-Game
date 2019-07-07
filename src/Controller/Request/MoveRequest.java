@@ -9,7 +9,7 @@ public class MoveRequest extends DirectRequest {
 
     public MoveRequest(String ... args){
         coordinate = new Coordinate(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
-
+        accName = args[2];
     }
 
     public String getAccName() {

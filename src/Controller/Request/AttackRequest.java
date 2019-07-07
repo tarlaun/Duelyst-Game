@@ -4,10 +4,13 @@ public class AttackRequest extends DirectRequest {
     private int opponentCardId ;
     private int cardId;
     private int turn;
+    private String accName;
+
     public AttackRequest(String ... args) {
         opponentCardId = Integer.parseInt(args[0]);
         cardId = Integer.parseInt(args[1]);
         turn = Integer.parseInt(args[2]);
+        accName = args[3];
 
     }
 
@@ -33,5 +36,13 @@ public class AttackRequest extends DirectRequest {
 
     public void setTurn(int turn) {
         this.turn = turn;
+    }
+
+    public String getAccName() {
+        return accName;
+    }
+
+    public void setAccName(String accName) {
+        this.accName = accName;
     }
 }

@@ -85,12 +85,14 @@ public class RequestManger {
 
     public String insert(Request request) {
         InsertionRequest insertionRequest = (InsertionRequest) request.getDirectRequest();
+        battle = Battle.findBattleByName(insertionRequest.getAccName(),game.getBattles());
         Message message = battle.insertCard(insertionRequest.getCoordinate(), insertionRequest.getCardName());
         return message.toJson();
     }
 
     public String attack(Request request) {
         AttackRequest attackRequest = (AttackRequest) request.getDirectRequest();
+        battle = Battle.findBattleByName(attackRequest.getAccName(),game.getBattles());
         Message message = battle.attack(attackRequest.getOpponentCardId(), Card.getCardByID(attackRequest.getCardId(), battle.getFieldCards()[attackRequest.getTurn() % 2]));
         return message.toJson();
     }
