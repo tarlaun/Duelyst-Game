@@ -33,5 +33,19 @@ public class BattleRequest extends DirectRequest{
         return account2Name;
     }
 
+    public String getBattleMode() {
+        return battleMode;
+    }
 
+    public void setBattleMode(String battleMode) {
+        this.battleMode = battleMode;
+    }
+
+    public String getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(String gameType) {
+        this.gameType = gameType;
+    }
 }

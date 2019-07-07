@@ -150,7 +150,7 @@ public class RequestManger {
         System.out.println(Account.getAccountByName(battleRequest.getAccount2().getName(),game.getAccounts())==null);*/
         accounts[0] = Account.getAccountByName(battleRequest.getAccount1Name(),game.getAccounts());
         accounts[1] = Account.getAccountByName(battleRequest.getAccount2Name(),game.getAccounts());
-        battle = new Battle(accounts,battleRequest.getGameType(),battleRequest.getBattleMode());
+        battle = new Battle(accounts,GameType.findGameType(battleRequest.getGameType()),BattleMode.findBattleMode(battleRequest.getBattleMode()));
         game.getBattles().add(battle);
         return battle.toJson();
     }

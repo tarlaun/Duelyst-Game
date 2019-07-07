@@ -13,4 +13,11 @@ public enum GameType {
     public static GameType fromJson(String json) {
         return new Gson().fromJson(json, GameType.class);
     }
+
+    public static GameType findGameType(String s){
+        if(s.equals(GameType.SINGLEPLAYER))
+            return GameType.SINGLEPLAYER;
+        else
+            return GameType.MULTIPLAYER;
+    }
 }
