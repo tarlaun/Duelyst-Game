@@ -76,6 +76,8 @@ public class Request {
             case BATTLE_MODE:
                 directRequest = new BattleModeRequest(args);
                 break;
+            case BATTLE:
+                directRequest = new BattleRequest(args);
         }
         return directRequest;
     }

@@ -2012,11 +2012,16 @@ public class Battle {
         ArrayList<Card> random = new ArrayList<>();
         Deck deck = accounts[current].getCollection().getMainDeck();
         int r;
-        for (int i = Constants.MAXIMUM_DECK_SIZE; i > 0; i--) {
-            r = rand.nextInt(i);
-            random.add(deck.getCards().get(r));
-            deck.getCards().remove(r);
+        for (int i = 0; i <Constants.MAXIMUM_DECK_SIZE; i++) {
+            r = rand.nextInt(20-i);
+            if(deck!=null) {
+                random.add(deck.getCards().get(r));
+                deck.getCards().remove(r);
+            }
         }
+        System.out.println(accounts[current]==null);
+        System.out.println(accounts[current].getCollection()==null);
+        System.out.println(accounts[current].getCollection().getMainDeck()==null);
         accounts[current].getCollection().getMainDeck().setCards(random);
 
 
