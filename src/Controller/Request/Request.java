@@ -78,6 +78,9 @@ public class Request {
                 break;
             case BATTLE:
                 directRequest = new BattleRequest(args);
+                break;
+            case END_TURN:
+                directRequest = new EndTurnRequest(args);
         }
         return directRequest;
     }
@@ -92,4 +95,5 @@ public class Request {
             socketPair.getFormatter().flush();
         }
     }
+
 }

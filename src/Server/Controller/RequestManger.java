@@ -158,4 +158,10 @@ public class RequestManger {
         game.getBattles().add(battle);
         return battle.toJson();
     }
+
+    public String endTurn(Request request){
+        EndTurnRequest endTurnRequest = (EndTurnRequest) request.getDirectRequest();
+        Message message = battle.endTurn();
+        return message.toJson();
+    }
 }

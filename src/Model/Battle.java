@@ -793,7 +793,7 @@ public class Battle {
         return Message.UNSUCCESSFUL_INSERTION;
     }
 
-    public void endTurn() {
+    public Message endTurn() {
         System.out.println("shits in your face");
         setAbleToAttackForHeros();
         //buffTurnEnd();
@@ -816,7 +816,7 @@ public class Battle {
                 try {
                     for (Buff buff : fieldCards[i][j].getCastedBuffs()) {
                         if (buff.getType() == BuffType.STUN)
-                            return;
+                            return Message.SUCCESSFUL_END;
                     }
                     fieldCards[i][j].setAbleToMove(true);
 
@@ -827,7 +827,7 @@ public class Battle {
                 try {
                     for (Buff buff : fieldCards[i][j].getCastedBuffs()) {
                         if (buff.getType() == BuffType.DISARM)
-                            return;
+                            return Message.SUCCESSFUL_END;
                     }
                     fieldCards[i][j].setAbleToAttack(true);
                 } catch (NullPointerException ignored) {
@@ -835,6 +835,7 @@ public class Battle {
                 }
             }
         }
+        return Message.UNSUCCESSFUL_END;
     }
 
     private void setAbleToAttackForHeros() {

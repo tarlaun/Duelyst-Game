@@ -147,6 +147,7 @@ public class Controller {
                     case ENTRANCE:
                         break;
                     case END_TURN:
+                        out = manager.endTurn(request);
                         break;
                     case USE_ITEM:
                         break;

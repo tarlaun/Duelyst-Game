@@ -58,7 +58,9 @@ public enum Message {
     MULTIPLAYER_CHOSEN,
     KILL_CHOSEN,
     COLLECT_CHOSEN,
-    FLAG_CHOSEN;
+    FLAG_CHOSEN,
+    SUCCESSFUL_END,
+    UNSUCCESSFUL_END;
 
     public String toJson() {
         return new Gson().toJson(this.toString());
