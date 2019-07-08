@@ -4839,7 +4839,7 @@
       }
     ],
     "mainDeck": {
-      "name": "first",
+      "name": "level1",
       "cards": [
         {
           "id": 30015,
@@ -4929,11 +4929,11 @@
               "activationType": "ON_DEATH",
               "turnCount": 1,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -4965,11 +4965,11 @@
               "activationType": "ON_ATTACK",
               "turnCount": 6,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5001,11 +5001,11 @@
               "activationType": "ON_SPAWN",
               "turnCount": -1,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5037,11 +5037,11 @@
               "activationType": "ON_ATTACK",
               "turnCount": 2,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5073,11 +5073,11 @@
               "activationType": "PASSIVE",
               "turnCount": -1,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5109,11 +5109,11 @@
               "activationType": "ON_DEATH",
               "turnCount": 1,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5145,11 +5145,11 @@
               "activationType": "COMBO",
               "turnCount": -1,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5181,11 +5181,11 @@
               "activationType": "ON_SPAWN",
               "turnCount": 2,
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5220,11 +5220,11 @@
               "turnCount": 1000000,
               "side": "ENEMY",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5259,11 +5259,11 @@
               "turnCount": 1,
               "side": "ENEMY",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5298,11 +5298,11 @@
               "turnCount": 0,
               "side": "ENEMY",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5337,11 +5337,11 @@
               "turnCount": 4,
               "side": "ENEMY",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5376,11 +5376,11 @@
               "turnCount": 0,
               "side": "ENEMY",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             },
             {
               "type": "NEGATIVE_DISPEL",
@@ -5391,11 +5391,11 @@
               "turnCount": 0,
               "side": "COMRADE",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5430,11 +5430,11 @@
               "turnCount": 1000000,
               "side": "COMRADE",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             },
             {
               "type": "HIT_POWER",
@@ -5445,11 +5445,11 @@
               "turnCount": 1000000,
               "side": "COMRADE",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],
@@ -5484,11 +5484,11 @@
               "turnCount": 2,
               "side": "ENEMY",
               "effectArea": [
-{
-"x": 0,
-"y": 0
-}
-]
+                {
+                  "x": 0,
+                  "y": 0
+                }
+              ]
             }
           ],
           "castedBuffs": [],

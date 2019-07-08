@@ -107,7 +107,8 @@ public class Battle {
     }
 
     public void startBattle() {
-        if (battle.accounts[0] == null || battle.accounts[1] == null) {
+        System.out.println("motherFucker");
+        if (accounts[0] == null ||accounts[1] == null) {
             return;
         }
         randomizeDeck(0);
@@ -291,7 +292,20 @@ public class Battle {
         return Message.SUCCESSFUL_SELECT;
     }
 
-    public Message moveTo(Coordinate coordinate) {
+    public Message moveTo(Coordinate coordinate , int cardid) {
+        for (int i = 0; i < 2; i++) {
+            System.out.println("Account is null ");
+            System.out.println(accounts[i]==null);
+            System.out.println("Account is null ");
+            System.out.println(accounts[i].getCollection()==null);
+            for (int j = 0; j< accounts[i].getCollection().getMainDeck().getCards().size() ; j++) {
+                if(accounts[i].getCollection().getMainDeck().getCards().get(i).getId()==cardid){
+                    currentCard=accounts[i].getCollection().getMainDeck().getCards().get(i);
+                }
+            }
+
+        }
+
         System.out.println("shit");
         if (currentCard == null) {
             System.out.println("a");
@@ -764,11 +778,8 @@ public class Battle {
                 Card insert = Card.getCardByName(cardName, account.getCollection().getCards());
                 assert insert != null;
                 if (insert.isClass("Minion")) {
-                    System.out.println(coordinate.getX());
-                    System.out.println(coordinate.getY());
-                    System.out.println(insert.getName());
-                    System.out.println(field[2][2]==null);
-                    System.out.println(field[2][2].getCardID());
+                    System.out.println("fiels null e ? ");
+                    System.out.println( field[2][2]==null);
                     System.out.println(insert.getId());
                     System.out.println(field[coordinate.getX()][coordinate.getY()]);
                     field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());

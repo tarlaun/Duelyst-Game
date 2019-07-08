@@ -795,11 +795,11 @@ public class Controller {
                 String polygonNumberY = String.valueOf(a - (a / 9) * 9);
                 if (currentCoordinate[0] == null) {
                     view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
-                    battleCard = null;
                     System.out.println("move kard");
-                    battle.moveTo(new Coordinate((a / 9), a - (a / 9) * 9));
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY, account.getName());
+                    battle.moveTo(new Coordinate((a / 9), a - (a / 9) * 9),battleCard.getCard().getId());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY, account.getName(),String.valueOf(battleCard.getCard().getId()));
                     send(request);
+                    battleCard = null;
                     try {
                         reader.readLine();
                     } catch (IOException e) {
@@ -1272,7 +1272,6 @@ public class Controller {
                 e.printStackTrace();
             }
             setMainDeckForAI();
-            battle.startBattle();
         } else {
             menu.setStat(MenuStat.SELECT_USER);
         }
@@ -1349,9 +1348,6 @@ public class Controller {
 
 
     private void setMainDeckForAI() {
-        System.out.println("sgkdkkl");
-        System.out.println(battle.getGameType());
-        System.out.println(battle.getMode());
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
             battle.getAccounts()[1].getCollection().selectDeck("level1");
             System.out.println("one");

@@ -71,9 +71,14 @@ public class RequestManger {
 
     public String move(Request request) {
         MoveRequest moveRequest = (MoveRequest) request.getDirectRequest();
+        System.out.println("manam "+game.getBattles().size());
+        System.out.println("manam "+moveRequest.getAccName());
         battle = Battle.findBattleByName(moveRequest.getAccName(),game.getBattles());
+        System.out.println(battle.getAccounts()==null);
+        System.out.println(battle.getPlayerHands()==null);
+        System.out.println(battle.getFieldCards()==null);
         System.out.println(battle.getField(2,2)==null);
-        Message message = battle.moveTo(moveRequest.getCoordinate());
+        Message message = battle.moveTo(moveRequest.getCoordinate(), moveRequest.getCardId());
         return message.toJson();
     }
 
@@ -149,6 +154,7 @@ public class RequestManger {
         accounts[0] = Account.getAccountByName(battleRequest.getAccount1Name(),game.getAccounts());
         accounts[1] = Account.getAccountByName(battleRequest.getAccount2Name(),game.getAccounts());
         battle = new Battle(accounts,GameType.findGameType(battleRequest.getGameType()),BattleMode.findBattleMode(battleRequest.getBattleMode()));
+        battle.startBattle();
         game.getBattles().add(battle);
         return battle.toJson();
     }
