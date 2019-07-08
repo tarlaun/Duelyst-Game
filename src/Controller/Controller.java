@@ -341,6 +341,7 @@ public class Controller {
                     String turn = String.valueOf(battle.getTurn());
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn, account.getName());
                     send(request);
+                    battleCard = null;
                     //battle.attack(heroes[0].getCard().getId(), heroes[1].getCard());
                 } else {
                     battle.selectCard(handCardGifs[finalI].getCard().getId());
@@ -375,6 +376,7 @@ public class Controller {
                     String turn = String.valueOf(battle.getTurn());
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn, account.getName());
                     send(request);
+                    battleCard = null;
                 } else {
                     battle.selectCard(aiCards[finalI].getCard().getId());
                     int cardId = aiCards[finalI].getCard().getId();
@@ -739,7 +741,9 @@ public class Controller {
         for (int i = 0; i < 2; i++) {
             int finalI = i;
             heroes[i].getImageView()[0].setOnMouseClicked(event -> {
+                view.cardBackGround(heroes[finalI]);
                 if (battleCard != null && battleCard.getCard().getId() != heroes[finalI].getCard().getId()) {
+
                     readyForAttack(finalI, heroes);
                     String opponentCardId = String.valueOf(heroes[finalI].getCard().getId());
                     String cardId = String.valueOf(battleCard.getCard().getId());
@@ -807,6 +811,7 @@ public class Controller {
                     }
                 }
                 if (currentCoordinate[0] != null) {
+                    view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                     battle.insertCard(new Coordinate((a / 9), a - (a / 9) * 9), handCardGifs[currentI].getCard().getName());
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION, handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY, account.getName());
                     send(request);
@@ -914,11 +919,26 @@ public class Controller {
 
         });
         imageViews[ImageViews.END_TURN.ordinal()].setOnMouseClicked(event -> {
+            Request request = new Request(Constants.SOCKET_PORT,RequestType.END_TURN,"endTurn");
+            send(request);
+            try {
+                reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             AiFunctions();
             battle.endTurn();
             collectFlags();
+
         });
         labels[Labels.END_TURN.ordinal()].setOnMouseClicked(event -> {
+            Request request = new Request(Constants.SOCKET_PORT,RequestType.END_TURN,"endTurn");
+            send(request);
+            try {
+                reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             AiFunctions();
             battle.endTurn();
             for (int i = 0; i < 9; i++) {
@@ -929,6 +949,7 @@ public class Controller {
                 }
             }
             collectFlags();
+
         });
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
@@ -1288,7 +1309,6 @@ public class Controller {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             moveAI();
             insertAI();
-            endTurn();
         }
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 0) {
             attackAI();
@@ -1640,20 +1660,12 @@ public class Controller {
     }
 
 
-    private void endTurn() {
-        if (menu.getStat() == MenuStat.BATTLE) {
-            // battle.endTurn();
-
-            this.account = battle.getCurrentPlayer();
-            //view.endTurn(account);
-        }
-    }
 
     class Task extends TimerTask {
         //Timer timer = new Timer();
         //            timer.schedule(Task, 60000);
         public void run() {
-            endTurn();
+           // endTurn();
         }
     }
 

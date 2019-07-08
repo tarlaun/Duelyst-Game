@@ -258,6 +258,7 @@ public class View {
         Label power = new Label();
         Label health = new Label();
         Label label = new Label();
+        root.getChildren().remove(label);
         ImageView imageView = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
         imageView.relocate(1000, 200);
         imageView.setFitHeight(230);
@@ -284,6 +285,7 @@ public class View {
         label.setTextFill(Color.rgb(255, 255, 255));
         label.relocate(1030, 380);
         label.setFont(Font.font(15));
+        label.setOnMouseEntered(event -> root.getChildren().remove(label));
         root.getChildren().addAll(imageView, imageView1, health, power, label);
     }
 
