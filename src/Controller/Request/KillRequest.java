@@ -2,11 +2,11 @@ package Controller.Request;
 
 public class KillRequest extends DirectRequest {
     private String accName;
-    private String cardName;
+    private int cardId;
 
     public KillRequest(String ... args) {
         accName = args[0];
-        cardName = args[1];
+        cardId = Integer.parseInt(args[1]);
     }
 
     public String getAccName() {
@@ -17,11 +17,11 @@ public class KillRequest extends DirectRequest {
         this.accName = accName;
     }
 
-    public String getCardName() {
-        return cardName;
+    public int getCardId() {
+        return cardId;
     }
 
-    public void setCardName(String cardName) {
-        this.cardName = cardName;
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
     }
 }

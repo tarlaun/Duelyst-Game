@@ -167,7 +167,7 @@ public class RequestManger {
 
     public String killEnemy(Request request){
         KillRequest killRequest =  (KillRequest) request.getDirectRequest();
-        Message message = battle.?;
+        Message message = battle.killEnemy(killRequest.getCardId());
         return message.toString();
 
     }

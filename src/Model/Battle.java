@@ -355,12 +355,9 @@ public class Battle {
 
     public Message attack(int opponentCardId, Card currentCard, int a) {
 
-        targetCard = Card.getCardByID(opponentCardId, accounts[(turn + 1+a) % 2].getCollection().getMainDeck().getCards());
-        if (opponentCardId == accounts[(turn + 1+a) % 2].getCollection().getMainDeck().getHero().getId())
-            targetCard = accounts[(turn + 1+a ) % 2].getCollection().getMainDeck().getHero();
-        //checkAttackHistory(opponentCardId, currentCard);
-        //checkOnAttackSpecials(currentCard);
-        //currentCard.setAbleToAttack(false);
+        targetCard = Card.getCardByID(opponentCardId, accounts[(turn + 1 + a) % 2].getCollection().getMainDeck().getCards());
+        if (opponentCardId == accounts[(turn + 1 + a) % 2].getCollection().getMainDeck().getHero().getId())
+            targetCard = accounts[(turn + 1 + a) % 2].getCollection().getMainDeck().getHero();
         if (targetCard == null) {
             System.out.println("attack nashod");
             return Message.UNSUCCESSFUL_END;
@@ -368,14 +365,9 @@ public class Battle {
         System.out.println("jooneavval  " + targetCard.getHealthPoint());
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         System.out.println("joonedovvom  " + targetCard.getHealthPoint());
-        /*killEnemy(targetCard);
-        if (checkForWin()) {
-//            menu.setStat(MenuStat.GAME);
-            return Message.BATTLE_FINISHED;
-        }*/
+        killEnemy(targetCard.getId());
         if (a == 1)
             return Message.SUCCESSFUL_END;
-        //checkOnAttackSpecials(currentCard);
         attack(currentCard.getId(), targetCard, 1);
         return Message.SUCCESSFUL_END;
     }
@@ -490,7 +482,11 @@ public class Battle {
         }
     }
 
-    private void killEnemy(Card targetCard) {
+    public  Message killEnemy(int cardId) {
+        Card targetCard = Card.getCardByID(cardId,accounts[0].getCollection().getMainDeck().getCards());
+        if(targetCard==null) Card.getCardByID(cardId,accounts[1].getCollection().getMainDeck().getCards());
+        if(cardId==accounts[1].getCollection().getMainDeck().getHero().getId()) targetCard =accounts[1].getCollection().getMainDeck().getHero();
+        if(cardId==accounts[0].getCollection().getMainDeck().getHero().getId()) targetCard =accounts[0].getCollection().getMainDeck().getHero();
         if (targetCard != null && targetCard.getHealthPoint() <= 0) {
             if (targetCard.getBuffs().size() == 1 &&
                     targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH) &&
