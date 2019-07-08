@@ -347,21 +347,11 @@ public class Controller {
                 if (battleCard != null && handCardGifs[finalI].isInside() && battleCard.getCard().getId() != handCardGifs[finalI].getCard().getId()) {
                     readyForAttack(finalI, handCardGifs);
                     String opponentCardId = String.valueOf(handCardGifs[finalI].getCard().getId());
-                    String cardId = String.valueOf(battleCard.getCard().getId());
-                    String turn = String.valueOf(battle.getTurn());
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn, account.getName());
-                    send(request);
-                    battleCard = null;
+                    sendBattleRequest(opponentCardId);
                 } else {
                     battle.selectCard(handCardGifs[finalI].getCard().getId());
                     int cardId = handCardGifs[finalI].getCard().getId();
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId), account.getName());
-                    send(request);
-                    try {
-                        reader.readLine();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    sendSelectRequest(cardId);
                     currentImageView[0] = handCardGifs[finalI].getImageView()[0];
                     currentImageView[1] = handCardGifs[finalI].getImageView()[1];
                     battleCard = handCardGifs[finalI];
@@ -373,6 +363,11 @@ public class Controller {
         }
     }
 
+    private void sendSelectRequest(int cardId) {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId), account.getName());
+        sendKillRequest(request);
+    }
+
     private void handAiMinions() {
         for (int i = 0; i < aiCards.length; i++) {
             int finalI = i;
@@ -381,24 +376,11 @@ public class Controller {
                 if (battleCard != null && aiCards[finalI].isInside() && battleCard.getCard().getId() != aiCards[finalI].getCard().getId()) {
                     readyForAttack(finalI, aiCards);
                     String opponentCardId = String.valueOf(aiCards[finalI].getCard().getId());
-                    String cardId = String.valueOf(battleCard.getCard().getId());
-                    String turn = String.valueOf(battle.getTurn());
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn, account.getName());
-                    send(request);
-                    battleCard = null;
+                    sendBattleRequest(opponentCardId);
                 } else {
                     battle.selectCard(aiCards[finalI].getCard().getId());
                     int cardId = aiCards[finalI].getCard().getId();
-                    ;
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId), account.getName());
-                    ;
-                    send(request);
-                    try {
-                        reader.readLine();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    ;
+                    sendSelectRequest(cardId);
                     currentImageView[0] = aiCards[finalI].getImageView()[0];
                     currentImageView[1] = aiCards[finalI].getImageView()[1];
                     ;
@@ -756,27 +738,13 @@ public class Controller {
 
                     readyForAttack(finalI, heroes);
                     String opponentCardId = String.valueOf(heroes[finalI].getCard().getId());
-                    String cardId = String.valueOf(battleCard.getCard().getId());
-                    String turn = String.valueOf(battle.getTurn());
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn, account.getName());
-                    send(request);
-                    battleCard = null;
+                    sendBattleRequest(opponentCardId);
                 } else {
                     battle.selectCard(heroes[finalI].getCard().getId());
                     ;
                     int cardId = heroes[finalI].getCard().getId();
                     ;
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECTION, String.valueOf(cardId), account.getName());
-                    ;
-                    ;
-                    send(request);
-                    try {
-                        reader.readLine();
-                        ;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        ;
-                    }
+                    sendSelectRequest(cardId);
                     ;
                     ;
                     currentImageView[0] = heroes[finalI].getImageView()[0];
@@ -791,26 +759,28 @@ public class Controller {
         }
     }
 
+    private void sendBattleRequest(String opponentCardId) {
+        String cardId = String.valueOf(battleCard.getCard().getId());
+        String turn = String.valueOf(battle.getTurn());
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn, account.getName());
+        send(request);
+        battleCard = null;
+    }
+
 
     private void readyForAttack(int finalI, BattleCards[] heroes) {
-        System.out.println("attack mmm");
-        Message message =battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard(), 0);
+        Message message = battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard(), 0);
         currentImageView[0] = battleCard.getImageView()[0];
         currentImageView[1] = battleCard.getImageView()[1];
         currentImageView[2] = battleCard.getImageView()[2];
         view.attack(currentImageView);
         if (message.equals(Message.SUCCESSFUL_KILL)) {
             Request request = new Request(Constants.SOCKET_PORT, RequestType.KILL, account.getName(), String.valueOf(heroes[0].getCard().getId()));
-            send(request);
-            try {
-                reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            sendKillRequest(request);
             view.kill(heroes[finalI]);
-            if(battle.getMode().equals(BattleMode.KILLENEMYHERO)){
+            if (battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
                 menu.setStat(MenuStat.WIN);
-                TranslateTransition transition = new TranslateTransition(Duration.millis(3000),heroes[finalI].getImageView()[0]);
+                TranslateTransition transition = new TranslateTransition(Duration.millis(3000), heroes[finalI].getImageView()[0]);
                 transition.playFromStart();
                 transition.setOnFinished(event -> {
                     main();
@@ -818,6 +788,15 @@ public class Controller {
             }
         }
 
+    }
+
+    private void sendKillRequest(Request request) {
+        send(request);
+        try {
+            reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handlePolygon() {
@@ -828,7 +807,6 @@ public class Controller {
                 String polygonNumberY = String.valueOf(a - (a / 9) * 9);
                 if (currentCoordinate[0] == null) {
                     view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
-                    System.out.println("move kard");
                     battle.moveTo(new Coordinate((a / 9), a - (a / 9) * 9), battleCard.getCard().getId());
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY, account.getName(), String.valueOf(battleCard.getCard().getId()));
                     send(request);
@@ -843,12 +821,7 @@ public class Controller {
                     view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                     battle.insertCard(new Coordinate((a / 9), a - (a / 9) * 9), handCardGifs[currentI].getCard().getName());
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.INSERTION, handCardGifs[currentI].getCard().getName(), polygonNumberX, polygonNumberY, account.getName());
-                    send(request);
-                    try {
-                        reader.readLine();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    sendKillRequest(request);
                     handCardGifs[currentI].setInside(true);
                     currentHandCardPointer++;
                     if (currentHandCardPointer + 4 < 15) {
@@ -974,12 +947,7 @@ public class Controller {
 
     private void endTurnRequest() {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.END_TURN, "endTurn");
-        send(request);
-        try {
-            reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendKillRequest(request);
         battle.endTurn();
         AiFunctions();
     }
@@ -1061,8 +1029,7 @@ public class Controller {
         for (int i = 0; i < cards.size(); i++) {
             int finalI = i;
             cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                deckLing(cards.get(finalI).getId());
-                ;
+                deckLing(cards.get(finalI).getId());;
                 main();
             });
         }
@@ -1269,7 +1236,6 @@ public class Controller {
     }
 
     private void setBattleMode(int a) {
-        System.out.println(battle.getGameType() + "kvmkdmckmkmv");
         String battleModes = null;
         switch (a) {
             case 1:
@@ -1286,12 +1252,7 @@ public class Controller {
                 break;
         }
         Request requestt = new Request(Constants.SOCKET_PORT, RequestType.BATTLE_MODE, battleModes);
-        send(requestt);
-        try {
-            reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendKillRequest(requestt);
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
             menu.setStat(MenuStat.BACK_GROUND);
             Account[] accounts = new Account[2];
@@ -1304,12 +1265,11 @@ public class Controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            assert accountu != null;
             if (accountu.getName().equals("powerfulAI")) {
                 accounts[1] = accountu;
             }
             battle.setAccounts(accounts);
-            System.out.println("before");
-            System.out.println(battle.getGameType() + "qweqewfe");
             Request request1 = new Request(Constants.SOCKET_PORT, RequestType.BATTLE, accounts[0].getName(),
                     accounts[1].getName(), battle.getGameType().toString(), battle.getMode().toString());
             send(request1);
@@ -1344,12 +1304,7 @@ public class Controller {
 
     private void selectUser(String name) {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.SELECT_USER, account.getName(), name);
-        send(request);
-        try {
-            reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendKillRequest(request);
         //Should be written
 
 /*
@@ -1363,31 +1318,17 @@ public class Controller {
     }
 
     private void setBattleModeSingle() {
-        System.out.println("single");
         Request request = new Request(Constants.SOCKET_PORT, RequestType.GAME_TYPE, GameType.SINGLEPLAYER.toString());
-        send(request);
-        try {
-            reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendKillRequest(request);
         battle.setGameType(GameType.SINGLEPLAYER);
-        System.out.println(battle.getGameType() + "ekmvk");
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
     }
 
     private void setBattleModeMulti() {
-        System.out.println("multi");
         Request request = new Request(Constants.SOCKET_PORT, RequestType.GAME_TYPE, GameType.MULTIPLAYER.toString());
-        send(request);
-        try {
-            reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendKillRequest(request);
         battle.setGameType(GameType.MULTIPLAYER);
-        System.out.println(battle.getGameType() + "kmdcdc");
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
     }
@@ -1396,14 +1337,11 @@ public class Controller {
     private void setMainDeckForAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
             battle.getAccounts()[1].getCollection().selectDeck("level1");
-            System.out.println("one");
         }
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getMode().equals(BattleMode.FLAG)) {
-            System.out.println("tw");
             battle.getAccounts()[1].getCollection().selectDeck("level2");
         }
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getMode().equals(BattleMode.COLLECTING)) {
-            System.out.println("th");
             battle.getAccounts()[1].getCollection().selectDeck("level3");
         }
     }
@@ -1487,17 +1425,12 @@ public class Controller {
             Message message = battle.attack(heroes[0].getCard().getId(), heroes[1].getCard(), 0);
             if (message.equals(Message.SUCCESSFUL_KILL)) {
                 Request request = new Request(Constants.SOCKET_PORT, RequestType.KILL, account.getName(), String.valueOf(heroes[0].getCard().getId()));
-                send(request);
-                try {
-                    reader.readLine();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                sendKillRequest(request);
 
                 view.kill(heroes[0]);
-                if(battle.getMode().equals(BattleMode.KILLENEMYHERO)){
+                if (battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
                     menu.setStat(MenuStat.WIN);
-                    TranslateTransition transition = new TranslateTransition(Duration.millis(3000),heroes[0].getImageView()[0]);
+                    TranslateTransition transition = new TranslateTransition(Duration.millis(3000), heroes[0].getImageView()[0]);
                     transition.playFromStart();
                     transition.setOnFinished(event -> {
                         main();
@@ -1511,7 +1444,6 @@ public class Controller {
     private void insertAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getTurn() % 2 == 1) {
             aiCards[aiCardsInGround].setInside(true);
-            //battle.insertCard(battle.setCardCoordinates(), battle.chooseCard(cards).getName());
             if (aiCards[aiCardsInGround].getCard() != null)
                 view.aiHandGifs(aiCards, polygon, aiCardsInGround);
             aiCardsInGround++;

@@ -39,8 +39,6 @@ public class Battle {
     private int flagsAppeared = 0;
     private Flag mainFlag = new Flag();
     private static final Battle battle = new Battle();
-    private boolean attackMode;
-    private boolean isOnSpawn;
 
     public Shop getShop() {
         return shop;
@@ -358,7 +356,7 @@ public class Battle {
         targetCard = Card.getCardByID(opponentCardId, accounts[(turn + 1 + a) % 2].getCollection().getMainDeck().getCards());
         if (opponentCardId == accounts[(turn + 1 + a) % 2].getCollection().getMainDeck().getHero().getId())
             targetCard = accounts[(turn + 1 + a) % 2].getCollection().getMainDeck().getHero();
-        if (targetCard == null||currentCard==null) {
+        if (targetCard == null || currentCard == null) {
             System.out.println("attack nashod");
             return Message.UNSUCCESSFUL_END;
         }
@@ -366,7 +364,7 @@ public class Battle {
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         System.out.println("joonedovvom  " + targetCard.getHealthPoint());
         Message message = killEnemy(targetCard.getId());
-        if(message.equals(Message.SUCCESSFUL_KILL))
+        if (message.equals(Message.SUCCESSFUL_KILL))
             return message;
         if (a == 1)
             return Message.SUCCESSFUL_END;
@@ -484,11 +482,13 @@ public class Battle {
         }
     }
 
-    public  Message killEnemy(int cardId) {
-        Card targetCard = Card.getCardByID(cardId,accounts[0].getCollection().getMainDeck().getCards());
-        if(targetCard==null) Card.getCardByID(cardId,accounts[1].getCollection().getMainDeck().getCards());
-        if(cardId==accounts[1].getCollection().getMainDeck().getHero().getId()) targetCard =accounts[1].getCollection().getMainDeck().getHero();
-        if(cardId==accounts[0].getCollection().getMainDeck().getHero().getId()) targetCard =accounts[0].getCollection().getMainDeck().getHero();
+    public Message killEnemy(int cardId) {
+        Card targetCard = Card.getCardByID(cardId, accounts[0].getCollection().getMainDeck().getCards());
+        if (targetCard == null) Card.getCardByID(cardId, accounts[1].getCollection().getMainDeck().getCards());
+        if (cardId == accounts[1].getCollection().getMainDeck().getHero().getId())
+            targetCard = accounts[1].getCollection().getMainDeck().getHero();
+        if (cardId == accounts[0].getCollection().getMainDeck().getHero().getId())
+            targetCard = accounts[0].getCollection().getMainDeck().getHero();
         if (targetCard != null && targetCard.getHealthPoint() <= 0) {
             return Message.SUCCESSFUL_KILL;
         }
@@ -1761,18 +1761,6 @@ public class Battle {
         }
         return card.getCoordinate();
     }
-
-    /*private Coordinate checkHeroDistance(Card card) {
-        for (int i = 0; i < getFieldCards()[0].length; i++) {
-            if (getFieldCards()[0][i].getType().equals("Hero")) {
-                if (Coordinate.getManhattanDistance(card.getCoordinate(), getFieldCards()[0][i].getCoordinate()) < 4) {
-                    return new Coordinate((card.getCoordinate().getX() + getFieldCards()[0][i].getCoordinate().getX()) / 2,
-                            (card.getCoordinate().getY() + getFieldCards()[0][i].getCoordinate().getY()) / 2);
-                }
-            }
-        }
-        return null;
-    }*/
 
     private Coordinate validateMovement(Coordinate coordinate) {
 

@@ -68,7 +68,7 @@ public enum Message {
         return new Gson().toJson(this.toString());
     }
 
-    public static Message fromJson(String json) throws Exception{
+    public static Message fromJson(String json) throws Exception {
         return new Gson().fromJson(json, Message.class);
     }
 }
