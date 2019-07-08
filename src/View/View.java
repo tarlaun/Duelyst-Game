@@ -269,8 +269,10 @@ public class View {
     public void winPage(Label label) {
         label.relocate(400,300);
         label.setText("BATTLE FINISHED");
+        label.setFont(Font.font(60));
         root.getChildren().clear();
         ImageView imageView = new ImageView(new Image("codex/chapter19_background@2x.jpg"));
+        root.getChildren().addAll(imageView);
         int count = 2000;
         Circle[] circles = new Circle[count];
         int[] xv = new int[count];
@@ -278,7 +280,7 @@ public class View {
         Random random = new Random();
 
         for (int i = 0; i < count; i++) {
-            circles[i] = new Circle(random.nextInt(400), random.nextInt(400), 20);
+            circles[i] = new Circle(random.nextInt(1400), random.nextInt(1400), 20);
             xv[i] = random.nextInt(24) - 2;
             yv[i] = random.nextInt(24) - 2;
             circles[i].setFill(Color.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
@@ -289,14 +291,14 @@ public class View {
             public void handle(long now) {
                 for (int i = 0; i < count; i++) {
                     Circle circle = circles[i];
-                    circle.setCenterX((circle.getCenterX() + xv[i]) % 600);
+                    circle.setCenterX((circle.getCenterX() + xv[i]) % 1400);
                     circle.setRadius(random.nextInt(5));
-                    circle.setCenterY((circle.getCenterY() + yv[i]) % 600);
+                    circle.setCenterY((circle.getCenterY() + yv[i]) % 1400);
                 }
             }
         };
         animationTimer1.start();
-        root.getChildren().addAll(imageView,label);
+        root.getChildren().addAll(label);
     }
 
     public void cardBackGround(BattleCards battleCards) {
