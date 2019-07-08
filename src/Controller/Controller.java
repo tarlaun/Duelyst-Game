@@ -179,7 +179,8 @@ public class Controller {
                         anchorPanes[Anchorpanes.COLLECTION.ordinal()], anchorPanes[Anchorpanes.SHOP.ordinal()],
                         anchorPanes[Anchorpanes.MATCH_HISTORY.ordinal()], anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
                         anchorPanes[Anchorpanes.LOGOUT.ordinal()], anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()],
-                        anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()]);
+                        anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()],
+                        anchorPanes[Anchorpanes.REQUESTS.ordinal()]);
                 file = new File("resources/music/music_playmode.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -586,6 +587,7 @@ public class Controller {
         anchorPanes[Anchorpanes.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType());
         anchorPanes[Anchorpanes.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
         anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
+        anchorPanes[Anchorpanes.REQUESTS.ordinal()].setOnMouseClicked(event -> requests());
         anchorPanes[Anchorpanes.SHOP.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = shop.getCards();
             itemsInShop = shop.getItems();
@@ -1758,5 +1760,10 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void requests(){
+        menu.setStat(MenuStat.REQUESTS);
+        main();
     }
 }

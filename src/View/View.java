@@ -790,7 +790,7 @@ public class View {
 
     public void accountMenu(String player, AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane history,
                             AnchorPane leaderboard,
-                            AnchorPane logout, AnchorPane customCard, AnchorPane customBuff, AnchorPane save) {
+                            AnchorPane logout, AnchorPane customCard, AnchorPane customBuff, AnchorPane save, AnchorPane requests) {
         root.getChildren().clear();
         Label playerName = new Label("Welcome " + player + "!");
         Image background = new Image("scenes/frostfire/background.jpg");
@@ -820,16 +820,18 @@ public class View {
                 buttonImage.getFitHeight(), "Custom Card", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         customBuff.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "Custom Buff", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
-        verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y * 0.9, buttonImage.getFitWidth(),
-                buttonImage.getFitHeight(), play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
-        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y * 0.9, play, collection, shop, customCard,
+        requests.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Requests", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y * 1.1, buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), play, requests, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
+        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y * 0.9, play, requests, collection, shop, customCard,
                 customBuff, history, leaderboard, save, logout);
-        lightning(play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
+        lightning(play, requests, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
         playerName.translateXProperty().bind(playerName.widthProperty().divide(2).negate());
         playerName.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
         playerName.relocate(Constants.CENTRE_X, Constants.PAGE_TITLE_Y);
         playerName.setTextFill(Color.LIGHTPINK);
-        root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, customCard, customBuff,
+        root.getChildren().addAll(backgroundView, foregroundView, play, requests, collection, shop, customCard, customBuff,
                 history, leaderboard, save, logout, playerName);
     }
 
@@ -1227,7 +1229,7 @@ public class View {
         imageView.setFitHeight(Constants.CARD_HEIGHT);
     }
 
-    public void requestMenu(){
+    public void requestMenu() {
         ImageView imageView = new ImageView(new Image("codex/chapter18_background@2x.jpg/"));
         root.getChildren().add(imageView);
     }
