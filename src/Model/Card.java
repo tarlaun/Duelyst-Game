@@ -39,7 +39,10 @@ public class Card {
     private RangeType rangeType;
     private transient CardView cardView;
     private int[][] attackCount = new int[40][2];
-    private int countInShop;
+    private int countInSerie;
+    private long auctionTime;
+    private int auctionPrice;
+    private String auctioneer;
 
     public ArrayList<ItemBuff> getCastedItems() {
         return castedItems;
@@ -116,7 +119,7 @@ public class Card {
                 this.buffs.add(new Buff(info[i].split(Constants.BUFF_INFO_SPLITTER)));
             }
         }
-        this.countInShop = Constants.SHOP_INITIAL_COUNT;
+        this.countInSerie = Constants.SHOP_INITIAL_COUNT;
     }
 
     public int getRecievedHit() {
@@ -153,7 +156,7 @@ public class Card {
         this.assaultType = card.assaultType;
         this.buffs = card.buffs;
         cardView = new CardView(this);
-        this.countInShop = card.getCountInShop();
+        this.countInSerie = 1;
     }
 
     public String getName() {
@@ -405,23 +408,23 @@ public class Card {
         this.assaultPower = Integer.parseInt(assaultPower);
         this.rangeType = RangeType.valueOf(rangeType.toUpperCase());
         this.maxRange = Integer.parseInt(range);
-        this.countInShop = Constants.SHOP_INITIAL_COUNT;
+        this.countInSerie = Constants.SHOP_INITIAL_COUNT;
     }
 
-    public int getCountInShop() {
-        return countInShop;
+    public int getCountInSerie() {
+        return countInSerie;
     }
 
-    public void setCountInShop(int countInShop) {
-        this.countInShop = countInShop;
+    public void setCountInSerie(int countInSerie) {
+        this.countInSerie = countInSerie;
     }
 
     public void incrementCount() {
-        this.countInShop++;
+        this.countInSerie++;
     }
 
     public void decrementCount() {
-        this.countInShop--;
+        this.countInSerie--;
     }
 
     public static ArrayList<Card> matchSearch(String name, ArrayList<Card> cards) {
@@ -439,5 +442,35 @@ public class Card {
 
     public static Card fromJson(String json) {
         return new Gson().fromJson(json, Card.class);
+    }
+
+    public long getAuctionTime() {
+        return auctionTime;
+    }
+
+    public void setAuctionTime(long auctionTime) {
+        this.auctionTime = auctionTime;
+    }
+
+    public int getAuctionPrice() {
+        return auctionPrice;
+    }
+
+    public void setAuctionPrice(int auctionPrice) {
+        this.auctionPrice = auctionPrice;
+    }
+
+    public String getAuctioneer() {
+        return auctioneer;
+    }
+
+    public void setAuctioneer(String auctioneer) {
+        this.auctioneer = auctioneer;
+    }
+
+    public void setAuction(Long auctionTime, String auctioneer, int auctionPrice) {
+        this.auctionTime = auctionTime;
+        this.auctioneer = auctioneer;
+        this.auctionPrice = auctionPrice;
     }
 }

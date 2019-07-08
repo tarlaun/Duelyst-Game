@@ -14,6 +14,10 @@ public class Item {
     private ArrayList<ItemBuff> buffs = new ArrayList<>();
     private transient CardView cardView = new CardView(this);
     private int countInShop;
+    private long auctionTime;
+    private int auctionPrice;
+    private String auctioneer;
+
 
     public Item() {
 
@@ -154,4 +158,35 @@ public class Item {
     public void decrementCount() {
         this.countInShop--;
     }
+
+    public long getAuctionTime() {
+        return auctionTime;
+    }
+
+    public void setAuctionTime(long auctionTime) {
+        this.auctionTime = auctionTime;
+    }
+
+    public int getAuctionPrice() {
+        return auctionPrice;
+    }
+
+    public void setAuctionPrice(int auctionPrice) {
+        this.auctionPrice = auctionPrice;
+    }
+
+    public String getAuctioneer() {
+        return auctioneer;
+    }
+
+    public void setAuctioneer(String auctioneer) {
+        this.auctioneer = auctioneer;
+    }
+
+    public void setAuction(Long auctionTime, String auctioneer, int auctionPrice) {
+        this.auctionTime = auctionTime;
+        this.auctioneer = auctioneer;
+        this.auctionPrice = auctionPrice;
+    }
+
 }

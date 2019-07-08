@@ -33,7 +33,7 @@ public class SetSrcs {
                         switch (type) {
                             case "Cards/Heros":
                                 Hero hero = new Gson().fromJson(reader, Hero.class);
-                                hero.setCountInShop(Constants.SHOP_INITIAL_COUNT);
+                                hero.setCountInSerie(Constants.SHOP_INITIAL_COUNT);
                                 hero.setType("Hero");
                                 hero.setAttackSrc(gifDir + "/" + list.readLine());
                                 hero.setDeathSrc(gifDir + "/" + list.readLine());
@@ -44,7 +44,7 @@ public class SetSrcs {
                                 break;
                             case "Cards/Minions":
                                 Minion minion = new Gson().fromJson(reader, Minion.class);
-                                minion.setCountInShop(Constants.SHOP_INITIAL_COUNT);
+                                minion.setCountInSerie(Constants.SHOP_INITIAL_COUNT);
                                 minion.setType("Minion");
                                 minion.setAttackSrc(gifDir + "/" + list.readLine());
                                 minion.setDeathSrc(gifDir + "/" + list.readLine());
@@ -55,7 +55,7 @@ public class SetSrcs {
                                 break;
                             case "Cards/Spells":
                                 Spell spell = new Gson().fromJson(reader, Spell.class);
-                                spell.setCountInShop(Constants.SHOP_INITIAL_COUNT);
+                                spell.setCountInSerie(Constants.SHOP_INITIAL_COUNT);
                                 spell.setType("Spell");
                                 spell.setIdleSrc(gifDir + "/" + list.readLine());
                                 spell.setAttackSrc(gifDir + "/" + list.readLine());

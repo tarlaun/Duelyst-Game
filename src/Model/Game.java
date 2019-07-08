@@ -7,7 +7,6 @@ import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;*/
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -183,11 +182,10 @@ public class Game {
                 try {
                     Card card = new Card((Card) shop.searchByName(accounts.get(i).getCollection().getCards().get(j).getName()));
                     card.setId(accounts.get(i).getCollection().getCards().get(j).getId());
-                    card.setCountInShop(1);
                     accounts.get(i).getCollection().getCards().set(j, card);
                     for (Deck deck : decks) {
                         Card deckCard = Card.getCardByID(card.getId(), deck.getCards().toArray(new Card[0]));
-                        deckCard.setCountInShop(1);
+                        deckCard.setCountInSerie(1);
                         int index = deck.getCards().indexOf(deckCard);
                         if (index != -1) {
                             deck.getCards().set(index, card);

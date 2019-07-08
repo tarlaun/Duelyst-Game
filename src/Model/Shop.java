@@ -9,6 +9,8 @@ public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private static final Shop shop = new Shop();
+    private ArrayList<Card> auctionCards = new ArrayList<>();
+    private ArrayList<Item> auctionItems = new ArrayList<>();
     private Game game;
 
     private Shop() {
@@ -93,10 +95,9 @@ public class Shop {
         }
         Card card = Card.getCardByID(search(objectName), cards.toArray(new Card[0]));
         if (card != null) {
-            if (card.getCountInShop() == 0)
+            if (card.getCountInSerie() == 0)
                 return Message.NOT_AVAILABLE;
             Card instance = new Card(card);
-            instance.setCountInShop(1);
             if (card.getType().equals("Hero")) {
                 game.incrementHeroId();
                 instance.setId(game.getLastHeroId());
@@ -119,7 +120,6 @@ public class Shop {
             if (item.getCountInShop() == 0)
                 return Message.NOT_AVAILABLE;
             Item instance = new Item(item);
-            instance.setCountInShop(1);
             if (account.getCollection().getItems().size() == 3) {
                 return Message.MAXIMUM_ITEM_COUNT;
             }
@@ -172,5 +172,54 @@ public class Shop {
 
     public static Shop fromJson(String json) {
         return new Gson().fromJson(json, Shop.class);
+    }
+
+    public ArrayList<Card> getAuctionCards() {
+        return auctionCards;
+    }
+
+    public ArrayList<Item> getAuctionItems() {
+        return auctionItems;
+    }
+
+    public Message fetchAuction(int id, Account account) {
+        Card card = Card.getCardByID(id, auctionCards.toArray(new Card[0]));
+        if (card != null) {
+            if (account.getBudget() < card.getAuctionPrice())
+                return Message.INSUFFICIENCY;
+            account.getCollection().getCards().add(card);
+            auctionCards.remove(card);
+            account.modifyAccountBudget(-card.getAuctionPrice());
+            Account auctioneer = Account.getAccountByName(card.getAuctioneer(), game.getAccounts());
+            assert auctioneer != null;
+            auctioneer.getCollection().getCards().remove(card);
+            card.setAuction((long) 0, null, 0);
+        } else {
+            Item item = Item.getItemByID(id, auctionItems.toArray(new Item[0]));
+            if (account.getCollection().getItems().size() == 3)
+                return Message.MAXIMUM_ITEM_COUNT;
+            if (account.getBudget() < item.getAuctionPrice())
+                return Message.INSUFFICIENCY;
+            account.getCollection().getItems().add(item);
+            auctionItems.remove(item);
+            account.modifyAccountBudget(-item.getAuctionPrice());
+            Account auctioneer = Account.getAccountByName(item.getAuctioneer(), game.getAccounts());
+            assert auctioneer != null;
+            auctioneer.getCollection().getItems().remove(item);
+            item.setAuction((long) 0, null, 0);
+        }
+        return Message.SUCCESSFUL_PURCHASE;
+    }
+
+    public void auction(int id, Account account) {
+        Card card = Card.getCardByID(id, account.getCollection().getCards().toArray(new Card[0]));
+        if (card != null) {
+            card.setAuction(System.currentTimeMillis(), account.getName(), card.getPrice());
+            shop.getAuctionCards().add(card);
+        } else {
+            Item item = Item.getItemByID(id, account.getCollection().getItems().toArray(new Item[0]));
+            item.setAuction(System.currentTimeMillis(), account.getName(), item.getPrice());
+            shop.getAuctionItems().add(item);
+        }
     }
 }

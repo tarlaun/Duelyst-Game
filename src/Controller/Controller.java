@@ -61,7 +61,7 @@ public class Controller {
     private int collectionPage = 0, shopPage = 0, graveyardPage = 0;
     private ArrayList<Card> cardsInShop, cardsInCollection;
     private ArrayList<Item> itemsInShop, itemsInCollection;
-    private boolean buyMode = true;
+    private ShopMode shopMode = ShopMode.BUY;
     private int currentHandCardPointer = 0;
     private int currentI;
     private String deckName = "Collection";
@@ -148,10 +148,10 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case SHOP:
-                view.shopMenu(account, buyMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
+                view.shopMenu(account, shopMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.SELL.ordinal()],
-                        anchorPanes[Anchorpanes.BUY.ordinal()], shopPage);
+                        anchorPanes[Anchorpanes.BUY.ordinal()], anchorPanes[Anchorpanes.AUCTION.ordinal()], shopPage);
                 file = new File("resources/music/music_battlemap_morinkhur.m4a");
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
@@ -602,14 +602,21 @@ public class Controller {
             cardsInShop = shop.getCards();
             itemsInShop = shop.getItems();
             shopPage = 0;
-            buyMode = true;
+            shopMode = ShopMode.BUY;
             main();
         });
         anchorPanes[Anchorpanes.SELL.ordinal()].setOnMouseClicked(event -> {
             cardsInShop = account.getCollection().getCards();
             itemsInShop = account.getCollection().getItems();
             shopPage = 0;
-            buyMode = false;
+            shopMode = ShopMode.SELL;
+            main();
+        });
+        anchorPanes[Anchorpanes.AUCTION.ordinal()].setOnMouseClicked(event -> {
+            cardsInShop = shop.getAuctionCards();
+            itemsInShop = shop.getAuctionItems();
+            shopPage = 0;
+            shopMode = ShopMode.AUCTION;
             main();
         });
     }
@@ -804,14 +811,25 @@ public class Controller {
         fields[Texts.OBJECT.ordinal()].setOnKeyReleased(event -> {
             if (menu.getStat() == MenuStat.SHOP) {
                 shopPage = 0;
-                if (buyMode) {
-                    cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getCards());
-                    itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(), shop.getItems());
-                } else {
-                    cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
-                            account.getCollection().getCards());
-                    itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
-                            account.getCollection().getItems());
+                switch (shopMode) {
+                    case BUY:
+                        cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                                shop.getCards());
+                        itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                                shop.getItems());
+                        break;
+                    case SELL:
+                        cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                                account.getCollection().getCards());
+                        itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                                account.getCollection().getItems());
+                        break;
+                    case AUCTION:
+                        cardsInShop = Card.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                                shop.getAuctionCards());
+                        itemsInShop = Item.matchSearch(fields[Texts.OBJECT.ordinal()].getCharacters().toString(),
+                                shop.getAuctionItems());
+                        break;
                 }
             }
             if (menu.getStat() == MenuStat.COLLECTION) {
@@ -996,10 +1014,16 @@ public class Controller {
         for (int i = 0; i < cards.size(); i++) {
             int finalI = i;
             cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                if (buyMode) {
-                    handleBuy(account.getBudget(), cards.get(finalI).getName(), cards.get(finalI).getPrice());
-                } else {
-                    handleSell(cards.get(finalI).getId());
+                switch (shopMode) {
+                    case BUY:
+                        handleBuy(account.getBudget(), cards.get(finalI).getName(), cards.get(finalI).getPrice());
+                        break;
+                    case SELL:
+                        handleSell(cards.get(finalI).getId());
+                        break;
+                    case AUCTION:
+                        handleAuction(account.getBudget(), cards.get(finalI).getId(), cards.get(finalI).getAuctionPrice());
+                        break;
                 }
                 main();
             });
@@ -1007,16 +1031,23 @@ public class Controller {
         for (int i = 0; i < items.size(); i++) {
             int finalI = i;
             items.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                if (buyMode) {
-                    if (items.get(finalI).getPrice() == 0) {
-                        AlertMessage alert;
-                        alert = new AlertMessage("You cannot buy collectible item!", Alert.AlertType.ERROR, "OK");
-                        alert.getResult();
-                    } else {
-                        handleBuy(account.getBudget(), items.get(finalI).getName(), items.get(finalI).getPrice());
-                    }
-                } else {
-                    handleSell(items.get(finalI).getId());
+                switch (shopMode) {
+                    case BUY:
+                        if (items.get(finalI).getPrice() == 0) {
+                            AlertMessage alert;
+                            alert = new AlertMessage("You cannot buy collectible item!", Alert.AlertType.ERROR,
+                                    "OK");
+                            alert.getResult();
+                        } else {
+                            handleBuy(account.getBudget(), items.get(finalI).getName(), items.get(finalI).getPrice());
+                        }
+                        break;
+                    case SELL:
+                        handleSell(items.get(finalI).getId());
+                        break;
+                    case AUCTION:
+                        handleAuction(account.getBudget(), items.get(finalI).getId(), items.get(finalI).getAuctionPrice());
+                        break;
                 }
                 main();
             });
@@ -1044,14 +1075,36 @@ public class Controller {
 
     private void handleSell(int id) {
         AlertMessage alert;
-        alert = new AlertMessage("Are you sure to sell it?", Alert.AlertType.CONFIRMATION,
-                "Yes", "No");
+        alert = new AlertMessage("What do you want?", Alert.AlertType.CONFIRMATION,
+                "Sell", "Auction", "Cancel");
         Optional<ButtonType> result = alert.getResult();
         if (result.isPresent()) {
             switch (result.get().getText()) {
-                case "Yes":
+                case "Sell":
                     sell(id);
                     break;
+                case "Auction":
+                    setAuction(id);
+                    break;
+            }
+        }
+    }
+
+    private void handleAuction(int budget, int id, int price) {
+        AlertMessage alert;
+        if (budget < price) {
+            alert = new AlertMessage("Insufficient budget!", Alert.AlertType.ERROR, "OK");
+            alert.getResult();
+        } else {
+            alert = new AlertMessage("It will cost " + price + " Drigs",
+                    Alert.AlertType.CONFIRMATION, "OK", "Cancel");
+            Optional<ButtonType> result = alert.getResult();
+            if (result.isPresent()) {
+                switch (result.get().getText()) {
+                    case "OK":
+                        getAuction(id);
+                        break;
+                }
             }
         }
     }
@@ -1480,6 +1533,45 @@ public class Controller {
             alert.getResult();
             fetchShop();
         } catch (Exception ignored) {
+        }
+    }
+
+    private void setAuction(int id) {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.SET_AUCTION, Integer.toString(id));
+        send(request);
+        try {
+            String line;
+            line = reader.readLine();
+            account = Account.fromJson(line);
+            setCardViews(account);
+            AlertMessage alert = new AlertMessage("Auctioneer :)", Alert.AlertType.INFORMATION, "Yo!");
+            alert.getResult();
+            fetchShop();
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void getAuction(int id) {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.GET_AUCTION, Integer.toString(id),
+                account.toJson());
+        send(request);
+        Message message;
+        String line = null;
+        try {
+            line = reader.readLine();
+            message = Message.fromJson(line);
+            AlertMessage alert = new AlertMessage(message.toString(), Alert.AlertType.ERROR, "OK");
+            alert.getResult();
+        } catch (IOException ignored) {
+
+        } catch (Exception isCard) {
+            account = Account.fromJson(line);
+            setCardViews(account);
+            AlertMessage alert = new AlertMessage("Good dealer!", Alert.AlertType.INFORMATION
+                    , "Yo!");
+            alert.getResult();
+            fetchShop();
         }
     }
 
