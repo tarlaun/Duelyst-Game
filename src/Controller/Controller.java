@@ -1137,7 +1137,7 @@ public class Controller {
         String line = null;
         try {
             line = reader.readLine();
-            Message message = Message.fromJson(line);
+            Message.fromJson(line);
             alert = new AlertMessage("The price you offer should be more than the current price " + price,
                     Alert.AlertType.ERROR, "OK");
         } catch (Exception e) {
@@ -1450,7 +1450,13 @@ public class Controller {
         for (Card card : shop.getCards()) {
             card.setCardView();
         }
+        for (Card card : shop.getAuctionCards()) {
+            card.setCardView();
+        }
         for (Item item : shop.getItems()) {
+            item.setCardView();
+        }
+        for (Item item : shop.getAuctionItems()) {
             item.setCardView();
         }
     }

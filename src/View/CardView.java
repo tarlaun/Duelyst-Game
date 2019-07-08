@@ -3,6 +3,7 @@ package View;
 import Model.Card;
 import Model.Constants;
 import Model.Item;
+import javafx.animation.AnimationTimer;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +21,8 @@ public class CardView {
     private Label name;
     private Label price;
     private Label count;
+    private Label timeLabel;
+    private Label fetcher;
     private AnchorPane pane = new AnchorPane();
 
     public CardView(Card card) {
@@ -102,10 +105,46 @@ public class CardView {
                 character.setLayoutY(Constants.GIF_HEIGHT / 4);
                 pane.getChildren().addAll(template, character, type, name, count);
             }
-            pane.setOnMouseClicked(event -> System.out.println(character.getId()));
-        } catch (Exception e) {
+            if (card.getAuctioneer() != null) {
+                timeLabel = new Label();
+                fetcher = new Label();
+                timeLabel.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
+                timeLabel.setTextFill(Color.LIGHTCYAN);
+                timeLabel.translateXProperty().bind(count.widthProperty().divide(2).negate());
+                timeLabel.relocate(Constants.CARD_TYPE_X, Constants.CARD_TIME_Y);
+                fetcher.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
+                fetcher.setTextFill(Color.LIGHTCYAN);
+                fetcher.translateXProperty().bind(count.widthProperty().divide(2).negate());
+                fetcher.relocate(Constants.CARD_FETCHER_X, Constants.CARD_FETCHER_Y);
+                pane.getChildren().addAll(timeLabel, fetcher);
+                if (card.getAuctioneer() != null) {
+                    AnimationTimer timer = new AnimationTimer() {
+                        private long lastTime = Constants.AUCTION_DURATION_NANOS;
+                        private long synch = card.getAuctionTime() * 1000 + Constants.AUCTION_DURATION_NANOS;
+                        private long second = 1000000000;
+
+                        @Override
+                        public void handle(long now) {
+                            if (lastTime == Constants.AUCTION_DURATION_NANOS)
+                                lastTime = now;
+                            if (now > lastTime + second) {
+                                lastTime = now;
+                                timeLabel.setText(String.format("%02d", ((synch - lastTime) / (second * 60)) % 60)
+                                        + ":" + String.format("%02d", ((synch - lastTime) / second) % 60));
+                                if (card.getAuctionFetcher() != null)
+                                    fetcher.setText(card.getAuctionFetcher());
+                                price.setText(Integer.toString(card.getAuctionPrice()));
+                            }
+                        }
+                    };
+                    timer.start();
+                }
+            }
+        } catch (
+                Exception e) {
 
         }
+
     }
 
     public CardView(Item item) {
@@ -145,6 +184,27 @@ public class CardView {
             price.translateXProperty().bind(price.widthProperty().divide(2).negate());
             price.relocate(Constants.CARD_PRICE_X, Constants.CARD_PRICE_Y);
             pane.getChildren().addAll(template, character, type, name, price, count);
+            if (item.getAuctioneer() != null) {
+                AnimationTimer timer = new AnimationTimer() {
+                    private long lastTime = Constants.AUCTION_DURATION_NANOS;
+                    private long synch = item.getAuctionTime() * 1000 + Constants.AUCTION_DURATION_NANOS;
+                    private long second = 1000000000;
+
+                    @Override
+                    public void handle(long now) {
+                        if (lastTime == Constants.AUCTION_DURATION_NANOS)
+                            lastTime = now;
+                        if (now < lastTime + second) {
+                            lastTime = now;
+                            timeLabel.setText(String.format("%02d", ((synch - lastTime) / (second * 60)) % 60)
+                                    + ":" + String.format("%02d", ((synch - lastTime) / second) % 60));
+                        }
+                        if (item.getAuctionFetcher() != null)
+                            fetcher.setText(item.getAuctionFetcher());
+                    }
+                };
+                timer.start();
+            }
             pane.setOnMouseClicked(event -> System.out.println(character.getId()));
         } catch (Exception e) {
 
@@ -154,4 +214,6 @@ public class CardView {
     public AnchorPane getPane() {
         return pane;
     }
+
 }
+

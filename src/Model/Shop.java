@@ -223,7 +223,7 @@ public class Shop {
         }
         new Thread(() -> {
             try {
-                Thread.sleep(Constants.AUCTION_DURATION_MILLIS);
+                Thread.sleep(Constants.AUCTION_DURATION_NANOS / 1000);
                 if (card != null) {
                     if (card.getAuctionFetcher() == null)
                         discardAuction(id, account);

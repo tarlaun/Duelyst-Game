@@ -1044,8 +1044,7 @@ public class View {
         verticalList(Alignment.LEFT, Constants.SELL_PANE_X, Constants.CENTRE_Y,
                 buyView.getFitWidth(), buyView.getFitHeight(), buy, sell, auction);
         scrollPane(backView, next, prev, back);
-        lightning(buy);
-        lightning(sell);
+        lightning(buy, sell, auction);
         root.getChildren().addAll(backView, sell, buy, auction, next, prev, back, object, modeLabel, budget);
         showCards(cards, items, modeLabel, page);
     }
