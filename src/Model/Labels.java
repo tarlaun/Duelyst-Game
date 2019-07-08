@@ -5,5 +5,6 @@ public enum Labels {
     END_TURN,
     HEALTH,
     POWER,
-    EFFECT
+    EFFECT,
+    WIN
 }

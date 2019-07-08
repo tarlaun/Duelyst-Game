@@ -19,18 +19,12 @@ public class Battle {
     private Account currentPlayer;
     private Card[][] graveyard = new Card[2][Constants.MAXIMUM_DECK_SIZE + 1];
     private Item[][] collectibles = new Item[2][Constants.MAXIMUM_DECK_SIZE];
-    private ArrayList<Item> battleCollectibles = new ArrayList<>();
     private Card[][] playerHands = new Card[2][Constants.MAXIMUM_HAND_SIZE];
     private int turn = 0;
     private Cell[][] field = new Cell[Constants.WIDTH][Constants.LENGTH];
     private BattleMode mode;
     private GameType gameType;
-    private int saveTurn;
-    private int opponentCardID = 0;
-    private Process process;
     private Card[][] fieldCards = new Card[2][Constants.MAXIMUM_DECK_SIZE + 1];
-    private int level;
-    private Menu menu = Menu.getInstance();
     private Shop shop = Shop.getInstance();
     private Random rand = new Random();
     private Match firstPlayerMatch = new Match();
@@ -61,9 +55,6 @@ public class Battle {
         return null;
     }
 
-    public int getLevel() {
-        return level;
-    }
 
     public static Battle getInstance() {
         return battle;
@@ -758,45 +749,12 @@ public class Battle {
     public Message endTurn() {
         System.out.println("shits in your face");
         setAbleToAttackForHeros();
-        //buffTurnEnd();
-        deholifyCell();
-        if (opponentCardID != 0) {
-            if (turn == saveTurn + 1) {
-                targetCard = Card.getCardByID(opponentCardID, fieldCards[(turn + 1) % 2]);
-                targetCard.modifyHealth(-currentCard.getAssaultPower());
-            }
-        }
-        addToHand(turn % 2);
         turn++;
         setManaPoints();
         currentPlayer = this.accounts[turn % 2];
         currentCard = null;
         targetCard = null;
         //useItem(currentPlayer.getCollection().getMainDeck().getItem());
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < fieldCards[i].length; j++) {
-                try {
-                    for (Buff buff : fieldCards[i][j].getCastedBuffs()) {
-                        if (buff.getType() == BuffType.STUN)
-                            return Message.SUCCESSFUL_END;
-                    }
-                    fieldCards[i][j].setAbleToMove(true);
-
-
-                } catch (NullPointerException ignored) {
-
-                }
-                try {
-                    for (Buff buff : fieldCards[i][j].getCastedBuffs()) {
-                        if (buff.getType() == BuffType.DISARM)
-                            return Message.SUCCESSFUL_END;
-                    }
-                    fieldCards[i][j].setAbleToAttack(true);
-                } catch (NullPointerException ignored) {
-
-                }
-            }
-        }
         return Message.UNSUCCESSFUL_END;
     }
 
@@ -1873,20 +1831,6 @@ public class Battle {
                             Arrays.asList(fieldCards[(turn + 1) % 2]).indexOf(currentCard) != -1)
                         continue;
                     switch (buff.getCasterActivationType()) {
-                        case ON_ATTACK:
-                            if (currentCard.isClass(buff.getCasterCard()) && attackMode) {
-                                applyItem(buff, targetCard);
-                            }
-                            break;
-                        case ON_SPAWN:
-                            if (isOnSpawn) {
-                                applyItem(buff, targetCard);
-                            }
-                            break;
-                        case ON_DEFENCE:
-                            if (currentCard.isClass(buff.getCasterCard()) && !attackMode) {
-                                applyItem(buff, targetCard);
-                            }
                         case ON_DEATH:
                             if (currentCard.isClass(buff.getCasterCard()) && currentCard.getHealthPoint() <= 0) {
                                 applyItem(buff, targetCard);

@@ -266,10 +266,37 @@ public class View {
         });
     }
 
-    public void winPage() {
+    public void winPage(Label label) {
+        label.relocate(400,300);
+        label.setText("BATTLE FINISHED");
         root.getChildren().clear();
         ImageView imageView = new ImageView(new Image("codex/chapter19_background@2x.jpg"));
-        root.getChildren().addAll(imageView);
+        int count = 2000;
+        Circle[] circles = new Circle[count];
+        int[] xv = new int[count];
+        int[] yv = new int[count];
+        Random random = new Random();
+
+        for (int i = 0; i < count; i++) {
+            circles[i] = new Circle(random.nextInt(400), random.nextInt(400), 20);
+            xv[i] = random.nextInt(24) - 2;
+            yv[i] = random.nextInt(24) - 2;
+            circles[i].setFill(Color.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+        }
+        root.getChildren().addAll(circles);
+        AnimationTimer animationTimer1 = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                for (int i = 0; i < count; i++) {
+                    Circle circle = circles[i];
+                    circle.setCenterX((circle.getCenterX() + xv[i]) % 600);
+                    circle.setRadius(random.nextInt(5));
+                    circle.setCenterY((circle.getCenterY() + yv[i]) % 600);
+                }
+            }
+        };
+        animationTimer1.start();
+        root.getChildren().addAll(imageView,label);
     }
 
     public void cardBackGround(BattleCards battleCards) {

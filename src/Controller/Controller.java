@@ -199,7 +199,7 @@ public class Controller {
                 break;
 
             case WIN:
-                view.winPage();
+                view.winPage(labels[Labels.WIN.ordinal()]);
                 break;
             case COLLECTION:
                 view.collectionMenu(deckName, fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
@@ -938,6 +938,10 @@ public class Controller {
             collectFlags();
 
         });
+        labels[Labels.WIN.ordinal()].setOnMouseClicked(event -> {
+            menu.setStat(MenuStat.ACCOUNT);
+            main();
+        });
         buttons[Buttons.SINGLE_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeSingle());
         buttons[Buttons.MULTI_PLAYER.ordinal()].setOnMouseClicked(event -> setBattleModeMulti());
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
@@ -1487,16 +1491,6 @@ public class Controller {
             menu.setStat(MenuStat.ACCOUNT);
             main();
         }
-    }
-
-
-    private String getOpponentName(Account account) {
-        for (int i = 0; i < battle.getAccounts().length; i++) {
-            if (!battle.getAccounts()[i].getName().equals(account.getName())) {
-                return battle.getAccounts()[i].getName();
-            }
-        }
-        return null;
     }
 
     private void login() {
