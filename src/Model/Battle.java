@@ -353,42 +353,27 @@ public class Battle {
                 targetCard.getAssaultPower() <= currentCard.getAssaultPower();
     }
 
-    public Message attack(int opponentCardId, Card currentCard) {
-        targetCard = Card.getCardByID(opponentCardId, fieldCards[(turn + 1) % 2]);
-        if (targetCard == null) {
-            return Message.INVALID_TARGET;
-        }
-        if (currentCard == null) {
-            return Message.INVALID_TARGET;
-        }
-        if (currentCard.getName().equals("WOLF")) {
-            saveTurn = turn;
-            opponentCardID = opponentCardId;
-        }
-        /*if (!isInRange(targetCard, currentCard)) {//&& !accounts[1].getName().equals("powerfulAI")
-            return Message.UNAVAILABLE;
-        }*/
-        if (!currentCard.isAbleToAttack()) {
-            if (targetCard.isAbleToAttack()) {
-                return Message.NOT_ABLE_TO_ATTACK;
-            } else {
-                return Message.NOT_ABLE_TO_ATTACK;
-            }
-        }
+    public Message attack(int opponentCardId, Card currentCard ,int a) {
+
+        targetCard = Card.getCardByID(opponentCardId, accounts[(turn + 1) % 2].getCollection().getMainDeck().getCards());
+        if(opponentCardId==accounts[(turn + 1) % 2].getCollection().getMainDeck().getHero().getId())
+            targetCard = accounts[(turn + 1) % 2].getCollection().getMainDeck().getHero();
         //checkAttackHistory(opponentCardId, currentCard);
         //checkOnAttackSpecials(currentCard);
-        currentCard.setAbleToAttack(false);
-        if (isAttackable(currentCard, targetCard)) {
-            targetCard.modifyHealth(-currentCard.getAssaultPower());
-        }
+        //currentCard.setAbleToAttack(false);
+        System.out.println("jooneavval  "+targetCard.getHealthPoint());
+        targetCard.modifyHealth(-currentCard.getAssaultPower());
+        System.out.println("joonedovvom  "+targetCard.getHealthPoint());
         killEnemy(targetCard);
         if (checkForWin()) {
 //            menu.setStat(MenuStat.GAME);
             return Message.BATTLE_FINISHED;
         }
+        if(a==1)
+            return Message.SUCCESSFUL_END;
         //checkOnAttackSpecials(currentCard);
-        attack(currentCard.getId(), targetCard);
-        return null;
+        attack(currentCard.getId(), targetCard,1);
+        return Message.SUCCESSFUL_END;
     }
 
     public Message useSp(Coordinate coordinate) {
@@ -547,7 +532,7 @@ public class Battle {
             return Message.NOT_ABLE_TO_ATTACK;
         }
         for (Card card : cards) {
-            attack(opponentCardId, card);
+            attack(opponentCardId, card,0);
         }
         return null;
     }
@@ -1477,7 +1462,7 @@ public class Battle {
     public boolean AIAssaultTypeBasedInsertion(int i, int j) {
         if (getFieldCards()[1][i] != null && getFieldCards()[0][j] != null && !battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE) && Coordinate.getManhattanDistance(battle.getFieldCards()[0][j].getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
                 battle.getFieldCards()[1][i].getMaxRange()) {
-            battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
+            battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i],0);
             return true;
         } else if (battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE)) {
             AIbestCoInsrtion(i, j);
@@ -1493,7 +1478,7 @@ public class Battle {
                 }
                 if (battle.getFieldCards()[1][i] != null && battle.getFieldCards()[0][j] != null && (battle.getFieldCards()[1][i].getCoordinate().getX() + k == battle.getFieldCards()[0][j].getCoordinate().getX()) &&
                         battle.getFieldCards()[1][i].getCoordinate().getY() + l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
-                    battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
+                    battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i],0);
                     return;
                 }
             }

@@ -210,6 +210,20 @@ public class Card {
         return null;
     }
 
+    public static Card getCardByID(int id, ArrayList<Card> cards) {
+        if (cards == null)
+            return null;
+        for (Card card : cards) {
+            try {
+                if (card.getId() == id) {
+                    return card;
+                }
+            } catch (NullPointerException e) {
+            }
+        }
+        return null;
+    }
+
     public static Card getCardByName(String name, Card... cards) {
         for (Card card : cards) {
             if (card.getName().equals(name))

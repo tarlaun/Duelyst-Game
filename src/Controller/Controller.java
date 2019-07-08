@@ -346,7 +346,6 @@ public class Controller {
                     Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn, account.getName());
                     send(request);
                     battleCard = null;
-                    //battle.attack(heroes[0].getCard().getId(), heroes[1].getCard());
                 } else {
                     battle.selectCard(handCardGifs[finalI].getCard().getId());
                     int cardId = handCardGifs[finalI].getCard().getId();
@@ -788,7 +787,8 @@ public class Controller {
 
 
     private void readyForAttack(int finalI, BattleCards[] heroes) {
-        battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard());
+        System.out.println("attack mmm");
+        battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard(),0);
         currentImageView[0] = battleCard.getImageView()[0];
         currentImageView[1] = battleCard.getImageView()[1];
         currentImageView[2] = battleCard.getImageView()[2];
@@ -830,6 +830,7 @@ public class Controller {
                     if (currentHandCardPointer + 4 < 15) {
                         view.handView(currentCoordinate, handCardGifs[currentHandCardPointer + 4]);
                     }
+                    battleCard=null;
                 }
             });
         }
@@ -1458,7 +1459,7 @@ public class Controller {
 
     private void attackAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
-            battle.attack(heroes[0].getCard().getId(), heroes[1].getCard());
+            battle.attack(heroes[0].getCard().getId(), heroes[1].getCard(),0);
             view.attack(heroes[1].getImageView());
         }
     }
