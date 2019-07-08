@@ -28,15 +28,24 @@ public class RequestManger {
         sockets.put(socketPair.getSocket().getPort(), socketPair);
     }
 
+    public void addOnline(String name, SocketPair socketPair) {
+        accountSockets.put(name, socketPair);
+    }
+
+    public void removeUser(String name) {
+        accountSockets.remove(name);
+    }
+
     public void removeSocket(Socket socket) {
         sockets.remove(socket.getPort());
     }
 
-    public String login(Request request) {
+    public String login(Request request, SocketPair socketPair) {
         LoginRequest loginRequest = (LoginRequest) request.getDirectRequest();
         Message message = Account.login(loginRequest.getUserName(), loginRequest.getPassword());
         if (message == Message.SUCCESSFUL_LOGIN) {
             Account.getAccountByName(loginRequest.getUserName(), game.getAccounts()).setLoggedIn(true);
+            addOnline(loginRequest.getUserName(), socketPair);
             return Account.getAccountByName(loginRequest.getUserName(), game.getAccounts()).toJson();
         } else {
             return message.toJson();
@@ -61,6 +70,7 @@ public class RequestManger {
     public String logout(Request request) {
         LogoutRequest logoutRequest = (LogoutRequest) request.getDirectRequest();
         game.logout(Account.getAccountByName(logoutRequest.getUserName(), game.getAccounts()));
+        removeUser(logoutRequest.getUserName());
         return Message.SUCCESSFUL_LOGOUT.toJson();
     }
 

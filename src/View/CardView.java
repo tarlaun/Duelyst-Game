@@ -119,13 +119,13 @@ public class CardView {
                 pane.getChildren().addAll(timeLabel, fetcher);
                 if (card.getAuctioneer() != null) {
                     AnimationTimer timer = new AnimationTimer() {
-                        private long lastTime = Constants.AUCTION_DURATION_NANOS;
-                        private long synch = card.getAuctionTime() * 1000 + Constants.AUCTION_DURATION_NANOS;
+                        private long lastTime = Constants.AUCTION_DURATION_MILIS;
                         private long second = 1000000000;
+                        private long synch = (card.getAuctionTime() + Constants.AUCTION_DURATION_MILIS) * (second / 1000);
 
                         @Override
                         public void handle(long now) {
-                            if (lastTime == Constants.AUCTION_DURATION_NANOS)
+                            if (lastTime == Constants.AUCTION_DURATION_MILIS * (second / 1000))
                                 lastTime = now;
                             if (now > lastTime + second) {
                                 lastTime = now;
@@ -186,13 +186,13 @@ public class CardView {
             pane.getChildren().addAll(template, character, type, name, price, count);
             if (item.getAuctioneer() != null) {
                 AnimationTimer timer = new AnimationTimer() {
-                    private long lastTime = Constants.AUCTION_DURATION_NANOS;
-                    private long synch = item.getAuctionTime() * 1000 + Constants.AUCTION_DURATION_NANOS;
+                    private long lastTime = Constants.AUCTION_DURATION_MILIS;
+                    private long synch = item.getAuctionTime() * 1000 + Constants.AUCTION_DURATION_MILIS;
                     private long second = 1000000000;
 
                     @Override
                     public void handle(long now) {
-                        if (lastTime == Constants.AUCTION_DURATION_NANOS)
+                        if (lastTime == Constants.AUCTION_DURATION_MILIS)
                             lastTime = now;
                         if (now < lastTime + second) {
                             lastTime = now;

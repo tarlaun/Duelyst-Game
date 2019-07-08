@@ -82,7 +82,6 @@ public class Controller {
                 }
             }).start();
         }
-
     }
 
     private void handleClient(SocketPair socketPair) throws IOException {
@@ -106,7 +105,7 @@ public class Controller {
             try {
                 switch (request.getType()) {
                     case LOGIN:
-                        out = manager.login(request);
+                        out = manager.login(request, socketPair);
                         break;
                     case CREATE_ACCOUNT:
                         out = manager.createAccount(request);

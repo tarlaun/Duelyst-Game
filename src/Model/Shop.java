@@ -223,7 +223,7 @@ public class Shop {
         }
         new Thread(() -> {
             try {
-                Thread.sleep(Constants.AUCTION_DURATION_NANOS / 1000);
+                Thread.sleep(Constants.AUCTION_DURATION_MILIS);
                 if (card != null) {
                     if (card.getAuctionFetcher() == null)
                         discardAuction(id, account);
@@ -235,7 +235,7 @@ public class Shop {
                     else
                         fetchAuction(id, Account.getAccountByName(item.getAuctionFetcher(), game.getAccounts()));
                 }
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }).start();

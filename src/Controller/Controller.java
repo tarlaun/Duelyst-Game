@@ -1102,22 +1102,10 @@ public class Controller {
             return;
         }
         AlertMessage task = new AlertMessage("What do you want to do?", Alert.AlertType.CONFIRMATION,
-                "Fetch", "Increase", "Cancel");
+                "Increase", "Cancel");
         Optional<ButtonType> taskResult = task.getResult();
         taskResult.ifPresent(buttonType -> {
             switch (taskResult.get().getText()) {
-                case "Fetch":
-                    AlertMessage alert = new AlertMessage("It will cost " + price + " Drigs",
-                            Alert.AlertType.CONFIRMATION, "OK", "Cancel");
-                    Optional<ButtonType> result = alert.getResult();
-                    result.ifPresent(buttonType1 -> {
-                        switch (result.get().getText()) {
-                            case "OK":
-                                getAuction(id);
-                                break;
-                        }
-                    });
-                    break;
                 case "Increase":
                     TextInputDialog dialog = new TextInputDialog(Integer.toString(price));
                     dialog.setHeaderText("Increase the price");
@@ -1144,8 +1132,8 @@ public class Controller {
             alert = new AlertMessage("You set the auction price to " + price, Alert.AlertType.INFORMATION,
                     "OK");
             this.account = Account.fromJson(line);
-            fetchShop();
             shopMode = ShopMode.AUCTION;
+            fetchShop();
         }
         alert.getResult();
     }
@@ -1536,8 +1524,20 @@ public class Controller {
             e.printStackTrace();
         }
         setCardViews(shop);
-        cardsInShop = shop.getCards();
-        itemsInShop = shop.getItems();
+        switch (shopMode) {
+            case BUY:
+                cardsInShop = shop.getCards();
+                itemsInShop = shop.getItems();
+                break;
+            case SELL:
+                cardsInShop = account.getCollection().getCards();
+                itemsInShop = account.getCollection().getItems();
+                break;
+            case AUCTION:
+                cardsInShop = shop.getAuctionCards();
+                itemsInShop = shop.getAuctionItems();
+                break;
+        }
     }
 
     private void buy(String name) {
