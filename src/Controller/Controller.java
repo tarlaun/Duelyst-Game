@@ -336,6 +336,12 @@ public class Controller {
                 view.cardBackGround(handCardGifs[finalI]);
                 if (battleCard != null && handCardGifs[finalI].isInside() && battleCard.getCard().getId() != handCardGifs[finalI].getCard().getId()) {
                     readyForAttack(finalI, handCardGifs);
+                    String opponentCardId = String.valueOf(handCardGifs[finalI].getCard().getId());
+                    String cardId = String.valueOf(battleCard.getCard().getId());
+                    String turn = String.valueOf(battle.getTurn());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn);
+                    send(request);
+                    //battle.attack(heroes[0].getCard().getId(), heroes[1].getCard());
                 } else {
                     battle.selectCard(handCardGifs[finalI].getCard().getId());
                     int cardId = handCardGifs[finalI].getCard().getId();
@@ -364,6 +370,11 @@ public class Controller {
                 view.cardBackGround(aiCards[finalI]);
                 if (battleCard != null && aiCards[finalI].isInside() && battleCard.getCard().getId() != aiCards[finalI].getCard().getId()) {
                     readyForAttack(finalI, aiCards);
+                    String opponentCardId = String.valueOf(aiCards[finalI].getCard().getId());
+                    String cardId = String.valueOf(battleCard.getCard().getId());
+                    String turn = String.valueOf(battle.getTurn());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn);
+                    send(request);
                 } else {
                     battle.selectCard(aiCards[finalI].getCard().getId());
                     int cardId = aiCards[finalI].getCard().getId();
@@ -730,6 +741,11 @@ public class Controller {
             heroes[i].getImageView()[0].setOnMouseClicked(event -> {
                 if (battleCard != null && battleCard.getCard().getId() != heroes[finalI].getCard().getId()) {
                     readyForAttack(finalI, heroes);
+                    String opponentCardId = String.valueOf(heroes[finalI].getCard().getId());
+                    String cardId = String.valueOf(battleCard.getCard().getId());
+                    String turn = String.valueOf(battle.getTurn());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.ATTACK, opponentCardId, cardId, turn);
+                    send(request);
                 } else {
                     battle.selectCard(heroes[finalI].getCard().getId());
                     ;
@@ -1629,8 +1645,17 @@ public class Controller {
     private void endTurn() {
         if (menu.getStat() == MenuStat.BATTLE) {
             // battle.endTurn();
+
             this.account = battle.getCurrentPlayer();
             //view.endTurn(account);
+        }
+    }
+
+    class Task extends TimerTask {
+        //Timer timer = new Timer();
+        //            timer.schedule(Task, 60000);
+        public void run() {
+            endTurn();
         }
     }
 
