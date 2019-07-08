@@ -249,7 +249,7 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case REQUESTS:
-                view.requestMenu();
+                view.requestMenu(anchorPanes[Anchorpanes.BACK.ordinal()]);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);

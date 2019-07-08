@@ -1229,9 +1229,13 @@ public class View {
         imageView.setFitHeight(Constants.CARD_HEIGHT);
     }
 
-    public void requestMenu() {
+    public void requestMenu(AnchorPane back) {
         ImageView imageView = new ImageView(new Image("codex/chapter18_background@2x.jpg/"));
-        root.getChildren().add(imageView);
+        Image backArrow = new Image("ui/button_back_corner.png");
+        ImageView arrow = new ImageView(backArrow);
+        back.getChildren().add(arrow);
+        lightning(back);
+        root.getChildren().addAll(imageView, back);
     }
 
 }
