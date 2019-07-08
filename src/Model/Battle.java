@@ -108,7 +108,7 @@ public class Battle {
 
     public void startBattle() {
         System.out.println("motherFucker");
-        if (accounts[0] == null ||accounts[1] == null) {
+        if (accounts[0] == null || accounts[1] == null) {
             return;
         }
         randomizeDeck(0);
@@ -292,15 +292,15 @@ public class Battle {
         return Message.SUCCESSFUL_SELECT;
     }
 
-    public Message moveTo(Coordinate coordinate , int cardid) {
+    public Message moveTo(Coordinate coordinate, int cardid) {
         for (int i = 0; i < 2; i++) {
             System.out.println("Account is null ");
-            System.out.println(accounts[i]==null);
+            System.out.println(accounts[i] == null);
             System.out.println("Account is null ");
-            System.out.println(accounts[i].getCollection()==null);
-            for (int j = 0; j< accounts[i].getCollection().getMainDeck().getCards().size() ; j++) {
-                if(accounts[i].getCollection().getMainDeck().getCards().get(i).getId()==cardid){
-                    currentCard=accounts[i].getCollection().getMainDeck().getCards().get(i);
+            System.out.println(accounts[i].getCollection() == null);
+            for (int j = 0; j < accounts[i].getCollection().getMainDeck().getCards().size(); j++) {
+                if (accounts[i].getCollection().getMainDeck().getCards().get(i).getId() == cardid) {
+                    currentCard = accounts[i].getCollection().getMainDeck().getCards().get(i);
                 }
             }
 
@@ -353,30 +353,30 @@ public class Battle {
                 targetCard.getAssaultPower() <= currentCard.getAssaultPower();
     }
 
-    public Message attack(int opponentCardId, Card currentCard ,int a) {
+    public Message attack(int opponentCardId, Card currentCard, int a) {
 
         targetCard = Card.getCardByID(opponentCardId, accounts[(turn + 1+a) % 2].getCollection().getMainDeck().getCards());
-        if(opponentCardId==accounts[(turn + 1+a) % 2].getCollection().getMainDeck().getHero().getId())
-            targetCard = accounts[(turn + 1+a) % 2].getCollection().getMainDeck().getHero();
+        if (opponentCardId == accounts[(turn + 1+a) % 2].getCollection().getMainDeck().getHero().getId())
+            targetCard = accounts[(turn + 1+a ) % 2].getCollection().getMainDeck().getHero();
         //checkAttackHistory(opponentCardId, currentCard);
         //checkOnAttackSpecials(currentCard);
         //currentCard.setAbleToAttack(false);
-        if(targetCard==null){
+        if (targetCard == null) {
             System.out.println("attack nashod");
             return Message.UNSUCCESSFUL_END;
         }
-        System.out.println("jooneavval  "+targetCard.getHealthPoint());
+        System.out.println("jooneavval  " + targetCard.getHealthPoint());
         targetCard.modifyHealth(-currentCard.getAssaultPower());
-        System.out.println("joonedovvom  "+targetCard.getHealthPoint());
-        killEnemy(targetCard);
+        System.out.println("joonedovvom  " + targetCard.getHealthPoint());
+        /*killEnemy(targetCard);
         if (checkForWin()) {
 //            menu.setStat(MenuStat.GAME);
             return Message.BATTLE_FINISHED;
-        }
-        if(a==1)
+        }*/
+        if (a == 1)
             return Message.SUCCESSFUL_END;
         //checkOnAttackSpecials(currentCard);
-        attack(currentCard.getId(), targetCard,1);
+        attack(currentCard.getId(), targetCard, 1);
         return Message.SUCCESSFUL_END;
     }
 
@@ -536,7 +536,7 @@ public class Battle {
             return Message.NOT_ABLE_TO_ATTACK;
         }
         for (Card card : cards) {
-            attack(opponentCardId, card,0);
+            attack(opponentCardId, card, 0);
         }
         return null;
     }
@@ -761,14 +761,14 @@ public class Battle {
     }
 
     public Message insertCard(Coordinate coordinate, String cardName) {
-        Account account=accounts[turn%2];
+        Account account = accounts[turn % 2];
         for (int i = 0; i < account.getCollection().getMainDeck().getCards().size(); i++) {
             if (account.getCollection().getMainDeck().getCards().get(i).getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, account.getCollection().getCards());
                 assert insert != null;
                 if (insert.isClass("Minion")) {
                     System.out.println("fiels null e ? ");
-                    System.out.println( field[2][2]==null);
+                    System.out.println(field[2][2] == null);
                     System.out.println(insert.getId());
                     System.out.println(field[coordinate.getX()][coordinate.getY()]);
                     field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
@@ -1466,7 +1466,7 @@ public class Battle {
     public boolean AIAssaultTypeBasedInsertion(int i, int j) {
         if (getFieldCards()[1][i] != null && getFieldCards()[0][j] != null && !battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE) && Coordinate.getManhattanDistance(battle.getFieldCards()[0][j].getCoordinate(), battle.getFieldCards()[1][i].getCoordinate()) <
                 battle.getFieldCards()[1][i].getMaxRange()) {
-            battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i],0);
+            battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i], 0);
             return true;
         } else if (battle.getFieldCards()[1][i].getAssaultType().equals(AssaultType.MELEE)) {
             AIbestCoInsrtion(i, j);
@@ -1482,7 +1482,7 @@ public class Battle {
                 }
                 if (battle.getFieldCards()[1][i] != null && battle.getFieldCards()[0][j] != null && (battle.getFieldCards()[1][i].getCoordinate().getX() + k == battle.getFieldCards()[0][j].getCoordinate().getX()) &&
                         battle.getFieldCards()[1][i].getCoordinate().getY() + l == battle.getFieldCards()[0][j].getCoordinate().getY()) {
-                    battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i],0);
+                    battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i], 0);
                     return;
                 }
             }
@@ -2027,16 +2027,16 @@ public class Battle {
         ArrayList<Card> random = new ArrayList<>();
         Deck deck = accounts[current].getCollection().getMainDeck();
         int r;
-        for (int i = 0; i <Constants.MAXIMUM_DECK_SIZE; i++) {
-            r = rand.nextInt(20-i);
-            if(deck!=null) {
+        for (int i = 0; i < Constants.MAXIMUM_DECK_SIZE; i++) {
+            r = rand.nextInt(20 - i);
+            if (deck != null) {
                 random.add(deck.getCards().get(r));
                 deck.getCards().remove(r);
             }
         }
-        System.out.println(accounts[current]==null);
-        System.out.println(accounts[current].getCollection()==null);
-        System.out.println(accounts[current].getCollection().getMainDeck()==null);
+        System.out.println(accounts[current] == null);
+        System.out.println(accounts[current].getCollection() == null);
+        System.out.println(accounts[current].getCollection().getMainDeck() == null);
         accounts[current].getCollection().getMainDeck().setCards(random);
 
 
