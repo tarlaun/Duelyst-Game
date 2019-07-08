@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.animation.TranslateTransition;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,6 +20,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.shape.Polygon;
+import javafx.util.Duration;
 
 import java.io.*;
 import java.net.Socket;
@@ -194,6 +196,10 @@ public class Controller {
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 handleInstances(cardsInShop, itemsInShop);
+                break;
+
+            case WIN:
+                view.winPage();
                 break;
             case COLLECTION:
                 view.collectionMenu(deckName, fields[Texts.OBJECT.ordinal()], cardsInCollection, itemsInCollection,
@@ -802,6 +808,14 @@ public class Controller {
                 e.printStackTrace();
             }
             view.kill(heroes[finalI]);
+            if(battle.getMode().equals(BattleMode.KILLENEMYHERO)){
+                menu.setStat(MenuStat.WIN);
+                TranslateTransition transition = new TranslateTransition(Duration.millis(3000),heroes[finalI].getImageView()[0]);
+                transition.playFromStart();
+                transition.setOnFinished(event -> {
+                    main();
+                });
+            }
         }
 
     }
@@ -1413,9 +1427,9 @@ public class Controller {
         ImageView[] imageViews = new ImageView[3];
         switch (card.getName()) {
             case "WHITE_DIV":
-                imageViews[1] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
-                imageViews[2] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
-                imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+                imageViews[1] = new ImageView(new Image("gifs/Minions/Horror_run.gif"));
+                imageViews[2] = new ImageView(new Image("gifs/Minions/Horror_attack.gif"));
+                imageViews[0] = new ImageView(new Image("gifs/Minions/Horror_idle.gif"));
                 break;
             case "KAVEH":
                 imageViews[0] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
@@ -1469,6 +1483,7 @@ public class Controller {
 
     private void attackAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
+            view.attack(heroes[1].getImageView());
             Message message = battle.attack(heroes[0].getCard().getId(), heroes[1].getCard(), 0);
             if (message.equals(Message.SUCCESSFUL_KILL)) {
                 Request request = new Request(Constants.SOCKET_PORT, RequestType.KILL, account.getName(), String.valueOf(heroes[0].getCard().getId()));
@@ -1480,9 +1495,16 @@ public class Controller {
                 }
 
                 view.kill(heroes[0]);
+                if(battle.getMode().equals(BattleMode.KILLENEMYHERO)){
+                    menu.setStat(MenuStat.WIN);
+                    TranslateTransition transition = new TranslateTransition(Duration.millis(3000),heroes[0].getImageView()[0]);
+                    transition.playFromStart();
+                    transition.setOnFinished(event -> {
+                        main();
+                    });
+                }
             }
 
-            view.attack(heroes[1].getImageView());
         }
     }
 

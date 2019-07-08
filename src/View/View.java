@@ -256,7 +256,7 @@ public class View {
 
     public void kill(BattleCards battleCards){
         System.out.println("view kill");
-        battleCards.getImageView()[0].setImage(battleCards.getImageView()[2].getImage());
+        battleCards.getImageView()[0].setImage(new Image("gifs/Minions/Horror_death.gif"));
         TranslateTransition transition = new TranslateTransition(Duration.millis(1500), battleCards.getImageView()[0]);
         transition.playFromStart();
         transition.setOnFinished(event -> {
@@ -264,6 +264,12 @@ public class View {
             root.getChildren().remove( battleCards.getImageView()[1]);
             root.getChildren().remove( battleCards.getImageView()[2]);
         });
+    }
+
+    public void winPage(){
+        root.getChildren().clear();
+        ImageView imageView = new ImageView(new Image("codex/chapter19_background@2x.jpg"));
+        root.getChildren().addAll(imageView);
     }
 
     public void cardBackGround(BattleCards battleCards) {
