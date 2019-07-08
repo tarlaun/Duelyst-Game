@@ -1,6 +1,7 @@
 package Model;
 
 import View.CardView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public class Item {
     private String attackSrc;
     private ArrayList<ItemBuff> buffs = new ArrayList<>();
     private transient CardView cardView = new CardView(this);
+    private int countInShop;
 
     public Item() {
 
@@ -38,6 +40,7 @@ public class Item {
         this.price = item.price;
         this.buffs = item.buffs;
         cardView = new CardView(item);
+        this.countInShop = item.getCountInShop();
     }
 
     public int getId() {
@@ -128,4 +131,27 @@ public class Item {
         return output;
     }
 
+    public String toJson() {
+        return new Gson().toJson(this);
+    }
+
+    public static Item fromJson(String json) {
+        return new Gson().fromJson(json, Item.class);
+    }
+
+    public int getCountInShop() {
+        return countInShop;
+    }
+
+    public void setCountInShop(int countInShop) {
+        this.countInShop = countInShop;
+    }
+
+    public void incrementCount() {
+        this.countInShop++;
+    }
+
+    public void decrementCount() {
+        this.countInShop--;
+    }
 }

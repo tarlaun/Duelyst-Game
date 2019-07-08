@@ -62,7 +62,9 @@ public enum Message {
     SUCCESSFUL_END,
     UNSUCCESSFUL_END,
     UNSUCCESSFUL_KILL,
-    SUCCESSFUL_KILL;
+    SUCCESSFUL_KILL,
+    ALREADY_LOGGED_IN,
+    NOT_AVAILABLE;
 
     public String toJson() {
         return new Gson().toJson(this.toString());

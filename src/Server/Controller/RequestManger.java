@@ -2,7 +2,9 @@ package Server.Controller;
 
 import Controller.Request.*;
 import Model.*;
+import View.AlertMessage;
 import View.Message;
+import javafx.scene.control.Alert;
 import Controller.Request.Request;
 
 import java.net.Socket;
@@ -12,6 +14,7 @@ public class RequestManger {
     private static final RequestManger REQUEST_MANGER = new RequestManger();
     private Game game = Game.getInstance();
     private Battle battle;
+    private Shop shop = Shop.getInstance();
     private final HashMap<Integer, SocketPair> sockets = new HashMap<>();
 
     private RequestManger() {
@@ -68,6 +71,31 @@ public class RequestManger {
         return Message.SUCCESSFUL_SAVE.toJson();
     }
 
+    public String shop(Request request) {
+        ShopRequest shopRequest = (ShopRequest) request.getDirectRequest();
+        shop.setGame(game);
+        return shop.toJson();
+    }
+
+    public String buy(Request request) {
+        BuyRequest buyRequest = (BuyRequest) request.getDirectRequest();
+        Message message = shop.buy(buyRequest.getName(), buyRequest.getAccount());
+        if (message == Message.SUCCESSFUL_PURCHASE) {
+            return buyRequest.getAccount().toJson();
+        } else {
+            return message.toJson();
+        }
+    }
+
+    public String sell(Request request) {
+        SellRequest sellRequest = (SellRequest) request.getDirectRequest();
+        try {
+            System.out.println(shop.sell(sellRequest.getId(), sellRequest.getAccount()));
+        } catch (Exception isItem) {
+            System.out.println(shop.sell(sellRequest.getId(), sellRequest.getAccount()));
+        }
+        return sellRequest.getAccount().toJson();
+    }
 
     public String move(Request request) {
         MoveRequest moveRequest = (MoveRequest) request.getDirectRequest();

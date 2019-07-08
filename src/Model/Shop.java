@@ -1,6 +1,7 @@
 package Model;
 
 import View.Message;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -90,9 +91,12 @@ public class Shop {
         } catch (IndexOutOfBoundsException e) {
 
         }
-        Card card = Card.getCardByID(search(objectName), cards.toArray(new Card[cards.size()]));
+        Card card = Card.getCardByID(search(objectName), cards.toArray(new Card[0]));
         if (card != null) {
+            if (card.getCountInShop() == 0)
+                return Message.NOT_AVAILABLE;
             Card instance = new Card(card);
+            instance.setCountInShop(1);
             if (card.getType().equals("Hero")) {
                 game.incrementHeroId();
                 instance.setId(game.getLastHeroId());
@@ -108,10 +112,14 @@ public class Shop {
             this.cards.add(instance);
             account.getCollection().getCards().add(card);
             account.modifyAccountBudget(-card.getPrice());
+            card.decrementCount();
         }
-        Item item = Item.getItemByID(search(objectName), items.toArray(new Item[items.size()]));
+        Item item = Item.getItemByID(search(objectName), items.toArray(new Item[0]));
         if (item != null) {
+            if (item.getCountInShop() == 0)
+                return Message.NOT_AVAILABLE;
             Item instance = new Item(item);
+            instance.setCountInShop(1);
             if (account.getCollection().getItems().size() == 3) {
                 return Message.MAXIMUM_ITEM_COUNT;
             }
@@ -119,23 +127,24 @@ public class Shop {
             account.modifyAccountBudget(-item.getPrice());
             game.incrementItemId();
             instance.setId(game.getLastItemId());
-            shop.items.add(instance);
+            this.items.add(instance);
+            item.decrementCount();
         }
         return Message.SUCCESSFUL_PURCHASE;
     }
 
     public boolean sell(int objectId, Account account) {
-        Card card = Card.getCardByID(objectId, account.getCollection().getCards()
-                .toArray(new Card[account.getCollection().getCards().size()]));
+        Card card = Card.getCardByID(objectId, account.getCollection().getCards().toArray(new Card[0]));
         if (card != null) {
+            ((Card) searchByName(card.getName())).incrementCount();
             account.modifyAccountBudget(card.getPrice());
             account.getCollection().getCards().remove(card);
             account.getCollection().deleteFromAllDecks(card.getId());
             return true;
         }
-        Item item = Item.getItemByID(objectId, account.getCollection().getItems().toArray(new Item[
-                account.getCollection().getItems().size()]));
+        Item item = Item.getItemByID(objectId, account.getCollection().getItems().toArray(new Item[0]));
         if (item != null) {
+            ((Item) searchByName(item.getName())).incrementCount();
             account.modifyAccountBudget(item.getPrice());
             account.getCollection().getItems().remove(item);
             account.getCollection().deleteFromAllDecks(item.getId());
@@ -155,5 +164,13 @@ public class Shop {
 
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    public String toJson() {
+        return new Gson().toJson(this);
+    }
+
+    public static Shop fromJson(String json) {
+        return new Gson().fromJson(json, Shop.class);
     }
 }

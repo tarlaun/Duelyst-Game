@@ -48,7 +48,7 @@ public class Controller {
     private transient View view = View.getInstance();
     private transient Game game = Game.getInstance();
     private transient Menu menu = Menu.getInstance();
-    private transient Shop shop = Shop.getInstance();
+    private transient Shop shop;
     private Account account;
     private transient Battle battle = Battle.getInstance();
     private transient Button[] buttons = new Button[Buttons.values().length];
@@ -576,8 +576,7 @@ public class Controller {
         anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
         anchorPanes[Anchorpanes.REQUESTS.ordinal()].setOnMouseClicked(event -> requests());
         anchorPanes[Anchorpanes.SHOP.ordinal()].setOnMouseClicked(event -> {
-            cardsInShop = shop.getCards();
-            itemsInShop = shop.getItems();
+            fetchShop();
             menu.setStat(MenuStat.SHOP);
             main();
         });
@@ -1550,6 +1549,15 @@ public class Controller {
         }
     }
 
+    private void setCardViews(Shop shop) {
+        for (Card card : shop.getCards()) {
+            card.setCardView();
+        }
+        for (Item item : shop.getItems()) {
+            item.setCardView();
+        }
+    }
+
     private void showLeaderBoard() {
         game.sortAccounts();
         view.printLeaderboard(game.getAccounts());
@@ -1611,16 +1619,85 @@ public class Controller {
         return this.account.getCollection().remove(name, id);
     }
 
+    private void validateDeck(Request request) {
+    }
+
+    private void fetchShop() {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.SHOP);
+        send(request);
+        try {
+            shop = Shop.fromJson(reader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setCardViews(shop);
+        cardsInShop = shop.getCards();
+        itemsInShop = shop.getItems();
+    }
+
     private void buy(String name) {
-        if (shop.getGame() == null)
-            shop.setGame(this.game);
-        shop.buy(name, this.account);
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.BUY, name, account.toJson());
+        send(request);
+        Message message;
+        String line = null;
+        try {
+            line = reader.readLine();
+            message = Message.fromJson(line);
+            AlertMessage alert = new AlertMessage(message.toString(), Alert.AlertType.ERROR, "OK");
+            alert.getResult();
+        } catch (IOException ignored) {
+
+        } catch (Exception isCard) {
+            account = Account.fromJson(line);
+            setCardViews(account);
+            AlertMessage alert = new AlertMessage(Message.SUCCESSFUL_PURCHASE.toString(), Alert.AlertType.INFORMATION
+                    , "OK");
+            alert.getResult();
+            fetchShop();
+        }
     }
 
     private void sell(int id) {
-        shop.sell(id, account);
+        Request request;
+        try {
+            Card card = Card.getCardByID(id, account.getCollection().getCards().toArray(new Card[0]));
+            request = new Request(Constants.SOCKET_PORT, RequestType.SELL, card.toJson(), account.toJson());
+        } catch (Exception e) {
+            Item item = Item.getItemByID(id, account.getCollection().getItems().toArray(new Item[0]));
+            request = new Request(Constants.SOCKET_PORT, RequestType.SELL, item.toJson(), account.toJson());
+        }
+        send(request);
+        try {
+            account = Account.fromJson(reader.readLine());
+            setCardViews(account);
+            AlertMessage alert = new AlertMessage(Message.SUCCESSFUL_SELL.toString(), Alert.AlertType.INFORMATION
+                    , "OK");
+            alert.getResult();
+            fetchShop();
+        } catch (Exception ignored) {
+        }
     }
 
+
+    private void battleAttack(Request request) {
+    }
+
+    private void battleComboAttack(Request request) {
+    }
+
+    private void useSpecialPower(Request request) {
+    }
+
+    private void insertCard(Request request) {
+    }
+
+    private void endTurn() {
+        if (menu.getStat() == MenuStat.BATTLE) {
+            battle.endTurn();
+            this.account = battle.getCurrentPlayer();
+            //view.endTurn(account);
+        }
+    }
 
     class Task extends TimerTask {
         //Timer timer = new Timer();
@@ -1656,10 +1733,10 @@ public class Controller {
         switch (boxes[Boxes.CARD_TYPE.ordinal()].getValue()) {
             case "Hero":
                 id = game.getLastHeroId();
-                idle = "gifs/gifs/Heroes/boss_cindera_idle.gif";
-                run = "gifs/gifs/Heroes/boss_cindera_run.gif";
-                attack = "gifs/gifs/Heroes/boss_cindera_attack.gif";
-                death = "gifs/gifs/Heroes/boss_cindera_death.gif";
+                idle = "gifs/gifs/Heros/boss_cindera_idle.gif";
+                run = "gifs/gifs/Heros/boss_cindera_run.gif";
+                attack = "gifs/gifs/Heros/boss_cindera_attack.gif";
+                death = "gifs/gifs/Heros/boss_cindera_death.gif";
                 card.setIdleSrc(idle);
                 card.setRunSrc(run);
                 card.setAttackSrc(attack);

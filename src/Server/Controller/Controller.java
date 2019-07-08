@@ -117,6 +117,15 @@ public class Controller {
                     case SAVE:
                         out = manager.save(request);
                         break;
+                    case SHOP:
+                        out = manager.shop(request);
+                        break;
+                    case BUY:
+                        out = manager.buy(request);
+                        break;
+                    case SELL:
+                        out = manager.sell(request);
+                        break;
                     case SELECT_USER:
                         out = manager.selectUser(request);
                         break;
@@ -168,6 +177,12 @@ public class Controller {
                 synchronized (socketPair) {
                     socketPair.getFormatter().format(out + "\n");
                     socketPair.getFormatter().flush();
+                    try {
+                        notifyAll();
+                        wait();
+                    } catch (Exception e) {
+
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

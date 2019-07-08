@@ -49,6 +49,15 @@ public class Request {
             case SAVE:
                 directRequest = new SaveRequest(args);
                 break;
+            case SHOP:
+                directRequest = new ShopRequest();
+                break;
+            case BUY:
+                directRequest = new BuyRequest(args);
+                break;
+            case SELL:
+                directRequest = new SellRequest(args);
+                break;
             case MOVE:
                 directRequest = new MoveRequest(args);
                 break;
@@ -83,6 +92,7 @@ public class Request {
                 directRequest = new EndTurnRequest(args);
             case KILL:
                 directRequest = new KillRequest(args);
+                break;
         }
         return directRequest;
     }
@@ -97,5 +107,4 @@ public class Request {
             socketPair.getFormatter().flush();
         }
     }
-
 }
