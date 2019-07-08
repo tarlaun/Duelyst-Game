@@ -355,12 +355,16 @@ public class Battle {
 
     public Message attack(int opponentCardId, Card currentCard ,int a) {
 
-        targetCard = Card.getCardByID(opponentCardId, accounts[(turn + 1) % 2].getCollection().getMainDeck().getCards());
-        if(opponentCardId==accounts[(turn + 1) % 2].getCollection().getMainDeck().getHero().getId())
-            targetCard = accounts[(turn + 1) % 2].getCollection().getMainDeck().getHero();
+        targetCard = Card.getCardByID(opponentCardId, accounts[(turn + 1+a) % 2].getCollection().getMainDeck().getCards());
+        if(opponentCardId==accounts[(turn + 1+a) % 2].getCollection().getMainDeck().getHero().getId())
+            targetCard = accounts[(turn + 1+a) % 2].getCollection().getMainDeck().getHero();
         //checkAttackHistory(opponentCardId, currentCard);
         //checkOnAttackSpecials(currentCard);
         //currentCard.setAbleToAttack(false);
+        if(targetCard==null){
+            System.out.println("attack nashod");
+            return Message.UNSUCCESSFUL_END;
+        }
         System.out.println("jooneavval  "+targetCard.getHealthPoint());
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         System.out.println("joonedovvom  "+targetCard.getHealthPoint());

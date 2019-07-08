@@ -956,8 +956,8 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        AiFunctions();
         battle.endTurn();
+        AiFunctions();
     }
 
     private void collectFlags() {
