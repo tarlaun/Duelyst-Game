@@ -1134,10 +1134,19 @@ public class Controller {
                 account.toJson(), Integer.toString(price));
         send(request);
         try {
-            this.account = Account.fromJson(reader.readLine());
-            setCardViews(account);
+            Message message = Message.fromJson(reader.readLine());
+            AlertMessage alert;
+            if (message == Message.VALID_AUCTION) {
+                alert = new AlertMessage("You set the auction price to " + price, Alert.AlertType.INFORMATION,
+                        "OK");
+            } else {
+                alert = new AlertMessage("The price you offer should be more than the current price " + price,
+                        Alert.AlertType.ERROR, "OK");
+            }
+            alert.getResult();
             fetchShop();
-        } catch (IOException e) {
+            shopMode = ShopMode.AUCTION;
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

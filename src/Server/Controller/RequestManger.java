@@ -106,4 +106,17 @@ public class RequestManger {
             return message.toJson();
         }
     }
+
+    public String increaseAuction(Request request) {
+        IncreaseAuctionRequest increaseAuctionRequest = (IncreaseAuctionRequest) request.getDirectRequest();
+        shop.increaseAuction(increaseAuctionRequest.getId(), increaseAuctionRequest.getAccount(),
+                increaseAuctionRequest.getPrice());
+        return increaseAuctionRequest.getAccount().toJson();
+    }
+
+    public String discardAuction(Request request) {
+        DiscardAuction discardAuction = (DiscardAuction) request.getDirectRequest();
+        shop.discardAuction(discardAuction.getId(), discardAuction.getAccount());
+        return discardAuction.getAccount().toJson();
+    }
 }

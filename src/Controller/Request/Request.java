@@ -64,6 +64,12 @@ public class Request {
             case GET_AUCTION:
                 directRequest = new FetchAuctionRequest(args);
                 break;
+            case INCREASE_AUCTION:
+                directRequest = new IncreaseAuctionRequest(args);
+                break;
+            case DISCARD_AUCTION:
+                directRequest = new DiscardAuction(args);
+                break;
         }
         return directRequest;
     }
