@@ -358,7 +358,7 @@ public class Battle {
         targetCard = Card.getCardByID(opponentCardId, accounts[(turn + 1 + a) % 2].getCollection().getMainDeck().getCards());
         if (opponentCardId == accounts[(turn + 1 + a) % 2].getCollection().getMainDeck().getHero().getId())
             targetCard = accounts[(turn + 1 + a) % 2].getCollection().getMainDeck().getHero();
-        if (targetCard == null) {
+        if (targetCard == null||currentCard==null) {
             System.out.println("attack nashod");
             return Message.UNSUCCESSFUL_END;
         }

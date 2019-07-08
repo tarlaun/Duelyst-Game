@@ -254,13 +254,15 @@ public class View {
 
     }
 
-    public void kill(ImageView[] imageViews){
+    public void kill(BattleCards battleCards){
         System.out.println("view kill");
-        imageViews[0].setImage(new Image("gifs/gifs/Brome Warcrest_death.gif"));
-        TranslateTransition transition = new TranslateTransition(Duration.millis(1500), imageViews[0]);
+        battleCards.getImageView()[0].setImage(battleCards.getImageView()[2].getImage());
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1500), battleCards.getImageView()[0]);
         transition.playFromStart();
         transition.setOnFinished(event -> {
-            root.getChildren().remove(imageViews);
+            root.getChildren().remove( battleCards.getImageView()[0]);
+            root.getChildren().remove( battleCards.getImageView()[1]);
+            root.getChildren().remove( battleCards.getImageView()[2]);
         });
     }
 

@@ -801,7 +801,7 @@ public class Controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            view.kill(battleCard.getImageView());
+            view.kill(heroes[finalI]);
         }
 
     }
@@ -1478,7 +1478,8 @@ public class Controller {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                view.kill(battleCard.getImageView());
+
+                view.kill(heroes[0]);
             }
 
             view.attack(heroes[1].getImageView());
