@@ -1008,17 +1008,26 @@ public class View {
 
     }
 
-    public void shopMenu(Account account, boolean mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items,
-                         AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane sell, AnchorPane buy, int page) {
+    public void shopMenu(Account account, ShopMode mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items,
+                         AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane sell, AnchorPane buy,
+                         AnchorPane auction, int page) {
         root.getChildren().clear();
         ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
         ImageView buyView = new ImageView(new Image("ui/button_confirm_glow@2x.png"));
         ImageView sellView = new ImageView(new Image("ui/button_cancel_glow@2x.png"));
-        Label modeLabel, budget;
-        if (mode)
-            modeLabel = new Label("Shop Objects");
-        else
-            modeLabel = new Label("Collection Objects");
+        ImageView auctionView = new ImageView(new Image("ui/status_panel@2x.png"));
+        Label modeLabel = null, budget;
+        switch (mode) {
+            case BUY:
+                modeLabel = new Label("Shop Objects");
+                break;
+            case SELL:
+                modeLabel = new Label("Collection Objects");
+                break;
+            case AUCTION:
+                modeLabel = new Label("Auction Objects");
+                break;
+        }
         budget = new Label("Budget: " + account.getBudget());
         budget.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
         budget.setTextFill(Color.DARKGREEN);
@@ -1030,12 +1039,14 @@ public class View {
                 Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
         sell.getChildren().addAll(new ImageButton(sellView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "SELL",
                 Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
+        auction.getChildren().addAll(new ImageButton(auctionView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT,
+                "AUCTION", Constants.SELL_TEXT_SIZE, Color.ORANGERED).getPane().getChildren());
         verticalList(Alignment.LEFT, Constants.SELL_PANE_X, Constants.CENTRE_Y,
-                buyView.getFitWidth(), buyView.getFitHeight(), buy, sell);
+                buyView.getFitWidth(), buyView.getFitHeight(), buy, sell, auction);
         scrollPane(backView, next, prev, back);
         lightning(buy);
         lightning(sell);
-        root.getChildren().addAll(backView, sell, buy, next, prev, back, object, modeLabel, budget);
+        root.getChildren().addAll(backView, sell, buy, auction, next, prev, back, object, modeLabel, budget);
         showCards(cards, items, modeLabel, page);
     }
 

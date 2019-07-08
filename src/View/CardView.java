@@ -27,7 +27,7 @@ public class CardView {
             switch (card.getType()) {
                 case "Hero":
                     character = new ImageView(new Image(card.getIdleSrc()));
-                    if (card.getCountInShop() == 0) {
+                    if (card.getCountInSerie() == 0) {
                         template = new ImageView(new Image("card_backgrounds/unusable_prismatic_unit@2x.png"));
                     } else {
                         template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
@@ -39,7 +39,7 @@ public class CardView {
                     break;
                 case "Minion":
                     character = new ImageView(new Image(card.getIdleSrc()));
-                    if (card.getCountInShop() == 0) {
+                    if (card.getCountInSerie() == 0) {
                         template = new ImageView(new Image("card_backgrounds/unusable_prismatic_unit@2x.png"));
                     } else {
                         template = new ImageView(new Image("card_backgrounds/craftable_unit@2x.png"));
@@ -51,7 +51,7 @@ public class CardView {
                     break;
                 case "Spell":
                     character = new ImageView(new Image(card.getIdleSrc()));
-                    if (card.getCountInShop() == 0) {
+                    if (card.getCountInSerie() == 0) {
                         template = new ImageView(new Image("card_backgrounds/unusable_spell@2x.png"));
                     } else {
                         template = new ImageView(new Image("card_backgrounds/craftable_spell@2x.png"));
@@ -60,7 +60,7 @@ public class CardView {
             }
             type = new Label(card.getType());
             name = new Label(card.getName());
-            count = new Label("x" + card.getCountInShop());
+            count = new Label("x" + card.getCountInSerie());
             price = new Label(Integer.toString(card.getPrice()));
             assert character != null;
             character.setId(Integer.toString(card.getId()));
