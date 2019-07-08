@@ -17,6 +17,7 @@ public class Item {
     private long auctionTime;
     private int auctionPrice;
     private String auctioneer;
+    private String auctionFetcher;
 
 
     public Item() {
@@ -187,6 +188,14 @@ public class Item {
         this.auctionTime = auctionTime;
         this.auctioneer = auctioneer;
         this.auctionPrice = auctionPrice;
+    }
+
+    public String getAuctionFetcher() {
+        return auctionFetcher;
+    }
+
+    public void setAuctionFetcher(String auctionFetcher) {
+        this.auctionFetcher = auctionFetcher;
     }
 
 }

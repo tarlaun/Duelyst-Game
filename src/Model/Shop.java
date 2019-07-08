@@ -213,18 +213,28 @@ public class Shop {
 
     public void auction(int id, Account account, int initialPrice) {
         Card card = Card.getCardByID(id, account.getCollection().getCards().toArray(new Card[0]));
+        Item item = Item.getItemByID(id, account.getCollection().getItems().toArray(new Item[0]));
         if (card != null) {
             card.setAuction(System.currentTimeMillis(), account.getName(), initialPrice);
             shop.getAuctionCards().add(card);
         } else {
-            Item item = Item.getItemByID(id, account.getCollection().getItems().toArray(new Item[0]));
             item.setAuction(System.currentTimeMillis(), account.getName(), initialPrice);
             shop.getAuctionItems().add(item);
         }
         new Thread(() -> {
             try {
                 Thread.sleep(Constants.AUCTION_DURATION_MILLIS);
-                discardAuction(id, account);
+                if (card != null) {
+                    if (card.getAuctionFetcher() == null)
+                        discardAuction(id, account);
+                    else
+                        fetchAuction(id, Account.getAccountByName(card.getAuctionFetcher(), game.getAccounts()));
+                } else {
+                    if (item.getAuctionFetcher() == null)
+                        discardAuction(id, account);
+                    else
+                        fetchAuction(id, Account.getAccountByName(item.getAuctionFetcher(), game.getAccounts()));
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -232,14 +242,26 @@ public class Shop {
     }
 
     public void discardAuction(int id, Account account) {
-        Card card = Card.getCardByID(id, account.getCollection().getCards().toArray(new Card[0]));
+        Card card = Card.getCardByID(id, shop.getAuctionCards().toArray(new Card[0]));
         if (card != null) {
             shop.getAuctionCards().remove(card);
             card.setAuction((long) 0, account.getName(), 0);
         } else {
-            Item item = Item.getItemByID(id, account.getCollection().getItems().toArray(new Item[0]));
+            Item item = Item.getItemByID(id, shop.getAuctionItems().toArray(new Item[0]));
             shop.getAuctionItems().remove(item);
             item.setAuction((long) 0, account.getName(), 0);
+        }
+    }
+
+    public void increaseAuction(int id, Account account, int price) {
+        Card card = Card.getCardByID(id, shop.getAuctionCards().toArray(new Card[0]));
+        if (card != null) {
+            card.setAuctionPrice(price);
+            card.setAuctionFetcher(account.getName());
+        } else {
+            Item item = Item.getItemByID(id, shop.getAuctionItems().toArray(new Item[0]));
+            item.setAuctionPrice(price);
+            item.setAuctionFetcher(account.getName());
         }
     }
 }

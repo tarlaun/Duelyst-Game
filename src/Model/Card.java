@@ -43,6 +43,7 @@ public class Card {
     private long auctionTime;
     private int auctionPrice;
     private String auctioneer;
+    private String auctionFetcher;
 
     public ArrayList<ItemBuff> getCastedItems() {
         return castedItems;
@@ -472,5 +473,13 @@ public class Card {
         this.auctionTime = auctionTime;
         this.auctioneer = auctioneer;
         this.auctionPrice = auctionPrice;
+    }
+
+    public String getAuctionFetcher() {
+        return auctionFetcher;
+    }
+
+    public void setAuctionFetcher(String auctionFetcher) {
+        this.auctionFetcher = auctionFetcher;
     }
 }

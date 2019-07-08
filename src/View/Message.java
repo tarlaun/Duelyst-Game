@@ -45,7 +45,7 @@ public enum Message {
     SUCCESSFUL_SAVE,
     BATTLE_FINISHED,
     ALREADY_LOGGED_IN,
-    NOT_AVAILABLE;
+    NOT_AVAILABLE, VALID_AUCTION;
 
     public String toJson() {
         return new Gson().toJson(this.toString());
