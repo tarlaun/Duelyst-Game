@@ -24,5 +24,6 @@ public enum RequestType {
     SELECT_USER,
     NULL,
     RIVAL,
-    BATTLE
+    BATTLE,
+    KILL
 }

@@ -164,4 +164,11 @@ public class RequestManger {
         Message message = battle.endTurn();
         return message.toJson();
     }
+
+    public String killEnemy(Request request){
+        KillRequest killRequest =  (KillRequest) request.getDirectRequest();
+        Message message = battle.?;
+        return message.toString();
+
+    }
 }

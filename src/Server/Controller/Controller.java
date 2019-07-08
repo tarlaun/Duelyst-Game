@@ -162,6 +162,8 @@ public class Controller {
                     case RIVAL:
                         out = manager.getRival(request);
                         break;
+                    case KILL:
+                        out = manager.killEnemy(request);
                 }
                 synchronized (socketPair) {
                     socketPair.getFormatter().format(out + "\n");

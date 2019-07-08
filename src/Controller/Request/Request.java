@@ -81,6 +81,8 @@ public class Request {
                 break;
             case END_TURN:
                 directRequest = new EndTurnRequest(args);
+            case KILL:
+                directRequest = new KillRequest(args);
         }
         return directRequest;
     }
