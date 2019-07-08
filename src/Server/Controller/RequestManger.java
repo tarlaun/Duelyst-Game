@@ -109,9 +109,11 @@ public class RequestManger {
 
     public String increaseAuction(Request request) {
         IncreaseAuctionRequest increaseAuctionRequest = (IncreaseAuctionRequest) request.getDirectRequest();
-        shop.increaseAuction(increaseAuctionRequest.getId(), increaseAuctionRequest.getAccount(),
+        Message message = shop.increaseAuction(increaseAuctionRequest.getId(), increaseAuctionRequest.getAccount(),
                 increaseAuctionRequest.getPrice());
-        return increaseAuctionRequest.getAccount().toJson();
+        if (message == Message.VALID_AUCTION)
+            return increaseAuctionRequest.getAccount().toJson();
+        return message.toJson();
     }
 
     public String discardAuction(Request request) {

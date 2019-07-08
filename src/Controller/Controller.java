@@ -1133,22 +1133,21 @@ public class Controller {
         Request request = new Request(Constants.SOCKET_PORT, RequestType.INCREASE_AUCTION, Integer.toString(id),
                 account.toJson(), Integer.toString(price));
         send(request);
+        AlertMessage alert;
+        String line = null;
         try {
-            Message message = Message.fromJson(reader.readLine());
-            AlertMessage alert;
-            if (message == Message.VALID_AUCTION) {
-                alert = new AlertMessage("You set the auction price to " + price, Alert.AlertType.INFORMATION,
-                        "OK");
-            } else {
-                alert = new AlertMessage("The price you offer should be more than the current price " + price,
-                        Alert.AlertType.ERROR, "OK");
-            }
-            alert.getResult();
+            line = reader.readLine();
+            Message message = Message.fromJson(line);
+            alert = new AlertMessage("The price you offer should be more than the current price " + price,
+                    Alert.AlertType.ERROR, "OK");
+        } catch (Exception e) {
+            alert = new AlertMessage("You set the auction price to " + price, Alert.AlertType.INFORMATION,
+                    "OK");
+            this.account = Account.fromJson(line);
             fetchShop();
             shopMode = ShopMode.AUCTION;
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        alert.getResult();
     }
 
     private void setBattleMode(int a) {

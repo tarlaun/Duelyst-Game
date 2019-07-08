@@ -253,15 +253,20 @@ public class Shop {
         }
     }
 
-    public void increaseAuction(int id, Account account, int price) {
+    public Message increaseAuction(int id, Account account, int price) {
         Card card = Card.getCardByID(id, shop.getAuctionCards().toArray(new Card[0]));
+        Item item = Item.getItemByID(id, shop.getAuctionItems().toArray(new Item[0]));
         if (card != null) {
+            if (card.getAuctionPrice() >= price)
+                return Message.INVALID_AUCTION;
             card.setAuctionPrice(price);
             card.setAuctionFetcher(account.getName());
         } else {
-            Item item = Item.getItemByID(id, shop.getAuctionItems().toArray(new Item[0]));
+            if (item.getAuctionPrice() >= price)
+                return Message.INVALID_AUCTION;
             item.setAuctionPrice(price);
             item.setAuctionFetcher(account.getName());
         }
+        return Message.VALID_AUCTION;
     }
 }
