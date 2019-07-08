@@ -788,7 +788,16 @@ public class Controller {
 
     private void readyForAttack(int finalI, BattleCards[] heroes) {
         System.out.println("attack mmm");
-        battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard(),0);
+        Message message =battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard(), 0);
+        if (message.equals(Message.SUCCESSFUL_KILL)) {
+            Request request = new Request(Constants.SOCKET_PORT, RequestType.KILL, account.getName(), String.valueOf(heroes[0].getCard().getId()));
+            send(request);
+            try {
+                reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         currentImageView[0] = battleCard.getImageView()[0];
         currentImageView[1] = battleCard.getImageView()[1];
         currentImageView[2] = battleCard.getImageView()[2];
@@ -805,8 +814,8 @@ public class Controller {
                 if (currentCoordinate[0] == null) {
                     view.move(polygon[a].getPoints().get(0), polygon[a].getPoints().get(1), currentImageView[0], currentImageView[1]);
                     System.out.println("move kard");
-                    battle.moveTo(new Coordinate((a / 9), a - (a / 9) * 9),battleCard.getCard().getId());
-                    Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY, account.getName(),String.valueOf(battleCard.getCard().getId()));
+                    battle.moveTo(new Coordinate((a / 9), a - (a / 9) * 9), battleCard.getCard().getId());
+                    Request request = new Request(Constants.SOCKET_PORT, RequestType.MOVE, polygonNumberX, polygonNumberY, account.getName(), String.valueOf(battleCard.getCard().getId()));
                     send(request);
                     battleCard = null;
                     try {
@@ -830,7 +839,7 @@ public class Controller {
                     if (currentHandCardPointer + 4 < 15) {
                         view.handView(currentCoordinate, handCardGifs[currentHandCardPointer + 4]);
                     }
-                    battleCard=null;
+                    battleCard = null;
                 }
             });
         }
@@ -1245,7 +1254,7 @@ public class Controller {
     }
 
     private void setBattleMode(int a) {
-        System.out.println(battle.getGameType()+"kvmkdmckmkmv");
+        System.out.println(battle.getGameType() + "kvmkdmckmkmv");
         String battleModes = null;
         switch (a) {
             case 1:
@@ -1285,7 +1294,7 @@ public class Controller {
             }
             battle.setAccounts(accounts);
             System.out.println("before");
-            System.out.println(battle.getGameType()+"qweqewfe");
+            System.out.println(battle.getGameType() + "qweqewfe");
             Request request1 = new Request(Constants.SOCKET_PORT, RequestType.BATTLE, accounts[0].getName(),
                     accounts[1].getName(), battle.getGameType().toString(), battle.getMode().toString());
             send(request1);
@@ -1348,7 +1357,7 @@ public class Controller {
             e.printStackTrace();
         }
         battle.setGameType(GameType.SINGLEPLAYER);
-        System.out.println(battle.getGameType()+"ekmvk");
+        System.out.println(battle.getGameType() + "ekmvk");
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
     }
@@ -1363,22 +1372,22 @@ public class Controller {
             e.printStackTrace();
         }
         battle.setGameType(GameType.MULTIPLAYER);
-        System.out.println(battle.getGameType()+"kmdcdc");
+        System.out.println(battle.getGameType() + "kmdcdc");
         menu.setStat(MenuStat.BATTLE_MODE);
         main();
     }
 
 
     private void setMainDeckForAI() {
-        if (battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getMode().equals(BattleMode.KILLENEMYHERO)) {
             battle.getAccounts()[1].getCollection().selectDeck("level1");
             System.out.println("one");
         }
-        if (battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getMode().equals(BattleMode.FLAG)) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getMode().equals(BattleMode.FLAG)) {
             System.out.println("tw");
             battle.getAccounts()[1].getCollection().selectDeck("level2");
         }
-        if (battle.getGameType().equals(GameType.SINGLEPLAYER)&& battle.getMode().equals(BattleMode.COLLECTING)) {
+        if (battle.getGameType().equals(GameType.SINGLEPLAYER) && battle.getMode().equals(BattleMode.COLLECTING)) {
             System.out.println("th");
             battle.getAccounts()[1].getCollection().selectDeck("level3");
         }
@@ -1459,7 +1468,17 @@ public class Controller {
 
     private void attackAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
-            battle.attack(heroes[0].getCard().getId(), heroes[1].getCard(),0);
+            Message message = battle.attack(heroes[0].getCard().getId(), heroes[1].getCard(), 0);
+            if (message.equals(Message.SUCCESSFUL_KILL)) {
+                Request request = new Request(Constants.SOCKET_PORT, RequestType.KILL, account.getName(), String.valueOf(heroes[0].getCard().getId()));
+                send(request);
+                try {
+                    reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             view.attack(heroes[1].getImageView());
         }
     }
@@ -1652,12 +1671,11 @@ public class Controller {
     }
 
 
-
     class Task extends TimerTask {
         //Timer timer = new Timer();
         //            timer.schedule(Task, 60000);
         public void run() {
-           // endTurn();
+            // endTurn();
         }
     }
 
@@ -1749,7 +1767,7 @@ public class Controller {
         }
     }
 
-    private void requests(){
+    private void requests() {
         menu.setStat(MenuStat.REQUESTS);
         main();
     }

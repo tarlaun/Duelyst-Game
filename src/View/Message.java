@@ -60,7 +60,9 @@ public enum Message {
     COLLECT_CHOSEN,
     FLAG_CHOSEN,
     SUCCESSFUL_END,
-    UNSUCCESSFUL_END;
+    UNSUCCESSFUL_END,
+    UNSUCCESSFUL_KILL,
+    SUCCESSFUL_KILL;
 
     public String toJson() {
         return new Gson().toJson(this.toString());

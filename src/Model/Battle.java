@@ -365,7 +365,9 @@ public class Battle {
         System.out.println("jooneavval  " + targetCard.getHealthPoint());
         targetCard.modifyHealth(-currentCard.getAssaultPower());
         System.out.println("joonedovvom  " + targetCard.getHealthPoint());
-        killEnemy(targetCard.getId());
+        Message message = killEnemy(targetCard.getId());
+        if(message.equals(Message.SUCCESSFUL_KILL))
+            return message;
         if (a == 1)
             return Message.SUCCESSFUL_END;
         attack(currentCard.getId(), targetCard, 1);
@@ -488,34 +490,10 @@ public class Battle {
         if(cardId==accounts[1].getCollection().getMainDeck().getHero().getId()) targetCard =accounts[1].getCollection().getMainDeck().getHero();
         if(cardId==accounts[0].getCollection().getMainDeck().getHero().getId()) targetCard =accounts[0].getCollection().getMainDeck().getHero();
         if (targetCard != null && targetCard.getHealthPoint() <= 0) {
-            if (targetCard.getBuffs().size() == 1 &&
-                    targetCard.getBuffs().get(0).getActivationType().equals(ActivationType.ON_DEATH) &&
-                    targetCard.getBuffs().get(0).getType().equals(BuffType.WEAKNESS)) {
-                for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
-                    if (fieldCards[(turn + 1) % 2][i].getType().equals("Hero")) {
-                        fieldCards[(turn + 1) % 2][i].modifyHealth(-fieldCards[(turn + 1) % 2][i].getBuffs().get(0).getPower());
-                    }
-                }
-            }
-            if (mode.equals(BattleMode.FLAG)) {
-                mainFlag.setTurnCounter(0);
-                mainFlag.setHeld(false);
-            }
-            ArrayList<Card> opponentFieldCards = new ArrayList<>(Arrays.asList(fieldCards[(turn + 1) % 2]));
-            opponentFieldCards.remove(targetCard);
-            for (int i = 0; i < opponentFieldCards.size(); i++) {
-                fieldCards[(turn + 1) % 2][i] = opponentFieldCards.get(i);
-            }
-            fieldCards[(turn + 1) % 2][opponentFieldCards.size()] = null;
-
-            for (int i = 0; i < fieldCards[(turn + 1) % 2].length; i++) {
-                if (fieldCards[(turn + 1) % 2][i] != null && fieldCards[(turn + 1) % 2][i].getName().equals(targetCard.getName())) {
-                    fieldCards[(turn + 1) % 2][i] = null;
-                }
-            }
             field[targetCard.getCoordinate().getX()][targetCard.getCoordinate().getY()].setCardID(0);
-
+            return Message.SUCCESSFUL_KILL;
         }
+        return Message.UNSUCCESSFUL_KILL;
     }
 
     public Message attackCombo(int opponentCardId, Card... cards) {
