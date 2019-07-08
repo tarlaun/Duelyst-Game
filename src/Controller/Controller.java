@@ -247,6 +247,9 @@ public class Controller {
                 media = new Media(file.toURI().toString());
                 player = new MediaPlayer(media);
                 break;
+            case REQUESTS:
+                view.requestMenu();
+                break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
                 file = new File("resources/music/music_battlemap_firesofvictory.m4a");

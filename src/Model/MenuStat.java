@@ -15,7 +15,8 @@ public enum MenuStat {
     CUSTOM_CARD,
     CUSTOM_BUFF,
     MATCH_HISTORY,
-    GRAVEYARD;
+    GRAVEYARD,
+    REQUESTS;
 
     public MenuStat prevMenu() {
         switch (this) {

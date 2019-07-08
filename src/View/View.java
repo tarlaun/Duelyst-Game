@@ -1222,8 +1222,14 @@ public class View {
                 break;
         }
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(Constants.CARD_WIDTH);
+
+
         imageView.setFitHeight(Constants.CARD_HEIGHT);
+    }
+
+    public void requestMenu(){
+        ImageView imageView = new ImageView(new Image("codex/chapter18_background@2x.jpg/"));
+        root.getChildren().add(imageView);
     }
 
 }
