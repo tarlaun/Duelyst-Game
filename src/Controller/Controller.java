@@ -1084,28 +1084,61 @@ public class Controller {
                     sell(id);
                     break;
                 case "Auction":
-                    setAuction(id);
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setHeaderText("Put this on auction");
+                    dialog.setContentText("for Drigs...");
+                    Optional<String> price = dialog.showAndWait();
+                    price.ifPresent(s -> setAuction(id, Integer.parseInt(price.get())));
                     break;
             }
         }
     }
 
     private void handleAuction(int budget, int id, int price) {
-        AlertMessage alert;
+        AlertMessage sufficiency;
         if (budget < price) {
-            alert = new AlertMessage("Insufficient budget!", Alert.AlertType.ERROR, "OK");
-            alert.getResult();
-        } else {
-            alert = new AlertMessage("It will cost " + price + " Drigs",
-                    Alert.AlertType.CONFIRMATION, "OK", "Cancel");
-            Optional<ButtonType> result = alert.getResult();
-            if (result.isPresent()) {
-                switch (result.get().getText()) {
-                    case "OK":
-                        getAuction(id);
-                        break;
-                }
+            sufficiency = new AlertMessage("Insufficient budget!", Alert.AlertType.ERROR, "OK");
+            sufficiency.getResult();
+            return;
+        }
+        AlertMessage task = new AlertMessage("What do you want to do?", Alert.AlertType.CONFIRMATION,
+                "Fetch", "Increase", "Cancel");
+        Optional<ButtonType> taskResult = task.getResult();
+        taskResult.ifPresent(buttonType -> {
+            switch (taskResult.get().getText()) {
+                case "Fetch":
+                    AlertMessage alert = new AlertMessage("It will cost " + price + " Drigs",
+                            Alert.AlertType.CONFIRMATION, "OK", "Cancel");
+                    Optional<ButtonType> result = alert.getResult();
+                    result.ifPresent(buttonType1 -> {
+                        switch (result.get().getText()) {
+                            case "OK":
+                                getAuction(id);
+                                break;
+                        }
+                    });
+                    break;
+                case "Increase":
+                    TextInputDialog dialog = new TextInputDialog(Integer.toString(price));
+                    dialog.setHeaderText("Increase the price");
+                    dialog.setContentText("to Drigs...");
+                    Optional<String> increase = dialog.showAndWait();
+                    increase.ifPresent(s -> increaseAuction(id, account, Integer.parseInt(increase.get())));
+                    break;
             }
+        });
+    }
+
+    private void increaseAuction(int id, Account account, int price) {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.INCREASE_AUCTION, Integer.toString(id),
+                account.toJson(), Integer.toString(price));
+        send(request);
+        try {
+            this.account = Account.fromJson(reader.readLine());
+            setCardViews(account);
+            fetchShop();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -1536,8 +1569,9 @@ public class Controller {
         }
     }
 
-    private void setAuction(int id) {
-        Request request = new Request(Constants.SOCKET_PORT, RequestType.SET_AUCTION, Integer.toString(id));
+    private void setAuction(int id, int initialPrice) {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.SET_AUCTION, Integer.toString(id),
+                account.toJson(), Integer.toString(initialPrice));
         send(request);
         try {
             String line;

@@ -119,4 +119,5 @@ public class Constants {
     public static final int SOCKET_PORT = 8080;
     public static final String IP = "localhost";
     public static final int SHOP_INITIAL_COUNT = 3;
+    public static final long AUCTION_DURATION_MILLIS = 180000;
 }

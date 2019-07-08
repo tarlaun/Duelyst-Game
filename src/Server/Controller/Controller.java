@@ -126,6 +126,12 @@ public class Controller {
                     case SELL:
                         out = manager.sell(request);
                         break;
+                    case SET_AUCTION:
+                        out = manager.auction(request);
+                        break;
+                    case GET_AUCTION:
+                        out = manager.fetchAuction(request);
+                        break;
                 }
                 synchronized (socketPair) {
                     socketPair.getFormatter().format(out + "\n");

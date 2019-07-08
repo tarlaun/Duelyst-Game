@@ -211,15 +211,35 @@ public class Shop {
         return Message.SUCCESSFUL_PURCHASE;
     }
 
-    public void auction(int id, Account account) {
+    public void auction(int id, Account account, int initialPrice) {
         Card card = Card.getCardByID(id, account.getCollection().getCards().toArray(new Card[0]));
         if (card != null) {
-            card.setAuction(System.currentTimeMillis(), account.getName(), card.getPrice());
+            card.setAuction(System.currentTimeMillis(), account.getName(), initialPrice);
             shop.getAuctionCards().add(card);
         } else {
             Item item = Item.getItemByID(id, account.getCollection().getItems().toArray(new Item[0]));
-            item.setAuction(System.currentTimeMillis(), account.getName(), item.getPrice());
+            item.setAuction(System.currentTimeMillis(), account.getName(), initialPrice);
             shop.getAuctionItems().add(item);
+        }
+        new Thread(() -> {
+            try {
+                Thread.sleep(Constants.AUCTION_DURATION_MILLIS);
+                discardAuction(id, account);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    public void discardAuction(int id, Account account) {
+        Card card = Card.getCardByID(id, account.getCollection().getCards().toArray(new Card[0]));
+        if (card != null) {
+            shop.getAuctionCards().remove(card);
+            card.setAuction((long) 0, account.getName(), 0);
+        } else {
+            Item item = Item.getItemByID(id, account.getCollection().getItems().toArray(new Item[0]));
+            shop.getAuctionItems().remove(item);
+            item.setAuction((long) 0, account.getName(), 0);
         }
     }
 }

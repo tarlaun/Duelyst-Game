@@ -58,6 +58,12 @@ public class Request {
             case SELL:
                 directRequest = new SellRequest(args);
                 break;
+            case SET_AUCTION:
+                directRequest = new AuctionRequest(args);
+                break;
+            case GET_AUCTION:
+                directRequest = new FetchAuctionRequest(args);
+                break;
         }
         return directRequest;
     }

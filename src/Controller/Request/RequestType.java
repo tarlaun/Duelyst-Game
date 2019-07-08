@@ -53,5 +53,8 @@ public enum RequestType {
     CUSTOM,
     SELECT_USER,
     SHOW_MAP,
-    SHOP, NULL
+    SHOP,
+    GET_AUCTION,
+    SET_AUCTION,
+    INCREASE_AUCTION, NULL
 }

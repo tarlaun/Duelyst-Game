@@ -14,6 +14,7 @@ public class RequestManger {
     private Game game = Game.getInstance();
     private Shop shop = Shop.getInstance();
     private final HashMap<Integer, SocketPair> sockets = new HashMap<>();
+    private final HashMap<String, SocketPair> accountSockets = new HashMap<>();
 
     private RequestManger() {
 
@@ -87,11 +88,22 @@ public class RequestManger {
 
     public String sell(Request request) {
         SellRequest sellRequest = (SellRequest) request.getDirectRequest();
-        try {
-            System.out.println(shop.sell(sellRequest.getId(), sellRequest.getAccount()));
-        } catch (Exception isItem) {
-            System.out.println(shop.sell(sellRequest.getId(), sellRequest.getAccount()));
-        }
         return sellRequest.getAccount().toJson();
+    }
+
+    public String auction(Request request) {
+        AuctionRequest auctionRequest = (AuctionRequest) request.getDirectRequest();
+        shop.auction(auctionRequest.getId(), auctionRequest.getAccount(), auctionRequest.getInitialPrice());
+        return auctionRequest.getAccount().toJson();
+    }
+
+    public String fetchAuction(Request request) {
+        FetchAuctionRequest fetchAuctionRequest = (FetchAuctionRequest) request.getDirectRequest();
+        Message message = shop.fetchAuction(fetchAuctionRequest.getId(), fetchAuctionRequest.getFetcher());
+        if (message == Message.SUCCESSFUL_PURCHASE) {
+            return fetchAuctionRequest.getFetcher().toJson();
+        } else {
+            return message.toJson();
+        }
     }
 }
