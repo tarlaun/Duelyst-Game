@@ -254,6 +254,16 @@ public class View {
 
     }
 
+    public void kill(ImageView[] imageViews){
+        System.out.println("view kill");
+        imageViews[0].setImage(new Image("gifs/gifs/Brome Warcrest_death.gif"));
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1500), imageViews[0]);
+        transition.playFromStart();
+        transition.setOnFinished(event -> {
+            root.getChildren().remove(imageViews);
+        });
+    }
+
     public void cardBackGround(BattleCards battleCards) {
         Label power = new Label();
         Label health = new Label();

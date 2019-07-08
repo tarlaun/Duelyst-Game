@@ -490,7 +490,6 @@ public class Battle {
         if(cardId==accounts[1].getCollection().getMainDeck().getHero().getId()) targetCard =accounts[1].getCollection().getMainDeck().getHero();
         if(cardId==accounts[0].getCollection().getMainDeck().getHero().getId()) targetCard =accounts[0].getCollection().getMainDeck().getHero();
         if (targetCard != null && targetCard.getHealthPoint() <= 0) {
-            field[targetCard.getCoordinate().getX()][targetCard.getCoordinate().getY()].setCardID(0);
             return Message.SUCCESSFUL_KILL;
         }
         return Message.UNSUCCESSFUL_KILL;

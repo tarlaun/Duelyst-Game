@@ -106,8 +106,8 @@ public class Controller {
             aiCards[i] = new BattleCards();
             ImageView[] imageView = new ImageView[3];
             imageView[0] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
-            imageView[1] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
-            imageView[2] = new ImageView(new Image("gifs/gifs/Abomination_idle.gif"));
+            imageView[1] = new ImageView(new Image("gifs/gifs/Abomination_attack.gif"));
+            imageView[2] = new ImageView(new Image("gifs/gifs/Abomination_run.gif"));
             handCardGifs[i].setImageView(imageView);
             aiCards[i].setImageView(imageView);
             aiCards[i].setInside(false);
@@ -789,6 +789,10 @@ public class Controller {
     private void readyForAttack(int finalI, BattleCards[] heroes) {
         System.out.println("attack mmm");
         Message message =battle.attack(heroes[finalI].getCard().getId(), battleCard.getCard(), 0);
+        currentImageView[0] = battleCard.getImageView()[0];
+        currentImageView[1] = battleCard.getImageView()[1];
+        currentImageView[2] = battleCard.getImageView()[2];
+        view.attack(currentImageView);
         if (message.equals(Message.SUCCESSFUL_KILL)) {
             Request request = new Request(Constants.SOCKET_PORT, RequestType.KILL, account.getName(), String.valueOf(heroes[0].getCard().getId()));
             send(request);
@@ -797,11 +801,8 @@ public class Controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            view.kill(battleCard.getImageView());
         }
-        currentImageView[0] = battleCard.getImageView()[0];
-        currentImageView[1] = battleCard.getImageView()[1];
-        currentImageView[2] = battleCard.getImageView()[2];
-        view.attack(currentImageView);
 
     }
 
@@ -1477,6 +1478,7 @@ public class Controller {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                view.kill(battleCard.getImageView());
             }
 
             view.attack(heroes[1].getImageView());
