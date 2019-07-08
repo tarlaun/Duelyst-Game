@@ -72,6 +72,7 @@ public class RequestManger {
     public String move(Request request) {
         MoveRequest moveRequest = (MoveRequest) request.getDirectRequest();
         battle = Battle.findBattleByName(moveRequest.getAccName(),game.getBattles());
+        System.out.println(battle.getField(2,2)==null);
         Message message = battle.moveTo(moveRequest.getCoordinate());
         return message.toJson();
     }
@@ -86,6 +87,7 @@ public class RequestManger {
     public String insert(Request request) {
         InsertionRequest insertionRequest = (InsertionRequest) request.getDirectRequest();
         battle = Battle.findBattleByName(insertionRequest.getAccName(),game.getBattles());
+        System.out.println(battle.getField(2,2)==null);
         Message message = battle.insertCard(insertionRequest.getCoordinate(), insertionRequest.getCardName());
         return message.toJson();
     }
@@ -142,9 +144,6 @@ public class RequestManger {
     }
 
     public String battle(Request request) {
-        System.out.println(request==null);
-        System.out.println(request.getType());
-        System.out.println(request.getDirectRequest());
         BattleRequest battleRequest = (BattleRequest) request.getDirectRequest();
         Account[] accounts = new Account[2];
         accounts[0] = Account.getAccountByName(battleRequest.getAccount1Name(),game.getAccounts());

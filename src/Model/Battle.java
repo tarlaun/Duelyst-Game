@@ -119,6 +119,7 @@ public class Battle {
         setManaPoints();
         for (int i = 0; i < Constants.WIDTH; i++) {
             for (int j = 0; j < Constants.LENGTH; j++) {
+                System.out.println("dardbegiriishalla");
                 this.field[i][j] = new Cell();
             }
         }
@@ -292,20 +293,26 @@ public class Battle {
 
     public Message moveTo(Coordinate coordinate) {
         System.out.println("shit");
-        if (currentCard == null)
+        if (currentCard == null) {
+            System.out.println("a");
             return Message.UNSUCCESSFUL_MOVE;
-        if (!currentCard.isAbleToMove())
-            return Message.UNSUCCESSFUL_MOVE;
+        }
         if (coordinate.getX() >= Constants.LENGTH || coordinate.getY() >= Constants.LENGTH
-                || coordinate.getY() < 0 || coordinate.getX() < 0)
+                || coordinate.getY() < 0 || coordinate.getX() < 0) {
+            System.out.println("c");
             return Message.UNSUCCESSFUL_MOVE;
+        }
         if (currentCard.getCoordinate() == coordinate) {
             currentCard.setAbleToMove(false);
+            System.out.println("d");
             return Message.UNSUCCESSFUL_MOVE;
         }
         if (Coordinate.getManhattanDistance(currentCard.getCoordinate(), coordinate) > currentCard.getMaxPossibleMoving()) {
+            System.out.println("f");
             return Message.UNSUCCESSFUL_MOVE;
         }
+        System.out.println(currentCard.getCoordinate().getX());
+        System.out.println(currentCard.getCoordinate().getY());
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(0);
         currentCard.setCoordinate(coordinate);
         field[currentCard.getCoordinate().getX()][currentCard.getCoordinate().getY()].setCardID(currentCard.getId());
@@ -751,12 +758,19 @@ public class Battle {
     }
 
     public Message insertCard(Coordinate coordinate, String cardName) {
-        Account account = null;
+        Account account=accounts[turn%2];
         for (int i = 0; i < account.getCollection().getMainDeck().getCards().size(); i++) {
             if (account.getCollection().getMainDeck().getCards().get(i).getName().equals(cardName)) {
                 Card insert = Card.getCardByName(cardName, account.getCollection().getCards());
                 assert insert != null;
                 if (insert.isClass("Minion")) {
+                    System.out.println(coordinate.getX());
+                    System.out.println(coordinate.getY());
+                    System.out.println(insert.getName());
+                    System.out.println(field[2][2]==null);
+                    System.out.println(field[2][2].getCardID());
+                    System.out.println(insert.getId());
+                    System.out.println(field[coordinate.getX()][coordinate.getY()]);
                     field[coordinate.getX()][coordinate.getY()].setCardID(insert.getId());
                     insert.setCoordinate(coordinate);
                     fieldCards[turn % 2] = Card.addToArray(fieldCards[turn % 2], insert);
