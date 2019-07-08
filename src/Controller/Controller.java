@@ -924,28 +924,12 @@ public class Controller {
 
         });
         imageViews[ImageViews.END_TURN.ordinal()].setOnMouseClicked(event -> {
-            Request request = new Request(Constants.SOCKET_PORT,RequestType.END_TURN,"endTurn");
-            send(request);
-            try {
-                reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            AiFunctions();
-            battle.endTurn();
+            endTurnRequest();
             collectFlags();
 
         });
         labels[Labels.END_TURN.ordinal()].setOnMouseClicked(event -> {
-            Request request = new Request(Constants.SOCKET_PORT,RequestType.END_TURN,"endTurn");
-            send(request);
-            try {
-                reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            AiFunctions();
-            battle.endTurn();
+            endTurnRequest();
             for (int i = 0; i < 9; i++) {
                 if (i < battle.getAccounts()[0].getMana()) {
                     mana[i].setImage(new Image("ui/icon_mana@2x.png"));
@@ -961,6 +945,18 @@ public class Controller {
         buttons[Buttons.KILL_ENEMY_HERO.ordinal()].setOnMouseClicked(event -> setBattleMode(1));
         buttons[Buttons.FLAG_COLLECTING.ordinal()].setOnMouseClicked(event -> setBattleMode(2));
         buttons[Buttons.HOLD_FLAG.ordinal()].setOnMouseClicked(event -> setBattleMode(3));
+    }
+
+    private void endTurnRequest() {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.END_TURN, "endTurn");
+        send(request);
+        try {
+            reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AiFunctions();
+        battle.endTurn();
     }
 
     private void collectFlags() {
@@ -1462,16 +1458,6 @@ public class Controller {
 
     private void attackAI() {
         if (battle.getGameType().equals(GameType.SINGLEPLAYER)) {
-           /* for (int i = 0; i < battle.getFieldCards()[1].length; i++) {
-                for (int j = 0; j < battle.getFieldCards()[0].length; j++) {
-                    if (battle.getFieldCards()[0][j] != null && battle.getFieldCards()[1][i] != null) {
-                        battle.attack(battle.getFieldCards()[0][j].getId(), battle.getFieldCards()[1][i]);
-                        if (battle.getFieldCards()[1][i].getType().equals("Hero")) {
-                            if (battle.AIAssaultTypeBasedInsertion(i, j)) break;
-                        }
-                    }
-                }
-            }*/
             battle.attack(heroes[0].getCard().getId(), heroes[1].getCard());
             view.attack(heroes[1].getImageView());
         }

@@ -131,8 +131,6 @@ public class Controller {
                         break;
                     case SHOW:
                         break;
-                    case COMBO:
-                        break;
                     case ATTACK:
                         out = manager.attack(request);
                         break;
@@ -143,8 +141,6 @@ public class Controller {
                         out = manager.battle(request);
                         break;
                     case END_GAME:
-                        break;
-                    case ENTRANCE:
                         break;
                     case END_TURN:
                         out = manager.endTurn(request);
@@ -165,8 +161,6 @@ public class Controller {
                         break;
                     case RIVAL:
                         out = manager.getRival(request);
-                        break;
-                    case NULL:
                         break;
                 }
                 synchronized (socketPair) {
