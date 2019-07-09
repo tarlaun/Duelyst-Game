@@ -200,13 +200,15 @@ public class RequestManger {
         return message.toString();
     }
 
-    public String leaderboard(Request request){
+    public String leaderboard(Request request) {
         LeaderboardRequest leaderboardRequest = (LeaderboardRequest) request.getDirectRequest();
         StringBuilder message = new StringBuilder();
         game.sortAccounts();
         for (int i = 0; i < game.getAccounts().size(); i++) {
             Account account = game.getAccounts().get(i);
-            message.append(account.getName()+" W: "+account.getWins()+" L: "+account.getLosses()+" T: "+account.getTies());
+            message.append(account.getName() + " W: " + account.getWins() + " L: " + account.getLosses() + " T: " + account.getTies());
+            if (account.isLoggedIn())
+                message.append("   ONLINE!!");
             message.append("taghi");
         }
         return message.toString();

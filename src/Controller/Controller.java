@@ -323,6 +323,11 @@ public class Controller {
                 break;
             case ITEM_SELECTION:
                 break;
+            case LEADERBOARD:
+                file = new File("resources/music/music_playmode.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
+
         }
         player.setAutoPlay(true);
         try {
