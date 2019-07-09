@@ -17,6 +17,33 @@ public class Account {
     private transient static Game game = Game.getInstance();
     private transient boolean isLoggedIn = true;
     private int wins = 0;
+    private int losses=0;
+    private int ties = 0;
+
+    public static Game getGame() {
+        return game;
+    }
+
+    public static void setGame(Game game) {
+        Account.game = game;
+    }
+
+    public int getLosses() {
+        return losses;
+    }
+
+    public void setLosses(int losses) {
+        this.losses = losses;
+    }
+
+    public int getTies() {
+        return ties;
+    }
+
+    public void setTies(int ties) {
+        this.ties = ties;
+    }
+
     private transient int mana = 2;
     private transient int flagsCollected = 0;
 

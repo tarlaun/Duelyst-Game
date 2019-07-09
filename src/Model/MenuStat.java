@@ -17,6 +17,7 @@ public enum MenuStat {
     MATCH_HISTORY,
     GRAVEYARD,
     REQUESTS,
+    LEADERBOARD,
     WIN;
 
     public MenuStat prevMenu() {

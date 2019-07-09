@@ -176,6 +176,7 @@ public class View {
     }
 
     public void printLeaderboard(ArrayList<Account> accounts) {
+        System.out.println(accounts.size());
         for (int i = 0; i < accounts.size(); i++) {
             System.out.println(i + 1 + " - UserName : " + accounts.get(i).getName() +
                     " - Wins : " + accounts.get(i).getWins());
@@ -1283,13 +1284,39 @@ public class View {
         root.getChildren().addAll(imageView, back);
     }
 
-    public void leaderboardMenu(AnchorPane back){
-        ImageView imageView = new ImageView(new Image("codex/chapter18_background@2x.jpg/"));;
-        Image backArrow = new Image("ui/button_back_corner.png");;
-        ImageView arrow = new ImageView(backArrow);;
-        back.getChildren().add(arrow);;
-        lightning(back);;
-        root.getChildren().addAll(imageView, back);;
+    public void leaderboardMenu(AnchorPane back, String list) {
+        ImageView imageView = new ImageView(new Image("codex/chapter18_background@2x.jpg/"));
+        ;
+        Image backArrow = new Image("ui/button_back_corner.png");
+        ;
+        ImageView arrow = new ImageView(backArrow);
+        ;
+        back.getChildren().add(arrow);
+        ;
+        lightning(back);
+        ;
+        Label label = new Label("LEADERBOARD");
+        label.setLayoutX(scene.getWidth() / 3);
+        label.setLayoutY(scene.getHeight() / 6 - 50);
+        label.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 46));
+        TextArea textField = new TextArea();
+        ;
+        textField.setPrefRowCount(10);
+        ;
+        textField.setLayoutX(scene.getWidth() / 3);
+        ;
+        textField.setLayoutY(scene.getHeight() / 6);
+        textField.setMaxSize(Constants.MATCH_HISTORY_FIELD_WIDTH, Constants.MATCH_HISTORY_FIELD_HEIGHT);
+        textField.setMinSize(Constants.MATCH_HISTORY_FIELD_WIDTH, Constants.MATCH_HISTORY_FIELD_HEIGHT);
+        textField.setEditable(false);
+        String[] listParts = list.split("taghi");
+        for (int i = 1; i < listParts.length; i++) {
+            textField.appendText(i+"- " + listParts[i - 1] + "\r\n");
+        }
+
+
+        root.getChildren().addAll(imageView, back, textField, label);
+        ;
     }
 
 }

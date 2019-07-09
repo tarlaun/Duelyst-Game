@@ -173,6 +173,10 @@ public class Controller {
                         break;
                     case KILL:
                         out = manager.killEnemy(request);
+                        break;
+                    case LEADERBOARD:
+                        out = manager.leaderboard(request);
+                        break;
                 }
                 synchronized (socketPair) {
                     socketPair.getFormatter().format(out + "\n");

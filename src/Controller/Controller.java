@@ -573,7 +573,23 @@ public class Controller {
     private void accountButtons() {
         anchorPanes[Anchorpanes.PLAY.ordinal()].setOnMouseClicked(event -> chooseBattleType());
         anchorPanes[Anchorpanes.LOGOUT.ordinal()].setOnMouseClicked(event -> logout());
-        anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> showLeaderBoard());
+        anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()].setOnMouseClicked(event -> {
+            Request request = new Request(Constants.SOCKET_PORT, RequestType.LEADERBOARD, "leaderboard");
+            send(request);
+            StringBuilder result = new StringBuilder();
+            try {
+                String read;
+
+                read = reader.readLine();
+                result.append(read);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            showLeaderBoard(result.toString());
+            main();
+        });
         anchorPanes[Anchorpanes.REQUESTS.ordinal()].setOnMouseClicked(event -> requests());
         anchorPanes[Anchorpanes.SHOP.ordinal()].setOnMouseClicked(event -> {
             fetchShop();
@@ -1559,10 +1575,11 @@ public class Controller {
         }
     }
 
-    private void showLeaderBoard() {
+    private void showLeaderBoard(String result) {
         game.sortAccounts();
         view.printLeaderboard(game.getAccounts());
-        view.leaderboardMenu(anchorPanes[Anchorpanes.BACK.ordinal()]);
+        menu.setStat(MenuStat.LEADERBOARD);
+        view.leaderboardMenu(anchorPanes[Anchorpanes.BACK.ordinal()], result.toString());
     }
 
     private void save() {
