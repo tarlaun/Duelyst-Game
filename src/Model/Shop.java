@@ -184,6 +184,8 @@ public class Shop {
 
     public Message fetchAuction(int id, Account account) {
         Card card = Card.getCardByID(id, auctionCards.toArray(new Card[0]));
+        System.out.println(id + " " + auctionCards.toArray(new Card[0])[0].getId());
+        System.out.println(card == null);
         if (card != null) {
             if (account.getBudget() < card.getAuctionPrice())
                 return Message.INSUFFICIENCY;
@@ -193,6 +195,7 @@ public class Shop {
             Account auctioneer = Account.getAccountByName(card.getAuctioneer(), game.getAccounts());
             assert auctioneer != null;
             auctioneer.getCollection().getCards().remove(card);
+            auctioneer.modifyAccountBudget(card.getAuctionPrice());
             card.setAuction((long) 0, null, 0);
         } else {
             Item item = Item.getItemByID(id, auctionItems.toArray(new Item[0]));
@@ -206,6 +209,7 @@ public class Shop {
             Account auctioneer = Account.getAccountByName(item.getAuctioneer(), game.getAccounts());
             assert auctioneer != null;
             auctioneer.getCollection().getItems().remove(item);
+            auctioneer.modifyAccountBudget(item.getAuctionPrice());
             item.setAuction((long) 0, null, 0);
         }
         return Message.SUCCESSFUL_PURCHASE;
@@ -227,13 +231,9 @@ public class Shop {
                 if (card != null) {
                     if (card.getAuctionFetcher() == null)
                         discardAuction(id, account);
-                    else
-                        fetchAuction(id, Account.getAccountByName(card.getAuctionFetcher(), game.getAccounts()));
                 } else {
                     if (item.getAuctionFetcher() == null)
                         discardAuction(id, account);
-                    else
-                        fetchAuction(id, Account.getAccountByName(item.getAuctionFetcher(), game.getAccounts()));
                 }
             } catch (Exception e) {
                 e.printStackTrace();

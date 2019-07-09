@@ -8,16 +8,21 @@ import View.Message;
 import Controller.Request.Request;
 import View.View;
 import com.google.gson.Gson;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.concurrent.ScheduledService;
+import javafx.concurrent.Task;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+import javax.xml.ws.Service;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.FileAlreadyExistsException;
@@ -54,9 +59,9 @@ public class Controller {
     private BattleCards battleCard = null;
     private Coordinate[] currentCoordinate = new Coordinate[2];
     private static final Controller controller = new Controller();
-    private File file = new File("resources/music/music_mainmenu_lyonar.m4a");
-    private Media media = new Media(file.toURI().toString());
-    private MediaPlayer player = new MediaPlayer(media);
+    //private File //file = new File("resources/music/music_mainmenu_lyonar.m4a");
+    //private Media //media = new Media(file.toURI().toString());
+    //private MediaPlayer //player = new MediaPlayer(media);
     private Polygon[] polygon = new Polygon[45];
     private int collectionPage = 0, shopPage = 0, graveyardPage = 0;
     private ArrayList<Card> cardsInShop, cardsInCollection;
@@ -128,14 +133,14 @@ public class Controller {
 
     public void main() {
 
-        player.stop();
+        //player.stop();
         switch (menu.getStat()) {
             case MAIN:
                 view.mainMenu(anchorPanes[Anchorpanes.LOGIN.ordinal()], anchorPanes[Anchorpanes.CREATE_ACCOUNT.ordinal()],
                         anchorPanes[Anchorpanes.EXIT.ordinal()], fields[Texts.USERNAME.ordinal()], passwordField);
-                file = new File("resources/music/music_battlemap_vetruv.m4a");
-                media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                //file = new File("resources/music/music_battlemap_vetruv.m4a");
+                //media = new Media(file.toURI().toString());
+                //player = new MediaPlayer(media);
                 break;
             case ACCOUNT:
                 view.accountMenu(account.getName(), anchorPanes[Anchorpanes.PLAY.ordinal()],
@@ -143,18 +148,18 @@ public class Controller {
                         anchorPanes[Anchorpanes.MATCH_HISTORY.ordinal()], anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
                         anchorPanes[Anchorpanes.LOGOUT.ordinal()], anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()],
                         anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()]);
-                file = new File("resources/music/music_playmode.m4a");
-                media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                //file = new File("resources/music/music_playmode.m4a");
+                //media = new Media(file.toURI().toString());
+                //player = new MediaPlayer(media);
                 break;
             case SHOP:
                 view.shopMenu(account, shopMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.SELL.ordinal()],
                         anchorPanes[Anchorpanes.BUY.ordinal()], anchorPanes[Anchorpanes.AUCTION.ordinal()], shopPage);
-                file = new File("resources/music/music_battlemap_morinkhur.m4a");
-                media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                //file = new File("resources/music/music_battlemap_morinkhur.m4a");
+                //media = new Media(file.toURI().toString());
+                //player = new MediaPlayer(media);
                 handleInstances(cardsInShop, itemsInShop);
                 break;
             case COLLECTION:
@@ -165,9 +170,9 @@ public class Controller {
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.MAIN_DECK.ordinal()],
                         anchorPanes[Anchorpanes.SET_MAIN_DECK.ordinal()], anchorPanes[Anchorpanes.EXPORT_DECK.ordinal()],
                         anchorPanes[Anchorpanes.IMPORT_DECK.ordinal()], collectionPage);
-                file = new File("resources/music/music_battlemap_morinkhur.m4a");
-                media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                //file = new File("resources/music/music_battlemap_morinkhur.m4a");
+                //media = new Media(file.toURI().toString());
+                //player = new MediaPlayer(media);
                 try {
                     handleCollection(cardsInCollection, itemsInCollection);
                 } catch (Exception ignored) {
@@ -206,24 +211,24 @@ public class Controller {
                         , imageViews[ImageViews.METAL.ordinal()], imageViews[ImageViews.CHINA.ordinal()],
                         imageViews[ImageViews.ICE.ordinal()], imageViews[ImageViews.CANDLE.ordinal()],
                         imageViews[ImageViews.LION.ordinal()]);
-                file = new File("resources/music/music_battlemap_abyssian.m4a");
-                media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                //file = new File("resources/music/music_battlemap_abyssian.m4a");
+                //media = new Media(file.toURI().toString());
+                //player = new MediaPlayer(media);
                 break;
             case GAME_TYPE:
                 view.gameTypeMenu(buttons[Buttons.SINGLE_PLAYER.ordinal()], buttons[Buttons.MULTI_PLAYER.ordinal()]);
-                file = new File("resources/music/music_battlemap_firesofvictory.m4a");
-                media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                //file = new File("resources/music/music_battlemap_firesofvictory.m4a");
+                //media = new Media(file.toURI().toString());
+                //player = new MediaPlayer(media);
                 break;
             case PROCESS:
                 break;
             case BATTLE_MODE:
                 view.battleMode(buttons[Buttons.KILL_ENEMY_HERO.ordinal()], buttons[Buttons.FLAG_COLLECTING.ordinal()],
                         buttons[Buttons.HOLD_FLAG.ordinal()]);
-                file = new File("resources/music/music_battlemap_songhai.m4a");
-                media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                //file = new File("resources/music/music_battlemap_songhai.m4a");
+                //media = new Media(file.toURI().toString());
+                //player = new MediaPlayer(media);
                 break;
             case BATTLE:
                 handleMinions();
@@ -243,15 +248,15 @@ public class Controller {
                         labels[Labels.END_TURN.ordinal()], mana, handCards, handCardGifs, imageViews[ImageViews.BACKGROUND.ordinal()],
                         imageViews[ImageViews.FOREGROUND.ordinal()], imageViews[ImageViews.back.ordinal()]);
 */
-                file = new File("resources/music/music_battlemap01.m4a");
-                media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                //file = new File("resources/music/music_battlemap01.m4a");
+                //media = new Media(file.toURI().toString());
+                //player = new MediaPlayer(media);
                 break;
             case SELECT_USER:
                 view.selectUserMenu(game.getAccounts(), labels[Labels.STATUS.ordinal()], fields[Texts.USER_NAME.ordinal()]);
-                file = new File("resources/music/music_battlemap_abyssian.m4a");
-                media = new Media(file.toURI().toString());
-                player = new MediaPlayer(media);
+                //file = new File("resources/music/music_battlemap_abyssian.m4a");
+                //media = new Media(file.toURI().toString());
+                //player = new MediaPlayer(media);
                 break;
             case GRAVEYARD:
                 view.graveYardMenu(battle.getGraveyard(), anchorPanes[Anchorpanes.NEXT.ordinal()], battle.getTurn(),
@@ -273,7 +278,7 @@ public class Controller {
             case ITEM_SELECTION:
                 break;
         }
-        player.setAutoPlay(true);
+        //player.setAutoPlay(true);
         try {
             handlePolygon();
             handleButtons();
@@ -1022,7 +1027,8 @@ public class Controller {
                         handleSell(cards.get(finalI).getId());
                         break;
                     case AUCTION:
-                        handleAuction(account.getBudget(), cards.get(finalI).getId(), cards.get(finalI).getAuctionPrice());
+                        handleAuction(account.getBudget(), cards.get(finalI).getId(), cards.get(finalI).getAuctionTime()
+                                , cards.get(finalI).getAuctionPrice());
                         break;
                 }
                 main();
@@ -1046,7 +1052,8 @@ public class Controller {
                         handleSell(items.get(finalI).getId());
                         break;
                     case AUCTION:
-                        handleAuction(account.getBudget(), items.get(finalI).getId(), items.get(finalI).getAuctionPrice());
+                        handleAuction(account.getBudget(), items.get(finalI).getId(), items.get(finalI).getAuctionTime()
+                                , items.get(finalI).getAuctionPrice());
                         break;
                 }
                 main();
@@ -1088,13 +1095,19 @@ public class Controller {
                     dialog.setHeaderText("Put this on auction");
                     dialog.setContentText("for Drigs...");
                     Optional<String> price = dialog.showAndWait();
-                    price.ifPresent(s -> setAuction(id, Integer.parseInt(price.get())));
+                    price.ifPresent(s -> {
+                        setAuction(id, Integer.parseInt(price.get()));
+                        Platform.runLater(new Timeline(new KeyFrame(
+                                Duration.millis(Constants.AUCTION_DURATION_MILIS)
+                                , event -> getAuction(id, RequestType.GET_AUCTION)
+                        ))::play);
+                    });
                     break;
             }
         }
     }
 
-    private void handleAuction(int budget, int id, int price) {
+    private void handleAuction(int budget, int id, long time, int price) {
         AlertMessage sufficiency;
         if (budget < price) {
             sufficiency = new AlertMessage("Insufficient budget!", Alert.AlertType.ERROR, "OK");
@@ -1111,7 +1124,13 @@ public class Controller {
                     dialog.setHeaderText("Increase the price");
                     dialog.setContentText("to Drigs...");
                     Optional<String> increase = dialog.showAndWait();
-                    increase.ifPresent(s -> increaseAuction(id, account, Integer.parseInt(increase.get())));
+                    increase.ifPresent(s -> {
+                        increaseAuction(id, account, Integer.parseInt(increase.get()));
+                        Platform.runLater(new Timeline(new KeyFrame(
+                                Duration.millis(Constants.AUCTION_DURATION_MILIS + time - System.currentTimeMillis())
+                                , event -> getAuction(id, RequestType.GET_AUCTION)
+                        ))::play);
+                    });
                     break;
             }
         });
@@ -1600,8 +1619,8 @@ public class Controller {
         }
     }
 
-    private void getAuction(int id) {
-        Request request = new Request(Constants.SOCKET_PORT, RequestType.GET_AUCTION, Integer.toString(id),
+    private void getAuction(int id, RequestType type) {
+        Request request = new Request(Constants.SOCKET_PORT, type, Integer.toString(id),
                 account.toJson());
         send(request);
         Message message;
@@ -1609,16 +1628,22 @@ public class Controller {
         try {
             line = reader.readLine();
             message = Message.fromJson(line);
+/*
             AlertMessage alert = new AlertMessage(message.toString(), Alert.AlertType.ERROR, "OK");
             alert.getResult();
+*/
         } catch (IOException ignored) {
 
         } catch (Exception isCard) {
-            account = Account.fromJson(line);
-            setCardViews(account);
-            AlertMessage alert = new AlertMessage("Good dealer!", Alert.AlertType.INFORMATION
-                    , "Yo!");
-            alert.getResult();
+            if (Account.fromJson(line).getName().equals(this.account.getName())) {
+                account = Account.fromJson(line);
+                setCardViews(account);
+/*
+                AlertMessage alert = new AlertMessage("Good dealer!", Alert.AlertType.INFORMATION
+                        , "Yo!");
+                alert.getResult();
+*/
+            }
             fetchShop();
         }
     }
@@ -1716,6 +1741,7 @@ public class Controller {
         card.setCardView();
         shop.getCards().add(card);
         String json = new Gson().toJson(card);
+/*
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(json);
@@ -1723,6 +1749,7 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+*/
     }
 
     private void createBuff() throws Exception {

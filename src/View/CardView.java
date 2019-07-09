@@ -103,24 +103,24 @@ public class CardView {
                 character.setFitWidth(Constants.GIF_WIDTH / 2);
                 character.setLayoutX(Constants.CARD_WIDTH / 2 - Constants.GIF_WIDTH / 4);
                 character.setLayoutY(Constants.GIF_HEIGHT / 4);
-                pane.getChildren().addAll(template, character, type, name, count);
+                pane.getChildren().addAll(template, character, type, name, price, count);
             }
             if (card.getAuctioneer() != null) {
                 timeLabel = new Label();
                 fetcher = new Label();
                 timeLabel.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
-                timeLabel.setTextFill(Color.LIGHTCYAN);
+                timeLabel.setTextFill(Color.NAVY);
                 timeLabel.translateXProperty().bind(count.widthProperty().divide(2).negate());
                 timeLabel.relocate(Constants.CARD_TYPE_X, Constants.CARD_TIME_Y);
                 fetcher.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
-                fetcher.setTextFill(Color.LIGHTCYAN);
+                fetcher.setTextFill(Color.NAVY);
                 fetcher.translateXProperty().bind(count.widthProperty().divide(2).negate());
                 fetcher.relocate(Constants.CARD_FETCHER_X, Constants.CARD_FETCHER_Y);
                 pane.getChildren().addAll(timeLabel, fetcher);
                 if (card.getAuctioneer() != null) {
                     AnimationTimer timer = new AnimationTimer() {
-                        private long lastTime = Constants.AUCTION_DURATION_MILIS;
                         private long second = 1000000000;
+                        private long lastTime = Constants.AUCTION_DURATION_MILIS * (second / 1000);
                         private long synch = (card.getAuctionTime() + Constants.AUCTION_DURATION_MILIS) * (second / 1000);
 
                         @Override
@@ -185,14 +185,25 @@ public class CardView {
             price.relocate(Constants.CARD_PRICE_X, Constants.CARD_PRICE_Y);
             pane.getChildren().addAll(template, character, type, name, price, count);
             if (item.getAuctioneer() != null) {
+                timeLabel = new Label();
+                fetcher = new Label();
+                timeLabel.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
+                timeLabel.setTextFill(Color.NAVY);
+                timeLabel.translateXProperty().bind(count.widthProperty().divide(2).negate());
+                timeLabel.relocate(Constants.CARD_TYPE_X, Constants.CARD_TIME_Y);
+                fetcher.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
+                fetcher.setTextFill(Color.NAVY);
+                fetcher.translateXProperty().bind(count.widthProperty().divide(2).negate());
+                fetcher.relocate(Constants.CARD_FETCHER_X, Constants.CARD_FETCHER_Y);
+                pane.getChildren().addAll(timeLabel, fetcher);
                 AnimationTimer timer = new AnimationTimer() {
-                    private long lastTime = Constants.AUCTION_DURATION_MILIS;
-                    private long synch = item.getAuctionTime() * 1000 + Constants.AUCTION_DURATION_MILIS;
                     private long second = 1000000000;
+                    private long lastTime = Constants.AUCTION_DURATION_MILIS * (second / 1000);
+                    private long synch = (item.getAuctionTime() + Constants.AUCTION_DURATION_MILIS) * (second / 1000);
 
                     @Override
                     public void handle(long now) {
-                        if (lastTime == Constants.AUCTION_DURATION_MILIS)
+                        if (lastTime == Constants.AUCTION_DURATION_MILIS * (second / 1000))
                             lastTime = now;
                         if (now < lastTime + second) {
                             lastTime = now;

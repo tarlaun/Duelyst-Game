@@ -137,6 +137,9 @@ public class Controller {
                     case DISCARD_AUCTION:
                         out = manager.discardAuction(request);
                         break;
+                    case OBTAIN_AUCTION:
+                        out = manager.obtainAuction(request);
+                        break;
                 }
                 synchronized (socketPair) {
                     socketPair.getFormatter().format(out + "\n");

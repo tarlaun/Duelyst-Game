@@ -75,7 +75,7 @@ public class Constants {
     public static final double CARD_PRICE_X = CARD_NAME_X;
     public static final double CARD_PRICE_Y = CARD_NAME_Y * 0.9;
     public static final double CARD_FETCHER_X = CARD_NAME_X;
-    public static final double CARD_FETCHER_Y = CARD_HEIGHT * 1.1;
+    public static final double CARD_FETCHER_Y = CARD_HEIGHT * 1.05;
     public static final double CARD_TIME_X = CARD_NAME_X;
     public static final double CARD_TIME_Y = -3 * CARD_TYPE_Y;
     public static final double CARD_COUNT_Y = 0.8 * CARD_NAME_Y;
@@ -123,5 +123,5 @@ public class Constants {
     public static final int SOCKET_PORT = 8080;
     public static final String IP = "localhost";
     public static final int SHOP_INITIAL_COUNT = 3;
-    public static final long AUCTION_DURATION_MILIS = 180000;
+    public static final long AUCTION_DURATION_MILIS = 60000;
 }

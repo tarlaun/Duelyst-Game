@@ -131,4 +131,9 @@ public class RequestManger {
         shop.discardAuction(discardAuction.getId(), discardAuction.getAccount());
         return discardAuction.getAccount().toJson();
     }
+
+    public String obtainAuction(Request request) {
+        ObtainAuctionRequest obtainAuctionRequest = (ObtainAuctionRequest) request.getDirectRequest();
+        return obtainAuctionRequest.getAccount().toJson();
+    }
 }
