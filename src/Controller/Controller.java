@@ -255,6 +255,9 @@ public class Controller {
                 player = new MediaPlayer(media);
                 break;
             case REQUESTS:
+                file = new File("resources/music/music_playmode.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
                 view.requestMenu(anchorPanes[Anchorpanes.BACK.ordinal()]);
                 break;
             case GAME_TYPE:
@@ -309,6 +312,9 @@ public class Controller {
                         anchorPanes[Anchorpanes.PREV.ordinal()], anchorPanes[Anchorpanes.BACK.ordinal()], graveyardPage);
                 break;
             case MATCH_HISTORY:
+                file = new File("resources/music/music_playmode.m4a");
+                media = new Media(file.toURI().toString());
+                player = new MediaPlayer(media);
                 Match match = new Match();
                 match.setRival("FAKEMATCH");
                 match.setResult(MatchResult.WON);
