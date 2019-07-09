@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ChatRoom {
     private ArrayList<Account> accounts = new ArrayList<>();
-    private ArrayList<String> messages = new ArrayList<>();
+    private ArrayList<PM> pms = new ArrayList<>();
 
     private static final ChatRoom CHAT_ROOM = new ChatRoom();
 
@@ -20,7 +20,7 @@ public class ChatRoom {
         return accounts;
     }
 
-    public ArrayList<String> getMessages() {
-        return messages;
+    public ArrayList<PM> getPMs() {
+        return pms;
     }
 }
