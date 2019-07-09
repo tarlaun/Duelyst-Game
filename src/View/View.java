@@ -51,8 +51,6 @@ public class View {
     private static int[] cells = {16, 34, 7, 43, 41, 5};
     private static int cCell = 0;
     private transient Image cursor = new Image("ui/mouse_auto@2x.png");
-    private transient Image battleCursor = new Image("ui/mouse_attack@2x.png");
-
 
     private View() {
 
@@ -61,7 +59,7 @@ public class View {
     public Scene getScene() {
         //Image icon = new Image("booster_pack_opening/booster_orb.png");
 
-        //scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
+        scene.setCursor(new ImageCursor(cursor, Constants.CURSOR_LENGTH, Constants.CURSOR_LENGTH));
         return scene;
     }
 
@@ -267,7 +265,7 @@ public class View {
     }
 
     public void winPage(Label label) {
-        label.relocate(400,300);
+        label.relocate(400, 300);
         label.setText("BATTLE FINISHED");
         label.setFont(Font.font(60));
         root.getChildren().clear();

@@ -1700,8 +1700,8 @@ public class Controller {
     }
 
     class Task extends TimerTask {
-        //Timer timer = new Timer();
-        //            timer.schedule(Task, 60000);
+
+
         public void run() {
             // endTurn();
         }

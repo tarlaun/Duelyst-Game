@@ -63,7 +63,6 @@ public enum Message {
     UNSUCCESSFUL_END,
     UNSUCCESSFUL_KILL,
     SUCCESSFUL_KILL,
-    ALREADY_LOGGED_IN,
     NOT_AVAILABLE;
 
     public String toJson() {
