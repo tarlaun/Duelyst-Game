@@ -204,6 +204,7 @@ public class RequestManger {
         LeaderboardRequest leaderboardRequest = (LeaderboardRequest) request.getDirectRequest();
         StringBuilder message = new StringBuilder();
         game.sortAccounts();
+        System.out.println(game.getAccounts().size());
         for (int i = 0; i < game.getAccounts().size(); i++) {
             Account account = game.getAccounts().get(i);
             message.append(account.getName() + " W: " + account.getWins() + " L: " + account.getLosses() + " T: " + account.getTies());

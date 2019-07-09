@@ -1310,7 +1310,7 @@ public class View {
         textField.setMinSize(Constants.MATCH_HISTORY_FIELD_WIDTH, Constants.MATCH_HISTORY_FIELD_HEIGHT);
         textField.setEditable(false);
         String[] listParts = list.split("taghi");
-        for (int i = 1; i < listParts.length; i++) {
+        for (int i = 1; i <= listParts.length; i++) {
             textField.appendText(i+"- " + listParts[i - 1] + "\r\n");
         }
 
