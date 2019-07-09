@@ -1283,6 +1283,15 @@ public class View {
         root.getChildren().addAll(imageView, back);
     }
 
+    public void leaderboardMenu(AnchorPane back){
+        ImageView imageView = new ImageView(new Image("codex/chapter18_background@2x.jpg/"));;
+        Image backArrow = new Image("ui/button_back_corner.png");;
+        ImageView arrow = new ImageView(backArrow);;
+        back.getChildren().add(arrow);;
+        lightning(back);;
+        root.getChildren().addAll(imageView, back);;
+    }
+
 }
 
 

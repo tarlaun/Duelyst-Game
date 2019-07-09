@@ -1032,7 +1032,8 @@ public class Controller {
         for (int i = 0; i < cards.size(); i++) {
             int finalI = i;
             cards.get(i).getCardView().getPane().setOnMouseClicked(event -> {
-                deckLing(cards.get(finalI).getId());;
+                deckLing(cards.get(finalI).getId());
+                ;
                 main();
             });
         }
@@ -1561,6 +1562,7 @@ public class Controller {
     private void showLeaderBoard() {
         game.sortAccounts();
         view.printLeaderboard(game.getAccounts());
+        view.leaderboardMenu(anchorPanes[Anchorpanes.BACK.ordinal()]);
     }
 
     private void save() {
