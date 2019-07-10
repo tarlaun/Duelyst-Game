@@ -1099,7 +1099,7 @@ public class Controller {
                         setAuction(id, Integer.parseInt(price.get()));
                         Platform.runLater(new Timeline(new KeyFrame(
                                 Duration.millis(Constants.AUCTION_DURATION_MILIS)
-                                , event -> getAuction(id, RequestType.GET_AUCTION)
+                                , event -> getAuction(id, RequestType.OBTAIN_AUCTION)
                         ))::play);
                     });
                     break;

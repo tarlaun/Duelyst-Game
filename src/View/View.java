@@ -1039,7 +1039,7 @@ public class View {
                 Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
         sell.getChildren().addAll(new ImageButton(sellView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT, "SELL",
                 Constants.SELL_TEXT_SIZE, Color.NAVY).getPane().getChildren());
-        auction.getChildren().addAll(new ImageButton(auctionView, Constants.SELL_WIDTH, Constants.SELL_HEIGHT,
+        auction.getChildren().addAll(new ImageButton(auctionView, 1.2 * Constants.SELL_WIDTH, Constants.SELL_HEIGHT,
                 "AUCTION", Constants.SELL_TEXT_SIZE, Color.ORANGERED).getPane().getChildren());
         verticalList(Alignment.LEFT, Constants.SELL_PANE_X, Constants.CENTRE_Y,
                 buyView.getFitWidth(), buyView.getFitHeight(), buy, sell, auction);

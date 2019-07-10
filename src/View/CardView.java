@@ -120,17 +120,19 @@ public class CardView {
                 if (card.getAuctioneer() != null) {
                     AnimationTimer timer = new AnimationTimer() {
                         private long second = 1000000000;
-                        private long lastTime = Constants.AUCTION_DURATION_MILIS * (second / 1000);
-                        private long synch = (card.getAuctionTime() + Constants.AUCTION_DURATION_MILIS) * (second / 1000);
+                        private long minuet = second * 60;
+                        private long lastTime = 0;
+                        private long synch = (card.getAuctionTime() + Constants.AUCTION_DURATION_MILIS);
 
                         @Override
                         public void handle(long now) {
-                            if (lastTime == Constants.AUCTION_DURATION_MILIS * (second / 1000))
+                            if (lastTime == 0)
                                 lastTime = now;
                             if (now > lastTime + second) {
                                 lastTime = now;
-                                timeLabel.setText(String.format("%02d", ((synch - lastTime) / (second * 60)) % 60)
-                                        + ":" + String.format("%02d", ((synch - lastTime) / second) % 60));
+                                long sec = ((synch - lastTime) / second) % 60;
+                                long min = ((synch - lastTime) / (second * 60)) % 60;
+                                timeLabel.setText(String.format("%02d", min) + ":" + String.format("%02d", sec));
                                 if (card.getAuctionFetcher() != null)
                                     fetcher.setText(card.getAuctionFetcher());
                                 price.setText(Integer.toString(card.getAuctionPrice()));
@@ -198,17 +200,19 @@ public class CardView {
                 pane.getChildren().addAll(timeLabel, fetcher);
                 AnimationTimer timer = new AnimationTimer() {
                     private long second = 1000000000;
-                    private long lastTime = Constants.AUCTION_DURATION_MILIS * (second / 1000);
+                    private long lastTime = 0;
                     private long synch = (item.getAuctionTime() + Constants.AUCTION_DURATION_MILIS) * (second / 1000);
 
                     @Override
                     public void handle(long now) {
-                        if (lastTime == Constants.AUCTION_DURATION_MILIS * (second / 1000))
+                        if (lastTime == 0)
                             lastTime = now;
-                        if (now < lastTime + second) {
+                        if (now > lastTime + second) {
+                            System.out.println(now + " " + synch * 1000000);
                             lastTime = now;
-                            timeLabel.setText(String.format("%02d", ((synch - lastTime) / (second * 60)) % 60)
-                                    + ":" + String.format("%02d", ((synch - lastTime) / second) % 60));
+                            long sec = ((synch - lastTime) / second) % 60;
+                            long min = ((synch - lastTime) / (second * 60)) % 60;
+                            timeLabel.setText(String.format("%02d", min) + ":" + String.format("%02d", sec));
                         }
                         if (item.getAuctionFetcher() != null)
                             fetcher.setText(item.getAuctionFetcher());
