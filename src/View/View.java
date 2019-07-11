@@ -1284,8 +1284,4 @@ public class View {
         imageView.setFitWidth(Constants.CARD_WIDTH);
         imageView.setFitHeight(Constants.CARD_HEIGHT);
     }
-
 }
-
-
-

@@ -400,15 +400,18 @@ public class Card {
         cardView = new CardView(this);
     }
 
-    public Card(String name, String type,
+    public Card(String name, String type, String mana,
                 String price, String healthPoint, String assaultPower, String activation, String rangeType, String range) {
-        this.name = name;
+        this.name = name.toUpperCase();
         this.type = type;
         this.price = Integer.parseInt(price);
         this.healthPoint = Integer.parseInt(healthPoint);
-        this.assaultPower = Integer.parseInt(assaultPower);
+        this.originalAssaultPower = Integer.parseInt(assaultPower);
         this.rangeType = RangeType.valueOf(rangeType.toUpperCase());
         this.maxRange = Integer.parseInt(range);
+        if (this.rangeType == RangeType.RANGED)
+            this.minRange = 1;
+        this.manaPoint = Integer.parseInt(mana);
         this.countInSerie = Constants.SHOP_INITIAL_COUNT;
     }
 

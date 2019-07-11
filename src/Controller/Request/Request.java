@@ -85,6 +85,9 @@ public class Request {
             case CHEAT:
                 directRequest = new CheatRequest(args);
                 break;
+            case CREATE_CARD:
+                directRequest = new CreateCardRequest(args);
+                break;
         }
         return directRequest;
     }

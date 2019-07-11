@@ -3,6 +3,13 @@ package Model;
 import View.Message;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Shop {
@@ -154,8 +161,39 @@ public class Shop {
     }
 
 
-    public void addCard(Card card) {
+    public Message addCard(Card card) {
+        if (Card.getCardByName(card.getName(), cards.toArray(new Card[0])) != null)
+            return Message.INVALID_CREATION;
+        switch (card.getType()){
+            case "Hero":
+                card.setId(game.getLastHeroId());
+                game.incrementHeroId();
+                break;
+            case "Minion":
+                card.setId(game.getLastMinionId());
+                game.incrementMinionId();
+                break;
+            case "Spell":
+                card.setId(game.getLastSpellId());
+                game.incrementSpellId();
+                break;
+        }
         cards.add(card);
+        Path path = Paths.get("./src/Objects/Cards/" + card.getType() + "s/" + card.getName().toUpperCase() + ".json");
+        try {
+            Files.createFile(path);
+        } catch (Exception e) {
+        }
+        File file = new File("./src/Objects/Cards/" + card.getType() + "s/" + card.getName().toUpperCase() + ".json");
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(card.toJson());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return Message.SUCCESSFUL_CREATION;
     }
 
     public ArrayList<Card> getCards() {

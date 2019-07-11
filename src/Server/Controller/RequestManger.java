@@ -167,4 +167,11 @@ public class RequestManger {
         }
         return cheatData.getResult(cheatRequest.getCode()) + "~" + account.toJson();
     }
+
+    public String createCard(Request request) {
+        CreateCardRequest createCardRequest = (CreateCardRequest) request.getDirectRequest();
+        Card card = createCardRequest.getCard();
+        System.out.println("Here");
+        return shop.addCard(card).toJson();
+    }
 }

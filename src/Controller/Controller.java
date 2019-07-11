@@ -194,12 +194,14 @@ public class Controller {
                         boxes[Boxes.CARD_TYPE.ordinal()], fields[Texts.CARD_NAME.ordinal()],
                         fields[Texts.CARD_PRICE.ordinal()], fields[Texts.MANA.ordinal()]);
                 customCardButtons();
+                customButtons();
                 break;
             case CUSTOM_BUFF:
                 view.customBuffMenu(anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.CREATE.ordinal()],
                         fields[Texts.BUFF_NAME.ordinal()], boxes[Boxes.BUFF_TYPE.ordinal()],
                         fields[Texts.BUFF_POWER.ordinal()], fields[Texts.TURN.ordinal()], boxes[Boxes.SIDE.ordinal()],
                         boxes[Boxes.ATTRIBUTE.ordinal()]);
+                customButtons();
                 break;
             case BACK_GROUND:
                 imageViews[ImageViews.REDROCK.ordinal()].setImage(new Image("maps/redrock/midground@2x.png"));
@@ -1775,68 +1777,62 @@ public class Controller {
     }
 
     private void createCard() throws Exception {
-        Path path = Paths.get("./src/Objects/Cards/" + boxes[Boxes.CARD_TYPE.ordinal()].getValue() + "s/" +
-                fields[Texts.CARD_NAME.ordinal()].getText() + ".json");
-        try {
-            Files.createFile(path);
-        } catch (FileAlreadyExistsException e) {
-        }
-        Card card = new Card(fields[Texts.CARD_NAME.ordinal()].getText(),
-                boxes[Boxes.CARD_TYPE.ordinal()].getValue(), fields[Texts.CARD_PRICE.ordinal()].getText(),
+        Card card = new Card(fields[Texts.CARD_NAME.ordinal()].getText(), boxes[Boxes.CARD_TYPE.ordinal()].getValue(),
+                fields[Texts.MANA.ordinal()].getText(), fields[Texts.CARD_PRICE.ordinal()].getText(),
                 fields[Texts.HP.ordinal()].getText(), fields[Texts.AP.ordinal()].getText(),
                 boxes[Boxes.ACTIVATION.ordinal()].getValue(), boxes[Boxes.ATTACK_TYPE.ordinal()].getValue(),
                 fields[Texts.RANGE.ordinal()].getText()
         );
         int id = 0;
-        String idle, run, attack, death;
-
+        String idle, run, attack, death, name;
+        name = setCustomGif();
         switch (boxes[Boxes.CARD_TYPE.ordinal()].getValue()) {
             case "Hero":
-                id = game.getLastHeroId();
-                idle = "gifs/gifs/Heros/boss_cindera_idle.gif";
-                run = "gifs/gifs/Heros/boss_cindera_run.gif";
-                attack = "gifs/gifs/Heros/boss_cindera_attack.gif";
-                death = "gifs/gifs/Heros/boss_cindera_death.gif";
+                idle = "gifs/gifs/Heros/" + name + "_idle.gif ";
+                run = "gifs/gifs/Heros/boss_cindera" + name + "_run.gif";
+                attack = "gifs/gifs/Heros/boss_cindera" + name + "_attack.gif";
+                death = "gifs/gifs/Heros/boss_cindera" + name + "_death.gif";
                 card.setIdleSrc(idle);
                 card.setRunSrc(run);
                 card.setAttackSrc(attack);
                 card.setDeathSrc(death);
-                game.incrementHeroId();
                 break;
             case "Minion":
-                id = game.getLastHeroId();
-                idle = "gifs/gifs/Minions/Alabaster Titan_idle.gif";
-                run = "gifs/gifs/Minions/Alabaster Titan_run.gif";
-                attack = "gifs/gifs/Minions/Alabaster Titan_attack.gif";
-                death = "gifs/gifs/Minions/Alabaster Titan_death.gif";
+                idle = "gifs/gifs/Minions/Alabaster Titan" + name + "_idle.gif";
+                run = "gifs/gifs/Minions/Alabaster Titan" + name + "_run.gif";
+                attack = "gifs/gifs/Minions/Alabaster Titan" + name + "_attack.gif";
+                death = "gifs/gifs/Minions/Alabaster Titan" + name + "_death.gif";
                 card.setIdleSrc(idle);
                 card.setRunSrc(run);
                 card.setAttackSrc(attack);
                 card.setDeathSrc(death);
-                game.incrementHeroId();
                 break;
             case "Spell":
-                id = game.getLastHeroId();
-                idle = "gifs/gifs/Spells/Abyssal Scar_actionbar.gif";
-                attack = "gifs/gifs/Spells/Abyssal Scar_active.gif";
+                idle = "gifs/gifs/Spells/Abyssal Scar" + name + "_actionbar.gif";
+                attack = "gifs/gifs/Spells/Abyssal Scar" + name + "_active.gif";
                 card.setIdleSrc(idle);
                 card.setAttackSrc(attack);
-                game.incrementHeroId();
                 break;
         }
-        card.setId(id);
-        card.setCardView();
-        shop.getCards().add(card);
-        String json = new Gson().toJson(card);
-/*
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.CREATE_CARD, card.toJson());
+        send(request);
+        Message message;
         try {
-            FileWriter writer = new FileWriter(file);
-            writer.write(json);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            message = Message.fromJson(reader.readLine());
+            System.out.println("HEEEEEE");
+            if (message == Message.SUCCESSFUL_CREATION) {
+                AlertMessage alert = new AlertMessage("Card created successfully", Alert.AlertType.INFORMATION,
+                        "OK");
+                alert.getResult();
+            } else {
+                AlertMessage alert = new AlertMessage("Card already exists!", Alert.AlertType.ERROR,
+                        "OK");
+                alert.getResult();
+            }
+            fetchShop();
+        } catch (Exception ignored) {
+
         }
-*/
     }
 
     private void createBuff() throws Exception {
@@ -1857,6 +1853,20 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String setCustomGif() {
+        Stage stage = new Stage();
+        stage.setTitle("Choose gif..");
+        FileChooser chooser = new FileChooser();
+        String name = null;
+        try {
+            File file = chooser.showOpenDialog(stage);
+            name = file.getName().substring(0, file.getName().lastIndexOf("_"));
+        } catch (Exception ignored) {
+
+        }
+        return name;
     }
 
 }

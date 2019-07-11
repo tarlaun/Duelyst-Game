@@ -271,10 +271,12 @@ public class Game {
                 for (File file : dir.listFiles()) {
                     if (file.isFile()) {
                         BufferedReader reader = new BufferedReader(new FileReader(file));
+                        System.out.println("File: " + file.getName());
                         Minion minion = new Gson().fromJson(reader, Minion.class);
                         minion.setType("Minion");
                         minion.setId(++lastMinionId);
                         minion = new Minion(minion);
+                        System.out.println(minion.getName());
                         shop.getCards().add(minion);
                     }
                 }

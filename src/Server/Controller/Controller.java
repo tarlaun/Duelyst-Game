@@ -156,6 +156,10 @@ public class Controller {
                         break;
                     case CHEAT:
                         out = manager.applyCheat(request);
+                        break;
+                    case CREATE_CARD:
+                        out = manager.createCard(request);
+                        break;
                 }
                 synchronized (socketPair) {
                     socketPair.getFormatter().format(out + "\n");
