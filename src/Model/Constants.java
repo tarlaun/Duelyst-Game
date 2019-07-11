@@ -53,8 +53,9 @@ public class Constants {
     public static final double LABEL_HEIGHT = FIELD_HEIGHT;
     public static final String PM_FONT = "Serif";
     public static final int PM_SIZE = 30;
-    public static final double CHAT_X_SHIFT = 0.3 * WINDOW_WIDTH;
-    public static final double CHAT_Y_SHIFT = 0.3 * WINDOW_HEIGHT;
+    public static final double CHAT_X_SHIFT = 0.4 * WINDOW_WIDTH;
+    public static final double CHAT_Y_SHIFT = 0.4 * WINDOW_HEIGHT;
+    public static final double UPDATE_CHAT_MILLIS = 1000;
     public static int HEROES_COUNT = 10;
     public static int MINIONS_COUNT = 40;
     public static int SPELLS_COUNT = 20;

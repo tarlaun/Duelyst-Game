@@ -152,8 +152,10 @@ public class Controller {
                 //player = new MediaPlayer(media);
                 break;
             case CHAT_ROOM:
-                view.chatMenu(account.getName(), fields[Texts.MESSAGE.ordinal()], anchorPanes[Anchorpanes.SEND.ordinal()]
-                        , chatRoom, anchorPanes[Anchorpanes.BACK.ordinal()]);
+                view.chatMenu(fields[Texts.MESSAGE.ordinal()], anchorPanes[Anchorpanes.SEND.ordinal()]
+                        , anchorPanes[Anchorpanes.BACK.ordinal()]);
+                view.showChatView(account.getName(), chatRoom);
+                break;
             case SHOP:
                 view.shopMenu(account, shopMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
@@ -538,14 +540,15 @@ public class Controller {
             main();
         });
         anchorPanes[Anchorpanes.CHAT_ROOM.ordinal()].setOnMouseClicked(event -> {
-            getChatRoom();
+            enterChat();
             menu.setStat(MenuStat.CHAT_ROOM);
             main();
+            handleChatRoom();
         });
     }
 
-    private void getChatRoom() {
-        Request request = new Request(Constants.SOCKET_PORT, RequestType.CHAT_ROOM, account.toJson());
+    private void enterChat() {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.ENTER_CHAT, account.toJson());
         send(request);
         try {
             chatRoom = ChatRoom.fromJson(reader.readLine());
@@ -682,6 +685,40 @@ public class Controller {
         anchorPanes[Anchorpanes.REMOVE_DECK.ordinal()].setOnMouseClicked(event -> {
             deckLing(Constants.REMOVE_DECK);
             main();
+        });
+    }
+
+    private void handleChatRoom() {
+        Request get = new Request(Constants.SOCKET_PORT, RequestType.CHAT_ROOM, account.toJson());
+        send(get);
+        try {
+            chatRoom = ChatRoom.fromJson(reader.readLine());
+            view.removeChatView();
+            view.showChatView(account.getName(), chatRoom);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        anchorPanes[Anchorpanes.SEND.ordinal()].setOnMouseClicked(event -> {
+            Request request = new Request(Constants.SOCKET_PORT, RequestType.SEND_MESSAGE,
+                    account.getName(), fields[Texts.MESSAGE.ordinal()].getText());
+            send(request);
+            fields[Texts.MESSAGE.ordinal()].setText(null);
+            try {
+                chatRoom = ChatRoom.fromJson(reader.readLine());
+                view.removeChatView();
+                view.showChatView(account.getName(), chatRoom);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        Platform.runLater(new Timeline(new KeyFrame(Duration.millis(Constants.UPDATE_CHAT_MILLIS), event -> {
+            if (menu.getStat() == MenuStat.CHAT_ROOM)
+                handleChatRoom();
+        }))::play);
+        anchorPanes[Anchorpanes.BACK.ordinal()].setOnMouseClicked(event -> {
+            exit();
+            System.out.println("HEEEY");
+            System.out.println(menu.getStat());
         });
     }
 

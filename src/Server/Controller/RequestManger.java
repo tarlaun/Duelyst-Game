@@ -13,6 +13,7 @@ public class RequestManger {
     private static final RequestManger REQUEST_MANGER = new RequestManger();
     private Game game = Game.getInstance();
     private Shop shop = Shop.getInstance();
+    private ChatRoom chatRoom = ChatRoom.getInstance();
     private final HashMap<Integer, SocketPair> sockets = new HashMap<>();
     private final HashMap<String, SocketPair> accountSockets = new HashMap<>();
 
@@ -135,5 +136,22 @@ public class RequestManger {
     public String obtainAuction(Request request) {
         ObtainAuctionRequest obtainAuctionRequest = (ObtainAuctionRequest) request.getDirectRequest();
         return obtainAuctionRequest.getAccount().toJson();
+    }
+
+    public String getChatRoom(Request request) {
+        ChatRoomRequest chatRoomRequest = (ChatRoomRequest) request.getDirectRequest();
+        return chatRoom.toJson();
+    }
+
+    public String sendMessage(Request request) {
+        SendRequest sendRequest = (SendRequest) request.getDirectRequest();
+        chatRoom.getPMs().add(sendRequest.getPm());
+        return chatRoom.toJson();
+    }
+
+    public String enterChat(Request request) {
+        EnterChatRequest enterChatRequest = (EnterChatRequest) request.getDirectRequest();
+        chatRoom.getAccounts().add(enterChatRequest.getAccount());
+        return chatRoom.toJson();
     }
 }

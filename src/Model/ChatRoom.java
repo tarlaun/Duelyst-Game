@@ -8,7 +8,7 @@ public class ChatRoom {
     private ArrayList<Account> accounts = new ArrayList<>();
     private ArrayList<PM> pms = new ArrayList<>();
 
-    private static final ChatRoom CHAT_ROOM = new ChatRoom();
+    private transient static final ChatRoom CHAT_ROOM = new ChatRoom();
 
     private ChatRoom() {
 

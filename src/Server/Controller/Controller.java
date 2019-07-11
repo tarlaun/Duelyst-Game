@@ -140,6 +140,15 @@ public class Controller {
                     case OBTAIN_AUCTION:
                         out = manager.obtainAuction(request);
                         break;
+                    case CHAT_ROOM:
+                        out = manager.getChatRoom(request);
+                        break;
+                    case SEND_MESSAGE:
+                        out = manager.sendMessage(request);
+                        break;
+                    case ENTER_CHAT:
+                        out = manager.enterChat(request);
+                        break;
                 }
                 synchronized (socketPair) {
                     socketPair.getFormatter().format(out + "\n");

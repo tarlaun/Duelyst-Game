@@ -1060,9 +1060,9 @@ public class View {
         showCards(cards, items, modeLabel, page);
     }
 
-    public void chatMenu(String userName, TextField message, AnchorPane send, ChatRoom chatRoom, AnchorPane back) {
+    public void chatMenu(TextField message, AnchorPane send, AnchorPane back) {
         root.getChildren().clear();
-        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        ImageView backView = new ImageView(new Image("scenes/vetruvian/midground@2x.png"));
         scrollPane(backView, new AnchorPane(), new AnchorPane(), back);
         message.setPrefWidth(2 * Constants.CHAT_X_SHIFT - Constants.SEND_WIDTH);
         message.setPrefHeight(Constants.MESSAGE_HEIGHT);
@@ -1070,9 +1070,18 @@ public class View {
         ImageView sendPane = new ImageView(new Image("card_backgrounds/deck_builder_prismatic_card_bg@2x.png"));
         send.getChildren().addAll(new ImageButton(sendPane, Constants.SEND_WIDTH, Constants.SEND_HEIGHT, "Send"
                 , Constants.FONT_SIZE, Color.LIGHTBLUE).getPane().getChildren());
-        root.getChildren().addAll(backView, back, new ChatView(chatRoom, userName).getPane(), send, message);
+        send.relocate(Constants.CENTRE_X + Constants.CHAT_X_SHIFT, Constants.CENTRE_Y + Constants.CHAT_Y_SHIFT);
+        lightning(send, back);
+        root.getChildren().addAll(backView, back, send, message);
     }
 
+    public void showChatView(String userName, ChatRoom chatRoom) {
+        root.getChildren().addAll(new ChatView(chatRoom, userName).getPane());
+    }
+
+    public void removeChatView() {
+        root.getChildren().remove(root.getChildren().size() - 1);
+    }
 
     public void collectionMenu(String mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items
             , AnchorPane createDeck, AnchorPane removeDeck, AnchorPane showDeck, AnchorPane back, AnchorPane collection

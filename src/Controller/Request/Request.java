@@ -70,6 +70,15 @@ public class Request {
             case DISCARD_AUCTION:
                 directRequest = new DiscardAuction(args);
                 break;
+            case CHAT_ROOM:
+                directRequest = new ChatRoomRequest(args);
+                break;
+            case SEND_MESSAGE:
+                directRequest = new SendRequest(args);
+                break;
+            case ENTER_CHAT:
+                directRequest = new EnterChatRequest(args);
+                break;
         }
         return directRequest;
     }

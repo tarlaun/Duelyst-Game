@@ -14,7 +14,7 @@ public class PMView {
 
     public PMView(int index, String viewerName, PM pm) {
         this.pm = pm;
-        Border round = new LineBorder(Color.BLACK, 3, true);
+        Border round = new LineBorder(Color.BLACK, 1, true);
         textArea = new JTextArea(pm.getSender() + ":\n" + pm.getMessage());
         textArea.setFont(Font.getFont(Font.SERIF));
         textArea.setEditable(false);
@@ -22,11 +22,13 @@ public class PMView {
         textArea.setWrapStyleWord(true);
         textArea.setBorder(round);
         if (viewerName.equals(pm.getSender())) {
-            textArea.setLocation((int) (Constants.CENTRE_X - Constants.CHAT_X_SHIFT), (int) (Constants.CENTRE_Y -
+            textArea.setLocation((int) (Constants.CENTRE_X + Constants.CHAT_X_SHIFT), (int) (Constants.CENTRE_Y -
                     Constants.CHAT_Y_SHIFT + index * textArea.getSize().getHeight()));
+            System.out.println("x: " + textArea.getLocation().getX() + " , y: " + textArea.getLocation().getY());
         } else {
-            textArea.setLocation((int) (Constants.CENTRE_X + Constants.CHAT_X_SHIFT - textArea.getSize().getWidth()),
+            textArea.setLocation((int) (Constants.CENTRE_X - Constants.CHAT_X_SHIFT - textArea.getSize().getWidth()),
                     (int) (Constants.CENTRE_Y - Constants.CHAT_Y_SHIFT + index * textArea.getSize().getHeight()));
+            System.out.println("x: " + textArea.getLocation().getX() + " , y: " + textArea.getLocation().getY());
         }
     }
 
