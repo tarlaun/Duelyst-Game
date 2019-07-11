@@ -130,11 +130,17 @@ public class CardView {
                                 lastTime = now;
                             if (now > lastTime + second) {
                                 lastTime = now;
-                                long sec = ((synch - lastTime) / second) % 60;
-                                long min = ((synch - lastTime) / (second * 60)) % 60;
+                                long sec = ((synch - System.currentTimeMillis()) / 1000) % 60;
+                                long min = ((synch - System.currentTimeMillis()) / 60000) % 60;
                                 timeLabel.setText(String.format("%02d", min) + ":" + String.format("%02d", sec));
                                 if (card.getAuctionFetcher() != null)
                                     fetcher.setText(card.getAuctionFetcher());
+                                if (sec < 0) {
+                                    timeLabel.setText(null);
+                                    fetcher.setText(null);
+                                    price.setText(Integer.toString(card.getPrice()));
+                                    return;
+                                }
                                 price.setText(Integer.toString(card.getAuctionPrice()));
                             }
                         }
@@ -186,36 +192,43 @@ public class CardView {
             price.translateXProperty().bind(price.widthProperty().divide(2).negate());
             price.relocate(Constants.CARD_PRICE_X, Constants.CARD_PRICE_Y);
             pane.getChildren().addAll(template, character, type, name, price, count);
+            timeLabel = new Label();
+            fetcher = new Label();
+            timeLabel.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
+            timeLabel.setTextFill(Color.NAVY);
+            timeLabel.translateXProperty().bind(count.widthProperty().divide(2).negate());
+            timeLabel.relocate(Constants.CARD_TYPE_X, Constants.CARD_TIME_Y);
+            fetcher.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
+            fetcher.setTextFill(Color.NAVY);
+            fetcher.translateXProperty().bind(count.widthProperty().divide(2).negate());
+            fetcher.relocate(Constants.CARD_FETCHER_X, Constants.CARD_FETCHER_Y);
+            pane.getChildren().addAll(timeLabel, fetcher);
             if (item.getAuctioneer() != null) {
-                timeLabel = new Label();
-                fetcher = new Label();
-                timeLabel.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
-                timeLabel.setTextFill(Color.NAVY);
-                timeLabel.translateXProperty().bind(count.widthProperty().divide(2).negate());
-                timeLabel.relocate(Constants.CARD_TYPE_X, Constants.CARD_TIME_Y);
-                fetcher.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.CARD_INFO_FONT));
-                fetcher.setTextFill(Color.NAVY);
-                fetcher.translateXProperty().bind(count.widthProperty().divide(2).negate());
-                fetcher.relocate(Constants.CARD_FETCHER_X, Constants.CARD_FETCHER_Y);
-                pane.getChildren().addAll(timeLabel, fetcher);
                 AnimationTimer timer = new AnimationTimer() {
                     private long second = 1000000000;
+                    private long minuet = second * 60;
                     private long lastTime = 0;
-                    private long synch = (item.getAuctionTime() + Constants.AUCTION_DURATION_MILIS) * (second / 1000);
+                    private long synch = (item.getAuctionTime() + Constants.AUCTION_DURATION_MILIS);
 
                     @Override
                     public void handle(long now) {
                         if (lastTime == 0)
                             lastTime = now;
                         if (now > lastTime + second) {
-                            System.out.println(now + " " + synch * 1000000);
                             lastTime = now;
-                            long sec = ((synch - lastTime) / second) % 60;
-                            long min = ((synch - lastTime) / (second * 60)) % 60;
+                            long sec = ((synch - System.currentTimeMillis()) / 1000) % 60;
+                            long min = ((synch - System.currentTimeMillis()) / 60000) % 60;
                             timeLabel.setText(String.format("%02d", min) + ":" + String.format("%02d", sec));
+                            if (item.getAuctionFetcher() != null)
+                                fetcher.setText(item.getAuctionFetcher());
+                            if (sec < 0) {
+                                timeLabel.setText(null);
+                                fetcher.setText(null);
+                                price.setText(Integer.toString(item.getPrice()));
+                                return;
+                            }
+                            price.setText(Integer.toString(item.getAuctionPrice()));
                         }
-                        if (item.getAuctionFetcher() != null)
-                            fetcher.setText(item.getAuctionFetcher());
                     }
                 };
                 timer.start();
