@@ -11,8 +11,6 @@ import com.google.gson.Gson;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.concurrent.ScheduledService;
-import javafx.concurrent.Task;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,7 +20,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.xml.ws.Service;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.FileAlreadyExistsException;
@@ -70,6 +67,7 @@ public class Controller {
     private int currentHandCardPointer = 0;
     private int currentI;
     private String deckName = "Collection";
+    private ChatRoom chatRoom;
 
     private Controller() {
         for (int i = 0; i < buttons.length; i++) {
@@ -147,11 +145,15 @@ public class Controller {
                         anchorPanes[Anchorpanes.COLLECTION.ordinal()], anchorPanes[Anchorpanes.SHOP.ordinal()],
                         anchorPanes[Anchorpanes.MATCH_HISTORY.ordinal()], anchorPanes[Anchorpanes.LEADER_BOARD.ordinal()],
                         anchorPanes[Anchorpanes.LOGOUT.ordinal()], anchorPanes[Anchorpanes.CUSTOM_CARD.ordinal()],
-                        anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()]);
+                        anchorPanes[Anchorpanes.CUSTOM_BUFF.ordinal()], anchorPanes[Anchorpanes.SAVE.ordinal()],
+                        anchorPanes[Anchorpanes.CHAT_ROOM.ordinal()], anchorPanes[Anchorpanes.CHEAT.ordinal()]);
                 //file = new File("resources/music/music_playmode.m4a");
                 //media = new Media(file.toURI().toString());
                 //player = new MediaPlayer(media);
                 break;
+            case CHAT_ROOM:
+                view.chatMenu(account.getName(), fields[Texts.MESSAGE.ordinal()], anchorPanes[Anchorpanes.SEND.ordinal()]
+                        , chatRoom, anchorPanes[Anchorpanes.BACK.ordinal()]);
             case SHOP:
                 view.shopMenu(account, shopMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
@@ -535,6 +537,21 @@ public class Controller {
             save();
             main();
         });
+        anchorPanes[Anchorpanes.CHAT_ROOM.ordinal()].setOnMouseClicked(event -> {
+            getChatRoom();
+            menu.setStat(MenuStat.CHAT_ROOM);
+            main();
+        });
+    }
+
+    private void getChatRoom() {
+        Request request = new Request(Constants.SOCKET_PORT, RequestType.CHAT_ROOM, account.toJson());
+        send(request);
+        try {
+            chatRoom = ChatRoom.fromJson(reader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void scrollerButtons() {

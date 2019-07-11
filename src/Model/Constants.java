@@ -54,7 +54,7 @@ public class Constants {
     public static final String PM_FONT = "Serif";
     public static final int PM_SIZE = 30;
     public static final double CHAT_X_SHIFT = 0.3 * WINDOW_WIDTH;
-    public static final double CHAT_Y_SHIFT = 0.3*WINDOW_HEIGHT;
+    public static final double CHAT_Y_SHIFT = 0.3 * WINDOW_HEIGHT;
     public static int HEROES_COUNT = 10;
     public static int MINIONS_COUNT = 40;
     public static int SPELLS_COUNT = 20;
@@ -102,6 +102,7 @@ public class Constants {
     public static final int SELL_TEXT_SIZE = 30;
     public static final double SELECTION_WIDTH = 70;
     public static final double SELECTION_HEIGHT = 20;
+    public static final double SEND_WIDTH = SELL_WIDTH * 0.5;
     public static final double SELL_PANE_X = 50;
     public static final double SELL_X = 50;
     public static final double SELL_Y = 10;
@@ -128,4 +129,6 @@ public class Constants {
     public static final String IP = "localhost";
     public static final int SHOP_INITIAL_COUNT = 3;
     public static final long AUCTION_DURATION_MILIS = 60000;
+    public static final double SEND_HEIGHT = SELL_HEIGHT * 0.7;
+    public static final double MESSAGE_HEIGHT = SEND_HEIGHT;
 }

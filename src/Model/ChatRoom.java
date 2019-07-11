@@ -1,5 +1,7 @@
 package Model;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 public class ChatRoom {
@@ -22,5 +24,13 @@ public class ChatRoom {
 
     public ArrayList<PM> getPMs() {
         return pms;
+    }
+
+    public String toJson() {
+        return new Gson().toJson(this);
+    }
+
+    public static ChatRoom fromJson(String json) {
+        return new Gson().fromJson(json, ChatRoom.class);
     }
 }

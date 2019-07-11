@@ -787,8 +787,8 @@ public class View {
     }
 
     public void accountMenu(String player, AnchorPane play, AnchorPane collection, AnchorPane shop, AnchorPane history,
-                            AnchorPane leaderboard,
-                            AnchorPane logout, AnchorPane customCard, AnchorPane customBuff, AnchorPane save) {
+                            AnchorPane leaderboard, AnchorPane logout, AnchorPane customCard, AnchorPane customBuff,
+                            AnchorPane save, AnchorPane chat, AnchorPane cheat) {
         root.getChildren().clear();
         Label playerName = new Label("Welcome " + player + "!");
         Image background = new Image("scenes/frostfire/background.jpg");
@@ -800,6 +800,9 @@ public class View {
         ImageView buttonImage = new ImageView(new Image("ui/button_primary_middle_glow@2x.png"));
         buttonImage.setFitWidth(Constants.PRIMITIVE_WIDTH);
         buttonImage.setFitHeight(Constants.PRIMITIVE_HEIGHT);
+        ImageView redButtonImage = new ImageView(new Image("ui/button_cancel_glow@2x.png"));
+        redButtonImage.setFitWidth(Constants.PRIMITIVE_WIDTH);
+        redButtonImage.setFitHeight(Constants.PRIMITIVE_HEIGHT);
         play.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "Play", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         collection.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
@@ -818,17 +821,25 @@ public class View {
                 buttonImage.getFitHeight(), "Custom Card", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         customBuff.getChildren().addAll(new ImageButton(new ImageView(buttonImage.getImage()), buttonImage.getFitWidth(),
                 buttonImage.getFitHeight(), "Custom Buff", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        chat.getChildren().addAll(new ImageButton(new ImageView(redButtonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Chat Room", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
+        cheat.getChildren().addAll(new ImageButton(new ImageView(redButtonImage.getImage()), buttonImage.getFitWidth(),
+                buttonImage.getFitHeight(), "Cheat Mode", Constants.FONT_SIZE, Color.WHEAT).getPane().getChildren());
         verticalList(Alignment.CENTRE, Constants.ACCOUNT_MENU_X, Constants.CENTRE_Y * 0.9, buttonImage.getFitWidth(),
-                buttonImage.getFitHeight(), play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
-        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y * 0.9, play, collection, shop, customCard,
-                customBuff, history, leaderboard, save, logout);
-        lightning(play, collection, shop, customCard, customBuff, history, leaderboard, save, logout);
+                buttonImage.getFitHeight(), play, collection, shop, history, leaderboard, save, logout);
+        verticalList(Alignment.LEFT, 200, Constants.CENTRE_Y * 0.9, play, collection, shop, history,
+                leaderboard, save, logout);
+        verticalList(Alignment.CENTRE, Constants.WINDOW_WIDTH - Constants.CENTRE_X * 0.3, Constants.CENTRE_Y * 0.9,
+                redButtonImage.getFitWidth(), redButtonImage.getFitHeight(), customCard, customBuff, chat, cheat);
+        verticalList(Alignment.RIGHT, Constants.WINDOW_WIDTH - 400, Constants.CENTRE_Y * 0.9, customCard,
+                customBuff, chat, cheat);
+        lightning(play, collection, shop, customCard, customBuff, history, leaderboard, save, logout, chat, cheat);
         playerName.translateXProperty().bind(playerName.widthProperty().divide(2).negate());
         playerName.setFont(Font.font(Constants.PAGE_TITLE_FONT, FontWeight.EXTRA_BOLD, Constants.PAGE_TITLE_SIZE));
         playerName.relocate(Constants.CENTRE_X, Constants.PAGE_TITLE_Y);
         playerName.setTextFill(Color.LIGHTPINK);
         root.getChildren().addAll(backgroundView, foregroundView, play, collection, shop, customCard, customBuff,
-                history, leaderboard, save, logout, playerName);
+                history, leaderboard, save, logout, playerName, chat, cheat);
     }
 
     public void customCardMenu(AnchorPane back, AnchorPane next, AnchorPane prev, AnchorPane detail,
@@ -1047,6 +1058,19 @@ public class View {
         lightning(buy, sell, auction);
         root.getChildren().addAll(backView, sell, buy, auction, next, prev, back, object, modeLabel, budget);
         showCards(cards, items, modeLabel, page);
+    }
+
+    public void chatMenu(String userName, TextField message, AnchorPane send, ChatRoom chatRoom, AnchorPane back) {
+        root.getChildren().clear();
+        ImageView backView = new ImageView(new Image("scenes/load/scene_load_background.jpg"));
+        scrollPane(backView, new AnchorPane(), new AnchorPane(), back);
+        message.setPrefWidth(2 * Constants.CHAT_X_SHIFT - Constants.SEND_WIDTH);
+        message.setPrefHeight(Constants.MESSAGE_HEIGHT);
+        message.relocate(Constants.CENTRE_X - Constants.CHAT_X_SHIFT, Constants.CENTRE_Y + Constants.CHAT_Y_SHIFT);
+        ImageView sendPane = new ImageView(new Image("card_backgrounds/deck_builder_prismatic_card_bg@2x.png"));
+        send.getChildren().addAll(new ImageButton(sendPane, Constants.SEND_WIDTH, Constants.SEND_HEIGHT, "Send"
+                , Constants.FONT_SIZE, Color.LIGHTBLUE).getPane().getChildren());
+        root.getChildren().addAll(backView, back, new ChatView(chatRoom, userName).getPane(), send, message);
     }
 
 

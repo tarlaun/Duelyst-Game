@@ -29,5 +29,8 @@ public enum Anchorpanes {
     MATCH_HISTORY,
     DETAIL,
     CREATE,
-    AUCTION
+    CHAT_ROOM,
+    CHEAT,
+    AUCTION,
+    SEND
 }
