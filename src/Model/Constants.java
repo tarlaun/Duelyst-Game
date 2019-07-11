@@ -56,6 +56,8 @@ public class Constants {
     public static final double CHAT_X_SHIFT = 0.4 * WINDOW_WIDTH;
     public static final double CHAT_Y_SHIFT = 0.4 * WINDOW_HEIGHT;
     public static final double UPDATE_CHAT_MILLIS = 1000;
+    public static final double CHEAT_CODE_WIDTH = 300;
+    public static final double CHEAT_CODE_HEIGHT = 60;
     public static int HEROES_COUNT = 10;
     public static int MINIONS_COUNT = 40;
     public static int SPELLS_COUNT = 20;

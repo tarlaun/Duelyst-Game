@@ -65,6 +65,11 @@ public class Controller {
         } catch (IOException f) {
             System.out.println("Item initializing error!");
         }
+        try {
+            game.initializeCodes();
+        } catch (IOException f) {
+            System.out.println("Code initializing error");
+        }
         game.setSrcs();
     }
 
@@ -149,6 +154,8 @@ public class Controller {
                     case ENTER_CHAT:
                         out = manager.enterChat(request);
                         break;
+                    case CHEAT:
+                        out = manager.applyCheat(request);
                 }
                 synchronized (socketPair) {
                     socketPair.getFormatter().format(out + "\n");

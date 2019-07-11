@@ -15,5 +15,6 @@ public enum Texts {
     TURN,
     MANA,
     BUFF_POWER,
-    MESSAGE
+    MESSAGE,
+    CODE
 }

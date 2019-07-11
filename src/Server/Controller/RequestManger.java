@@ -16,6 +16,7 @@ public class RequestManger {
     private ChatRoom chatRoom = ChatRoom.getInstance();
     private final HashMap<Integer, SocketPair> sockets = new HashMap<>();
     private final HashMap<String, SocketPair> accountSockets = new HashMap<>();
+    private CheatData cheatData = CheatData.getInstance();
 
     private RequestManger() {
 
@@ -153,5 +154,17 @@ public class RequestManger {
         EnterChatRequest enterChatRequest = (EnterChatRequest) request.getDirectRequest();
         chatRoom.getAccounts().add(enterChatRequest.getAccount());
         return chatRoom.toJson();
+    }
+
+    public String applyCheat(Request request) {
+        CheatRequest cheatRequest = (CheatRequest) request.getDirectRequest();
+        Account account = Account.getAccountByName(cheatRequest.getUserName(), game.getAccounts());
+        assert account != null;
+        switch (cheatRequest.getCode()) {
+            case "BOOGY_x2_BUDGET":
+                account.modifyAccountBudget(account.getBudget());
+                break;
+        }
+        return cheatData.getResult(cheatRequest.getCode()) + "~" + account.toJson();
     }
 }

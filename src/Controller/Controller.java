@@ -156,6 +156,11 @@ public class Controller {
                         , anchorPanes[Anchorpanes.BACK.ordinal()]);
                 view.showChatView(account.getName(), chatRoom);
                 break;
+            case CHEAT_MODE:
+                view.cheatMenu(fields[Texts.CODE.ordinal()], anchorPanes[Anchorpanes.APPLY_CODE.ordinal()],
+                        anchorPanes[Anchorpanes.BACK.ordinal()]);
+                cheatButtons();
+                break;
             case SHOP:
                 view.shopMenu(account, shopMode, fields[Texts.OBJECT.ordinal()], cardsInShop, itemsInShop,
                         anchorPanes[Anchorpanes.BACK.ordinal()], anchorPanes[Anchorpanes.NEXT.ordinal()],
@@ -545,6 +550,10 @@ public class Controller {
             main();
             handleChatRoom();
         });
+        anchorPanes[Anchorpanes.CHEAT.ordinal()].setOnMouseClicked(event -> {
+            menu.setStat(MenuStat.CHEAT_MODE);
+            main();
+        });
     }
 
     private void enterChat() {
@@ -555,6 +564,30 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void cheatButtons() {
+        anchorPanes[Anchorpanes.APPLY_CODE.ordinal()].setOnMouseClicked(event -> {
+            Request request = new Request(Constants.SOCKET_PORT, RequestType.CHEAT, fields[Texts.CODE.ordinal()].getText()
+                    , account.getName());
+            send(request);
+            String line = null;
+            try {
+                line = reader.readLine();
+                String result = line.split("~")[0];
+                if (request.equals("Fail")) {
+                    AlertMessage alert = new AlertMessage("The code is not valid!", Alert.AlertType.ERROR,
+                            "OK");
+                    alert.getResult();
+                } else {
+                    account = Account.fromJson(line.split("~")[1]);
+                    AlertMessage alert = new AlertMessage(result, Alert.AlertType.INFORMATION,
+                            "OK");
+                    alert.getResult();
+                }
+            } catch (Exception e) {
+            }
+        });
     }
 
     private void scrollerButtons() {

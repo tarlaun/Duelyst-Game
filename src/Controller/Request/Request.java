@@ -82,6 +82,9 @@ public class Request {
             case ENTER_CHAT:
                 directRequest = new EnterChatRequest(args);
                 break;
+            case CHEAT:
+                directRequest = new CheatRequest(args);
+                break;
         }
         return directRequest;
     }

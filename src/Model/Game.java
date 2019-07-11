@@ -17,6 +17,7 @@ public class Game {
     private GameType gameType;
     private BattleMode mode;
     private transient Shop shop = Shop.getInstance();
+    private transient CheatData cheatData = CheatData.getInstance();
     private int lastSpellId = Constants.spellId;
     private int lastMinionId = Constants.minionId;
     private int lastHeroId = Constants.heroId;
@@ -224,6 +225,14 @@ public class Game {
                 accounts.get(i).getCollection().selectDeck(accounts.get(i).getCollection().getMainDeck().getName());
             } catch (Exception e) {
             }
+        }
+    }
+
+    public void initializeCodes() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("cheatcodes.txt"));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            cheatData.addCode(line.split(";")[0], line.split(";")[1]);
         }
     }
 

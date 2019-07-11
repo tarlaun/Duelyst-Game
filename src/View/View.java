@@ -1083,6 +1083,24 @@ public class View {
         root.getChildren().remove(root.getChildren().size() - 1);
     }
 
+    public void cheatMenu(TextField code, AnchorPane apply, AnchorPane back) {
+        root.getChildren().clear();
+        ImageView backView = new ImageView(new Image("scenes/vetruvian/midground@2x.png"));
+        scrollPane(backView, new AnchorPane(), new AnchorPane(), back);
+        code.setPrefWidth(Constants.CHEAT_CODE_WIDTH);
+        code.setPrefHeight(Constants.CHEAT_CODE_HEIGHT);
+        code.relocate(Constants.CENTRE_X - Constants.CHAT_X_SHIFT, Constants.CENTRE_Y);
+        ImageView applyPane = new ImageView(new Image("ui/status_panel@2x.png"));
+        apply.getChildren().addAll(new ImageButton(applyPane, 1.2 * Constants.SELL_WIDTH, Constants.SELL_HEIGHT,
+                "APPLY!", Constants.SELL_TEXT_SIZE, Color.ORANGERED).getPane().getChildren());
+        apply.relocate(Constants.CENTRE_X, Constants.CENTRE_Y);
+        Label label = new Label("Enter the cheat code:");
+        label.relocate(code.getLayoutX(), code.getLayoutY() - 100);
+        label.setFont(Font.font(Constants.INFO_FONT, FontWeight.EXTRA_BOLD, Constants.FONT_SIZE));
+        lightning(apply, back);
+        root.getChildren().addAll(backView, back, apply, code, label);
+    }
+
     public void collectionMenu(String mode, TextField object, ArrayList<Card> cards, ArrayList<Item> items
             , AnchorPane createDeck, AnchorPane removeDeck, AnchorPane showDeck, AnchorPane back, AnchorPane collection
             , AnchorPane next, AnchorPane prev, AnchorPane mainDeck, AnchorPane setMainDeck, AnchorPane exportDeck

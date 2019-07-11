@@ -32,5 +32,6 @@ public enum Anchorpanes {
     CHAT_ROOM,
     CHEAT,
     AUCTION,
-    SEND
+    SEND,
+    APPLY_CODE
 }
