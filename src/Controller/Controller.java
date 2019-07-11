@@ -1777,39 +1777,39 @@ public class Controller {
     }
 
     private void createCard() throws Exception {
+        fetchShop();
         Card card = new Card(fields[Texts.CARD_NAME.ordinal()].getText(), boxes[Boxes.CARD_TYPE.ordinal()].getValue(),
                 fields[Texts.MANA.ordinal()].getText(), fields[Texts.CARD_PRICE.ordinal()].getText(),
                 fields[Texts.HP.ordinal()].getText(), fields[Texts.AP.ordinal()].getText(),
                 boxes[Boxes.ACTIVATION.ordinal()].getValue(), boxes[Boxes.ATTACK_TYPE.ordinal()].getValue(),
                 fields[Texts.RANGE.ordinal()].getText()
         );
-        int id = 0;
         String idle, run, attack, death, name;
-        name = setCustomGif();
+        name = setCustomGif(card.getType());
         switch (boxes[Boxes.CARD_TYPE.ordinal()].getValue()) {
             case "Hero":
-                idle = "gifs/gifs/Heros/" + name + "_idle.gif ";
-                run = "gifs/gifs/Heros/boss_cindera" + name + "_run.gif";
-                attack = "gifs/gifs/Heros/boss_cindera" + name + "_attack.gif";
-                death = "gifs/gifs/Heros/boss_cindera" + name + "_death.gif";
+                idle = "gifs/Heros/" + name + "_idle.gif ";
+                run = "gifs/Heros/" + name + "_run.gif";
+                attack = "gifs/Heros/" + name + "_attack.gif";
+                death = "gifs/Heros/" + name + "_death.gif";
                 card.setIdleSrc(idle);
                 card.setRunSrc(run);
                 card.setAttackSrc(attack);
                 card.setDeathSrc(death);
                 break;
             case "Minion":
-                idle = "gifs/gifs/Minions/Alabaster Titan" + name + "_idle.gif";
-                run = "gifs/gifs/Minions/Alabaster Titan" + name + "_run.gif";
-                attack = "gifs/gifs/Minions/Alabaster Titan" + name + "_attack.gif";
-                death = "gifs/gifs/Minions/Alabaster Titan" + name + "_death.gif";
+                idle = "gifs/Minions/" + name + "_idle.gif";
+                run = "gifs/Minions/" + name + "_run.gif";
+                attack = "gifs/Minions/" + name + "_attack.gif";
+                death = "gifs/Minions/" + name + "_death.gif";
                 card.setIdleSrc(idle);
                 card.setRunSrc(run);
                 card.setAttackSrc(attack);
                 card.setDeathSrc(death);
                 break;
             case "Spell":
-                idle = "gifs/gifs/Spells/Abyssal Scar" + name + "_actionbar.gif";
-                attack = "gifs/gifs/Spells/Abyssal Scar" + name + "_active.gif";
+                idle = "gifs/Spells/" + name + "_actionbar.gif";
+                attack = "gifs/Spells/" + name + "_active.gif";
                 card.setIdleSrc(idle);
                 card.setAttackSrc(attack);
                 break;
@@ -1819,7 +1819,6 @@ public class Controller {
         Message message;
         try {
             message = Message.fromJson(reader.readLine());
-            System.out.println("HEEEEEE");
             if (message == Message.SUCCESSFUL_CREATION) {
                 AlertMessage alert = new AlertMessage("Card created successfully", Alert.AlertType.INFORMATION,
                         "OK");
@@ -1855,10 +1854,11 @@ public class Controller {
         }
     }
 
-    private String setCustomGif() {
+    private String setCustomGif(String type) {
         Stage stage = new Stage();
         stage.setTitle("Choose gif..");
         FileChooser chooser = new FileChooser();
+        chooser.setInitialDirectory(new File("./resources/gifs/" + type + "s"));
         String name = null;
         try {
             File file = chooser.showOpenDialog(stage);

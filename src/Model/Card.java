@@ -407,6 +407,8 @@ public class Card {
         this.price = Integer.parseInt(price);
         this.healthPoint = Integer.parseInt(healthPoint);
         this.originalAssaultPower = Integer.parseInt(assaultPower);
+        this.assaultPower = this.originalAssaultPower;
+        this.maxPossibleMoving = 1;
         this.rangeType = RangeType.valueOf(rangeType.toUpperCase());
         this.maxRange = Integer.parseInt(range);
         if (this.rangeType == RangeType.RANGED)
