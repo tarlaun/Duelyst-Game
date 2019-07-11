@@ -70,6 +70,9 @@ public class Request {
             case DISCARD_AUCTION:
                 directRequest = new DiscardAuction(args);
                 break;
+            case OBTAIN_AUCTION:
+                directRequest = new ObtainAuctionRequest(args);
+                break;
             case CHAT_ROOM:
                 directRequest = new ChatRoomRequest(args);
                 break;
